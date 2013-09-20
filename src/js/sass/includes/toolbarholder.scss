@@ -1,0 +1,30 @@
+@import "gcviz-mixin";
+
+.toolbars-holder {
+	@include app-text(10px, bold);
+	padding: 10px;
+	position: absolute;
+	z-index: 50;
+	width: 275px;
+	right: 0px;
+	@include app-gradiant-reverse;
+  cursor: pointer;
+}
+
+.toolbar-button {
+	cursor: pointer;
+	float: left;
+	@include button-gradiant;
+	@include content-border-radius(5px);
+}
+
+.toolbar-content {
+	float: left;
+	padding: 10px;
+	@include toolbar-background;
+	@include content-border-radius(5px);
+}
+
+.toolbar-holder {
+	padding: 10px;
+}	

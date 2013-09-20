@@ -1,0 +1,29 @@
+@import "gcviz-mixin";
+
+.toolbarfoot {
+	width: 100%;
+	height: 30px;
+	text-align: center;
+	padding-top: 10px;
+	@include app-gradiant-reverse;
+}
+
+%toolbarfoot-display {
+	display: inline;
+	float: left;
+	margin-left: 20px;
+}
+	
+.toolbarfoot-coords {
+	color:#000;
+	@include app-text(1.2, normal);
+	@extend %toolbarfoot-display;
+}
+
+.toolbarfoot-north {
+	@extend %toolbarfoot-display;
+	-webkit-transform: rotate(90deg); /* Safari & Chrome */
+	-moz-transform: rotate(90deg); /* Firefox */
+	-ms-transform: rotate(90deg); /* Internet Explorer */
+	-o-transform: rotate(90deg); /* Opera */
+}

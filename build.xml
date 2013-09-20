@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="GCViz" default="build" basedir=".">
+	<description>GCViz Viewer</description>
+
+	<!-- properties -->
+	<target name="properties">
+		<property name="gcviz-build.version" value="v0.0.1-development"/>
+		<tstamp>
+			<format property="gcviz-build.timestamp" pattern="yyyy-MM-dd- hh:mm aa" locale="en,CA"/>
+		</tstamp>
+		<!-- allow user-specific overrides -->
+		<property file="build.user.properties"/>
+		<property file="build.properties"/>
+    </target>
+	
+	<!-- classpath -->
+	<target name="classpath-lib" depends="properties">
+		<!-- ant contribs task definition  -->
+		<path id="antcontrib.classpath">
+			<pathelement location="${antcontribs.jar}"/>
+		</path> 
+		<taskdef resource="net/sf/antcontrib/antlib.xml">
+			<classpath refid="antcontrib.classpath"/>
+		</taskdef>
+
+		<!-- yui-compressor task definition  -->
+		<path id="yui.classpath">
+			<pathelement location="${yui-compressor.jar}"/>
+			<pathelement location="${yui-compressor-ant-task.jar}"/>
+		</path>
+		<taskdef name="yui-compressor" classname="net.noha.tools.ant.yuicompressor.tasks.YuiCompressorTask">
+			<classpath refid="yui.classpath"/>
+		</taskdef>
+		
+		<!-- JSHint Ant task definition -->
+		<path id="jshint.classpath">
+			<pathelement location="${jshint.jar}"/>
+		</path>
+		<taskdef name="jshint" classname="com.philmander.jshint.JsHintAntTask">
+			<classpath refid="jshint.classpath"/>
+		</taskdef>
+	</target>
+	
+	<!-- create distribution folder -->
+	<target name="create-dist">
+		<echo level="info" message="Creating dist folder..."/>
+		<echo message="${dist.dir}"/>
+		<delete dir="${dist.dir}"/>
+		<mkdir dir="${dist.dir}"/>
+	</target>
+
+	<!-- Include jruby + gems (compass + sass) -->
+	<target name="build-jruby" depends="-jruby.jar.check" unless="jruby.jar.exists">
+		<echo level="info" message="---Enabling sass---"/>
+		<mkdir dir="${lib.dir}/jruby-compiled" />
+		<parallel>
+			<get src="http://jruby.org.s3.amazonaws.com/downloads/${jruby.version}/${jruby.jar}" dest="${lib.dir}/${jruby.jar}" skipexisting="true"/>
+			<get src="http://production.cf.rubygems.org/gems/${sass.gem}" dest="${gem.dir}/${sass.gem}" skipexisting="true"/>
+			<get src="http://production.cf.rubygems.org/gems/${chunky_png.gem}" dest="${gem.dir}/${chunky_png.gem}" skipexisting="true"/>
+			<get src="http://production.cf.rubygems.org/gems/${fssm.gem}" dest="${gem.dir}/${fssm.gem}" skipexisting="true"/>
+			<get src="http://production.cf.rubygems.org/gems/${compass.gem}" dest="${gem.dir}/${compass.gem}" skipexisting="true"/>
+		</parallel>
+		<parallel>
+			<java jar="${lib.dir}/${jruby.jar}" fork="true">
+				<arg line="-S gem install -i &quot;${lib.dir}/vendors-${jruby.depends}&quot; &quot;${gem.dir}/${sass.gem}&quot; --local -f"/>
+			</java>
+			<java jar="${lib.dir}/${jruby.jar}" fork="true">
+				<arg line="-S gem install -i &quot;${lib.dir}/vendors-${jruby.depends}&quot; &quot;${gem.dir}/${chunky_png.gem}&quot; --local -f"/>
+			</java>
+			<java jar="${lib.dir}/${jruby.jar}" fork="true">
+				<arg line="-S gem install -i &quot;${lib.dir}/vendors-${jruby.depends}&quot; &quot;${gem.dir}/${fssm.gem}&quot; --local -f"/>
+			</java>
+			<java jar="${lib.dir}/${jruby.jar}" fork="true">
+				<arg line="-S gem install -i &quot;${lib.dir}/vendors-${jruby.depends}&quot; &quot;${gem.dir}/${compass.gem}&quot; --local -f"/>
+			</java>
+		</parallel>
+	</target>
+
+	<target name="-jruby.jar.check">
+		<checksum file="${basedir}/build.properties" property="jruby.depends"/>
+		<condition property="jruby.jar.exists">
+			<and>
+				<available file="${lib.dir}/${jruby.jar}" type="file"/>
+				<available file="${lib.dir}/vendors-${jruby.depends}" type="dir"/>
+			</and>
+		</condition>
+	</target>
+	
+	<!-- Compile all of the SCSS files into their CSS counterparts "ant compile.sass" -->
+	<target name="compile-sass">
+		<echo level="info" message="---Converting CSS SCSS Files into CSS---"/>
+		<antcall target="call-sass">
+			<param name="command" value="compile"/>
+		</antcall>
+	</target>
+
+	<target name="call-sass">
+		<java fork="true" failonerror="true" jar="${lib.dir}/${jruby.jar}">
+			<arg value="--1.8"/>
+			<arg path="${build.dir}/compile.rb"/>
+			<arg path="${lib.dir}/vendors-${jruby.depends}/gems/"/>
+			<arg value="${command}"/>
+			<arg path="${src.dir}/js"/>
+			<arg value="${sass.css.dir}"/>
+			<arg value="false"/>
+		</java>
+	</target>
+	
+	<!-- jshint -->
+	<target name="call-jshint">
+		<echo level="info" message="---Checking syntax with JSHint---"/>
+		<jshint dir="${src.dir}" fail="${jshint.failbuild}" globalsFile="${jshint.globals.file}" options="newcap: false, unused: true">
+			<report type="xml" destfile="${src.dir}/jshint.out.xml"/>
+			<include name="**/*.js"/>
+			<exclude name="**/*.min.js"/>
+		</jshint>
+	</target>
+    
+    <!-- consolidate js NOT USE BECAUSE AMD IS EASIERS IN DIFFERENT FILES-->
+	<!-- <target name="consolidate-js" depends="properties, create-dist, jshint">
+		<echo level="info" message="...Consolidating js..."/>
+		<copy file="${src.dir}/js/${name.base.js}" tofile="${file.consolidated.js}"/>
+		<concat id="srcfiles" destfile="${file.consolidated.js}" append="true">
+			<fileset dir="${src.dir}/js">
+				<include name="**/*.js"/>
+				<exclude name="${name.base.js}"/>
+				<exclude name="config.js"/>
+				<exclude name="dependencies/jquery.min.js"/>
+				<exclude name="dependencies/knockout.min.js"/>
+			</fileset>
+		</concat>
+		<pathconvert pathsep=";" property="files" refid="srcfiles"/>
+		<echo>${files}</echo>
+	</target> -->
+	
+	 <!-- consolidate css -->
+	<target name="consolidate-css">
+		<echo level="info" message="---Consolidating css---"/>
+		<copy file="${src.dir}/js/sass/css/${name.base.css}" tofile="${file.consolidated.css}"/>
+		<concat id="srcfiles" destfile="${file.consolidated.css}" append="true">
+			<fileset dir="${src.dir}/js/sass">
+				<include name="**/*.css"/>
+				<exclude name="**/${name.base.css}"/>
+			</fileset>
+		</concat>
+		<pathconvert pathsep=";" property="files" refid="srcfiles"/>
+		<echo>${files}</echo>
+		<delete dir="${src.dir}/js/${sass.css.dir}"/>
+	</target>
+	
+    <!-- minify -->
+    <target name="minify">
+    	<echo level="info" message="---Minifying---"/>
+    	<copy file="${src.dir}/js/${name.base.js}" tofile="${file.consolidated.js}"/>
+    	<copy file="${src.dir}/js/${name.config.js}" tofile="${dist.dir}/${name.config.js}"/>
+    	<copy todir="${dist.dir}/js/gistasks">
+			<fileset dir="${src.dir}/js/gistasks">
+				<include name="**/*.js" />
+			</fileset>
+		</copy>
+		<copy todir="${dist.dir}/js">
+			<fileset dir="${src.dir}/js/widgets">
+				<include name="**/*.js" />
+			</fileset>
+		</copy>
+		<yui-compressor warn="false" munge="true" preserveAllSemiColons="false" fromDir="${dist.dir}" toDir="${dist.dir}" charset="utf-8">
+			<include name="**/*.css"/>
+			<include name="**/*.js"/>
+		</yui-compressor>
+		<delete>
+			<fileset dir="${dist.dir}">
+				<include name="**/*.css" />
+				<include name="**/*.js" />
+				<exclude name="**/*min.css" />
+				<exclude name="**/*min.js" />
+			</fileset>
+		</delete>
+	</target>
+	
+	<!-- create language files -->
+	<target name="create-i18n">
+		<echo level="info" message="---Creating i18n language files---"/>
+        <!-- invoke java -->
+        <exec executable="java">
+            <!-- pass arguments -->
+            <arg line="-jar ${rhino.jar} -opt -1 ${build.dir}/createi18n.js" />
+        </exec>
+    </target>
+    
+    <!-- copy images -->
+    <target name="copy-images">
+    	<echo level="info" message="---Copying images---"/>
+		<copy todir="${dist.dir}/images">
+			<fileset dir="${src.dir}/js/images/map"/>
+			<fileset dir="${src.dir}/js/images/main"/>
+			<fileset dir="${src.dir}/js/images/anno"/>
+			<fileset dir="${src.dir}/js/images/nav"/>
+			<fileset dir="${src.dir}/js/images/foot"/>
+		</copy>
+	</target>
+
+	<!-- copy dependencies -->
+	<target name="copy-dependencies">
+    	<echo level="info" message="---Copying dependencies---"/>
+		<copy todir="${dist.dir}/dependencies">
+			<fileset dir="${src.dir}/js/dependencies"/>
+		</copy>
+	</target>
+	
+	<!-- update header -->
+	<target name="update-headers">
+		<echo level="info" message="---Updating headers---"/>
+		<replace dir="${dist.dir}" encoding="UTF-8">
+			<include name="**/*.js"/>
+			<include name="**/*.css"/>
+			<replacefilter token="@gcviz.version@" value="${gcviz-build.version} Build: ${gcviz-build.timestamp}"/>
+		</replace>
+	</target>
+	
+	<!-- finish -->
+	<target name="finish">
+		<echo level="info" message="---Build finish---"/>
+	</target>
+    
+	<!-- build -->
+	<target name="build" depends="classpath-lib, create-dist, build-jruby, compile-sass, call-jshint, consolidate-css, minify, create-i18n, copy-images, copy-dependencies, update-headers, finish"></target>
+</project>

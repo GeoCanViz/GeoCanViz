@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<title>
+			Sample GeoCanViz (GCViz) Application
+		</title>
+
+		<script src="http://servicesbeta.esri.com/jsapi/arcgis/3.5/"></script>
+		
+		<!-- bootstrapper script start (comment min and uncomment debug to run without to build)-->
+		<!-- <script src="dist/gcviz-config-min.js"></script> -->
+		<script src="src/js/gcviz-config-debug.js"></script>
+		<link rel="stylesheet" href="dist/gcviz-min.css">
+		<!-- bootstrapper script end -->
+	</head>
+	<body>
+		<div id="map1" class="gcviz" data-gcviz="config/config-template.json"></div>
+
+		<div id="map2" class="gcviz" data-gcviz="config/config-template.json"></div>
+	</body>
+	
+	<!-- custom script start-->
+	<script src="config/trigger-gcviz.js"></script>
+	<!-- custom script end-->
+</html>

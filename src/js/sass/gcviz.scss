@@ -1,0 +1,43 @@
+/*!
+ *
+ * GeoCanViz viewer / Visionneuse GéoCanViz
+ * gcviz.github.io/gcviz/License-eng.txt / gcviz.github.io/gcviz/Licence-fra.txt
+ *
+ * Version: @gcviz.version@
+ *
+ */
+html, body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  font-size: 62.5%;
+}
+
+button {
+	margin: 3px;
+	height: 30px;
+	width: 30px;
+}
+
+.img-button {
+	margin: -4px;
+	height: 22px;
+	width: 22px
+}
+
+.gcviz {
+	position: relative;
+}
+
+.gcviz-section {
+	padding: 15px;
+}
+
+.hidden {
+	visibility: hidden;
+}
+
+// This is for the working example only.
+#sectionmap2, #sectionmap3, #sectionmap4 {
+	display: inline-block;
+}

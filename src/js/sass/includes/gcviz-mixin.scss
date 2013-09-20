@@ -1,0 +1,38 @@
+@import "compass/css3/images";
+
+@mixin app-gradiant {
+  background-color: #a3d8a5; // old browsers
+	@include filter-gradient(#a3d8a5, #e5e5e5, vertical);
+	@include background-image(linear-gradient(top,  #a3d8a5 0%,#e5e5e5 100%));
+}
+
+@mixin app-gradiant-reverse {
+  background-color: #a3d8a5; // old browsers
+	@include filter-gradient(#a3d8a5, #e5e5e5, vertical);
+	@include background-image(linear-gradient(top,  #e5e5e5 0%,#a3d8a5 100%));
+}
+
+@mixin button-gradiant {
+  background-color: #ffffff; // old browsers
+	@include filter-gradient(#ffffff, #bfbfbf, horizontal);
+	@include background-image(radial-gradient(center, ellipse cover,  #ffffff 39%,#bfbfbf 100%));
+}
+
+@mixin content-border-radius($radius) {
+	-webkit-border-radius: $radius;
+	-moz-border-radius: $radius;
+	border-radius: $radius;
+}
+
+@mixin app-text($size, $weight) {
+	font: {
+		family: verdana;
+		weight: $weight;
+		size: $size + px; // old browser
+		size: $size + rem;
+	}
+}
+
+@mixin toolbar-background {
+  background-color: #ffffff;
+}

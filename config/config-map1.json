@@ -1,0 +1,128 @@
+{"gcviz": {	
+	"mapframe": {
+		"size": {
+			"height": 400,
+			"width": 800
+		},
+		"extent": {
+			"xmin": -2750000.0,
+			"ymin": -900000.0,
+			"xmax": 3600000.0,
+			"ymax": 4630000.0
+		},
+		"resolution": {
+			"min": -1,
+			"max": -1
+		},
+		"map": [{ 
+			"sr": {
+				"wkid": 3978
+			},
+			"extent": {
+				"xmin": -2750000.0,
+				"ymin": -900000.0,
+				"xmax": 3600000.0,
+				"ymax": 4630000.0
+			},
+			"resolution": {
+				"min": -1,
+				"max": -1
+			},
+			"link": true,
+			"layers": [{
+			 	"id": "name",
+				"type": "tiled",
+				"url": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/BaseMaps/CBCT3978/MapServer",
+				"selectable": false,
+				"swiper": {
+					"enable": false
+				},
+				"cluster": {
+					"enable": false
+				},
+				"resolution": {
+					"min": -1,
+					"max": -1
+				}
+			}]
+		}]
+	},
+	"insetframe": {
+	},
+	"toolbarmain": {
+		"title": {
+			"value": "Map 1",
+			"alttext": "Map 1",
+			"justify": "center"
+		},
+		"tools": true,
+		"print": {
+			"enable": false,
+			"type": "simple"
+		},
+		"fullscreen": true,
+		"inset": false,
+		"link": {
+			"enable": false,
+			"visible": false
+		}
+	},
+	"toolbarfoot": {
+		"northarrow": {
+			"enable": true,
+			"inwkid": 3978
+		},
+		"mousecoords": {
+			"enable": true,
+			"outwkid": 4326,
+			"urlgeomserv": "http://tasks.arcgisonline.com/ArcGIS/rest/services/Geometry/GeometryServer"
+		},
+		"datatable": { 
+			"direction": "in"
+		}
+	},
+	"toolbaranno": {
+		"enable": true,
+		"expand": false,
+		"drawline": {
+			"enable": true
+		},
+		"drawtext": {
+			"enable": true
+		},
+		"measure": {
+			"enable": false,
+			"type": "full",
+			"unit": "km"
+		},
+		"importexport": {
+			"enable": false,
+			"format": "JSON"
+		}
+	},
+	"toolbarnav": {
+		"enable": true,
+		"expand": false,
+		"zoom": false,
+		"fullextent": true,
+		"geolocation": {
+			"enable": false,
+			"type": "all"
+		},
+		"scalebar": {
+			"enable": false,
+			"unit": "km"
+		},
+		"scaledisplay": {
+			"enable": false,
+			"format": "standard"
+		},
+		"overview": {
+			"enable": false,
+			"url": "http"
+		},
+		"idposition":  {
+			"enable": false
+		}
+	}
+}}
