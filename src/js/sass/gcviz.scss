@@ -38,6 +38,15 @@ button {
 }
 
 // This is for the working example only.
-#sectionmap2, #sectionmap3, #sectionmap4 {
+#sectionmap3, #sectionmap4 {
 	display: inline-block;
+}
+
+#sectionmap1, #sectionmap2 {
+  float: left;
+}
+
+#sectionmap1 {
+  position: absolute;
+  top: 15%;
 }

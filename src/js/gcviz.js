@@ -46,6 +46,7 @@ var mapArray = {};
 		 *  read configuration file and start execution
 		 */
 		readConfig = function(mapElem) {
+			
 			// ajax call to get the config file info
 			$.ajax({
 				url: mapElem.getAttribute('data-gcviz'),
