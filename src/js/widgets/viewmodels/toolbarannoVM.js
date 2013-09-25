@@ -5,7 +5,7 @@
  *
  * Toolbar annotation view model widget
  */
-/* global mapArray: false */
+/* global mapArray: false, locatioPath: false */
 (function() {
 	'use strict';
 	define([
@@ -21,12 +21,12 @@
 			// data model				
 			var toolbarannoViewModel = function($mapElem, mapid) {
 				var _self = this,
-					pathDraw = 'dist/images/annoDraw.png',
-					pathText = 'dist/images/annoText.png',
-					pathErase = 'dist/images/annoErase.png',
-					pathMeasure = 'dist/images/annoMeasure.png',
-					pathImport = 'dist/images/annoImport.png',
-					pathExport = 'dist/images/annoExport.png',
+					pathDraw = locationPath + '/dist/images/annoDraw.png',
+					pathText = locationPath + '/dist/images/annoText.png',
+					pathErase = locationPath + '/dist/images/annoErase.png',
+					pathMeasure = locationPath + '/dist/images/annoMeasure.png',
+					pathImport = locationPath + '/dist/images/annoImport.png',
+					pathExport = locationPath + '/dist/images/annoExport.png',
 					mymap = mapArray[mapid][0],
 					mygraphic = new gisGraphic.initialize(mymap);
 

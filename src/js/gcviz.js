@@ -6,7 +6,8 @@
  * Version: @gcviz.version@
  *
  */
-var mapArray = {};
+var mapArray = {},
+	locationPath;
 (function() {
 	'use strict';
 	var mapsTotal,
@@ -34,6 +35,17 @@ var mapArray = {};
 			mapsTotal = len;
 			mapsNum = 0;	
 			
+			// get code location from meta tag
+			var metas = document.getElementsByTagName('meta'),
+				i = metas.length; 
+		
+			while(i--) { 
+				if (metas[i].getAttribute('property') === 'location') { 
+					locationPath = metas[i].getAttribute('content'); 
+				} 
+			} 
+
+			// loop trought maps
 			while (len--) {
 				mapElem = maps[len];
 				
