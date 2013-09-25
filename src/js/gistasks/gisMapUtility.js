@@ -20,7 +20,8 @@
 			zoomIn,
 			zoomOut,
 			linkNames = [],
-			linkMain = '';
+			linkMain = '',
+			debounce;
 	
 		createMap = function(id, config) {
 			var extent = config.extent,
@@ -53,44 +54,57 @@
 		
 		// TODO: mettre un delai dans le call du zoom si link... au lieu de mettre le delai apres...
 		applyLink = function(evt) {
-			
-			var timer = null;
-  			return function () {
-	    		var context = this, args = arguments;
-	    		clearTimeout(timer);
-  			};
   
-			// var mapName = evt.target.vIdName,
-				// mapIndex = Number(evt.target.vIdIndex);
-// 					
-			// if (linkMain === '' || linkMain === mapName) {
-				// linkMain = mapName;
-// 	
-				// // loop trought maps and modify extent
-				// Object.keys(mapArray).forEach(function(key) {
-	    			// if (key !== mapName && linkNames.indexOf(key) != -1) {
-	    				// var mymap = mapArray[key][0];
-	    				// mymap.setExtent(mapArray[mapName][mapIndex].extent, mymap.spatialReference);
-	    			// }
-				// });
-// 			
-				// setTimeout(function() {linkMain = ''}, 5000)
-			// }
+			var mapName = evt.target.vIdName,
+				mapIndex = Number(evt.target.vIdIndex);
+					
+			if (linkMain === '' || linkMain === mapName) {
+				linkMain = mapName;
+	
+				// loop trought maps and modify extent
+				Object.keys(mapArray).forEach(function(key) {
+	    			if (key !== mapName && linkNames.indexOf(key) != -1) {
+	    				var mymap = mapArray[key][0];
+	    				mymap.setExtent(mapArray[mapName][mapIndex].extent, mymap.spatialReference);
+	    			}
+				});
+			}
 		};
 		
 		connectEvent = function(map) {
-			map.on('extent-change', applyLink);
-			
-			// function() {
-				// var timer = null;
-				// return function() {
-					// var context = this,
-						// args = arguments;
-					// clearTimeout(timer);
-					// timer = setTimeout(function() {
-						// applyLink; }, 1000)}
-			// });
+			map.on('extent-change', debounce(function (evt) {
+				if (evt.target.id ==='map1_0') {
+					applyLink(evt);
+				}
+				
+			}, 2000, false));
 		};
+
+		debounce = function (func, threshold, execAsap) {
+
+			var timeout;
+
+		    return function debounced () {
+				var obj = this, 
+					args = arguments;
+						
+				function delayed () {
+					if (!execAsap) {
+						func.apply(obj, args);
+					}
+					timeout = null; 
+				};
+				
+				if (timeout) {
+					clearTimeout(timeout);
+				}
+				else if (execAsap) {
+					func.apply(obj, args);
+				}
+
+				timeout = setTimeout(delayed, threshold || 100); 
+			};
+		 };
 		
 		unconnectEvent = function(map) {
 			
