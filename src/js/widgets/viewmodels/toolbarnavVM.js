@@ -5,7 +5,7 @@
  *
  * Toolbar navigation view model widget
  */
-/* global mapArray: false */
+/* global mapArray: false, locatioPath: false */
 (function() {
 	'use strict';
 	define([
@@ -21,7 +21,7 @@
 			// data model				
 			var toolbarnavViewModel = function($mapElem, mapid) {
 				var _self = this,
-					pathExtent = 'dist/images/navFullExtent.png',
+					pathExtent = locationPath + '/dist/images/navFullExtent.png',
 					mymap = mapArray[mapid][0];
 
 				// images path

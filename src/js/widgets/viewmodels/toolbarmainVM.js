@@ -5,7 +5,7 @@
  *
  * Toolbar main view model widget
  */
-/* global ActiveXObject: false */
+/* global ActiveXObject: false, locatioPath: false */
 (function() {
 	'use strict';
 	define([
@@ -20,10 +20,10 @@
 			// data model				
 			var toolbarmainViewModel = function($mapElem, mapid) {
 				var _self = this,
-					pathFullscreen = 'dist/images/mainFullscreen.png',
-					pathSmallscreen = 'dist/images/mainSmallscreen.png',
-					pathTools = 'dist/images/mainTools.png',
-					pathHelp = 'dist/images/mainHelp.png',
+					pathFullscreen = locationPath + '/dist/images/mainFullscreen.png',
+					pathSmallscreen = locationPath + '/dist/images/mainSmallscreen.png',
+					pathTools = locationPath + '/dist/images/mainTools.png',
+					pathHelp = locationPath + '/dist/images/mainHelp.png',
 					$section = $('#section' + mapid),
 					$mapholder = $('#' + mapid),
 					$map = $('#' + mapid + '_0');

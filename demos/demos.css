@@ -1,0 +1,12 @@
+#sectionmap3, #sectionmap4 {
+	display: inline-block;
+}
+
+#sectionmap1, #sectionmap2, #sectionmap4 {
+  float: left;
+}
+
+#sectionmap1 {
+  position: absolute;
+  top: 15%;
+}

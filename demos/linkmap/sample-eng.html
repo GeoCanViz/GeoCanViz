@@ -2,6 +2,7 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<meta property="location" content="http://127.0.0.1:8020/GeoCanViz/">
 		<title>
 			GCViz working example
 		</title>
@@ -9,21 +10,22 @@
 		<script src="http://servicesbeta.esri.com/jsapi/arcgis/3.5/"></script>
 		
 		<!-- bootstrapper script start (comment min and uncomment debug to run without to build)-->
-		<!-- <script src="dist/gcviz-config-min.js"></script> -->
-		<script src="src/js/gcviz-config-debug.js"></script>
-		<link rel="stylesheet" href="dist/gcviz-min.css">
+		<script src="../../dist/gcviz-config-min.js"></script>
+		<!-- <script src="../../src/js/gcviz-config-debug.js"></script> -->
+		<link rel="stylesheet" href="../../dist/gcviz-min.css">
+		<link rel="stylesheet" href="../demos.css">
 		<!-- bootstrapper script end -->
 	</head>
 	<body>
 		<div id="header" style="width: 100%; height:80px; position: relative;">
-				<img style="margin-left: 20px; height: 50px; float: left;" src="dist/images/demoLogo.jpg"></img>
-				<h1 style="font-size: 40px; text-align: left; margin-left: 700px;">Lorem ipsum</h1>
+				<img style="margin-left: 20px; height: 50px; float: left;" src="../images/geocanviz.gif"></img>
+				<h1 style="font-size: 40px; text-align: left; margin-left: 700px;">Link Maps</h1>
 				<div style="background-color: black; height: 10px;"></div>
 		</div>
 		<div style="overflow: auto; margin: 10px; padding: 30px">
 			<div id="linkmap" style="width: 1600px; position: relative; float: left;">
 				<div style="float: left; width: 850px; height: 600px;">
-					<div id="map1" class="gcviz" data-gcviz="config/config-map1.json" style="width: 800px; height: 400px; display: inline-block;"></div>
+					<div id="map1" class="gcviz" data-gcviz="config-map1.json" style="width: 800px; height: 400px; display: inline-block;"></div>
 				</div>
 				<div style="width: 300px; display: inline-block; float: left">
 					<h2 style="font-size: 12px; margin: 20px; font-size: 16px;">Class Aptent Taciti</h2>
@@ -33,30 +35,19 @@
 					vel arcu tincidunt varius et at nulla. Cras vel scelerisque lacus. Etiam felis libero, ullamcorper vel venenatis et, tempor eu magna. Interdum et malesuada fames ac ante ipsum primis in faucibus. 
 					Donec ut ipsum dictum tellus elementum dictum ut quis neque. Sed ut justo commodo, elementum quam a, consequat diam.
 					</p>
-					<img style="margin-left: 40px;" src="dist/images/demoDblArrow.png">
+					<img style="margin-left: 40px;" src="../images/demoDblArrow.png">
 				</div>
 				<div style="width: 330px; height: 650px; display: inline-block; float: left; border-color: black; border-width: medium; border-style: solid; margin: 10px;">
-					<div id="map2" class="gcviz" data-gcviz="config/config-map2.json" style="width: 300px; height: 300px;"></div>
-					<div id="map3" class="gcviz" data-gcviz="config/config-map3.json" style="width: 300px; height: 300px;"></div>
+					<div id="map2" class="gcviz" data-gcviz="config-map2.json" style="width: 300px; height: 300px;"></div>
+					<div id="map3" class="gcviz" data-gcviz="config-map3.json" style="width: 300px; height: 300px;"></div>
 				</div>
 			</div>
 			
 			<div style="background-color: black; height: 10px; clear: both; position: relative; margin: 20px;"></div>
-			
-			<div id="overlapmap" style="width: 1600px; position: relative; float: left;">
-					<p style="font-size: 12px; margin: 20px; width: 400px; float: left;">
-					Duis blandit turpis at nulla feugiat egestas. Nullam et interdum sem. Sed imperdiet porta nulla sit amet laoreet. Vestibulum interdum molestie imperdiet. Curabitur eget condimentum sapien, 
-					non adipiscing ligula. Nullam sagittis sem sed feugiat tincidunt. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sapien sapien, sagittis in cursus id, gravida ac est. Etiam 
-					sed augue orci. Duis elementum, justo a tempor condimentum, nisi lectus porttitor mi, aliquam ullamcorper eros quam quis nisi. Ut et ornare metus. Quisque molestie eros varius, tincidunt tellus 
-					at, tempor risus. Vivamus non varius ante, et volutpat lacus. Aenean ac viverra odio. Cras id massa pretium, consequat ante eget, sodales orci. Proin molestie ultrices sapien, at egestas velit 
-					viverra et.
-					</p>
-					<div id="map4" class="gcviz" data-gcviz="config/config-map4.json" style="width: 300px; height: 900px;"></div>
-			</div>
 		</div>
 	</body>
 	
 	<!-- custom script start-->
-	<script src="config/trigger-gcviz.js"></script>
+	<script src="trigger-gcviz.js"></script>
 	<!-- custom script end-->
 </html>
