@@ -16,7 +16,8 @@
 			var $toolbar,
 				config = $mapElem.toolbaranno,
 				mapid = $mapElem.mapframe.id,
-				tp;
+				tp,
+				node = '';
 			
 			tp = new dojotitle({id: 'tbanno' + mapid, title:'Annotation', content: '<div class="toolbaranno-content toolbar-content"></div>', open: false});
 			$mapElem.find('.toolbars-holder').append(tp.domNode);
@@ -25,29 +26,30 @@
 			$toolbar = $mapElem.find('.toolbaranno-content');
 			
 			// set draw button
-			if (config.drawline) {
-				$toolbar.append('<button class="toolbar-button" data-bind="click: drawClick"><img class="img-button" data-bind="attr:{src: imgDraw}"></img></button>');
+			if (config.drawline.enable) {
+				node += '<button class="toolbar-button" data-bind="click: drawClick"><img class="img-button" data-bind="attr:{src: imgDraw}"></img></button>';
 			}
 			
 			// set text button
-			if (config.drawtext) {
-				$toolbar.append('<button class="toolbar-button" data-bind="click: textClick"><img class="img-button" data-bind="attr:{src: imgText}"></img></button>');
+			if (config.drawtext.enable) {
+				node += '<button class="toolbar-button" data-bind="click: textClick"><img class="img-button" data-bind="attr:{src: imgText}"></img></button>';
 			}
 			
 			// set erase button
-			$toolbar.append('<button class="toolbar-button" data-bind="click: eraseClick"><img class="img-button" data-bind="attr:{src: imgErase}"></img></button>');
+			node += '<button class="toolbar-button" data-bind="click: eraseClick"><img class="img-button" data-bind="attr:{src: imgErase}"></img></button>';
 			
 			// set measure button
-			if (config.measure) {
-				$toolbar.append('<button class="toolbar-button" data-bind="click: measureClick"><img class="img-button" data-bind="attr:{src: imgMeasure}"></img></button>');
+			if (config.measure.enable) {
+				node += '<button class="toolbar-button" data-bind="click: measureClick"><img class="img-button" data-bind="attr:{src: imgMeasure}"></img></button>';
 			}
 			
 			// set import and save buttons
-			if (config.importsave) {
-				$toolbar.append('<button class="toolbar-button" data-bind="click: importClick"><img class="img-button" data-bind="attr:{src: imgImport}"></img></button>');
-				$toolbar.append('<button class="toolbar-button" data-bind="click: exportClick"><img class="img-button" data-bind="attr:{src: imgExport}"></img></button>');
+			if (config.importexport.enable) {
+				node += '<button class="toolbar-button" data-bind="click: importClick"><img class="img-button" data-bind="attr:{src: imgImport}"></img></button>';
+				node += '<button class="toolbar-button" data-bind="click: exportClick"><img class="img-button" data-bind="attr:{src: imgExport}"></img></button>';
 			}
 			
+			$toolbar.append(node);
 			toolbarannoVM.initialize($mapElem.find('.toolbaranno-content'), mapid);
 		};
 		
