@@ -11,8 +11,10 @@
 	// get the language
 	var url = window.location.toString(),
 		pathRegex = new RegExp(/\/[^\/]+$/),
-		locationPath = window.location.pathname.replace(pathRegex, ''),
-		language = 'en-min';
+		locationPath,
+		language = 'en-min',
+		metas,
+		i;
 	
 	if ((url.search(/_f\.htm/) > -1) || (url.search(/-fra\./) > -1) || (url.search(/-fr\./) > -1) || (url.search(/lang=fra/) > -1) || (url.search(/lang=fr/) > -1)) {
 		language = 'fr-min';
@@ -22,6 +24,16 @@
 		console.log('language not set, English by default');
 	}
 
+	// get code location from meta tag
+	metas = document.getElementsByTagName('meta'),
+	i = metas.length; 
+
+	while(i--) { 
+		if (metas[i].getAttribute('property') === 'location') { 
+			locationPath = metas[i].getAttribute('content'); 
+		} 
+	} 
+   
 	// load the require libraries		
 	require({
 		async: true,

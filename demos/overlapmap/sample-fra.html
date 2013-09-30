@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<meta property="location" content="http://127.0.0.1:8020/GeoCanViz/">
+		<title>
+			GCViz example pratique
+		</title>
+
+		<script src="http://servicesbeta.esri.com/jsapi/arcgis/3.5/"></script>
+		
+		<!-- bootstrapper script start (comment min and uncomment debug to run without to build)-->
+		<script src="../../dist/gcviz-config-min.js"></script>
+		<!-- <script src="../../src/js/gcviz-config-debug.js"></script> -->
+		<link rel="stylesheet" href="../../dist/gcviz-min.css">
+		<link rel="stylesheet" href="../demos.css">
+		<!-- bootstrapper script end -->
+	</head>
+	<body>
+		<div id="header" style="width: 100%; height:80px; position: relative;">
+				<img style="margin-left: 20px; height: 50px; float: left;" src="../images/geocanviz.gif"></img>
+				<h1 style="font-size: 40px; text-align: left; margin-left: 700px;">Cartes superposées</h1>
+				<div style="background-color: black; height: 10px;"></div>
+		</div>
+		<div style="overflow: auto; margin: 10px; padding: 30px">
+		<div id="overlapmap" style="width: 1600px; position: relative; float: left;">
+					<p style="font-size: 12px; margin: 20px; width: 400px; height: 550px; float: left;">
+					Duis blandit turpis at nulla feugiat egestas. Nullam et interdum sem. Sed imperdiet porta nulla sit amet laoreet. Vestibulum interdum molestie imperdiet. Curabitur eget condimentum sapien, 
+					non adipiscing ligula. Nullam sagittis sem sed feugiat tincidunt. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sapien sapien, sagittis in cursus id, gravida ac est. Etiam 
+					sed augue orci. Duis elementum, justo a tempor condimentum, nisi lectus porttitor mi, aliquam ullamcorper eros quam quis nisi. Ut et ornare metus. Quisque molestie eros varius, tincidunt tellus 
+					at, tempor risus. Vivamus non varius ante, et volutpat lacus. Aenean ac viverra odio. Cras id massa pretium, consequat ante eget, sodales orci. Proin molestie ultrices sapien, at egestas velit 
+					viverra et.
+					</p>
+					<div id="map4" class="gcviz" data-gcviz="config-map4.json" style="width: 300px; height: 900px;"></div>
+			</div>
+			<div style="background-color: black; height: 10px; clear: both; position: relative; margin: 20px;"></div>
+
+		</div>
+	</body>
+</html>

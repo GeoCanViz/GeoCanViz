@@ -36,17 +36,3 @@ button {
 .hidden {
 	visibility: hidden;
 }
-
-// This is for the working example only.
-#sectionmap3, #sectionmap4 {
-	display: inline-block;
-}
-
-#sectionmap1, #sectionmap2 {
-  float: left;
-}
-
-#sectionmap1 {
-  position: absolute;
-  top: 15%;
-}
