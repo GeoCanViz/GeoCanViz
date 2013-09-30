@@ -16,7 +16,8 @@
 			var $toolbar,
 				config = $mapElem.toolbarnav,
 				mapid = $mapElem.mapframe.id,
-				tp;
+				tp,
+				node = '';
 			
 			tp = new dojotitle({id: 'tbnav' + mapid, title:'Navigation', content: '<div class="toolbarnav-content toolbar-content"></div>', open: false});
 			$mapElem.find('.toolbars-holder').append(tp.domNode);
@@ -26,9 +27,10 @@
 			
 			// set full extent button button
 			if (config.fullextent) {
-				$toolbar.append('<button class="toolbar-button" data-bind="click: extentClick"><img class="img-button" data-bind="attr:{src: imgExtent}"></img></button>');
+				node += '<button class="toolbar-button" data-bind="click: extentClick"><img class="img-button" data-bind="attr:{src: imgExtent}"></img></button>';
 			}
 			
+			$toolbar.append(node);
 			toolbarnavVM.initialize($mapElem.find('.toolbarnav-content'), mapid);
 		};
 		
