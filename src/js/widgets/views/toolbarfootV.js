@@ -14,21 +14,23 @@
 		initialize = function($mapElem) {
 			var $toolbar,
 				config = $mapElem.toolbarfoot,
-				mapid = $mapElem.mapframe.id;
+				mapid = $mapElem.mapframe.id,
+				node = '';
 			
 			$mapElem.find('#' + mapid).append('<div id="tbfoot' + mapid + '" class="toolbarfoot"></div>');
 			$toolbar = $mapElem.find('.toolbarfoot');
 			
 			// set north arrow
 			if (config.northarrow.enable) {
-				$toolbar.append('<div id="north_' + mapid + '" class="toolbarfoot-north"><img class="img-button" data-bind="attr:{src: imgNorth}"></img></div>');
+				node += '<div id="north_' + mapid + '" class="toolbarfoot-north"><img class="img-button" data-bind="attr:{src: imgNorth}"></img></div>';
 			}
 			
 			// set mouse coordinates
 			if (config.mousecoords.enable) {
-				$toolbar.append('<div id="mousecoord_' + mapid + '" class="toolbarfoot-coords"></div>');
+				node += '<div id="mousecoord_' + mapid + '" class="toolbarfoot-coords"></div>';
 			}
 			
+			$toolbar.append(node);
 			toolbarfootVM.initialize($mapElem.find('.toolbarfoot'), mapid, config);
 		};
 		
