@@ -93,15 +93,15 @@
 							wscript.SendKeys('{F11}');
 						}
 					}
-					
+
 					// set style
-					$mapholder.css({'width': _self.widthMap, 'height': _self.heightMap});
-					$section.css({'width': _self.widthSection, 'height': _self.heightSection});
+					$mapholder.css({'width': _self.widthSection, 'height': _self.heightSection});
 					$map.css({'width': _self.widthMap, 'height': _self.heightMap});
 				};
 
 				_self.requestFullScreen = function(el, mapid) {
-					// Supports most browsers and their versions.
+					
+					// supports most browsers and their versions
 					var requestMethod = el.requestFullScreen || el.webkitRequestFullScreen || el.mozRequestFullScreen || el.msRequestFullScreen;
 
 					if (requestMethod) { // Native full screen.
@@ -114,9 +114,8 @@
 					}
 					
 					// set style
-					$mapholder.css({'width': '100%', 'height': '93%'});
-					$section.css({'width': '100%', 'height': '100%'});
-					$map.css({'width': '100%', 'height': '100%'});
+					el.getElementsByClassName('gcviz')[0].setAttribute('style','width: 100%; height: 93%;');
+					el.getElementsByClassName('map')[0].setAttribute('style','width: 100%; height: 100%;');
 				};
 				
 				_self.init();
