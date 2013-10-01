@@ -86,7 +86,7 @@ var mapArray = {},
 				size = config.mapframe.size;
 			
 			// create section around map. This way we can bind Knockout to the section
-			$mapElem.wrap('<section id=section' + mapid + ' class="gcviz-section" style="width: ' + size.width + 'px; height: ' + size.height + 'px;">');
+			$mapElem.wrap('<section id=section' + mapid + ' class="gcviz-section">');
 			$mapSection = $(document).find('#section' + mapid);
 			
 			// extend the section with configuration file info

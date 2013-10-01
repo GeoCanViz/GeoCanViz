@@ -36,3 +36,18 @@ button {
 .hidden {
 	visibility: hidden;
 }
+ 
+/* full screen */
+.gcviz-section:-webkit-full-screen {
+  width:100%;
+  height:100%;
+  display: block;
+  float: none;
+}
+
+.gcviz-section:-moz-full-screen {
+  width:100%;
+  height:100%;
+  display: block;
+  float: none;
+}

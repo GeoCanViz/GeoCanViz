@@ -54,7 +54,7 @@
 						myMap.enableScrollWheelZoom();
 
 						myMap.on('load', function(evt) {
-							var t = 't';
+
 						});
 						
 						map.push(myMap);
