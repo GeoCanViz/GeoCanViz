@@ -5,7 +5,7 @@
  *
  * Toolbar main view model widget
  */
-/* global ActiveXObject: false, locatioPath: false */
+/* global ActiveXObject: false, locationPath: false */
 (function() {
 	'use strict';
 	define([

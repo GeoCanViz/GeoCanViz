@@ -5,7 +5,7 @@
  *
  * Toolbar annotation view model widget
  */
-/* global mapArray: false, locatioPath: false */
+/* global mapArray: false, locationPath: false */
 (function() {
 	'use strict';
 	define([
