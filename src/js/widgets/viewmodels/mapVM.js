@@ -26,7 +26,7 @@
 				var _self = this,
 					config = $mapElem.mapframe,
 					myMap;
-					
+				
 				_self.errorHandler = function(error) {
 					console.log('error map view model: ', error);
 				};
@@ -50,12 +50,19 @@
 							gisM.addLayer(myMap, layer.type, layer.url);
 						}
 						
+						// set events (mouseover mouseout focusin focusout)
+						$('#' + mapid + '_' + len).on('mouseenter mouseleave focusin focusout', function(e){
+							var type = e.type,
+								$this = $(this);
+							if (type === 'mouseenter' || type === 'focusin') {
+								this.focus();
+							} else if (type === 'mouseleave' || type === 'focusout') {
+								this.blur();
+							}
+						});
+						
 						// enable scroll wheel
 						myMap.enableScrollWheelZoom();
-
-						myMap.on('load', function(evt) {
-
-						});
 						
 						map.push(myMap);
 					}

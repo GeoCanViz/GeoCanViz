@@ -52,35 +52,30 @@
 			return map;
 		};
 		
-		// TODO: mettre un delai dans le call du zoom si link... au lieu de mettre le delai apres...
 		applyLink = function(evt) {
   
 			var mapName = evt.target.vIdName,
 				mapIndex = Number(evt.target.vIdIndex);
-					
-			if (linkMain === '' || linkMain === mapName) {
-				linkMain = mapName;
-	
-				// loop trought maps and modify extent
-				Object.keys(mapArray).forEach(function(key) {
-	    			if (key !== mapName && linkNames.indexOf(key) != -1) {
-	    				var mymap = mapArray[key][0];
-	    				mymap.setExtent(mapArray[mapName][mapIndex].extent, mymap.spatialReference);
-	    			}
-				});
-			}
+
+			// loop trought maps and modify extent
+			Object.keys(mapArray).forEach(function(key) {
+	    		if (key !== mapName && linkNames.indexOf(key) != -1) {
+	    			var mymap = mapArray[key][0];
+	    			mymap.setExtent(mapArray[mapName][mapIndex].extent, mymap.spatialReference);
+	    		}
+			});
 		};
 		
 		connectEvent = function(map) {
 			map.on('extent-change', debounce(function (evt) {
-				if (evt.target.id ==='map1_0') {
+				if (evt.target.id === document.activeElement.id) {
 					applyLink(evt);
 				}
 				
-			}, 2000, false));
+			}, 1000, false));
 		};
 
-		debounce = function (func, threshold, execAsap) {
+		debounce = function(func, threshold, execAsap) {
 
 			var timeout;
 
