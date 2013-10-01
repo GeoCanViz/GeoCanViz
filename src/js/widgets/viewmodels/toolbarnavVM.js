@@ -5,7 +5,7 @@
  *
  * Toolbar navigation view model widget
  */
-/* global mapArray: false, locatioPath: false */
+/* global mapArray: false, locationPath: false */
 (function() {
 	'use strict';
 	define([
@@ -36,7 +36,11 @@
 				};
 				
 				_self.extentClick = function() {
+					document.getElementById(mymap.vIdName + '_' + mymap.vIdIndex).focus();
 					gisNavigation.zoomFullExtent(mymap);
+					setTimeout(function() {
+						document.getElementById(mymap.vIdName + '_' + mymap.vIdIndex).blur();
+					}, 2000);
 				};
 				
 				_self.init();

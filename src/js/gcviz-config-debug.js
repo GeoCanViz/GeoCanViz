@@ -42,75 +42,75 @@
 		packages: [
 			{
 				name: 'jquery',
-				location: locationPath + '/src/js/dependencies',
+				location: locationPath + 'src/js/dependencies',
 				main: 'jquery.min'
 			}, {
 				name: 'knockout',
-				location: locationPath + '/src/js/dependencies',
+				location: locationPath + 'src/js/dependencies',
 				main: 'knockout.min'
 			}, {
 				name: 'gcviz',
-				location: locationPath + '/src/js',
+				location: locationPath + 'src/js',
 				main: 'gcviz'
 			}, {
 				name: 'gcviz-i18n',
-				location: locationPath + '/dist/js',
+				location: locationPath + 'dist/js',
 				main: language
 			}, {
 				name: 'gcviz-gismap',
-				location: locationPath + '/src/js/gistasks',
+				location: locationPath + 'src/js/gistasks',
 				main: 'gisMapUtility'
 			}, {
 				name: 'gcviz-gisgeo',
-				location: locationPath + '/src/js/gistasks',
+				location: locationPath + 'src/js/gistasks',
 				main: 'gisGeoprocessing'
 			}, {
 				name: 'gcviz-gisgraphic',
-				location: locationPath + '/src/js/gistasks',
+				location: locationPath + 'src/js/gistasks',
 				main: 'gisGraphic'
 			}, {
 				name: 'gcviz-gisnavigation',
-				location: locationPath + '/src/js/gistasks',
+				location: locationPath + 'src/js/gistasks',
 				main: 'gisNavigation'
 			}, {
 				name: 'gcviz-v-tbmain',
-				location: locationPath + '/src/js/widgets/views',
+				location: locationPath + 'src/js/widgets/views',
 				main: 'toolbarmainV'
 			}, {
 				name: 'gcviz-vm-tbmain',
-				location: locationPath + '/src/js/widgets/viewmodels',
+				location: locationPath + 'src/js/widgets/viewmodels',
 				main: 'toolbarmainVM'
 			}, {
 				name: 'gcviz-v-tbfoot',
-				location: locationPath + '/src/js/widgets/views',
+				location: locationPath + 'src/js/widgets/views',
 				main: 'toolbarfootV'
 			}, {
 				name: 'gcviz-vm-tbfoot',
-				location: locationPath + '/src/js/widgets/viewmodels',
+				location: locationPath + 'src/js/widgets/viewmodels',
 				main: 'toolbarfootVM'
 			}, {
 				name: 'gcviz-v-tbanno',
-				location: locationPath + '/src/js/widgets/views',
+				location: locationPath + 'src/js/widgets/views',
 				main: 'toolbarannoV'
 			}, {
 				name: 'gcviz-vm-tbanno',
-				location: locationPath + '/src/js/widgets/viewmodels',
+				location: locationPath + 'src/js/widgets/viewmodels',
 				main: 'toolbarannoVM'
 			}, {
 				name: 'gcviz-v-tbnav',
-				location: locationPath + '/src/js/widgets/views',
+				location: locationPath + 'src/js/widgets/views',
 				main: 'toolbarnavV'
 			}, {
 				name: 'gcviz-vm-tbnav',
-				location: locationPath + '/src/js/widgets/viewmodels',
+				location: locationPath + 'src/js/widgets/viewmodels',
 				main: 'toolbarnavVM'
 			}, {
 				name: 'gcviz-v-map',
-				location: locationPath + '/src/js/widgets/views',
+				location: locationPath + 'src/js/widgets/views',
 				main: 'mapV'
 			}, {
 				name: 'gcviz-vm-map',
-				location: locationPath + '/src/js/widgets/viewmodels',
+				location: locationPath + 'src/js/widgets/viewmodels',
 				main: 'mapVM'
 			}
 		]

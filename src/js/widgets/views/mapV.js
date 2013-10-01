@@ -20,7 +20,7 @@
 				width = size.width;
 			
 			while (len--) {
-				$div.prepend('<div id="' + mapid + '_' + len + '"></div>');
+				$div.prepend('<div id="' + mapid + '_' + len + '" tabindex="1"></div>');
 				
 				// set height and width for the map. Substract the toolbar main height
 				$mapElem.find('#' + mapid + '_' + len).css({'height': (size.height - 80), 'width': width});

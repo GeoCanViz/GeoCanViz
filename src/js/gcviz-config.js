@@ -42,75 +42,75 @@
 		packages: [
 			{
 				name: 'jquery',
-				location: locationPath + '/dist/dependencies',
+				location: locationPath + 'dist/dependencies',
 				main: 'jquery.min'
 			}, {
 				name: 'knockout',
-				location: locationPath + '/dist/dependencies',
+				location: locationPath + 'dist/dependencies',
 				main: 'knockout.min'
 			}, {
 				name: 'gcviz',
-				location: locationPath + '/dist',
+				location: locationPath + 'dist',
 				main: 'gcviz-min'
 			}, {
 				name: 'gcviz-i18n',
-				location: locationPath + '/dist/js',
+				location: locationPath + 'dist/js',
 				main: language
 			}, {
 				name: 'gcviz-gismap',
-				location: locationPath + '/dist/js/gistasks',
+				location: locationPath + 'dist/js/gistasks',
 				main: 'gisMapUtility-min'
 			}, {
 				name: 'gcviz-gisgeo',
-				location: locationPath + '/dist/js/gistasks',
+				location: locationPath + 'dist/js/gistasks',
 				main: 'gisGeoprocessing-min'
 			}, {
 				name: 'gcviz-gisgraphic',
-				location: locationPath + '/dist/js/gistasks',
+				location: locationPath + 'dist/js/gistasks',
 				main: 'gisGraphic-min'
 			}, {
 				name: 'gcviz-gisnavigation',
-				location: locationPath + '/dist/js/gistasks',
+				location: locationPath + 'dist/js/gistasks',
 				main: 'gisNavigation-min'
 			}, {
 				name: 'gcviz-v-tbmain',
-				location: locationPath + '/dist/js/views',
+				location: locationPath + 'dist/js/views',
 				main: 'toolbarmainV-min'
 			}, {
 				name: 'gcviz-vm-tbmain',
-				location: locationPath + '/dist/js/viewmodels',
+				location: locationPath + 'dist/js/viewmodels',
 				main: 'toolbarmainVM-min'
 			}, {
 				name: 'gcviz-v-tbfoot',
-				location: locationPath + '/dist/js/views',
+				location: locationPath + 'dist/js/views',
 				main: 'toolbarfootV-min'
 			}, {
 				name: 'gcviz-vm-tbfoot',
-				location: locationPath + '/dist/js/viewmodels',
+				location: locationPath + 'dist/js/viewmodels',
 				main: 'toolbarfootVM-min'
 			}, {
 				name: 'gcviz-v-tbanno',
-				location: locationPath + '/dist/js/views',
+				location: locationPath + 'dist/js/views',
 				main: 'toolbarannoV-min'
 			}, {
 				name: 'gcviz-vm-tbanno',
-				location: locationPath + '/dist/js/viewmodels',
+				location: locationPath + 'dist/js/viewmodels',
 				main: 'toolbarannoVM-min'
 			}, {
 				name: 'gcviz-v-tbnav',
-				location: locationPath + '/dist/js/views',
+				location: locationPath + 'dist/js/views',
 				main: 'toolbarnavV-min'
 			}, {
 				name: 'gcviz-vm-tbnav',
-				location: locationPath + '/dist/js/viewmodels',
+				location: locationPath + 'dist/js/viewmodels',
 				main: 'toolbarnavVM-min'
 			}, {
 				name: 'gcviz-v-map',
-				location: locationPath + '/dist/js/views',
+				location: locationPath + 'dist/js/views',
 				main: 'mapV-min'
 			}, {
 				name: 'gcviz-vm-map',
-				location: locationPath + '/dist/js/viewmodels',
+				location: locationPath + 'dist/js/viewmodels',
 				main: 'mapVM-min'
 			}
 		]
