@@ -27,7 +27,7 @@
 			
 			// set full extent button button
 			if (config.fullextent) {
-				node += '<button class="toolbar-button" data-bind="click: extentClick"><img class="img-button" data-bind="attr:{src: imgExtent}"></img></button>';
+				node += '<button class="toolbarnav-button" data-bind="click: extentClick"><img class="img-button" data-bind="attr:{src: imgExtent}"></img></button>';
 			}
 			
 			$toolbar.append(node);

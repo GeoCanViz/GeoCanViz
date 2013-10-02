@@ -12,6 +12,7 @@
 	float: right;
 	@include button-gradiant;
 	@include content-border-radius(5px);
+	@include button-size;
 }
 
 .toolbarmain-title {

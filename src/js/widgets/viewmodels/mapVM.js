@@ -38,7 +38,8 @@
 					while (len--) {
 						var configMap = config.map[len],
 							lenLayers = configMap.layers.length,
-							layers = configMap.layers;
+							layers = configMap.layers,
+							$map = $('#' + mapid + '_' + len);
 						
 						// create map	
 						myMap = gisM.createMap(mapid + '_' + len, configMap);
@@ -51,7 +52,7 @@
 						}
 						
 						// set events (mouseover mouseout focusin focusout)
-						$('#' + mapid + '_' + len).on('mouseenter mouseleave focusin focusout', function(e){
+						$map.on('mouseenter mouseleave focusin focusout', function(e){
 							var type = e.type,
 								$this = $(this);
 							if (type === 'mouseenter' || type === 'focusin') {
@@ -60,6 +61,10 @@
 								this.blur();
 							}
 						});
+						
+						// set class and remove cursor for container
+						$map.addClass('gcviz-map');
+						$('#' + mapid + '_' + len + '_container').css('cursor', '');
 						
 						// enable scroll wheel
 						myMap.enableScrollWheelZoom();
