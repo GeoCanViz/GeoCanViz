@@ -1,0 +1,1 @@
+(function(){define([],function(){var a,b;b=function(c){c.setExtent(c.vInitExtent,c.spatialReference.wkid)};return{zoomFullExtent:b,}})}());
