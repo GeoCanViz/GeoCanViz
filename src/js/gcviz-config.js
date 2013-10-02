@@ -49,6 +49,10 @@
 				location: locationPath + 'dist/dependencies',
 				main: 'knockout.min'
 			}, {
+				name: 'jqueryui',
+				location: locationPath + '/dist/dependencies',
+				main: 'jqueryui.min'
+			}, {
 				name: 'gcviz',
 				location: locationPath + 'dist',
 				main: 'gcviz-min'
