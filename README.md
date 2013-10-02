@@ -17,12 +17,17 @@ This application is built in JavaScript with AMD (Asynchronous Module Definition
 * [Dojo](http://dojotoolkit.org)
 * [Knockout](http://knockoutjs.com)
 * [jQuery](https://github.com/wet-boew/wet-boew/wiki/Downloads)
+* [jQueryUI](http://jqueryui.com/)
 * [SASS](http://sass-lang.com)
 
 ## References
 
 This project has taken some inspiration from:
-* [http://jpenet.blogspot.ca]* [https://github.com/brandoncopeland/knockout-esri]* [https://github.com/wet-boew/wet-boew]* [https://github.com/odoe/ags30sample]* [https://github.com/driskull/framework-samples-js]
+* [http://jpenet.blogspot.ca]
+* [https://github.com/brandoncopeland/knockout-esri]
+* [https://github.com/wet-boew/wet-boew]
+* [https://github.com/odoe/ags30sample]
+* [https://github.com/driskull/framework-samples-js]
 
 ## Version history
 
@@ -51,10 +56,17 @@ Cette application est construite en JavaScript avec les patrons de développemen
 * [Dojo](http://dojotoolkit.org)
 * [Knockout](http://knockoutjs.com)
 * [jQuery](https://github.com/wet-boew/wet-boew/wiki/Downloads)
+* [jQueryUI](http://jqueryui.com/)
 * [SASS](http://sass-lang.com)
 
-## RéférencesCe projet est inspiré des liens suivant:
-* [http://jpenet.blogspot.ca]* [https://github.com/brandoncopeland/knockout-esri]* [https://github.com/wet-boew/wet-boew]* [https://github.com/odoe/ags30sample]* [https://github.com/driskull/framework-samples-js]
+## Références
+
+Ce projet est inspiré des liens suivant:
+* [http://jpenet.blogspot.ca]
+* [https://github.com/brandoncopeland/knockout-esri]
+* [https://github.com/wet-boew/wet-boew]
+* [https://github.com/odoe/ags30sample]
+* [https://github.com/driskull/framework-samples-js]
 
 ## Historique des versions
 
