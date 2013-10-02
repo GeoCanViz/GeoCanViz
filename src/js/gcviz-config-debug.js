@@ -49,6 +49,10 @@
 				location: locationPath + 'src/js/dependencies',
 				main: 'knockout.min'
 			}, {
+				name: 'jqueryui',
+				location: locationPath + '/src/js/dependencies',
+				main: 'jqueryui.min'
+			}, {
 				name: 'gcviz',
 				location: locationPath + 'src/js',
 				main: 'gcviz'

@@ -11,13 +11,6 @@
   cursor: pointer;
 }
 
-.toolbar-button {
-	cursor: pointer;
-	float: left;
-	@include button-gradiant;
-	@include content-border-radius(5px);
-}
-
 .toolbar-content {
 	float: left;
 	padding: 10px;

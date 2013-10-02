@@ -11,9 +11,10 @@
 	define([
 		'jquery',
 		'knockout',
+		'jqueryui',
 		'gcviz-i18n',
 		'gcviz-gisgraphic'
-	], function($, ko, i18n, gisGraphic) {
+	], function($, ko, qUI, i18n, gisGraphic) {
 		var initialize;
 		
 		initialize = function($mapElem, mapid) {
@@ -38,6 +39,37 @@
 				_self.imgImport = ko.observable(pathImport);
 				_self.imgExport = ko.observable(pathExport);
 				
+				// set annotation window
+				$('#anno-inputbox').dialog({
+					autoOpen: false,
+					modal: true,
+					resizable: false,
+					draggable: false,
+					show: 'fade',
+					hide: 'fade',
+					closeOnEscape: true,
+					title: 'Annotation',
+					width: 400,
+					close: function() { $('#value').val('');},
+					buttons: [{ 
+								text: 'Ok',
+								click: function() {
+											var value = $('#value').val();
+											
+											if (value !== '') {
+												$('#' + mapid + '_0_container').addClass('gcviz-text-cursor');
+												mygraphic.drawText(value);
+											}
+											$(this).dialog('close');
+										}
+								}, { 
+								text: 'Cancel',
+								click: function() {
+											$(this).dialog('close');
+										}
+							}] 
+				});
+					
 				_self.errorHandler = function(error) {
 					console.log('error toolbar annotation view model: ', error);
 				};
@@ -47,11 +79,12 @@
 				};
 				
 				_self.drawClick = function() {
+					$('#' + mapid + '_0_container').addClass('gcviz-draw-cursor');
 					mygraphic.drawLine();
 				};
 				
 				_self.textClick = function() {
-					mygraphic.drawText('ze texte');
+					$('#anno-inputbox').dialog('open');
 				};
 			
 				_self.eraseClick = function() {

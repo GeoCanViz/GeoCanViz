@@ -36,3 +36,9 @@
 @mixin toolbar-background {
   background-color: #ffffff;
 }
+
+@mixin button-size {
+  margin: 3px;
+  height: 30px;
+  width: 30px;
+}
