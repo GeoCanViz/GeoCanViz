@@ -33,7 +33,21 @@
 			locationPath = metas[i].getAttribute('content'); 
 		} 
 	} 
-   
+
+	// if location path is not set in html set by default at GeoCanViz
+	if (typeof locationPath === 'undefined') {
+		var starGeo = url.search('GeoCanViz');
+		if (starGeo !== -1) {
+			locationPath = url.substring(0, url.search('GeoCanViz')) + 'GeoCanViz/';
+		} else {
+			if  (language === 'fr-min') {
+				alert('Définir le meta paramètre "location" ou mettre le site web dans un répertoire nommé "GeoCanViz"');
+			} else {
+				alert('Define "location" meta paramter or put web site in a folder called "GeoCanViz"');
+			}
+		}
+	}
+
 	// load the require libraries		
 	require({
 		async: true,

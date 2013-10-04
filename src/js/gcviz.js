@@ -21,7 +21,8 @@ var mapArray = {},
 			'gcviz-v-tbnav'], function($, map, toolbarmain, toolbarfoot, toolbaranno, toolbarnav) {
 		var initialize,
 			readConfig,
-			execConfig;
+			execConfig,
+			setLocationPath;
 
 		/*
 		 *  initialize the GCViz application
@@ -35,15 +36,8 @@ var mapArray = {},
 			mapsTotal = len;
 			mapsNum = 0;	
 			
-			// get code location from meta tag
-			var metas = document.getElementsByTagName('meta'),
-				i = metas.length; 
-		
-			while(i--) { 
-				if (metas[i].getAttribute('property') === 'location') { 
-					locationPath = metas[i].getAttribute('content'); 
-				} 
-			} 
+			// set location path
+			setLocationPath();
 
 			// loop trought maps
 			while (len--) {
@@ -115,6 +109,27 @@ var mapArray = {},
 			// if all maps are there, trigger the ready event
 			if (mapsNum === mapsTotal) {
 				$.event.trigger('gcviz-ready');
+			}
+		};
+		
+		setLocationPath = function() {
+			// get code location from meta tag
+			var metas = document.getElementsByTagName('meta'),
+			i = metas.length; 
+		
+			while(i--) {
+				if (metas[i].getAttribute('property') === 'location') { 
+					locationPath = metas[i].getAttribute('content'); 
+				} 
+			} 
+		
+			// if location path is not set in html set by default at GeoCanViz
+			if (typeof locationPath === 'undefined') {
+				var url = document.baseURI,
+					starGeo = url.search('GeoCanViz');
+				if (starGeo !== -1) {
+					locationPath = url.substring(0, url.search('GeoCanViz')) + 'GeoCanViz/';
+				}
 			}
 		};
 		
