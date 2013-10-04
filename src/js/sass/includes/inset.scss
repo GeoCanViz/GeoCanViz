@@ -1,0 +1,80 @@
+.gcviz-inset {
+  position: absolute;
+  z-index: 1000;
+  border-width: 0.25rem;
+  border-style: solid;
+  border-color: grey;
+  box-sizing:border-box;
+  -moz-box-sizing:border-box;
+  -webkit-box-sizing:border-box;
+  background-color: white;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  margin:0 auto;
+  overflow:hidden;
+  float:left;
+}
+
+.gcviz-inset h2 {
+  padding:4px;
+  color:#fff;
+  margin:0;
+  background-color:#0094ff;
+  width:100%;
+  float:left;
+}
+
+.img-inset {
+  width:100%;
+  clear:both;
+  max-width: 100%;
+  max-height: 100%;
+}
+
+/* Prevents the slideshow from flashing on load */
+#slides {
+  display:none;
+}
+
+.slidesjs-container {
+  margin-bottom:10px;
+}
+
+.slidesjs-previous {
+  margin-right: 5px;
+  float:left;
+}
+.slidesjs-next {
+  margin-right: 5px;
+  float:left;
+}
+
+.slidesjs-pagination {
+    margin:6px 0 0;
+    float: right;
+    list-style: none;
+}
+
+.slidesjs-pagination li {
+    float: left;
+    margin: 0 1px;
+}
+
+.slidesjs-pagination li a {
+    display: block;
+    width: 13px;
+    height: 0;
+    padding-top: 13px;
+    background-image: url(images/insetPagination.png);
+    background-position: 0 0;
+    float: left;
+    overflow: hidden;
+}
+
+.slidesjs-pagination li a.active, .slidesjs-pagination li a:hover.active { background-position: 0 -13px }
+
+.slidesjs-pagination li a:hover { background-position: 0 -26px }
+
+#slides a:link, #slides a:visited { color: #333 }
+
+#slides a:hover, #slides a:active { color: #9e2020 }

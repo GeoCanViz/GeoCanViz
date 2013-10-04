@@ -1,0 +1,202 @@
+{"gcviz": {	
+	"mapframe": {
+		"size": {
+			"height": 400,
+			"width": 800
+		},
+		"extent": {
+			"xmin": -2750000.0,
+			"ymin": -900000.0,
+			"xmax": 3600000.0,
+			"ymax": 4630000.0
+		},
+		"resolution": {
+			"min": -1,
+			"max": -1
+		},
+		"map": [{ 
+			"sr": {
+				"wkid": 3978
+			},
+			"extent": {
+				"xmin": -2750000.0,
+				"ymin": -900000.0,
+				"xmax": 3600000.0,
+				"ymax": 4630000.0
+			},
+			"resolution": {
+				"min": -1,
+				"max": -1
+			},
+			"link": true,
+			"layers": [{
+			 	"id": "name",
+				"type": "tiled",
+				"url": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/BaseMaps/CBCT3978/MapServer",
+				"selectable": false,
+				"swiper": {
+					"enable": false
+				},
+				"cluster": {
+					"enable": false
+				},
+				"resolution": {
+					"min": -1,
+					"max": -1
+				}
+			}]
+		}]
+	},
+	"insetframe": {
+		"enable": true,
+		"size": {
+			"numrow": 100,
+			"numcol": 100
+		},
+ 		"label": {
+				"value": "The insets",
+				"alttext": "The insets"
+		},
+		"insets": [{
+			"pos": {
+				"startrowcol": [0,0],
+				"endrowcol": [40,30]
+			},
+			"type": "video",
+			"label": {
+				"value": "My video 1",
+				"alttext": "My video 1",
+				"justify": "left"
+			},
+			"video" : {
+				"interval": 0,
+				"videos" :[{
+					"label": {
+						"value": "My description 1",
+						"alttext": "My description 1",
+						"justify": "left"
+					},
+					"sources": [{
+						"location": "internet",
+						"url": "/105/media/us/html5/showcase/2011/demos/apple-html5-demo-tron-us_848x352.webm",
+						"type": "video/webm; codecs=&quot;vp8, vorbis&quot;"
+						}, {
+						"location": "internet",
+						"url": "http://movies.apple.com/media/us/html5/showcase/2011/demos/apple-html5-demo-tron-us_848x352.m4v",
+						"type": "video/mp4; codecs=&quot;avc1.42E01E, mp4a.40.2&quot;"
+						}, {
+						"location": "internet",
+						"url": "http://movies.apple.com/media/us/html5/showcase/2010/demos/apple-html5-demo-tron_legacy-us-20100601_r848-2cie.mov",
+						"type": ""
+					}]
+				}]
+			}
+		}, {
+			"pos": {
+				"startrowcol": [35,65],
+				"endrowcol": [100,100]
+			},
+			"type": "video",
+			"label": {
+				"value": "My video 2",
+				"alttext": "My video 2",
+				"justify": "left"
+			},
+			"video" : {
+				"interval": 0,
+				"videos" :[{
+					"label": {
+						"value": "My description 2",
+						"alttext": "My description 2",
+						"justify": "left"
+					},
+					"sources": [{
+						"location": "local",
+						"url": "demos/inset/sample.mp4",
+						"type": "video/mp4"
+					}, {
+						"location": "local",
+						"url": "demos/inset/sample.webm",
+						"type": "video/webm"
+					}]
+				}]
+			}
+		}]
+	},
+	"toolbarmain": {
+		"title": {
+			"value": "Map 2",
+			"alttext": "Map 2",
+			"justify": "center"
+		},
+		"tools": true,
+		"print": {
+			"enable": false,
+			"type": "simple"
+		},
+		"fullscreen": true,
+		"inset": false,
+		"link": {
+			"enable": false,
+			"visible": false
+		}
+	},
+	"toolbarfoot": {
+		"northarrow": {
+			"enable": true,
+			"inwkid": 3978
+		},
+		"mousecoords": {
+			"enable": true,
+			"outwkid": 4326,
+			"urlgeomserv": "http://tasks.arcgisonline.com/ArcGIS/rest/services/Geometry/GeometryServer"
+		},
+		"datatable": { 
+			"direction": "in"
+		}
+	},
+	"toolbaranno": {
+		"enable": true,
+		"expand": false,
+		"drawline": {
+			"enable": true
+		},
+		"drawtext": {
+			"enable": true
+		},
+		"measure": {
+			"enable": false,
+			"type": "full",
+			"unit": "km"
+		},
+		"importexport": {
+			"enable": false,
+			"format": "JSON"
+		}
+	},
+	"toolbarnav": {
+		"enable": true,
+		"expand": false,
+		"zoom": false,
+		"fullextent": true,
+		"geolocation": {
+			"enable": false,
+			"type": "all"
+		},
+		"scalebar": {
+			"enable": false,
+			"unit": "km"
+		},
+		"scaledisplay": {
+			"enable": false,
+			"format": "standard"
+		},
+		"overview": {
+			"enable": false,
+			"url": "http"
+		},
+		"idposition":  {
+			"enable": false
+		}
+	}
+}}

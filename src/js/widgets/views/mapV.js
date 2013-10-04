@@ -17,7 +17,11 @@
 				len = $mapElem.mapframe.map.length,
 				$div = $mapElem.find('#' + mapid),
 				size = $mapElem.mapframe.size,
-				width = size.width;
+				width = size.width,
+				height = size.height;
+			
+			// set width
+			$div.css({'width': width, 'height': height});
 			
 			while (len--) {
 				$div.prepend('<div id="' + mapid + '_' + len + '" tabindex="1"></div>');

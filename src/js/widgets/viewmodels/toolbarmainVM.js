@@ -95,6 +95,7 @@
 					}
 
 					// set style
+					$section.css({'width': _self.widthSection, 'height': _self.heightSection});
 					$mapholder.css({'width': _self.widthSection, 'height': _self.heightSection});
 					$map.css({'width': _self.widthMap, 'height': _self.heightMap});
 				};
@@ -114,8 +115,9 @@
 					}
 					
 					// set style
+					el.setAttribute('style','width: 100%; height: 100%;');
 					el.getElementsByClassName('gcviz')[0].setAttribute('style','width: 100%; height: 93%;');
-					el.getElementsByClassName('map')[0].setAttribute('style','width: 100%; height: 100%;');
+					el.getElementsByClassName('gcviz-map')[0].setAttribute('style','width: 100%; height: 100%;');
 				};
 				
 				_self.init();

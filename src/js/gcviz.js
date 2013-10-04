@@ -15,10 +15,11 @@ var mapArray = {},
 
 	define(['jquery',
 			'gcviz-v-map',
+			'gcviz-v-inset',
 			'gcviz-v-tbmain',
 			'gcviz-v-tbfoot',
 			'gcviz-v-tbanno',
-			'gcviz-v-tbnav'], function($, map, toolbarmain, toolbarfoot, toolbaranno, toolbarnav) {
+			'gcviz-v-tbnav'], function($, map,inset, toolbarmain, toolbarfoot, toolbaranno, toolbarnav) {
 		var initialize,
 			readConfig,
 			execConfig,
@@ -56,6 +57,7 @@ var mapArray = {},
 			// ajax call to get the config file info
 			$.ajax({
 				url: mapElem.getAttribute('data-gcviz'),
+				crossDomain: true,
 				dataType: 'json',
 				async: false,					
 				success: function(config) {
@@ -80,7 +82,7 @@ var mapArray = {},
 				size = config.mapframe.size;
 			
 			// create section around map. This way we can bind Knockout to the section
-			$mapElem.wrap('<section id=section' + mapid + ' class="gcviz-section">');
+			$mapElem.wrap('<section id=section' + mapid + ' class="gcviz-section" style="width:' + size.width + 'px; height:' + size.height + 'px;">');
 			$mapSection = $(document).find('#section' + mapid);
 			
 			// extend the section with configuration file info
@@ -104,6 +106,11 @@ var mapArray = {},
 				toolbarnav.initialize($mapSection);
 			}
 			
+			// add inset
+			if (config.insetframe.enable) {
+				inset.initialize($mapSection);
+			}
+			
 			mapsNum += 1;
 			
 			// if all maps are there, trigger the ready event
@@ -125,7 +132,7 @@ var mapArray = {},
 		
 			// if location path is not set in html set by default at GeoCanViz
 			if (typeof locationPath === 'undefined') {
-				var url = document.baseURI,
+				var url = window.location.toString(),
 					starGeo = url.search('GeoCanViz');
 				if (starGeo !== -1) {
 					locationPath = url.substring(0, url.search('GeoCanViz')) + 'GeoCanViz/';
