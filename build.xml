@@ -196,6 +196,7 @@
 			<fileset dir="${src.dir}/js/images/anno"/>
 			<fileset dir="${src.dir}/js/images/nav"/>
 			<fileset dir="${src.dir}/js/images/foot"/>
+			<fileset dir="${src.dir}/js/images/inset"/>
 		</copy>
 	</target>
 

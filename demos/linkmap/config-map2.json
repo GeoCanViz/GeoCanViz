@@ -64,6 +64,7 @@
 		}]
 	},
 	"insetframe": {
+		"enable": false
 	},
 	"toolbarmain": {
 		"title": {

@@ -28,17 +28,17 @@
 			
 			// set fullscreen button
 			if (config.fullscreen) {
-				node += '<button class="toolbarmain-button" data-bind="click: fullscreenClick"><img class="img-button" data-bind="attr:{src: imgFullscreen}"></img></button>';
+				node += '<button class="toolbarmain-button" tabindex="1" data-bind="click: fullscreenClick"><img class="img-button" data-bind="attr:{src: imgFullscreen}"></img></button>';
 			}
 			
 			// set tools button
 			if (config.tools) {
-				node += '<button class="toolbarmain-button" data-bind="click: toolsClick"><img class="img-button" data-bind="attr:{src: imgTools}"></img></button>';
+				node += '<button class="toolbarmain-button" tabindex="1" data-bind="click: toolsClick"><img class="img-button" data-bind="attr:{src: imgTools}"></img></button>';
 				$mapElem.find('.toolbarmain').after('<div class="toolbars-holder hidden"></div>');
 			}
 			
 			// set help button (must always be there!)
-			node += '<button class="toolbarmain-button" data-bind="click: helpClick"><img class="img-button" data-bind="attr:{src: imgHelp}"></img></button>';
+			node += '<button class="toolbarmain-button" tabindex="1" data-bind="click: helpClick"><img class="img-button" data-bind="attr:{src: imgHelp}"></img></button>';
 			
 			$toolbar.append(node);
 			toolbarmainVM.initialize($mapElem.find('.toolbarmain'), mapid);
