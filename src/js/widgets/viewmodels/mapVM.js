@@ -39,7 +39,9 @@
 						var configMap = config.map[len],
 							lenLayers = configMap.layers.length,
 							layers = configMap.layers,
-							$map = $('#' + mapid + '_' + len);
+							$map = $('#' + mapid + '_' + len),
+							$root,
+							$container;
 						
 						// create map	
 						myMap = gisM.createMap(mapid + '_' + len, configMap);
@@ -63,8 +65,12 @@
 						});
 						
 						// set class and remove cursor for container
+						$root= $('#' + mapid + '_' + len + '_root');
+						$container= $('#' + mapid + '_' + len + '_container');
 						$map.addClass('gcviz-map');
-						$('#' + mapid + '_' + len + '_container').css('cursor', '');
+						$root.addClass('gcviz-root');
+						$container.addClass('gcviz-container');
+						$container.css('cursor', '');
 						
 						// enable scroll wheel
 						myMap.enableScrollWheelZoom();

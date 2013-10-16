@@ -48,6 +48,95 @@
 		}
 	}
 
+	// detect browser (code from http://www.quirksmode.org/)
+	var BrowserDetect = {
+		init: function() {
+			window.browser = this.searchString(this.dataBrowser) || 'unknown';
+			window.browserversion = this.searchVersion(navigator.userAgent) || this.searchVersion(navigator.appVersion) || 'unknown';
+	},
+	searchString: function(data) {
+		var length = data.length,
+			i = 0,
+			dataString,
+			dataProp;
+		
+		while (length--) {
+			dataString = data[i].string;
+			dataProp = data[i].prop;
+			this.versionSearchString = data[i].versionSearch || data[i].identity;
+			
+			if (dataString) {
+				if (dataString.indexOf(data[i].subString) != -1) {
+					return data[i].identity;
+				}
+			}
+			else if (dataProp) {
+				return data[i].identity;
+			}
+			i++;
+		}
+	},
+	searchVersion: function(dataString) {
+		var index = dataString.indexOf(this.versionSearchString);
+		if (index == -1) {
+			return;
+		} else {
+			return parseFloat(dataString.substring(index+this.versionSearchString.length+1));
+		}
+	},
+	dataBrowser: [
+		{
+			string: navigator.userAgent,
+			subString: 'Chrome',
+			identity: 'Chrome'
+		},
+		{
+			string: navigator.vendor,
+			subString: 'Apple',
+			identity: 'Safari',
+			versionSearch: 'Version'
+		},
+		{
+			prop: window.opera,
+			identity: 'Opera',
+			versionSearch: 'Version'
+		},
+		{
+			string: navigator.userAgent,
+			subString: 'Firefox',
+			identity: 'Firefox'
+		},
+		{
+			string: navigator.vendor,
+			subString: 'Camino',
+			identity: 'Camino'
+		},
+		{		// for newer Netscapes (6+)
+			string: navigator.userAgent,
+			subString: 'Netscape',
+			identity: 'Netscape'
+		},
+		{
+			string: navigator.userAgent,
+			subString: 'MSIE',
+			identity: 'Explorer',
+			versionSearch: 'MSIE'
+		},
+		{
+			string: navigator.userAgent,
+			subString: 'Gecko',
+			identity: 'Mozilla',
+			versionSearch: 'rv'
+		},
+		{ 		// for older Netscapes (4-)
+			string: navigator.userAgent,
+			subString: 'Mozilla',
+			identity: 'Netscape',
+			versionSearch: 'Mozilla'
+		}]
+	};
+	BrowserDetect.init();
+	
 	// load the require libraries		
 	require({
 		async: true,
@@ -66,6 +155,10 @@
 				name: 'jqueryui',
 				location: locationPath + '/src/js/dependencies',
 				main: 'jqueryui.min'
+			}, {
+				name: 'jqueryslide',
+				location: locationPath + '/src/js/dependencies',
+				main: 'jquery.slides.min'
 			}, {
 				name: 'gcviz',
 				location: locationPath + 'src/js',
@@ -130,6 +223,14 @@
 				name: 'gcviz-vm-map',
 				location: locationPath + 'src/js/widgets/viewmodels',
 				main: 'mapVM'
+			}, {
+				name: 'gcviz-v-inset',
+				location: locationPath + 'src/js/widgets/views',
+				main: 'insetV'
+			}, {
+				name: 'gcviz-vm-inset',
+				location: locationPath + 'src/js/widgets/viewmodels',
+				main: 'insetVM'
 			}
 		]
 	});
