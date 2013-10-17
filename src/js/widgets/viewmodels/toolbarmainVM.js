@@ -20,10 +20,11 @@
 			// data model				
 			var toolbarmainViewModel = function($mapElem, mapid) {
 				var _self = this,
-					pathFullscreen = locationPath + '/dist/images/mainFullscreen.png',
-					pathSmallscreen = locationPath + '/dist/images/mainSmallscreen.png',
-					pathTools = locationPath + '/dist/images/mainTools.png',
-					pathHelp = locationPath + '/dist/images/mainHelp.png',
+					pathFullscreen = locationPath + 'dist/images/mainFullscreen.png',
+					pathShowInset = locationPath + 'dist/images/mainShowInset.png',
+					pathSmallscreen = locationPath + 'dist/images/mainSmallscreen.png',
+					pathTools = locationPath + 'dist/images/mainTools.png',
+					pathHelp = locationPath + 'dist/images/mainHelp.png',
 					$section = $('#section' + mapid),
 					$mapholder = $('#' + mapid),
 					$map = $('#' + mapid + '_0');
@@ -32,6 +33,7 @@
 				
 				// images path
 				_self.imgFullscreen = ko.observable(pathFullscreen);
+				_self.imgShowInset = pathShowInset;
 				_self.imgTools = pathTools;
 				_self.imgHelp = pathHelp;
 				
@@ -68,8 +70,17 @@
 					}
 				};
 				
+				_self.insetClick = function() {
+					var tool = $mapholder.find('.gcviz-inset' + mapid);
+					if (tool.hasClass('hidden')) {
+						tool.removeClass('hidden');
+					} else {
+						tool.addClass('hidden');
+					}
+				};
+				
 				_self.toolsClick = function() {
-					var tool = $mapholder.find('.toolbars-holder');
+					var tool = $mapholder.find('.gcviz-tbholder');
 					if (tool.hasClass('hidden')) {
 						tool.removeClass('hidden');
 					} else {
@@ -87,11 +98,6 @@
 					
 					if (requestMethod) { // cancel full screen.
 						requestMethod.call(el);
-					} else if (typeof window.ActiveXObject !== 'undefined') { // Older IE.
-						var wscript = new ActiveXObject('WScript.Shell');
-						if (wscript !== null) {
-							wscript.SendKeys('{F11}');
-						}
 					}
 
 					// set style
@@ -107,11 +113,6 @@
 
 					if (requestMethod) { // Native full screen.
 						requestMethod.call(el);
-					} else if (typeof window.ActiveXObject !== 'undefined') { // Older IE.
-						var wscript = new ActiveXObject('WScript.Shell');
-							if (wscript !== null) {
-								wscript.SendKeys('{F11}');
-							}
 					}
 					
 					// set style

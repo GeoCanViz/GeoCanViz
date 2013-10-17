@@ -1,20 +1,12 @@
 @import "gcviz-mixin";
 
-.toolbarmain {
+.gcviz-tbmain {
 	width: 100%;
 	height: 40px;
 	text-align: center;
 	@include app-gradiant;
 }
 
-.toolbarmain-button {
-	cursor: pointer;
-	float: right;
-	@include button-gradiant;
-	@include content-border-radius(5px);
-	@include button-size;
-}
-
-.toolbarmain-title {
+.gcviz-tbmain-title {
 	@include app-text(1.6, bold);
 }

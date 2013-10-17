@@ -6,6 +6,8 @@
  * Version: @gcviz.version@
  *
  */
+@import "includes/gcviz-mixin";
+
 html, body {
   height: 100%;
   width: 100%;
@@ -13,7 +15,15 @@ html, body {
   font-size: 62.5%;
 }
 
-.img-button {
+.gcviz-button {
+  cursor: pointer;
+  float: right;
+  @include button-gradiant;
+  @include content-border-radius(5px);
+  @include button-size;
+}
+
+.gcviz-img-button {
 	margin: -4px;
 	height: 22px;
 	width: 22px

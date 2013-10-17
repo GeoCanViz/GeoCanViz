@@ -1,9 +1,1 @@
 @import "gcviz-mixin";
-
-.toolbarnav-button {
-  cursor: pointer;
-  float: right;
-  @include button-gradiant;
-  @include content-border-radius(5px);
-  @include button-size;
-}

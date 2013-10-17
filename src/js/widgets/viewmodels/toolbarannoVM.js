@@ -22,12 +22,12 @@
 			// data model				
 			var toolbarannoViewModel = function($mapElem, mapid) {
 				var _self = this,
-					pathDraw = locationPath + '/dist/images/annoDraw.png',
-					pathText = locationPath + '/dist/images/annoText.png',
-					pathErase = locationPath + '/dist/images/annoErase.png',
-					pathMeasure = locationPath + '/dist/images/annoMeasure.png',
-					pathImport = locationPath + '/dist/images/annoImport.png',
-					pathExport = locationPath + '/dist/images/annoExport.png',
+					pathDraw = locationPath + 'dist/images/annoDraw.png',
+					pathText = locationPath + 'dist/images/annoText.png',
+					pathErase = locationPath + 'dist/images/annoErase.png',
+					pathMeasure = locationPath + 'dist/images/annoMeasure.png',
+					pathImport = locationPath + 'dist/images/annoImport.png',
+					pathExport = locationPath + 'dist/images/annoExport.png',
 					mymap = mapArray[mapid][0],
 					mygraphic = new gisGraphic.initialize(mymap);
 
@@ -40,7 +40,7 @@
 				_self.imgExport = ko.observable(pathExport);
 				
 				// set annotation window
-				$('#anno-inputbox').dialog({
+				$('#gcviz-anno-inputbox').dialog({
 					autoOpen: false,
 					modal: true,
 					resizable: false,
@@ -84,7 +84,7 @@
 				};
 				
 				_self.textClick = function() {
-					$('#anno-inputbox').dialog('open');
+					$('#gcviz-anno-inputbox').dialog('open');
 				};
 			
 				_self.eraseClick = function() {

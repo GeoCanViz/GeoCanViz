@@ -1,6 +1,6 @@
 @import "gcviz-mixin";
 
-.toolbarfoot {
+.gcviz-tbfoot {
 	width: 100%;
 	height: 30px;
 	text-align: center;
@@ -8,22 +8,28 @@
 	@include app-gradiant-reverse;
 }
 
-%toolbarfoot-display {
+%gcviz-tbfoot-display {
 	display: inline;
 	float: left;
 	margin-left: 20px;
 }
 	
-.toolbarfoot-coords {
+.gcviz-tbfoot-coords {
 	color:#000;
 	@include app-text(1.2, normal);
-	@extend %toolbarfoot-display;
+	@extend %gcviz-tbfoot-display;
 }
 
-.toolbarfoot-north {
-	@extend %toolbarfoot-display;
+.gcviz-tbfoot-north {
+	@extend %gcviz-tbfoot-display;
 	-webkit-transform: rotate(90deg); /* Safari & Chrome */
 	-moz-transform: rotate(90deg); /* Firefox */
 	-ms-transform: rotate(90deg); /* Internet Explorer */
 	-o-transform: rotate(90deg); /* Opera */
+}
+
+.gcviz-tbfoot-imgarrow {
+  margin: -4px;
+  height: 22px;
+  width: 22px
 }

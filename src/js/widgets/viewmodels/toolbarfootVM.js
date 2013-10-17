@@ -21,7 +21,7 @@
 			// data model				
 			var toolbarfootViewModel = function($mapElem, mapid, config) {
 				var _self = this,
-					pathNorth = locationPath + '/dist/images/footNorthArrow.png';
+					pathNorth = locationPath + 'dist/images/footNorthArrow.png';
 				
 				_self.errorHandler = function(error) {
 					console.log('error toolbar foot view model: ', error);

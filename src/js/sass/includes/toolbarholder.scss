@@ -1,6 +1,6 @@
 @import "gcviz-mixin";
 
-.toolbars-holder {
+.gcviz-tbholder {
 	@include app-text(10px, bold);
 	padding: 10px;
 	position: absolute;
@@ -11,13 +11,9 @@
   cursor: pointer;
 }
 
-.toolbar-content {
+.gcviz-tbcontent {
 	float: left;
 	padding: 10px;
 	@include toolbar-background;
 	@include content-border-radius(5px);
 }
-
-.toolbar-holder {
-	padding: 10px;
-}	

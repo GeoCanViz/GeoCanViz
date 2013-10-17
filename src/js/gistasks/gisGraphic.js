@@ -52,13 +52,13 @@
 					
 					if (geometry.type === 'polyline') {
 						symbol = new esri.symbol.SimpleLineSymbol(esri.symbol.SimpleLineSymbol.STYLE_SOLID, new dojo.Color('#FF0000'), 3);
-						$('#' + map.vIdName + '_0_container').removeClass('gcviz-draw-cursor')
+						$('#' + map.vIdName + '_0_container').removeClass('gcviz-draw-cursor');
 					} else if (geometry.type === 'point') {
 						symbol = new esri.symbol.TextSymbol(text);
 						symbol.setFont(font);
 						symbol.setOffset(0, 0);
 						text = '';
-						$('#' + map.vIdName + '_0_container').removeClass('gcviz-text-cursor')
+						$('#' + map.vIdName + '_0_container').removeClass('gcviz-text-cursor');
 					}
  
 					graphic = new esri.Graphic(geometry, symbol);

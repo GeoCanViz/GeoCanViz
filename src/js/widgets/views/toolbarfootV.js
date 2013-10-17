@@ -17,21 +17,21 @@
 				mapid = $mapElem.mapframe.id,
 				node = '';
 			
-			$mapElem.find('#' + mapid).append('<div id="tbfoot' + mapid + '" class="toolbarfoot"></div>');
-			$toolbar = $mapElem.find('.toolbarfoot');
+			$mapElem.find('#' + mapid).append('<div id="tbfoot' + mapid + '" class="gcviz-tbfoot"></div>');
+			$toolbar = $mapElem.find('.gcviz-tbfoot');
 			
 			// set north arrow
 			if (config.northarrow.enable) {
-				node += '<div id="north_' + mapid + '" class="toolbarfoot-north"><img class="img-button" data-bind="attr:{src: imgNorth}"></img></div>';
+				node += '<div id="north_' + mapid + '" class="gcviz-tbfoot-north"><img class="gcviz-tbfoot-imgarrow" data-bind="attr:{src: imgNorth}"></img></div>';
 			}
 			
 			// set mouse coordinates
 			if (config.mousecoords.enable) {
-				node += '<div id="mousecoord_' + mapid + '" class="toolbarfoot-coords"></div>';
+				node += '<div id="mousecoord_' + mapid + '" class="gcviz-tbfoot-coords"></div>';
 			}
 			
 			$toolbar.append(node);
-			toolbarfootVM.initialize($mapElem.find('.toolbarfoot'), mapid, config);
+			toolbarfootVM.initialize($toolbar, mapid, config);
 		};
 		
 		return {

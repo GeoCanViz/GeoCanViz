@@ -1,13 +1,5 @@
 @import "gcviz-mixin";
 
-.toolbaranno-button {
-  cursor: pointer;
-  float: right;
-  @include button-gradiant;
-  @include content-border-radius(5px);
-  @include button-size;
-}
-
 .gcviz-text-cursor {
   cursor: url(images/annoText.png), crosshair;
 }

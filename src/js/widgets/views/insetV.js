@@ -44,7 +44,7 @@
 				
 				// create inset holder
 				// , hasfocus: FirstName.focused, hoverToggle: \'hover\'
-				$mapElem.find('.toolbarfoot').before('<div id="inset' + insetLen + mapid + '" data-bind="click: insetClick" class="gcviz-inset" tabindex="1" style="bottom: ' + bottom + 'px; left: ' + left + 'px; width: ' + width + 'px; height: ' + height + 'px;"></div>');
+				$mapElem.find('.gcviz-tbfoot').before('<div id="inset' + insetLen + mapid + '" data-bind="click: insetClick" class="gcviz-inset gcviz-inset' + mapid + '" tabindex="1" style="bottom: ' + bottom + 'px; left: ' + left + 'px; width: ' + width + 'px; height: ' + height + 'px;"></div>');
 				$inset = $mapElem.find('#inset' + insetLen + mapid);
 				
 				// add label
@@ -61,7 +61,7 @@
 					
 					node += '<div id="slides' + insetLen + mapid + '" style="width: ' + width + 'px; height: ' + (height - 20) + 'px; float: left;">';
 					while (typeLen--) {
-						node += '<img class="img-inset" data-bind="attr:{src: img[' + typeLen + ']}"></img>';
+						node += '<img class="gcviz-img-inset" data-bind="attr:{src: img[' + typeLen + ']}"></img>';
 						$inset.vSource[typeLen] = types[typeLen].sources;
 					}
 					node += '</div>';
@@ -77,7 +77,7 @@
 						sources = types[typeLen].sources,
 						srcLen = sources.length;
 						
-						node += '<video id="test" class="vid-inset">';
+						node += '<video id="test" class="gcviz-vid-inset">';
 						
 						while (srcLen--) {
 							node += '<source data-bind="attr:{src: vid[' + typeLen + ']}" type="' + sources[srcLen].type + '"></source>';
