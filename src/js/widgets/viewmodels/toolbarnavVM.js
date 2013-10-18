@@ -21,16 +21,12 @@
 			// data model				
 			var toolbarnavViewModel = function($mapElem, mapid) {
 				var _self = this,
-					pathExtent = locationPath + '/dist/images/navFullExtent.png',
+					pathExtent = locationPath + 'dist/images/navFullExtent.png',
 					mymap = mapArray[mapid][0];
 
 				// images path
 				_self.imgExtent = ko.observable(pathExtent);
-				
-				_self.errorHandler = function(error) {
-					console.log('error toolbar annotation view model: ', error);
-				};
-		
+
 				_self.init = function() {
 					return { controlsDescendantBindings: true };
 				};

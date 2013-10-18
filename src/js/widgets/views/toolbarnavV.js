@@ -23,11 +23,15 @@
 			$mapElem.find('.gcviz-tbholder').append(tp.domNode);
 			tp.startup();
 			
+			// add tabinndex
+			tp.domNode.getElementsByClassName('dijitTitlePaneTitleFocus')[0].setAttribute('tabindex', '1');
+			
+			// find toolbar and start to add items
 			$toolbar = $mapElem.find('.gcviz-tbnav-content');
 			
 			// set full extent button
 			if (config.fullextent) {
-				node += '<button class="gcviz-button" data-bind="click: extentClick"><img class="gcviz-img-button" data-bind="attr:{src: imgExtent}"></img></button>';
+				node += '<button class="gcviz-button" tabindex="1" data-bind="click: extentClick"><img class="gcviz-img-button" data-bind="attr:{src: imgExtent}"></img></button>';
 			}
 			
 			$toolbar.append(node);

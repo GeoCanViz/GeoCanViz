@@ -69,26 +69,20 @@
 				"justify": "left"
 			},
 			"video" : {
-				"interval": 0,
-				"videos" :[{
-					"label": {
-						"value": "My description 1",
-						"alttext": "My description 1",
-						"justify": "left"
-					},
-					"sources": [{
+				"loop": false,
+				"autoplay": false,
+				"sources": [{
 						"location": "internet",
 						"url": "/105/media/us/html5/showcase/2011/demos/apple-html5-demo-tron-us_848x352.webm",
 						"type": "video/webm; codecs=&quot;vp8, vorbis&quot;"
-						}, {
+					}, {
 						"location": "internet",
 						"url": "http://movies.apple.com/media/us/html5/showcase/2011/demos/apple-html5-demo-tron-us_848x352.m4v",
 						"type": "video/mp4; codecs=&quot;avc1.42E01E, mp4a.40.2&quot;"
-						}, {
+					}, {
 						"location": "internet",
 						"url": "http://movies.apple.com/media/us/html5/showcase/2010/demos/apple-html5-demo-tron_legacy-us-20100601_r848-2cie.mov",
 						"type": ""
-					}]
 				}]
 			}
 		}, {
@@ -103,14 +97,9 @@
 				"justify": "left"
 			},
 			"video" : {
-				"interval": 0,
-				"videos" :[{
-					"label": {
-						"value": "My description 2",
-						"alttext": "My description 2",
-						"justify": "left"
-					},
-					"sources": [{
+				"loop": false,
+				"autoplay": false,
+				"sources": [{
 						"location": "local",
 						"url": "demos/inset/sample.mp4",
 						"type": "video/mp4"
@@ -118,7 +107,6 @@
 						"location": "local",
 						"url": "demos/inset/sample.webm",
 						"type": "video/webm"
-					}]
 				}]
 			}
 		}]

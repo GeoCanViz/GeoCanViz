@@ -23,18 +23,13 @@
 			
 			// set title
 			if (typeof title !== 'undefined') {
-				node += '<label class="gcviz-tbmain-title">' + title + '</label>';
+				node += '<div class="gcviz-tbmain-title"><label class="gcviz-tbmain-titlelabel">' + title + '</label></div>';
 			}
 			
-			// set fullscreen button
-			if (config.fullscreen) {
-				node += '<button class="gcviz-button" tabindex="1" data-bind="click: fullscreenClick"><img class="gcviz-img-button" data-bind="attr:{src: imgFullscreen}"></img></button>';
-			}
-			
-			// set inset button if inset are present
-			if ($mapElem.insetframe.enable) {
-				node += '<button class="gcviz-button" tabindex="1" data-bind="click: insetClick"><img class="gcviz-img-button" data-bind="attr:{src: imgShowInset}"></img></button>';
-			}
+			// add buttons
+			node += '<div class="gcviz-tbmain-button">';
+			// set help button (must always be there!)
+			node += '<button class="gcviz-button" tabindex="1" data-bind="click: helpClick"><img class="gcviz-img-button" data-bind="attr:{src: imgHelp}"></img></button>';
 			
 			// set tools button
 			if (config.tools) {
@@ -42,8 +37,17 @@
 				$mapElem.find('.gcviz-tbmain').after('<div class="gcviz-tbholder hidden"></div>');
 			}
 			
-			// set help button (must always be there!)
-			node += '<button class="gcviz-button" tabindex="1" data-bind="click: helpClick"><img class="gcviz-img-button" data-bind="attr:{src: imgHelp}"></img></button>';
+			// set inset button if inset are present
+			if ($mapElem.insetframe.enable) {
+				node += '<button class="gcviz-button" tabindex="1" data-bind="click: insetClick"><img class="gcviz-img-button" data-bind="attr:{src: imgShowInset}"></img></button>';
+			}
+			
+			// set fullscreen button
+			if (config.fullscreen) {
+				node += '<button class="gcviz-button" tabindex="1" data-bind="click: fullscreenClick"><img class="gcviz-img-button" data-bind="attr:{src: imgFullscreen}"></img></button>';
+			}
+			node += '</div>';
+			
 			
 			$toolbar.append(node);
 			toolbarmainVM.initialize($toolbar, mapid);

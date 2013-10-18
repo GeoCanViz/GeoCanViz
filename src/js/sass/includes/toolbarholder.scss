@@ -1,19 +1,25 @@
 @import "gcviz-mixin";
 
 .gcviz-tbholder {
-	@include app-text(10px, bold);
-	padding: 10px;
+	@include app-text($weight: bold);
+	padding: 1rem;
 	position: absolute;
-	z-index: 9999;
-	width: 275px;
-	right: 0px;
+	z-index: 5000;
+	width: 27.5rem;
+	right: 0rem;
 	@include app-gradiant-reverse;
-  cursor: pointer;
+	cursor: pointer;
+	
+	.gcviz-tbcontent {
+		padding: 0.2rem;
+		margin: 0.3rem;
+		@include toolbar-background;
+		@include content-border-radius;
+		
+		.dijitTitlePane {
+			margin: 0.5rem;
+		}
+	}
 }
 
-.gcviz-tbcontent {
-	float: left;
-	padding: 10px;
-	@include toolbar-background;
-	@include content-border-radius(5px);
-}
+

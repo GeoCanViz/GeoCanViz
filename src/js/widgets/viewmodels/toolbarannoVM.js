@@ -39,6 +39,10 @@
 				_self.imgImport = ko.observable(pathImport);
 				_self.imgExport = ko.observable(pathExport);
 				
+				// keep info for annotation input box
+				_self.mapid = mapid;
+				_self.graphic = mygraphic;
+				
 				// set annotation window
 				$('#gcviz-anno-inputbox').dialog({
 					autoOpen: false,
@@ -54,11 +58,14 @@
 					buttons: [{ 
 								text: 'Ok',
 								click: function() {
-											var value = $('#value').val();
+											var value = $('#value').val(),
+												$anno = $('#gcviz-anno-inputbox'),
+												mapid = $anno.dialog('option', 'mapid'),
+												graphic = $anno.dialog('option', 'graphic');
 											
 											if (value !== '') {
 												$('#' + mapid + '_0_container').addClass('gcviz-text-cursor');
-												mygraphic.drawText(value);
+												graphic.drawText(value);
 											}
 											$(this).dialog('close');
 										}
@@ -69,22 +76,21 @@
 										}
 							}] 
 				});
-					
-				_self.errorHandler = function(error) {
-					console.log('error toolbar annotation view model: ', error);
-				};
-		
+
 				_self.init = function() {
 					return { controlsDescendantBindings: true };
 				};
 				
 				_self.drawClick = function() {
 					$('#' + mapid + '_0_container').addClass('gcviz-draw-cursor');
-					mygraphic.drawLine();
+					_self.graphic.drawLine();
 				};
 				
 				_self.textClick = function() {
-					$('#gcviz-anno-inputbox').dialog('open');
+					var $anno = $('#gcviz-anno-inputbox');
+					$anno.dialog('open');
+					// set graphic and mapid to the current map
+					$anno.dialog('option', {graphic: _self.graphic, mapid: _self.mapid});
 				};
 			
 				_self.eraseClick = function() {

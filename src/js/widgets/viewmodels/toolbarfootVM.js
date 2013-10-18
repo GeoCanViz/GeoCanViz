@@ -22,11 +22,7 @@
 			var toolbarfootViewModel = function($mapElem, mapid, config) {
 				var _self = this,
 					pathNorth = locationPath + 'dist/images/footNorthArrow.png';
-				
-				_self.errorHandler = function(error) {
-					console.log('error toolbar foot view model: ', error);
-				};
-		
+
 				// images path
 				_self.imgNorth = pathNorth;
 				
@@ -37,25 +33,21 @@
 					while (len--) {
 						mymap = mapArray[mapid][len];
 
-						//TODO: onload event is fired twice with the same map...
-						//mymap.on('load', function() {
-							// after map loads, connect to listen to mouse move & drag events
-							if (config.mousecoords) {
-								mymap.on('mouse-move', function(evt) {
-									_self.showCoordinates(evt, 'mousecoord_' + mapid);
-								});
-							}
+						if (config.mousecoords) {
+							mymap.on('mouse-move', function(evt) {
+								_self.showCoordinates(evt, 'mousecoord_' + mapid);
+							});
+						}
 							
-							if (config.northarrow) {
-								mymap.on('pan-end', function(evt) {
-									_self.showNorthArrow(evt, 'north_' + mapid);
-								});
+						if (config.northarrow) {
+							mymap.on('pan-end', function(evt) {
+								_self.showNorthArrow(evt, 'north_' + mapid);
+							});
 							
-								mymap.on('zoom-end', function(evt) {
-									_self.showNorthArrow(evt, 'north_' + mapid);
-								});
-							}
-						//});
+							mymap.on('zoom-end', function(evt) {
+								_self.showNorthArrow(evt, 'north_' + mapid);
+							});
+						}
 					}
 					
 					return { controlsDescendantBindings: true };

@@ -24,7 +24,7 @@
 			$div.css({'width': width, 'height': height});
 			
 			while (len--) {
-				$div.prepend('<div id="' + mapid + '_' + len + '" tabindex="1"></div>');
+				$div.prepend('<div id="' + mapid + '_' + len + '" data-bind="hasfocus: mapfocus.focused" tabindex="1"></div>');
 				
 				// set height and width for the map. Substract the toolbar main height
 				$mapElem.find('#' + mapid + '_' + len).css({'height': (size.height - 80), 'width': width});

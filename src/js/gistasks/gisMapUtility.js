@@ -13,20 +13,18 @@
 		var createMap,
 			applyLink,
 			connectEvent,
-			unconnectEvent,
 			addLayer,
 			resizeMap,
 			getMap,
 			zoomIn,
 			zoomOut,
 			linkNames = [],
-			linkMain = '',
 			debounce;
 	
 		createMap = function(id, config) {
-			var extent = config.extent,
+			var extentC = config.extent,
 				wkid = config.sr.wkid,
-				extent = new esri.geometry.Extent({'xmin': extent.xmin, 'ymin': extent.ymin, 'xmax': extent.xmax, 'ymax': extent.ymax, 'spatialReference': {'wkid': wkid}}),
+				extent = new esri.geometry.Extent({'xmin': extentC.xmin, 'ymin': extentC.ymin, 'xmax': extentC.xmax, 'ymax': extentC.ymax, 'spatialReference': {'wkid': wkid}}),
 				map, mapInfo;
 				
 			map = new esri.Map(id, {
@@ -52,26 +50,27 @@
 			return map;
 		};
 		
-		applyLink = function(evt) {
+		applyLink = function(mapName, mapIndex) {
   
-			var mapName = evt.target.vIdName,
-				mapIndex = Number(evt.target.vIdIndex);
-
 			// loop trought maps and modify extent
 			Object.keys(mapArray).forEach(function(key) {
-	    		if (key !== mapName && linkNames.indexOf(key) != -1) {
-	    			var mymap = mapArray[key][0];
-	    			mymap.setExtent(mapArray[mapName][mapIndex].extent, mymap.spatialReference);
-	    		}
+				if (key !== mapName && linkNames.indexOf(key) !== -1) {
+					var mymap = mapArray[key][0];
+					mymap.setExtent(mapArray[mapName][mapIndex].extent, mymap.spatialReference);
+				}
 			});
 		};
 		
 		connectEvent = function(map) {
 			map.on('extent-change', debounce(function (evt) {
 				if (evt.target.id === document.activeElement.id) {
-					applyLink(evt);
+					applyLink(evt.target.vIdName, Number(evt.target.vIdIndex));
 				}
-				
+			}, 1000, false));
+			
+			map.on('mouse-out',debounce(function (evt) {
+				var info = evt.target.id.split('_');
+				applyLink(info[0], Number(info[1]));
 			}, 1000, false));
 		};
 
@@ -79,7 +78,7 @@
 
 			var timeout;
 
-		    return function debounced () {
+			return function debounced () {
 				var obj = this, 
 					args = arguments;
 						
@@ -88,7 +87,7 @@
 						func.apply(obj, args);
 					}
 					timeout = null; 
-				};
+				}
 				
 				if (timeout) {
 					clearTimeout(timeout);
@@ -99,10 +98,6 @@
 
 				timeout = setTimeout(delayed, threshold || 100); 
 			};
-		 };
-		
-		unconnectEvent = function(map) {
-			
 		};
 		
 		addLayer = function(map, type, url) {

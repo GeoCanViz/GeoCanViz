@@ -9,32 +9,48 @@
 @import "includes/gcviz-mixin";
 
 html, body {
-  height: 100%;
-  width: 100%;
-  margin: 0;
-  font-size: 62.5%;
+	height: 100%;
+	width: 100%;
+	margin: 0;
+	font-size: 62.5%; // 1 rem = 10px
+}
+
+.gcviz-section {
+	padding: 1.5rem;
 }
 
 .gcviz-button {
-  cursor: pointer;
-  float: right;
-  @include button-gradiant;
-  @include content-border-radius(5px);
-  @include button-size;
-}
-
-.gcviz-img-button {
-	margin: -4px;
-	height: 22px;
-	width: 22px
+	cursor: pointer;
+	background: transparent;
+	border: none;
+	padding: 0.4rem;
+	margin: 0.3rem;
+	height: 3rem;
+	width: 3rem;
+  
+	.gcviz-img-button {
+		height: 2.2rem;
+		width: 2.2rem;
+	}
+  
+	&:hover {
+		@include button-gradiant-hover;
+		@include content-border-radius;
+	}
+  
+	&:focus {
+		@include button-gradiant-hover;
+		@include content-border-radius;
+	}
+  
+	&:active {
+		@include button-gradiant-active;
+		@include content-border-radius;
+	}
 }
 
 .gcviz {
 	position: relative;
-}
-
-.gcviz-section {
-	padding: 15px;
 }
 
 .hidden {
@@ -43,15 +59,15 @@ html, body {
  
 /* full screen */
 .gcviz-section:-webkit-full-screen {
-  width:100%;
-  height:100%;
-  display: block;
-  float: none;
+	width:100%;
+	height:100%;
+	display: block;
+	float: none;
 }
 
 .gcviz-section:-moz-full-screen {
-  width:100%;
-  height:100%;
-  display: block;
-  float: none;
+	width:100%;
+	height:100%;
+	display: block;
+	float: none;
 }

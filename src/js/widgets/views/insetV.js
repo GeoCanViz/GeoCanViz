@@ -59,47 +59,41 @@
 					$inset.vType = 'image';
 					$inset.vSource = [];
 					
-					node += '<div id="slides' + insetLen + mapid + '" style="width: ' + width + 'px; height: ' + (height - 20) + 'px; float: left;">';
+					node += '<div style="width: 100%;"><div id="slides' + insetLen + mapid + '" style="height: ' + (height - 20) + 'px;">';
 					while (typeLen--) {
-						node += '<img class="gcviz-img-inset" data-bind="attr:{src: img[' + typeLen + ']}"></img>';
+						var info = types[typeLen].label;
+						
+						node += '<a class="lb-' + mapid + '_' + insetLen + '" data-bind="attr:{href: img[' + typeLen + ']}" data-lightbox="lb-' + mapid + '_' + insetLen + '" title="' + info.value + '">' +
+								'<img class="gcviz-img-inset" data-bind="attr:{src: img[' + typeLen + ']}" alt="' + info.alttext + '"></img>' +
+								'</a>';
 						$inset.vSource[typeLen] = types[typeLen].sources;
 					}
-					node += '</div>';
+					node += '</div></div>';
 				} else if (inset.type === 'video') {
-					types = inset.video.videos,
-					typeLen = types.length;
+					sources = inset.video.sources;
+					srcLen = sources.length;
 					
 					// keep the sources info
 					$inset.vType = 'video';
 					$inset.vSource = [];
 					
-					while (typeLen--) {
-						sources = types[typeLen].sources,
-						srcLen = sources.length;
-						
-						node += '<video id="test" class="gcviz-vid-inset">';
-						
-						while (srcLen--) {
-							node += '<source data-bind="attr:{src: vid[' + typeLen + ']}" type="' + sources[srcLen].type + '"></source>';
-							$inset.vSource[typeLen] = types[typeLen].sources;
-						}
-						
-						node += '</video>';
+					node += '<video id="test" class="gcviz-vid-inset" style="height: ' + (height - 20) + 'px;">';
+					while (srcLen--) {
+						node += '<source data-bind="attr:{src: vid[' + srcLen + ']}" type="' + sources[srcLen].type + '"></source>';
+						$inset.vSource[srcLen] = sources[srcLen];
 					}
+					node += '</video>';
+					
 				} else if (inset.type === 'html') {
-					types = inset.html.htmls,
-					typeLen = types.length;
+					var html = inset.html;
 					
 					// keep the sources info
 					$inset.vType = 'html';
 					
-					while (typeLen--) {
-						
-						if (types[typeLen].type === 'text') {
-							node += types[typeLen].tag;
-						} else if (types[typeLen].type === 'page') {
-							node += '<iframe src="' + types[typeLen].tag + '"></iframe>'
-						}
+					if (html.type === 'text') {
+							node += '<div class="gcviz-html-inset">' + html.tag + '</div>';
+					} else if (html.type === 'page') {
+						node += '<iframe class="gcviz-html-inset" src="' + html.tag + '" style="height: ' + (height - 20) + 'px;"></iframe>';
 					}
 				}
 

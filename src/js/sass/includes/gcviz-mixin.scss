@@ -1,44 +1,75 @@
 @import "compass/css3/images";
 
+$img-root: "images/";
+
+$font: verdana, helvetica, sans-serif;
+$orange: #EFA23E;
+$yellow: #FAFA0A;
+$red: #EF300A;
+$app-strong: #A3D8A5;
+$app-light: #E5E5E5;
+$tb-strong: #D5F0E2;
+$tb-light: #FFF;
+$text-color: #000 !default;
+
+$base-classname: "gcviz";
+
 @mixin app-gradiant {
-  background-color: #a3d8a5; // old browsers
-	@include filter-gradient(#a3d8a5, #e5e5e5, vertical);
-	@include background-image(linear-gradient(top,  #a3d8a5 0%,#e5e5e5 100%));
+  background-color: $app-strong; // old browsers
+	@include background-image(linear-gradient(top,  $app-strong 0%, $app-light 100%));
 }
 
 @mixin app-gradiant-reverse {
-  background-color: #a3d8a5; // old browsers
-	@include filter-gradient(#a3d8a5, #e5e5e5, vertical);
-	@include background-image(linear-gradient(top,  #e5e5e5 0%,#a3d8a5 100%));
+  background-color: $app-strong; // old browsers
+	@include background-image(linear-gradient(top,  $app-light 0%, $app-strong 100%));
 }
 
-@mixin button-gradiant {
-  background-color: #ffffff; // old browsers
-	@include filter-gradient(#ffffff, #bfbfbf, horizontal);
-	@include background-image(radial-gradient(center, ellipse cover,  #ffffff 39%,#bfbfbf 100%));
+@mixin button-gradiant-hover {
+  @include background-image(-ms-radial-gradient(center, circle closest-corner, $yellow 0%, $orange 100%)); /* IE10 Consumer Preview */
+  @include background-image(-moz-radial-gradient(center, circle closest-corner, $yellow 0%, $orange 100%)); /* Mozilla Firefox */
+  @include background-image(-o-radial-gradient(center, circle closest-corner, $yellow 0%, $orange 100%)); /* Opera */ 
+  @include background-image(-webkit-gradient(radial, center center, 0, center center, 497, color-stop(0, $yellow), color-stop(1, $orange))); /* Webkit (Safari/Chrome 10) */ 
+  @include background-image(-webkit-radial-gradient(center, circle closest-corner, $yellow 0%, $orange 100%)); /* Webkit (Chrome 11+) */
+  @include background-image(radial-gradient(circle closest-corner at center, $yellow 0%, $orange 100%)); /* W3C Markup, IE10 Release Preview */
+  background-color: $tb-light; // old browsers
 }
 
-@mixin content-border-radius($radius) {
-	-webkit-border-radius: $radius;
-	-moz-border-radius: $radius;
-	border-radius: $radius;
+@mixin button-gradiant-active {
+  @include background-image(-ms-radial-gradient(center, circle closest-corner, $yellow 0%, $red 100%)); /* IE10 Consumer Preview */
+  @include background-image(-moz-radial-gradient(center, circle closest-corner, $yellow 0%, $red 100%)); /* Mozilla Firefox */
+  @include background-image(-o-radial-gradient(center, circle closest-corner, $yellow 0%, $red 100%)); /* Opera */ 
+  @include background-image(-webkit-gradient(radial, center center, 0, center center, 497, color-stop(0, $yellow), color-stop(1, $red))); /* Webkit (Safari/Chrome 10) */ 
+  @include background-image(-webkit-radial-gradient(center, circle closest-corner, $yellow 0%, $red 100%)); /* Webkit (Chrome 11+) */
+  @include background-image(radial-gradient(circle closest-corner at center, $yellow 0%, $red 100%)); /* W3C Markup, IE10 Release Preview */
+  background-color: $tb-light; // old browsers
 }
 
-@mixin app-text($size, $weight) {
+@mixin content-border-radius($radius: 0.5, $moz: true, $webkit: true, $ms: true) {
+	@if $moz    { -moz-border-radius: $radius + rem; }
+  @if $webkit { -webkit-border-radius: $radius + rem; }
+  @if $ms     { -ms-border-radius: $radius + rem; }
+  border-radius: $radius + rem;
+}
+
+@mixin app-text($size: 1.2, $weight: normal, $color: $text-color) {
 	font: {
-		family: verdana;
+		family: $font;
 		weight: $weight;
-		size: $size + px; // old browser
+		size: ($size * 10) + px; // old browsers
 		size: $size + rem;
 	}
+	color: $color;
+}
+
+@mixin app-border($width: 1, $style: solid, $color: #000) {
+	border: {
+		width: $width + rem;
+		style: $style;
+		color: $color;
+	}	
 }
 
 @mixin toolbar-background {
-  background-color: #ffffff;
-}
-
-@mixin button-size {
-  margin: 3px;
-  height: 30px;
-  width: 30px;
+	background-color: $tb-light; // old browsers
+  @include background-image(linear-gradient(bottom, $tb-strong 0%, $tb-light 100%));
 }

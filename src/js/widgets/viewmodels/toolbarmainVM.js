@@ -5,7 +5,7 @@
  *
  * Toolbar main view model widget
  */
-/* global ActiveXObject: false, locationPath: false */
+/* global locationPath: false */
 (function() {
 	'use strict';
 	define([
@@ -83,6 +83,9 @@
 					var tool = $mapholder.find('.gcviz-tbholder');
 					if (tool.hasClass('hidden')) {
 						tool.removeClass('hidden');
+						
+						// set focus on the first element
+						$section.find('.dijitTitlePaneTitleFocus')[0].focus();
 					} else {
 						tool.addClass('hidden');
 					}
