@@ -19,11 +19,11 @@
 	@include content-border-radius(0.2);
 
 	h2 {
-		padding-top: 0.4rem;
-		padding-bottom: 0.2rem;
+		padding: 0.2rem;
 		color: #000;
 		margin: 0;
 		width: 100%;
+		@include app-text(1.2);
 		@include app-gradiant;
 	}
 	
@@ -65,6 +65,10 @@
 	margin-bottom: 1rem;
 }
 
+.slidesjs-slide {
+	height: 100%;
+}
+
 .slidesjs-previous {
 	@extend %slides-control;
 }
@@ -73,7 +77,7 @@
 }
 
 .slidesjs-pagination {
-	margin: 0.6rem 0 0;
+	margin: 0.2rem 0.5rem;
 	float: right;
 	list-style: none;
     

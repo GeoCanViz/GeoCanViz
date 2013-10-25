@@ -68,7 +68,7 @@
 				"alttext": "My html 1",
 				"justify": "left"
 			},
-			"html" : {
+			"inset": {
 				"type": "text",
 				"tag": "<span>Cette carte est un example avec une insertion texte.</span>"
 			}
@@ -83,7 +83,7 @@
 				"alttext": "My html 2",
 				"justify": "left"
 			},
-			"html" : {
+			"inset": {
 				"type": "page",
 				"tag": "http://www.w3schools.com"
 			}

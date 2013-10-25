@@ -61,6 +61,11 @@
 						// the first one are not set properly
 						mymap.on('load', function(e) {
 							e.map.resize();
+							
+							// enable navigation
+							mymap.enableScrollWheelZoom();
+							mymap.enableKeyboardNavigation();
+							mymap.isZoomSlider = false;
 						});
 						
 						// set class and remove cursor for container
@@ -71,12 +76,8 @@
 						$container.addClass('gcviz-container');
 						$container.css('cursor', '');
 						
-						// enable scroll wheel
-						mymap.enableScrollWheelZoom = true;
-						mymap.isZoomSlider = false;
-						
 						_self.focus();
-						
+							
 						map.push(mymap);
 					}
 

@@ -39,7 +39,7 @@
 			
 			// set inset button if inset are present
 			if ($mapElem.insetframe.enable) {
-				node += '<button class="gcviz-button" tabindex="1" data-bind="click: insetClick"><img class="gcviz-img-button" data-bind="attr:{src: imgShowInset}"></img></button>';
+				node += '<button class="gcviz-button" tabindex="1" data-bind="click: insetClick, enable: enableViewInset"><img class="gcviz-img-button" data-bind="attr:{src: imgShowInset}"></img></button>';
 			}
 			
 			// set fullscreen button

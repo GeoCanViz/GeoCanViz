@@ -1,579 +1,166 @@
 @import "gcviz-mixin";
 
-@import "compass/css3";
-@import "compass/utilities/general/clearfix";
+$text-color: #999999;
 
-// COLORS & BACKGROUNDS --------------------------------------------------------
-$lightGray: #eeeeee;
-$blue: #0096df;
-$green: #00bfa8;
-$yellow: #fdf485;
-$orange: #ff8000;
-$red: #ff4040;
+%gcviz-light-container {
+	content: "";
+	display: table;
+	clear: both;
+}
 
-$color: #ccc;
-$bgColor: #444;
-
-$headingColor: $yellow;
-$linkColor: $green;
-
-$borderColor: #d5d5d5;
-//$darkBorderColor: darken($borderColor, 10%);
-//$darkerBorderColor: darken($borderColor, 20%);
-//$lightBorderColor: lighten($borderColor, 5%);
-//$lighterBorderColor: lighten($borderColor, 10%);
-
-// TYPE --------------------------------------------------------
-$fontFamily: "Karla", "lucida grande", sans-serif;
-$fontSize: 18px;
-
-// LAYOUT --------------------------------------------------------
-$gutter: 40px;
-$maxColumnWidth: 740px;
-
-// UI COMPONENTS --------------------------------------------------------
-$radius: 4px;
+@mixin filter-opacity($opacity) {
+	filter: progid:DXImageTransform.Microsoft.Alpha($opacity * 10);
+	opacity: $opacity;
+}
 
 body:after {
-  content: url(#{$img-root}lightClose.png) url(#{$img-root}lightLoading.gif) url(#{$img-root}lightPrev.png) url(#{$img-root}lightNext.png);
-  display: none;
+	content: url(#{$img-root}lightClose.png) url(#{$img-root}lightLoading.gif) url(#{$img-root}lightPrev.png) url(#{$img-root}lightNext.png);
+	display: none;
 }
 
 .lightboxOverlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 9999;
-  background-color: black;
-  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=80);
-  opacity: 0.8;
-  display: none;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 9999;
+	background-color: black;
+	@include filter-opacity(0.8);
+	display: none;
 }
 
 .lightbox {
-  position: absolute;
-  left: 0;
-  width: 100%;
-  z-index: 10000;
-  text-align: center;
-  line-height: 0;
-  font-weight: normal;
-  .lb-image {
-    display: block;
-    height: auto;
-    -webkit-border-radius: 0.3rem;
-    -moz-border-radius: 0.3rem;
-    -ms-border-radius: 0.3rem;
-    -o-border-radius: 0.3rem;
-    border-radius: 0.3rem;
-  }
-  a img {
-    border: none;
-  }
+	position: absolute;
+	left: 0;
+	width: 100%;
+	z-index: 10000;
+	text-align: center;
+	line-height: 0;
+	.lb-image {
+		display: block;
+		height: auto;
+		@include content-border-radius(0.3);
+	}
+	a img {
+		border: none;
+	}
 }
 
 .lb-outerContainer {
-  position: relative;
-  background-color: white;
-  *zoom: 1;
-  width: 25rem;
-  height: 25rem;
-  margin: 0 auto;
-  -webkit-border-radius: 0.4rem;
-  -moz-border-radius: 0.4rem;
-  -ms-border-radius: 0.4rem;
-  -o-border-radius: 0.4rem;
-  border-radius: 0.4rem;
-  &:after {
-    content: "";
-    display: table;
-    clear: both;
-  }
+	position: relative;
+	background-color: white;
+	*zoom: 1;
+	width: 25rem;
+	height: 25rem;
+	margin: 0 auto;
+	@include content-border-radius(0.4);
+	&:after {
+		@extend %gcviz-light-container;
+	}
 }
 
 .lb-container {
-  padding: 0.4rem;
+	padding: 0.4rem;
 }
 
 .lb-loader {
-  position: absolute;
-  top: 43%;
-  left: 0%;
-  height: 25%;
-  width: 100%;
-  text-align: center;
-  line-height: 0;
+	position: absolute;
+	top: 43%;
+	left: 0%;
+	height: 25%;
+	width: 100%;
+	text-align: center;
+	line-height: 0;
 }
 
 .lb-cancel {
-  display: block;
-  width: 3.2rem;
-  height: 3.2rem;
-  margin: 0 auto;
-  background: url(#{$img-root}lightLoading.gif) no-repeat;
+	display: block;
+	width: 3.2rem;
+	height: 3.2rem;
+	margin: 0 auto;
+	background: url(#{$img-root}lightLoading.gif) no-repeat;
 }
 
 .lb-nav {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
-  z-index: 10;
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	z-index: 10;
 }
 
 .lb-container > .nav {
-  left: 0;
+	left: 0;
 }
 
 .lb-nav a {
-  outline: none;
+	outline: none;
 }
 
 .lb-prev, .lb-next {
-  width: 49%;
-  height: 100%;
-  cursor: pointer;
-  display: block;
+	width: 49%;
+	height: 100%;
+	cursor: pointer;
+	display: block;
 }
 
 .lb-prev {
-  left: 0;
-  float: left;
-  &:hover {
-    background: url(#{$img-root}lightPrev.png) left 48% no-repeat;
-  }
+	left: 0;
+	float: left;
+	&:hover {
+		background: url(#{$img-root}lightPrev.png) left 48% no-repeat;
+	}
 }
 
 .lb-next {
-  right: 0;
-  float: right;
-  &:hover {
-    background: url(#{$img-root}lightNext.png) right 48% no-repeat;
-  }
+	right: 0;
+	float: right;
+	&:hover {
+		background: url(#{$img-root}lightNext.png) right 48% no-repeat;
+	}
 }
 
 .lb-dataContainer {
-  margin: 0 auto;
-  padding-top: 0.5rem;
-  *zoom: 1;
-  width: 100%;
-  -moz-border-radius-bottomleft: 0.4rem;
-  -webkit-border-bottom-left-radius: 0.4rem;
-  border-bottom-left-radius: 0.4rem;
-  -moz-border-radius-bottomright: 0.4rem;
-  -webkit-border-bottom-right-radius: 0.4rem;
-  border-bottom-right-radius: 0.4rem;
-  &:after {
-    content: "";
-    display: table;
-    clear: both;
-  }
+	margin: 0 auto;
+	padding-top: 0.5rem;
+	*zoom: 1;
+	width: 100%;
+	@include content-border-radius(0.4);
+	&:after {
+		@extend %gcviz-light-container;
+	}
 }
 
 .lb-data {
-  padding: 0 0.4rem;
-  color: #bbbbbb;
-  .lb-details {
-    width: 85%;
-    float: left;
-    text-align: left;
-    line-height: 1.1em;
-  }
-  .lb-caption {
-    font-size: 1.3rem;
-    font-weight: bold;
-    line-height: 1em;
-  }
-  .lb-number {
-    display: block;
-    clear: left;
-    padding-bottom: 1em;
-    font-size: 1.2rem;
-    color: #999999;
-  }
-  .lb-close {
-    display: block;
-    float: right;
-    width: 3rem;
-    height: 3rem;
-    background: url(#{$img-root}lightClose.png) top right no-repeat;
-    text-align: right;
-    outline: none;
-    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=70);
-    opacity: 0.7;
-    &:hover {
-      cursor: pointer;
-      filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
-      opacity: 1;
-    }
-  }
+	padding: 0 0.4rem;
+	.lb-details {
+		width: 85%;
+		float: left;
+		text-align: left;
+		line-height: 1.1em;
+		.lb-caption {
+			@include app-text($size: 1.3, $weight: bold, $color: $text-color);
+			line-height: 1em;
+		}
+		.lb-number {
+			@include app-text($size: 1.2, $color: $text-color);
+			display: block;
+			clear: left;
+			padding-bottom: 1em;
+		}
+	}
+	.lb-close {
+		display: block;
+		float: right;
+		width: 3rem;
+		height: 3rem;
+		background: url(#{$img-root}lightClose.png) top right no-repeat;
+		text-align: right;
+		outline: none;
+		@include filter-opacity(0.7);
+		&:hover {
+			cursor: pointer;
+			@include filter-opacity(1);
+		}
+	}
 }
-
-// Preload images
-/*
-body:after {
-  content: url(#{$img-root}close.png) url(#{$img-root}loading.gif) url(#{$img-root}prev.png) url(#{$img-root}next.png);
-  display: none;
-}
-
-.lightboxOverlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 9999;
-  background-color: #000;
-  @include opacity(0.8);
-  display: none;
-}
-
-.lightbox {
-  position: absolute
-  left: 0
-  width: 100%
-  z-index: 10000
-  text-align: center
-  line-height: 0
-  font-weight: normal
-  .lb-image {
-    display: block
-    height: auto
-    max-width: inherit
-    @include border-radius($radius - 1)
-  }
-  a img {
-    border: none
-  }
-}
-
-.lb-outerContainer {
-  position: relative
-  background-color: #fff
-  @include pie-clearfix
-  width: 250px
-  height: 250px
-  margin: 0 auto
-  @include border-radius($radius)
-}
-
-.lb-container {
-  padding: 4px
-}
-
-.lb-loader {
-  position: absolute
-  top: 43%
-  left: 0%
-  height: 25%
-  width: 100%
-  text-align: center
-  line-height: 0
-}
-
-.lb-cancel {
-  display: block
-  width: 32px
-  height: 32px
-  margin: 0 auto
-  background: url(#{$img-root}loading.gif) no-repeat
-}
-
-.lb-nav {
-  position: absolute
-  top: 0
-  left: 0
-  height: 100%
-  width: 100%
-  z-index: 10
-}
-
-.lb-container > .nav {
-  left: 0
-}
-
-.lb-nav a {
-  outline: none
-}
-
-.lb-prev, .lb-next {
-  width: 49%
-  height: 100%
-  cursor: pointer
-  // Trick IE into showing hover
-  display: block
-}
-
-.lb-prevm{
-  left: 0
-  float: left
-  @include opacity(0)
-  @include transition(opacity 0.6s)
-  &:hover
-    @include opacity(1)
-    background: url(#{$img-root}prev.png) left 48% no-repeat
-}
-
-.lb-next {
-  right: 0
-  float: right
-  @include opacity(0)
-  @include transition(opacity 0.6s)
-  &:hover
-    @include opacity(1)
-    background: url(#{$img-root}next.png) right 48% no-repeat
-}
-
-.lb-dataContainer {
-  margin: 0 auto
-  padding-top: 5px
-  @include pie-clearfix
-  width: 100%
-  @include border-bottom-radius($radius)
-}
-
-.lb-data {
-  padding: 0 4px
-  color: #bbb
-  .lb-detailsn {
-    width: 85%
-    float: left
-    text-align: left
-    line-height: 1.1em
-  }
-  .lb-caption {
-    font-size: 13px
-    font-weight: bold
-    line-height: 1em
-  }
-  .lb-number {
-    display: block
-    clear: left
-    padding-bottom: 1.0em
-    font-size: 12px
-    color: #999
-  }
-  .lb-close {
-    display: block
-    float: right
-    width: 30px
-    height: 30px
-    background: url(#{$img-root}close.png) top right no-repeat
-    text-align: right
-    outline: none
-    @include opacity(0.7)
-    @include transition(opacity 0.2s)
-    &:hover
-      cursor: pointer
-      @include opacity(1)
-  }
-}
-
-
-
-
-
-
-
-
-body:after {
-  content: url(#{$img-root}lightClose.png) url(#{$img-root}lightLoading.gif) url(#{$img-root}lightPrev.png) url(#{$img-root}lightNext.png);
-  display: none;
-}
-
-
-.lightboxOverlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 9999;
-  background-color: black;
-  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=80);
-  opacity: 0.8;
-  display: none;
-}
-
-
-.lightbox {
-  position: absolute;
-  left: 0;
-  width: 100%;
-  z-index: 10000;
-  text-align: center;
-  line-height: 0;
-  font-weight: normal;
-}
-
-.lightbox .lb-image {
-  display: block;
-  height: auto;
-  -webkit-border-radius: 0.3rem;
-  -moz-border-radius: 0.3rem;
-  -ms-border-radius: 0.3rem;
-  -o-border-radius: 0.3rem;
-  border-radius: 0.3rem;
-}
-
-.lightbox a img {
-  border: none;
-}
-
-
-.lb-outerContainer {
-  position: relative;
-  background-color: white;
-  *zoom: 1;
-  width: 25rem;
-  height: 25rem;
-  margin: 0 auto;
-  -webkit-border-radius: 0.4rem;
-  -moz-border-radius: 0.4rem;
-  -ms-border-radius: 0.4rem;
-  -o-border-radius: 0.4rem;
-  border-radius: 0.4rem;
-}
-
-.lb-outerContainer:after {
-  content: "";
-  display: table;
-  clear: both;
-}
-
-
-.lb-container {
-  padding: 0.4rem;
-}
-
-
-.lb-loader {
-  position: absolute;
-  top: 43%;
-  left: 0%;
-  height: 25%;
-  width: 100%;
-  text-align: center;
-  line-height: 0;
-}
-
-
-.lb-cancel {
-  display: block;
-  width: 3.2rem;
-  height: 3.2rem;
-  margin: 0 auto;
-  background: url(#{$img-root}lightLoading.gif) no-repeat;
-}
-
-
-.lb-nav {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
-  z-index: 10;
-}
-
-
-.lb-container > .nav {
-  left: 0;
-}
-
-
-.lb-nav a {
-  outline: none;
-}
-
-
-.lb-prev, .lb-next {
-  width: 49%;
-  height: 100%;
-  cursor: pointer;
-
-  display: block;
-}
-
-
-.lb-prev {
-  left: 0;
-  float: left;
-}
-
-.lb-prev:hover {
-  background: url(#{$img-root}lightPrev.png) left 48% no-repeat;
-}
-
-
-.lb-next {
-  right: 0;
-  float: right;
-}
-
-.lb-next:hover {
-  background: url(#{$img-root}lightNext.png) right 48% no-repeat;
-}
-
-
-.lb-dataContainer {
-  margin: 0 auto;
-  padding-top: 0.5rem;
-  *zoom: 1;
-  width: 100%;
-  -moz-border-radius-bottomleft: 0.4rem;
-  -webkit-border-bottom-left-radius: 0.4rem;
-  border-bottom-left-radius: 0.4rem;
-  -moz-border-radius-bottomright: 0.4rem;
-  -webkit-border-bottom-right-radius: 0.4rem;
-  border-bottom-right-radius: 0.4rem;
-}
-
-.lb-dataContainer:after {
-  content: "";
-  display: table;
-  clear: both;
-}
-
-
-.lb-data {
-  padding: 0 0.4rem;
-  color: #bbbbbb;
-}
-
-.lb-data .lb-details {
-  width: 85%;
-  float: left;
-  text-align: left;
-  line-height: 1.1em;
-}
-
-.lb-data .lb-caption {
-  font-size: 1.3rem;
-  font-weight: bold;
-  line-height: 1em;
-}
-
-.lb-data .lb-number {
-  display: block;
-  clear: left;
-  padding-bottom: 1em;
-  font-size: 1.2rem;
-  color: #999999;
-}
-
-.lb-data .lb-close {
-  display: block;
-  float: right;
-  width: 3rem;
-  height: 3rem;
-  background: url(#{$img-root}lightClose.png) top right no-repeat;
-  text-align: right;
-  outline: none;
-  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=70);
-  opacity: 0.7;
-}
-
-.lb-data .lb-close:hover {
-  cursor: pointer;
-  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
-  opacity: 1;
-}
-*/

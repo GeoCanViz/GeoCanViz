@@ -6,10 +6,12 @@ $font: verdana, helvetica, sans-serif;
 $orange: #EFA23E;
 $yellow: #FAFA0A;
 $red: #EF300A;
-$app-strong: #A3D8A5;
-$app-light: #E5E5E5;
-$tb-strong: #D5F0E2;
+$app-strong: #98B8CC;
+$app-light: #D2EDFF;
+$tb-strong: #D2EDFF;
 $tb-light: #FFF;
+$disabled-light: #98B8CC;
+$disabled-strong: #728A99;
 $text-color: #000 !default;
 
 $base-classname: "gcviz";
@@ -44,10 +46,21 @@ $base-classname: "gcviz";
   background-color: $tb-light; // old browsers
 }
 
-@mixin content-border-radius($radius: 0.5, $moz: true, $webkit: true, $ms: true) {
+@mixin button-gradiant-disable {
+	@include background-image(-ms-radial-gradient(center, circle closest-corner, $disabled-light 0%, $disabled-strong 100%)); /* IE10 Consumer Preview */
+  @include background-image(-moz-radial-gradient(center, circle closest-corner, $disabled-light 0%, $disabled-strong 100%)); /* Mozilla Firefox */
+  @include background-image(-o-radial-gradient(center, circle closest-corner, $disabled-light 0%, $disabled-strong 100%)); /* Opera */ 
+  @include background-image(-webkit-gradient(radial, center center, 0, center center, 497, color-stop(0, $disabled-light), color-stop(1, $disabled-strong))); /* Webkit (Safari/Chrome 10) */ 
+  @include background-image(-webkit-radial-gradient(center, circle closest-corner, $disabled-light 0%, $disabled-strong 100%)); /* Webkit (Chrome 11+) */
+  @include background-image(radial-gradient(circle closest-corner at center, $disabled-light 0%, $disabled-strong 100%)); /* W3C Markup, IE10 Release Preview */
+  background-color: $tb-light; // old browsers
+}
+
+@mixin content-border-radius($radius: 0.5, $moz: true, $webkit: true, $ms: true, $o: true) {
 	@if $moz    { -moz-border-radius: $radius + rem; }
   @if $webkit { -webkit-border-radius: $radius + rem; }
   @if $ms     { -ms-border-radius: $radius + rem; }
+  @if $ms     { -o-border-radius: $radius + rem; }
   border-radius: $radius + rem;
 }
 

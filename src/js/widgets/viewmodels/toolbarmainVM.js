@@ -37,16 +37,23 @@
 				_self.imgTools = pathTools;
 				_self.imgHelp = pathHelp;
 				
+				// enable/disable
+				_self.enableViewInset = ko.observable(true);
+				
 				_self.errorHandler = function(error) {
 					console.log('error toolbar main view model: ', error);
 				};
 		
 				_self.init = function() {
+					// keep map size
 					_self.heightSection = $section.css('height');
 					_self.widthSection = $section.css('width');
 					_self.heightMap = $map.css('height');
 					_self.widthMap = $map.css('width');
 					
+					// keep inset view state
+					_self.insetState = '';
+				
 					$(document).on('keyup', function(e) {
 						if (e.keyCode === 27) {
 							_self.cancelFullScreen(document, mapid);
@@ -70,9 +77,11 @@
 					}
 				};
 				
-				_self.insetClick = function() {
+				_self.insetClick = function(force) {
 					var tool = $mapholder.find('.gcviz-inset' + mapid);
-					if (tool.hasClass('hidden')) {
+					if (force === 'hidden') {
+						tool.addClass('hidden');
+					} else if (tool.hasClass('hidden')) {
 						tool.removeClass('hidden');
 					} else {
 						tool.addClass('hidden');
@@ -107,6 +116,10 @@
 					$section.css({'width': _self.widthSection, 'height': _self.heightSection});
 					$mapholder.css({'width': _self.widthSection, 'height': _self.heightSection});
 					$map.css({'width': _self.widthMap, 'height': _self.heightMap});
+					
+					// set back inset state and enable button
+					_self.insetClick(_self.insetState);
+					_self.enableViewInset(true);
 				};
 
 				_self.requestFullScreen = function(el, mapid) {
@@ -122,6 +135,17 @@
 					el.setAttribute('style','width: 100%; height: 100%;');
 					el.getElementsByClassName('gcviz')[0].setAttribute('style','width: 100%; height: 93%;');
 					el.getElementsByClassName('gcviz-map')[0].setAttribute('style','width: 100%; height: 100%;');
+					
+					// hide inset
+					if ($mapholder.find('.gcviz-inset' + mapid).hasClass('hidden')) {
+						_self.insetState = 'hidden';
+					} else {
+						_self.insetState = '';
+					}
+					_self.insetClick('hidden');
+					
+					// disable show inset button
+					_self.enableViewInset(false);
 				};
 				
 				_self.init();

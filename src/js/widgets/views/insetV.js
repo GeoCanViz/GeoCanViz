@@ -22,7 +22,7 @@
 				$inset,
 				wSize, hSize,
 				inset,start,end,width,height,bottom,left,label,node,
-				types, typeLen, sources, srcLen;
+				sources, srcLen;
 			
 			// find widht and height of cells
 			wSize = mapSize.width/insetSize.numcol;
@@ -51,47 +51,44 @@
 				node = '<h2>' + label.value + '</h2>';
 				
 				// add info
-				if (inset.type === 'image') {
-					types = inset.image.images,
-					typeLen = types.length;
-					
-					// keep the sources info
-					$inset.vType = 'image';
-					$inset.vSource = [];
-					
-					node += '<div style="width: 100%;"><div id="slides' + insetLen + mapid + '" style="height: ' + (height - 20) + 'px;">';
-					while (typeLen--) {
-						var info = types[typeLen].label;
-						
-						node += '<a class="lb-' + mapid + '_' + insetLen + '" data-bind="attr:{href: img[' + typeLen + ']}" data-lightbox="lb-' + mapid + '_' + insetLen + '" title="' + info.value + '">' +
-								'<img class="gcviz-img-inset" data-bind="attr:{src: img[' + typeLen + ']}" alt="' + info.alttext + '"></img>' +
-								'</a>';
-						$inset.vSource[typeLen] = types[typeLen].sources;
-					}
-					node += '</div></div>';
-				} else if (inset.type === 'video') {
-					sources = inset.video.sources;
+				if (inset.type === 'image' || inset.type === 'video') {
+					sources = inset.inset.sources,
 					srcLen = sources.length;
 					
 					// keep the sources info
-					$inset.vType = 'video';
 					$inset.vSource = [];
 					
-					node += '<video id="test" class="gcviz-vid-inset" style="height: ' + (height - 20) + 'px;">';
-					while (srcLen--) {
-						node += '<source data-bind="attr:{src: vid[' + srcLen + ']}" type="' + sources[srcLen].type + '"></source>';
-						$inset.vSource[srcLen] = sources[srcLen];
-					}
-					node += '</video>';
+					if (inset.type === 'image') {
+						$inset.vType = 'image';
+						
+						node += '<div style="width: 100%;"><div id="slides' + insetLen + mapid + '" style="height: ' + (height - 20) + 'px;">';
+						while (srcLen--) {
+							var info = sources[srcLen].label;
+							
+							node += '<a class="lb-' + mapid + '_' + insetLen + '" data-bind="attr:{href: img[' + srcLen + ']}" data-lightbox="lb-' + mapid + '_' + insetLen + '" title="' + info.value + '">' +
+									'<img class="gcviz-img-inset" data-bind="attr:{src: img[' + srcLen + ']}" alt="' + info.alttext + '"></img>' +
+									'</a>';
+							$inset.vSource[srcLen] = sources[srcLen].image;
+						}
+						node += '</div></div>';
+					} else if (inset.type === 'video') {
+						$inset.vType = 'video';
 					
+						node += '<video id="test" class="gcviz-vid-inset" style="height: ' + (height - 20) + 'px;">';
+						while (srcLen--) {
+							node += '<source data-bind="attr:{src: vid[' + srcLen + ']}" type="' + sources[srcLen].type + '"></source>';
+							$inset.vSource[srcLen] = sources[srcLen];
+						}
+						node += '</video>';
+					}
 				} else if (inset.type === 'html') {
-					var html = inset.html;
+					var html = inset.inset;
 					
 					// keep the sources info
 					$inset.vType = 'html';
 					
 					if (html.type === 'text') {
-							node += '<div class="gcviz-html-inset">' + html.tag + '</div>';
+						node += '<div class="gcviz-html-inset">' + html.tag + '</div>';
 					} else if (html.type === 'page') {
 						node += '<iframe class="gcviz-html-inset" src="' + html.tag + '" style="height: ' + (height - 20) + 'px;"></iframe>';
 					}

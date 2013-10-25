@@ -1,24 +1,55 @@
-/* use the same green in the popup */
-.esriPopupWrapper .titlePane {
-  background-color: #063;
+@import "gcviz-mixin";
+
+%lowparams {
+	border: none;
+	padding: 0px;
+  margin: 0px;
 }
-.esriPopupWrapper .contentPane {
-  color: #063;
-} 
-/* customize the map's zoom slider */
-.esriSimpleSliderVertical, .shadow {
-  -webkit-box-shadow: 0 6px 6px -6px #999;
-  -moz-box-shadow: 0 6px 6px -6px #999;
-  box-shadow: 0 6px 6px -6px #999;
-  border: none;
+.map {
+  overflow: hidden;
 }
-.esriSimpleSliderVertical .esriSimpleSliderIncrementButton {
-  border-bottom: none;
+
+.container {
+  @extend %lowparams;
+  overflow: hidden;
+  @extend .layersDiv
 }
+
+.layersDiv {
+  position: relative;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.layerTile {
+  position: absolute;
+  @extend %lowparams;
+}
+
+.map {
+  &.container {
+    &.container {
+      -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
+  }
+  &.tooltip {
+    width: 10rem;
+    position: absolute;
+    @include app-border($width: 0.01, $color: #7EABCD);
+    @include content-border-radius(0.4);
+    background-color: white;
+    padding: 0.5rem;
+    z-index: 9999;
+  }
+}
+
+.esriControlsBR {
+	display: none;
+}
+
 .esriSimpleSlider {
-  background-color: #fff;
-  color: #063;
+	display: none;
 }
-
-
 
