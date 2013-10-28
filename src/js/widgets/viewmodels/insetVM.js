@@ -21,10 +21,6 @@
 			// data model				
 			var insetViewModel = function($mapElem, mapid) {
 				var _self = this;
-				
-				_self.errorHandler = function(error) {
-					console.log('error inset view model: ', error);
-				};
 		
 				_self.init = function() {
 					var type = $mapElem.vType,

@@ -176,6 +176,10 @@
 				location: locationPath + 'dist/js',
 				main: language
 			}, {
+				name: 'gcviz-ko',
+				location: locationPath + 'src/js/custom',
+				main: 'gcviz-ko-binding'
+			}, {
 				name: 'gcviz-gismap',
 				location: locationPath + 'src/js/gistasks',
 				main: 'gisMapUtility'

@@ -163,6 +163,11 @@
 				<include name="**/*.js" />
 			</fileset>
 		</copy>
+		<copy todir="${dist.dir}/js/custom">
+			<fileset dir="${src.dir}/js/custom">
+				<include name="**/*.js" />
+			</fileset>
+		</copy>
 		<yui-compressor warn="false" munge="true" preserveAllSemiColons="false" fromDir="${dist.dir}" toDir="${dist.dir}" charset="utf-8">
 			<include name="**/*.css"/>
 			<include name="**/*.js"/>

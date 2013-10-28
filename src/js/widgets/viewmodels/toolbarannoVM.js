@@ -39,6 +39,11 @@
 				_self.imgImport = ko.observable(pathImport);
 				_self.imgExport = ko.observable(pathExport);
 				
+				// tooltip
+				_self.tpDraw = i18n.getDict('%toolbaranno-tpdraw');
+				_self.tpText = i18n.getDict('%toolbaranno-tptext');
+				_self.tpErase = i18n.getDict('%toolbaranno-tperase');
+				
 				// keep info for annotation input box
 				_self.mapid = mapid;
 				_self.graphic = mygraphic;

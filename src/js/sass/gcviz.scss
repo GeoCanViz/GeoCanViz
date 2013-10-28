@@ -59,6 +59,13 @@ html, body {
 	position: relative;
 }
 
+.gcviz-tooltip {
+	
+	.ui-tooltip-content {
+		@include app-text(1.2);
+	}
+}
+
 .hidden {
 	visibility: hidden;
 }

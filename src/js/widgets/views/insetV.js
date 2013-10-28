@@ -22,7 +22,8 @@
 				$inset,
 				wSize, hSize,
 				inset,start,end,width,height,bottom,left,label,node,
-				sources, srcLen;
+				sources, srcLen,
+				margin;
 			
 			// find widht and height of cells
 			wSize = mapSize.width/insetSize.numcol;
@@ -39,12 +40,19 @@
 				label = inset.label,
 				node ='';
 				
+				// if row/col start = row/start end, give size of 1 row/col
 				if (width === 0) {width = wSize;}
 				if (height === 0) {height = hSize;}	
 				
+				// if bottom && top !0, add a margin to the the inset so it will not go outside the section
+				margin = '';
+				if (bottom !== 40 && left !== 0) {
+					margin = 'margin: -0.25rem;';
+				}
+				
 				// create inset holder
 				// , hasfocus: FirstName.focused, hoverToggle: \'hover\'
-				$mapElem.find('.gcviz-tbfoot').before('<div id="inset' + insetLen + mapid + '" data-bind="click: insetClick" class="gcviz-inset gcviz-inset' + mapid + '" tabindex="1" style="bottom: ' + bottom + 'px; left: ' + left + 'px; width: ' + width + 'px; height: ' + height + 'px;"></div>');
+				$mapElem.find('.gcviz-tbfoot').before('<div id="inset' + insetLen + mapid + '" data-bind="click: insetClick" class="gcviz-inset gcviz-inset' + mapid + '" tabindex="1" style="' + margin + ' bottom: ' + bottom + 'px; left: ' + left + 'px; width: ' + width + 'px; height: ' + height + 'px;"></div>');
 				$inset = $mapElem.find('#inset' + insetLen + mapid);
 				
 				// add label

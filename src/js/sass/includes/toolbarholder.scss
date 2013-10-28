@@ -4,7 +4,7 @@
 	@include app-text($weight: bold);
 	padding: 1rem;
 	position: absolute;
-	z-index: 5000;
+	z-index: 1000;
 	width: 27.5rem;
 	right: 0rem;
 	@include app-gradiant-reverse;

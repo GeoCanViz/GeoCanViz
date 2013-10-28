@@ -11,8 +11,9 @@
 	define([
 		'jquery',
 		'knockout',
-		'gcviz-i18n'
-	], function($, ko, i18n) {
+		'gcviz-i18n',
+		'gcviz-ko'
+	], function($, ko, i18n, binding) {
 		var initialize;
 		
 		initialize = function($mapElem, mapid) {
@@ -40,10 +41,12 @@
 				// enable/disable
 				_self.enableViewInset = ko.observable(true);
 				
-				_self.errorHandler = function(error) {
-					console.log('error toolbar main view model: ', error);
-				};
-		
+				// tooltip
+				_self.tpHelp = i18n.getDict('%toolbarmain-tphelp');
+				_self.tpTools = i18n.getDict('%toolbarmain-tptools');
+				_self.tpInset = i18n.getDict('%toolbarmain-tpinset');
+				_self.tpFullScreen = i18n.getDict('%toolbarmain-tpfullscreen');
+
 				_self.init = function() {
 					// keep map size
 					_self.heightSection = $section.css('height');
@@ -51,16 +54,31 @@
 					_self.heightMap = $map.css('height');
 					_self.widthMap = $map.css('width');
 					
-					// keep inset view state
+					// keep state
 					_self.insetState = '';
 				
-					$(document).on('keyup', function(e) {
-						if (e.keyCode === 27) {
+					// full screen event
+					$section[0].addEventListener('fullscreenchange', function () {
+						if (!document.fullscreen) {
 							_self.cancelFullScreen(document, mapid);
 							_self.imgFullscreen(pathFullscreen);
 						}
-					});
-						
+					}, false);
+ 
+					$section[0].addEventListener('mozfullscreenchange', function () {
+						if (!document.mozFullScreen) {
+							_self.cancelFullScreen(document, mapid);
+							_self.imgFullscreen(pathFullscreen);
+						}
+					}, false);
+ 
+					$section[0].addEventListener('webkitfullscreenchange', function () {
+						if (!document.webkitIsFullScreen) {
+							_self.cancelFullScreen(document, mapid);
+							_self.imgFullscreen(pathFullscreen);
+						}
+					}, false);
+
 					return { controlsDescendantBindings: true };
 				};
 					

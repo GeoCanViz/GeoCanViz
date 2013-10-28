@@ -33,12 +33,12 @@
 
 			// set draw button
 			if (config.drawline.enable) {
-				node += '<button class="gcviz-button" tabindex="1" data-bind="click: drawClick"><img class="gcviz-img-button" data-bind="attr:{src: imgDraw}"></img></button>';
+				node += '<button class="gcviz-button" tabindex="1" data-bind="click: drawClick, tooltip: { content: tpDraw }"><img class="gcviz-img-button" data-bind="attr:{src: imgDraw}"></img></button>';
 			}
 			
 			// set text button
 			if (config.drawtext.enable) {
-				node += '<button class="gcviz-button" tabindex="1" data-bind="click: textClick"><img class="gcviz-img-button" data-bind="attr:{src: imgText}"></img></button>';
+				node += '<button class="gcviz-button" tabindex="1" data-bind="click: textClick, tooltip: { content: tpText }"><img class="gcviz-img-button" data-bind="attr:{src: imgText}"></img></button>';
 				
 				// create the annotation inputbox (dont use knockout data-bind because there one window for the whole page not by ViewModel)
 				if ($('#gcviz-anno-inputbox').length === 0) {
@@ -51,7 +51,7 @@
 			}
 			
 			// set erase button
-			node += '<button class="gcviz-button" tabindex="1" data-bind="click: eraseClick"><img class="gcviz-img-button" data-bind="attr:{src: imgErase}"></img></button>';
+			node += '<button class="gcviz-button" tabindex="1" data-bind="click: eraseClick, tooltip: { content: tpErase }"><img class="gcviz-img-button" data-bind="attr:{src: imgErase}"></img></button>';
 			
 			// set measure button
 			if (config.measure.enable) {
