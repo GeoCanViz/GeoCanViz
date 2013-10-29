@@ -22,7 +22,8 @@
 				$inset,
 				wSize, hSize,
 				inset,start,end,width,height,bottom,left,label,node,
-				types, typeLen, sources, srcLen;
+				sources, srcLen,
+				margin;
 			
 			// find widht and height of cells
 			wSize = mapSize.width/insetSize.numcol;
@@ -39,67 +40,65 @@
 				label = inset.label,
 				node ='';
 				
+				// if row/col start = row/start end, give size of 1 row/col
 				if (width === 0) {width = wSize;}
 				if (height === 0) {height = hSize;}	
 				
+				// if bottom && top !0, add a margin to the the inset so it will not go outside the section
+				margin = '';
+				if (bottom !== 40 && left !== 0) {
+					margin = 'margin: -0.25rem;';
+				}
+				
 				// create inset holder
 				// , hasfocus: FirstName.focused, hoverToggle: \'hover\'
-				$mapElem.find('.toolbarfoot').before('<div id="inset' + insetLen + mapid + '" data-bind="click: insetClick" class="gcviz-inset" tabindex="1" style="bottom: ' + bottom + 'px; left: ' + left + 'px; width: ' + width + 'px; height: ' + height + 'px;"></div>');
+				$mapElem.find('.gcviz-tbfoot').before('<div id="inset' + insetLen + mapid + '" data-bind="click: insetClick" class="gcviz-inset gcviz-inset' + mapid + '" tabindex="1" style="' + margin + ' bottom: ' + bottom + 'px; left: ' + left + 'px; width: ' + width + 'px; height: ' + height + 'px;"></div>');
 				$inset = $mapElem.find('#inset' + insetLen + mapid);
 				
 				// add label
 				node = '<h2>' + label.value + '</h2>';
 				
 				// add info
-				if (inset.type === 'image') {
-					types = inset.image.images,
-					typeLen = types.length;
+				if (inset.type === 'image' || inset.type === 'video') {
+					sources = inset.inset.sources,
+					srcLen = sources.length;
 					
 					// keep the sources info
-					$inset.vType = 'image';
 					$inset.vSource = [];
 					
-					node += '<div id="slides' + insetLen + mapid + '" style="width: ' + width + 'px; height: ' + (height - 20) + 'px; float: left;">';
-					while (typeLen--) {
-						node += '<img class="img-inset" data-bind="attr:{src: img[' + typeLen + ']}"></img>';
-						$inset.vSource[typeLen] = types[typeLen].sources;
-					}
-					node += '</div>';
-				} else if (inset.type === 'video') {
-					types = inset.video.videos,
-					typeLen = types.length;
-					
-					// keep the sources info
-					$inset.vType = 'video';
-					$inset.vSource = [];
-					
-					while (typeLen--) {
-						sources = types[typeLen].sources,
-						srcLen = sources.length;
+					if (inset.type === 'image') {
+						$inset.vType = 'image';
 						
-						node += '<video id="test" class="vid-inset">';
-						
+						node += '<div style="width: 100%;"><div id="slides' + insetLen + mapid + '" style="height: ' + (height - 20) + 'px;">';
 						while (srcLen--) {
-							node += '<source data-bind="attr:{src: vid[' + typeLen + ']}" type="' + sources[srcLen].type + '"></source>';
-							$inset.vSource[typeLen] = types[typeLen].sources;
+							var info = sources[srcLen].label;
+							
+							node += '<a class="lb-' + mapid + '_' + insetLen + '" data-bind="attr:{href: img[' + srcLen + ']}" data-lightbox="lb-' + mapid + '_' + insetLen + '" title="' + info.value + '">' +
+									'<img class="gcviz-img-inset" data-bind="attr:{src: img[' + srcLen + ']}" alt="' + info.alttext + '"></img>' +
+									'</a>';
+							$inset.vSource[srcLen] = sources[srcLen].image;
 						}
-						
+						node += '</div></div>';
+					} else if (inset.type === 'video') {
+						$inset.vType = 'video';
+					
+						node += '<video id="test" class="gcviz-vid-inset" style="height: ' + (height - 20) + 'px;">';
+						while (srcLen--) {
+							node += '<source data-bind="attr:{src: vid[' + srcLen + ']}" type="' + sources[srcLen].type + '"></source>';
+							$inset.vSource[srcLen] = sources[srcLen];
+						}
 						node += '</video>';
 					}
 				} else if (inset.type === 'html') {
-					types = inset.html.htmls,
-					typeLen = types.length;
+					var html = inset.inset;
 					
 					// keep the sources info
 					$inset.vType = 'html';
 					
-					while (typeLen--) {
-						
-						if (types[typeLen].type === 'text') {
-							node += types[typeLen].tag;
-						} else if (types[typeLen].type === 'page') {
-							node += '<iframe src="' + types[typeLen].tag + '"></iframe>'
-						}
+					if (html.type === 'text') {
+						node += '<div class="gcviz-html-inset">' + html.tag + '</div>';
+					} else if (html.type === 'page') {
+						node += '<iframe class="gcviz-html-inset" src="' + html.tag + '" style="height: ' + (height - 20) + 'px;"></iframe>';
 					}
 				}
 

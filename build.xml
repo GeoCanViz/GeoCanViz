@@ -163,6 +163,11 @@
 				<include name="**/*.js" />
 			</fileset>
 		</copy>
+		<copy todir="${dist.dir}/js/custom">
+			<fileset dir="${src.dir}/js/custom">
+				<include name="**/*.js" />
+			</fileset>
+		</copy>
 		<yui-compressor warn="false" munge="true" preserveAllSemiColons="false" fromDir="${dist.dir}" toDir="${dist.dir}" charset="utf-8">
 			<include name="**/*.css"/>
 			<include name="**/*.js"/>
@@ -192,6 +197,7 @@
     	<echo level="info" message="---Copying images---"/>
 		<copy todir="${dist.dir}/images">
 			<fileset dir="${src.dir}/js/images/jqueryui"/>
+			<fileset dir="${src.dir}/js/images/lightbox"/>
 			<fileset dir="${src.dir}/js/images/main"/>
 			<fileset dir="${src.dir}/js/images/anno"/>
 			<fileset dir="${src.dir}/js/images/nav"/>

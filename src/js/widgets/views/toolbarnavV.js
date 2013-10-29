@@ -19,19 +19,23 @@
 				tp,
 				node = '';
 			
-			tp = new dojotitle({id: 'tbnav' + mapid, title:'Navigation', content: '<div class="toolbarnav-content toolbar-content"></div>', open: false});
-			$mapElem.find('.toolbars-holder').append(tp.domNode);
+			tp = new dojotitle({id: 'tbnav' + mapid, title:'Navigation', content: '<div class="gcviz-tbnav-content gcviz-tbcontent"></div>', open: false});
+			$mapElem.find('.gcviz-tbholder').append(tp.domNode);
 			tp.startup();
 			
-			$toolbar = $mapElem.find('.toolbarnav-content');
+			// add tabinndex
+			tp.domNode.getElementsByClassName('dijitTitlePaneTitleFocus')[0].setAttribute('tabindex', '1');
 			
-			// set full extent button button
+			// find toolbar and start to add items
+			$toolbar = $mapElem.find('.gcviz-tbnav-content');
+			
+			// set full extent button
 			if (config.fullextent) {
-				node += '<button class="toolbarnav-button" data-bind="click: extentClick"><img class="img-button" data-bind="attr:{src: imgExtent}"></img></button>';
+				node += '<button class="gcviz-button" tabindex="1" data-bind="click: extentClick"><img class="gcviz-img-button" data-bind="attr:{src: imgExtent}"></img></button>';
 			}
 			
 			$toolbar.append(node);
-			toolbarnavVM.initialize($mapElem.find('.toolbarnav-content'), mapid);
+			toolbarnavVM.initialize($toolbar, mapid);
 		};
 		
 		return {

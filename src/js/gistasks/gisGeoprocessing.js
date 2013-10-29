@@ -10,16 +10,15 @@
 	'use strict';
 	define([], function() {
 	
-		var project,
-			getCoord,
+		var getCoord,
 			getNorthAngle,
 			params = new esri.tasks.ProjectParameters(),
 			gsvc;
 
 		getCoord = function(point, div, config) {
-			var outSR = new esri.SpatialReference({ wkid: config.outwkid});
+			var outSR = new esri.SpatialReference({wkid: config.outwkid});
 			
-			if (typeof gsvc === "undefined") {
+			if (typeof gsvc === 'undefined') {
 				gsvc = new esri.tasks.GeometryService(config.urlgeomserv);
 			}
 	
@@ -34,8 +33,8 @@
 		
 		getNorthAngle = function(extent, div, config) {
 			
-			var outSR = new esri.SpatialReference({ wkid: 4326}),
-				pointB = new esri.geometry.Point((extent.xmin + extent.xmax)/2, extent.ymin, new esri.SpatialReference({ wkid: config.inwkid }));
+			var outSR = new esri.SpatialReference({wkid: 4326}),
+				pointB = new esri.geometry.Point((extent.xmin + extent.xmax)/2, extent.ymin, new esri.SpatialReference({wkid: config.inwkid}));
 				params.geometries = [pointB];
 				params.outSR = outSR;
 
@@ -53,10 +52,10 @@
 					lat1 = pointA.y * Math.PI / 180;
 					lat2 = pointB.y * Math.PI / 180;
 					y = Math.sin(dLon) * Math.cos(lat2);
-					x = Math.cos(lat1)*Math.sin(lat2) - Math.sin(lat1)*Math.cos(lat2)*Math.cos(dLon);
+					x = Math.cos(lat1) * Math.sin(lat2) - Math.sin(lat1) * Math.cos(lat2) * Math.cos(dLon);
 					bearing = Math.atan2(y, x)  * 180 / Math.PI;
-					bearing = ((bearing + 360) % 360).toFixed(1) - 90; //Converting -ve to +ve (0-360) 
-	                
+					bearing = ((bearing + 360) % 360).toFixed(1) - 90; //Converting -ve to +ve (0-360)
+					 
 					dojo.byId(div).style.webkitTransform = 'rotate(' + bearing + 'deg)';
 					dojo.byId(div).style.MozTransform = 'rotate(' + bearing + 'deg)';
 					dojo.byId(div).style.msTransform = 'rotate(' + bearing + 'deg)';

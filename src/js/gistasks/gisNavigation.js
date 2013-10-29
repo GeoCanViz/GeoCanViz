@@ -5,19 +5,17 @@
  *
  * GIS navigation functions
  */
-/* global esri: false, dojo: false */
 (function () {
 	'use strict';
 	define([], function() {
-		var initialize,
-			zoomFullExtent;
+		var zoomFullExtent;
 			
 		zoomFullExtent = function(mymap) {
 			mymap.setExtent(mymap.vInitExtent, mymap.spatialReference.wkid);
 		};
 			
 		return {
-			zoomFullExtent: zoomFullExtent,
+			zoomFullExtent: zoomFullExtent
 		};
 	});
 }());

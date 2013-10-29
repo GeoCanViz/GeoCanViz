@@ -1,29 +1,42 @@
 @import "gcviz-mixin";
 
-.toolbarfoot {
-	width: 100%;
-	height: 30px;
-	text-align: center;
-	padding-top: 10px;
-	@include app-gradiant-reverse;
-}
-
-%toolbarfoot-display {
+%gcviz-tbfoot-display {
 	display: inline;
 	float: left;
-	margin-left: 20px;
-}
-	
-.toolbarfoot-coords {
-	color:#000;
-	@include app-text(1.2, normal);
-	@extend %toolbarfoot-display;
+	margin-left: 2rem;
 }
 
-.toolbarfoot-north {
-	@extend %toolbarfoot-display;
-	-webkit-transform: rotate(90deg); /* Safari & Chrome */
-	-moz-transform: rotate(90deg); /* Firefox */
-	-ms-transform: rotate(90deg); /* Internet Explorer */
-	-o-transform: rotate(90deg); /* Opera */
+.gcviz-tbfoot {
+	width: 100%;
+	height: 4rem;
+	text-align: center;
+	@include app-gradiant-reverse;
+	
+	.gcviz-tbfoot-coords {
+    margin-top: 1.2rem;
+    @include app-text;
+		@extend %gcviz-tbfoot-display;
+	}
+	
+	.gcviz-tbfoot-north {
+  	margin-top: 0.9rem;
+  	@extend %gcviz-tbfoot-display;
+		-webkit-transform: rotate(90deg); /* Safari & Chrome */
+		-moz-transform: rotate(90deg); /* Firefox */
+		-ms-transform: rotate(90deg); /* Internet Explorer */
+		-o-transform: rotate(90deg); /* Opera */
+		
+		.gcviz-tbfoot-imgarrow {
+		  height: 2.2rem;
+		  width: 2.2rem;
+		}
+	}
 }
+
+
+	
+
+
+
+
+

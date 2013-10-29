@@ -11,11 +11,9 @@
 		'jquery',
 		'dojo/dom',
 		'dojo/dom-style',
-
 		'knockout',
-		'gcviz-gismap',
-		'gcviz-gisgeo'
-	], function($, dom, domStyle, ko, gisM, gisGeo) {
+		'gcviz-gismap'
+	], function($, dom, domStyle, ko, gisM) {
 		var initialize;
 
 		initialize = function($mapElem) {
@@ -25,11 +23,7 @@
 			var mapViewModel = function($mapElem) {
 				var _self = this,
 					config = $mapElem.mapframe,
-					myMap;
-				
-				_self.errorHandler = function(error) {
-					console.log('error map view model: ', error);
-				};
+					mymap;
 		
 				_self.init = function() {
 					var len = config.map.length,
@@ -44,24 +38,34 @@
 							$container;
 						
 						// create map	
-						myMap = gisM.createMap(mapid + '_' + len, configMap);
+						mymap = gisM.createMap(mapid + '_' + len, configMap);
 						
 						// add layers
-						layers = layers.reverse()
+						layers = layers.reverse();
 						while (lenLayers--) {
 							var layer = layers[lenLayers];
-							gisM.addLayer(myMap, layer.type, layer.url);
+							gisM.addLayer(mymap, layer.type, layer.url);
 						}
 						
 						// set events (mouseover mouseout focusin focusout)
-						$map.on('mouseenter mouseleave focusin focusout', function(e){
-							var type = e.type,
-								$this = $(this);
+						$map.on('mouseenter mouseleave focusin focusout', function(e) {
+							var type = e.type;
 							if (type === 'mouseenter' || type === 'focusin') {
 								this.focus();
 							} else if (type === 'mouseleave' || type === 'focusout') {
 								this.blur();
 							}
+						});
+						
+						// resize the map on load to ensure everything is set corretcly. if we dont do this, every maps after
+						// the first one are not set properly
+						mymap.on('load', function(e) {
+							e.map.resize();
+							
+							// enable navigation
+							mymap.enableScrollWheelZoom();
+							mymap.enableKeyboardNavigation();
+							mymap.isZoomSlider = false;
 						});
 						
 						// set class and remove cursor for container
@@ -72,15 +76,26 @@
 						$container.addClass('gcviz-container');
 						$container.css('cursor', '');
 						
-						// enable scroll wheel
-						myMap.enableScrollWheelZoom();
-						
-						map.push(myMap);
+						_self.focus();
+							
+						map.push(mymap);
 					}
 
 					return { controlsDescendantBindings: true };
 				};
 
+				_self.focus = function() {
+					// focus
+					_self.mapfocus = ko.observable();
+					_self.mapfocus.focused = ko.observable();
+					_self.mapfocus.focused.subscribe(function(newValue) {
+						if (!newValue) {
+							// call link map
+							//$map[0].fireEvent("on" + event.eventType, event);
+						}
+					});
+				};
+				
 				_self.init();
 			};
 			ko.applyBindings(new mapViewModel($mapElem), $mapElem[0]); // This makes Knockout get to work

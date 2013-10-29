@@ -68,17 +68,9 @@
 				"alttext": "My html 1",
 				"justify": "left"
 			},
-			"html" : {
-				"interval": 0,
-				"htmls" :[{
-					"label": {
-						"value": "My description 1",
-						"alttext": "My description 1",
-						"justify": "left"
-					},
-					"type": "text",
-					"tag": "<span>Store, organize, search, share. Free 30 day trial. Try us today.</span>"
-				}]
+			"inset": {
+				"type": "text",
+				"tag": "<span>Cette carte est un example avec une insertion texte.</span>"
 			}
 		}, {
 			"pos": {
@@ -91,17 +83,9 @@
 				"alttext": "My html 2",
 				"justify": "left"
 			},
-			"html" : {
-				"interval": 0,
-				"htmls" :[{
-					"label": {
-						"value": "My description 2",
-						"alttext": "My description 2",
-						"justify": "left"
-					},
-					"type": "page",
-					"tag": "http://www.w3schools.com"
-				}]
+			"inset": {
+				"type": "page",
+				"tag": "http://www.w3schools.com"
 			}
 		}]
 	},

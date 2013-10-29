@@ -5,14 +5,15 @@
  *
  * Toolbar main view model widget
  */
-/* global ActiveXObject: false, locationPath: false */
+/* global locationPath: false */
 (function() {
 	'use strict';
 	define([
 		'jquery',
 		'knockout',
-		'gcviz-i18n'
-	], function($, ko, i18n) {
+		'gcviz-i18n',
+		'gcviz-ko'
+	], function($, ko, i18n, binding) {
 		var initialize;
 		
 		initialize = function($mapElem, mapid) {
@@ -20,10 +21,11 @@
 			// data model				
 			var toolbarmainViewModel = function($mapElem, mapid) {
 				var _self = this,
-					pathFullscreen = locationPath + '/dist/images/mainFullscreen.png',
-					pathSmallscreen = locationPath + '/dist/images/mainSmallscreen.png',
-					pathTools = locationPath + '/dist/images/mainTools.png',
-					pathHelp = locationPath + '/dist/images/mainHelp.png',
+					pathFullscreen = locationPath + 'dist/images/mainFullscreen.png',
+					pathShowInset = locationPath + 'dist/images/mainShowInset.png',
+					pathSmallscreen = locationPath + 'dist/images/mainSmallscreen.png',
+					pathTools = locationPath + 'dist/images/mainTools.png',
+					pathHelp = locationPath + 'dist/images/mainHelp.png',
 					$section = $('#section' + mapid),
 					$mapholder = $('#' + mapid),
 					$map = $('#' + mapid + '_0');
@@ -32,26 +34,51 @@
 				
 				// images path
 				_self.imgFullscreen = ko.observable(pathFullscreen);
+				_self.imgShowInset = pathShowInset;
 				_self.imgTools = pathTools;
 				_self.imgHelp = pathHelp;
 				
-				_self.errorHandler = function(error) {
-					console.log('error toolbar main view model: ', error);
-				};
-		
+				// enable/disable
+				_self.enableViewInset = ko.observable(true);
+				
+				// tooltip
+				_self.tpHelp = i18n.getDict('%toolbarmain-tphelp');
+				_self.tpTools = i18n.getDict('%toolbarmain-tptools');
+				_self.tpInset = i18n.getDict('%toolbarmain-tpinset');
+				_self.tpFullScreen = i18n.getDict('%toolbarmain-tpfullscreen');
+
 				_self.init = function() {
+					// keep map size
 					_self.heightSection = $section.css('height');
 					_self.widthSection = $section.css('width');
 					_self.heightMap = $map.css('height');
 					_self.widthMap = $map.css('width');
 					
-					$(document).on('keyup', function(e) {
-						if (e.keyCode === 27) {
+					// keep state
+					_self.insetState = '';
+				
+					// full screen event
+					$section[0].addEventListener('fullscreenchange', function () {
+						if (!document.fullscreen) {
 							_self.cancelFullScreen(document, mapid);
 							_self.imgFullscreen(pathFullscreen);
 						}
-					});
-						
+					}, false);
+ 
+					$section[0].addEventListener('mozfullscreenchange', function () {
+						if (!document.mozFullScreen) {
+							_self.cancelFullScreen(document, mapid);
+							_self.imgFullscreen(pathFullscreen);
+						}
+					}, false);
+ 
+					$section[0].addEventListener('webkitfullscreenchange', function () {
+						if (!document.webkitIsFullScreen) {
+							_self.cancelFullScreen(document, mapid);
+							_self.imgFullscreen(pathFullscreen);
+						}
+					}, false);
+
 					return { controlsDescendantBindings: true };
 				};
 					
@@ -68,10 +95,24 @@
 					}
 				};
 				
+				_self.insetClick = function(force) {
+					var tool = $mapholder.find('.gcviz-inset' + mapid);
+					if (force === 'hidden') {
+						tool.addClass('hidden');
+					} else if (tool.hasClass('hidden')) {
+						tool.removeClass('hidden');
+					} else {
+						tool.addClass('hidden');
+					}
+				};
+				
 				_self.toolsClick = function() {
-					var tool = $mapholder.find('.toolbars-holder');
+					var tool = $mapholder.find('.gcviz-tbholder');
 					if (tool.hasClass('hidden')) {
 						tool.removeClass('hidden');
+						
+						// set focus on the first element
+						$section.find('.dijitTitlePaneTitleFocus')[0].focus();
 					} else {
 						tool.addClass('hidden');
 					}
@@ -87,17 +128,16 @@
 					
 					if (requestMethod) { // cancel full screen.
 						requestMethod.call(el);
-					} else if (typeof window.ActiveXObject !== 'undefined') { // Older IE.
-						var wscript = new ActiveXObject('WScript.Shell');
-						if (wscript !== null) {
-							wscript.SendKeys('{F11}');
-						}
 					}
 
 					// set style
 					$section.css({'width': _self.widthSection, 'height': _self.heightSection});
 					$mapholder.css({'width': _self.widthSection, 'height': _self.heightSection});
 					$map.css({'width': _self.widthMap, 'height': _self.heightMap});
+					
+					// set back inset state and enable button
+					_self.insetClick(_self.insetState);
+					_self.enableViewInset(true);
 				};
 
 				_self.requestFullScreen = function(el, mapid) {
@@ -107,17 +147,23 @@
 
 					if (requestMethod) { // Native full screen.
 						requestMethod.call(el);
-					} else if (typeof window.ActiveXObject !== 'undefined') { // Older IE.
-						var wscript = new ActiveXObject('WScript.Shell');
-							if (wscript !== null) {
-								wscript.SendKeys('{F11}');
-							}
 					}
 					
 					// set style
 					el.setAttribute('style','width: 100%; height: 100%;');
 					el.getElementsByClassName('gcviz')[0].setAttribute('style','width: 100%; height: 93%;');
 					el.getElementsByClassName('gcviz-map')[0].setAttribute('style','width: 100%; height: 100%;');
+					
+					// hide inset
+					if ($mapholder.find('.gcviz-inset' + mapid).hasClass('hidden')) {
+						_self.insetState = 'hidden';
+					} else {
+						_self.insetState = '';
+					}
+					_self.insetClick('hidden');
+					
+					// disable show inset button
+					_self.enableViewInset(false);
 				};
 				
 				_self.init();

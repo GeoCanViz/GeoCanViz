@@ -11,20 +11,16 @@
 	define([
 		'jquery',
 		'knockout',
-		'jqueryslide'
-	], function($, ko, jqslide) {
+		'jqueryslide',
+		'lightbox'
+	], function($, ko, slidesjs, lightbox) {
 		var initialize;
 		
 		initialize = function($mapElem, mapid) {
 
 			// data model				
 			var insetViewModel = function($mapElem, mapid) {
-				var _self = this,
-					mymap = mapArray[mapid][0];
-				
-				_self.errorHandler = function(error) {
-					console.log('error inset view model: ', error);
-				};
+				var _self = this;
 		
 				_self.init = function() {
 					var type = $mapElem.vType,
@@ -51,34 +47,26 @@
 								height: 80,
 								width: 240,
 								navigation: {
-						          effect: 'fade'
-						        },
-						        pagination: {
-						          effect: 'fade'
-						        },
-						        effect: {
-						          fade: {
-						            speed: 400
-						          }
-						        },
-						        play: {
-							      active: true,
-							        // [boolean] Generate the play and stop buttons.
-							        // You cannot use your own buttons. Sorry.
-							      effect: "slide",
-							        // [string] Can be either "slide" or "fade".
-							      interval: 5000,
-							        // [number] Time spent on each slide in milliseconds.
-							      auto: true,
-							        // [boolean] Start playing the slideshow on load.
-							      swap: true,
-							        // [boolean] show/hide stop and play buttons
-							      pauseOnHover: false,
-							        // [boolean] pause a playing slideshow on hover
-							      restartDelay: 2500
-							        // [number] restart delay on inactive slideshow
-							    }
-		      				});
+									effect: 'fade'
+								},
+								pagination: {
+									effect: 'fade'
+								},
+								effect: {
+									fade: {
+										speed: 400
+									}
+								},
+								play: {
+									active: true,
+									effect: "slide",
+									interval: 5000,
+									auto: true,
+									swap: true,
+									pauseOnHover: false,
+									restartDelay: 2500
+								}
+							});
 						}
 					} else if (type === 'video') {
 						length = $mapElem.vSource.length;
@@ -87,15 +75,10 @@
 						_self.vid = [];
 						
 						while (length--) {
-							var lengthSrc = $mapElem.vSource[length].length;
-							
-							while (lengthSrc--) {
-								if ($mapElem.vSource[length][lengthSrc].location === 'internet') {
-								_self.vid[length] = $mapElem.vSource[length][lengthSrc].url;
-								}
-								else {
-									_self.vid[length] = locationPath + $mapElem.vSource[length][lengthSrc].url;
-								}
+							if ($mapElem.vSource[length].location === 'internet') {
+								_self.vid[length] = $mapElem.vSource[length].url;
+							} else {
+								_self.vid[length] = locationPath + $mapElem.vSource[length].url;
 							}
 						}
 					}
@@ -107,27 +90,27 @@
 				// _self.FirstName = ko.observable();
 				// _self.FirstName.focused = ko.observable();
 				// _self.FirstName.focused.subscribe(function(newValue) {
-				   // if (!newValue) {
-				       // //do validation logic here and set any validation observables as necessary
-				       // alert('focusout');
-				   // } else { alert('focusin');}
+					// if (!newValue) {
+						// //do validation logic here and set any validation observables as necessary
+						// alert('focusout');
+					// } else { alert('focusin');}
 				// });
-// 				
+//
 				// // handler for mouseover mouseout
 				// ko.bindingHandlers.hoverToggle = {
-				    // update: function(element, valueAccessor) {
-				       // var css = valueAccessor();
-// 				
-				        // ko.utils.registerEventHandler(element, "mouseover", function() {
-				            // //ko.utils.toggleDomNodeCssClass(element, ko.utils.unwrapObservable(css), true);
-				            // alert('in');
-				        // });  
-// 				
-				        // ko.utils.registerEventHandler(element, "mouseout", function() {
-				        	// alert('out');
-				            // //ko.utils.toggleDomNodeCssClass(element, ko.utils.unwrapObservable(css), false);
-				        // });   
-				    // } 
+					// update: function(element, valueAccessor) {
+						// var css = valueAccessor();
+//
+				// ko.utils.registerEventHandler(element, "mouseover", function() {
+						// //ko.utils.toggleDomNodeCssClass(element, ko.utils.unwrapObservable(css), true);
+							// alert('in');
+						// });  
+//
+				// ko.utils.registerEventHandler(element, "mouseout", function() {
+							// alert('out');
+							// //ko.utils.toggleDomNodeCssClass(element, ko.utils.unwrapObservable(css), false);
+						// });   
+						// } 
 				// };
 				
 				_self.insetClick = function() {

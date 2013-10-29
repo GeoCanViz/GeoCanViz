@@ -8,7 +8,7 @@
 /* global esri: false, dojo: false */
 (function () {
 	'use strict';
-	define([], function() {
+	define(['jquery'], function($) {
 		var initialize;
 			
 		initialize = function(mymap) {
@@ -23,12 +23,12 @@
 					font  = new esri.symbol.Font();
 				
 				_self.init = function() {
-					toolbar = new esri.toolbars.Draw(map, { showTooltips: false });
+					toolbar = new esri.toolbars.Draw(map, {showTooltips: false});
 					dojo.connect(toolbar, 'onDrawEnd', addToMap);
 					
 					// set font
 					font.setSize('10pt');
-         			font.setWeight(esri.symbol.Font.WEIGHT_BOLD);;
+					font.setWeight(esri.symbol.Font.WEIGHT_BOLD);
 				};
 				
 				_self.drawLine = function() {
@@ -46,19 +46,20 @@
 				
 				addToMap = function(geometry) {
 					var symbol,
-						graphic;
+						graphic,
+						$cursor = $('#' + map.vIdName + '_0_container');
 						
 					toolbar.deactivate();
 					
 					if (geometry.type === 'polyline') {
 						symbol = new esri.symbol.SimpleLineSymbol(esri.symbol.SimpleLineSymbol.STYLE_SOLID, new dojo.Color('#FF0000'), 3);
-						$('#' + map.vIdName + '_0_container').removeClass('gcviz-draw-cursor')
+						$cursor.removeClass('gcviz-draw-cursor');
 					} else if (geometry.type === 'point') {
 						symbol = new esri.symbol.TextSymbol(text);
 						symbol.setFont(font);
 						symbol.setOffset(0, 0);
 						text = '';
-						$('#' + map.vIdName + '_0_container').removeClass('gcviz-text-cursor')
+						$cursor.removeClass('gcviz-text-cursor');
 					}
  
 					graphic = new esri.Graphic(geometry, symbol);

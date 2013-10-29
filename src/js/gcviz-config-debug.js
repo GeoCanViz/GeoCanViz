@@ -10,7 +10,6 @@
 	'use strict';
 	// get the language
 	var url = window.location.toString(),
-		pathRegex = new RegExp(/\/[^\/]+$/),
 		locationPath,
 		language = 'en-min',
 		metas,
@@ -41,15 +40,15 @@
 			locationPath = url.substring(0, url.search('GeoCanViz')) + 'GeoCanViz/';
 		} else {
 			if  (language === 'fr-min') {
-				alert('Définir le meta paramètre "location" ou mettre le site web dans un répertoire nommé "GeoCanViz"');
+				console.log('Définir le meta paramètre "location" ou mettre le site web dans un répertoire nommé "GeoCanViz"');
 			} else {
-				alert('Define "location" meta paramter or put web site in a folder called "GeoCanViz"');
+				console.log('Define "location" meta paramter or put web site in a folder called "GeoCanViz"');
 			}
 		}
 	}
 
 	// detect browser (code from http://www.quirksmode.org/)
-	var BrowserDetect = {
+	var browserDetect = {
 		init: function() {
 			window.browser = this.searchString(this.dataBrowser) || 'unknown';
 			window.browserversion = this.searchVersion(navigator.userAgent) || this.searchVersion(navigator.appVersion) || 'unknown';
@@ -66,7 +65,7 @@
 			this.versionSearchString = data[i].versionSearch || data[i].identity;
 			
 			if (dataString) {
-				if (dataString.indexOf(data[i].subString) != -1) {
+				if (dataString.indexOf(data[i].subString) !== -1) {
 					return data[i].identity;
 				}
 			}
@@ -78,7 +77,7 @@
 	},
 	searchVersion: function(dataString) {
 		var index = dataString.indexOf(this.versionSearchString);
-		if (index == -1) {
+		if (index === -1) {
 			return;
 		} else {
 			return parseFloat(dataString.substring(index+this.versionSearchString.length+1));
@@ -111,7 +110,7 @@
 			subString: 'Camino',
 			identity: 'Camino'
 		},
-		{		// for newer Netscapes (6+)
+		{	// for newer Netscapes (6+)
 			string: navigator.userAgent,
 			subString: 'Netscape',
 			identity: 'Netscape'
@@ -128,14 +127,19 @@
 			identity: 'Mozilla',
 			versionSearch: 'rv'
 		},
-		{ 		// for older Netscapes (4-)
+		{	// for older Netscapes (4-)
 			string: navigator.userAgent,
 			subString: 'Mozilla',
 			identity: 'Netscape',
 			versionSearch: 'Mozilla'
 		}]
 	};
-	BrowserDetect.init();
+	browserDetect.init();
+	
+	// if browser not supported, redirect
+	if (window.browser === 'MSIE' && window.browserversion <= 10) {
+		window.location = 'http://www.google.com/';
+	}
 	
 	// load the require libraries		
 	require({
@@ -160,6 +164,10 @@
 				location: locationPath + '/src/js/dependencies',
 				main: 'jquery.slides.min'
 			}, {
+				name: 'lightbox',
+				location: locationPath + '/src/js/dependencies',
+				main: 'lightbox.min'
+			}, {
 				name: 'gcviz',
 				location: locationPath + 'src/js',
 				main: 'gcviz'
@@ -167,6 +175,10 @@
 				name: 'gcviz-i18n',
 				location: locationPath + 'dist/js',
 				main: language
+			}, {
+				name: 'gcviz-ko',
+				location: locationPath + 'src/js/custom',
+				main: 'gcviz-ko-binding'
 			}, {
 				name: 'gcviz-gismap',
 				location: locationPath + 'src/js/gistasks',

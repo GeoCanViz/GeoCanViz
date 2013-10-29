@@ -22,12 +22,12 @@
 			// data model				
 			var toolbarannoViewModel = function($mapElem, mapid) {
 				var _self = this,
-					pathDraw = locationPath + '/dist/images/annoDraw.png',
-					pathText = locationPath + '/dist/images/annoText.png',
-					pathErase = locationPath + '/dist/images/annoErase.png',
-					pathMeasure = locationPath + '/dist/images/annoMeasure.png',
-					pathImport = locationPath + '/dist/images/annoImport.png',
-					pathExport = locationPath + '/dist/images/annoExport.png',
+					pathDraw = locationPath + 'dist/images/annoDraw.png',
+					pathText = locationPath + 'dist/images/annoText.png',
+					pathErase = locationPath + 'dist/images/annoErase.png',
+					pathMeasure = locationPath + 'dist/images/annoMeasure.png',
+					pathImport = locationPath + 'dist/images/annoImport.png',
+					pathExport = locationPath + 'dist/images/annoExport.png',
 					mymap = mapArray[mapid][0],
 					mygraphic = new gisGraphic.initialize(mymap);
 
@@ -39,8 +39,17 @@
 				_self.imgImport = ko.observable(pathImport);
 				_self.imgExport = ko.observable(pathExport);
 				
+				// tooltip
+				_self.tpDraw = i18n.getDict('%toolbaranno-tpdraw');
+				_self.tpText = i18n.getDict('%toolbaranno-tptext');
+				_self.tpErase = i18n.getDict('%toolbaranno-tperase');
+				
+				// keep info for annotation input box
+				_self.mapid = mapid;
+				_self.graphic = mygraphic;
+				
 				// set annotation window
-				$('#anno-inputbox').dialog({
+				$('#gcviz-anno-inputbox').dialog({
 					autoOpen: false,
 					modal: true,
 					resizable: false,
@@ -54,11 +63,14 @@
 					buttons: [{ 
 								text: 'Ok',
 								click: function() {
-											var value = $('#value').val();
+											var value = $('#value').val(),
+												$anno = $('#gcviz-anno-inputbox'),
+												mapid = $anno.dialog('option', 'mapid'),
+												graphic = $anno.dialog('option', 'graphic');
 											
 											if (value !== '') {
 												$('#' + mapid + '_0_container').addClass('gcviz-text-cursor');
-												mygraphic.drawText(value);
+												graphic.drawText(value);
 											}
 											$(this).dialog('close');
 										}
@@ -69,22 +81,21 @@
 										}
 							}] 
 				});
-					
-				_self.errorHandler = function(error) {
-					console.log('error toolbar annotation view model: ', error);
-				};
-		
+
 				_self.init = function() {
 					return { controlsDescendantBindings: true };
 				};
 				
 				_self.drawClick = function() {
 					$('#' + mapid + '_0_container').addClass('gcviz-draw-cursor');
-					mygraphic.drawLine();
+					_self.graphic.drawLine();
 				};
 				
 				_self.textClick = function() {
-					$('#anno-inputbox').dialog('open');
+					var $anno = $('#gcviz-anno-inputbox');
+					$anno.dialog('open');
+					// set graphic and mapid to the current map
+					$anno.dialog('option', {graphic: _self.graphic, mapid: _self.mapid});
 				};
 			
 				_self.eraseClick = function() {

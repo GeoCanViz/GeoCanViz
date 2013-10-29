@@ -15,33 +15,42 @@
 			var $toolbar,
 				config = $mapElem.toolbarmain,
 				mapid = $mapElem.mapframe.id,
-				title = config.title,
+				title = config.title.value,
 				node = '';
 			
-			$mapElem.find('#' + mapid).prepend('<div id="tbmain' + mapid + '" class="toolbarmain"></div>');
-			$toolbar = $mapElem.find('.toolbarmain');
+			$mapElem.find('#' + mapid).prepend('<div id="tbmain' + mapid + '" class="gcviz-tbmain"></div>');
+			$toolbar = $mapElem.find('.gcviz-tbmain');
 			
 			// set title
-			if (typeof title.value !== 'undefined') {
-				node += '<label class="toolbarmain-title">' + title.value + '</label>';
+			if (typeof title !== 'undefined') {
+				node += '<div class="gcviz-tbmain-title"><label class="gcviz-tbmain-titlelabel">' + title + '</label></div>';
+			}
+			
+			// add buttons
+			node += '<div class="gcviz-tbmain-button">';
+			// set help button (must always be there!)
+			node += '<button class="gcviz-button" tabindex="1" data-bind="click: helpClick, tooltip: { content: tpHelp }"><img class="gcviz-img-button" data-bind="attr:{src: imgHelp}"></img></button>';
+
+			// set tools button
+			if (config.tools) {
+				node += '<button class="gcviz-button" tabindex="1" data-bind="click: toolsClick, tooltip: { content: tpTools }"><img class="gcviz-img-button" data-bind="attr:{src: imgTools}"></img></button>';
+				$mapElem.find('.gcviz-tbmain').after('<div class="gcviz-tbholder hidden"></div>');
+			}
+			
+			// set inset button if inset are present
+			if ($mapElem.insetframe.enable) {
+				node += '<button class="gcviz-button" tabindex="1" data-bind="click: insetClick, tooltip: { content: tpInset }, enable: enableViewInset"><img class="gcviz-img-button" data-bind="attr:{src: imgShowInset}"></img></button>';
 			}
 			
 			// set fullscreen button
 			if (config.fullscreen) {
-				node += '<button class="toolbarmain-button" tabindex="1" data-bind="click: fullscreenClick"><img class="img-button" data-bind="attr:{src: imgFullscreen}"></img></button>';
+				node += '<button class="gcviz-button" tabindex="1" data-bind="click: fullscreenClick, tooltip: { content: tpFullScreen }"><img class="gcviz-img-button" data-bind="attr:{src: imgFullscreen}"></img></button>';
 			}
+			node += '</div>';
 			
-			// set tools button
-			if (config.tools) {
-				node += '<button class="toolbarmain-button" tabindex="1" data-bind="click: toolsClick"><img class="img-button" data-bind="attr:{src: imgTools}"></img></button>';
-				$mapElem.find('.toolbarmain').after('<div class="toolbars-holder hidden"></div>');
-			}
-			
-			// set help button (must always be there!)
-			node += '<button class="toolbarmain-button" tabindex="1" data-bind="click: helpClick"><img class="img-button" data-bind="attr:{src: imgHelp}"></img></button>';
 			
 			$toolbar.append(node);
-			toolbarmainVM.initialize($mapElem.find('.toolbarmain'), mapid);
+			toolbarmainVM.initialize($toolbar, mapid);
 		};
 		
 		return {

@@ -68,15 +68,15 @@
 				"alttext": "My image 1",
 				"justify": "left"
 			},
-			"image" : {
+			"inset" : {
 				"interval": 0,
-				"images" :[{
+				"sources" :[{
 					"label": {
 						"value": "My description 1",
 						"alttext": "My description 1",
 						"justify": "left"
 					},
-					"sources": {
+					"image": {
 						"location": "local",
 						"url": "demos/inset/canada1.jpg"
 					}
@@ -86,7 +86,7 @@
 						"alttext": "My description 2",
 						"justify": "left"
 					},
-					"sources": {
+					"image": {
 						"location": "local",
 						"url": "demos/inset/canada2.jpg"
 					}
@@ -96,9 +96,19 @@
 						"alttext": "My description 3",
 						"justify": "left"
 					},
-					"sources": {
+					"image": {
 						"location": "local",
 						"url": "demos/inset/canada3.jpg"
+					}
+				}, {
+					"label": {
+						"value": "My description 4",
+						"alttext": "My description 4",
+						"justify": "left"
+					},
+					"image": {
+						"location": "local",
+						"url": "demos/inset/canada4.jpg"
 					}
 				}]
 			}
@@ -113,15 +123,15 @@
 				"alttext": "My image 2",
 				"justify": "left"
 			},
-			"image" : {
+			"inset" : {
 				"interval": 0,
-				"images" :[{
+				"sources" :[{
 					"label": {
 						"value": "My description 2",
 						"alttext": "My description 2",
 						"justify": "left"
 					},
-					"sources": {
+					"image": {
 						"location": "internet",
 						"url": "http://rlv.zcache.ca/made_in_canada_stickers-r750856602c5c4ed6b54f7cb978573f04_v9waf_8byvr_324.jpg?bg=0xffffff"
 					}
@@ -138,15 +148,15 @@
 				"alttext": "My image 3",
 				"justify": "left"
 			},
-			"image" : {
+			"inset" : {
 				"interval": 0,
-				"images" :[{
+				"sources" :[{
 					"label": {
 						"value": "My description 3",
 						"alttext": "My description 3",
 						"justify": "left"
 					},
-					"sources": {
+					"image": {
 						"location": "internet",
 						"url": "http://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Boulevard_Ren%C3%A9-L%C3%A9vesque_Est_Montr%C3%A9al_Canada.jpg/267px-Boulevard_Ren%C3%A9-L%C3%A9vesque_Est_Montr%C3%A9al_Canada.jpg"
 					}
