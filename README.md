@@ -18,7 +18,7 @@ This application is built in JavaScript with AMD (Asynchronous Module Definition
 * [Knockout](http://knockoutjs.com)
 * [jQuery](https://github.com/wet-boew/wet-boew/wiki/Downloads)
 * [jQueryUI](http://jqueryui.com/)
-* [Lightbox2])http://lokeshdhakar.com/projects/lightbox2/)
+* [Lightbox2](http://lokeshdhakar.com/projects/lightbox2/)
 * [SASS](http://sass-lang.com)
 
 ## References
