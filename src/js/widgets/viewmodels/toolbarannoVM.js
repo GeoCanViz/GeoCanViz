@@ -22,12 +22,12 @@
 			// data model				
 			var toolbarannoViewModel = function($mapElem, mapid) {
 				var _self = this,
-					pathDraw = locationPath + 'dist/images/annoDraw.png',
-					pathText = locationPath + 'dist/images/annoText.png',
-					pathErase = locationPath + 'dist/images/annoErase.png',
-					pathMeasure = locationPath + 'dist/images/annoMeasure.png',
-					pathImport = locationPath + 'dist/images/annoImport.png',
-					pathExport = locationPath + 'dist/images/annoExport.png',
+					pathDraw = locationPath + 'gcviz/images/annoDraw.png',
+					pathText = locationPath + 'gcviz/images/annoText.png',
+					pathErase = locationPath + 'gcviz/images/annoErase.png',
+					pathMeasure = locationPath + 'gcviz/images/annoMeasure.png',
+					pathImport = locationPath + 'gcviz/images/annoImport.png',
+					pathExport = locationPath + 'gcviz/images/annoExport.png',
 					mymap = mapArray[mapid][0],
 					mygraphic = new gisGraphic.initialize(mymap);
 

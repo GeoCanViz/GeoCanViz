@@ -21,7 +21,7 @@
 			// data model				
 			var toolbarnavViewModel = function($mapElem, mapid) {
 				var _self = this,
-					pathExtent = locationPath + 'dist/images/navFullExtent.png',
+					pathExtent = locationPath + 'gcviz/images/navFullExtent.png',
 					mymap = mapArray[mapid][0];
 
 				// images path

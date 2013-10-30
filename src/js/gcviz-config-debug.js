@@ -157,15 +157,15 @@
 				main: 'knockout.min'
 			}, {
 				name: 'jqueryui',
-				location: locationPath + '/src/js/dependencies',
+				location: locationPath + 'src/js/dependencies',
 				main: 'jqueryui.min'
 			}, {
 				name: 'jqueryslide',
-				location: locationPath + '/src/js/dependencies',
+				location: locationPath + 'src/js/dependencies',
 				main: 'jquery.slides.min'
 			}, {
 				name: 'lightbox',
-				location: locationPath + '/src/js/dependencies',
+				location: locationPath + 'src/js/dependencies',
 				main: 'lightbox.min'
 			}, {
 				name: 'gcviz',
@@ -173,7 +173,7 @@
 				main: 'gcviz'
 			}, {
 				name: 'gcviz-i18n',
-				location: locationPath + 'dist/js',
+				location: locationPath + 'gcviz/js',
 				main: language
 			}, {
 				name: 'gcviz-ko',

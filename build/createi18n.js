@@ -10,7 +10,7 @@
 
 	var dirObj = new java.io.File('.'),
 		csvPath = (dirObj.getAbsolutePath().replace('.', '') + 'src/js/i18n/'),
-		destPath = (dirObj.getAbsolutePath().replace('.', '') + 'dist/js/'),
+		destPath = (dirObj.getAbsolutePath().replace('.', '') + 'gcviz/js/'),
 		outEn = new java.io.File(destPath + 'en-min.js'),
 		outFr = new java.io.File(destPath + 'fr-min.js'),
 		buffEn = new java.io.BufferedWriter(new java.io.FileWriter(outEn));
