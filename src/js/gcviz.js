@@ -13,13 +13,13 @@ var mapArray = {},
 	var mapsTotal,
 		mapsNum;
 
-	define(['jquery',
-			'gcviz-v-map',
+	// there is a conflict between jQuery in gcviz and in WET. For this reason, we define jquery only when a dependency needs it like in inset.
+	define(['gcviz-v-map',
 			'gcviz-v-inset',
 			'gcviz-v-tbmain',
 			'gcviz-v-tbfoot',
 			'gcviz-v-tbanno',
-			'gcviz-v-tbnav'], function($, map,inset, toolbarmain, toolbarfoot, toolbaranno, toolbarnav) {
+			'gcviz-v-tbnav'], function(map,inset, toolbarmain, toolbarfoot, toolbaranno, toolbarnav) {
 		var initialize,
 			readConfig,
 			execConfig,
@@ -82,7 +82,7 @@ var mapArray = {},
 				size = config.mapframe.size;
 			
 			// create section around map. This way we can bind Knockout to the section
-			$mapElem.wrap('<section id=section' + mapid + ' class="gcviz-section" style="width:' + size.width + 'px; height:' + size.height + 'px;">');
+			$mapElem.wrap('<section id=section' + mapid + ' class="gcviz-section" role="map" style="width:' + size.width + 'px; height:' + size.height + 'px;">');
 			$mapSection = $(document).find('#section' + mapid);
 			
 			// extend the section with configuration file info

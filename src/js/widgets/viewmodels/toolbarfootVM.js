@@ -9,11 +9,10 @@
 (function() {
 	'use strict';
 	define([
-		'jquery',
 		'knockout',
 		'gcviz-i18n',
 		'gcviz-gisgeo'
-	], function($, ko, i18n, gisGeo) {
+	], function(ko, i18n, gisGeo) {
 		var initialize;
 		
 		initialize = function($mapElem, mapid, config) {

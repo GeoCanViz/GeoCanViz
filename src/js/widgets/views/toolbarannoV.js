@@ -7,11 +7,10 @@
  */
 (function() {
 	'use strict';
-	define(['jquery',
-			'gcviz-vm-tbanno',
+	define(['gcviz-vm-tbanno',
 			'dijit/TitlePane',
 			'gcviz-i18n'
-	], function($, toolbarannoVM, dojotitle, i18n) {
+	], function(toolbarannoVM, dojotitle, i18n) {
 		var initialize;
 		
 		initialize = function($mapElem) {

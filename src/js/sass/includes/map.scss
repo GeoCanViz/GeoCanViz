@@ -35,12 +35,12 @@
     }
   }
   &.tooltip {
-    width: 10rem;
+    width: (10 * $rembase) + rem;
     position: absolute;
     @include app-border($width: 0.01, $color: #7EABCD);
     @include content-border-radius(0.4);
     background-color: white;
-    padding: 0.5rem;
+    padding: (0.5 * $rembase) + rem;
     z-index: 9999;
   }
 }

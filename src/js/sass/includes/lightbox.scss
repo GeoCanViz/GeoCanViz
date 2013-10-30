@@ -38,6 +38,7 @@ body:after {
 	.lb-image {
 		display: block;
 		height: auto;
+		margin: 0;
 		@include content-border-radius(0.3);
 	}
 	a img {
@@ -49,8 +50,8 @@ body:after {
 	position: relative;
 	background-color: white;
 	*zoom: 1;
-	width: 25rem;
-	height: 25rem;
+	width: (25 * $rembase) + rem;
+	height: (25 * $rembase) + rem;
 	margin: 0 auto;
 	@include content-border-radius(0.4);
 	&:after {
@@ -59,7 +60,7 @@ body:after {
 }
 
 .lb-container {
-	padding: 0.4rem;
+	padding: (0.4 * $rembase) + rem;
 }
 
 .lb-loader {
@@ -74,8 +75,8 @@ body:after {
 
 .lb-cancel {
 	display: block;
-	width: 3.2rem;
-	height: 3.2rem;
+	width: (3.2 * $rembase) + rem;
+	height: (3.2 * $rembase) + rem;
 	margin: 0 auto;
 	background: url(#{$img-root}lightLoading.gif) no-repeat;
 }
@@ -122,7 +123,7 @@ body:after {
 
 .lb-dataContainer {
 	margin: 0 auto;
-	padding-top: 0.5rem;
+	padding-top: (0.5 * $rembase) + rem;
 	*zoom: 1;
 	width: 100%;
 	@include content-border-radius(0.4);
@@ -132,7 +133,7 @@ body:after {
 }
 
 .lb-data {
-	padding: 0 0.4rem;
+	padding: 0 (0.4 * $rembase) + rem;
 	.lb-details {
 		width: 85%;
 		float: left;
@@ -152,8 +153,8 @@ body:after {
 	.lb-close {
 		display: block;
 		float: right;
-		width: 3rem;
-		height: 3rem;
+		width: (3* $rembase) + rem;
+		height: (3* $rembase) + rem;
 		background: url(#{$img-root}lightClose.png) top right no-repeat;
 		text-align: right;
 		outline: none;

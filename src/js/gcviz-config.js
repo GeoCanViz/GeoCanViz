@@ -249,7 +249,7 @@
 
 	define.amd.jQuery = true;
 	
-	require(['jquery', 'gcviz'], function($, gcviz) {
+	require(['gcviz'], function(gcviz) {
 		return $(document).ready(function() {
 			return gcviz.initialize();
 		});
