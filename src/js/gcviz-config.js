@@ -149,99 +149,99 @@
 		packages: [
 			{
 				name: 'jquery',
-				location: locationPath + 'dist/dependencies',
+				location: locationPath + 'gcviz/dependencies',
 				main: 'jquery.min'
 			}, {
 				name: 'knockout',
-				location: locationPath + 'dist/dependencies',
+				location: locationPath + 'gcviz/dependencies',
 				main: 'knockout.min'
 			}, {
 				name: 'jqueryui',
-				location: locationPath + '/dist/dependencies',
+				location: locationPath + 'gcviz/dependencies',
 				main: 'jqueryui.min'
 			}, {
 				name: 'jqueryslide',
-				location: locationPath + '/dist/dependencies',
+				location: locationPath + 'gcviz/dependencies',
 				main: 'jquery.slides.min'
 			}, {
 				name: 'lightbox',
-				location: locationPath + '/dist/dependencies',
+				location: locationPath + 'gcviz/dependencies',
 				main: 'lightbox.min'
 			}, {
 				name: 'gcviz',
-				location: locationPath + 'dist',
+				location: locationPath + 'gcviz',
 				main: 'gcviz-min'
 			}, {
 				name: 'gcviz-i18n',
-				location: locationPath + 'dist/js',
+				location: locationPath + 'gcviz/js',
 				main: language
 			}, {
 				name: 'gcviz-ko',
-				location: locationPath + 'dist/js/custom',
+				location: locationPath + 'gcviz/js/custom',
 				main: 'gcviz-ko-binding-min'
 			}, {
 				name: 'gcviz-gismap',
-				location: locationPath + 'dist/js/gistasks',
+				location: locationPath + 'gcviz/js/gistasks',
 				main: 'gisMapUtility-min'
 			}, {
 				name: 'gcviz-gisgeo',
-				location: locationPath + 'dist/js/gistasks',
+				location: locationPath + 'gcviz/js/gistasks',
 				main: 'gisGeoprocessing-min'
 			}, {
 				name: 'gcviz-gisgraphic',
-				location: locationPath + 'dist/js/gistasks',
+				location: locationPath + 'gcviz/js/gistasks',
 				main: 'gisGraphic-min'
 			}, {
 				name: 'gcviz-gisnavigation',
-				location: locationPath + 'dist/js/gistasks',
+				location: locationPath + 'gcviz/js/gistasks',
 				main: 'gisNavigation-min'
 			}, {
 				name: 'gcviz-v-tbmain',
-				location: locationPath + 'dist/js/views',
+				location: locationPath + 'gcviz/js/views',
 				main: 'toolbarmainV-min'
 			}, {
 				name: 'gcviz-vm-tbmain',
-				location: locationPath + 'dist/js/viewmodels',
+				location: locationPath + 'gcviz/js/viewmodels',
 				main: 'toolbarmainVM-min'
 			}, {
 				name: 'gcviz-v-tbfoot',
-				location: locationPath + 'dist/js/views',
+				location: locationPath + 'gcviz/js/views',
 				main: 'toolbarfootV-min'
 			}, {
 				name: 'gcviz-vm-tbfoot',
-				location: locationPath + 'dist/js/viewmodels',
+				location: locationPath + 'gcviz/js/viewmodels',
 				main: 'toolbarfootVM-min'
 			}, {
 				name: 'gcviz-v-tbanno',
-				location: locationPath + 'dist/js/views',
+				location: locationPath + 'gcviz/js/views',
 				main: 'toolbarannoV-min'
 			}, {
 				name: 'gcviz-vm-tbanno',
-				location: locationPath + 'dist/js/viewmodels',
+				location: locationPath + 'gcviz/js/viewmodels',
 				main: 'toolbarannoVM-min'
 			}, {
 				name: 'gcviz-v-tbnav',
-				location: locationPath + 'dist/js/views',
+				location: locationPath + 'gcviz/js/views',
 				main: 'toolbarnavV-min'
 			}, {
 				name: 'gcviz-vm-tbnav',
-				location: locationPath + 'dist/js/viewmodels',
+				location: locationPath + 'gcviz/js/viewmodels',
 				main: 'toolbarnavVM-min'
 			}, {
 				name: 'gcviz-v-map',
-				location: locationPath + 'dist/js/views',
+				location: locationPath + 'gcviz/js/views',
 				main: 'mapV-min'
 			}, {
 				name: 'gcviz-vm-map',
-				location: locationPath + 'dist/js/viewmodels',
+				location: locationPath + 'gcviz/js/viewmodels',
 				main: 'mapVM-min'
 			}, {
 				name: 'gcviz-v-inset',
-				location: locationPath + 'dist/js/views',
+				location: locationPath + 'gcviz/js/views',
 				main: 'insetV-min'
 			}, {
 				name: 'gcviz-vm-inset',
-				location: locationPath + 'dist/js/viewmodels',
+				location: locationPath + 'gcviz/js/viewmodels',
 				main: 'insetVM-min'
 			}
 		]
@@ -249,7 +249,7 @@
 
 	define.amd.jQuery = true;
 	
-	require(['jquery', 'gcviz'], function($, gcviz) {
+	require(['gcviz'], function(gcviz) {
 		return $(document).ready(function() {
 			return gcviz.initialize();
 		});

@@ -9,11 +9,10 @@
 (function() {
 	'use strict';
 	define([
-		'jquery',
 		'knockout',
 		'gcviz-i18n',
 		'gcviz-ko'
-	], function($, ko, i18n, binding) {
+	], function(ko, i18n, binding) {
 		var initialize;
 		
 		initialize = function($mapElem, mapid) {
@@ -21,11 +20,11 @@
 			// data model				
 			var toolbarmainViewModel = function($mapElem, mapid) {
 				var _self = this,
-					pathFullscreen = locationPath + 'dist/images/mainFullscreen.png',
-					pathShowInset = locationPath + 'dist/images/mainShowInset.png',
-					pathSmallscreen = locationPath + 'dist/images/mainSmallscreen.png',
-					pathTools = locationPath + 'dist/images/mainTools.png',
-					pathHelp = locationPath + 'dist/images/mainHelp.png',
+					pathFullscreen = locationPath + 'gcviz/images/mainFullscreen.png',
+					pathShowInset = locationPath + 'gcviz/images/mainShowInset.png',
+					pathSmallscreen = locationPath + 'gcviz/images/mainSmallscreen.png',
+					pathTools = locationPath + 'gcviz/images/mainTools.png',
+					pathHelp = locationPath + 'gcviz/images/mainHelp.png',
 					$section = $('#section' + mapid),
 					$mapholder = $('#' + mapid),
 					$map = $('#' + mapid + '_0');

@@ -1,0 +1,17 @@
+.gcviz-head {
+	width: 100%;
+	height:80px;
+	position: relative;
+}
+
+.gcviz-head-logo {
+	margin-left: 20px;
+	height: 50px;
+	float: left;
+}
+
+.gcviz-head-h1 {
+	border: none !important;
+	line-height: 250% !important;
+	margin-left: 40%;
+}

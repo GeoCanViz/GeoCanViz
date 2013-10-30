@@ -9,11 +9,10 @@
 (function() {
 	'use strict';
 	define([
-		'jquery',
 		'knockout',
 		'gcviz-i18n',
 		'gcviz-gisgeo'
-	], function($, ko, i18n, gisGeo) {
+	], function(ko, i18n, gisGeo) {
 		var initialize;
 		
 		initialize = function($mapElem, mapid, config) {
@@ -21,7 +20,7 @@
 			// data model				
 			var toolbarfootViewModel = function($mapElem, mapid, config) {
 				var _self = this,
-					pathNorth = locationPath + 'dist/images/footNorthArrow.png';
+					pathNorth = locationPath + 'gcviz/images/footNorthArrow.png';
 
 				// images path
 				_self.imgNorth = pathNorth;

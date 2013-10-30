@@ -2,7 +2,7 @@
 
 $img-root: "images/";
 
-$font: verdana, helvetica, sans-serif;
+$font: Verdana, Arial, Helvetica, sans-serif;
 $orange: #EFA23E;
 $yellow: #FAFA0A;
 $red: #EF300A;
@@ -15,6 +15,10 @@ $disabled-strong: #728A99;
 $text-color: #000 !default;
 
 $base-classname: "gcviz";
+
+// the rem base factor if the root font-size element is set to something different then 62.5%
+//font-size: 62.5%; // 1 rem = 10px
+$rembase: 0.625; // 100% come from WET, they set body to 80% if we put html to 62.5% it will screw up their css
 
 @mixin app-gradiant {
   background-color: $app-strong; // old browsers
@@ -57,11 +61,17 @@ $base-classname: "gcviz";
 }
 
 @mixin content-border-radius($radius: 0.5, $moz: true, $webkit: true, $ms: true, $o: true) {
-	@if $moz    { -moz-border-radius: $radius + rem; }
-  @if $webkit { -webkit-border-radius: $radius + rem; }
-  @if $ms     { -ms-border-radius: $radius + rem; }
-  @if $ms     { -o-border-radius: $radius + rem; }
-  border-radius: $radius + rem;
+	@if $moz    { -moz-border-radius: ($radius * $rembase) + rem; }
+  @if $webkit { -webkit-border-radius: ($radius * $rembase) + rem; }
+  @if $ms     { -ms-border-radius: ($radius * $rembase) + rem; }
+  @if $ms     { -o-border-radius: ($radius * $rembase) + rem; }
+  border-radius: ($radius * $rembase) + rem;
+}
+
+@mixin app-main-foot() {
+	width: 100%;
+	height: (4 * $rembase) + rem;
+	text-align: center;
 }
 
 @mixin app-text($size: 1.2, $weight: normal, $color: $text-color) {
@@ -69,14 +79,14 @@ $base-classname: "gcviz";
 		family: $font;
 		weight: $weight;
 		size: ($size * 10) + px; // old browsers
-		size: $size + rem;
+		size: ($size * $rembase) + rem;
 	}
 	color: $color;
 }
 
 @mixin app-border($width: 1, $style: solid, $color: #000) {
 	border: {
-		width: $width + rem;
+		width: ($width * $rembase) + rem;
 		style: $style;
 		color: $color;
 	}	

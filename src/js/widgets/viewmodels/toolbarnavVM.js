@@ -9,11 +9,10 @@
 (function() {
 	'use strict';
 	define([
-		'jquery',
 		'knockout',
 		'gcviz-i18n',
 		'gcviz-gisnavigation'
-	], function($, ko, i18n, gisNavigation) {
+	], function(ko, i18n, gisNavigation) {
 		var initialize;
 		
 		initialize = function($mapElem, mapid) {
@@ -21,7 +20,7 @@
 			// data model				
 			var toolbarnavViewModel = function($mapElem, mapid) {
 				var _self = this,
-					pathExtent = locationPath + 'dist/images/navFullExtent.png',
+					pathExtent = locationPath + 'gcviz/images/navFullExtent.png',
 					mymap = mapArray[mapid][0];
 
 				// images path

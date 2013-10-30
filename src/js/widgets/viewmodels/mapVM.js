@@ -8,12 +8,11 @@
 (function() {
 	'use strict';
 	define([
-		'jquery',
 		'dojo/dom',
 		'dojo/dom-style',
 		'knockout',
 		'gcviz-gismap'
-	], function($, dom, domStyle, ko, gisM) {
+	], function(dom, domStyle, ko, gisM) {
 		var initialize;
 
 		initialize = function($mapElem) {
