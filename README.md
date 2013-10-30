@@ -48,7 +48,7 @@ Le but de GCViz est de fournir au Secteur des sciences de la Terre (SST) de Ress
 
 Cette application est construite en JavaScript avec les patrons de développement suivant: AMD (définition de module asynchrone) et MVVM (Modèle Vue VueModèle). Elle est construite avec le concept de fonctionnalités (“widgets”) personnalisables par fichier de configuration. L'application est entièrement bilingue (français et anglais).
 
-## Examples pratique
+## Exemples pratique
 * [Outil de visualisation](http://geocanviz.github.io/GeoCanViz/demos/index-fra.html)
 
 ## Bibliothèques et extensions
