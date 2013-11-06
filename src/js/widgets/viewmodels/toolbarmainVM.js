@@ -5,15 +5,18 @@
  *
  * Toolbar main view model widget
  */
-/* global locationPath: false */
+/* global mapArray: false, locationPath: false, tbHeight: false */
 (function() {
 	'use strict';
 	define([
 		'knockout',
 		'gcviz-i18n',
-		'gcviz-ko'
-	], function(ko, i18n, binding) {
-		var initialize;
+		'gcviz-ko',
+		'gcviz-func',
+		'gcviz-gismap'
+	], function(ko, i18n, binding, func, gisM) {
+		var initialize,
+			vm;
 		
 		initialize = function($mapElem, mapid) {
 			
@@ -27,78 +30,47 @@
 					pathHelp = locationPath + 'gcviz/images/mainHelp.png',
 					$section = $('#section' + mapid),
 					$mapholder = $('#' + mapid),
-					$map = $('#' + mapid + '_0');
-				
-				_self.counter = ko.observable(0);
-				
+					$map = $('#' + mapid + '_0'),
+					$maproot = $('#' + mapid + '_0_root');
+
 				// images path
 				_self.imgFullscreen = ko.observable(pathFullscreen);
 				_self.imgShowInset = pathShowInset;
 				_self.imgTools = pathTools;
 				_self.imgHelp = pathHelp;
 				
-				// enable/disable
-				_self.enableViewInset = ko.observable(true);
-				
 				// tooltip
 				_self.tpHelp = i18n.getDict('%toolbarmain-tphelp');
 				_self.tpTools = i18n.getDict('%toolbarmain-tptools');
 				_self.tpInset = i18n.getDict('%toolbarmain-tpinset');
 				_self.tpFullScreen = i18n.getDict('%toolbarmain-tpfullscreen');
-
+				
+				// fullscreen
+				_self.isFullscreen = ko.observable(false);
+				_self.fullscreenState = 0;
+				
 				_self.init = function() {
 					// keep map size
-					_self.heightSection = $section.css('height');
-					_self.widthSection = $section.css('width');
-					_self.heightMap = $map.css('height');
-					_self.widthMap = $map.css('width');
-					
-					// keep state
-					_self.insetState = '';
-				
-					// full screen event
-					$section[0].addEventListener('fullscreenchange', function () {
-						if (!document.fullscreen) {
-							_self.cancelFullScreen(document, mapid);
-							_self.imgFullscreen(pathFullscreen);
-						}
-					}, false);
- 
-					$section[0].addEventListener('mozfullscreenchange', function () {
-						if (!document.mozFullScreen) {
-							_self.cancelFullScreen(document, mapid);
-							_self.imgFullscreen(pathFullscreen);
-						}
-					}, false);
- 
-					$section[0].addEventListener('webkitfullscreenchange', function () {
-						if (!document.webkitIsFullScreen) {
-							_self.cancelFullScreen(document, mapid);
-							_self.imgFullscreen(pathFullscreen);
-						}
-					}, false);
-
+					_self.heightSection = parseInt($section.css('height'), 10);
+					_self.widthSection = parseInt($section.css('width'), 10);
+					_self.heightMap = parseInt($map.css('height'), 10);
+					_self.widthMap = parseInt($map.css('width'), 10);
+					tbHeight = parseInt($mapElem.css('height'), 10);
+         
 					return { controlsDescendantBindings: true };
 				};
 					
 				_self.fullscreenClick = function() {
-					
-					var isInFullScreen = (document.fullScreenElement && document.fullScreenElement !== null) ||  (document.mozFullScreen || document.webkitIsFullScreen);
-
-					if (isInFullScreen) {
-						_self.cancelFullScreen(document, mapid);
-						_self.imgFullscreen(pathFullscreen);
+					if (_self.fullscreenState) {
+						_self.cancelFullScreen();
 					} else {
-						_self.requestFullScreen($section[0], mapid);
-						_self.imgFullscreen(pathSmallscreen);
+						_self.requestFullScreen();
 					}
 				};
 				
-				_self.insetClick = function(force) {
+				_self.insetClick = function() {
 					var tool = $mapholder.find('.gcviz-inset' + mapid);
-					if (force === 'hidden') {
-						tool.addClass('hidden');
-					} else if (tool.hasClass('hidden')) {
+					if (tool.hasClass('hidden')) {
 						tool.removeClass('hidden');
 					} else {
 						tool.addClass('hidden');
@@ -118,56 +90,59 @@
 				};
 				
 				_self.helpClick = function() {
-					_self.counter(_self.counter() + 1);
-					alert(i18n.getDict('%toolbarmain-help') + ': ' + _self.counter());
+					alert(i18n.getDict('%toolbarmain-help'));
 				};
 				
-				_self.cancelFullScreen = function(el, mapid) {
-					var requestMethod = el.cancelFullScreen||el.webkitCancelFullScreen||el.mozCancelFullScreen||el.exitFullscreen;
+				_self.cancelFullScreen = function() {
+					// set style back (map and inset)
+					func.setStyle($section[0], {'width': _self.widthSection + 'px', 'height': _self.heightSection + 'px'});
+					func.setStyle($mapholder[0], {'width': _self.widthSection + 'px', 'height': _self.heightSection + 'px'});
+					func.setStyle($map[0], {'width': _self.widthMap + 'px', 'height': _self.heightMap + 'px'});
+					func.setStyle($maproot[0], {'width': _self.widthMap + 'px', 'height': _self.heightMap + 'px'});
+					$section.removeClass('gcviz-sectionfs');
 					
-					if (requestMethod) { // cancel full screen.
-						requestMethod.call(el);
-					}
-
-					// set style
-					$section.css({'width': _self.widthSection, 'height': _self.heightSection});
-					$mapholder.css({'width': _self.widthSection, 'height': _self.heightSection});
-					$map.css({'width': _self.widthMap, 'height': _self.heightMap});
+					// set state and image
+					_self.isFullscreen(false);
+					_self.imgFullscreen(pathFullscreen);
+					_self.fullscreenState = 0;
 					
-					// set back inset state and enable button
-					_self.insetClick(_self.insetState);
-					_self.enableViewInset(true);
+					// var point = gisM.getMapCenter(mapid);
+					mapArray[mapid][0].resize();
+					// mapArray[mapid][0].centerAndZoom(point, 2);
 				};
 
-				_self.requestFullScreen = function(el, mapid) {
+				_self.requestFullScreen = function() {
+					//func.tabFocusRestrictor('#map1_0', '#help');
 					
-					// supports most browsers and their versions
-					var requestMethod = el.requestFullScreen || el.webkitRequestFullScreen || el.mozRequestFullScreen || el.msRequestFullScreen;
-
-					if (requestMethod) { // Native full screen.
-						requestMethod.call(el);
-					}
+					// get maximal height and width from browser window and original height and width for the map
+					var param = func.getFullscreenParam(_self.widthSection, _self.heightSection),
+						w = param.width,
+						h = param.height;
 					
-					// set style
-					el.setAttribute('style','width: 100%; height: 100%;');
-					el.getElementsByClassName('gcviz')[0].setAttribute('style','width: 100%; height: 93%;');
-					el.getElementsByClassName('gcviz-map')[0].setAttribute('style','width: 100%; height: 100%;');
+					// set style (map and inset)
+					func.setStyle($section[0], {'width': screen.width + 'px', 'height': screen.height + 'px'});
+					func.setStyle($mapholder[0], {'width': w + 'px', 'height': h + 'px'});
+					func.setStyle($map[0], {'width': w + 'px', 'height': (h - (2 * tbHeight)) + 'px'});
+					func.setStyle($maproot[0], {'width': w + 'px', 'height': (h - (2 * tbHeight)) + 'px'});
+					$section.addClass('gcviz-sectionfs');
 					
-					// hide inset
-					if ($mapholder.find('.gcviz-inset' + mapid).hasClass('hidden')) {
-						_self.insetState = 'hidden';
-					} else {
-						_self.insetState = '';
-					}
-					_self.insetClick('hidden');
+					// set state and image
+					_self.isFullscreen(true);
+					_self.imgFullscreen(pathSmallscreen);
+					_self.fullscreenState = 1;
 					
-					// disable show inset button
-					_self.enableViewInset(false);
+					// var point = gisM.getMapCenter(mapid);
+					mapArray[mapid][0].resize();
+					// mapArray[mapid][0].centerAt(point);
+					// var point2 = gisM.getMapCenter(mapid);
 				};
 				
 				_self.init();
 			};
-			ko.applyBindings(new toolbarmainViewModel($mapElem, mapid), $mapElem[0]); // This makes Knockout get to work
+			
+			vm = new toolbarmainViewModel($mapElem, mapid);
+			ko.applyBindings(vm, $mapElem[0]); // This makes Knockout get to work
+			return vm;
 		};
 		
 		return {

@@ -31,7 +31,7 @@
 			}
 			
 			$toolbar.append(node);
-			toolbarfootVM.initialize($toolbar, mapid, config);
+			return(toolbarfootVM.initialize($toolbar, mapid, config));
 		};
 		
 		return {

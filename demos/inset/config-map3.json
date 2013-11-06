@@ -63,6 +63,8 @@
 				"endrowcol": [35,35]
 			},
 			"type": "html",
+			"fullscreen": true,
+			"size": "px",
 			"label": {
 				"value": "My html 1",
 				"alttext": "My html 1",
@@ -78,6 +80,8 @@
 				"endrowcol": [100,100]
 			},
 			"type": "html",
+			"fullscreen": true,
+			"size": "%",
 			"label": {
 				"value": "My html 2",
 				"alttext": "My html 2",

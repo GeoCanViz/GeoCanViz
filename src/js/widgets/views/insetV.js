@@ -5,12 +5,14 @@
  *
  * Inset view widget
  */
+/* global tbHeight: false */
 (function() {
 	'use strict';
 	define(['jquery',
 			'gcviz-vm-inset'
 	], function($, insetVM) {
-		var initialize;
+		var initialize,
+			insetsArray = [];
 		
 		initialize = function($mapElem) {
 			var mapframe = $mapElem.mapframe,
@@ -23,11 +25,13 @@
 				wSize, hSize,
 				inset,start,end,width,height,bottom,left,label,node,
 				sources, srcLen,
-				margin;
+				margin,
+				sizetype,
+				insideHeight;
 			
 			// find widht and height of cells
 			wSize = mapSize.width/insetSize.numcol;
-			hSize = (mapSize.height - 80)/insetSize.numrow;
+			hSize = (mapSize.height - (tbHeight * 2))/insetSize.numrow;
 			
 			while (insetLen--) {
 				inset = insetframe.insets[insetLen],
@@ -35,24 +39,31 @@
 				end = inset.pos.endrowcol,
 				width = (end[1] - start[1]) * wSize,
 				height = (end[0] - start[0]) * hSize,
-				bottom = (start[0] * hSize) + 40,
+				bottom = (start[0] * hSize) + tbHeight,
 				left = start[1] * wSize,
 				label = inset.label,
-				node ='';
+				insideHeight = height - (tbHeight / 2),
+				sizetype = inset.size,
+				node ='',
+				margin = '';
 				
 				// if row/col start = row/start end, give size of 1 row/col
-				if (width === 0) {width = wSize;}
-				if (height === 0) {height = hSize;}	
+				if (width === 0) { width = wSize; }
+				if (height === 0) { height = hSize; }	
 				
+				// if size in percent
+				if (sizetype === '%') {
+					width = (width / mapSize.width) * 100;
+					height = (height / mapSize.height) * 100;
+				}
+
 				// if bottom && top !0, add a margin to the the inset so it will not go outside the section
-				margin = '';
-				if (bottom !== 40 && left !== 0) {
+				if (bottom !== tbHeight && left !== 0) {
 					margin = 'gcviz-inset-margin';
 				}
 				
 				// create inset holder
-				// , hasfocus: FirstName.focused, hoverToggle: \'hover\'
-				$mapElem.find('.gcviz-tbfoot').before('<div id="inset' + insetLen + mapid + '" data-bind="click: insetClick" class="gcviz-inset gcviz-inset' + mapid + ' ' + margin + '" tabindex="1" style="' + ' bottom: ' + bottom + 'px; left: ' + left + 'px; width: ' + width + 'px; height: ' + height + 'px;"></div>');
+				$mapElem.find('.gcviz-tbfoot').before('<div id="inset' + insetLen + mapid + '" data-bind="fullscreen: {}, enterkey: insetClick" class="gcviz-inset gcviz-inset' + mapid + ' ' + margin + '" tabindex="1" style="' + ' bottom: ' + bottom + 'px; left: ' + left + 'px; width: ' + width + sizetype + '; height: ' + height + sizetype + ';"></div>');
 				$inset = $mapElem.find('#inset' + insetLen + mapid);
 				
 				// add label
@@ -69,7 +80,7 @@
 					if (inset.type === 'image') {
 						$inset.vType = 'image';
 						
-						node += '<div style="width: 100%;"><div id="slides' + insetLen + mapid + '" style="height: ' + (height - 20) + 'px;">';
+						node += '<div style="width: 100%;"><div id="slides' + insetLen + mapid + '" style="height: ' + insideHeight + 'px;">';
 						while (srcLen--) {
 							var info = sources[srcLen].label;
 							
@@ -82,7 +93,7 @@
 					} else if (inset.type === 'video') {
 						$inset.vType = 'video';
 					
-						node += '<video id="test" class="gcviz-vid-inset" style="height: ' + (height - 20) + 'px;">';
+						node += '<video id="test" class="gcviz-vid-inset" style="height: ' + insideHeight + 'px;">';
 						while (srcLen--) {
 							node += '<source data-bind="attr:{src: vid[' + srcLen + ']}" type="' + sources[srcLen].type + '"></source>';
 							$inset.vSource[srcLen] = sources[srcLen];
@@ -98,7 +109,7 @@
 					if (html.type === 'text') {
 						node += '<div class="gcviz-html-inset">' + html.tag + '</div>';
 					} else if (html.type === 'page') {
-						node += '<iframe class="gcviz-html-inset" src="' + html.tag + '" style="height: ' + (height - 20) + 'px;"></iframe>';
+						node += '<iframe class="gcviz-html-inset" src="' + html.tag + '" style="height: ' + insideHeight + 'px;"></iframe>';
 					}
 				}
 
@@ -106,8 +117,10 @@
 				$inset.append(node);
 				
 				// call the viewmodel for every inset on a map
-				insetVM.initialize($inset, mapid);
+				insetsArray.push(insetVM.initialize($inset, mapid, inset));
 			}
+			
+			return insetsArray;
 		};
 		
 		return {

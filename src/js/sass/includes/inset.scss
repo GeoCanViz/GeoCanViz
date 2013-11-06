@@ -44,9 +44,41 @@
 	margin: (-0.2 * $rembase) + rem;
 }
 
+.gcviz-inset-hidden {
+	visibility: hidden;
+}
+
+.gcviz-inset-button {
+	cursor: pointer;
+	background: transparent;
+	border: none;
+	height: (1.8 * $rembase) + rem;
+	width: (1.8 * $rembase) + rem;
+	
+	.gcviz-imginset-button {
+		margin: 0 !important;
+		height: (1.8 * $rembase) + rem;
+		width: (1.8 * $rembase) + rem;
+	}
+	
+	&:hover {
+		@include button-gradiant-hover;
+		@include content-border-radius;
+	}
+  
+	&:focus {
+		@include button-gradiant-hover;
+		@include content-border-radius;
+	}
+  
+	&:active {
+		@include button-gradiant-active;
+		@include content-border-radius;
+	}
+}
 /* SlidesJS section */
 %slides-control {
-	margin-right: (0.5 * $rembase) + rem;
+	margin-left: (0.5 * $rembase) + rem;
 	float: left;
 }
 
@@ -66,7 +98,7 @@
 }
 
 .slidesjs-container {
-	margin-bottom: (1 * $rembase) + rem;
+	margin-bottom: (0.5 * $rembase) + rem;
 }
 
 .slidesjs-slide {
@@ -77,6 +109,13 @@
 	@extend %slides-control;
 }
 .slidesjs-next {
+	@extend %slides-control;
+}
+
+.slidesjs-play {
+	@extend %slides-control;
+}
+.slidesjs-stop {
 	@extend %slides-control;
 }
 
