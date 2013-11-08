@@ -1,8 +1,8 @@
 {"gcviz": {	
 	"mapframe": {
 		"size": {
-			"height": 400,
-			"width": 800
+			"height": 600,
+			"width": 600
 		},
 		"extent": {
 			"xmin": -2750000.0,
@@ -63,6 +63,8 @@
 				"endrowcol": [40,30]
 			},
 			"type": "video",
+			"fullscreen": true,
+			"size": "px",
 			"label": {
 				"value": "My video 1",
 				"alttext": "My video 1",
@@ -83,6 +85,8 @@
 				"endrowcol": [100,100]
 			},
 			"type": "video",
+			"fullscreen": true,
+			"size": "%",
 			"label": {
 				"value": "My video 2",
 				"alttext": "My video 2",

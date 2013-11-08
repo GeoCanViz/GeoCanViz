@@ -8,18 +8,22 @@
 /* global esri: false, mapArray: false */
 (function () {
 	'use strict';
-	define([], function() {
+	define(['gcviz-func',
+			'dijit/Menu',
+			'dijit/MenuItem',
+			'dijit/PopupMenuItem'], function(func, menu, menuItem, menupopup) {
 	
 		var createMap,
 			applyLink,
 			connectEvent,
 			addLayer,
 			resizeMap,
+			getMapCenter,
 			getMap,
+			createMapMenu,
 			zoomIn,
 			zoomOut,
-			linkNames = [],
-			debounce;
+			linkNames = [];
 	
 		createMap = function(id, config) {
 			var extentC = config.extent,
@@ -46,7 +50,7 @@
 				linkNames.push(map.vIdName);
 				connectEvent(map);
 			}
-			
+
 			return map;
 		};
 		
@@ -62,42 +66,16 @@
 		};
 		
 		connectEvent = function(map) {
-			map.on('extent-change', debounce(function (evt) {
+			map.on('extent-change', func.debounce(function (evt) {
 				if (evt.target.id === document.activeElement.id) {
 					applyLink(evt.target.vIdName, Number(evt.target.vIdIndex));
 				}
 			}, 1000, false));
 			
-			map.on('mouse-out',debounce(function (evt) {
+			map.on('mouse-out', func.debounce(function (evt) {
 				var info = evt.target.id.split('_');
 				applyLink(info[0], Number(info[1]));
 			}, 1000, false));
-		};
-
-		debounce = function(func, threshold, execAsap) {
-
-			var timeout;
-
-			return function debounced () {
-				var obj = this, 
-					args = arguments;
-						
-				function delayed () {
-					if (!execAsap) {
-						func.apply(obj, args);
-					}
-					timeout = null; 
-				}
-				
-				if (timeout) {
-					clearTimeout(timeout);
-				}
-				else if (execAsap) {
-					func.apply(obj, args);
-				}
-
-				timeout = setTimeout(delayed, threshold || 100); 
-			};
 		};
 		
 		addLayer = function(map, type, url) {
@@ -119,11 +97,49 @@
 				map.setExtent(map.getLayer(map.layerIds[0]).initialExtent, true);
 			}
 		};
+		
+		getMapCenter = function(id) {
+			var maps = getMap(id),
+				map,
+				extent,
+				point,
+				len = maps.length;
+				
+			while (len--) {
+				map = maps[len];
+				extent = map.extent;
+				point = new esri.geometry.Point((extent.xmin + extent.xmax) / 2, (extent.ymin + extent.ymax) / 2, map.spatialReference);
+			}
+			
+			return point;
+		};
 			
 		getMap = function(id) {
 			return mapArray[id];
 		};
-			
+		
+		// USE JQUERY.UI-contextmenu INSTEAD OF DOJO!!!
+		createMapMenu = function(map) {
+			// Creates right-click context menu for map
+			var ctxMenuMap = new menu({
+				targetNodeIds: ['gcviz-header'],
+				// onOpen: function(box) {
+              		// // Lets calculate the map coordinates where user right clicked.
+              		// //currentLocation = getMapPointFromMenuPosition(box);          
+				// }
+			});
+
+			ctxMenuMap.addChild(new menuItem({ 
+				label: "Add Point",
+				onClick: function(evt) {
+              		alert('click');
+				}
+			}));
+
+			ctxMenuMap.startup();
+			//ctxMenuMap.bindDomNode(map.container);
+        };
+        
 		zoomIn = function() {
 		};
 			
@@ -133,7 +149,9 @@
 		return {
 			createMap: createMap,
 			addLayer: addLayer,
-			resizeMap: resizeMap
+			resizeMap: resizeMap,
+			getMapCenter: getMapCenter,
+			createMapMenu: createMapMenu
 		};
 	});
 }());

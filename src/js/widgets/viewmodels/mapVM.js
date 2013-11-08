@@ -8,11 +8,9 @@
 (function() {
 	'use strict';
 	define([
-		'dojo/dom',
-		'dojo/dom-style',
 		'knockout',
 		'gcviz-gismap'
-	], function(dom, domStyle, ko, gisM) {
+	], function(ko, gisM) {
 		var initialize;
 
 		initialize = function($mapElem) {
@@ -65,6 +63,9 @@
 							mymap.enableScrollWheelZoom();
 							mymap.enableKeyboardNavigation();
 							mymap.isZoomSlider = false;
+							
+							// add context menu
+							//gisM.createMapMenu(mymap);
 						});
 						
 						// set class and remove cursor for container

@@ -13,7 +13,8 @@
 		'gcviz-i18n',
 		'gcviz-gisgeo'
 	], function(ko, i18n, gisGeo) {
-		var initialize;
+		var initialize,
+			vm;
 		
 		initialize = function($mapElem, mapid, config) {
 			
@@ -62,7 +63,9 @@
 				
 				_self.init();
 			};
-			ko.applyBindings(new toolbarfootViewModel($mapElem, mapid, config), $mapElem[0]); // This makes Knockout get to work
+			vm = new toolbarfootViewModel($mapElem, mapid, config);
+			ko.applyBindings(vm, $mapElem[0]); // This makes Knockout get to work
+			return vm;
 		};
 		
 		return {

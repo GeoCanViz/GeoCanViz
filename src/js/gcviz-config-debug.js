@@ -180,6 +180,10 @@
 				location: locationPath + 'src/js/custom',
 				main: 'gcviz-ko-binding'
 			}, {
+				name: 'gcviz-func',
+				location: locationPath + 'src/js/custom',
+				main: 'gcviz-functions'
+			}, {
 				name: 'gcviz-gismap',
 				location: locationPath + 'src/js/gistasks',
 				main: 'gisMapUtility'

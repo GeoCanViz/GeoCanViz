@@ -29,7 +29,7 @@
 			// add buttons
 			node += '<div class="gcviz-tbmain-button">';
 			// set help button (must always be there!)
-			node += '<button class="gcviz-button" tabindex="1" data-bind="click: helpClick, tooltip: { content: tpHelp }"><img class="gcviz-img-button" data-bind="attr:{src: imgHelp}"></img></button>';
+			node += '<button id="help" class="gcviz-button" tabindex="1" data-bind="click: helpClick, tooltip: { content: tpHelp }"><img class="gcviz-img-button" data-bind="attr:{src: imgHelp}"></img></button>';
 
 			// set tools button
 			if (config.tools) {
@@ -39,7 +39,7 @@
 			
 			// set inset button if inset are present
 			if ($mapElem.insetframe.enable) {
-				node += '<button class="gcviz-button" tabindex="1" data-bind="click: insetClick, tooltip: { content: tpInset }, enable: enableViewInset"><img class="gcviz-img-button" data-bind="attr:{src: imgShowInset}"></img></button>';
+				node += '<button class="gcviz-button" tabindex="1" data-bind="click: insetClick, tooltip: { content: tpInset }"><img class="gcviz-img-button" data-bind="attr:{src: imgShowInset}"></img></button>';
 			}
 			
 			// set fullscreen button
@@ -47,10 +47,9 @@
 				node += '<button class="gcviz-button" tabindex="1" data-bind="click: fullscreenClick, tooltip: { content: tpFullScreen }"><img class="gcviz-img-button" data-bind="attr:{src: imgFullscreen}"></img></button>';
 			}
 			node += '</div>';
-			
-			
+					
 			$toolbar.append(node);
-			toolbarmainVM.initialize($toolbar, mapid);
+			return (toolbarmainVM.initialize($toolbar, mapid));
 		};
 		
 		return {

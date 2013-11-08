@@ -64,7 +64,7 @@
 			},
 			"type": "image",
 			"fullscreen": true,
-			"size": "px",
+			"size": "%",
 			"label": {
 				"value": "My image 1",
 				"alttext": "My image 1",
@@ -120,8 +120,8 @@
 				"endrowcol": [6,5]
 			},
 			"type": "image",
-			"fullscreen": false,
-			"size": "px",
+			"fullscreen": true,
+			"size": "%",
 			"label": {
 				"value": "My image 2",
 				"alttext": "My image 2",
@@ -147,8 +147,8 @@
 				"endrowcol": [10,10]
 			},
 			"type": "image",
-			"fullscreen": false,
-			"size": "px",
+			"fullscreen": true,
+			"size": "%",
 			"label": {
 				"value": "My image 3",
 				"alttext": "My image 3",

@@ -7,19 +7,22 @@
  *
  */
 var mapArray = {},
-	locationPath;
+	vmArray = {},
+	locationPath,
+	tbHeight;
 (function() {
 	'use strict';
 	var mapsTotal,
 		mapsNum;
 
 	// there is a conflict between jQuery in gcviz and in WET. For this reason, we define jquery only when a dependency needs it like in inset.
-	define(['gcviz-v-map',
+	define(['gcviz-func',
+			'gcviz-v-map',
 			'gcviz-v-inset',
 			'gcviz-v-tbmain',
 			'gcviz-v-tbfoot',
 			'gcviz-v-tbanno',
-			'gcviz-v-tbnav'], function(map,inset, toolbarmain, toolbarfoot, toolbaranno, toolbarnav) {
+			'gcviz-v-tbnav'], function(func, map, inset, toolbarmain, toolbarfoot, toolbaranno, toolbarnav) {
 		var initialize,
 			readConfig,
 			execConfig,
@@ -93,8 +96,9 @@ var mapArray = {},
 			mapArray[mapid].reverse();
 			
 			// add main toolbar and footer
-			toolbarmain.initialize($mapSection);
-			toolbarfoot.initialize($mapSection);
+			vmArray[mapid] = {};
+			vmArray[mapid].tbmain = toolbarmain.initialize($mapSection);
+			vmArray[mapid].tbfoot = toolbarfoot.initialize($mapSection);
 			
 			// add annotation toolbar
 			if (config.toolbaranno.enable) {
@@ -108,14 +112,19 @@ var mapArray = {},
 			
 			// add inset
 			if (config.insetframe.enable) {
-				inset.initialize($mapSection);
+				vmArray[mapid].insets = inset.initialize($mapSection);
 			}
-			
+					
 			mapsNum += 1;
 			
-			// if all maps are there, trigger the ready event
 			if (mapsNum === mapsTotal) {
+				// if all maps are there, trigger the ready event
 				$.event.trigger('gcviz-ready');
+				
+				// set the resize event
+				window.onresize = func.debounce(function (evt) {
+
+				}, 500, false);
 			}
 		};
 		
