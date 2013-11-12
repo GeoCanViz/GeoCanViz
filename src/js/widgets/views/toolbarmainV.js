@@ -34,7 +34,7 @@
 			// set tools button
 			if (config.tools) {
 				node += '<button class="gcviz-button" tabindex="1" data-bind="click: toolsClick, tooltip: { content: tpTools }"><img class="gcviz-img-button" data-bind="attr:{src: imgTools}"></img></button>';
-				$mapElem.find('.gcviz-tbmain').after('<div class="gcviz-tbholder hidden"></div>');
+				$mapElem.find('.gcviz-tbmain').after('<div class="gcviz-tbholder gcviz-hidden"></div>');
 			}
 			
 			// set inset button if inset are present

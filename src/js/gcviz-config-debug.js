@@ -164,9 +164,9 @@
 				location: locationPath + 'src/js/dependencies',
 				main: 'jquery.slides.min'
 			}, {
-				name: 'lightbox',
+				name: 'magnificpopup',
 				location: locationPath + 'src/js/dependencies',
-				main: 'lightbox.min'
+				main: 'magnificpopup.min'
 			}, {
 				name: 'gcviz',
 				location: locationPath + 'src/js',

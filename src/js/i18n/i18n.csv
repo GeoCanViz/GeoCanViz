@@ -16,3 +16,9 @@ General (i18n)#%all#All#Tous
 #%toolbaranno-tpdraw#Draw on the map#Dessiner sur la carte
 #%toolbaranno-tptext#Add text on the map#Ajouter du texte sur la carte
 #%toolbaranno-tperase#Erase annotations#Effacer les annotations
+#%mp-close#Close (Esc)#Fermer (Esc)
+#%mp-load#Loading...#Chargement...
+#%mp-next#Previous (Left arrow key)#Precédent (touche flèche gauche)
+#%mp-prev#Next (Right arrow key)#Suivant (touche flèche droite)
+#%mp-count#%curr% of %total%#%curr% de %total%
+#%mp-error#<a href='%url%'>The image</a> could not be loaded.#<a href='%url%'>L'image</a> ne peut être chargée.

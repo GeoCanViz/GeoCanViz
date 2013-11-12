@@ -67,12 +67,6 @@
 			return {'width': w, 'height': h, 'ratio': ratio};
 		};
 		
-		tabFocusRestrictor = function (lastItem,firstItem){
-		    $(lastItem).blur(function(){
-		        $(firstItem).focus();
-		    });
-		};
-		
 		return {
 			debounce: debounce,
 			setStyle: setStyle,

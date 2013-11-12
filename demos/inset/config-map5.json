@@ -1,8 +1,8 @@
 {"gcviz": {	
 	"mapframe": {
 		"size": {
-			"height": 600,
-			"width": 600
+			"height": 400,
+			"width": 800
 		},
 		"extent": {
 			"xmin": -2750000.0,
@@ -50,8 +50,8 @@
 	"insetframe": {
 		"enable": true,
 		"size": {
-			"numrow": 100,
-			"numcol": 100
+			"numrow": 10,
+			"numcol": 10
 		},
  		"label": {
 				"value": "The insets",
@@ -60,57 +60,38 @@
 		"insets": [{
 			"pos": {
 				"startrowcol": [0,0],
-				"endrowcol": [40,30]
+				"endrowcol": [5,5]
 			},
-			"type": "video",
-			"fullscreen": true,
-			"size": "px",
-			"label": {
-				"value": "My video 1",
-				"alttext": "My video 1",
-				"justify": "left"
-			},
-			"inset" : {
-				"loop": false,
-				"autoplay": false,
-				"sources": [{
-						"location": "internet",
-						"url": "http://geogratis.gc.ca/geogratis/video/GeoGratis_Video_English.mp4",
-						"type": "video/mp4"
-					}]
-			}
-		}, {
-			"pos": {
-				"startrowcol": [35,65],
-				"endrowcol": [100,100]
-			},
-			"type": "video",
+			"type": "map",
 			"fullscreen": true,
 			"size": "%",
 			"label": {
-				"value": "My video 2",
-				"alttext": "My video 2",
+				"value": "My map 1",
+				"alttext": "My map 1",
 				"justify": "left"
 			},
 			"inset" : {
-				"loop": false,
-				"autoplay": false,
-				"sources": [{
-						"location": "local",
-						"url": "demos/inset/sample.webm",
-						"type": "video/webm"
-					}, {
-						"location": "local",
-						"url": "demos/inset/sample.mp4",
-						"type": "video/mp4"
+				"sr": {
+					"wkid": 3978
+				},
+				"extent": {
+					"xmin": 1266398.0,
+					"ymin": -449389.0,
+					"xmax": 1284232.0,
+					"ymax": -442214.0
+				},
+				"type": "static",
+				"layers":[{
+					"type": "tiled",
+					"url": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/BaseMaps/CBCT3978/MapServer"
 				}]
 			}
 		}]
 	},
 	"toolbarmain": {
 		"title": {
-			"value": "Map 2",
-			"alttext": "Map 2",
+			"value": "Map 1",
+			"alttext": "Map 1",
 			"justify": "center"
 		},
 		"tools": true,
