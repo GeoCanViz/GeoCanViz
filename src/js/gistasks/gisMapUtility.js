@@ -51,6 +51,20 @@
 				connectEvent(map);
 			}
 
+			// resize the map on load to ensure everything is set corretcly. if we dont do this, every maps after
+			// the first one are not set properly
+			map.on('load', function(e) {
+				map.resize();
+							
+				// enable navigation
+				map.enableScrollWheelZoom();
+				map.enableKeyboardNavigation();
+				map.isZoomSlider = false;
+							
+				// add context menu
+				//gisM.createMapMenu(mymap);
+			});
+
 			return map;
 		};
 		

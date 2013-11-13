@@ -16,17 +16,19 @@ var mapArray = {},
 		mapsNum;
 
 	// there is a conflict between jQuery in gcviz and in WET. For this reason, we define jquery only when a dependency needs it like in inset.
-	define(['gcviz-func',
+	define(['gcviz-i18n',
+			'gcviz-func',
 			'gcviz-v-map',
 			'gcviz-v-inset',
 			'gcviz-v-tbmain',
 			'gcviz-v-tbfoot',
 			'gcviz-v-tbanno',
-			'gcviz-v-tbnav'], function(func, map, inset, toolbarmain, toolbarfoot, toolbaranno, toolbarnav) {
+			'gcviz-v-tbnav'], function(i18n, func, map, inset, toolbarmain, toolbarfoot, toolbaranno, toolbarnav) {
 		var initialize,
 			readConfig,
 			execConfig,
-			setLocationPath;
+			setLocationPath,
+			setLocalMP;
 
 		/*
 		 *  initialize the GCViz application
@@ -42,6 +44,9 @@ var mapArray = {},
 			
 			// set location path
 			setLocationPath();
+			
+			// set local for magnificpopup plugin
+			setLocalMP();
 
 			// loop trought maps
 			while (len--) {
@@ -147,6 +152,21 @@ var mapArray = {},
 					locationPath = url.substring(0, url.search('GeoCanViz')) + 'GeoCanViz/';
 				}
 			}
+		};
+		
+		setLocalMP = function() {
+			$.extend(true, $.magnificPopup.defaults, {
+				tClose: i18n.getDict('%mp-close'), // Alt text on close button
+				tLoading: i18n.getDict('%mp-load'), // Text that is displayed during loading. Can contain %curr% and %total% keys
+				gallery: {
+					tPrev: i18n.getDict('%mp-prev'), // Alt text on left arrow
+					tNext: i18n.getDict('%mp-next'), // Alt text on right arrow
+					tCounter: i18n.getDict('%mp-count') // Markup for "1 of 7" counter
+				},
+				image: {
+					tError: i18n.getDict('%mp-error') // Error message when image could not be loaded
+				},
+			});
 		};
 		
 		return {

@@ -13,10 +13,13 @@
 		var getCoord,
 			getNorthAngle,
 			params = new esri.tasks.ProjectParameters(),
+			outSR,
 			gsvc;
 
 		getCoord = function(point, div, config) {
-			var outSR = new esri.SpatialReference({wkid: config.outwkid});
+			if (typeof outSR === 'undefined') { 
+				outSR = new esri.SpatialReference({wkid: config.outwkid});
+			}
 			
 			if (typeof gsvc === 'undefined') {
 				gsvc = new esri.tasks.GeometryService(config.urlgeomserv);

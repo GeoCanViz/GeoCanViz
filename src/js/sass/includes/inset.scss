@@ -76,6 +76,7 @@
 		@include content-border-radius;
 	}
 }
+
 /* SlidesJS section */
 %slides-control {
 	margin-left: (0.5 * $rembase) + rem;
@@ -151,4 +152,51 @@
 				background-position: 0 -13px;
 		}
 	}
+}
+
+/* Styles inset with magnificpopup */
+.mp-inset {
+	background: white;
+	padding: 35px 35px;
+	text-align: left;
+	max-width: 80%;
+	max-height: 80%;
+	margin: 40px auto;
+	position: relative;
+}
+
+// this class equals "mainClass" JS option
+.mfp-with-fade {
+
+	// before-open state
+	.mfp-content,
+	.mfp-arrow,
+	&.mfp-bg {
+		opacity: 0;
+		-webkit-backface-visibility: hidden;
+		-webkit-transition: opacity .7s ease-out; 
+		-moz-transition: opacity .7s ease-out; 
+		-o-transition: opacity .7s ease-out; 
+		transition: opacity .7s ease-out;
+	}
+
+	// open state
+	&.mfp-ready {
+		.mfp-content,
+		.mfp-arrow {
+			opacity: 1;
+		}
+		&.mfp-bg {
+			opacity: 0.8; // background opacity
+		}
+	}
+
+	// closed state
+	&.mfp-removing {
+		.mfp-content,
+		.mfp-arrow,
+		&.mfp-bg {
+			opacity: 0;
+		}
+	} 
 }

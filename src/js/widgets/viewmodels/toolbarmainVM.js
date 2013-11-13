@@ -70,22 +70,22 @@
 				
 				_self.insetClick = function() {
 					var tool = $mapholder.find('.gcviz-inset' + mapid);
-					if (tool.hasClass('hidden')) {
-						tool.removeClass('hidden');
+					if (tool.hasClass('gcviz-hidden')) {
+						tool.removeClass('gcviz-hidden');
 					} else {
-						tool.addClass('hidden');
+						tool.addClass('gcviz-hidden');
 					}
 				};
 				
 				_self.toolsClick = function() {
 					var tool = $mapholder.find('.gcviz-tbholder');
-					if (tool.hasClass('hidden')) {
-						tool.removeClass('hidden');
+					if (tool.hasClass('gcviz-hidden')) {
+						tool.removeClass('gcviz-hidden');
 						
 						// set focus on the first element
 						$section.find('.dijitTitlePaneTitleFocus')[0].focus();
 					} else {
-						tool.addClass('hidden');
+						tool.addClass('gcviz-hidden');
 					}
 				};
 				

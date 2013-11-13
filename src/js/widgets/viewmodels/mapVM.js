@@ -52,22 +52,8 @@
 							} else if (type === 'mouseleave' || type === 'focusout') {
 								this.blur();
 							}
-						});
 						
-						// resize the map on load to ensure everything is set corretcly. if we dont do this, every maps after
-						// the first one are not set properly
-						mymap.on('load', function(e) {
-							e.map.resize();
-							
-							// enable navigation
-							mymap.enableScrollWheelZoom();
-							mymap.enableKeyboardNavigation();
-							mymap.isZoomSlider = false;
-							
-							// add context menu
-							//gisM.createMapMenu(mymap);
 						});
-						
 						// set class and remove cursor for container
 						$root= $('#' + mapid + '_' + len + '_root');
 						$container= $('#' + mapid + '_' + len + '_container');

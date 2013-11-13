@@ -60,8 +60,9 @@
 	}
 }
 
-.hidden {
-	visibility: hidden;
+.gcviz-hidden {
+	//visibility: hidden;
+	display: none;
 }
 
 /* fullc screen */
