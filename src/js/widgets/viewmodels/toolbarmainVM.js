@@ -30,8 +30,8 @@
 					pathHelp = locationPath + 'gcviz/images/mainHelp.png',
 					$section = $('#section' + mapid),
 					$mapholder = $('#' + mapid),
-					$map = $('#' + mapid + '_0'),
-					$maproot = $('#' + mapid + '_0_root');
+					$map = $('#' + mapid + '_holder'),
+					$maproot = $('#' + mapid + '_holder_root');
 
 				// images path
 				_self.imgFullscreen = ko.observable(pathFullscreen);
@@ -47,6 +47,8 @@
 				
 				// fullscreen
 				_self.isFullscreen = ko.observable(false);
+				_self.isInsetVisible = ko.observable(true);
+				_self.insetState = true;
 				_self.fullscreenState = 0;
 				
 				_self.init = function() {
@@ -69,12 +71,9 @@
 				};
 				
 				_self.insetClick = function() {
-					var tool = $mapholder.find('.gcviz-inset' + mapid);
-					if (tool.hasClass('gcviz-hidden')) {
-						tool.removeClass('gcviz-hidden');
-					} else {
-						tool.addClass('gcviz-hidden');
-					}
+					// trigger the insetVisibility custom binding
+					_self.insetState = !_self.insetState;
+					_self.isInsetVisible(_self.insetState);
 				};
 				
 				_self.toolsClick = function() {
@@ -94,47 +93,43 @@
 				};
 				
 				_self.cancelFullScreen = function() {
-					// set style back (map and inset)
+					// set style back for the map
 					func.setStyle($section[0], {'width': _self.widthSection + 'px', 'height': _self.heightSection + 'px'});
 					func.setStyle($mapholder[0], {'width': _self.widthSection + 'px', 'height': _self.heightSection + 'px'});
 					func.setStyle($map[0], {'width': _self.widthMap + 'px', 'height': _self.heightMap + 'px'});
 					func.setStyle($maproot[0], {'width': _self.widthMap + 'px', 'height': _self.heightMap + 'px'});
 					$section.removeClass('gcviz-sectionfs');
 					
-					// set state and image
+					// trigger the fullscreen custom binding and set state and image
 					_self.isFullscreen(false);
 					_self.imgFullscreen(pathFullscreen);
 					_self.fullscreenState = 0;
 					
-					// var point = gisM.getMapCenter(mapid);
-					mapArray[mapid][0].resize();
-					// mapArray[mapid][0].centerAndZoom(point, 2);
+					// resize map ans keep the extent
+					mapArray[mapid].vLink = true;
+					gisM.manageScreenState(mapArray[mapid]);
 				};
 
-				_self.requestFullScreen = function() {
-					//func.tabFocusRestrictor('#map1_0', '#help');
-					
+				_self.requestFullScreen = function() {				
 					// get maximal height and width from browser window and original height and width for the map
 					var param = func.getFullscreenParam(_self.widthSection, _self.heightSection),
 						w = param.width,
 						h = param.height;
 					
-					// set style (map and inset)
+					// set style for the map
 					func.setStyle($section[0], {'width': screen.width + 'px', 'height': screen.height + 'px'});
 					func.setStyle($mapholder[0], {'width': w + 'px', 'height': h + 'px'});
 					func.setStyle($map[0], {'width': w + 'px', 'height': (h - (2 * tbHeight)) + 'px'});
 					func.setStyle($maproot[0], {'width': w + 'px', 'height': (h - (2 * tbHeight)) + 'px'});
 					$section.addClass('gcviz-sectionfs');
 					
-					// set state and image
+					// trigger the fullscreen custom binding and set state and image
 					_self.isFullscreen(true);
 					_self.imgFullscreen(pathSmallscreen);
 					_self.fullscreenState = 1;
 					
-					// var point = gisM.getMapCenter(mapid);
-					mapArray[mapid][0].resize();
-					// mapArray[mapid][0].centerAt(point);
-					// var point2 = gisM.getMapCenter(mapid);
+					// resize map ans keep the extent
+					gisM.manageScreenState(mapArray[mapid]);
 				};
 				
 				_self.init();

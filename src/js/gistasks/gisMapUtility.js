@@ -14,22 +14,79 @@
 			'dijit/PopupMenuItem'], function(func, menu, menuItem, menupopup) {
 	
 		var createMap,
+			createInset,
 			applyLink,
+			connectLinkEvent,
 			connectEvent,
 			addLayer,
+			checkRestrictExtent,
 			resizeMap,
+			resizeCenterMap,
+			zoomMapCenter,
 			getMapCenter,
-			getMap,
 			createMapMenu,
 			zoomIn,
 			zoomOut,
-			linkNames = [];
+			linkNames = [],
+			xminFull, xmaxFull, yminFull, ymaxFull,
+			extentFull,
+			wkid,
+			manageScreenState;
 	
-		createMap = function(id, config) {
+		createMap = function(id, config, fullExtent) {
+			var initExtent = config.extent,
+				wkid = config.sr.wkid,
+				initExtent = new esri.geometry.Extent({'xmin': initExtent.xmin, 'ymin': initExtent.ymin, 'xmax': initExtent.xmax, 'ymax': initExtent.ymax, 'spatialReference': {'wkid': wkid}}),
+				fullExtent = new esri.geometry.Extent({'xmin': fullExtent.xmin, 'ymin': fullExtent.ymin, 'xmax': fullExtent.xmax, 'ymax': fullExtent.ymax, 'spatialReference': {'wkid': wkid}}),
+				map;
+				
+			map = new esri.Map(id, {
+				extent: initExtent,
+				spatialReference: {'wkid': wkid},
+				logo: false,
+				showAttribution: false,
+				isPanArrows: true,
+				fitExtent:false
+			});
+			
+			// add value to map object and set full extent variable
+			map.vInitExtent = initExtent;
+			map.vFullExtent = fullExtent;
+			xminFull = fullExtent.xmin, xmaxFull = fullExtent.xmax, yminFull = fullExtent.ymin, ymaxFull = fullExtent.ymax,
+			extentFull = fullExtent,
+			map.vIdName = id.split('_')[0];
+			map.vLink = false;
+			map.vWkid = wkid;
+			
+			if (config.link) {
+				linkNames.push(map.vIdName);
+				connectLinkEvent(map);
+			} else {
+				connectEvent(map);
+			}
+
+			// resize the map on load to ensure everything is set correctly. if we dont do this, every maps after
+			// the first one are not set properly
+			map.on('load', function() {
+				map.resize();
+							
+				// enable navigation
+				map.enableScrollWheelZoom();
+				map.enableKeyboardNavigation();
+				map.isZoomSlider = false;
+
+				// add context menu
+				//gisM.createMapMenu(mymap);
+			});
+
+			return map;
+		};
+		
+		createInset = function(id, config) {
 			var extentC = config.extent,
 				wkid = config.sr.wkid,
 				extent = new esri.geometry.Extent({'xmin': extentC.xmin, 'ymin': extentC.ymin, 'xmax': extentC.xmax, 'ymax': extentC.ymax, 'spatialReference': {'wkid': wkid}}),
-				map, mapInfo;
+				map;
 				
 			map = new esri.Map(id, {
 				extent: extent,
@@ -41,54 +98,64 @@
 			});
 			
 			// add value to map object
-			map.vInitExtent = extent;
-			mapInfo = id.split('_');
-			map.vIdName = mapInfo[0];
-			map.vIdIndex = Number(mapInfo[1]);
+			map.vWkid = wkid;
 			
-			if (config.link) {
-				linkNames.push(map.vIdName);
-				connectEvent(map);
-			}
-
-			// resize the map on load to ensure everything is set corretcly. if we dont do this, every maps after
+			// resize the map on load to ensure everything is set correctly. if we dont do this, every maps after
 			// the first one are not set properly
-			map.on('load', function(e) {
+			map.on('load', function() {
 				map.resize();
 							
-				// enable navigation
-				map.enableScrollWheelZoom();
-				map.enableKeyboardNavigation();
-				map.isZoomSlider = false;
-							
-				// add context menu
-				//gisM.createMapMenu(mymap);
+				if (config.type === 'static') {
+					map.disableMapNavigation();
+				}
 			});
 
 			return map;
 		};
 		
-		applyLink = function(mapName, mapIndex) {
-  
+		applyLink = function(mapName) {
 			// loop trought maps and modify extent
 			Object.keys(mapArray).forEach(function(key) {
-				if (key !== mapName && linkNames.indexOf(key) !== -1) {
-					var mymap = mapArray[key][0];
-					mymap.setExtent(mapArray[mapName][mapIndex].extent, mymap.spatialReference);
+			if (key !== mapName && linkNames.indexOf(key) !== -1) {
+					var mymap = mapArray[key];
+					mymap.setExtent(mapArray[mapName].extent, mymap.spatialReference);
 				}
 			});
 		};
 		
-		connectEvent = function(map) {
-			map.on('extent-change', func.debounce(function (evt) {
-				if (evt.target.id === document.activeElement.id) {
-					applyLink(evt.target.vIdName, Number(evt.target.vIdIndex));
+		connectLinkEvent = function(map) {
+			map.on('extent-change', func.debounce(function(evt) {
+				var target = evt.target,
+					id = target.id;
+
+				if (id === document.activeElement.id || target.vLink) {
+					// check if the extent is outside full extent
+					checkRestrictExtent(target, evt.extent);
+					
+					// apply link
+					applyLink(id.split('_')[0]);
+					evt.target.vLink = false;
 				}
 			}, 1000, false));
 			
-			map.on('mouse-out', func.debounce(function (evt) {
-				var info = evt.target.id.split('_');
-				applyLink(info[0], Number(info[1]));
+			map.on('mouse-out', func.debounce(function(evt) {
+				var id = evt.target.id.split('_')[0],
+					mymap = mapArray[id];
+
+				// check if the extent is outside full extent
+				checkRestrictExtent(mymap, mymap.extent);
+					
+				// apply link (apply a time out because if not, the link is made before the extent changed)
+				setTimeout(function() { applyLink(id); }, 1000);
+			}, 1000, false));
+		};
+		
+		connectEvent = function(map) {
+			map.on('extent-change', func.debounce(function(evt) {
+				var target = evt.target;
+
+				// check if the extent is outside full extent
+				checkRestrictExtent(target, evt.extent);
 			}, 1000, false));
 		};
 		
@@ -99,53 +166,96 @@
 				map.addLayer(new esri.layers.ArcGISDynamicMapServiceLayer(url));
 			}
 		};
+
+		checkRestrictExtent = function(mymap, extent) {
+			var outBoundXmin = false, outBoundXmax = false, outBoundYmin = false, outBoundYmax = false,
+				xminOri = parseInt(extent.xmin, 10), xmaxOri = parseInt(extent.xmax, 10), yminOri = parseInt(extent.ymin, 10), ymaxOri = parseInt(extent.ymax, 10),
+				xmin = xminOri, xmax = xmaxOri, ymin = yminOri, ymax = ymaxOri;
 			
-		resizeMap = function(id) {
-			var maps = getMap(id),
-				map,
-				len = maps.length;
-				
-			while (len--) {
-				map = maps[len];
-				map.resize();
-				map.setExtent(map.getLayer(map.layerIds[0]).initialExtent, true);
+			if (xminOri < xminFull) {
+				xmin = xminFull;
+				xmax = xminFull + (xmaxOri - xminOri);
+				outBoundXmin = true;
+			}
+			if (xmaxOri > xmaxFull) {
+				xmax = xmaxFull;
+				xmin = xmaxFull - (xmaxOri - xminOri);
+				outBoundXmax = true;
+			}
+			if (yminOri < yminFull) {
+				ymin = yminFull;
+				ymax = yminFull + (ymaxOri - yminOri);
+				outBoundYmin = true;
+			}
+			if (ymaxOri > ymaxFull) {
+				ymax = ymaxFull;
+				ymin = ymaxFull - (ymaxOri - yminOri);
+				outBoundYmax = true;
+			}
+
+			// if xmin and xmax or ymin and ymax are out of bounds, it should be a zoom out so put full screen
+			// if only one one (or two) of the boundaries moves, set the extent define previously
+			if ((outBoundXmin && outBoundXmax) || (outBoundYmin && outBoundYmax)) {
+				mymap.setExtent(extentFull);
+			} else if (outBoundXmin || outBoundXmax || outBoundYmin || outBoundYmax) {
+				mymap.setExtent(new esri.geometry.Extent({'xmin': xmin, 'ymin': ymin, 'xmax': xmax, 'ymax': ymax, 'spatialReference': {'wkid': mymap.vWkid}}));
 			}
 		};
+
+		resizeMap = function(map) {
+			map.resize();
+		};
 		
-		getMapCenter = function(id) {
-			var maps = getMap(id),
-				map,
-				extent,
-				point,
-				len = maps.length;
+		resizeCenterMap = function(map, options) {
+			var point,
+				interval;
 				
-			while (len--) {
-				map = maps[len];
-				extent = map.extent;
-				point = new esri.geometry.Point((extent.xmin + extent.xmax) / 2, (extent.ymin + extent.ymax) / 2, map.spatialReference);
-			}
+			options = options || {};
+			point = options.point || getMapCenter(map);
+			interval = options.interval || 0;
+			
+			resizeMap(map);
+			setTimeout(function() { zoomMapCenter(map, point); }, interval);
+		};
+		
+		zoomMapCenter = function(map, point) {
+			point = point || getMapCenter(map);
+			map.centerAt(point);
+		};
+		
+		getMapCenter = function(map) {
+			var extent,
+				point;
+				
+			extent = map.extent;
+			point = new esri.geometry.Point((extent.xmin + extent.xmax) / 2, (extent.ymin + extent.ymax) / 2, map.vWkid);
 			
 			return point;
 		};
+
+		manageScreenState = function(map) {
+			var extent = map.extent;
 			
-		getMap = function(id) {
-			return mapArray[id];
+			resizeMap(map);
+			setTimeout(function() {
+				map.setExtent(extent);
+			}, 1000);
 		};
 		
 		// USE JQUERY.UI-contextmenu INSTEAD OF DOJO!!!
 		createMapMenu = function(map) {
 			// Creates right-click context menu for map
 			var ctxMenuMap = new menu({
-				targetNodeIds: ['gcviz-header'],
+				targetNodeIds: ['gcviz-header']
 				// onOpen: function(box) {
-              		// // Lets calculate the map coordinates where user right clicked.
-              		// //currentLocation = getMapPointFromMenuPosition(box);          
+				// // Lets calculate the map coordinates where user right clicked.
+				// //currentLocation = getMapPointFromMenuPosition(box);          
 				// }
 			});
 
 			ctxMenuMap.addChild(new menuItem({ 
 				label: "Add Point",
-				onClick: function(evt) {
+				onClick: function() {
               		alert('click');
 				}
 			}));
@@ -162,9 +272,13 @@
 			
 		return {
 			createMap: createMap,
+			createInset: createInset,
 			addLayer: addLayer,
 			resizeMap: resizeMap,
+			resizeCenterMap: resizeCenterMap,
+			zoomMapCenter: zoomMapCenter,
 			getMapCenter: getMapCenter,
+			manageScreenState: manageScreenState,
 			createMapMenu: createMapMenu
 		};
 	});

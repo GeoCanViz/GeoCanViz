@@ -11,8 +11,7 @@
 	define(['jquery',
 			'gcviz-vm-inset'
 	], function($, insetVM) {
-		var initialize,
-			insetsArray = [];
+		var initialize;
 		
 		initialize = function($mapElem) {
 			var mapframe = $mapElem.mapframe,
@@ -27,7 +26,8 @@
 				sources, srcLen,
 				margin,
 				sizetype,
-				insideHeight;
+				insideHeight,
+				insetsArray = [];
 			
 			// find widht and height of cells
 			wSize = mapSize.width/insetSize.numcol;
@@ -63,7 +63,7 @@
 				}
 				
 				// create inset holder
-				$mapElem.find('.gcviz-tbfoot').before('<div id="inset' + insetLen + mapid + '" data-bind="fullscreen: {}, enterkey: insetClick, click: insetClick" class="gcviz-inset gcviz-inset' + mapid + ' ' + margin + '" tabindex="1" style="' + ' bottom: ' + bottom + 'px; left: ' + left + 'px; width: ' + width + sizetype + '; height: ' + height + sizetype + ';"></div>');
+				$mapElem.find('.gcviz-tbfoot').before('<div id="inset' + insetLen + mapid + '" data-bind="fullscreen: {}, insetVisibility: {}, enterkey: insetClick, click: function(data, event){ insetClick($data, event) }" class="gcviz-inset gcviz-inset' + mapid + ' ' + margin + '" tabindex="1" style="' + ' bottom: ' + bottom + 'px; left: ' + left + 'px; width: ' + width + sizetype + '; height: ' + height + sizetype + ';"></div>');
 				$inset = $mapElem.find('#inset' + insetLen + mapid);
 				
 				// add label
@@ -106,7 +106,7 @@
 						node += '<a class="mp-link"><div id="inset' + insetLen + mapid + 'h"><iframe class="gcviz-html-inset" src="' + html.tag + '" style="height: ' + insideHeight + 'px;"></iframe></div>';
 					}
 				} else if (inset.type === 'map') {
-					node += '<a class="mp-link"></a><div id="inset' + insetLen + mapid + 'm" class="gcviz-map-inset inset' + insetLen + mapid + '"></div>';
+					node += '<a class="mp-link"></a><div id="inset' + insetLen + mapid + 'm" class="gcviz-map-inset inset' + insetLen + mapid + '" style="height: ' + insideHeight + 'px;"></div>';
 				}
 
 				// append the node

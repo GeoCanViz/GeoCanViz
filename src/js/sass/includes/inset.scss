@@ -154,7 +154,7 @@
 	}
 }
 
-/* Styles inset with magnificpopup */
+/* styles inset with magnificpopup */
 .mp-inset {
 	background: white;
 	padding: 35px 35px;
@@ -174,10 +174,10 @@
 	&.mfp-bg {
 		opacity: 0;
 		-webkit-backface-visibility: hidden;
-		-webkit-transition: opacity .7s ease-out; 
-		-moz-transition: opacity .7s ease-out; 
-		-o-transition: opacity .7s ease-out; 
-		transition: opacity .7s ease-out;
+		-webkit-transition: opacity .5s ease-out; 
+		-moz-transition: opacity .5s ease-out; 
+		-o-transition: opacity .5s ease-out; 
+		transition: opacity .5s ease-out;
 	}
 
 	// open state

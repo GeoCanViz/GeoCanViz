@@ -5,24 +5,24 @@
 			"width": 800
 		},
 		"extent": {
-			"xmin": -2750000.0,
-			"ymin": -900000.0,
-			"xmax": 3600000.0,
-			"ymax": 4630000.0
+			"xmin": -5035766.0,
+			"ymin": -668341.0,
+			"xmax": 5547588.0,
+			"ymax": 3564999.0
 		},
 		"resolution": {
 			"min": -1,
 			"max": -1
 		},
-		"map": [{ 
+		"map": { 
 			"sr": {
 				"wkid": 3978
 			},
 			"extent": {
-				"xmin": -2750000.0,
-				"ymin": -900000.0,
-				"xmax": 3600000.0,
-				"ymax": 4630000.0
+				"xmin": -5035766.0,
+				"ymin": -668341.0,
+				"xmax": 5547588.0,
+				"ymax": 3564999.0
 			},
 			"resolution": {
 				"min": -1,
@@ -45,7 +45,7 @@
 					"max": -1
 				}
 			}]
-		}]
+		}
 	},
 	"insetframe": {
 		"enable": true,
@@ -90,8 +90,8 @@
 	},
 	"toolbarmain": {
 		"title": {
-			"value": "Map 1",
-			"alttext": "Map 1",
+			"value": "Map 5",
+			"alttext": "Map 5",
 			"justify": "center"
 		},
 		"tools": true,

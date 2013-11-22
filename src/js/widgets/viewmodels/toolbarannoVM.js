@@ -27,7 +27,8 @@
 					pathMeasure = locationPath + 'gcviz/images/annoMeasure.png',
 					pathImport = locationPath + 'gcviz/images/annoImport.png',
 					pathExport = locationPath + 'gcviz/images/annoExport.png',
-					mymap = mapArray[mapid][0],
+					mymap = mapArray[mapid],
+					$container = $('#' + mapid + '_holder_container'),
 					mygraphic = new gisGraphic.initialize(mymap);
 
 				// images path
@@ -64,11 +65,11 @@
 								click: function() {
 											var value = $('#value').val(),
 												$anno = $('#gcviz-anno-inputbox'),
-												mapid = $anno.dialog('option', 'mapid'),
 												graphic = $anno.dialog('option', 'graphic');
 											
 											if (value !== '') {
-												$('#' + mapid + '_0_container').addClass('gcviz-text-cursor');
+												$container.css('cursor', '');
+												$container.addClass('gcviz-text-cursor');
 												graphic.drawText(value);
 											}
 											$(this).dialog('close');
@@ -86,7 +87,8 @@
 				};
 				
 				_self.drawClick = function() {
-					$('#' + mapid + '_0_container').addClass('gcviz-draw-cursor');
+					$container.css('cursor', '');
+					$container.addClass('gcviz-draw-cursor');
 					_self.graphic.drawLine();
 				};
 				

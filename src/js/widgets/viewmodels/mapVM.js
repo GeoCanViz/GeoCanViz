@@ -14,58 +14,50 @@
 		var initialize;
 
 		initialize = function($mapElem) {
-			var map = [];
+			var map;
 
 			// data model				
 			var mapViewModel = function($mapElem) {
 				var _self = this,
-					config = $mapElem.mapframe,
-					mymap;
+					mapframe = $mapElem.mapframe,
+					mapid = mapframe.id,
+					config = mapframe.map;
 		
 				_self.init = function() {
-					var len = config.map.length,
-						mapid = $mapElem.mapframe.id;
-					
-					while (len--) {
-						var configMap = config.map[len],
-							lenLayers = configMap.layers.length,
-							layers = configMap.layers,
-							$map = $('#' + mapid + '_' + len),
-							$root,
-							$container;
+					var layers = config.layers,
+						lenLayers = layers.length,
+						$map = $('#' + mapid + '_holder'),
+						$root,
+						$container;
 						
-						// create map	
-						mymap = gisM.createMap(mapid + '_' + len, configMap);
+					// create map	
+					map = gisM.createMap(mapid + '_holder', config, mapframe.extent);
 						
-						// add layers
-						layers = layers.reverse();
-						while (lenLayers--) {
-							var layer = layers[lenLayers];
-							gisM.addLayer(mymap, layer.type, layer.url);
-						}
-						
-						// set events (mouseover mouseout focusin focusout)
-						$map.on('mouseenter mouseleave focusin focusout', function(e) {
-							var type = e.type;
-							if (type === 'mouseenter' || type === 'focusin') {
-								this.focus();
-							} else if (type === 'mouseleave' || type === 'focusout') {
-								this.blur();
-							}
-						
-						});
-						// set class and remove cursor for container
-						$root= $('#' + mapid + '_' + len + '_root');
-						$container= $('#' + mapid + '_' + len + '_container');
-						$map.addClass('gcviz-map');
-						$root.addClass('gcviz-root');
-						$container.addClass('gcviz-container');
-						$container.css('cursor', '');
-						
-						_self.focus();
-							
-						map.push(mymap);
+					// add layers
+					layers = layers.reverse();
+					while (lenLayers--) {
+						var layer = layers[lenLayers];
+						gisM.addLayer(map, layer.type, layer.url);
 					}
+						
+					// set events (mouseover mouseout focusin focusout)
+					$map.on('mouseenter mouseleave focusin focusout', function(e) {
+						var type = e.type;
+						if (type === 'mouseenter' || type === 'focusin') {
+							this.focus();
+						} else if (type === 'mouseleave' || type === 'focusout') {
+							this.blur();
+						}
+					});
+					
+					// set class and remove cursor for container
+					$root = $('#' + mapid + '_holder_root');
+					$container = $('#' + mapid + '_holder_container');
+					$map.addClass('gcviz-map');
+					$root.addClass('gcviz-root');
+					$container.addClass('gcviz-container');
+						
+					_self.focus();
 
 					return { controlsDescendantBindings: true };
 				};
@@ -76,6 +68,7 @@
 					_self.mapfocus.focused = ko.observable();
 					_self.mapfocus.focused.subscribe(function(newValue) {
 						if (!newValue) {
+							var test = 'test';
 							// call link map
 							//$map[0].fireEvent("on" + event.eventType, event);
 						}
