@@ -11,7 +11,8 @@
 	
 		var debounce,
 			setStyle,
-			getFullscreenParam;
+			getFullscreenParam,
+			checkObjectValue;
 
 		debounce = function(func, threshold, execAsap) {
 
@@ -68,10 +69,28 @@
 			return { 'width': w, 'height': h, 'ratio': ratio };
 		};
 
+		checkObjectValue = function(obj, key, value) {
+			var len,
+				myobject;
+			
+			// check if it is an array
+			if (typeof obj.length !== 'undefined') {
+				len = obj.length;
+				
+				while (len--) {
+					myobject = obj[len];
+					if (myobject[key] !== value) { return false; }
+				}
+			}
+			
+			return true;
+		};
+		
 		return {
 			debounce: debounce,
 			setStyle: setStyle,
-			getFullscreenParam: getFullscreenParam
+			getFullscreenParam: getFullscreenParam,
+			checkObjectValue: checkObjectValue
 		};
 	});
 }());

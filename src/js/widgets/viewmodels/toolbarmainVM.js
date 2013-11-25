@@ -105,9 +105,8 @@
 					_self.imgFullscreen(pathFullscreen);
 					_self.fullscreenState = 0;
 					
-					// resize map ans keep the extent
-					mapArray[mapid].vLink = true;
-					gisM.manageScreenState(mapArray[mapid]);
+					// resize map and keep the extent
+					gisM.manageScreenState(mapArray[mapid], 500, false);
 				};
 
 				_self.requestFullScreen = function() {				
@@ -129,7 +128,7 @@
 					_self.fullscreenState = 1;
 					
 					// resize map ans keep the extent
-					gisM.manageScreenState(mapArray[mapid]);
+					gisM.manageScreenState(mapArray[mapid], 1000, true);
 				};
 				
 				_self.init();

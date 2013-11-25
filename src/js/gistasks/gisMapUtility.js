@@ -11,7 +11,8 @@
 	define(['gcviz-func',
 			'dijit/Menu',
 			'dijit/MenuItem',
-			'dijit/PopupMenuItem'], function(func, menu, menuItem, menupopup) {
+			'dijit/PopupMenuItem',
+			'esri/layers/FeatureLayer'], function(func, menu, menuItem, menupopup) {
 	
 		var createMap,
 			createInset,
@@ -31,7 +32,10 @@
 			xminFull, xmaxFull, yminFull, ymaxFull,
 			extentFull,
 			wkid,
-			manageScreenState;
+			manageScreenState,
+			linkInset,
+			insetArray = {},
+			isFullscreen = false;
 	
 		createMap = function(id, config, fullExtent) {
 			var initExtent = config.extent,
@@ -55,16 +59,9 @@
 			xminFull = fullExtent.xmin, xmaxFull = fullExtent.xmax, yminFull = fullExtent.ymin, ymaxFull = fullExtent.ymax,
 			extentFull = fullExtent,
 			map.vIdName = id.split('_')[0];
-			map.vLink = false;
-			map.vWkid = wkid;
+			map.vWkid = wkid,
+			map.vInsetId = [];
 			
-			if (config.link) {
-				linkNames.push(map.vIdName);
-				connectLinkEvent(map);
-			} else {
-				connectEvent(map);
-			}
-
 			// resize the map on load to ensure everything is set correctly. if we dont do this, every maps after
 			// the first one are not set properly
 			map.on('load', function() {
@@ -75,6 +72,14 @@
 				map.enableKeyboardNavigation();
 				map.isZoomSlider = false;
 
+				// connect event map
+				if (config.link) {
+					linkNames.push({ 'name': map.vIdName, 'fire': false });
+					connectLinkEvent(map);
+				} else {
+					connectEvent(map);
+				}
+				
 				// add context menu
 				//gisM.createMapMenu(mymap);
 			});
@@ -82,7 +87,7 @@
 			return map;
 		};
 		
-		createInset = function(id, config) {
+		createInset = function(id, config, masterId) {
 			var extentC = config.extent,
 				wkid = config.sr.wkid,
 				extent = new esri.geometry.Extent({'xmin': extentC.xmin, 'ymin': extentC.ymin, 'xmax': extentC.xmax, 'ymax': extentC.ymax, 'spatialReference': {'wkid': wkid}}),
@@ -104,9 +109,12 @@
 			// the first one are not set properly
 			map.on('load', function() {
 				map.resize();
+				map.disableMapNavigation();
 							
-				if (config.type === 'static') {
-					map.disableMapNavigation();
+				if (config.type !== 'static') {
+					// add inset link to master map
+					mapArray[masterId].vInsetId.push(map.id);
+					insetArray[id] = map;
 				}
 			});
 
@@ -115,38 +123,66 @@
 		
 		applyLink = function(mapName) {
 			// loop trought maps and modify extent
-			Object.keys(mapArray).forEach(function(key) {
-			if (key !== mapName && linkNames.indexOf(key) !== -1) {
-					var mymap = mapArray[key];
+			var len = linkNames.length,
+				name,
+				link,
+				mymap;
+			
+			// loop trought array of link map
+			while (len--) {
+				link = linkNames[len];
+				name = link.name;
+				
+				// if mapName is different from the link map name, set extent for this link map name
+				if (name !== mapName)
+				{
+					mymap = mapArray[name];
 					mymap.setExtent(mapArray[mapName].extent, mymap.spatialReference);
+					
+					// set true to fire to know map have been updated (it will not fire the extent change event)
+					link.fire = true;
 				}
-			});
+			}
 		};
 		
 		connectLinkEvent = function(map) {
 			map.on('extent-change', func.debounce(function(evt) {
 				var target = evt.target,
-					id = target.id;
+					id = target.id.split('_')[0],
+					len,
+					link,
+					index,
+					flag,
+					reset;
+				
+				// find if the map as already fire the extent-change event
+				len = linkNames.length;
+				while (len--) {
+					link = linkNames[len];
+						
+					if (link.name === id)
+					{
+						index = len;
+						flag = link.fire;
+					}
+				}
 
-				if (id === document.activeElement.id || target.vLink) {
+				// if exent-change has not been fire, do it
+				if (!flag && !isFullscreen) {
 					// check if the extent is outside full extent
 					checkRestrictExtent(target, evt.extent);
 					
 					// apply link
-					applyLink(id.split('_')[0]);
-					evt.target.vLink = false;
+					linkNames[index].fire = true;
+					setTimeout(function() { applyLink(id); }, 1000);
 				}
-			}, 1000, false));
-			
-			map.on('mouse-out', func.debounce(function(evt) {
-				var id = evt.target.id.split('_')[0],
-					mymap = mapArray[id];
-
-				// check if the extent is outside full extent
-				checkRestrictExtent(mymap, mymap.extent);
+				
+				// if all value are true, its mean the extent-change have run trought all maps so reset values
+				if (func.checkObjectValue(linkNames, 'fire', true)) {
+					len = linkNames.length;
 					
-				// apply link (apply a time out because if not, the link is made before the extent changed)
-				setTimeout(function() { applyLink(id); }, 1000);
+					while (len--) { linkNames[len].fire = false; }
+				}
 			}, 1000, false));
 		};
 		
@@ -156,6 +192,9 @@
 
 				// check if the extent is outside full extent
 				checkRestrictExtent(target, evt.extent);
+				
+				// check if inset needs to be resize
+				linkInset(target);
 			}, 1000, false));
 		};
 		
@@ -164,13 +203,19 @@
 				map.addLayer(new esri.layers.ArcGISTiledMapServiceLayer(url));
 			} else if (type === 'dynamic') {
 				map.addLayer(new esri.layers.ArcGISDynamicMapServiceLayer(url));
+			} else if (type === 'feature') {
+				map.addLayer(new esri.layers.FeatureLayer(url, {
+					mode: esri.layers.FeatureLayer.MODE_ONDEMAND,
+      				outFields: ["*"]
+				}));
 			}
 		};
 
 		checkRestrictExtent = function(mymap, extent) {
 			var outBoundXmin = false, outBoundXmax = false, outBoundYmin = false, outBoundYmax = false,
 				xminOri = parseInt(extent.xmin, 10), xmaxOri = parseInt(extent.xmax, 10), yminOri = parseInt(extent.ymin, 10), ymaxOri = parseInt(extent.ymax, 10),
-				xmin = xminOri, xmax = xmaxOri, ymin = yminOri, ymax = ymaxOri;
+				xmin = xminOri, xmax = xmaxOri, ymin = yminOri, ymax = ymaxOri,
+				outExtent = null;
 			
 			if (xminOri < xminFull) {
 				xmin = xminFull;
@@ -199,9 +244,23 @@
 				mymap.setExtent(extentFull);
 			} else if (outBoundXmin || outBoundXmax || outBoundYmin || outBoundYmax) {
 				mymap.setExtent(new esri.geometry.Extent({'xmin': xmin, 'ymin': ymin, 'xmax': xmax, 'ymax': ymax, 'spatialReference': {'wkid': mymap.vWkid}}));
+				//outExtent = new esri.geometry.Extent({'xmin': xmin, 'ymin': ymin, 'xmax': xmax, 'ymax': ymax, 'spatialReference': {'wkid': mymap.vWkid}});
 			}
+			
+			return outExtent;
 		};
 
+		linkInset = function(map) {
+			var len = map.vInsetId.length,
+				insetMap,
+				inset;
+			
+			while (len--) {
+				insetMap = insetArray[map.vInsetId[len]];
+				zoomMapCenter(insetMap, getMapCenter(map));
+			}
+		};
+		
 		resizeMap = function(map) {
 			map.resize();
 		};
@@ -233,13 +292,14 @@
 			return point;
 		};
 
-		manageScreenState = function(map) {
+		manageScreenState = function(map, interval, fullscreen) {
 			var extent = map.extent;
+			isFullscreen = fullscreen;
 			
 			resizeMap(map);
 			setTimeout(function() {
 				map.setExtent(extent);
-			}, 1000);
+			}, interval);
 		};
 		
 		// USE JQUERY.UI-contextmenu INSTEAD OF DOJO!!!

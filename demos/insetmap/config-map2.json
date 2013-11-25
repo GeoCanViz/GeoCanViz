@@ -44,6 +44,38 @@
 					"min": -1,
 					"max": -1
 				}
+			}, {
+				"id": "chron",
+				"type": "dynamic",
+				"url": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/GSCC/Geochronology/MapServer",
+				"selectable": false,
+				"link": false,
+				"swiper": {
+					"enable": false
+				},
+				"cluster": {
+					"enable": false
+				},
+				"resolution": {
+					"min": -1,
+					"max": -1
+				}
+			}, {
+				"id": "stat",
+				"type": "feature",
+				"url": "http://services1.arcgis.com/vY6WuhLW0HkFe6Fl/arcgis/rest/services/StatCan_Census_Subdivision_2011/FeatureServer/0",
+				"selectable": false,
+				"link": false,
+				"swiper": {
+					"enable": false
+				},
+				"cluster": {
+					"enable": false
+				},
+				"resolution": {
+					"min": -1,
+					"max": -1
+				}
 			}]
 		}
 	},
@@ -80,7 +112,7 @@
 					"xmax": 1284232.0,
 					"ymax": -442214.0
 				},
-				"type": "static",
+				"type": "link",
 				"layers":[{
 					"type": "tiled",
 					"url": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/BaseMaps/CBCT3978/MapServer"
@@ -90,8 +122,8 @@
 	},
 	"toolbarmain": {
 		"title": {
-			"value": "Map 5",
-			"alttext": "Map 5",
+			"value": "Map 2",
+			"alttext": "Map 2",
 			"justify": "center"
 		},
 		"tools": true,

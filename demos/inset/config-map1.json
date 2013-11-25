@@ -196,7 +196,7 @@
 		"mousecoords": {
 			"enable": true,
 			"outwkid": 4326,
-			"urlgeomserv": "http://tasks.arcgisonline.com/ArcGIS/rest/services/Geometry/GeometryServer"
+			"urlgeomserv": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/Utilities/Geometry/GeometryServer"
 		},
 		"datatable": { 
 			"direction": "in"

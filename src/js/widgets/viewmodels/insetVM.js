@@ -59,7 +59,7 @@
 					} else if (type === 'video') {
 						setVideo($mapElem, _self);
 					} else if (type === 'map') {
-						_self.map = setMap($mapElem, inset);
+						_self.map = setMap($mapElem, inset, _self);
 					} else if (type === 'html') {
 						setHtml($mapElem, inset);
 					}
@@ -88,7 +88,7 @@
 								height = _self.height;
 							}
 							$mapElem.find('#' + $mapElem[0].id + 'm').css({ 'height': height - 20 });
-							gisM.manageScreenState(_self.map);
+							gisM.manageScreenState(_self.map, 1000);
 						}
 					} else {
 						$mapElem.addClass('gcviz-hidden');
@@ -141,7 +141,7 @@
 							// if the inset is visible resize. If not wait until the inset is made visible
 							// if resize is set to hidden element, it breaks the map.
 							$mapElem.find('#' + $mapElem[0].id + 'm').css({ 'height': (height * ratio) - 20 });
-							gisM.manageScreenState(_self.map);
+							gisM.manageScreenState(_self.map, 1000);
 						}
 					} else {
 						$mapElem.addClass('gcviz-inset-hidden');
@@ -161,7 +161,7 @@
 							// if the inset is visible resize. If not wait until the inset is made visible
 							// if resize is set to hidden element, it breaks the map.
 							$mapElem.find('#' + $mapElem[0].id + 'm').css({ 'height': _self.height - 20 });
-							gisM.manageScreenState(_self.map);
+							gisM.manageScreenState(_self.map, 1000);
 						}
 					} else {
 						$mapElem.removeClass('gcviz-inset-hidden');
@@ -296,13 +296,12 @@
 										$lb.width(width);
 										$iframe.height(height);
 										$iframe.width(width);
-
 									};
 				setLightbox('inline', $elem, $lb, id, func);
 			}
 		};
 		
-		setMap = function($elem, inset) {
+		setMap = function($elem, inset, _self) {
 			var configMap = inset.inset,
 				lenLayers = configMap.layers.length,
 				layers = configMap.layers,
@@ -315,7 +314,7 @@
 				initHeight;
 						
 			// create map	
-			mymap = gisM.createInset(mapid, configMap);
+			mymap = gisM.createInset(mapid, configMap, _self.mapid);
 						
 			// add layers
 			layers = layers.reverse();
@@ -355,9 +354,6 @@
 				key: 'map-key',
 				mainClass: 'mfp-with-fade'
 			});
-			
-			// get map center
-			mymap.vMapCenter = gisM.getMapCenter(mymap);
 			
 			return mymap;
 		};
