@@ -10,9 +10,11 @@
 	define([], function() {
 	
 		var debounce,
+			debounceClick,
 			setStyle,
 			getFullscreenParam,
-			checkObjectValue;
+			checkObjectValue,
+			timer;
 
 		debounce = function(func, threshold, execAsap) {
 
@@ -38,6 +40,14 @@
 
 				timeout = setTimeout(delayed, threshold || 100); 
 			};
+		};
+		
+		debounceClick = function(func, threshold) {
+			if (timer) {
+				clearTimeout(timer);
+			}
+			        
+			timer = setTimeout(func, threshold);
 		};
 		
 		setStyle = function(elem, propertyObject) {
@@ -88,6 +98,7 @@
 		
 		return {
 			debounce: debounce,
+			debounceClick: debounceClick,
 			setStyle: setStyle,
 			getFullscreenParam: getFullscreenParam,
 			checkObjectValue: checkObjectValue

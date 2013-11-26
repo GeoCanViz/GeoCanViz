@@ -58,22 +58,30 @@
 					_self.heightMap = parseInt($map.css('height'), 10);
 					_self.widthMap = parseInt($map.css('width'), 10);
 					tbHeight = parseInt($mapElem.css('height'), 10);
-         
+
 					return { controlsDescendantBindings: true };
 				};
 					
 				_self.fullscreenClick = function() {
-					if (_self.fullscreenState) {
-						_self.cancelFullScreen();
-					} else {
-						_self.requestFullScreen();
-					}
+					// debounce the click to avoid resize problems
+					func.debounceClick(function() {
+						if (_self.fullscreenState) {
+							_self.cancelFullScreen();
+						} else {
+							_self.requestFullScreen();
+						}
+						
+						// remove tooltip if there (the tooltip is position before the fullscreen)
+						$('.gcviz-tooltip').remove();
+					}, 500);
 				};
 				
 				_self.insetClick = function() {
-					// trigger the insetVisibility custom binding
-					_self.insetState = !_self.insetState;
-					_self.isInsetVisible(_self.insetState);
+					// trigger the insetVisibility custom binding (debounce the click to avoid resize problems)
+					func.debounceClick(function() {
+						_self.insetState = !_self.insetState;
+						_self.isInsetVisible(_self.insetState);
+					}, 500);
 				};
 				
 				_self.toolsClick = function() {
