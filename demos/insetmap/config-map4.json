@@ -5,10 +5,10 @@
 			"width": 800
 		},
 		"extent": {
-			"xmin": -2750000.0,
-			"ymin": -900000.0,
-			"xmax": 3600000.0,
-			"ymax": 4630000.0
+			"xmin": -2752407.0,
+			"ymin": -475361.0,
+			"xmax": 3597605.0,
+			"ymax": 2064644.0
 		},
 		"resolution": {
 			"min": -1,
@@ -19,17 +19,17 @@
 				"wkid": 3978
 			},
 			"extent": {
-				"xmin": -2750000.0,
-				"ymin": -900000.0,
-				"xmax": 3600000.0,
-				"ymax": 4630000.0
+				"xmin": -2752407.0,
+				"ymin": -475361.0,
+				"xmax": 3597605.0,
+				"ymax": 2064644.0
 			},
 			"lods": [],
 			"resolution": {
 				"min": -1,
 				"max": -1
 			},
-			"link": true,
+			"link": false,
 			"layers": [{
 			 	"id": "name",
 				"type": "tiled",
@@ -49,12 +49,53 @@
 		}
 	},
 	"insetframe": {
-		"enable": false
+		"enable": true,
+		"size": {
+			"numrow": 10,
+			"numcol": 10
+		},
+ 		"label": {
+				"value": "The insets",
+				"alttext": "The insets"
+		},
+		"insets": [{
+			"pos": {
+				"startrowcol": [0,0],
+				"endrowcol": [5,5]
+			},
+			"type": "map",
+			"fullscreen": true,
+			"size": "%",
+			"label": {
+				"value": "My link inset (pan true)",
+				"alttext": "My link inset (pan true)",
+				"justify": "left"
+			},
+			"inset" : {
+				"sr": {
+					"wkid": 3978
+				},
+				"extent": {
+					"xmin": -2752407.0,
+					"ymin": -475361.0,
+					"xmax": 3597605.0,
+					"ymax": 2064644.0
+				},
+				"type": "link",
+				"typeinfo": {
+					"pan": true
+				},
+				"layers":[{
+					"type": "tiled",
+					"url": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/BaseMaps/CBCT3978/MapServer"
+				}]
+			}
+		}]
 	},
 	"toolbarmain": {
 		"title": {
-			"value": "Map 1",
-			"alttext": "Map 1",
+			"value": "Map 4 no lod",
+			"alttext": "Map 4",
 			"justify": "center"
 		},
 		"tools": true,
@@ -77,7 +118,7 @@
 		"mousecoords": {
 			"enable": true,
 			"outwkid": 4326,
-			"urlgeomserv": "http://tasks.arcgisonline.com/ArcGIS/rest/services/Geometry/GeometryServer"
+			"urlgeomserv": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/Utilities/Geometry/GeometryServer"
 		},
 		"datatable": { 
 			"direction": "in"

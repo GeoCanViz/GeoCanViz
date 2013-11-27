@@ -106,7 +106,7 @@
 						node += '<a class="mp-link"><div id="inset' + insetLen + mapid + 'h"><iframe class="gcviz-html-inset" src="' + html.tag + '" style="height: ' + insideHeight + 'px;"></iframe></div>';
 					}
 				} else if (inset.type === 'map') {
-					node += '<a class="mp-link"></a><div id="inset' + insetLen + mapid + 'm" class="gcviz-map-inset inset' + insetLen + mapid + '" style="height: ' + insideHeight + 'px;"></div>';
+					node += '<a class="mp-link"></a><div id="inset' + insetLen + mapid + 'm" class="gcviz-map-inset inset' + insetLen + mapid + '" style="height: ' + insideHeight + 'px;"><div id="load' + insetLen + mapid + '" class="gcviz-load-close gcviz-hidden"><img class="gcviz-load-img" src="http://jimpunk.net/Loading/wp-content/uploads/loading1.gif"/></div></div>';
 				}
 
 				// append the node

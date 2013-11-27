@@ -67,8 +67,8 @@
 			"fullscreen": true,
 			"size": "%",
 			"label": {
-				"value": "My map 1",
-				"alttext": "My map 1",
+				"value": "My pan scale inset (pan false)",
+				"alttext": "My pan scale inset (pan false)",
 				"justify": "left"
 			},
 			"inset" : {
@@ -76,12 +76,16 @@
 					"wkid": 3978
 				},
 				"extent": {
-					"xmin": 1266398.0,
-					"ymin": -449389.0,
-					"xmax": 1284232.0,
-					"ymax": -442214.0
+					"xmin": -2752407.0,
+					"ymin": -475361.0,
+					"xmax": 3597605.0,
+					"ymax": 2064644.0
 				},
-				"type": "link",
+				"type": "panscale",
+				"typeinfo": {
+					"lod": 5,
+					"pan": false
+				},
 				"layers":[{
 					"type": "tiled",
 					"url": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/BaseMaps/CBCT3978/MapServer"
@@ -91,7 +95,7 @@
 	},
 	"toolbarmain": {
 		"title": {
-			"value": "Map 3",
+			"value": "Map 3 no lod",
 			"alttext": "Map 3",
 			"justify": "center"
 		},

@@ -5,10 +5,10 @@
 			"width": 800
 		},
 		"extent": {
-			"xmin": -5035766.0,
-			"ymin": -668341.0,
-			"xmax": 5547588.0,
-			"ymax": 3564999.0
+			"xmin": -2752407.0,
+			"ymin": -475361.0,
+			"xmax": 3597605.0,
+			"ymax": 2064644.0
 		},
 		"resolution": {
 			"min": -1,
@@ -81,22 +81,6 @@
 					"min": -1,
 					"max": -1
 				}
-			}, {
-				"id": "chron",
-				"type": "dynamic",
-				"url": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/GSCC/Geochronology/MapServer",
-				"selectable": false,
-				"link": false,
-				"swiper": {
-					"enable": false
-				},
-				"cluster": {
-					"enable": false
-				},
-				"resolution": {
-					"min": -1,
-					"max": -1
-				}
 			}]
 		}
 	},
@@ -119,8 +103,8 @@
 			"fullscreen": true,
 			"size": "%",
 			"label": {
-				"value": "My map 1",
-				"alttext": "My map 1",
+				"value": "My static inset",
+				"alttext": "My static inset",
 				"justify": "left"
 			},
 			"inset" : {
@@ -143,7 +127,7 @@
 	},
 	"toolbarmain": {
 		"title": {
-			"value": "Map 1",
+			"value": "Map 1 with lod",
 			"alttext": "Map 1",
 			"justify": "center"
 		},

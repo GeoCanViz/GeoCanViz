@@ -73,7 +73,7 @@
 						
 						// remove tooltip if there (the tooltip is position before the fullscreen)
 						$('.gcviz-tooltip').remove();
-					}, 500);
+					}, 1000);
 				};
 				
 				_self.insetClick = function() {
@@ -81,7 +81,7 @@
 					func.debounceClick(function() {
 						_self.insetState = !_self.insetState;
 						_self.isInsetVisible(_self.insetState);
-					}, 500);
+					}, 1000);
 				};
 				
 				_self.toolsClick = function() {

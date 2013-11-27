@@ -17,6 +17,8 @@
 		var createMap,
 			createInset,
 			applyLink,
+			setFactorLink,
+			setPanScaleLink,
 			connectLinkEvent,
 			connectEvent,
 			addLayer,
@@ -34,7 +36,8 @@
 			linkInset,
 			insetArray = {},
 			isFullscreen,
-			linkCount;
+			linkCount,
+			noLink = false;
 	
 		createMap = function(id, config, fullExtent) {
 			var initExtent = config.extent,
@@ -120,6 +123,7 @@
 			
 			// add value to map object
 			map.vWkid = wkid;
+			map.vType = config.type;
 			
 			// resize the map on load to ensure everything is set correctly. if we dont do this, every maps after
 			// the first one are not set properly
@@ -131,6 +135,22 @@
 					// add inset link to master map
 					mapArray[masterId].vInsetId.push(map.id);
 					insetArray[id] = map;
+					
+					if (config.typeinfo.pan) {
+						map.enablePan();
+					}
+					
+					if (config.type === 'factorlink') {
+						map.vFactor = config.typeinfo.factor;
+					} else if (config.type === 'panscale') {
+						map.vLod = config.typeinfo.lod;
+						map.setLevel(map.vLod);
+						setTimeout(function() {
+							map.vDeltaX = (Math.abs(map.extent.xmax) - Math.abs(map.extent.xmin)) / 2;
+							map.vDeltaY = (Math.abs(map.extent.ymax) - Math.abs(map.extent.ymin)) / 2;
+						}, 1000);
+						
+					}
 				}
 			});
 
@@ -158,6 +178,39 @@
 			}
 		};
 		
+		linkInset = function(map) {
+			var len = map.vInsetId.length,
+				insetMap,
+				inset;
+			
+			while (len--) {
+				insetMap = insetArray[map.vInsetId[len]];
+				
+				if (insetMap.vType === 'factorlink') {
+					setFactorLink(map, insetMap);
+				} else if (insetMap.vType === 'panscale') {
+					setPanScaleLink(map, insetMap);
+				} else if (insetMap.vType === 'link') {
+					insetMap.setExtent(map.extent);
+				}
+			}
+		};
+		
+		setFactorLink = function(map, insetMap) {
+				var mapCenter = getMapCenter(map),
+					extent = new esri.geometry.Extent({'xmin': mapCenter.x - insetMap.vDeltaX, 'ymin': mapCenter.y - insetMap.vDeltaY, 'xmax': mapCenter.x + insetMap.vDeltaX, 'ymax': mapCenter.y + insetMap.vDeltaY, 'spatialReference': {'wkid': map.spatialReference.wkid}});
+
+				setTimeout(function() { insetMap.setLevel(map.__LOD.level * insetMap.vFactor); }, 500);
+				setTimeout(function() { zoomPoint(insetMap, mapCenter); }, 600);
+		};
+		
+		setPanScaleLink = function(map, insetMap) {
+			var mapCenter = getMapCenter(map),
+				extent = new esri.geometry.Extent({'xmin': mapCenter.x - insetMap.vDeltaX, 'ymin': mapCenter.y - insetMap.vDeltaY, 'xmax': mapCenter.x + insetMap.vDeltaX, 'ymax': mapCenter.y + insetMap.vDeltaY, 'spatialReference': {'wkid': map.spatialReference.wkid}});
+
+				insetMap.setExtent(extent);
+		};
+		
 		connectLinkEvent = function(map) {
 			map.on('extent-change', func.debounce(function(evt) {
 				var target = evt.target,
@@ -173,6 +226,10 @@
 					setTimeout(function() { applyLink(id); }, 1000);
 				}
 				
+				// check if inset needs to be resize
+				if (!noLink) { linkInset(target); }
+				noLink = false;
+				
 				// decreament the counter and check if we need to reseet it
 				linkCount -= 1;
 				if (linkCount === 0) { 
@@ -186,7 +243,8 @@
 				var target = evt.target;
 				
 				// check if inset needs to be resize
-				linkInset(target);
+				if (!noLink) { linkInset(target); }
+				noLink = false;
 			}, 1000, false));
 		};
 		
@@ -200,17 +258,6 @@
 					mode: esri.layers.FeatureLayer.MODE_ONDEMAND,
       				outFields: ["*"]
 				}));
-			}
-		};
-
-		linkInset = function(map) {
-			var len = map.vInsetId.length,
-				insetMap,
-				inset;
-			
-			while (len--) {
-				insetMap = insetArray[map.vInsetId[len]];
-				zoomPoint(insetMap, getMapCenter(map));
 			}
 		};
 		
@@ -249,6 +296,9 @@
 			// get extent before the resize then resize
 			var extent = map.extent;
 			isFullscreen = fullscreen;
+			
+			// set no link to true to avoid link inset on extent-change after the resize if fullscreen
+			if (fullscreen) { noLink = true; }
 			resizeMap(map);
 			
 			// wait for the resize to finish then set extent (cant use resize event because it is trigger before it is finish)
