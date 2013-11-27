@@ -27,29 +27,24 @@
 				_self.imgNorth = pathNorth;
 				
 				_self.init = function() {
-					var mymap,
-						len = mapArray[mapid].length;
+					var mymap = mapArray[mapid];
 
-					while (len--) {
-						mymap = mapArray[mapid][len];
-
-						if (config.mousecoords) {
-							mymap.on('mouse-move', function(evt) {
-								_self.showCoordinates(evt, 'mousecoord_' + mapid);
-							});
-						}
-							
-						if (config.northarrow) {
-							mymap.on('pan-end', function(evt) {
-								_self.showNorthArrow(evt, 'north_' + mapid);
-							});
-							
-							mymap.on('zoom-end', function(evt) {
-								_self.showNorthArrow(evt, 'north_' + mapid);
-							});
-						}
+					if (config.mousecoords) {
+						mymap.on('mouse-move', function(evt) {
+							_self.showCoordinates(evt, 'mousecoord_' + mapid);
+						});
 					}
-					
+							
+					if (config.northarrow) {
+						mymap.on('pan-end', function(evt) {
+							_self.showNorthArrow(evt, 'north_' + mapid);
+						});
+							
+						mymap.on('zoom-end', function(evt) {
+							_self.showNorthArrow(evt, 'north_' + mapid);
+						});
+					}
+
 					return { controlsDescendantBindings: true };
 				};
 				

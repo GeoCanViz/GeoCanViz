@@ -46,7 +46,7 @@
 	};
 		
 	ko.bindingHandlers.fullscreen = {
-		init: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
+		init: function(element, valueAccessor, allBindings, viewModel) {
 			var mapid = viewModel.mapid,
 				vm = vmArray[mapid].tbmain;
 			vm.isFullscreen.subscribe(manageFullscreen);
@@ -60,9 +60,21 @@
 			}
 		}
 	};
+	
+	ko.bindingHandlers.insetVisibility = {
+		init: function(element, valueAccessor, allBindings, viewModel) {
+			var mapid = viewModel.mapid,
+				vm = vmArray[mapid].tbmain;
+			vm.isInsetVisible.subscribe(manageInsetVisibility);
+			
+			function manageInsetVisibility(visible) {
+					viewModel.setVisibility(visible);
+			}
+		}
+	};
 
 	ko.bindingHandlers.enterkey = {
-	    init: function (element, valueAccessor, allBindingsAccessor, viewModel) {
+		init: function (element, valueAccessor, allBindingsAccessor, viewModel) {
 			var allBindings = allBindingsAccessor(),
 				keyCode, target;
 			$(element).on('keypress', function (e) {
@@ -76,7 +88,7 @@
 				allBindings.enterkey.call(viewModel, viewModel, target, element);
 				return false;
 			});
-	    }
+		}
 	};
 
 	});

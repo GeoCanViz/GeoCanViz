@@ -1,14 +1,14 @@
 {"gcviz": {	
 	"mapframe": {
 		"size": {
-			"height": 600,
-			"width": 600
+			"height": 400,
+			"width": 800
 		},
 		"extent": {
-			"xmin": -5035766.0,
-			"ymin": -668341.0,
-			"xmax": 5547588.0,
-			"ymax": 3564999.0
+			"xmin": -2752407.0,
+			"ymin": -475361.0,
+			"xmax": 3597605.0,
+			"ymax": 2064644.0
 		},
 		"resolution": {
 			"min": -1,
@@ -19,17 +19,17 @@
 				"wkid": 3978
 			},
 			"extent": {
-				"xmin": -5035766.0,
-				"ymin": -668341.0,
-				"xmax": 5547588.0,
-				"ymax": 3564999.0
+				"xmin": -2752407.0,
+				"ymin": -475361.0,
+				"xmax": 3597605.0,
+				"ymax": 2064644.0
 			},
 			"lods": [],
 			"resolution": {
 				"min": -1,
 				"max": -1
 			},
-			"link": true,
+			"link": false,
 			"layers": [{
 			 	"id": "name",
 				"type": "tiled",
@@ -51,8 +51,8 @@
 	"insetframe": {
 		"enable": true,
 		"size": {
-			"numrow": 100,
-			"numcol": 100
+			"numrow": 10,
+			"numcol": 10
 		},
  		"label": {
 				"value": "The insets",
@@ -61,57 +61,42 @@
 		"insets": [{
 			"pos": {
 				"startrowcol": [0,0],
-				"endrowcol": [40,30]
+				"endrowcol": [5,5]
 			},
-			"type": "video",
-			"fullscreen": true,
-			"size": "px",
-			"label": {
-				"value": "My video 1",
-				"alttext": "My video 1",
-				"justify": "left"
-			},
-			"inset" : {
-				"loop": false,
-				"autoplay": false,
-				"sources": [{
-						"location": "internet",
-						"url": "http://geogratis.gc.ca/geogratis/video/GeoGratis_Video_English.mp4",
-						"type": "video/mp4"
-					}]
-			}
-		}, {
-			"pos": {
-				"startrowcol": [35,65],
-				"endrowcol": [100,100]
-			},
-			"type": "video",
+			"type": "map",
 			"fullscreen": true,
 			"size": "%",
 			"label": {
-				"value": "My video 2",
-				"alttext": "My video 2",
+				"value": "My pan scale inset (pan false)",
+				"alttext": "My pan scale inset (pan false)",
 				"justify": "left"
 			},
 			"inset" : {
-				"loop": false,
-				"autoplay": false,
-				"sources": [{
-						"location": "local",
-						"url": "demos/inset/sample.webm",
-						"type": "video/webm"
-					}, {
-						"location": "local",
-						"url": "demos/inset/sample.mp4",
-						"type": "video/mp4"
+				"sr": {
+					"wkid": 3978
+				},
+				"extent": {
+					"xmin": -2752407.0,
+					"ymin": -475361.0,
+					"xmax": 3597605.0,
+					"ymax": 2064644.0
+				},
+				"type": "panscale",
+				"typeinfo": {
+					"lod": 5,
+					"pan": false
+				},
+				"layers":[{
+					"type": "tiled",
+					"url": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/BaseMaps/CBCT3978/MapServer"
 				}]
 			}
 		}]
 	},
 	"toolbarmain": {
 		"title": {
-			"value": "Map 2",
-			"alttext": "Map 2",
+			"value": "Map 3 no lod",
+			"alttext": "Map 3",
 			"justify": "center"
 		},
 		"tools": true,
@@ -134,7 +119,7 @@
 		"mousecoords": {
 			"enable": true,
 			"outwkid": 4326,
-			"urlgeomserv": "http://tasks.arcgisonline.com/ArcGIS/rest/services/Geometry/GeometryServer"
+			"urlgeomserv": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/Utilities/Geometry/GeometryServer"
 		},
 		"datatable": { 
 			"direction": "in"

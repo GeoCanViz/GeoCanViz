@@ -86,8 +86,9 @@ var mapArray = {},
 		execConfig = function(mapElem, config) {
 			var $mapSection,
 				$mapElem = $(mapElem),
-				mapid = config.mapframe.id,
-				size = config.mapframe.size;
+				mapframe = config.mapframe,
+				mapid = mapframe.id,
+				size = mapframe.size;
 			
 			// create section around map. This way we can bind Knockout to the section
 			$mapElem.wrap('<section id=section' + mapid + ' class="gcviz-section" role="map" style="width:' + size.width + 'px; height:' + size.height + 'px;">');
@@ -98,7 +99,6 @@ var mapArray = {},
 
 			// create map and add layers (save result in the mapArray)
 			mapArray[mapid] = map.initialize($mapSection);
-			mapArray[mapid].reverse();
 			
 			// add main toolbar and footer
 			vmArray[mapid] = {};
@@ -165,7 +165,7 @@ var mapArray = {},
 				},
 				image: {
 					tError: i18n.getDict('%mp-error') // Error message when image could not be loaded
-				},
+				}
 			});
 		};
 		

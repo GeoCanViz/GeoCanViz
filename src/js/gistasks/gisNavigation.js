@@ -11,7 +11,7 @@
 		var zoomFullExtent;
 			
 		zoomFullExtent = function(mymap) {
-			mymap.setExtent(mymap.vInitExtent, mymap.spatialReference.wkid);
+			mymap.setExtent(mymap.vFullExtent, mymap.spatialReference.wkid);
 		};
 			
 		return {

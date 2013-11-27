@@ -47,7 +47,7 @@
 				addToMap = function(geometry) {
 					var symbol,
 						graphic,
-						$cursor = $('#' + map.vIdName + '_0_container');
+						$cursor = $('#' + map.vIdName + '_holder_container');
 						
 					toolbar.deactivate();
 					

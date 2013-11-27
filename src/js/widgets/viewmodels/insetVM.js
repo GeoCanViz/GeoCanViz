@@ -16,7 +16,7 @@
 		'magnificpopup',
 		'gcviz-func',
 		'gcviz-gismap'
-	], function($, ko, binding, slidesjs, magnificPopup, func, gisM) {
+	], function($, ko, binding, slidesjs, magnificPopup, gcvizfunc, gisM) {
 		var initialize,
 			vm,
 			setImage,
@@ -29,51 +29,83 @@
 			
 			// data model				
 			var insetViewModel = function($mapElem, mapid, inset) {
-				var _self = this;
-				_self.mapid = mapid;
+				var _self = this,
+					paths = [locationPath + 'gcviz/images/insetPrevious.png',
+							locationPath + 'gcviz/images/insetNext.png',
+							locationPath + 'gcviz/images/insetPlay.png',
+							locationPath + 'gcviz/images/insetStop.png'];
 				
-				_self.init = function() {
-					var type = inset.type,
-						paths = [locationPath + 'gcviz/images/insetPrevious.png',
-								locationPath + 'gcviz/images/insetNext.png',
-								locationPath + 'gcviz/images/insetPlay.png',
-								locationPath + 'gcviz/images/insetStop.png'];
-						
-					// keep inset position
-					_self.bottom = parseInt($mapElem.css('bottom'), 10);
-					_self.left = parseInt($mapElem.css('left'), 10);
-					_self.height = parseInt($mapElem.css('height'), 10);
-					_self.width = parseInt($mapElem.css('width'), 10);
-					_self.size = inset.size;
+				// keep inset position, size and type
+				_self.bottom = parseInt($mapElem.css('bottom'), 10);
+				_self.left = parseInt($mapElem.css('left'), 10);
+				_self.height = parseInt($mapElem.css('height'), 10);
+				_self.width = parseInt($mapElem.css('width'), 10);
+				_self.size = inset.size;
+				_self.type = inset.type;
 					
-					// inset state in fullscreen
-					_self.fullscreen = inset.fullscreen;
-					_self.state = 1;
+				// inset state in fullscreen
+				_self.fullscreen = inset.fullscreen;
+				_self.VisibleState = true;
+				_self.fullscreenState = false;
+			
+				// keep id
+				_self.mapid = mapid;
+
+				_self.init = function() {
+					var type = _self.type;
 
 					if (type === 'image') {
 						setImage($mapElem, _self, paths);
 					} else if (type === 'video') {
 						setVideo($mapElem, _self);
 					} else if (type === 'map') {
-						_self.map = setMap($mapElem, inset);
+						_self.map = setMap($mapElem, inset, _self);
 					} else if (type === 'html') {
 						setHtml($mapElem, inset);
 					}
 
 					return { controlsDescendantBindings: true };
 				};
+
+				_self.insetClick = function(data, event) {
+					// debounce the click to avoid resize problems
+					gcvizfunc.debounceClick(function() {
+						if (event.currentTarget.className !== 'gcviz-imginset-button' && event.currentTarget.className !== 'active') {
+							$mapElem.find('a')[0].click();
+						}
+					}, 1000);
+				};
 				
-				_self.insetClick = function() {
-					if (event.srcElement.className !== 'gcviz-imginset-button' && event.srcElement.className !== 'active') {
-						$mapElem.find('a')[0].click();
+				_self.setVisibility = function(visible) {
+					var height,
+						mymap = _self.map;
+						
+					if (visible) {
+						$mapElem.removeClass('gcviz-hidden');
+						_self.VisibleState = true;
+						
+						if (_self.type === 'map') {
+							if (_self.fullscreenState) {
+								height = _self.fullscreenHeight;
+							} else {
+								height = _self.height;
+							}
+							$mapElem.find('#' + $mapElem[0].id + 'm').css({ 'height': height - 20 });
+							gisM.manageScreenState(_self.map, 1000);
+						}
+					} else {
+						$mapElem.addClass('gcviz-hidden');
+						_self.VisibleState = false;
 					}
 				};
 				
 				_self.enterFullscreen = function(mapWidth, mapHeight) {
+					_self.fullscreenState = true;
+					
 					// check if inset can be open in full screen
 					if (_self.fullscreen) {
 						// get maximal height and width from browser window and original height and width for the map
-						var param = func.getFullscreenParam(mapWidth, mapHeight),
+						var param = gcvizfunc.getFullscreenParam(mapWidth, mapHeight),
 							w = param.width,
 							h = param.height,
 							ratio = param.ratio,
@@ -81,7 +113,9 @@
 							bottom = _self.bottom,
 							left = _self.left,
 							height = _self.height,
-							width = _self.width;
+							width = _self.width,
+							options,
+							map = _self.map;
 							
 						// check if px or %
 						if (_self.size === '%') {
@@ -97,16 +131,26 @@
 								css.bottom = ((bottom + height + tbHeight) / mapHeight) * (h - tbHeight - height) + 'px';
 							}
 							if (left !== 0) {
-								ratio = (w/mapWidth);
+								ratio = (w / mapWidth);
 								css.left = ((left + width) / mapWidth) * (w - width) + 'px';
 							}
 						}
 						
-						func.setStyle($mapElem[0], css);
+						_self.fullscreenHeight = height * ratio;
+						
+						gcvizfunc.setStyle($mapElem[0], css);
 						
 						// resize map
-						if (typeof _self.map !== 'undefined') { 
-							_self.map.resize();
+						if (_self.type === 'map' && _self.VisibleState) {
+							// if the inset is visible resize. If not wait until the inset is made visible
+							// if resize is set to hidden element, it breaks the map.
+							$mapElem.find('#' + $mapElem[0].id + 'm').css({ 'height': (height * ratio) - 20 });
+							
+							if (map.vType !== 'static') {
+								gisM.resizeMap(map);
+							} else {
+								gisM.manageScreenState(map, 1000);
+							}
 						}
 					} else {
 						$mapElem.addClass('gcviz-inset-hidden');
@@ -114,13 +158,25 @@
 				};
 				
 				_self.exitFullscreen = function() {
+					_self.fullscreenState = false;
+					
 					if (_self.fullscreen) {
-						func.setStyle($mapElem[0], {'bottom': _self.bottom + 'px', 'left': _self.left + 'px'});
+						var options,
+							map = _self.map;
+						
+						gcvizfunc.setStyle($mapElem[0], { 'bottom': _self.bottom + 'px', 'left': _self.left + 'px' });
 						
 						// resize map
-						if (typeof _self.map !== 'undefined') { 
-							_self.map.resize();
-						}
+						if (_self.type === 'map' && _self.VisibleState) {	
+							// if the inset is visible resize. If not wait until the inset is made visible
+							// if resize is set to hidden element, it breaks the map.
+							$mapElem.find('#' + $mapElem[0].id + 'm').css({ 'height': _self.height - 20 });
+							
+							if (map.vType !== 'static') {
+								gisM.resizeMap(map);
+							} else {
+								gisM.manageScreenState(map, 1000);
+							}						}
 					} else {
 						$mapElem.removeClass('gcviz-inset-hidden');
 					}
@@ -216,7 +272,7 @@
 				length = source.length,
 				id = '#' + $elem[0].id + 'v',
 				$lb = $(id),
-				func = { beforeOpen: function() { $lb.find('video').height((window.innerHeight * 0.8));},
+				func = { beforeOpen: function() { $lb.find('video').height((window.innerHeight * 0.8)); },
 						close: null};
 
 			// set src path
@@ -238,40 +294,43 @@
 			var type = inset.inset.type,
 				id = '#' + $elem[0].id + 'h',
 				$lb = $(id),
-				func = { beforeOpen: null, close: null};
+				$iframe = $lb.find('iframe'),
+				height = window.innerHeight * 0.8,
+				width = window.innerWidth * 0.75,
+				func = { beforeOpen: null, close: null };
+
 
 			if (type === 'text') {
 				// set lightbox
 				setLightbox('inline', $elem, $lb, id, func);
 			} else if (type === 'page') {
 				// set lightbox
-				func.beforeOpen = function() {
-										$lb.height((window.innerHeight * 0.8));
-										$lb.width((window.innerWidth * 0.75));
-										$lb.find('iframe').height((window.innerHeight * 0.8));
-										$lb.find('iframe').width((window.innerWidth * 0.75));
+				func.beforeOpen = function() {																				
+										$lb.height(height);
+										$lb.width(width);
+										$iframe.height(height);
+										$iframe.width(width);
 									};
 				setLightbox('inline', $elem, $lb, id, func);
 			}
 		};
 		
-		setMap = function($elem, inset) {
+		setMap = function($elem, inset, _self) {
 			var configMap = inset.inset,
 				lenLayers = configMap.layers.length,
 				layers = configMap.layers,
+				mapElemId = $elem[0].id,
 				mymap,
-				mapid = $elem[0].id + 'm',
+				$load = $('#' + mapElemId.replace('inset', 'load')),
+				mapid = mapElemId + 'm',
+				height = window.innerHeight * 0.8,
+				point,
 				id = '#' + mapid,
 				$lb = $(id),
-				func = { beforeOpen: function() {
-										$lb.addClass('mp-inset');
-										$lb.height((window.innerHeight * 0.8));
-										mymap.resize();}, 
-						close: function() { mymap.resize(); }
-						};
+				initHeight;
 						
 			// create map	
-			mymap = gisM.createMap(mapid, configMap);
+			mymap = gisM.createInset(mapid, configMap, _self.mapid);
 						
 			// add layers
 			layers = layers.reverse();
@@ -279,9 +338,54 @@
 				var layer = layers[lenLayers];
 				gisM.addLayer(mymap, layer.type, layer.url);
 			}
-				
-			// set lightbox	
-			setLightbox('inline', $elem, $lb, id, func);
+
+			// set lightbox
+			$elem.find('.mp-link').magnificPopup({
+				items: {
+					src: id,
+					type: 'inline'
+				},
+				callbacks: {
+					beforeOpen: function() {
+						initHeight = $elem.find(id).css('height');
+						point = gisM.getMapCenter(mymap);
+						$lb.addClass('mp-inset');
+						$lb.height(height);
+
+						// show load image
+						$load.addClass('gcviz-load-open');
+						$load.removeClass('gcviz-hidden');
+					},
+					open: function() {
+						gisM.resizeMap(mymap);
+						var options = { point: point, interval: 700 };
+						gisM.resizeCenterMap(mymap, options);
+					},
+					change: function() {
+						// hide load image
+						setTimeout(function() { $load.addClass('gcviz-hidden'); }, 2000);
+					},
+					beforeClose: function() {
+						// show load image
+						$load.removeClass('gcviz-load-open');
+						$load.removeClass('gcviz-hidden');
+					},
+					close: function() {
+						$elem.find(id).css({ 'height': initHeight });
+						var options = { interval: 700 };
+						gisM.resizeCenterMap(mymap, options);
+					},
+					afterClose: function() {
+						$lb.removeClass('mfp-hide');
+						$lb.removeClass('mp-inset');
+						
+						// hide load image
+						setTimeout(function() { $load.addClass('gcviz-hidden'); }, 2000);
+					}
+				},
+				key: 'map-key',
+				mainClass: 'mfp-with-fade'
+			});
 			
 			return mymap;
 		};
@@ -303,7 +407,7 @@
 						afterClose: function() {
 							$lb.removeClass('mfp-hide');
 							$lb.removeClass('mp-inset');
-							func.setStyle($lb, { width: 'auto', height: 'auto' });
+							gcvizfunc.setStyle($lb[0], { 'width': 'auto', 'height': 'auto' });
 						}
 					},
 					key: 'inline-key',
@@ -317,7 +421,7 @@
 					mainClass: 'mfp-with-fade',
 					closeOnContentClick: true,
 					gallery: {
-						enabled: true,
+						enabled: true
 					}
 				});
 			}

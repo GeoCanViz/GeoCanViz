@@ -21,7 +21,8 @@
 			var toolbarnavViewModel = function($mapElem, mapid) {
 				var _self = this,
 					pathExtent = locationPath + 'gcviz/images/navFullExtent.png',
-					mymap = mapArray[mapid][0];
+					mymap = mapArray[mapid],
+					elem = document.getElementById(mymap.vIdName + '_holder');
 
 				// images path
 				_self.imgExtent = ko.observable(pathExtent);
@@ -31,10 +32,10 @@
 				};
 				
 				_self.extentClick = function() {
-					document.getElementById(mymap.vIdName + '_' + mymap.vIdIndex).focus();
+					elem.focus();
 					gisNavigation.zoomFullExtent(mymap);
 					setTimeout(function() {
-						document.getElementById(mymap.vIdName + '_' + mymap.vIdIndex).blur();
+						elem.blur();
 					}, 2000);
 				};
 				

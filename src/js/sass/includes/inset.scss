@@ -77,6 +77,29 @@
 	}
 }
 
+%gcviz-load-inset {
+	z-index: 10100;
+	height: inherit;
+	background-color: #FFF;
+	opacity: 0.8;
+}
+
+.gcviz-load-open {
+	@extend %gcviz-load-inset;
+	width: 80%;
+	position: fixed;
+}
+
+.gcviz-load-close {
+	@extend %gcviz-load-inset;
+}
+
+.gcviz-load-img {
+	margin: auto;
+	display:	block;
+	height: inherit;
+}
+
 /* SlidesJS section */
 %slides-control {
 	margin-left: (0.5 * $rembase) + rem;
@@ -154,7 +177,7 @@
 	}
 }
 
-/* Styles inset with magnificpopup */
+/* styles inset with magnificpopup */
 .mp-inset {
 	background: white;
 	padding: 35px 35px;
@@ -174,10 +197,10 @@
 	&.mfp-bg {
 		opacity: 0;
 		-webkit-backface-visibility: hidden;
-		-webkit-transition: opacity .7s ease-out; 
-		-moz-transition: opacity .7s ease-out; 
-		-o-transition: opacity .7s ease-out; 
-		transition: opacity .7s ease-out;
+		-webkit-transition: opacity .5s ease-out; 
+		-moz-transition: opacity .5s ease-out; 
+		-o-transition: opacity .5s ease-out; 
+		transition: opacity .5s ease-out;
 	}
 
 	// open state
