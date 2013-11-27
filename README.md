@@ -9,6 +9,8 @@ GCViz’s purpose is to provide Earth Sciences Sector (ESS) of Natural Resources
 This application is built in JavaScript with AMD (Asynchronous Module Definition) and MVVM (Model View ViewModel) patterns. It is built with the concept of widgets customizable by configuration file. The application is fully bilingual (English and French).
 
 ## Working examples
+
+The beta development is made with Google Chrome on OS X. If you use another browser or operating system the result can be different.
 * [Visualization tool](http://geocanviz.github.io/GeoCanViz/demos/index-eng.html)
 
 ## Libraries and extensions
@@ -49,6 +51,7 @@ Le but de GCViz est de fournir au Secteur des sciences de la Terre (SST) de Ress
 Cette application est construite en JavaScript avec les patrons de développement suivant: AMD (définition de module asynchrone) et MVVM (Modèle Vue VueModèle). Elle est construite avec le concept de fonctionnalités (“widgets”) personnalisables par fichier de configuration. L'application est entièrement bilingue (français et anglais).
 
 ## Exemples pratique
+Le développement bêta est fait avec Google Chrome sur Mac OS X. Si vous utilisez un autre navigateur ou système d'exploitation, le résultat peut être différent.
 * [Outil de visualisation](http://geocanviz.github.io/GeoCanViz/demos/index-fra.html)
 
 ## Bibliothèques et extensions
