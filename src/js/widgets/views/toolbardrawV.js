@@ -3,24 +3,24 @@
  * GeoCanViz viewer / Visionneuse GéoCanViz
  * gcviz.github.io/gcviz/License-eng.txt / gcviz.github.io/gcviz/Licence-fra.txt
  *
- * Toolbar annotation widget
+ * Toolbar draw widget
  */
 (function() {
 	'use strict';
-	define(['gcviz-vm-tbanno',
+	define(['gcviz-vm-tbdraw',
 			'dijit/TitlePane',
 			'gcviz-i18n'
-	], function(toolbarannoVM, dojotitle, i18n) {
+	], function(toolbardrawVM, dojotitle, i18n) {
 		var initialize;
 		
 		initialize = function($mapElem) {
 			var $toolbar,
-				config = $mapElem.toolbaranno,
+				config = $mapElem.toolbardraw,
 				mapid = $mapElem.mapframe.id,
 				tp,
 				node = '';
 			
-			tp = new dojotitle({id: 'tbanno' + mapid, title:'Annotation', content: '<div class="gcviz-tbanno-content gcviz-tbcontent"></div>', open: false});
+			tp = new dojotitle({id: 'tbanno' + mapid, title: '' + i18n.getDict('%toolbardraw-name') + '', content: '<div class="gcviz-tbdraw-content gcviz-tbcontent"></div>', open: false});
 			$mapElem.find('.gcviz-tbholder').append(tp.domNode);
 			tp.startup();
 
@@ -28,7 +28,7 @@
 			tp.domNode.getElementsByClassName('dijitTitlePaneTitleFocus')[0].setAttribute('tabindex', '1');
 			
 			// find toolbar and start to add items
-			$toolbar = $mapElem.find('.gcviz-tbanno-content');
+			$toolbar = $mapElem.find('.gcviz-tbdraw-content');
 
 			// set draw button
 			if (config.drawline.enable) {
@@ -40,10 +40,10 @@
 				node += '<button class="gcviz-button" tabindex="1" data-bind="click: textClick, tooltip: { content: tpText }"><img class="gcviz-img-button" data-bind="attr:{src: imgText}"></img></button>';
 				
 				// create the annotation inputbox (dont use knockout data-bind because there one window for the whole page not by ViewModel)
-				if ($('#gcviz-anno-inputbox').length === 0) {
-					$('body').prepend('<div id="gcviz-anno-inputbox">' +
+				if ($('#gcviz-draw-inputbox').length === 0) {
+					$('body').prepend('<div id="gcviz-draw-inputbox">' +
 										'<form><fieldset>' +
-										'<label for="value">' + i18n.getDict('%toolbaranno-inputbox-label') + '</label>' +
+										'<label for="value">' + i18n.getDict('%toolbardraw-inputbox-label') + '</label>' +
 										' <input id="value" class="text ui-widget-content ui-corner-all"/>' +
 										'</fieldset></form></div>');
 				}
@@ -64,7 +64,7 @@
 			}
 			
 			$toolbar.append(node);
-			toolbarannoVM.initialize($toolbar, mapid);
+			toolbardrawVM.initialize($toolbar, mapid);
 		};
 		
 		return {

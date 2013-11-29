@@ -137,7 +137,7 @@
 	browserDetect.init();
 	
 	// if browser not supported, redirect
-	if (window.browser === 'MSIE' && window.browserversion <= 10) {
+	if (window.browser === 'Explorer' && window.browserversion <= 10) {
 		window.location = 'http://www.google.com/';
 	}
 	
@@ -200,29 +200,29 @@
 				location: locationPath + 'src/js/gistasks',
 				main: 'gisNavigation'
 			}, {
-				name: 'gcviz-v-tbmain',
+				name: 'gcviz-v-header',
 				location: locationPath + 'src/js/widgets/views',
-				main: 'toolbarmainV'
+				main: 'headerV'
 			}, {
-				name: 'gcviz-vm-tbmain',
+				name: 'gcviz-vm-header',
 				location: locationPath + 'src/js/widgets/viewmodels',
-				main: 'toolbarmainVM'
+				main: 'headerVM'
 			}, {
-				name: 'gcviz-v-tbfoot',
+				name: 'gcviz-v-footer',
 				location: locationPath + 'src/js/widgets/views',
-				main: 'toolbarfootV'
+				main: 'footerV'
 			}, {
-				name: 'gcviz-vm-tbfoot',
+				name: 'gcviz-vm-footer',
 				location: locationPath + 'src/js/widgets/viewmodels',
-				main: 'toolbarfootVM'
+				main: 'footerVM'
 			}, {
-				name: 'gcviz-v-tbanno',
+				name: 'gcviz-v-tbdraw',
 				location: locationPath + 'src/js/widgets/views',
-				main: 'toolbarannoV'
+				main: 'toolbardrawV'
 			}, {
-				name: 'gcviz-vm-tbanno',
+				name: 'gcviz-vm-tbdraw',
 				location: locationPath + 'src/js/widgets/viewmodels',
-				main: 'toolbarannoVM'
+				main: 'toolbardrawVM'
 			}, {
 				name: 'gcviz-v-tbnav',
 				location: locationPath + 'src/js/widgets/views',

@@ -24,12 +24,48 @@
 				"xmax": 3597605.0,
 				"ymax": 2064644.0
 			},
-			"lods": [],
+			"lods": [{
+					"level": 3,
+					"resolution": 7937.5158750317505,
+					"scale": 30000000
+				}, {
+					"level": 4,
+					"resolution": 4630.2175937685215,
+					"scale": 17500000
+				}, {
+					"level": 5,
+					"resolution": 2645.8386250105837,
+					"scale": 10000000
+				}, {
+					"level": 6,
+					"resolution": 1587.5031750063501,
+					"scale": 6000000
+				}, {
+					"level": 7,
+					"resolution": 926.0435187537042,
+					"scale": 3500000
+				}, {
+					"level": 8,
+					"resolution": 529.1677250021168,
+					"scale": 2000000
+				}, {
+					"level": 9,
+					"resolution": 317.50063500127004,
+					"scale": 1200000
+				}, {
+					"level": 10,
+					"resolution": 185.20870375074085,
+					"scale": 700000
+				}, {
+					"level": 11,
+					"resolution": 111.12522225044451,
+					"scale": 420000
+		    }],
 			"resolution": {
 				"min": -1,
 				"max": -1
 			},
-			"link": false,
+			"link": true,
 			"layers": [{
 			 	"id": "name",
 				"type": "tiled",
@@ -93,7 +129,7 @@
 			}
 		}]
 	},
-	"toolbarmain": {
+	"header": {
 		"title": {
 			"value": "Map 3 no lod",
 			"alttext": "Map 3",
@@ -111,7 +147,7 @@
 			"visible": false
 		}
 	},
-	"toolbarfoot": {
+	"footer": {
 		"northarrow": {
 			"enable": true,
 			"inwkid": 3978
@@ -125,7 +161,7 @@
 			"direction": "in"
 		}
 	},
-	"toolbaranno": {
+	"toolbardraw": {
 		"enable": true,
 		"expand": false,
 		"drawline": {
@@ -165,8 +201,9 @@
 			"enable": false,
 			"url": "http"
 		},
-		"idposition":  {
+		"position":  {
 			"enable": false
 		}
-	}
+	},
+	"customwidgets": []
 }}

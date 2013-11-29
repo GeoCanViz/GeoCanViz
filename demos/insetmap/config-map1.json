@@ -125,7 +125,7 @@
 			}
 		}]
 	},
-	"toolbarmain": {
+	"header": {
 		"title": {
 			"value": "Map 1 with lod",
 			"alttext": "Map 1",
@@ -143,7 +143,7 @@
 			"visible": false
 		}
 	},
-	"toolbarfoot": {
+	"footer": {
 		"northarrow": {
 			"enable": true,
 			"inwkid": 3978
@@ -157,7 +157,7 @@
 			"direction": "in"
 		}
 	},
-	"toolbaranno": {
+	"toolbardraw": {
 		"enable": true,
 		"expand": false,
 		"drawline": {
@@ -197,8 +197,9 @@
 			"enable": false,
 			"url": "http"
 		},
-		"idposition":  {
+		"position":  {
 			"enable": false
 		}
-	}
+	},
+	"customwidgets": []
 }}

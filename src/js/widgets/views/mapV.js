@@ -24,7 +24,7 @@
 			// add a wrapper around the map
 			$div.prepend('<div id="' + mapid + '_holder' + '" data-bind="hasfocus: mapfocus.focused" tabindex="1"></div>');
 				
-			// set height and width for the map. Substract the toolbar main height
+			// set height and width for the map. Substract the header height
 			$mapElem.find('#' + mapid + '_holder').css({'height': (height - 80), 'width': width});
 			
 			return mapVM.initialize($mapElem);

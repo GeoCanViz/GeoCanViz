@@ -20,10 +20,10 @@ var mapArray = {},
 			'gcviz-func',
 			'gcviz-v-map',
 			'gcviz-v-inset',
-			'gcviz-v-tbmain',
-			'gcviz-v-tbfoot',
-			'gcviz-v-tbanno',
-			'gcviz-v-tbnav'], function(i18n, func, map, inset, toolbarmain, toolbarfoot, toolbaranno, toolbarnav) {
+			'gcviz-v-header',
+			'gcviz-v-footer',
+			'gcviz-v-tbdraw',
+			'gcviz-v-tbnav'], function(i18n, func, map, inset, header, footer, toolbardraw, toolbarnav) {
 		var initialize,
 			readConfig,
 			execConfig,
@@ -100,14 +100,14 @@ var mapArray = {},
 			// create map and add layers (save result in the mapArray)
 			mapArray[mapid] = map.initialize($mapSection);
 			
-			// add main toolbar and footer
+			// add header and footer
 			vmArray[mapid] = {};
-			vmArray[mapid].tbmain = toolbarmain.initialize($mapSection);
-			vmArray[mapid].tbfoot = toolbarfoot.initialize($mapSection);
+			vmArray[mapid].header = header.initialize($mapSection);
+			vmArray[mapid].footer = footer.initialize($mapSection);
 			
-			// add annotation toolbar
-			if (config.toolbaranno.enable) {
-				toolbaranno.initialize($mapSection);
+			// add draw toolbar
+			if (config.toolbardraw.enable) {
+				toolbardraw.initialize($mapSection);
 			}
 			
 			// add navigation toolbar

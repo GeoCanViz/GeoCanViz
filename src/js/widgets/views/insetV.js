@@ -63,7 +63,7 @@
 				}
 				
 				// create inset holder
-				$mapElem.find('.gcviz-tbfoot').before('<div id="inset' + insetLen + mapid + '" data-bind="fullscreen: {}, insetVisibility: {}, enterkey: insetClick, click: function(data, event){ insetClick($data, event) }" class="gcviz-inset gcviz-inset' + mapid + ' ' + margin + '" tabindex="1" style="' + ' bottom: ' + bottom + 'px; left: ' + left + 'px; width: ' + width + sizetype + '; height: ' + height + sizetype + ';"></div>');
+				$mapElem.find('.gcviz-foot').before('<div id="inset' + insetLen + mapid + '" data-bind="fullscreen: {}, insetVisibility: {}, enterkey: insetClick, click: function(data, event){ insetClick($data, event) }" class="gcviz-inset gcviz-inset' + mapid + ' ' + margin + '" tabindex="1" style="' + ' bottom: ' + bottom + 'px; left: ' + left + 'px; width: ' + width + sizetype + '; height: ' + height + sizetype + ';"></div>');
 				$inset = $mapElem.find('#inset' + insetLen + mapid);
 				
 				// add label

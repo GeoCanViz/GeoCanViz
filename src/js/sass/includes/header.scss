@@ -1,21 +1,21 @@
 @import "gcviz-mixin";
 
-.gcviz-tbmain {
-	@include app-main-foot;
+.gcviz-head {
+	@include app-head-foot;
 	@include app-gradiant;
 	
-	.gcviz-tbmain-title {
+	.gcviz-head-title {
 		display: inline-block;
 		height: (4 * $rembase) + rem;
 	
-	.gcviz-tbmain-titlelabel {
+	.gcviz-head-titlelabel {
 			margin-top: (0.5 * $rembase) + rem;
 			line-height: (3.5 * $rembase) + rem;
 			@include app-text(1.6, bold);
 		}
 	}
   
-	.gcviz-tbmain-button {
+	.gcviz-head-button {
 		float: right;
 		display: inline-block;
 	}

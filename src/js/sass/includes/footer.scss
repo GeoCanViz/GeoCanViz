@@ -1,29 +1,29 @@
 @import "gcviz-mixin";
 
-%gcviz-tbfoot-display {
+%gcviz-foot-display {
 	display: inline;
 	float: left;
 	margin-left: (2 * $rembase) + rem;
 }
 
-.gcviz-tbfoot {
-	@include app-main-foot;
+.gcviz-foot {
+	@include app-head-foot;
 	@include app-gradiant-reverse;
 	
-	.gcviz-tbfoot-coords {
+	.gcviz-foot-coords {
     margin-top: (1.2 * $rembase) + rem;
     @include app-text;
-		@extend %gcviz-tbfoot-display;
+		@extend %gcviz-foot-display;
 	}
 	
-	.gcviz-tbfoot-north {
-  	@extend %gcviz-tbfoot-display;
+	.gcviz-foot-north {
+  	@extend %gcviz-foot-display;
 		-webkit-transform: rotate(90deg); /* Safari & Chrome */
 		-moz-transform: rotate(90deg); /* Firefox */
 		-ms-transform: rotate(90deg); /* Internet Explorer */
 		-o-transform: rotate(90deg); /* Opera */
 		
-		.gcviz-tbfoot-imgarrow {
+		.gcviz-foot-imgarrow {
 			margin: (0.56 * $rembase) + rem;
 		  height: (2.2 * $rembase) + rem;
 		  width: (2.2 * $rembase) + rem;

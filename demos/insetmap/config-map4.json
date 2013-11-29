@@ -92,7 +92,7 @@
 			}
 		}]
 	},
-	"toolbarmain": {
+	"header": {
 		"title": {
 			"value": "Map 4 no lod",
 			"alttext": "Map 4",
@@ -110,7 +110,7 @@
 			"visible": false
 		}
 	},
-	"toolbarfoot": {
+	"footer": {
 		"northarrow": {
 			"enable": true,
 			"inwkid": 3978
@@ -124,7 +124,7 @@
 			"direction": "in"
 		}
 	},
-	"toolbaranno": {
+	"toolbardraw": {
 		"enable": true,
 		"expand": false,
 		"drawline": {
@@ -164,8 +164,9 @@
 			"enable": false,
 			"url": "http"
 		},
-		"idposition":  {
+		"position":  {
 			"enable": false
 		}
-	}
+	},
+	"customwidgets": []
 }}

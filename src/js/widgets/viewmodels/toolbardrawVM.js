@@ -3,7 +3,7 @@
  * GeoCanViz viewer / Visionneuse GéoCanViz
  * gcviz.github.io/gcviz/License-eng.txt / gcviz.github.io/gcviz/Licence-fra.txt
  *
- * Toolbar annotation view model widget
+ * Toolbar draw view model widget
  */
 /* global mapArray: false, locationPath: false */
 (function() {
@@ -19,17 +19,18 @@
 		initialize = function($mapElem, mapid) {
 
 			// data model				
-			var toolbarannoViewModel = function($mapElem, mapid) {
+			var toolbardrawViewModel = function($mapElem, mapid) {
 				var _self = this,
-					pathDraw = locationPath + 'gcviz/images/annoDraw.png',
-					pathText = locationPath + 'gcviz/images/annoText.png',
-					pathErase = locationPath + 'gcviz/images/annoErase.png',
-					pathMeasure = locationPath + 'gcviz/images/annoMeasure.png',
-					pathImport = locationPath + 'gcviz/images/annoImport.png',
-					pathExport = locationPath + 'gcviz/images/annoExport.png',
+					pathDraw = locationPath + 'gcviz/images/drawDraw.png',
+					pathText = locationPath + 'gcviz/images/drawText.png',
+					pathErase = locationPath + 'gcviz/images/drawErase.png',
+					pathMeasure = locationPath + 'gcviz/images/drawMeasure.png',
+					pathImport = locationPath + 'gcviz/images/drawImport.png',
+					pathExport = locationPath + 'gcviz/images/drawExport.png',
 					mymap = mapArray[mapid],
 					$container = $('#' + mapid + '_holder_container'),
-					mygraphic = new gisGraphic.initialize(mymap);
+					mygraphic = new gisGraphic.initialize(mymap),
+					$text = $('#gcviz-draw-inputbox');
 
 				// images path
 				_self.imgDraw = ko.observable(pathDraw);
@@ -40,16 +41,16 @@
 				_self.imgExport = ko.observable(pathExport);
 				
 				// tooltip
-				_self.tpDraw = i18n.getDict('%toolbaranno-tpdraw');
-				_self.tpText = i18n.getDict('%toolbaranno-tptext');
-				_self.tpErase = i18n.getDict('%toolbaranno-tperase');
+				_self.tpDraw = i18n.getDict('%toolbardraw-tpdraw');
+				_self.tpText = i18n.getDict('%toolbardraw-tptext');
+				_self.tpErase = i18n.getDict('%toolbardraw-tperase');
 				
 				// keep info for annotation input box
 				_self.mapid = mapid;
 				_self.graphic = mygraphic;
 				
 				// set annotation window
-				$('#gcviz-anno-inputbox').dialog({
+				$text.dialog({
 					autoOpen: false,
 					modal: true,
 					resizable: false,
@@ -57,26 +58,26 @@
 					show: 'fade',
 					hide: 'fade',
 					closeOnEscape: true,
-					title: 'Annotation',
+					title: i18n.getDict('%toolbardraw-inputbox-name'),
 					width: 400,
 					close: function() { $('#value').val('');},
 					buttons: [{ 
 								text: 'Ok',
 								click: function() {
 											var value = $('#value').val(),
-												$anno = $('#gcviz-anno-inputbox'),
-												graphic = $anno.dialog('option', 'graphic');
+												graphic = $text.dialog('option', 'graphic');
 											
 											if (value !== '') {
-												$container.css('cursor', '');
-												$container.addClass('gcviz-text-cursor');
 												graphic.drawText(value);
+											} else {
+												$container.removeClass('gcviz-text-cursor');
 											}
 											$(this).dialog('close');
 										}
 								}, { 
 								text: 'Cancel',
 								click: function() {
+											$container.removeClass('gcviz-text-cursor');
 											$(this).dialog('close');
 										}
 							}] 
@@ -93,10 +94,12 @@
 				};
 				
 				_self.textClick = function() {
-					var $anno = $('#gcviz-anno-inputbox');
-					$anno.dialog('open');
+					$container.css('cursor', '');
+					$container.addClass('gcviz-text-cursor');
+					
+					$text.dialog('open');
 					// set graphic and mapid to the current map
-					$anno.dialog('option', {graphic: _self.graphic, mapid: _self.mapid});
+					$text.dialog('option', { graphic: _self.graphic, mapid: _self.mapid });
 				};
 			
 				_self.eraseClick = function() {
@@ -117,7 +120,7 @@
 				
 				_self.init();
 			};
-			ko.applyBindings(new toolbarannoViewModel($mapElem, mapid), $mapElem[0]); // This makes Knockout get to work
+			ko.applyBindings(new toolbardrawViewModel($mapElem, mapid), $mapElem[0]); // This makes Knockout get to work
 		};
 		
 		return {

@@ -3,7 +3,7 @@
  * GeoCanViz viewer / Visionneuse GéoCanViz
  * gcviz.github.io/gcviz/License-eng.txt / gcviz.github.io/gcviz/Licence-fra.txt
  *
- * Toolbar foot view model widget
+ * Footer view model widget
  */
 /* global mapArray: false, locationPath: false */
 (function() {
@@ -19,7 +19,7 @@
 		initialize = function($mapElem, mapid, config) {
 			
 			// data model				
-			var toolbarfootViewModel = function($mapElem, mapid, config) {
+			var footerViewModel = function($mapElem, mapid, config) {
 				var _self = this,
 					pathNorth = locationPath + 'gcviz/images/footNorthArrow.png';
 
@@ -58,7 +58,7 @@
 				
 				_self.init();
 			};
-			vm = new toolbarfootViewModel($mapElem, mapid, config);
+			vm = new footerViewModel($mapElem, mapid, config);
 			ko.applyBindings(vm, $mapElem[0]); // This makes Knockout get to work
 			return vm;
 		};

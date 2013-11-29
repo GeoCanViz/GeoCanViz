@@ -3,7 +3,7 @@
  * GeoCanViz viewer / Visionneuse GéoCanViz
  * gcviz.github.io/gcviz/License-eng.txt / gcviz.github.io/gcviz/Licence-fra.txt
  *
- * Toolbar main view model widget
+ * Header view model widget
  */
 /* global mapArray: false, locationPath: false, tbHeight: false */
 (function() {
@@ -21,13 +21,13 @@
 		initialize = function($mapElem, mapid) {
 			
 			// data model				
-			var toolbarmainViewModel = function($mapElem, mapid) {
+			var headerViewModel = function($mapElem, mapid) {
 				var _self = this,
-					pathFullscreen = locationPath + 'gcviz/images/mainFullscreen.png',
-					pathShowInset = locationPath + 'gcviz/images/mainShowInset.png',
-					pathSmallscreen = locationPath + 'gcviz/images/mainSmallscreen.png',
-					pathTools = locationPath + 'gcviz/images/mainTools.png',
-					pathHelp = locationPath + 'gcviz/images/mainHelp.png',
+					pathFullscreen = locationPath + 'gcviz/images/headFullscreen.png',
+					pathShowInset = locationPath + 'gcviz/images/headShowInset.png',
+					pathSmallscreen = locationPath + 'gcviz/images/headSmallscreen.png',
+					pathTools = locationPath + 'gcviz/images/headTools.png',
+					pathHelp = locationPath + 'gcviz/images/headHelp.png',
 					$section = $('#section' + mapid),
 					$mapholder = $('#' + mapid),
 					$map = $('#' + mapid + '_holder'),
@@ -40,10 +40,10 @@
 				_self.imgHelp = pathHelp;
 				
 				// tooltip
-				_self.tpHelp = i18n.getDict('%toolbarmain-tphelp');
-				_self.tpTools = i18n.getDict('%toolbarmain-tptools');
-				_self.tpInset = i18n.getDict('%toolbarmain-tpinset');
-				_self.tpFullScreen = i18n.getDict('%toolbarmain-tpfullscreen');
+				_self.tpHelp = i18n.getDict('%header-tphelp');
+				_self.tpTools = i18n.getDict('%header-tptools');
+				_self.tpInset = i18n.getDict('%header-tpinset');
+				_self.tpFullScreen = i18n.getDict('%header-tpfullscreen');
 				
 				// fullscreen
 				_self.isFullscreen = ko.observable(false);
@@ -97,7 +97,7 @@
 				};
 				
 				_self.helpClick = function() {
-					alert(i18n.getDict('%toolbarmain-help'));
+					alert(i18n.getDict('%header-help'));
 				};
 				
 				_self.cancelFullScreen = function() {
@@ -142,7 +142,7 @@
 				_self.init();
 			};
 			
-			vm = new toolbarmainViewModel($mapElem, mapid);
+			vm = new headerViewModel($mapElem, mapid);
 			ko.applyBindings(vm, $mapElem[0]); // This makes Knockout get to work
 			return vm;
 		};

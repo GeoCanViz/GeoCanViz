@@ -48,7 +48,7 @@
 	ko.bindingHandlers.fullscreen = {
 		init: function(element, valueAccessor, allBindings, viewModel) {
 			var mapid = viewModel.mapid,
-				vm = vmArray[mapid].tbmain;
+				vm = vmArray[mapid].header;
 			vm.isFullscreen.subscribe(manageFullscreen);
 			
 			function manageFullscreen(fullscreen) {
@@ -64,7 +64,7 @@
 	ko.bindingHandlers.insetVisibility = {
 		init: function(element, valueAccessor, allBindings, viewModel) {
 			var mapid = viewModel.mapid,
-				vm = vmArray[mapid].tbmain;
+				vm = vmArray[mapid].header;
 			vm.isInsetVisible.subscribe(manageInsetVisibility);
 			
 			function manageInsetVisibility(visible) {
