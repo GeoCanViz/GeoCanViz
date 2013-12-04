@@ -5,14 +5,14 @@
  *
  * Footer view model widget
  */
-/* global mapArray: false, locationPath: false */
+/* global locationPath: false */
 (function() {
 	'use strict';
-	define([
-		'knockout',
-		'gcviz-i18n',
-		'gcviz-gisgeo'
-	], function(ko, i18n, gisGeo) {
+	define(['jquery',
+			'knockout',
+			'gcviz-i18n',
+			'gcviz-gisgeo'
+	], function($, ko, i18n, gisGeo) {
 		var initialize,
 			vm;
 		
@@ -21,13 +21,19 @@
 			// data model				
 			var footerViewModel = function($mapElem, mapid, config) {
 				var _self = this,
-					pathNorth = locationPath + 'gcviz/images/footNorthArrow.png';
+					pathNorth = locationPath + 'gcviz/images/footNorthArrow.png',
+					configMouse = config.mousecoords,
+					configNorth = config.northarrow.inwkid;
 
 				// images path
 				_self.imgNorth = pathNorth;
 				
+				// geoprocessing and projection objects
+				_self.outSR = gisGeo.getOutSR(configMouse.outwkid);
+				_self.gsvc = gisGeo.getGSVC(configMouse.urlgeomserv);
+				
 				_self.init = function() {
-					var mymap = mapArray[mapid];
+					var mymap = vmArray[mapid].map.map;
 
 					if (config.mousecoords) {
 						mymap.on('mouse-move', function(evt) {
@@ -37,11 +43,11 @@
 							
 					if (config.northarrow) {
 						mymap.on('pan-end', function(evt) {
-							_self.showNorthArrow(evt, 'north_' + mapid);
+							_self.showNorthArrow(evt, 'north_' + mapid, configNorth);
 						});
 							
 						mymap.on('zoom-end', function(evt) {
-							_self.showNorthArrow(evt, 'north_' + mapid);
+							_self.showNorthArrow(evt, 'north_' + mapid, configNorth);
 						});
 					}
 
@@ -49,11 +55,11 @@
 				};
 				
 				_self.showCoordinates = function(evt, div) {
-					gisGeo.getCoord(evt.mapPoint, div, config.mousecoords);
+					gisGeo.getCoord(evt.mapPoint, div, _self.outSR, _self.gsvc);
 				};
 				
-				_self.showNorthArrow = function(evt, div) {
-					gisGeo.getNorthAngle(evt.extent, div, config.northarrow);
+				_self.showNorthArrow = function(evt, div, inwkid) {
+					gisGeo.getNorthAngle(evt.extent, div, inwkid, _self.gsvc);
 				};
 				
 				_self.init();

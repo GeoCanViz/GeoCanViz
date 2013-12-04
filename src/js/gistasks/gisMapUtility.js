@@ -5,16 +5,23 @@
  *
  * GIS map functions
  */
-/* global esri: false, mapArray: false */
+/* global esri: false */
 (function () {
 	'use strict';
-	define(['gcviz-func',
+	define(['kineticpanning',
+			'gcviz-func',
 			'dijit/Menu',
 			'dijit/MenuItem',
 			'dijit/PopupMenuItem',
-			'esri/layers/FeatureLayer'], function(func, menu, menuItem, menupopup) {
+			'esri/map',
+			'esri/layers/FeatureLayer',
+			'esri/layers/ArcGISTiledMapServiceLayer',
+			'esri/layers/ArcGISDynamicMapServiceLayer',
+			'esri/geometry/Extent',
+			'esri/geometry/Point'], function(kpan, func, menu, menuItem, menupopup) {
 	
-		var createMap,
+		var mapArray = {},
+			createMap,
 			createInset,
 			applyLink,
 			setFactorLink,
@@ -30,6 +37,11 @@
 			createMapMenu,
 			zoomIn,
 			zoomOut,
+			panLeft,
+			panUp,
+			panRight,
+			panDown,
+			getKeyExtent,
 			linkNames = [],
 			wkid,
 			manageScreenState,
@@ -46,7 +58,9 @@
 				fullExtent = new esri.geometry.Extent({'xmin': fullExtent.xmin, 'ymin': fullExtent.ymin, 'xmax': fullExtent.xmax, 'ymax': fullExtent.ymax, 'spatialReference': {'wkid': wkid}}),
 				lod = config.lods,
 				options,
-				map;
+				map,
+				mapid = id.split('_')[0],
+				panning;
 			
 			// set options
 			if (lod.length) {
@@ -71,11 +85,16 @@
 			}
 			
 			map = new esri.Map(id, options);
+			mapArray[mapid] = map;
+			
+			// add kinetic panning
+			panning = new kpan(map);
+			panning.enableMouse();
 			
 			// add value to map object
 			map.vInitExtent = initExtent;
 			map.vFullExtent = fullExtent;
-			map.vIdName = id.split('_')[0];
+			map.vIdName = mapid;
 			map.vWkid = wkid;
 			map.vInsetId = [];
 			
@@ -84,9 +103,8 @@
 			map.on('load', function() {
 				map.resize();
 							
-				// enable navigation
+				// enable navigation (do not enable keyboard navigation, this is made with custom events)
 				map.enableScrollWheelZoom();
-				map.enableKeyboardNavigation();
 				map.isZoomSlider = false;
 
 				// connect event map
@@ -99,7 +117,7 @@
 				
 				// set the link count to enable the first extent-change event
 				linkCount = linkNames.length;
-				
+
 				// add context menu
 				//gisM.createMapMenu(mymap);
 			});
@@ -111,7 +129,8 @@
 			var extentC = config.extent,
 				wkid = config.sr.wkid,
 				extent = new esri.geometry.Extent({'xmin': extentC.xmin, 'ymin': extentC.ymin, 'xmax': extentC.xmax, 'ymax': extentC.ymax, 'spatialReference': {'wkid': wkid}}),
-				map;
+				map,
+				panning;
 				
 			map = new esri.Map(id, {
 				extent: extent,
@@ -120,6 +139,10 @@
 				showAttribution: false,
 				smartNavigation: false
 			});
+			
+			// add kinetic panning
+			panning = new kpan(map);
+			panning.enableMouse();
 			
 			// add value to map object
 			map.vWkid = wkid;
@@ -140,9 +163,7 @@
 						map.enablePan();
 					}
 					
-					if (config.type === 'factorlink') {
-						map.vFactor = config.typeinfo.factor;
-					} else if (config.type === 'panscale') {
+					if (config.type === 'panscale') {
 						map.vLod = config.typeinfo.lod;
 						map.setLevel(map.vLod);
 						setTimeout(function() {
@@ -186,22 +207,12 @@
 			while (len--) {
 				insetMap = insetArray[map.vInsetId[len]];
 				
-				if (insetMap.vType === 'factorlink') {
-					setFactorLink(map, insetMap);
-				} else if (insetMap.vType === 'panscale') {
+				if (insetMap.vType === 'panscale') {
 					setPanScaleLink(map, insetMap);
 				} else if (insetMap.vType === 'link') {
 					insetMap.setExtent(map.extent);
 				}
 			}
-		};
-		
-		setFactorLink = function(map, insetMap) {
-				var mapCenter = getMapCenter(map),
-					extent = new esri.geometry.Extent({'xmin': mapCenter.x - insetMap.vDeltaX, 'ymin': mapCenter.y - insetMap.vDeltaY, 'xmax': mapCenter.x + insetMap.vDeltaX, 'ymax': mapCenter.y + insetMap.vDeltaY, 'spatialReference': {'wkid': map.spatialReference.wkid}});
-
-				setTimeout(function() { insetMap.setLevel(map.__LOD.level * insetMap.vFactor); }, 500);
-				setTimeout(function() { zoomPoint(insetMap, mapCenter); }, 600);
 		};
 		
 		setPanScaleLink = function(map, insetMap) {
@@ -327,12 +338,77 @@
 			//ctxMenuMap.bindDomNode(map.container);
         };
         
-		zoomIn = function() {
+		zoomIn = function(map) {
+			map.setExtent(getKeyExtent(map, 'in'));
 		};
 			
-		zoomOut = function() {
+		zoomOut = function(map) {
+			map.setExtent(getKeyExtent(map, 'out'));
 		};
+		
+		panLeft = function(map) {
+			map.setExtent(getKeyExtent(map, 'left'));
+		};
+		
+		panUp = function(map) {
+			map.setExtent(getKeyExtent(map, 'up'));
+		};
+		
+		panRight = function(map) {
+			map.setExtent(getKeyExtent(map, 'right'));
+		};
+		
+		panDown = function(map) {
+			map.setExtent(getKeyExtent(map, 'down'));
+		};
+		
+		getKeyExtent = function(map, direction) {
+			var extent = map.extent,
+				factorPan = 2,
+				factorZoom = 4,
+				delta,
+				xmin = extent.xmin,
+				xmax = extent.xmax,
+				ymin = extent.ymin,
+				ymax = extent.ymax;
 			
+			if (direction === 'up') {
+				delta = (ymax - ymin) / factorPan;
+				ymin = ymin - delta;
+				ymax = ymax - delta;
+			} else if (direction === 'down') {
+				delta = (ymax - ymin) / factorPan;
+				ymin = ymin + delta;
+				ymax = ymax + delta;
+			} else if (direction === 'left') {
+				delta = (xmax - xmin) / factorPan;
+				xmin = xmin - delta;
+				xmax = xmax - delta;
+			} else if (direction === 'right') {
+				delta = (xmax - xmin) / factorPan;
+				xmin = xmin + delta;
+				xmax = xmax + delta;
+			} else if (direction === 'in') {
+				delta = (xmax - xmin) / factorZoom;
+				xmin = xmin + delta;
+				xmax = xmax - delta;
+				delta = (ymax - ymin) / factorZoom;
+				ymin = ymin + delta;
+				ymax = ymax - delta;
+			} else if (direction === 'out') {
+				delta = (xmax - xmin) / factorZoom;
+				xmin = xmin - delta;
+				xmax = xmax + delta;
+				delta = (ymax - ymin) / factorZoom;
+				ymin = ymin - delta;
+				ymax = ymax + delta;
+			}
+			
+			extent = new esri.geometry.Extent({'xmin': xmin, 'ymin': ymin, 'xmax': xmax, 'ymax': ymax, 'spatialReference': {'wkid': map.spatialReference.wkid}});
+
+			return extent;
+		};
+		
 		return {
 			createMap: createMap,
 			createInset: createInset,
@@ -342,7 +418,13 @@
 			zoomPoint: zoomPoint,
 			getMapCenter: getMapCenter,
 			manageScreenState: manageScreenState,
-			createMapMenu: createMapMenu
+			createMapMenu: createMapMenu,
+			zoomIn: zoomIn,
+			zoomOut: zoomOut,
+			panLeft: panLeft,
+			panUp: panUp,
+			panRight: panRight,
+			panDown: panDown
 		};
 	});
 }());

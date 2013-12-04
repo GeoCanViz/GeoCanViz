@@ -7,10 +7,11 @@
  */
 (function() {
 	'use strict';
-	define(['gcviz-vm-tbdraw',
+	define(['jquery',
+			'gcviz-vm-tbdraw',
 			'dijit/TitlePane',
 			'gcviz-i18n'
-	], function(toolbardrawVM, dojotitle, i18n) {
+	], function($, toolbardrawVM, dojotitle, i18n) {
 		var initialize;
 		
 		initialize = function($mapElem) {
@@ -25,19 +26,19 @@
 			tp.startup();
 
 			// change tabinndex
-			tp.domNode.getElementsByClassName('dijitTitlePaneTitleFocus')[0].setAttribute('tabindex', '1');
+			tp.domNode.getElementsByClassName('dijitTitlePaneTitleFocus')[0].setAttribute('tabindex', '0');
 			
 			// find toolbar and start to add items
 			$toolbar = $mapElem.find('.gcviz-tbdraw-content');
 
 			// set draw button
 			if (config.drawline.enable) {
-				node += '<button class="gcviz-button" tabindex="1" data-bind="click: drawClick, tooltip: { content: tpDraw }"><img class="gcviz-img-button" data-bind="attr:{src: imgDraw}"></img></button>';
+				node += '<button class="gcviz-button" tabindex="0" data-bind="click: drawClick, tooltip: { content: tpDraw }"><img class="gcviz-img-button" data-bind="attr:{src: imgDraw}"></img></button>';
 			}
 			
 			// set text button
 			if (config.drawtext.enable) {
-				node += '<button class="gcviz-button" tabindex="1" data-bind="click: textClick, tooltip: { content: tpText }"><img class="gcviz-img-button" data-bind="attr:{src: imgText}"></img></button>';
+				node += '<button class="gcviz-button" tabindex="0" data-bind="click: textClick, tooltip: { content: tpText }"><img class="gcviz-img-button" data-bind="attr:{src: imgText}"></img></button>';
 				
 				// create the annotation inputbox (dont use knockout data-bind because there one window for the whole page not by ViewModel)
 				if ($('#gcviz-draw-inputbox').length === 0) {
@@ -50,17 +51,17 @@
 			}
 			
 			// set erase button
-			node += '<button class="gcviz-button" tabindex="1" data-bind="click: eraseClick, tooltip: { content: tpErase }"><img class="gcviz-img-button" data-bind="attr:{src: imgErase}"></img></button>';
+			node += '<button class="gcviz-button" tabindex="0" data-bind="click: eraseClick, tooltip: { content: tpErase }"><img class="gcviz-img-button" data-bind="attr:{src: imgErase}"></img></button>';
 			
 			// set measure button
 			if (config.measure.enable) {
-				node += '<button class="gcviz-button" tabindex="1" data-bind="click: measureClick"><img class="gcviz-img-button" data-bind="attr:{src: imgMeasure}"></img></button>';
+				node += '<button class="gcviz-button" tabindex="0" data-bind="click: measureClick"><img class="gcviz-img-button" data-bind="attr:{src: imgMeasure}"></img></button>';
 			}
 			
 			// set import and save buttons
 			if (config.importexport.enable) {
-				node += '<button class="gcviz-button" tabindex="1" data-bind="click: importClick"><img class="gcviz-img-button" data-bind="attr:{src: imgImport}"></img></button>';
-				node += '<button class="gcviz-button" tabindex="1" data-bind="click: exportClick"><img class="gcviz-img-button" data-bind="attr:{src: imgExport}"></img></button>';
+				node += '<button class="gcviz-button" tabindex="0" data-bind="click: importClick"><img class="gcviz-img-button" data-bind="attr:{src: imgImport}"></img></button>';
+				node += '<button class="gcviz-button" tabindex="0" data-bind="click: exportClick"><img class="gcviz-img-button" data-bind="attr:{src: imgExport}"></img></button>';
 			}
 			
 			$toolbar.append(node);

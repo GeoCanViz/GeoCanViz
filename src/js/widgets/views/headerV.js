@@ -7,8 +7,9 @@
  */
 (function() {
 	'use strict';
-	define(['gcviz-vm-header'
-	], function(headerVM) {
+	define(['jquery',
+			'gcviz-vm-header'
+	], function($, headerVM) {
 		var initialize;
 		
 		initialize = function($mapElem) {
@@ -29,22 +30,22 @@
 			// add buttons
 			node += '<div class="gcviz-head-button">';
 			// add help button (must always be there!)
-			node += '<button class="gcviz-button" tabindex="1" data-bind="click: helpClick, tooltip: { content: tpHelp }"><img class="gcviz-img-button" data-bind="attr:{src: imgHelp}"></img></button>';
+			node += '<button class="gcviz-button" tabindex="0" data-bind="click: helpClick, tooltip: { content: tpHelp }"><img class="gcviz-img-button" data-bind="attr:{src: imgHelp}"></img></button>';
 
 			// add tools button
 			if (config.tools) {
-				node += '<button class="gcviz-button" tabindex="1" data-bind="click: toolsClick, tooltip: { content: tpTools }"><img class="gcviz-img-button" data-bind="attr:{src: imgTools}"></img></button>';
+				node += '<button class="gcviz-button gcviz-tools-button" tabindex="0" data-bind="click: toolsClick, tooltip: { content: tpTools }"><img class="gcviz-img-button" data-bind="attr:{src: imgTools}"></img></button>';
 				$mapElem.find('.gcviz-head').after('<div class="gcviz-tbholder gcviz-hidden"></div>');
 			}
 			
 			// add inset button if inset are present
 			if ($mapElem.insetframe.enable) {
-				node += '<button class="gcviz-button" tabindex="1" data-bind="click: insetClick, tooltip: { content: tpInset }"><img class="gcviz-img-button" data-bind="attr:{src: imgShowInset}"></img></button>';
+				node += '<button class="gcviz-button" tabindex="0" data-bind="click: insetClick, tooltip: { content: tpInset }"><img class="gcviz-img-button" data-bind="attr:{src: imgShowInset}"></img></button>';
 			}
 			
 			// add fullscreen button
 			if (config.fullscreen) {
-				node += '<button class="gcviz-button" tabindex="1" data-bind="click: fullscreenClick, tooltip: { content: tpFullScreen }"><img class="gcviz-img-button" data-bind="attr:{src: imgFullscreen}"></img></button>';
+				node += '<button class="gcviz-button" tabindex="0" data-bind="click: fullscreenClick, tooltip: { content: tpFullScreen }"><img class="gcviz-img-button" data-bind="attr:{src: imgFullscreen}"></img></button>';
 			}
 			node += '</div>';
 					

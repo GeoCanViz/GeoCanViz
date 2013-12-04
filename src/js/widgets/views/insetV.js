@@ -5,7 +5,7 @@
  *
  * Inset view widget
  */
-/* global tbHeight: false */
+/* global vmArray: false */
 (function() {
 	'use strict';
 	define(['jquery',
@@ -27,11 +27,12 @@
 				margin,
 				sizetype,
 				insideHeight,
-				insetsArray = [];
+				insetsArray = [],
+				headerHeight = vmArray[mapid].header.headerHeight;
 			
 			// find widht and height of cells
 			wSize = mapSize.width/insetSize.numcol;
-			hSize = (mapSize.height - (tbHeight * 2))/insetSize.numrow;
+			hSize = (mapSize.height - (headerHeight * 2))/insetSize.numrow;
 			
 			while (insetLen--) {
 				inset = insetframe.insets[insetLen],
@@ -39,10 +40,10 @@
 				end = inset.pos.endrowcol,
 				width = (end[1] - start[1]) * wSize,
 				height = (end[0] - start[0]) * hSize,
-				bottom = (start[0] * hSize) + tbHeight,
+				bottom = (start[0] * hSize) + headerHeight,
 				left = start[1] * wSize,
 				label = inset.label,
-				insideHeight = height - (tbHeight / 2),
+				insideHeight = height - (headerHeight / 2),
 				sizetype = inset.size,
 				node ='',
 				margin = '';
@@ -58,16 +59,16 @@
 				}
 
 				// if bottom && top !0, add a margin to the the inset so it will not go outside the section
-				if (bottom !== tbHeight && left !== 0) {
+				if (bottom !== headerHeight && left !== 0) {
 					margin = 'gcviz-inset-margin';
 				}
 				
 				// create inset holder
-				$mapElem.find('.gcviz-foot').before('<div id="inset' + insetLen + mapid + '" data-bind="fullscreen: {}, insetVisibility: {}, enterkey: insetClick, click: function(data, event){ insetClick($data, event) }" class="gcviz-inset gcviz-inset' + mapid + ' ' + margin + '" tabindex="1" style="' + ' bottom: ' + bottom + 'px; left: ' + left + 'px; width: ' + width + sizetype + '; height: ' + height + sizetype + ';"></div>');
+				$mapElem.find('.gcviz-foot').before('<div id="inset' + insetLen + mapid + '" data-bind="fullscreen: {}, insetVisibility: {}" class="gcviz-inset gcviz-inset' + mapid + ' ' + margin + '" style="' + ' bottom: ' + bottom + 'px; left: ' + left + 'px; width: ' + width + sizetype + '; height: ' + height + sizetype + ';"></div>');
 				$inset = $mapElem.find('#inset' + insetLen + mapid);
 				
 				// add label
-				node = '<h2>' + label.value + '</h2>';
+				node = '<div class="gcviz-title"><h2>' + label.value + '</h2><button class="gcviz-inset-button" tabindex="0" data-bind="click: insetClick, tooltip: { content: tpLight }"><img class="gcviz-imginset-button" data-bind="attr:{src: imgLightbox}"></img></button></div>';
 				
 				// add info
 				if (inset.type === 'image' || inset.type === 'video') {
@@ -91,7 +92,7 @@
 						node += '</div></div>';
 					} else if (inset.type === 'video') {
 					
-						node += '<a class="mp-link"><div id="inset' + insetLen + mapid + 'v"><video class="gcviz-vid-inset" style="height: ' + insideHeight + 'px;">';
+						node += '<a class="mp-link"><div id="inset' + insetLen + mapid + 'v"><div class="gcviz-play-background"><button class="gcviz-inset-button gcviz-play-button" tabindex="0" data-bind="tooltip: { content: tpLight }"><img class="gcviz-imginset-button" data-bind="attr:{src: imgLightbox}"></img></button></div><video class="gcviz-vid-inset" style="height: ' + insideHeight + 'px;">';
 						while (srcLen--) {
 							node += '<source data-bind="attr:{src: vid[' + srcLen + ']}" type="' + sources[srcLen].type + '"></source>';
 							$inset.vSource[srcLen] = sources[srcLen];
@@ -101,12 +102,12 @@
 				} else if (inset.type === 'html') {
 					var html = inset.inset;
 					if (html.type === 'text') {
-						node += '<a class="mp-link"></a><div id="inset' + insetLen + mapid + 'h" class="gcviz-html-inset">' + html.tag + '</div>';	
+						node += '<a class="mp-link"></a><div id="inset' + insetLen + mapid + 'h" class="gcviz-html-inset" style="height: ' + insideHeight + 'px;">' + html.tag + '</div>';	
 					} else if (html.type === 'page') {
 						node += '<a class="mp-link"><div id="inset' + insetLen + mapid + 'h"><iframe class="gcviz-html-inset" src="' + html.tag + '" style="height: ' + insideHeight + 'px;"></iframe></div>';
 					}
 				} else if (inset.type === 'map') {
-					node += '<a class="mp-link"></a><div id="inset' + insetLen + mapid + 'm" class="gcviz-map-inset inset' + insetLen + mapid + '" style="height: ' + insideHeight + 'px;"><div id="load' + insetLen + mapid + '" class="gcviz-load-close gcviz-hidden"><img class="gcviz-load-img" src="http://jimpunk.net/Loading/wp-content/uploads/loading1.gif"/></div></div>';
+					node += '<a class="mp-link"></a><div id="inset' + insetLen + mapid + 'm" class="gcviz-map-inset inset' + insetLen + mapid + '" data-bind="enterkey: {}" style="height: ' + insideHeight + 'px;"><div id="load' + insetLen + mapid + '" class="gcviz-load-close gcviz-hidden"><img class="gcviz-load-img" src="http://jimpunk.net/Loading/wp-content/uploads/loading1.gif"/></div></div>';
 				}
 
 				// append the node

@@ -6,24 +6,23 @@
  * Version: @gcviz.version@
  *
  */
-var mapArray = {},
-	vmArray = {},
-	locationPath,
-	tbHeight;
+var vmArray = {},
+	locationPath;
 (function() {
 	'use strict';
 	var mapsTotal,
 		mapsNum;
 
 	// there is a conflict between jQuery in gcviz and in WET. For this reason, we define jquery only when a dependency needs it like in inset.
-	define(['gcviz-i18n',
+	define(['jquery',
+			'gcviz-i18n',
 			'gcviz-func',
 			'gcviz-v-map',
 			'gcviz-v-inset',
 			'gcviz-v-header',
 			'gcviz-v-footer',
 			'gcviz-v-tbdraw',
-			'gcviz-v-tbnav'], function(i18n, func, map, inset, header, footer, toolbardraw, toolbarnav) {
+			'gcviz-v-tbnav'], function($, i18n, func, map, inset, header, footer, toolbardraw, toolbarnav) {
 		var initialize,
 			readConfig,
 			execConfig,
@@ -81,14 +80,16 @@ var mapArray = {},
 		};
 		
 		/*
-		 *  execute the configuration file
+		 *  execute the configuration file. add all viewmodel to a master view model. This viewmodel will be store in an array
+		 *  of view models (one for each map)
 		 */
 		execConfig = function(mapElem, config) {
 			var $mapSection,
 				$mapElem = $(mapElem),
 				mapframe = config.mapframe,
 				mapid = mapframe.id,
-				size = mapframe.size;
+				size = mapframe.size,
+				customLen = config.customwidgets.length;
 			
 			// create section around map. This way we can bind Knockout to the section
 			$mapElem.wrap('<section id=section' + mapid + ' class="gcviz-section" role="map" style="width:' + size.width + 'px; height:' + size.height + 'px;">');
@@ -97,11 +98,12 @@ var mapArray = {},
 			// extend the section with configuration file info
 			$.extend($mapSection, config);
 
-			// create map and add layers (save result in the mapArray)
-			mapArray[mapid] = map.initialize($mapSection);
+			// create map and add layers
+			// save the result of every view model in an array of view models
+			vmArray[mapid] = {};
+			vmArray[mapid].map = map.initialize($mapSection);
 			
 			// add header and footer
-			vmArray[mapid] = {};
 			vmArray[mapid].header = header.initialize($mapSection);
 			vmArray[mapid].footer = footer.initialize($mapSection);
 			
@@ -119,7 +121,12 @@ var mapArray = {},
 			if (config.insetframe.enable) {
 				vmArray[mapid].insets = inset.initialize($mapSection);
 			}
-					
+			
+			// add custom widgets
+			while (customLen--) {
+				
+			}
+			
 			mapsNum += 1;
 			
 			if (mapsNum === mapsTotal) {

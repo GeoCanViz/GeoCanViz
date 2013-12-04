@@ -5,15 +5,15 @@
  *
  * Toolbar draw view model widget
  */
-/* global mapArray: false, locationPath: false */
+/* global locationPath: false */
 (function() {
 	'use strict';
-	define([
-		'knockout',
-		'jqueryui',
-		'gcviz-i18n',
-		'gcviz-gisgraphic'
-	], function(ko, qUI, i18n, gisGraphic) {
+	define(['jquery',
+			'knockout',
+			'jqueryui',
+			'gcviz-i18n',
+			'gcviz-gisgraphic'
+	], function($, ko, qUI, i18n, gisGraphic) {
 		var initialize;
 		
 		initialize = function($mapElem, mapid) {
@@ -27,7 +27,7 @@
 					pathMeasure = locationPath + 'gcviz/images/drawMeasure.png',
 					pathImport = locationPath + 'gcviz/images/drawImport.png',
 					pathExport = locationPath + 'gcviz/images/drawExport.png',
-					mymap = mapArray[mapid],
+					mymap = vmArray[mapid].map.map,
 					$container = $('#' + mapid + '_holder_container'),
 					mygraphic = new gisGraphic.initialize(mymap),
 					$text = $('#gcviz-draw-inputbox');

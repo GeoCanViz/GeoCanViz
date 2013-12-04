@@ -54,10 +54,6 @@
 			"numrow": 100,
 			"numcol": 100
 		},
- 		"label": {
-				"value": "The insets",
-				"alttext": "The insets"
-		},
 		"insets": [{
 			"pos": {
 				"startrowcol": [0,0],
@@ -73,7 +69,7 @@
 			},
 			"inset": {
 				"type": "text",
-				"tag": "<span>Cette carte est un example avec une insertion texte.Cette carte est un example avec une insertion texte.Cette carte est un example avec une insertion texte.Cette carte est un example avec une insertion texte.Cette carte est un example avec une insertion texte.Cette carte est un example avec une insertion texte.Cette carte est un example avec une insertion texte.Cette carte est un example avec une insertion texte.Cette carte est un example avec une insertion texte.Cette carte est un example avec une insertion texte.Cette carte est un example avec une insertion texte.Cette carte est un example avec une insertion texte.Cette carte est un example avec une insertion texte.Cette carte est un example avec une insertion texte.Cette carte est un example avec une insertion texte.Cette carte est un example avec une insertion texte.Cette carte est un example avec une insertion texte.Cette carte est un example avec une insertion texte.Cette carte est un example avec une insertion texte.Cette carte est un example avec une insertion texte.</span>"
+				"tag": "<span>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</span>"
 			}
 		}, {
 			"pos": {
@@ -94,7 +90,7 @@
 			}
 		}]
 	},
-	"toolbarmain": {
+	"header": {
 		"title": {
 			"value": "Map 3",
 			"alttext": "Map 3",
@@ -112,7 +108,7 @@
 			"visible": false
 		}
 	},
-	"toolbarfoot": {
+	"footer": {
 		"northarrow": {
 			"enable": true,
 			"inwkid": 3978
@@ -126,7 +122,7 @@
 			"direction": "in"
 		}
 	},
-	"toolbaranno": {
+	"toolbardraw": {
 		"enable": true,
 		"expand": false,
 		"drawline": {
@@ -166,8 +162,9 @@
 			"enable": false,
 			"url": "http"
 		},
-		"idposition":  {
+		"position":  {
 			"enable": false
 		}
-	}
+	},
+	"customwidgets": []
 }}

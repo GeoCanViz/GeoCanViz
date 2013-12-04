@@ -8,7 +8,12 @@
 /* global esri: false, dojo: false */
 (function () {
 	'use strict';
-	define(['jquery'], function($) {
+	define(['jquery',
+			'esri/toolbars/draw',
+			'esri/symbols/Font',
+			'esri/symbols/SimpleLineSymbol',
+			'esri/symbols/TextSymbol',
+			'esri/graphic'], function($) {
 		var initialize;
 			
 		initialize = function(mymap) {

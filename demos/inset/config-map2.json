@@ -54,10 +54,6 @@
 			"numrow": 100,
 			"numcol": 100
 		},
- 		"label": {
-				"value": "The insets",
-				"alttext": "The insets"
-		},
 		"insets": [{
 			"pos": {
 				"startrowcol": [0,0],
@@ -108,7 +104,7 @@
 			}
 		}]
 	},
-	"toolbarmain": {
+	"header": {
 		"title": {
 			"value": "Map 2",
 			"alttext": "Map 2",
@@ -126,7 +122,7 @@
 			"visible": false
 		}
 	},
-	"toolbarfoot": {
+	"footer": {
 		"northarrow": {
 			"enable": true,
 			"inwkid": 3978
@@ -140,7 +136,7 @@
 			"direction": "in"
 		}
 	},
-	"toolbaranno": {
+	"toolbardraw": {
 		"enable": true,
 		"expand": false,
 		"drawline": {
@@ -180,8 +176,9 @@
 			"enable": false,
 			"url": "http"
 		},
-		"idposition":  {
+		"position":  {
 			"enable": false
 		}
-	}
+	},
+	"customwidgets": []
 }}

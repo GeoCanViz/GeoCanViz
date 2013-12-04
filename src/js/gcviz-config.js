@@ -168,6 +168,10 @@
 				location: locationPath + 'gcviz/dependencies',
 				main: 'magnificpopup.min'
 			}, {
+				name: 'kineticpanning',
+				location: locationPath + 'gcviz/dependencies',
+				main: 'kineticpanning.min'
+			}, {
 				name: 'gcviz',
 				location: locationPath + 'gcviz',
 				main: 'gcviz-min'
@@ -253,7 +257,7 @@
 
 	define.amd.jQuery = true;
 	
-	require(['gcviz'], function(gcviz) {
+	require(['jquery', 'gcviz'], function($, gcviz) {
 		return $(document).ready(function() {
 			return gcviz.initialize();
 		});

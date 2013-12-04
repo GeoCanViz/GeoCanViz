@@ -7,8 +7,9 @@
  */
 (function() {
 	'use strict';
-	define(['gcviz-vm-footer'
-	], function(footerVM) {
+	define(['jquery',
+			'gcviz-vm-footer'
+	], function($, footerVM) {
 		var initialize;
 		
 		initialize = function($mapElem) {

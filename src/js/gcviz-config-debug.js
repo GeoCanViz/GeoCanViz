@@ -140,7 +140,7 @@
 	if (window.browser === 'Explorer' && window.browserversion <= 10) {
 		window.location = 'http://www.google.com/';
 	}
-	
+
 	// load the require libraries		
 	require({
 		async: true,
@@ -167,6 +167,10 @@
 				name: 'magnificpopup',
 				location: locationPath + 'src/js/dependencies',
 				main: 'magnificpopup.min'
+			}, {
+				name: 'kineticpanning',
+				location: locationPath + 'src/js/dependencies',
+				main: 'kineticpanning.min'
 			}, {
 				name: 'gcviz',
 				location: locationPath + 'src/js',
@@ -253,7 +257,7 @@
 
 	define.amd.jQuery = true;
 
-	require(['gcviz'], function(gcviz) {
+	require(['jquery', 'gcviz'], function($, gcviz) {
 		return $(document).ready(function() {
 			return gcviz.initialize();
 		});

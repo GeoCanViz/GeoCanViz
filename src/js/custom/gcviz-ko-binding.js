@@ -68,27 +68,22 @@
 			vm.isInsetVisible.subscribe(manageInsetVisibility);
 			
 			function manageInsetVisibility(visible) {
-					viewModel.setVisibility(visible);
+				viewModel.setVisibility(visible);
 			}
 		}
 	};
 
 	ko.bindingHandlers.enterkey = {
-		init: function (element, valueAccessor, allBindingsAccessor, viewModel) {
-			var allBindings = allBindingsAccessor(),
-				keyCode, target;
-			$(element).on('keypress', function (e) {
-				keyCode = e.which || e.keyCode;
-				if (keyCode !== 13 && keyCode !== 32) {
-					return true;
-				}
+		init: function(element, valueAccessor, allBindings, viewModel) {
+			ko.utils.registerEventHandler(element, "keydown", function(event) {
+				if (viewModel.applyKey(event.which, event.shiftKey)) {
+					event.preventDefault();
+					return false;
+				};
 				
-				target = e.target;
-				target.blur();
-				allBindings.enterkey.call(viewModel, viewModel, target, element);
-				return false;
+				return true;
 			});
-		}
+		}         
 	};
 
 	});

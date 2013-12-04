@@ -90,10 +90,6 @@
 			"numrow": 10,
 			"numcol": 10
 		},
- 		"label": {
-				"value": "The insets",
-				"alttext": "The insets"
-		},
 		"insets": [{
 			"pos": {
 				"startrowcol": [0,0],
