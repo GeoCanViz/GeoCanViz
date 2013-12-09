@@ -57,7 +57,7 @@
 		"insets": [{
 			"pos": {
 				"startrowcol": [0,0],
-				"endrowcol": [40,30]
+				"endrowcol": [35,30]
 			},
 			"type": "video",
 			"fullscreen": true,
@@ -72,13 +72,13 @@
 				"autoplay": false,
 				"sources": [{
 						"location": "internet",
-						"url": "http://geogratis.gc.ca/geogratis/video/GeoGratis_Video_English.mp4",
+						"url": "http://geogratis.gc.ca/geogratis/video/GeoGratis_Video_Francais.mp4",
 						"type": "video/mp4"
 					}]
 			}
 		}, {
 			"pos": {
-				"startrowcol": [35,65],
+				"startrowcol": [65,65],
 				"endrowcol": [100,100]
 			},
 			"type": "video",

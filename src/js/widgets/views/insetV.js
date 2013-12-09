@@ -28,11 +28,13 @@
 				sizetype,
 				insideHeight,
 				insetsArray = [],
-				headerHeight = vmArray[mapid].header.headerHeight;
+				headerHeight = vmArray[mapid].header.headerHeight,
+				perctHeight,
+				id;
 			
 			// find widht and height of cells
-			wSize = mapSize.width/insetSize.numcol;
-			hSize = (mapSize.height - (headerHeight * 2))/insetSize.numrow;
+			wSize = mapSize.width / insetSize.numcol;
+			hSize = (mapSize.height - (headerHeight * 2)) / insetSize.numrow;
 			
 			while (insetLen--) {
 				inset = insetframe.insets[insetLen],
@@ -46,7 +48,9 @@
 				insideHeight = height - (headerHeight / 2),
 				sizetype = inset.size,
 				node ='',
-				margin = '';
+				margin = '',
+				perctHeight = (insideHeight / height) * 100 + '%',
+				id = 'inset' + insetLen + mapid;
 				
 				// if row/col start = row/start end, give size of 1 row/col
 				if (width === 0) { width = wSize; }
@@ -64,8 +68,8 @@
 				}
 				
 				// create inset holder
-				$mapElem.find('.gcviz-foot').before('<div id="inset' + insetLen + mapid + '" data-bind="fullscreen: {}, insetVisibility: {}" class="gcviz-inset gcviz-inset' + mapid + ' ' + margin + '" style="' + ' bottom: ' + bottom + 'px; left: ' + left + 'px; width: ' + width + sizetype + '; height: ' + height + sizetype + ';"></div>');
-				$inset = $mapElem.find('#inset' + insetLen + mapid);
+				$mapElem.find('.gcviz-foot').before('<div id="' + id + '" data-bind="fullscreen: {}, insetVisibility: {}" class="gcviz-inset gcviz-inset' + mapid + ' ' + margin + '" style="' + ' bottom: ' + bottom + 'px; left: ' + left + 'px; width: ' + width + sizetype + '; height: ' + height + sizetype + ';"></div>');
+				$inset = $mapElem.find('#' + id);
 				
 				// add label
 				node = '<div class="gcviz-title"><h2>' + label.value + '</h2><button class="gcviz-inset-button" tabindex="0" data-bind="click: insetClick, tooltip: { content: tpLight }"><img class="gcviz-imginset-button" data-bind="attr:{src: imgLightbox}"></img></button></div>';
@@ -80,7 +84,7 @@
 					
 					if (inset.type === 'image') {
 						
-						node += '<div style="width: 100%;"><div id="slides' + insetLen + mapid + '" class="inset' + insetLen + mapid + '" style="height: ' + insideHeight + 'px;">';
+						node += '<div style="width: 100%;"><div id="slides' + insetLen + mapid + '" class="' + id + '" style="height: ' + perctHeight + ';">';
 						while (srcLen--) {
 							var info = sources[srcLen].label;
 							
@@ -92,7 +96,7 @@
 						node += '</div></div>';
 					} else if (inset.type === 'video') {
 					
-						node += '<a class="mp-link"><div id="inset' + insetLen + mapid + 'v"><div class="gcviz-play-background"><button class="gcviz-inset-button gcviz-play-button" tabindex="0" data-bind="tooltip: { content: tpLight }"><img class="gcviz-imginset-button" data-bind="attr:{src: imgLightbox}"></img></button></div><video class="gcviz-vid-inset" style="height: ' + insideHeight + 'px;">';
+						node += '<a class="mp-link"></a><div id="' + id + 'v"><div class="gcviz-play-background" style="height: ' + perctHeight + ';"><button class="gcviz-inset-button gcviz-play-button" tabindex="0" data-bind="click: videoClick, tooltip: { content: tpPlayVideo }"><img data-bind="attr:{src: imgPlayVideo}"></img></button></div><video class="gcviz-vid-inset" data-bind="click: videoClick, enterkey: { func: \'stopVideo\', keyType: \'keyup keydown\' }" style="max-height: ' + perctHeight + ';">';
 						while (srcLen--) {
 							node += '<source data-bind="attr:{src: vid[' + srcLen + ']}" type="' + sources[srcLen].type + '"></source>';
 							$inset.vSource[srcLen] = sources[srcLen];
@@ -102,12 +106,12 @@
 				} else if (inset.type === 'html') {
 					var html = inset.inset;
 					if (html.type === 'text') {
-						node += '<a class="mp-link"></a><div id="inset' + insetLen + mapid + 'h" class="gcviz-html-inset" style="height: ' + insideHeight + 'px;">' + html.tag + '</div>';	
+						node += '<a class="mp-link"></a><div id="' + id + 'h" class="gcviz-text-inset" style="height: ' + perctHeight + ';" tabindex="0">' + html.tag + '</div>';	
 					} else if (html.type === 'page') {
-						node += '<a class="mp-link"><div id="inset' + insetLen + mapid + 'h"><iframe class="gcviz-html-inset" src="' + html.tag + '" style="height: ' + insideHeight + 'px;"></iframe></div>';
+						node += '<a class="mp-link"><div id="' + id + 'h"><iframe id="' + id + 'h" src="' + html.tag + '" style="height: ' + perctHeight + '; width:100%;" class="gcviz-frame-inset"></iframe></div>';
 					}
 				} else if (inset.type === 'map') {
-					node += '<a class="mp-link"></a><div id="inset' + insetLen + mapid + 'm" class="gcviz-map-inset inset' + insetLen + mapid + '" data-bind="enterkey: {}" style="height: ' + insideHeight + 'px;"><div id="load' + insetLen + mapid + '" class="gcviz-load-close gcviz-hidden"><img class="gcviz-load-img" src="http://jimpunk.net/Loading/wp-content/uploads/loading1.gif"/></div></div>';
+					node += '<a class="mp-link"></a><div id="' + id + 'm" class="gcviz-map-inset ' + id + '" data-bind="enterkey: { func: \'applyKey\', keyType: \'keydown\' }" style="max-height: ' + perctHeight + '; width: 100%"><div id="load' + insetLen + mapid + '" class="gcviz-load-close gcviz-hidden"><img class="gcviz-load-img" src="http://jimpunk.net/Loading/wp-content/uploads/loading1.gif"/></div></div>';
 				}
 
 				// append the node

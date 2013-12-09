@@ -23,7 +23,7 @@
 			$div.css({'width': width, 'height': height});
 			
 			// add a wrapper around the map
-			$div.prepend('<div id="' + mapid + '_holder' + '" name="map" data-bind="hasfocus: mapfocus.focused, enterkey: {}" tabindex="0"></div>');
+			$div.prepend('<div id="' + mapid + '_holder' + '" name="map" data-bind="event: { mouseover: enterMouse, mouseout: leaveMouse }, hasfocus: mapfocus.focused, enterkey: { func: \'applyKey\', keyType: \'keydown\' }" tabindex="0"></div>');
 				
 			// set height and width for the map. Substract the header height
 			$mapElem.find('#' + mapid + '_holder').css({'height': (height - 80), 'width': width});

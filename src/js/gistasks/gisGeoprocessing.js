@@ -22,7 +22,7 @@
 			gsvc;
 
 		getOutSR = function(wkid) {
-			return new esri.SpatialReference({'wkid': wkid});
+			return new esri.SpatialReference({ 'wkid': wkid });
 		};
 		
 		getGSVC = function(urlgeomserv) {
@@ -41,8 +41,8 @@
 		
 		getNorthAngle = function(extent, div, inwkid, gsvc) {
 			
-			var outSR = new esri.SpatialReference({'wkid': 4326}),
-				pointB = new esri.geometry.Point((extent.xmin + extent.xmax) / 2, extent.ymin, new esri.SpatialReference({'wkid': inwkid}));
+			var outSR = new esri.SpatialReference({ 'wkid': 4326 }),
+				pointB = new esri.geometry.Point((extent.xmin + extent.xmax) / 2, extent.ymin, new esri.SpatialReference({ 'wkid': inwkid }));
 			
 			params.geometries = [pointB];
 			params.outSR = outSR;

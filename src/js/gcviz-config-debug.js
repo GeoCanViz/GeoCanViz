@@ -137,15 +137,19 @@
 	browserDetect.init();
 	
 	// if browser not supported, redirect
-	if (window.browser === 'Explorer' && window.browserversion <= 10) {
-		window.location = 'http://www.google.com/';
+	if (window.browser !== 'Explorer' && window.browser !== 'Firefox' && window.browser !== 'Chrome' && window.browser !== 'Safari') {
+		alert('Browser not suported: needs to be Chrome, Firefox, Safari or Explorer');
+		//window.location = 'http://www.google.com/';
+	} else if (window.browser === 'Explorer' && window.browserversion <= 8) {
+		alert('Browser not suported: Explorer needs to b version 9 and higher');
+		//window.location = 'http://www.google.com/';
 	}
 
-	// load the require libraries		
+	// load the require libraries
+	define.amd.jQuery = true;	
 	require({
 		async: true,
 		parseOnLoad: false,
-		aliases: [['text', 'dojo/text']],
 		packages: [
 			{
 				name: 'jquery',
@@ -255,12 +259,13 @@
 		]
 	});
 
-	define.amd.jQuery = true;
-
-	require(['jquery', 'gcviz'], function($, gcviz) {
-		return $(document).ready(function() {
-			return gcviz.initialize();
+	// start the process (it is in a time out because we have to let WET finish to load before we start)
+	// if we dont, it creates a conflict because we laod jQuery and it is different then the one loaded by WET
+	setTimeout(function() {
+		require(['jquery', 'gcviz'], function($, gcviz) {
+			return $(document).ready(function() {
+				return gcviz.initialize();
+			});
 		});
-	});
-
+	}, 500);
 }).call(this);

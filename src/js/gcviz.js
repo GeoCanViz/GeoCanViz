@@ -28,7 +28,6 @@ var vmArray = {},
 			execConfig,
 			setLocationPath,
 			setLocalMP;
-
 		/*
 		 *  initialize the GCViz application
 		 */
@@ -62,6 +61,7 @@ var vmArray = {},
 		readConfig = function(mapElem) {
 			
 			// ajax call to get the config file info
+			$.support.cors = true; // force cross-site scripting for IE9
 			$.ajax({
 				url: mapElem.getAttribute('data-gcviz'),
 				crossDomain: true,
@@ -91,7 +91,7 @@ var vmArray = {},
 				size = mapframe.size,
 				customLen = config.customwidgets.length;
 			
-			// create section around map. This way we can bind Knockout to the section
+			// // create section around map. This way we can bind Knockout to the section
 			$mapElem.wrap('<section id=section' + mapid + ' class="gcviz-section" role="map" style="width:' + size.width + 'px; height:' + size.height + 'px;">');
 			$mapSection = $(document).find('#section' + mapid);
 			

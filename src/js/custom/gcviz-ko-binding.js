@@ -75,8 +75,12 @@
 
 	ko.bindingHandlers.enterkey = {
 		init: function(element, valueAccessor, allBindings, viewModel) {
-			ko.utils.registerEventHandler(element, "keydown", function(event) {
-				if (viewModel.applyKey(event.which, event.shiftKey)) {
+			// get function name to call from the binding
+			var func = valueAccessor().func,
+				keyType = valueAccessor().keyType;
+			
+			ko.utils.registerEventHandler(element, keyType, function(event) {
+				if (viewModel[func](event.which, event.shiftKey, event.type)) {
 					event.preventDefault();
 					return false;
 				};
