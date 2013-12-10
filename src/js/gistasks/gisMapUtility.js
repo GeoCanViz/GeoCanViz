@@ -259,15 +259,16 @@
 			}, 1000, false));
 		};
 		
-		addLayer = function(map, type, url) {
+		addLayer = function(map, type, url, layerid) {
 			if (type === 'tiled') {
-				map.addLayer(new esri.layers.ArcGISTiledMapServiceLayer(url));
+				map.addLayer(new esri.layers.ArcGISTiledMapServiceLayer(url, { 'id': layerid }));
 			} else if (type === 'dynamic') {
-				map.addLayer(new esri.layers.ArcGISDynamicMapServiceLayer(url));
+				map.addLayer(new esri.layers.ArcGISDynamicMapServiceLayer(url, { 'id': layerid }));
 			} else if (type === 'feature') {
 				map.addLayer(new esri.layers.FeatureLayer(url, {
 					mode: esri.layers.FeatureLayer.MODE_ONDEMAND,
-      				outFields: ["*"]
+      				outFields: ["*"],
+      				id: layerid
 				}));
 			}
 		};

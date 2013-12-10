@@ -201,5 +201,8 @@
 			"enable": false
 		}
 	},
+	"toolbarlegend": {
+		"enable": false
+	},
 	"customwidgets": []
 }}

@@ -5,7 +5,7 @@
  *
  * Inset view model widget
  */
-/* global locationPath: false, vmArray: false */
+/* global vmArray: false, locationPath: false */
 (function() {
 	'use strict';
 	define(['jquery',

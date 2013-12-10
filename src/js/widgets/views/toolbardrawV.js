@@ -11,7 +11,7 @@
 			'gcviz-vm-tbdraw',
 			'dijit/TitlePane',
 			'gcviz-i18n'
-	], function($, toolbardrawVM, dojotitle, i18n) {
+	], function($, tbdrawVM, dojotitle, i18n) {
 		var initialize;
 		
 		initialize = function($mapElem) {
@@ -65,7 +65,7 @@
 			}
 			
 			$toolbar.append(node);
-			toolbardrawVM.initialize($toolbar, mapid);
+			return(tbdrawVM.initialize($toolbar, mapid));
 		};
 		
 		return {

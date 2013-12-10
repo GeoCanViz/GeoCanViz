@@ -1,0 +1,357 @@
+{"gcviz": {	
+	"mapframe": {
+		"size": {
+			"height": 400,
+			"width": 800
+		},
+		"extent": {
+			"xmin": -8540948.84175534,
+				"ymin": 5609757.019105,
+				"xmax": -8333944.82914467,
+				"ymax": 5722087.690195
+		},
+		"resolution": {
+			"min": -1,
+			"max": -1
+		},
+		"map": { 
+			"sr": {
+				"wkid": 3857
+			},
+			"extent": {
+				"xmin": -8540948.84175534,
+				"ymin": 5609757.019105,
+				"xmax": -8333944.82914467,
+				"ymax": 5722087.690195
+			},
+			"lods": [],
+			"resolution": {
+				"min": -1,
+				"max": -1
+			},
+			"link": true,
+			"layers": [{
+			 	"id": "basemap",
+				"type": "tiled",
+				"url": "http://maps.ottawa.ca/ArcGIS/rest/services/Basemap_Imagery_2011/MapServer",
+				"selectable": false,
+				"swiper": {
+					"enable": false
+				},
+				"cluster": {
+					"enable": false
+				},
+				"resolution": {
+					"min": -1,
+					"max": -1
+				}
+			},
+			{
+			 	"id": "ParkInventory",
+				"type": "dynamic",
+				"url": "http://maps.ottawa.ca/ArcGIS/rest/services/Parks_Inventory/MapServer",
+				"selectable": false,
+				"swiper": {
+					"enable": false
+				},
+				"cluster": {
+					"enable": false
+				},
+				"resolution": {
+					"min": -1,
+					"max": -1
+				}
+			},
+			{
+			 	"id": "hospitals",
+				"type": "dynamic",
+				"url": "http://maps.ottawa.ca/ArcGIS/rest/services/Hospitals/MapServer",
+				"selectable": false,
+				"swiper": {
+					"enable": false
+				},
+				"cluster": {
+					"enable": false
+				},
+				"resolution": {
+					"min": -1,
+					"max": -1
+				}
+			},
+			{
+			 	"id": "schools",
+				"type": "dynamic",
+				"url": "http://maps.ottawa.ca/ArcGIS/rest/services/Schools/MapServer",
+				"selectable": false,
+				"swiper": {
+					"enable": false
+				},
+				"cluster": {
+					"enable": false
+				},
+				"resolution": {
+					"min": -1,
+					"max": -1
+				}
+			}]
+		}
+	},
+	"insetframe": {
+		"enable": false,
+		"size": {
+			"numrow": 10,
+			"numcol": 10
+		},
+		"insets": [{
+			"pos": {
+				"startrowcol": [0,0],
+				"endrowcol": [4,3]
+			},
+			"type": "image",
+			"fullscreen": true,
+			"size": "px",
+			"label": {
+				"value": "My image 1",
+				"alttext": "My image 1",
+				"justify": "left"
+			},
+			"inset" : {
+				"interval": 0,
+				"sources" :[{
+					"label": {
+						"value": "My description 1",
+						"alttext": "My description 1",
+						"justify": "left"
+					},
+					"image": {
+						"location": "local",
+						"url": "demos/inset/canada1.jpg"
+					}
+				}, {
+					"label": {
+						"value": "My description 2",
+						"alttext": "My description 2",
+						"justify": "left"
+					},
+					"image": {
+						"location": "local",
+						"url": "demos/inset/canada2.jpg"
+					}
+				}, {
+					"label": {
+						"value": "My description 3",
+						"alttext": "My description 3",
+						"justify": "left"
+					},
+					"image": {
+						"location": "local",
+						"url": "demos/inset/canada3.jpg"
+					}
+				}, {
+					"label": {
+						"value": "My description 4",
+						"alttext": "My description 4",
+						"justify": "left"
+					},
+					"image": {
+						"location": "local",
+						"url": "demos/inset/canada4.jpg"
+					}
+				}]
+			}
+		}, {
+			"pos": {
+				"startrowcol": [4,4],
+				"endrowcol": [6,5]
+			},
+			"type": "image",
+			"fullscreen": false,
+			"size": "px",
+			"label": {
+				"value": "My image 2",
+				"alttext": "My image 2",
+				"justify": "left"
+			},
+			"inset" : {
+				"interval": 0,
+				"sources" :[{
+					"label": {
+						"value": "My description 2",
+						"alttext": "My description 2",
+						"justify": "left"
+					},
+					"image": {
+						"location": "internet",
+						"url": "http://rlv.zcache.ca/made_in_canada_stickers-r750856602c5c4ed6b54f7cb978573f04_v9waf_8byvr_324.jpg?bg=0xffffff"
+					}
+				}]
+			}
+		}, {
+			"pos": {
+				"startrowcol": [5,5],
+				"endrowcol": [10,10]
+			},
+			"type": "image",
+			"fullscreen": false,
+			"size": "px",
+			"label": {
+				"value": "My image 3",
+				"alttext": "My image 3",
+				"justify": "left"
+			},
+			"inset" : {
+				"interval": 0,
+				"sources" :[{
+					"label": {
+						"value": "My description 3",
+						"alttext": "My description 3",
+						"justify": "left"
+					},
+					"image": {
+						"location": "internet",
+						"url": "http://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Boulevard_Ren%C3%A9-L%C3%A9vesque_Est_Montr%C3%A9al_Canada.jpg/267px-Boulevard_Ren%C3%A9-L%C3%A9vesque_Est_Montr%C3%A9al_Canada.jpg"
+					}
+				}]
+			}
+		}]
+	},
+	"header": {
+		"title": {
+			"value": "Map 2",
+			"alttext": "Map 2",
+			"justify": "center"
+		},
+		"tools": true,
+		"print": {
+			"enable": false,
+			"type": "simple"
+		},
+		"fullscreen": true,
+		"inset": false,
+		"link": {
+			"enable": false,
+			"visible": false
+		}
+	},
+	"footer": {
+		"northarrow": {
+			"enable": true,
+			"inwkid": 3857
+		},
+		"mousecoords": {
+			"enable": true,
+			"outwkid": 3857,
+			"urlgeomserv": "http://tasks.arcgisonline.com/ArcGIS/rest/services/Geometry/GeometryServer"
+		},
+		"datatable": { 
+			"direction": "in"
+		}
+	},
+	"toolbardraw": {
+		"enable": true,
+		"expand": false,
+		"drawline": {
+			"enable": true
+		},
+		"drawtext": {
+			"enable": true
+		},
+		"measure": {
+			"enable": false,
+			"type": "full",
+			"unit": "km"
+		},
+		"importexport": {
+			"enable": false,
+			"format": "JSON"
+		}
+	},
+	"toolbarnav": {
+		"enable": true,
+		"expand": false,
+		"zoom": false,
+		"fullextent": true,
+		"geolocation": {
+			"enable": false,
+			"type": "all"
+		},
+		"scalebar": {
+			"enable": false,
+			"unit": "km"
+		},
+		"scaledisplay": {
+			"enable": false,
+			"format": "standard"
+		},
+		"overview": {
+			"enable": false,
+			"url": "http"
+		},
+		"position":  {
+			"enable": false
+		}
+	},
+	"toolbarlegend": {
+		"enable": true,
+		"expand" : true,
+		"maingroup": [{}],
+		"customimage":"",
+		"layers" : [{
+			"expand": false,
+			 "id": "basemap",
+			 "label": {
+			 		"value": "basemap",
+			 		"alttext": "basemap altext",
+			 		"justify": "right"
+			 },	
+			 "opacity": {
+			 		"slider": true,
+			 		"value" : 1.0
+			 },	
+			 "visibility": {
+			 		"check": true,
+			 		"value" : false
+			 	}
+			},
+			{
+			"expand": false,
+			 "id": "hospitals",
+			 "label": {
+			 		"value": "Local Hospitals",
+			 		"alttext": "",
+			 		"justify": "left"
+			 },	
+			 "visibility": {
+			 		"check": true,
+			 		"value" : false
+			 	}
+			},
+			{
+			"expand": false,
+			 "id": "schools",
+			 "label": {
+			 		"value": "Local Schools",
+			 		"alttext": "gscc altext",
+			 		"justify": "center"
+			 },	
+			 "visibility": {
+			 		"check": true,
+			 		"value" : false
+			 	} 
+			},
+			{
+			"expand": false,
+			 "id": "ParkInventory",
+			 "label": {
+			 		"value": "Park Inventory",
+			 		"alttext": "gscc altext",
+			 		"justify": "center"
+			 },	
+			 "visibility": {
+			 		"check": true,
+			 		"value" : false
+			 	} 
+			}]
+	},
+	"customwidgets": []
+}}

@@ -10,7 +10,7 @@
 	define(['jquery',
 			'gcviz-vm-tbnav',
 			'dijit/TitlePane'
-	], function($, toolbarnavVM, dojotitle) {
+	], function($, tbnavVM, dojotitle) {
 		var initialize;
 		
 		initialize = function($mapElem) {
@@ -36,7 +36,7 @@
 			}
 			
 			$toolbar.append(node);
-			toolbarnavVM.initialize($toolbar, mapid);
+			return(tbnavVM.initialize($toolbar, mapid));
 		};
 		
 		return {

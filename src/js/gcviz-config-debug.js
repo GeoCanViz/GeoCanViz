@@ -208,6 +208,10 @@
 				location: locationPath + 'src/js/gistasks',
 				main: 'gisNavigation'
 			}, {
+				name: 'gcviz-gislegend',
+				location: locationPath + 'src/js/gistasks',
+				main: 'gisLegend'
+			}, {
 				name: 'gcviz-v-header',
 				location: locationPath + 'src/js/widgets/views',
 				main: 'headerV'
@@ -239,6 +243,14 @@
 				name: 'gcviz-vm-tbnav',
 				location: locationPath + 'src/js/widgets/viewmodels',
 				main: 'toolbarnavVM'
+			}, {
+				name: 'gcviz-v-tblegend',
+				location: locationPath + 'src/js/widgets/views',
+				main: 'toolbarlegendV'
+			},{
+				name: 'gcviz-vm-tblegend',
+				location: locationPath + 'src/js/widgets/viewmodels',
+				main: 'toolbarlegendVM'
 			}, {
 				name: 'gcviz-v-map',
 				location: locationPath + 'src/js/widgets/views',

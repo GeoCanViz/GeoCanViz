@@ -5,6 +5,8 @@ Language name (French)#%lang-fra#anglais#français
 General (i18n)#%all#All#Tous
 #%home#Home#Accueil
 #%of#of#de
+#%msg-configread#Configuration file read#Fichier de configuration lu
+#%msg-configerr#Configuration file error#Erreur fichier de configuration
 #%main-page#Main page#Page principale
 #%header-help#GeoCanViz help page#Page d'aide de GéoCanViz
 #%header-tphelp#Open help page#Ouvrir la page d'aide
@@ -18,6 +20,8 @@ General (i18n)#%all#All#Tous
 #%toolbardraw-tpdraw#Draw on the map#Dessiner sur la carte
 #%toolbardraw-tptext#Add text on the map#Ajouter du texte sur la carte
 #%toolbardraw-tperase#Erase annotations#Effacer les annotations
+#%toolbarlegend-name#Legend#Légende
+#%toolbarlegend-tgvis#Toggle Visibility#Basculer la visibilité
 #%inset-tplight#Open the content in a lightbox#Ouvrir le contenu dans un lightbox
 #%inset-tpPlayVideo#Play video#Jouer la vidéo
 #%mp-close#Close (Esc)#Fermer (Esc)

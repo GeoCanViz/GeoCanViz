@@ -1,0 +1,478 @@
+{"gcviz": {	
+	"mapframe": {
+		"size": {
+			"height": 400,
+			"width": 800
+		},
+		"extent": {
+			"xmin": -2750000.0,
+			"ymin": -900000.0,
+			"xmax": 3600000.0,
+			"ymax": 4630000.0
+		},
+		"resolution": {
+			"min": -1,
+			"max": -1
+		},
+		"map": { 
+			"sr": {
+				"wkid": 3978
+			},
+			"extent": {
+				"xmin": -2750000.0,
+				"ymin": -900000.0,
+				"xmax": 3600000.0,
+				"ymax": 4630000.0
+			},
+			"lods": [],
+			"resolution": {
+				"min": -1,
+				"max": -1
+			},
+			"link": true,
+			"layers": [{
+			 	"id": "basemap",
+				"type": "tiled",
+				"url": "http://maps.ottawa.ca/ArcGIS/rest/services/Basemap_Imagery_2011/MapServer",
+				"selectable": false,
+				"swiper": {
+					"enable": false
+				},
+				"cluster": {
+					"enable": false
+				},
+				"resolution": {
+					"min": -1,
+					"max": -1
+				}
+
+			},
+			{
+			 	"id": "hospitals",
+				"type": "feature",
+				"url": "http://maps.ottawa.ca/ArcGIS/rest/services/Hospitals/MapServer/0",
+				"selectable": false,
+				"swiper": {
+					"enable": false
+				},
+				"cluster": {
+					"enable": false
+				},
+				"resolution": {
+					"min": -1,
+					"max": -1
+				}
+
+			},
+			{
+			 	"id": "Parks",
+				"type": "feature",
+				"url": "http://maps.ottawa.ca/ArcGIS/rest/services/Parks_Inventory/MapServer/24",
+				"selectable": false,
+				"swiper": {
+					"enable": false
+				},
+				"cluster": {
+					"enable": false
+				},
+				"resolution": {
+					"min": -1,
+					"max": -1
+				}
+
+			},
+			{
+			 	"id": "Parking",
+				"type": "feature",
+				"url": "http://maps.ottawa.ca/ArcGIS/rest/services/Parks_Inventory/MapServer/14",
+				"selectable": false,
+				"swiper": {
+					"enable": false
+				},
+				"cluster": {
+					"enable": false
+				},
+				"resolution": {
+					"min": -1,
+					"max": -1
+				}
+
+			},
+			
+			{
+			 	"id": "Beaches",
+				"type": "feature",
+				"url": "http://maps.ottawa.ca/ArcGIS/rest/services/Parks_Inventory/MapServer/0",
+				"selectable": false,
+				"swiper": {
+					"enable": false
+				},
+				"cluster": {
+					"enable": false
+				},
+				"resolution": {
+					"min": -1,
+					"max": -1
+				}
+			}]
+		}
+	},
+	"insetframe": {
+		"enable": false,
+		"size": {
+			"numrow": 10,
+			"numcol": 10
+		},
+		"insets": [{
+			"pos": {
+				"startrowcol": [0,0],
+				"endrowcol": [4,3]
+			},
+			"type": "image",
+			"fullscreen": true,
+			"size": "px",
+			"label": {
+				"value": "My image 1",
+				"alttext": "My image 1",
+				"justify": "left"
+			},
+			"inset" : {
+				"interval": 0,
+				"sources" :[{
+					"label": {
+						"value": "My description 1",
+						"alttext": "My description 1",
+						"justify": "left"
+					},
+					"image": {
+						"location": "local",
+						"url": "demos/inset/canada1.jpg"
+					}
+				}, {
+					"label": {
+						"value": "My description 2",
+						"alttext": "My description 2",
+						"justify": "left"
+					},
+					"image": {
+						"location": "local",
+						"url": "demos/inset/canada2.jpg"
+					}
+				}, {
+					"label": {
+						"value": "My description 3",
+						"alttext": "My description 3",
+						"justify": "left"
+					},
+					"image": {
+						"location": "local",
+						"url": "demos/inset/canada3.jpg"
+					}
+				}, {
+					"label": {
+						"value": "My description 4",
+						"alttext": "My description 4",
+						"justify": "left"
+					},
+					"image": {
+						"location": "local",
+						"url": "demos/inset/canada4.jpg"
+					}
+				}]
+			}
+		}, {
+			"pos": {
+				"startrowcol": [4,4],
+				"endrowcol": [6,5]
+			},
+			"type": "image",
+			"fullscreen": false,
+			"size": "px",
+			"label": {
+				"value": "My image 2",
+				"alttext": "My image 2",
+				"justify": "left"
+			},
+			"inset" : {
+				"interval": 0,
+				"sources" :[{
+					"label": {
+						"value": "My description 2",
+						"alttext": "My description 2",
+						"justify": "left"
+					},
+					"image": {
+						"location": "internet",
+						"url": "http://rlv.zcache.ca/made_in_canada_stickers-r750856602c5c4ed6b54f7cb978573f04_v9waf_8byvr_324.jpg?bg=0xffffff"
+					}
+				}]
+			}
+		}, {
+			"pos": {
+				"startrowcol": [5,5],
+				"endrowcol": [10,10]
+			},
+			"type": "image",
+			"fullscreen": false,
+			"size": "px",
+			"label": {
+				"value": "My image 3",
+				"alttext": "My image 3",
+				"justify": "left"
+			},
+			"inset" : {
+				"interval": 0,
+				"sources" :[{
+					"label": {
+						"value": "My description 3",
+						"alttext": "My description 3",
+						"justify": "left"
+					},
+					"image": {
+						"location": "internet",
+						"url": "http://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Boulevard_Ren%C3%A9-L%C3%A9vesque_Est_Montr%C3%A9al_Canada.jpg/267px-Boulevard_Ren%C3%A9-L%C3%A9vesque_Est_Montr%C3%A9al_Canada.jpg"
+					}
+				}]
+			}
+		}]
+	},
+	"header": {
+		"title": {
+			"value": "Map 1",
+			"alttext": "Map 1",
+			"justify": "center"
+		},
+		"tools": true,
+		"print": {
+			"enable": false,
+			"type": "simple"
+		},
+		"fullscreen": true,
+		"inset": false,
+		"link": {
+			"enable": false,
+			"visible": false
+		}
+	},
+	"footer": {
+		"northarrow": {
+			"enable": true,
+			"inwkid": 3978
+		},
+		"mousecoords": {
+			"enable": true,
+			"outwkid": 4326,
+			"urlgeomserv": "http://tasks.arcgisonline.com/ArcGIS/rest/services/Geometry/GeometryServer"
+		},
+		"datatable": { 
+			"direction": "in"
+		}
+	},
+	"toolbardraw": {
+		"enable": true,
+		"expand": false,
+		"drawline": {
+			"enable": true
+		},
+		"drawtext": {
+			"enable": true
+		},
+		"measure": {
+			"enable": false,
+			"type": "full",
+			"unit": "km"
+		},
+		"importexport": {
+			"enable": false,
+			"format": "JSON"
+		}
+	},
+	"toolbarnav": {
+		"enable": true,
+		"expand": false,
+		"zoom": false,
+		"fullextent": true,
+		"geolocation": {
+			"enable": false,
+			"type": "all"
+		},
+		"scalebar": {
+			"enable": false,
+			"unit": "km"
+		},
+		"scaledisplay": {
+			"enable": false,
+			"format": "standard"
+		},
+		"overview": {
+			"enable": false,
+			"url": "http"
+		},
+		"position":  {
+			"enable": false
+		}
+	},
+	"toolbarlegend": {
+		"enable": true,
+		"expand" : true,
+		"service": [{
+			"expand": true,
+			"groupid": "3",
+			"version" : 10.05,
+			"service": "http://maps.ottawa.ca/ArcGIS/rest/services/Basemap_Imagery_2011/MapServer",
+			"label":{
+					"value": "Basemap",
+					"alttext": "",
+					"justify": "left"
+			 },
+			"opacity": {
+			 		"slider": false,
+			 		"value" : 1.0
+			 },	
+			"visibility": {
+			 		"visible": true,
+			 		"control" : false
+			 },
+
+			"customimage":"",
+			"layers" : [{
+				"expand": false,
+			 	"id": "basemap",
+			 	"label": {
+			 		"value": "basemap",
+			 		"alttext": "basemap altext",
+			 		"justify": "right"
+			 	},	
+			 	"opacity": {
+			 		"slider": true,
+			 		"value" : 1.0
+			    },
+			 	"visibility": {
+			 		"check": true,
+			 		"value" : false
+			 	}
+			
+			}]
+		},
+		{
+			"expand": true,
+			"groupid": "2",
+			"version" : 10.05,
+			"service": "http://maps.ottawa.ca/ArcGIS/rest/services/Hospitals/MapServer",
+			"label":{
+					"value": " Ottawa Hospitals",
+					"alttext": "",
+					"justify": "left"
+				},
+
+			"opacity": {
+			 		"slider": true,
+			 		"value" : 1.0
+			 },	
+			"visibility": {
+			 		"visible": true,
+			 		"control" : false
+			 	},
+
+			"customimage":"",
+			"layers" : [{
+				"expand": false,
+			 	"id": "hospitals",
+			 	"label": {
+			 		"value": "hospitals label",
+			 		"alttext": "basemap altext",
+			 		"justify": "right"
+			 	},	
+			 	"opacity": {
+			 		"slider": true,
+			 		"value" : 1.0
+			    },
+			 	"visibility": {
+			 		"check": true,
+			 		"value" : false
+			 	}
+			
+			}]
+		},
+		{
+			"expand": true,
+			"groupid": "2",
+			"version" : 10.05,
+			"service": "http://maps.ottawa.ca/ArcGIS/rest/services/Parks_Inventory/MapServer",
+			"label":{
+					"value": "Park Inventory",
+					"alttext": "",
+					"justify": "left"
+				},
+			"opacity": {
+			 		"slider": false,
+			 		"value" : 0.5
+			 },		
+			"visibility": {
+			 		"visible": true,
+			 		"control" : false
+			 	},
+
+			"customimage":"",
+			"layers" : [{
+				"expand": false,
+			 	"id": "Parks",
+			 	"label": {
+			 		"value": "Parks",
+			 		"alttext": "basemap altext",
+			 		"justify": "right"
+			 	},	
+			 	"opacity": {
+			 		"slider": false,
+			 		"value" : 1.0
+			    },
+			 	"visibility": {
+			 		"check": true,
+			 		"value" : false
+			 	}
+			
+			},
+			{
+				"expand": false,
+			 	"id": "Parking",
+			 	"label": {
+			 		"value": "Parking",
+			 		"alttext": "basemap altext",
+			 		"justify": "right"
+			 	},	
+			 	"opacity": {
+			 		"slider": false,
+			 		"value" : 1.0
+			    },
+			 	"visibility": {
+			 		"check": true,
+			 		"value" : false
+			 	}
+			
+			},
+			{
+				"expand": false,
+			 	"id": "Beaches",
+			 	"label": {
+			 		"value": "Beaches label",
+			 		"alttext": "basemap altext",
+			 		"justify": "right"
+			 	},	
+			 	"opacity": {
+			 		"slider": false,
+			 		"value" : 1.0
+			    },
+			 	"visibility": {
+			 		"check": true,
+			 		"value" : false
+			 	}
+			
+			}
+
+			]
+		}]	
+	},
+	"customwidgets": []
+}}
+
+

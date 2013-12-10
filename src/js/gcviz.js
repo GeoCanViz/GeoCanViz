@@ -13,7 +13,6 @@ var vmArray = {},
 	var mapsTotal,
 		mapsNum;
 
-	// there is a conflict between jQuery in gcviz and in WET. For this reason, we define jquery only when a dependency needs it like in inset.
 	define(['jquery',
 			'gcviz-i18n',
 			'gcviz-func',
@@ -22,12 +21,14 @@ var vmArray = {},
 			'gcviz-v-header',
 			'gcviz-v-footer',
 			'gcviz-v-tbdraw',
-			'gcviz-v-tbnav'], function($, i18n, func, map, inset, header, footer, toolbardraw, toolbarnav) {
+			'gcviz-v-tbnav',
+			'gcviz-v-tblegend'], function($, i18n, func, map, inset, header, footer, tbdraw, tbnav, tblegend) {
 		var initialize,
 			readConfig,
 			execConfig,
 			setLocationPath,
 			setLocalMP;
+			
 		/*
 		 *  initialize the GCViz application
 		 */
@@ -59,11 +60,12 @@ var vmArray = {},
 		 *  read configuration file and start execution
 		 */
 		readConfig = function(mapElem) {
+			var file = mapElem.getAttribute('data-gcviz');
 			
 			// ajax call to get the config file info
 			$.support.cors = true; // force cross-site scripting for IE9
 			$.ajax({
-				url: mapElem.getAttribute('data-gcviz'),
+				url: file,
 				crossDomain: true,
 				dataType: 'json',
 				async: false,					
@@ -71,10 +73,10 @@ var vmArray = {},
 					// add the id of map container and execute the configuration
 					config.gcviz.mapframe.id = mapElem.getAttribute('id');
 					execConfig(mapElem, config.gcviz);
-					console.log('config file read');
+					console.log(i18n.getDict('%msg-configread'));
 				},
 				error: function() {
-					console.log('error loading config file');
+					console.log(i18n.getDict('%msg-configerr')  + ': ' + file);
 				}
 			}); // end ajax
 		};
@@ -109,12 +111,17 @@ var vmArray = {},
 			
 			// add draw toolbar
 			if (config.toolbardraw.enable) {
-				toolbardraw.initialize($mapSection);
+				vmArray[mapid].draw = tbdraw.initialize($mapSection);
 			}
 			
 			// add navigation toolbar
 			if (config.toolbarnav.enable) {
-				toolbarnav.initialize($mapSection);
+				vmArray[mapid].nav = tbnav.initialize($mapSection);
+			}
+			
+			//add legend
+			if (config.toolbarlegend.enable) {
+				vmArray[mapid].legend = tblegend.initialize($mapSection);
 			}
 			
 			// add inset

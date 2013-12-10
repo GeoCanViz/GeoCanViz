@@ -41,7 +41,7 @@
 					layers = layers.reverse();
 					while (lenLayers--) {
 						var layer = layers[lenLayers];
-						gisM.addLayer(map, layer.type, layer.url);
+						gisM.addLayer(map, layer.type, layer.url, layer.id);
 					}
 					
 					// set class and remove cursor for container

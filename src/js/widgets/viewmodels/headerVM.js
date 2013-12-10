@@ -5,7 +5,7 @@
  *
  * Header view model widget
  */
-/* global locationPath: false */
+/* global vmArray: false, locationPath: false */
 (function() {
 	'use strict';
 	define(['jquery',

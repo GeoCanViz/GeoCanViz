@@ -10,8 +10,9 @@
 	'use strict';
 	define([
 		'jquery',
-		'knockout'
-	], function($, ko) {
+		'knockout',
+		'dijit/form/HorizontalSlider'
+	], function($, ko, slider) {
     
     ko.bindingHandlers.tooltip = {
 		init: function(element, valueAccessor) {
@@ -88,6 +89,32 @@
 				return true;
 			});
 		}         
+	};
+
+	ko.bindingHandlers.HorizontalSliderDijit = {
+    	init: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
+			var options = valueAccessor(),
+				widget;
+
+			$(element).attr('Visible', options.visible);
+			widget = new slider({
+				name: "slider",
+				minimum: 0,
+				maximum: options.max,
+				intermediateChanges: true,
+				value:options.max
+			}).placeAt(element);
+
+			widget.on('Change', function(e) {
+				if (viewModel.layers) {
+					Object.keys(viewModel.layers).forEach(function(key) {
+						bindingContext.$parent.changeServiceOpacity(bindingContext.$parent.mymap,viewModel.layers[key].id, e);
+					});
+				} else {
+					bindingContext.$parentContext.$parent.changeServiceOpacity(bindingContext.$parentContext.$parent.mymap,viewModel.id, e);
+				}
+			});
+		}
 	};
 
 	});

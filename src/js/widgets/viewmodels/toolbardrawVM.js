@@ -5,7 +5,7 @@
  *
  * Toolbar draw view model widget
  */
-/* global locationPath: false */
+/* global vmArray: false, locationPath: false */
 (function() {
 	'use strict';
 	define(['jquery',
@@ -14,7 +14,8 @@
 			'gcviz-i18n',
 			'gcviz-gisgraphic'
 	], function($, ko, qUI, i18n, gisGraphic) {
-		var initialize;
+		var initialize,
+			vm;
 		
 		initialize = function($mapElem, mapid) {
 
@@ -120,7 +121,10 @@
 				
 				_self.init();
 			};
-			ko.applyBindings(new toolbardrawViewModel($mapElem, mapid), $mapElem[0]); // This makes Knockout get to work
+			
+			vm = new toolbardrawViewModel($mapElem, mapid);
+			ko.applyBindings(vm, $mapElem[0]); // This makes Knockout get to work
+			return vm;
 		};
 		
 		return {
