@@ -68,7 +68,7 @@ $rembase: 0.625; // 100% come from WET, they set body to 80% if we put html to 6
   border-radius: ($radius * $rembase) + rem;
 }
 
-@mixin app-main-foot() {
+@mixin app-head-foot() {
 	width: 100%;
 	height: (4 * $rembase) + rem;
 	text-align: center;

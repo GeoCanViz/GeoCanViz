@@ -10,8 +10,9 @@
 	'use strict';
 	define([
 		'jquery',
-		'knockout'
-	], function($, ko) {
+		'knockout',
+		'dijit/form/HorizontalSlider'
+	], function($, ko, slider) {
     
     ko.bindingHandlers.tooltip = {
 		init: function(element, valueAccessor) {
@@ -48,7 +49,7 @@
 	ko.bindingHandlers.fullscreen = {
 		init: function(element, valueAccessor, allBindings, viewModel) {
 			var mapid = viewModel.mapid,
-				vm = vmArray[mapid].tbmain;
+				vm = vmArray[mapid].header;
 			vm.isFullscreen.subscribe(manageFullscreen);
 			
 			function manageFullscreen(fullscreen) {
@@ -64,29 +65,54 @@
 	ko.bindingHandlers.insetVisibility = {
 		init: function(element, valueAccessor, allBindings, viewModel) {
 			var mapid = viewModel.mapid,
-				vm = vmArray[mapid].tbmain;
+				vm = vmArray[mapid].header;
 			vm.isInsetVisible.subscribe(manageInsetVisibility);
 			
 			function manageInsetVisibility(visible) {
-					viewModel.setVisibility(visible);
+				viewModel.setVisibility(visible);
 			}
 		}
 	};
 
 	ko.bindingHandlers.enterkey = {
-		init: function (element, valueAccessor, allBindingsAccessor, viewModel) {
-			var allBindings = allBindingsAccessor(),
-				keyCode, target;
-			$(element).on('keypress', function (e) {
-				keyCode = e.which || e.keyCode;
-				if (keyCode !== 13 && keyCode !== 32) {
-					return true;
-				}
+		init: function(element, valueAccessor, allBindings, viewModel) {
+			// get function name to call from the binding
+			var func = valueAccessor().func,
+				keyType = valueAccessor().keyType;
+			
+			ko.utils.registerEventHandler(element, keyType, function(event) {
+				if (viewModel[func](event.which, event.shiftKey, event.type)) {
+					event.preventDefault();
+					return false;
+				};
 				
-				target = e.target;
-				target.blur();
-				allBindings.enterkey.call(viewModel, viewModel, target, element);
-				return false;
+				return true;
+			});
+		}         
+	};
+
+	ko.bindingHandlers.HorizontalSliderDijit = {
+    	init: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
+			var options = valueAccessor(),
+				widget;
+
+			$(element).attr('Visible', options.visible);
+			widget = new slider({
+				name: "slider",
+				minimum: 0,
+				maximum: options.max,
+				intermediateChanges: true,
+				value:options.max
+			}).placeAt(element);
+
+			widget.on('Change', function(e) {
+				if (viewModel.layers) {
+					Object.keys(viewModel.layers).forEach(function(key) {
+						bindingContext.$parent.changeServiceOpacity(bindingContext.$parent.mymap,viewModel.layers[key].id, e);
+					});
+				} else {
+					bindingContext.$parentContext.$parent.changeServiceOpacity(bindingContext.$parentContext.$parent.mymap,viewModel.id, e);
+				}
 			});
 		}
 	};

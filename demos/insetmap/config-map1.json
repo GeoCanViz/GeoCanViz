@@ -90,10 +90,6 @@
 			"numrow": 10,
 			"numcol": 10
 		},
- 		"label": {
-				"value": "The insets",
-				"alttext": "The insets"
-		},
 		"insets": [{
 			"pos": {
 				"startrowcol": [0,0],
@@ -125,7 +121,7 @@
 			}
 		}]
 	},
-	"toolbarmain": {
+	"header": {
 		"title": {
 			"value": "Map 1 with lod",
 			"alttext": "Map 1",
@@ -143,7 +139,7 @@
 			"visible": false
 		}
 	},
-	"toolbarfoot": {
+	"footer": {
 		"northarrow": {
 			"enable": true,
 			"inwkid": 3978
@@ -157,7 +153,7 @@
 			"direction": "in"
 		}
 	},
-	"toolbaranno": {
+	"toolbardraw": {
 		"enable": true,
 		"expand": false,
 		"drawline": {
@@ -197,8 +193,12 @@
 			"enable": false,
 			"url": "http"
 		},
-		"idposition":  {
+		"position":  {
 			"enable": false
 		}
-	}
+	},
+	"toolbarlegend": {
+		"enable": false
+	},
+	"customwidgets": []
 }}

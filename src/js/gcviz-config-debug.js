@@ -137,15 +137,19 @@
 	browserDetect.init();
 	
 	// if browser not supported, redirect
-	if (window.browser === 'MSIE' && window.browserversion <= 10) {
-		window.location = 'http://www.google.com/';
+	if (window.browser !== 'Explorer' && window.browser !== 'Firefox' && window.browser !== 'Chrome' && window.browser !== 'Safari') {
+		alert('Browser not suported: needs to be Chrome, Firefox, Safari or Explorer');
+		//window.location = 'http://www.google.com/';
+	} else if (window.browser === 'Explorer' && window.browserversion <= 8) {
+		alert('Browser not suported: Explorer needs to b version 9 and higher');
+		//window.location = 'http://www.google.com/';
 	}
-	
-	// load the require libraries		
+
+	// load the require libraries
+	define.amd.jQuery = true;	
 	require({
 		async: true,
 		parseOnLoad: false,
-		aliases: [['text', 'dojo/text']],
 		packages: [
 			{
 				name: 'jquery',
@@ -167,6 +171,10 @@
 				name: 'magnificpopup',
 				location: locationPath + 'src/js/dependencies',
 				main: 'magnificpopup.min'
+			}, {
+				name: 'kineticpanning',
+				location: locationPath + 'src/js/dependencies',
+				main: 'kineticpanning.min'
 			}, {
 				name: 'gcviz',
 				location: locationPath + 'src/js',
@@ -200,29 +208,33 @@
 				location: locationPath + 'src/js/gistasks',
 				main: 'gisNavigation'
 			}, {
-				name: 'gcviz-v-tbmain',
+				name: 'gcviz-gislegend',
+				location: locationPath + 'src/js/gistasks',
+				main: 'gisLegend'
+			}, {
+				name: 'gcviz-v-header',
 				location: locationPath + 'src/js/widgets/views',
-				main: 'toolbarmainV'
+				main: 'headerV'
 			}, {
-				name: 'gcviz-vm-tbmain',
+				name: 'gcviz-vm-header',
 				location: locationPath + 'src/js/widgets/viewmodels',
-				main: 'toolbarmainVM'
+				main: 'headerVM'
 			}, {
-				name: 'gcviz-v-tbfoot',
+				name: 'gcviz-v-footer',
 				location: locationPath + 'src/js/widgets/views',
-				main: 'toolbarfootV'
+				main: 'footerV'
 			}, {
-				name: 'gcviz-vm-tbfoot',
+				name: 'gcviz-vm-footer',
 				location: locationPath + 'src/js/widgets/viewmodels',
-				main: 'toolbarfootVM'
+				main: 'footerVM'
 			}, {
-				name: 'gcviz-v-tbanno',
+				name: 'gcviz-v-tbdraw',
 				location: locationPath + 'src/js/widgets/views',
-				main: 'toolbarannoV'
+				main: 'toolbardrawV'
 			}, {
-				name: 'gcviz-vm-tbanno',
+				name: 'gcviz-vm-tbdraw',
 				location: locationPath + 'src/js/widgets/viewmodels',
-				main: 'toolbarannoVM'
+				main: 'toolbardrawVM'
 			}, {
 				name: 'gcviz-v-tbnav',
 				location: locationPath + 'src/js/widgets/views',
@@ -231,6 +243,14 @@
 				name: 'gcviz-vm-tbnav',
 				location: locationPath + 'src/js/widgets/viewmodels',
 				main: 'toolbarnavVM'
+			}, {
+				name: 'gcviz-v-tblegend',
+				location: locationPath + 'src/js/widgets/views',
+				main: 'toolbarlegendV'
+			},{
+				name: 'gcviz-vm-tblegend',
+				location: locationPath + 'src/js/widgets/viewmodels',
+				main: 'toolbarlegendVM'
 			}, {
 				name: 'gcviz-v-map',
 				location: locationPath + 'src/js/widgets/views',
@@ -251,12 +271,13 @@
 		]
 	});
 
-	define.amd.jQuery = true;
-
-	require(['gcviz'], function(gcviz) {
-		return $(document).ready(function() {
-			return gcviz.initialize();
+	// start the process (it is in a time out because we have to let WET finish to load before we start)
+	// if we dont, it creates a conflict because we laod jQuery and it is different then the one loaded by WET
+	setTimeout(function() {
+		require(['jquery', 'gcviz'], function($, gcviz) {
+			return $(document).ready(function() {
+				return gcviz.initialize();
+			});
 		});
-	});
-
+	}, 500);
 }).call(this);

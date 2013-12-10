@@ -5,18 +5,18 @@
  *
  * Inset view model widget
  */
-/* global locationPath: false, tbHeight: false */
+/* global vmArray: false, locationPath: false */
 (function() {
 	'use strict';
-	define([
-		'jquery',
-		'knockout',
-		'gcviz-ko',
-		'jqueryslide',
-		'magnificpopup',
-		'gcviz-func',
-		'gcviz-gismap'
-	], function($, ko, binding, slidesjs, magnificPopup, gcvizfunc, gisM) {
+	define(['jquery',
+			'knockout',
+			'gcviz-i18n',
+			'gcviz-ko',
+			'jqueryslide',
+			'magnificpopup',
+			'gcviz-func',
+			'gcviz-gismap'
+	], function($, ko, i18n, binding, slidesjs, magnificPopup, gcvizfunc, gisM) {
 		var initialize,
 			vm,
 			setImage,
@@ -33,7 +33,18 @@
 					paths = [locationPath + 'gcviz/images/insetPrevious.png',
 							locationPath + 'gcviz/images/insetNext.png',
 							locationPath + 'gcviz/images/insetPlay.png',
-							locationPath + 'gcviz/images/insetStop.png'];
+							locationPath + 'gcviz/images/insetStop.png'],
+					pathLightbox = locationPath + 'gcviz/images/insetLightbox.png',
+					pathPlayVideo = locationPath + 'gcviz/images/insetPlayVideo.png',
+					headerHeight = vmArray[mapid].header.headerHeight;
+				
+				// image path
+				_self.imgLightbox = pathLightbox;
+				_self.imgPlayVideo = pathPlayVideo;
+				
+				// tooltip
+				_self.tpLight = i18n.getDict('%inset-tplight');
+				_self.tpPlayVideo = i18n.getDict('%inset-tpPlayVideo');
 				
 				// keep inset position, size and type
 				_self.bottom = parseInt($mapElem.css('bottom'), 10);
@@ -68,12 +79,49 @@
 				};
 
 				_self.insetClick = function(data, event) {
-					// debounce the click to avoid resize problems
-					gcvizfunc.debounceClick(function() {
-						if (event.currentTarget.className !== 'gcviz-imginset-button' && event.currentTarget.className !== 'active') {
-							$mapElem.find('a')[0].click();
+					$mapElem.find('a')[0].click();
+				};
+				
+				_self.videoClick = function(data, event) {
+					var video = $mapElem[0].getElementsByTagName('Video')[0],
+						$button = $mapElem.find('.gcviz-play-background');
+
+					if (video.paused) {
+						$button.addClass('gcviz-hidden');
+						video.play();
+						video.tabIndex = 0;
+						video.focus();
+					} else {
+						video.pause();
+						video.tabIndex = '';
+						$button.removeClass('gcviz-hidden');
+					}
+				};
+				
+				_self.stopVideo = function(key, shift, type) {
+					var video,
+						$back,
+						button;
+
+					if (key === 32) {
+						if (type === 'keyup') {
+							video = $mapElem[0].getElementsByTagName('Video')[0],
+							$back = $mapElem.find('.gcviz-play-background'),
+							button = $mapElem.find('.gcviz-play-button')[0];
+						
+							video.pause();
+							video.tabIndex = -1;
+							video.blur();
+							$back.removeClass('gcviz-hidden');
+							setTimeout(function() { button.focus(); }, 100);
+						
+							return true;
+						} else {
+							return true;
 						}
-					}, 1000);
+					}
+					
+					return false;
 				};
 				
 				_self.setVisibility = function(visible) {
@@ -119,16 +167,16 @@
 							
 						// check if px or %
 						if (_self.size === '%') {
-							if (bottom !== tbHeight) {
-								css.bottom  = ((bottom * ratio) + ((tbHeight * ratio) - tbHeight)) + 'px';
+							if (bottom !== headerHeight) {
+								css.bottom  = ((bottom * ratio) + ((headerHeight * ratio) - headerHeight)) + 'px';
 							}
 							if (left !== 0) {
 								css.left = (left * ratio) + 'px';
 							}
 						} else {
-							if (bottom !== tbHeight) {
+							if (bottom !== headerHeight) {
 								ratio = (h / mapHeight);
-								css.bottom = ((bottom + height + tbHeight) / mapHeight) * (h - tbHeight - height) + 'px';
+								css.bottom = ((bottom + height + headerHeight) / mapHeight) * (h - headerHeight - height) + 'px';
 							}
 							if (left !== 0) {
 								ratio = (w / mapWidth);
@@ -180,6 +228,27 @@
 					} else {
 						$mapElem.removeClass('gcviz-inset-hidden');
 					}
+				};
+				
+				_self.applyKey = function(key, shift) {
+					var map = _self.map,
+						prevent = false;
+					
+					if (key === 37) {
+						gisM.panLeft(map);
+						prevent = true;
+					} else if (key === 38) {
+						gisM.panUp(map);
+						prevent = true;
+					} else if (key === 39) {
+						gisM.panRight(map);
+						prevent = true;
+					} else if (key === 40) {
+						gisM.panDown(map);
+						prevent = true;
+					}
+					
+					return prevent;
 				};
 				
 				_self.init();
@@ -250,7 +319,7 @@
 				if (!$el.hasClass('slidesjs-navigation')) {
 					elem.tabIndex = -1;
 				} else {
-					elem.tabIndex = 1;
+					elem.tabIndex = 0;
 					elem.innerText = '';
 					elem.innerHTML = '';
 					$el.addClass('gcviz-inset-button');
@@ -272,8 +341,16 @@
 				length = source.length,
 				id = '#' + $elem[0].id + 'v',
 				$lb = $(id),
-				func = { beforeOpen: function() { $lb.find('video').height((window.innerHeight * 0.8)); },
-						close: null};
+				$back = $elem.find('.gcviz-play-background'),
+				func = { beforeOpen: function() { 
+										$lb.find('video').height((window.innerHeight * 0.8));
+										$back.addClass('gcviz-hidden');
+							 		},
+						close: function() { 
+										$lb.find('video')[0].pause();
+										$back.removeClass('gcviz-hidden');
+									}
+						};
 
 			// set src path
 			_self.vid = [];
@@ -294,25 +371,10 @@
 			var type = inset.inset.type,
 				id = '#' + $elem[0].id + 'h',
 				$lb = $(id),
-				$iframe = $lb.find('iframe'),
-				height = window.innerHeight * 0.8,
-				width = window.innerWidth * 0.75,
 				func = { beforeOpen: null, close: null };
 
-
-			if (type === 'text') {
-				// set lightbox
-				setLightbox('inline', $elem, $lb, id, func);
-			} else if (type === 'page') {
-				// set lightbox
-				func.beforeOpen = function() {																				
-										$lb.height(height);
-										$lb.width(width);
-										$iframe.height(height);
-										$iframe.width(width);
-									};
-				setLightbox('inline', $elem, $lb, id, func);
-			}
+			// set lightbox
+			setLightbox('inline', $elem, $lb, id, func);
 		};
 		
 		setMap = function($elem, inset, _self) {
@@ -337,6 +399,13 @@
 			while (lenLayers--) {
 				var layer = layers[lenLayers];
 				gisM.addLayer(mymap, layer.type, layer.url);
+			}
+			
+			// set tabindex if type !static and pan
+			if (inset.inset.type !== 'static') {
+				if (inset.inset.typeinfo.pan) {
+					$lb[0].tabIndex = 0;
+				}
 			}
 
 			// set lightbox
@@ -402,12 +471,15 @@
 						beforeOpen: func.beforeOpen,
 						open: function() {
 							$lb.addClass('mp-inset');
+							var vid = $lb.find('video')[0];
+							if (vid) {
+								vid.play();
+							}
 						},
 						close: func.close,
 						afterClose: function() {
 							$lb.removeClass('mfp-hide');
 							$lb.removeClass('mp-inset');
-							gcvizfunc.setStyle($lb[0], { 'width': 'auto', 'height': 'auto' });
 						}
 					},
 					key: 'inline-key',

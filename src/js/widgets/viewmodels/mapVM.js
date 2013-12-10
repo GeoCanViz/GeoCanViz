@@ -7,21 +7,22 @@
  */
 (function() {
 	'use strict';
-	define([
-		'knockout',
-		'gcviz-gismap'
-	], function(ko, gisM) {
-		var initialize;
+	define(['jquery',
+			'knockout',
+			'gcviz-gismap'
+	], function($, ko, gisM) {
+		var initialize,
+			vm;
 
 		initialize = function($mapElem) {
-			var map;
-
+			
 			// data model				
 			var mapViewModel = function($mapElem) {
 				var _self = this,
 					mapframe = $mapElem.mapframe,
 					mapid = mapframe.id,
-					config = mapframe.map;
+					config = mapframe.map,
+					map;
 		
 				_self.init = function() {
 					var layers = config.layers,
@@ -29,7 +30,10 @@
 						$map = $('#' + mapid + '_holder'),
 						$root,
 						$container;
-						
+					
+					// keep reference for map holder
+					_self.mapholder = $map;
+					
 					// create map	
 					map = gisM.createMap(mapid + '_holder', config, mapframe.extent);
 						
@@ -37,18 +41,8 @@
 					layers = layers.reverse();
 					while (lenLayers--) {
 						var layer = layers[lenLayers];
-						gisM.addLayer(map, layer.type, layer.url);
+						gisM.addLayer(map, layer.type, layer.url, layer.id);
 					}
-						
-					// set events (mouseover mouseout focusin focusout)
-					$map.on('mouseenter mouseleave focusin focusout', function(e) {
-						var type = e.type;
-						if (type === 'mouseenter' || type === 'focusin') {
-							this.focus();
-						} else if (type === 'mouseleave' || type === 'focusout') {
-							this.blur();
-						}
-					});
 					
 					// set class and remove cursor for container
 					$root = $('#' + mapid + '_holder_root');
@@ -56,30 +50,78 @@
 					$map.addClass('gcviz-map');
 					$root.addClass('gcviz-root');
 					$container.addClass('gcviz-container');
-						
-					_self.focus();
+
+					_self.focus($map);
+					
+					// keep map reference in the viewmodel to be accessible from other view model
+					_self.map = map;
 
 					return { controlsDescendantBindings: true };
 				};
-
-				_self.focus = function() {
-					// focus
+				
+				_self.enterMouse = function() {
+					_self.mapholder.focus();
+				};
+				
+				_self.leaveMouse = function() {
+					_self.mapholder.blur();
+				};
+				
+				_self.focus = function($map) {
+					// focus (events (focusin focusout))
 					_self.mapfocus = ko.observable();
 					_self.mapfocus.focused = ko.observable();
-					_self.mapfocus.focused.subscribe(function(newValue) {
-						if (!newValue) {
-							var test = 'test';
-							// call link map
-							//$map[0].fireEvent("on" + event.eventType, event);
+					_self.mapfocus.focused.subscribe(function(isFocus) {
+						if (isFocus) {
+							_self.mapholder.focus();
+							_self.mapfocus(true);
+						} else {
+							_self.mapholder.blur();
+							_self.mapfocus(false);
 						}
 					});
 				};
 				
+				_self.applyKey = function(key, shift) {
+					var map = _self.map,
+						prevent = false;
+					
+					if (_self.mapfocus) {
+						if (key === 37) {
+							gisM.panLeft(map);
+							prevent = true;
+						} else if (key === 38) {
+							gisM.panUp(map);
+							prevent = true;
+						} else if (key === 39) {
+							gisM.panRight(map);
+							prevent = true;
+						} else if (key === 40) {
+							gisM.panDown(map);
+							prevent = true;
+						
+						// chrome/safari is different then firefox. Need to check for both.
+						} else if ((key === 187 && shift) || (key === 61 && shift)) {
+							gisM.zoomIn(map);
+							prevent = true;
+						}  else if ((key === 189 && shift) || (key === 173 && shift)) {
+							gisM.zoomOut(map);
+							prevent = true;
+						
+						// firefox trigger internal api zoom even if shift is not press. Grab this key and prevent default.
+						} else if (key === 61) {
+							prevent = true;
+						}
+					}
+					return prevent;
+				};
+				
 				_self.init();
 			};
-			ko.applyBindings(new mapViewModel($mapElem), $mapElem[0]); // This makes Knockout get to work
+			vm = new mapViewModel($mapElem);
+			ko.applyBindings(vm, $mapElem[0]); // This makes Knockout get to work
 			
-			return map;
+			return vm;
 		};
 		
 		return {

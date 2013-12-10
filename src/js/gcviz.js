@@ -6,30 +6,29 @@
  * Version: @gcviz.version@
  *
  */
-var mapArray = {},
-	vmArray = {},
-	locationPath,
-	tbHeight;
+var vmArray = {},
+	locationPath;
 (function() {
 	'use strict';
 	var mapsTotal,
 		mapsNum;
 
-	// there is a conflict between jQuery in gcviz and in WET. For this reason, we define jquery only when a dependency needs it like in inset.
-	define(['gcviz-i18n',
+	define(['jquery',
+			'gcviz-i18n',
 			'gcviz-func',
 			'gcviz-v-map',
 			'gcviz-v-inset',
-			'gcviz-v-tbmain',
-			'gcviz-v-tbfoot',
-			'gcviz-v-tbanno',
-			'gcviz-v-tbnav'], function(i18n, func, map, inset, toolbarmain, toolbarfoot, toolbaranno, toolbarnav) {
+			'gcviz-v-header',
+			'gcviz-v-footer',
+			'gcviz-v-tbdraw',
+			'gcviz-v-tbnav',
+			'gcviz-v-tblegend'], function($, i18n, func, map, inset, header, footer, tbdraw, tbnav, tblegend) {
 		var initialize,
 			readConfig,
 			execConfig,
 			setLocationPath,
 			setLocalMP;
-
+			
 		/*
 		 *  initialize the GCViz application
 		 */
@@ -61,10 +60,12 @@ var mapArray = {},
 		 *  read configuration file and start execution
 		 */
 		readConfig = function(mapElem) {
+			var file = mapElem.getAttribute('data-gcviz');
 			
 			// ajax call to get the config file info
+			$.support.cors = true; // force cross-site scripting for IE9
 			$.ajax({
-				url: mapElem.getAttribute('data-gcviz'),
+				url: file,
 				crossDomain: true,
 				dataType: 'json',
 				async: false,					
@@ -72,54 +73,67 @@ var mapArray = {},
 					// add the id of map container and execute the configuration
 					config.gcviz.mapframe.id = mapElem.getAttribute('id');
 					execConfig(mapElem, config.gcviz);
-					console.log('config file read');
+					console.log(i18n.getDict('%msg-configread'));
 				},
 				error: function() {
-					console.log('error loading config file');
+					console.log(i18n.getDict('%msg-configerr')  + ': ' + file);
 				}
 			}); // end ajax
 		};
 		
 		/*
-		 *  execute the configuration file
+		 *  execute the configuration file. add all viewmodel to a master view model. This viewmodel will be store in an array
+		 *  of view models (one for each map)
 		 */
 		execConfig = function(mapElem, config) {
 			var $mapSection,
 				$mapElem = $(mapElem),
 				mapframe = config.mapframe,
 				mapid = mapframe.id,
-				size = mapframe.size;
+				size = mapframe.size,
+				customLen = config.customwidgets.length;
 			
-			// create section around map. This way we can bind Knockout to the section
+			// // create section around map. This way we can bind Knockout to the section
 			$mapElem.wrap('<section id=section' + mapid + ' class="gcviz-section" role="map" style="width:' + size.width + 'px; height:' + size.height + 'px;">');
 			$mapSection = $(document).find('#section' + mapid);
 			
 			// extend the section with configuration file info
 			$.extend($mapSection, config);
 
-			// create map and add layers (save result in the mapArray)
-			mapArray[mapid] = map.initialize($mapSection);
-			
-			// add main toolbar and footer
+			// create map and add layers
+			// save the result of every view model in an array of view models
 			vmArray[mapid] = {};
-			vmArray[mapid].tbmain = toolbarmain.initialize($mapSection);
-			vmArray[mapid].tbfoot = toolbarfoot.initialize($mapSection);
+			vmArray[mapid].map = map.initialize($mapSection);
 			
-			// add annotation toolbar
-			if (config.toolbaranno.enable) {
-				toolbaranno.initialize($mapSection);
+			// add header and footer
+			vmArray[mapid].header = header.initialize($mapSection);
+			vmArray[mapid].footer = footer.initialize($mapSection);
+			
+			// add draw toolbar
+			if (config.toolbardraw.enable) {
+				vmArray[mapid].draw = tbdraw.initialize($mapSection);
 			}
 			
 			// add navigation toolbar
 			if (config.toolbarnav.enable) {
-				toolbarnav.initialize($mapSection);
+				vmArray[mapid].nav = tbnav.initialize($mapSection);
+			}
+			
+			//add legend
+			if (config.toolbarlegend.enable) {
+				vmArray[mapid].legend = tblegend.initialize($mapSection);
 			}
 			
 			// add inset
 			if (config.insetframe.enable) {
 				vmArray[mapid].insets = inset.initialize($mapSection);
 			}
-					
+			
+			// add custom widgets
+			while (customLen--) {
+				
+			}
+			
 			mapsNum += 1;
 			
 			if (mapsNum === mapsTotal) {

@@ -5,15 +5,16 @@
  *
  * Toolbar navigation view model widget
  */
-/* global mapArray: false, locationPath: false */
+/* global vmArray: false, locationPath: false */
 (function() {
 	'use strict';
-	define([
-		'knockout',
-		'gcviz-i18n',
-		'gcviz-gisnavigation'
-	], function(ko, i18n, gisNavigation) {
-		var initialize;
+	define(['jquery',
+			'knockout',
+			'gcviz-i18n',
+			'gcviz-gisnavigation'
+	], function($, ko, i18n, gisNavigation) {
+		var initialize,
+			vm;
 		
 		initialize = function($mapElem, mapid) {
 
@@ -21,7 +22,7 @@
 			var toolbarnavViewModel = function($mapElem, mapid) {
 				var _self = this,
 					pathExtent = locationPath + 'gcviz/images/navFullExtent.png',
-					mymap = mapArray[mapid],
+					mymap = vmArray[mapid].map.map,
 					elem = document.getElementById(mymap.vIdName + '_holder');
 
 				// images path
@@ -41,7 +42,10 @@
 				
 				_self.init();
 			};
-			ko.applyBindings(new toolbarnavViewModel($mapElem, mapid), $mapElem[0]); // This makes Knockout get to work
+			
+			vm = new toolbarnavViewModel($mapElem, mapid);
+			ko.applyBindings(vm, $mapElem[0]); // This makes Knockout get to work
+			return vm;
 		};
 		
 		return {

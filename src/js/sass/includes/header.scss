@@ -1,0 +1,23 @@
+@import "gcviz-mixin";
+
+.gcviz-head {
+	@include app-head-foot;
+	@include app-gradiant;
+	
+	.gcviz-head-title {
+		display: inline-block;
+		height: (4 * $rembase) + rem;
+	
+	.gcviz-head-titlelabel {
+			margin-top: (0.5 * $rembase) + rem;
+			line-height: (3.5 * $rembase) + rem;
+			@include app-text(1.6, bold);
+		}
+	}
+  
+	.gcviz-head-button {
+		float: right;
+		display: inline-block;
+	}
+}
+
