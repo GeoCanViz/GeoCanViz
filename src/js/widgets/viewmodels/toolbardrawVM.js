@@ -8,12 +8,12 @@
 /* global vmArray: false, locationPath: false */
 (function() {
 	'use strict';
-	define(['jquery',
+	define(['jquery-private',
 			'knockout',
 			'jqueryui',
 			'gcviz-i18n',
 			'gcviz-gisgraphic'
-	], function($, ko, qUI, i18n, gisGraphic) {
+	], function($viz, ko, jqUI, i18n, gisGraphic) {
 		var initialize,
 			vm;
 		
@@ -29,9 +29,9 @@
 					pathImport = locationPath + 'gcviz/images/drawImport.png',
 					pathExport = locationPath + 'gcviz/images/drawExport.png',
 					mymap = vmArray[mapid].map.map,
-					$container = $('#' + mapid + '_holder_container'),
+					$container = $viz('#' + mapid + '_holder_container'),
 					mygraphic = new gisGraphic.initialize(mymap),
-					$text = $('#gcviz-draw-inputbox');
+					$text = $viz('#gcviz-draw-inputbox');
 
 				// images path
 				_self.imgDraw = ko.observable(pathDraw);
@@ -61,11 +61,11 @@
 					closeOnEscape: true,
 					title: i18n.getDict('%toolbardraw-inputbox-name'),
 					width: 400,
-					close: function() { $('#value').val('');},
+					close: function() { $viz('#value').val('');},
 					buttons: [{ 
 								text: 'Ok',
 								click: function() {
-											var value = $('#value').val(),
+											var value = $viz('#value').val(),
 												graphic = $text.dialog('option', 'graphic');
 											
 											if (value !== '') {
@@ -73,13 +73,13 @@
 											} else {
 												$container.removeClass('gcviz-text-cursor');
 											}
-											$(this).dialog('close');
+											$viz(this).dialog('close');
 										}
 								}, { 
 								text: 'Cancel',
 								click: function() {
 											$container.removeClass('gcviz-text-cursor');
-											$(this).dialog('close');
+											$viz(this).dialog('close');
 										}
 							}] 
 				});

@@ -8,11 +8,10 @@
 /* global vmArray: false, locationPath: false */
 (function() {
 	'use strict';
-	define(['jquery',
-			'knockout',
+	define(['knockout',
 			'gcviz-i18n',
 			'gcviz-gisgeo'
-	], function($, ko, i18n, gisGeo) {
+	], function(ko, i18n, gisGeo) {
 		var initialize,
 			vm;
 		
@@ -64,6 +63,7 @@
 				
 				_self.init();
 			};
+			
 			vm = new footerViewModel($mapElem, mapid, config);
 			ko.applyBindings(vm, $mapElem[0]); // This makes Knockout get to work
 			return vm;

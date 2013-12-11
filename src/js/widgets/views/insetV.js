@@ -8,9 +8,8 @@
 /* global vmArray: false */
 (function() {
 	'use strict';
-	define(['jquery',
-			'gcviz-vm-inset'
-	], function($, insetVM) {
+	define(['gcviz-vm-inset'
+	], function(insetVM) {
 		var initialize;
 		
 		initialize = function($mapElem) {
@@ -106,7 +105,7 @@
 				} else if (inset.type === 'html') {
 					var html = inset.inset;
 					if (html.type === 'text') {
-						node += '<a class="mp-link"></a><div id="' + id + 'h" class="gcviz-text-inset" style="height: ' + perctHeight + ';" tabindex="0">' + html.tag + '</div>';	
+						node += '<a class="mp-link"></a><div id="' + id + 'h" class="gcviz-text-inset" style="height: ' + perctHeight + ';">' + html.tag + '</div>';	
 					} else if (html.type === 'page') {
 						node += '<a class="mp-link"><div id="' + id + 'h"><iframe id="' + id + 'h" src="' + html.tag + '" style="height: ' + perctHeight + '; width:100%;" class="gcviz-frame-inset"></iframe></div>';
 					}

@@ -7,10 +7,10 @@
  */
 (function() {
 	'use strict';
-	define(['jquery',
+	define(['jquery-private',
 			'knockout',
 			'gcviz-gismap'
-	], function($, ko, gisM) {
+	], function($viz, ko, gisM) {
 		var initialize,
 			vm;
 
@@ -27,7 +27,7 @@
 				_self.init = function() {
 					var layers = config.layers,
 						lenLayers = layers.length,
-						$map = $('#' + mapid + '_holder'),
+						$map = $viz('#' + mapid + '_holder'),
 						$root,
 						$container;
 					
@@ -45,8 +45,8 @@
 					}
 					
 					// set class and remove cursor for container
-					$root = $('#' + mapid + '_holder_root');
-					$container = $('#' + mapid + '_holder_container');
+					$root = $viz('#' + mapid + '_holder_root');
+					$container = $viz('#' + mapid + '_holder_container');
 					$map.addClass('gcviz-map');
 					$root.addClass('gcviz-root');
 					$container.addClass('gcviz-container');
@@ -118,9 +118,9 @@
 				
 				_self.init();
 			};
+			
 			vm = new mapViewModel($mapElem);
 			ko.applyBindings(vm, $mapElem[0]); // This makes Knockout get to work
-			
 			return vm;
 		};
 		

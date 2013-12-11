@@ -7,11 +7,11 @@
  */
 (function() {
 	'use strict';
-	define(['jquery',
+	define(['jquery-private',
 			'gcviz-vm-tbdraw',
 			'dijit/TitlePane',
 			'gcviz-i18n'
-	], function($, tbdrawVM, dojotitle, i18n) {
+	], function($viz, tbdrawVM, dojotitle, i18n) {
 		var initialize;
 		
 		initialize = function($mapElem) {
@@ -41,8 +41,8 @@
 				node += '<button class="gcviz-button" tabindex="0" data-bind="click: textClick, tooltip: { content: tpText }"><img class="gcviz-img-button" data-bind="attr:{src: imgText}"></img></button>';
 				
 				// create the annotation inputbox (dont use knockout data-bind because there one window for the whole page not by ViewModel)
-				if ($('#gcviz-draw-inputbox').length === 0) {
-					$('body').prepend('<div id="gcviz-draw-inputbox">' +
+				if ($viz('#gcviz-draw-inputbox').length === 0) {
+					$viz('body').prepend('<div id="gcviz-draw-inputbox">' +
 										'<form><fieldset>' +
 										'<label for="value">' + i18n.getDict('%toolbardraw-inputbox-label') + '</label>' +
 										' <input id="value" class="text ui-widget-content ui-corner-all"/>' +

@@ -8,15 +8,15 @@
 /* global vmArray: false, locationPath: false */
 (function() {
 	'use strict';
-	define(['jquery',
+	define(['jquery-private',
 			'knockout',
 			'gcviz-i18n',
 			'gcviz-ko',
+			'gcviz-func',
+			'gcviz-gismap',
 			'jqueryslide',
 			'magnificpopup',
-			'gcviz-func',
-			'gcviz-gismap'
-	], function($, ko, i18n, binding, slidesjs, magnificPopup, gcvizfunc, gisM) {
+	], function($viz, ko, i18n, binding, gcvizfunc, gisM) {
 		var initialize,
 			vm,
 			setImage,
@@ -37,7 +37,7 @@
 					pathLightbox = locationPath + 'gcviz/images/insetLightbox.png',
 					pathPlayVideo = locationPath + 'gcviz/images/insetPlayVideo.png',
 					headerHeight = vmArray[mapid].header.headerHeight;
-				
+								
 				// image path
 				_self.imgLightbox = pathLightbox;
 				_self.imgPlayVideo = pathPlayVideo;
@@ -224,7 +224,8 @@
 								gisM.resizeMap(map);
 							} else {
 								gisM.manageScreenState(map, 1000);
-							}						}
+							}
+						}
 					} else {
 						$mapElem.removeClass('gcviz-inset-hidden');
 					}
@@ -279,7 +280,7 @@
 			// init slides if more then 1 images
 			if (source.length > 1) {
 				lbId = '.slidesjs-container';
-				$('#' + $elem.attr('id').replace('inset', 'slides')).slidesjs({
+				$viz('#' + $elem.attr('id').replace('inset', 'slides')).slidesjs({
 					height: _self.height - 50,
 					width: _self.width,
 					navigation: {
@@ -315,7 +316,7 @@
 			length = elems.length;
 			while (length--) {
 				elem = elems[length];
-				$el = $(elem);
+				$el = $viz(elem);
 				if (!$el.hasClass('slidesjs-navigation')) {
 					elem.tabIndex = -1;
 				} else {
@@ -340,7 +341,7 @@
 			var source = $elem.vSource,
 				length = source.length,
 				id = '#' + $elem[0].id + 'v',
-				$lb = $(id),
+				$lb = $viz(id),
 				$back = $elem.find('.gcviz-play-background'),
 				func = { beforeOpen: function() { 
 										$lb.find('video').height((window.innerHeight * 0.8));
@@ -370,7 +371,7 @@
 		setHtml = function($elem, inset) {
 			var type = inset.inset.type,
 				id = '#' + $elem[0].id + 'h',
-				$lb = $(id),
+				$lb = $viz(id),
 				func = { beforeOpen: null, close: null };
 
 			// set lightbox
@@ -383,12 +384,12 @@
 				layers = configMap.layers,
 				mapElemId = $elem[0].id,
 				mymap,
-				$load = $('#' + mapElemId.replace('inset', 'load')),
+				$load = $viz('#' + mapElemId.replace('inset', 'load')),
 				mapid = mapElemId + 'm',
 				height = window.innerHeight * 0.8,
 				point,
 				id = '#' + mapid,
-				$lb = $(id),
+				$lb = $viz(id),
 				initHeight;
 						
 			// create map	

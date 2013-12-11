@@ -8,11 +8,10 @@
 /* global vmArray: false, locationPath: false */
 (function() {
 	'use strict';
-	define(['jquery',
-			'knockout',
+	define(['knockout',
 			'gcviz-i18n',
 			'gcviz-gisnavigation'
-	], function($, ko, i18n, gisNavigation) {
+	], function(ko, i18n, gisNavigation) {
 		var initialize,
 			vm;
 		

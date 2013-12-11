@@ -13,7 +13,9 @@ var vmArray = {},
 	var mapsTotal,
 		mapsNum;
 
-	define(['jquery',
+	define(['jquery-private',
+			'magnificpopup',
+			'jqueryui',
 			'gcviz-i18n',
 			'gcviz-func',
 			'gcviz-v-map',
@@ -22,7 +24,7 @@ var vmArray = {},
 			'gcviz-v-footer',
 			'gcviz-v-tbdraw',
 			'gcviz-v-tbnav',
-			'gcviz-v-tblegend'], function($, i18n, func, map, inset, header, footer, tbdraw, tbnav, tblegend) {
+			'gcviz-v-tblegend'], function($viz, mp, jqui, i18n, func, map, inset, header, footer, tbdraw, tbnav, tblegend) {
 		var initialize,
 			readConfig,
 			execConfig,
@@ -33,9 +35,13 @@ var vmArray = {},
 		 *  initialize the GCViz application
 		 */
 		initialize = function() {
-			var maps = $('.gcviz'),
+			var maps = $viz('.gcviz'),
 				mapElem,
 				len = maps.length;
+			
+			// extent or private AMD jQuery with the jQuery from outside project to get reference to some dependencies (magnificPopup, jqueryUI, slidesJS)
+			// we need to do this because those libraries are not AMD and use the window.jQuery object to initialize themselves.
+			$viz.extend(true, $viz, $);
 			
 			// initialize map number and total for the ready event
 			mapsTotal = len;
@@ -63,8 +69,8 @@ var vmArray = {},
 			var file = mapElem.getAttribute('data-gcviz');
 			
 			// ajax call to get the config file info
-			$.support.cors = true; // force cross-site scripting for IE9
-			$.ajax({
+			$viz.support.cors = true; // force cross-site scripting for IE9
+			$viz.ajax({
 				url: file,
 				crossDomain: true,
 				dataType: 'json',
@@ -87,7 +93,7 @@ var vmArray = {},
 		 */
 		execConfig = function(mapElem, config) {
 			var $mapSection,
-				$mapElem = $(mapElem),
+				$mapElem = $viz(mapElem),
 				mapframe = config.mapframe,
 				mapid = mapframe.id,
 				size = mapframe.size,
@@ -95,10 +101,10 @@ var vmArray = {},
 			
 			// // create section around map. This way we can bind Knockout to the section
 			$mapElem.wrap('<section id=section' + mapid + ' class="gcviz-section" role="map" style="width:' + size.width + 'px; height:' + size.height + 'px;">');
-			$mapSection = $(document).find('#section' + mapid);
+			$mapSection = $viz(document).find('#section' + mapid);
 			
 			// extend the section with configuration file info
-			$.extend($mapSection, config);
+			$viz.extend($mapSection, config);
 
 			// create map and add layers
 			// save the result of every view model in an array of view models
@@ -138,7 +144,7 @@ var vmArray = {},
 			
 			if (mapsNum === mapsTotal) {
 				// if all maps are there, trigger the ready event
-				$.event.trigger('gcviz-ready');
+				$viz.event.trigger('gcviz-ready');
 				
 				// set the resize event
 				window.onresize = func.debounce(function (evt) {
@@ -169,7 +175,8 @@ var vmArray = {},
 		};
 		
 		setLocalMP = function() {
-			$.extend(true, $.magnificPopup.defaults, {
+			// keep $ because $viz wont work
+			$viz.extend(true, $.magnificPopup.defaults, {
 				tClose: i18n.getDict('%mp-close'), // Alt text on close button
 				tLoading: i18n.getDict('%mp-load'), // Text that is displayed during loading. Can contain %curr% and %total% keys
 				gallery: {

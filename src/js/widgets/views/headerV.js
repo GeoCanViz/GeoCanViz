@@ -7,9 +7,8 @@
  */
 (function() {
 	'use strict';
-	define(['jquery',
-			'gcviz-vm-header'
-	], function($, headerVM) {
+	define(['gcviz-vm-header'
+	], function(headerVM) {
 		var initialize;
 		
 		initialize = function($mapElem) {

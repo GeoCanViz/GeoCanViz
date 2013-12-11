@@ -8,13 +8,13 @@
 /* global vmArray: false, locationPath: false */
 (function() {
 	'use strict';
-	define([
-		'knockout',
-		'gcviz-i18n',
-		'gcviz-gislegend',
-		'gcviz-ko',
-		'esri/request'
-	], function(ko, i18n, gisLegend, Request, binding) {
+	define(['jquery-private',
+			'knockout',
+			'gcviz-i18n',
+			'gcviz-gislegend',
+			'gcviz-ko',
+			'esri/request'
+	], function($viz, ko, i18n, gisLegend, Request, binding) {
 		var initialize,
 			vm, 
 			getServiceList, 
@@ -31,8 +31,8 @@
 				_self.tpVisible = i18n.getDict('%toolbarlegend-tgvis');
 		
 				_self.init = function () {
-					$.each(config.service, function(index, service) {
-						$.each(service.layers, function(index2, layers) {
+					$viz.each(config.service, function(index, service) {
+						$viz.each(service.layers, function(index2, layers) {
 							//if(layers.id !=='basemap')
 							//	gisLegend.getFeatureLayerSymbol(mymap, layers.id);
 						});
@@ -45,14 +45,14 @@
 
 			
 				_self.changeLayerVisibility = function(selectedLayer, event) {
-					gisLegend.setLayerVisibility(_self.mymap, selectedLayer.id, $(event.target).prop('checked'));
+					gisLegend.setLayerVisibility(_self.mymap, selectedLayer.id, $viz(event.target).prop('checked'));
 					return true;
 				};
 
 				_self.changeServiceVisibility = function(selectedLayer, event) {
-					$.each($(event.target).siblings().find(':checkbox'), function(key, obj) {
-						$(obj).prop('checked', event.target.checked);
-							gisLegend.setLayerVisibility(_self.mymap, obj.value, $(event.target).prop('checked'));
+					$viz.each($viz(event.target).siblings().find(':checkbox'), function(key, obj) {
+						$viz(obj).prop('checked', event.target.checked);
+							gisLegend.setLayerVisibility(_self.mymap, obj.value, $viz(event.target).prop('checked'));
 					});
 					return true;
 				};
