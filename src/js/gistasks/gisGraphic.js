@@ -8,12 +8,12 @@
 /* global esri: false, dojo: false */
 (function () {
 	'use strict';
-	define(['jquery',
+	define(['jquery-private',
 			'esri/toolbars/draw',
 			'esri/symbols/Font',
 			'esri/symbols/SimpleLineSymbol',
 			'esri/symbols/TextSymbol',
-			'esri/graphic'], function($) {
+			'esri/graphic'], function($viz) {
 		var initialize;
 			
 		initialize = function(mymap) {
@@ -52,7 +52,7 @@
 				addToMap = function(geometry) {
 					var symbol,
 						graphic,
-						$cursor = $('#' + map.vIdName + '_holder_container');
+						$cursor = $viz('#' + map.vIdName + '_holder_container');
 						
 					toolbar.deactivate();
 					

@@ -8,25 +8,26 @@
 /* global vmArray: false */
 (function() {
 	'use strict';
-	define([
-		'jquery',
-		'knockout',
-		'dijit/form/HorizontalSlider'
-	], function($, ko, slider) {
+	define(['jquery-private',
+			'knockout',
+			'dijit/form/HorizontalSlider',
+			'jqueryui'
+	], function($viz, ko, slider) {
     
     ko.bindingHandlers.tooltip = {
 		init: function(element, valueAccessor) {
 			var local = ko.utils.unwrapObservable(valueAccessor()),
-				options = {};
+				options = {},
+				$element = $viz(element);
 					
 			ko.utils.extend(options, ko.bindingHandlers.tooltip.options);
 			ko.utils.extend(options, local);
 				
-			$(element).attr('title', options.content);
-			$(element).tooltip(options);
+			$element.attr('title', options.content);
+			$element.tooltip(options);
 					
 			ko.utils.domNodeDisposal.addDisposeCallback(element, function() {
-					$(element).tooltip('destroy');
+					$element.tooltip('destroy');
 				});
 			},
 			options: {
@@ -96,7 +97,7 @@
 			var options = valueAccessor(),
 				widget;
 
-			$(element).attr('Visible', options.visible);
+			$viz(element).attr('Visible', options.visible);
 			widget = new slider({
 				name: "slider",
 				minimum: 0,

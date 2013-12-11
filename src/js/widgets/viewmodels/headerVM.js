@@ -8,13 +8,13 @@
 /* global vmArray: false, locationPath: false */
 (function() {
 	'use strict';
-	define(['jquery',
+	define(['jquery-private',
 			'knockout',
 			'gcviz-i18n',
 			'gcviz-ko',
 			'gcviz-func',
 			'gcviz-gismap'
-	], function($, ko, i18n, binding, func, gisM) {
+	], function($viz, ko, i18n, binding, func, gisM) {
 		var initialize,
 			vm;
 		
@@ -28,10 +28,10 @@
 					pathSmallscreen = locationPath + 'gcviz/images/headSmallscreen.png',
 					pathTools = locationPath + 'gcviz/images/headTools.png',
 					pathHelp = locationPath + 'gcviz/images/headHelp.png',
-					$section = $('#section' + mapid),
-					$mapholder = $('#' + mapid),
-					$map = $('#' + mapid + '_holder'),
-					$maproot = $('#' + mapid + '_holder_root'),
+					$section = $viz('#section' + mapid),
+					$mapholder = $viz('#' + mapid),
+					$map = $viz('#' + mapid + '_holder'),
+					$maproot = $viz('#' + mapid + '_holder_root'),
 					map = vmArray[mapid].map.map;
 
 				// images path
@@ -55,8 +55,8 @@
 				_self.init = function() {
 					// keep map size
 					_self.heightSection = parseInt($section.css('height'), 10);
-					_self.widthSection = parseInt($section.css('width'), 10);
 					_self.heightMap = parseInt($map.css('height'), 10);
+					_self.widthSection = parseInt($section.css('width'), 10);
 					_self.widthMap = parseInt($map.css('width'), 10);
 					_self.headerHeight = parseInt($mapElem.css('height'), 10);
 					
@@ -73,7 +73,7 @@
 						}
 						
 						// remove tooltip if there (the tooltip is position before the fullscreen)
-						$('.gcviz-tooltip').remove();
+						$viz('.gcviz-tooltip').remove();
 					}, 1000);
 				};
 				

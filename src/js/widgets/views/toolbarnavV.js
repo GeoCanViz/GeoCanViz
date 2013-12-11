@@ -7,10 +7,9 @@
  */
 (function() {
 	'use strict';
-	define(['jquery',
-			'gcviz-vm-tbnav',
+	define(['gcviz-vm-tbnav',
 			'dijit/TitlePane'
-	], function($, tbnavVM, dojotitle) {
+	], function(tbnavVM, dojotitle) {
 		var initialize;
 		
 		initialize = function($mapElem) {
@@ -20,7 +19,7 @@
 				tp,
 				node = '';
 			
-			tp = new dojotitle({id: 'tbnav' + mapid, title:'Navigation', content: '<div class="gcviz-tbnav-content gcviz-tbcontent"></div>', open: false});
+			tp = new dojotitle({ id: 'tbnav' + mapid, title:'Navigation', content: '<div class="gcviz-tbnav-content gcviz-tbcontent"></div>', open: false });
 			$mapElem.find('.gcviz-tbholder').append(tp.domNode);
 			tp.startup();
 			
