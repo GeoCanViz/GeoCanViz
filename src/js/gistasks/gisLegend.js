@@ -9,13 +9,13 @@
 (function () {
 	'use strict';
 	define(['jquery-private',
-            "esri/request",
-			"esri/renderers/Renderer",
-			"dojo/dom-construct",
-			"esri/symbols/jsonUtils",
-			"dojox/gfx", 
-			"dojo/dom",
-            "dojo/dom-style"
+            'esri/request',
+			'esri/renderers/Renderer',
+			'dojo/dom-construct',
+			'esri/symbols/jsonUtils',
+			'dojox/gfx', 
+			'dojo/dom',
+            'dojo/dom-style'
 			], function($viz, Request, Renderer, domConstruct, jsonUtils, gfx, dom, domStyle) {
 		var setLayerVisibility,
 			getLegend,

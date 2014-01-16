@@ -46,7 +46,7 @@
 			if (timer) {
 				clearTimeout(timer);
 			}
-			        
+
 			timer = setTimeout(func, threshold);
 		};
 		

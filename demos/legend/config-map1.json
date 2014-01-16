@@ -5,10 +5,10 @@
 			"width": 800
 		},
 		"extent": {
-			"xmin": -2750000.0,
-			"ymin": -900000.0,
-			"xmax": 3600000.0,
-			"ymax": 4630000.0
+			"xmin": -8540948.84175534,
+			"ymin": 5609757.019105,
+			"xmax": -8333944.82914467,
+			"ymax": 5722087.690195
 		},
 		"resolution": {
 			"min": -1,
@@ -16,13 +16,13 @@
 		},
 		"map": { 
 			"sr": {
-				"wkid": 3978
+				"wkid": 3857
 			},
 			"extent": {
-				"xmin": -2750000.0,
-				"ymin": -900000.0,
-				"xmax": 3600000.0,
-				"ymax": 4630000.0
+				"xmin": -8540948.84175534,
+				"ymin": 5609757.019105,
+				"xmax": -8333944.82914467,
+				"ymax": 5722087.690195
 			},
 			"lods": [],
 			"resolution": {
@@ -51,6 +51,23 @@
 			 	"id": "hospitals",
 				"type": "feature",
 				"url": "http://maps.ottawa.ca/ArcGIS/rest/services/Hospitals/MapServer/0",
+				"selectable": false,
+				"swiper": {
+					"enable": false
+				},
+				"cluster": {
+					"enable": false
+				},
+				"resolution": {
+					"min": -1,
+					"max": -1
+				}
+
+			},
+			{
+			 	"id": "bikestructure",
+				"type": "feature",
+				"url": "http://maps.ottawa.ca/ArcGIS/rest/services/CyclingMap/MapServer/8",
 				"selectable": false,
 				"swiper": {
 					"enable": false
@@ -114,6 +131,57 @@
 					"min": -1,
 					"max": -1
 				}
+			},
+			{
+			 	"id": "Parking",
+				"type": "feature",
+				"url": "http://maps.ottawa.ca/ArcGIS/rest/services/Parks_Inventory/MapServer/14",
+				"selectable": false,
+				"swiper": {
+					"enable": false
+				},
+				"cluster": {
+					"enable": false
+				},
+				"resolution": {
+					"min": -1,
+					"max": -1
+				}
+
+			},
+			{
+			 	"id": "Greenbelt",
+				"type": "feature",
+				"url": "http://maps.ottawa.ca/ArcGIS/rest/services/Greenbelt/MapServer/0",
+				"selectable": false,
+				"swiper": {
+					"enable": false
+				},
+				"cluster": {
+					"enable": false
+				},
+				"resolution": {
+					"min": -1,
+					"max": -1
+				}
+
+			},
+			{
+			 	"id": "roadnames",
+				"type": "feature",
+				"url": "http://maps.ottawa.ca/ArcGIS/rest/services/Roads/MapServer/1",
+				"selectable": false,
+				"swiper": {
+					"enable": false
+				},
+				"cluster": {
+					"enable": false
+				},
+				"resolution": {
+					"min": -1,
+					"max": -1
+				}
+
 			}]
 		}
 	},
@@ -261,7 +329,7 @@
 		},
 		"mousecoords": {
 			"enable": true,
-			"outwkid": 4326,
+			"outwkid": 3978,
 			"urlgeomserv": "http://tasks.arcgisonline.com/ArcGIS/rest/services/Geometry/GeometryServer"
 		},
 		"datatable": { 
@@ -326,15 +394,20 @@
 					"justify": "left"
 			 },
 			"opacity": {
-			 		"slider": false,
-			 		"value" : 1.0
+			 		"enable": true,
+			 		"minmax": [0,1.0],
+			 		"initstate" : 1.0
 			 },	
 			"visibility": {
-			 		"visible": true,
-			 		"control" : false
+			 		"enable": true,
+			 		"initstate" : true
 			 },
-
-			"customimage":"",
+			 "symbology": false,
+			"customimage":{
+				"enable":true,
+				"url":"http://www.fourshoreservices.com/img/urban-dev-gis.gif",
+				"alttext"	: ""
+			},
 			"layers" : [{
 				"expand": false,
 			 	"id": "basemap",
@@ -344,13 +417,20 @@
 			 		"justify": "right"
 			 	},	
 			 	"opacity": {
-			 		"slider": true,
-			 		"value" : 1.0
+			 		"enable": false,
+			 		"minmax": [0,1.0],
+			 		"initstate" : 1.0
 			    },
 			 	"visibility": {
-			 		"check": true,
-			 		"value" : false
-			 	}
+			 		"enable": true,
+			 		"initstate" : true
+			 	},
+			 	"symbology": true,
+					"customimage":{
+					"enable":false,
+					"url":"",
+					"alttext": ""
+				}
 			
 			}]
 		},
@@ -366,15 +446,20 @@
 				},
 
 			"opacity": {
-			 		"slider": true,
-			 		"value" : 1.0
+			 		"enable": false,
+			 		"minmax": [0,1.0],
+			 		"initstate" : 1.0
 			 },	
 			"visibility": {
-			 		"visible": true,
-			 		"control" : false
+			 		"enable": true,
+			 		"initstate" : true
 			 	},
-
-			"customimage":"",
+			"symbology": false,
+			"customimage":{
+				"enable":true,
+				"url":"http://www.fourshoreservices.com/img/urban-dev-gis.gif",
+				"alttext": ""
+			},	
 			"layers" : [{
 				"expand": false,
 			 	"id": "hospitals",
@@ -384,13 +469,174 @@
 			 		"justify": "right"
 			 	},	
 			 	"opacity": {
-			 		"slider": true,
-			 		"value" : 1.0
+			 		"enable": false,
+			 		"minmax": [0,1.0],
+			 		"initstate" : 1.0
 			    },
 			 	"visibility": {
-			 		"check": true,
-			 		"value" : false
-			 	}
+			 		"enable": true,
+			 		"initstate" : true
+			 	},
+			 	"symbology": true,
+					"customimage":{
+					"enable":false,
+					"url":"",
+					"alttext": ""
+				}
+			
+			}]
+		},
+		{
+			"expand": true,
+			"groupid": "4",
+			"label":{
+					"value": " Cycle Structures",
+					"alttext": "",
+					"justify": "left"
+				},
+
+			"opacity": {
+			 		"enable": false,
+			 		"minmax": [0,1.0],
+			 		"initstate" : 1.0
+			 },	
+			"visibility": {
+			 		"enable": true,
+			 		"initstate" : true
+			 	},
+			 "symbology": true,
+			"customimage":{
+				"enable":false,
+				"url":"",
+				"alttext": ""
+			},
+			"layers" : [{
+				"expand": false,
+			 	"id": "bikestructure",
+			 	"label": {
+			 		"value": "bikes",
+			 		"alttext": "bike altext",
+			 		"justify": "right"
+			 	},	
+			 	"opacity": {
+			 		"enable": false,
+			 		"minmax": [0,1.0],
+			 		"initstate" : 1.0
+			    },
+			 	"visibility": {
+			 		"enable": true,
+			 		"initstate" : true
+			 	},
+			 	"symbology": true,
+					"customimage":{
+					"enable":false,
+					"url":"",
+					"alttext": ""
+				}
+			
+			}]
+		},
+		{
+			"expand": true,
+			"groupid": "2",
+			"version" : 10.05,
+			"service": "http://maps.ottawa.ca/ArcGIS/rest/services/Hospitals/MapServer",
+			"label":{
+					"value": "Ottawa Truck Routes",
+					"alttext": "",
+					"justify": "left"
+				},
+
+			"opacity": {
+			 		"enable": false,
+			 		"minmax": [0,1.0],
+			 		"initstate" : 1.0
+			 },	
+			"visibility": {
+			 		"enable": true,
+			 		"initstate" : true
+			 	},
+			"symbology": false,
+			"customimage":{
+				"enable":false,
+				"url":"http://www.fourshoreservices.com/img/urban-dev-gis.gif",
+				"alttext": ""
+			},	
+			"layers" : [{
+				"expand": false,
+			 	"id": "roadnames",
+			 	"label": {
+			 		"value": "Truck Routes",
+			 		"alttext": "basemap altext",
+			 		"justify": "right"
+			 	},	
+			 	"opacity": {
+			 		"enable": false,
+			 		"minmax": [0,1.0],
+			 		"initstate" : 1.0
+			    },
+			 	"visibility": {
+			 		"enable": true,
+			 		"initstate" : true
+			 	},
+			 	"symbology": true,
+					"customimage":{
+					"enable":false,
+					"url":"",
+					"alttext": ""
+				}
+			
+			}]
+		},
+		{
+			"expand": true,
+			"groupid": "2",
+			"version" : 10.05,
+			"service": "http://maps.ottawa.ca/ArcGIS/rest/services/Hospitals/MapServer",
+			"label":{
+					"value": " Greenbelt",
+					"alttext": "",
+					"justify": "left"
+				},
+
+			"opacity": {
+			 		"enable": false,
+			 		"minmax": [0,1.0],
+			 		"initstate" : 1.0
+			 },	
+			"visibility": {
+			 		"enable": true,
+			 		"initstate" : true
+			 	},
+			"symbology": true,
+			"customimage":{
+				"enable":false,
+				"url":"http://www.fourshoreservices.com/img/urban-dev-gis.gif",
+				"alttext": ""
+			},	
+			"layers" : [{
+				"expand": false,
+			 	"id": "Greenbelt",
+			 	"label": {
+			 		"value": "Greenbelt Ottawa",
+			 		"alttext": "basemap altext",
+			 		"justify": "right"
+			 	},	
+			 	"opacity": {
+			 		"enable": false,
+			 		"minmax": [0,1.0],
+			 		"initstate" : 1.0
+			    },
+			 	"visibility": {
+			 		"enable": true,
+			 		"initstate" : true
+			 	},
+			 	"symbology": true,
+					"customimage":{
+					"enable":false,
+					"url":"",
+					"alttext": ""
+				}
 			
 			}]
 		},
@@ -405,15 +651,20 @@
 					"justify": "left"
 				},
 			"opacity": {
-			 		"slider": false,
-			 		"value" : 0.5
+			 		"enable": true,
+			 		"minmax": [0,1.0],
+			 		"initstate" : 0.5
 			 },		
 			"visibility": {
-			 		"visible": true,
-			 		"control" : false
-			 	},
-
-			"customimage":"",
+			 		"enable": true,
+			 		"initstate" : true
+			},
+			"symbology": false,
+			"customimage":{
+				"enable":false,
+				"url":"",
+				"alttext": ""
+			},
 			"layers" : [{
 				"expand": false,
 			 	"id": "Parks",
@@ -422,14 +673,21 @@
 			 		"alttext": "basemap altext",
 			 		"justify": "right"
 			 	},	
-			 	"opacity": {
-			 		"slider": false,
-			 		"value" : 1.0
+			 		"opacity": {
+			 		"enable": true,
+			 		"minmax": [0,1.0],
+			 		"initstate" : 1.0
 			    },
 			 	"visibility": {
-			 		"check": true,
-			 		"value" : false
-			 	}
+			 		"enable": true,
+			 		"initstate" : true
+			 	},
+			 	"symbology": true,
+					"customimage":{
+					"enable":false,
+					"url":"",
+					"alttext": ""
+				}
 			
 			},
 			{
@@ -441,13 +699,20 @@
 			 		"justify": "right"
 			 	},	
 			 	"opacity": {
-			 		"slider": false,
-			 		"value" : 1.0
+			 		"enable": true,
+			 		"minmax": [0,1.0],
+			 		"initstate" : 1.0
 			    },
 			 	"visibility": {
-			 		"check": true,
-			 		"value" : false
-			 	}
+			 		"enable": true,
+			 		"initstate" : false
+			 	},
+			 	"symbology": true,
+					"customimage":{
+					"enable":false,
+					"url":"",
+					"alttext": ""
+				}
 			
 			},
 			{
@@ -459,13 +724,20 @@
 			 		"justify": "right"
 			 	},	
 			 	"opacity": {
-			 		"slider": false,
-			 		"value" : 1.0
+			 		"enable": true,
+			 		"minmax": [0,1.0],
+			 		"initstate" : 1.0
 			    },
 			 	"visibility": {
-			 		"check": true,
-			 		"value" : false
-			 	}
+			 		"enable": true,
+			 		"initstate" : true
+			 	},
+			 	"symbology": true,
+					"customimage":{
+					"enable":false,
+					"url":"",
+					"alttext": ""
+				}
 			
 			}
 
