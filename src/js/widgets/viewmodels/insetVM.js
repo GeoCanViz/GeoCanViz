@@ -15,7 +15,7 @@
 			'gcviz-func',
 			'gcviz-gismap',
 			'jqueryslide',
-			'magnificpopup',
+			'magnificpopup'
 	], function($viz, ko, i18n, binding, gcvizfunc, gisM) {
 		var initialize,
 			vm,
@@ -346,7 +346,7 @@
 				func = { beforeOpen: function() { 
 										$lb.find('video').height((window.innerHeight * 0.8));
 										$back.addClass('gcviz-hidden');
-							 		},
+                                    },
 						close: function() { 
 										$lb.find('video')[0].pause();
 										$back.removeClass('gcviz-hidden');

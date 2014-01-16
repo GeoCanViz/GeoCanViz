@@ -13,14 +13,14 @@
 			'dijit/Menu',
 			'dijit/MenuItem',
 			'dijit/PopupMenuItem',
-            'gcviz-gislegend',
+			'gcviz-gislegend',
 			'esri/map',
 			'esri/layers/FeatureLayer',
 			'esri/layers/ArcGISTiledMapServiceLayer',
 			'esri/layers/ArcGISDynamicMapServiceLayer',
 			'esri/geometry/Extent',
-            'esri/geometry/Point'
-            ], function(kpan, func, menu, menuItem, menupopup, gisLegend) {
+			'esri/geometry/Point'
+			], function(kpan, func, menu, menuItem, menupopup, gisLegend) {
 	
 		var mapArray = {},
 			createMap,
@@ -53,11 +53,11 @@
 			linkCount,
 			noLink = false;
 	
-        createMap = function(id, config, fExtent) {
-            var iExtent = config.extent,
-                wkid = config.sr.wkid,
-                initExtent = new esri.geometry.Extent({'xmin': iExtent.xmin, 'ymin': iExtent.ymin, 'xmax': iExtent.xmax, 'ymax': iExtent.ymax, 'spatialReference': {'wkid': wkid}}),
-                fullExtent = new esri.geometry.Extent({'xmin': fExtent.xmin, 'ymin': fExtent.ymin, 'xmax': fExtent.xmax, 'ymax': fExtent.ymax, 'spatialReference': {'wkid': wkid}}),
+		createMap = function(id, config, fullExtent) {
+			var initExtent = config.extent,
+				wkid = config.sr.wkid,
+				initExtent = new esri.geometry.Extent({'xmin': initExtent.xmin, 'ymin': initExtent.ymin, 'xmax': initExtent.xmax, 'ymax': initExtent.ymax, 'spatialReference': {'wkid': wkid}}),
+				fullExtent = new esri.geometry.Extent({'xmin': fullExtent.xmin, 'ymin': fullExtent.ymin, 'xmax': fullExtent.xmax, 'ymax': fullExtent.ymax, 'spatialReference': {'wkid': wkid}}),
 				lod = config.lods,
 				options,
 				map,
@@ -122,13 +122,15 @@
 
 				// add context menu
 				//gisM.createMapMenu(mymap);
-            });
+			});
 
-            //LM
-            map.on('layer-add-result', function(e) { 
-                //no renderer for tiles map services
-                if (e.layer.renderer) {gisLegend.getFeatureLayerSymbol(e.layer);}
-            });
+			//LM
+			map.on('layer-add-result', function(e) { 
+				
+				if(e.layer.renderer) //no renderer for tiles map services
+					gisLegend.getFeatureLayerSymbol(e.layer);
+
+			});
 
 			return map;
 		};
@@ -275,8 +277,8 @@
 			} else if (type === 'feature') {
 				map.addLayer(new esri.layers.FeatureLayer(url, {
 					mode: esri.layers.FeatureLayer.MODE_ONDEMAND,
-                    outFields: ["*"],
-                    id: layerid
+      				outFields: ["*"],
+      				id: layerid
 				}));
 			}
 		};
@@ -339,7 +341,7 @@
 			ctxMenuMap.addChild(new menuItem({ 
 				label: "Add Point",
 				onClick: function() {
-                    alert('click');
+              		alert('click');
 				}
 			}));
 

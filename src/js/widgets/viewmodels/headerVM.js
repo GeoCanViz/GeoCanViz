@@ -10,21 +10,34 @@
 	'use strict';
 	define(['jquery-private',
 			'knockout',
+			'media',
 			'gcviz-i18n',
 			'gcviz-ko',
 			'gcviz-func',
 			'gcviz-gismap'
-	], function($viz, ko, i18n, binding, func, gisM) {
+	], function($viz, ko, media, i18n, binding, func, gisM) {
 		var initialize,
 			vm;
 		
 		initialize = function($mapElem, mapid) {
+
+            // Setup the help dialog box
+            $viz("#divHelp").dialog({
+                autoOpen: false,
+                closeText: i18n.getDict('%close'),
+                show: {effect: 'fade', speed: 1000},
+                hide: {effect: 'fade', speed: 1000},
+                title: i18n.getDict('%header-help'),
+                resizable: false,
+                height: 400,
+                width: 950
+            });
 			
 			// data model				
 			var headerViewModel = function($mapElem, mapid) {
 				var _self = this,
 					pathFullscreen = locationPath + 'gcviz/images/headFullscreen.png',
-					pathShowInset = locationPath + 'gcviz/images/headShowInset.png',
+					pathShowInset = locationPath + 'gcviz/images/headShowInset2.png',
 					pathSmallscreen = locationPath + 'gcviz/images/headSmallscreen.png',
 					pathTools = locationPath + 'gcviz/images/headTools.png',
 					pathHelp = locationPath + 'gcviz/images/headHelp.png',
@@ -100,19 +113,25 @@
 				
 				_self.toolsClick = function() {
 					var tool = $mapholder.find('.gcviz-tbholder');
-					if (tool.hasClass('gcviz-hidden')) {
-						tool.removeClass('gcviz-hidden');
-						
-						// set focus on the first element
-						$section.find('.dijitTitlePaneTitleFocus')[0].focus();
-					} else {
-						tool.addClass('gcviz-hidden');
-					}
+                    tool.toggle("slow");
+					// if (tool.hasClass('gcviz-hidden')) {
+						// tool.removeClass('gcviz-hidden');
+						// // set focus on the first element
+						// $section.find('.dijitTitlePaneTitleFocus')[0].focus();
+					// } else {
+						// tool.addClass('gcviz-hidden');
+					// }
 				};
 				
 				_self.helpClick = function() {
-					alert(i18n.getDict('%header-help'));
-				};
+					// Open the Help dialog box
+                    $viz("#divHelp").dialog('open');
+                    
+                    //Open PDF in media player
+                    var html = '<a class="media" href="../../HelpManual.pdf" tabindex="0" title="My PDF"></a>';
+                    $viz("#divHelpContent").html(html);
+                    $viz('.media').media({width:900,height:300});
+                };
 				
 				_self.cancelFullScreen = function() {
 					// set style back for the map
@@ -161,7 +180,7 @@
 					_self.last = array[array.length - 1];
 					$section.on('keydown.fs', function(event) {
 						_self.manageTabbingOrder(event);
-					 });
+                    });
 				};
 				
 				_self.manageTabbingOrder = function(evt) {

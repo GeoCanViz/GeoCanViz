@@ -3,16 +3,18 @@ Language code (ISO 639-1)#%lang-code#en#fr
 Language name (English)#%lang-eng#English#French
 Language name (French)#%lang-fra#anglais#français
 General (i18n)#%all#All#Tous
+#%close#Close#Fermer
 #%home#Home#Accueil
 #%of#of#de
 #%msg-configread#Configuration file read#Fichier de configuration lu
 #%msg-configerr#Configuration file error#Erreur fichier de configuration
 #%main-page#Main page#Page principale
-#%header-help#GeoCanViz help page#Page d'aide de GéoCanViz
+#%header-help#GeoCanViz Help#Aide pour GéoCanViz
 #%header-tphelp#Open help page#Ouvrir la page d'aide
-#%header-tptools#Open tools panel#Ouvrir le panneau d'outils
+#%header-tptools#Open/Close tools panel#Ouvrir/Fermer le panneau d'outils
 #%header-tpinset#Show or hide insets#Afficher ou cacher les insertions
 #%header-tpfullscreen#Go full screen#Allez en mode plein écran
+#%help-instr#Keyboard user: setup your keyboard to control the mouse to access the following PDF document.#Utilisateur du clavier: configurez votre clavier pour contrôler la souris et accéder au document PDF ci-dessous.
 #%toolbarholder-caption#Toolbars#Barre d'outils
 #%toolbardraw-name#Draw#Dessiner
 #%toolbardraw-inputbox-name#Add text#Ajouter du texte
