@@ -22,7 +22,7 @@
 		initialize = function($mapElem, mapid) {
 
             // Setup the help dialog box
-            $viz("#divHelp").dialog({
+            $viz('#divHelp').dialog({
                 autoOpen: false,
                 closeText: i18n.getDict('%close'),
                 show: {effect: 'fade', speed: 1000},
@@ -113,24 +113,21 @@
 				
 				_self.toolsClick = function() {
 					var tool = $mapholder.find('.gcviz-tbholder');
-                    tool.toggle("slow");
-					// if (tool.hasClass('gcviz-hidden')) {
-						// tool.removeClass('gcviz-hidden');
-						// // set focus on the first element
-						// $section.find('.dijitTitlePaneTitleFocus')[0].focus();
-					// } else {
-						// tool.addClass('gcviz-hidden');
-					// }
+                    tool.toggle('slow');
+					if (tool.hasClass('gcviz-hidden')) {
+						// set focus on the first element
+						$section.find('.dijitTitlePaneTitleFocus')[0].focus();
+					}
 				};
 				
 				_self.helpClick = function() {
+                    var html = '';
 					// Open the Help dialog box
-                    $viz("#divHelp").dialog('open');
-                    
+                    $viz('#divHelp').dialog('open');
                     //Open PDF in media player
-                    var html = '<a class="media" href="../../HelpManual.pdf" tabindex="0" title="My PDF"></a>';
-                    $viz("#divHelpContent").html(html);
-                    $viz('.media').media({width:900,height:300});
+                    html = '<a class="media" href="../../HelpManual.pdf" tabindex="0" title="My PDF"></a>';
+                    $viz('#divHelpContent').html(html);
+                    $viz('.media').media( { width:900,height:300 } );
                 };
 				
 				_self.cancelFullScreen = function() {
@@ -181,7 +178,7 @@
 					$section.on('keydown.fs', function(event) {
 						_self.manageTabbingOrder(event);
                     });
-				};
+                };
 				
 				_self.manageTabbingOrder = function(evt) {
 					var key = evt.which,

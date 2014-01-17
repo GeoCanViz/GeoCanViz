@@ -6,98 +6,96 @@
 
 .gcviz-legendHolderDiv
 {
-   display: inline-block;
-   padding-right: 5px;
-   vertical-align: bottom;
-   height: 20px;
+	display: inline-block;
+	padding-right: 5px;
+	vertical-align: bottom;
+	height: 20px;
 }
 
 .gcviz-legendUnqiueFieldHolderDiv
 {
-   display: inline-block;
-   padding-right: 5px;
-   vertical-align: middle;
-   height: 100%;
-   font-size: 10px;
-   font-weight: bold;
-   text-align: center;
-   width: 100%;
+	display: inline-block;
+	padding-right: 5px;
+	vertical-align: middle;
+	height: 100%;
+	font-size: 10px;
+	font-weight: bold;
+	text-align: center;
+	width: 100%;
 }
 
-.gcviz-LegendUniqueValueSpan
+.gcviz-legendUniqueValueSpan
 {
-   display: inline-block;
-   font-size: 10px;
-   font-weight: normal;
-   padding-left: 5px;
-
+	display: inline-block;
+	font-size: 10px;
+	font-weight: normal;
+	padding-left: 5px;
 };
 
 .gcviz-legendCheck
 {
-  display: block;
-  vertical-align: middle;
+	display: block;
+	vertical-align: middle;
 }
 
 .gcviz-legendSlider
 {
-  display: block;
-  vertical-align: bottom;
-  width: 50px;
-  margin-top:5px;
+	display: block;
+	vertical-align: bottom;
+	width: 50px;
+	margin-top: 5px;
 }
 
 .gcviz-legendSpan
 {
- display: block;
- vertical-align: middle;
+	display: block;
+	vertical-align: middle;
 }
 
 .gcviz-legendUl
 {
-    display:inline-block;
-    margin:0;
-    padding:0;
+	display: inline-block;
+	margin: 0;
+	padding: 0;
 	list-style-type: none;
 }
 
-.gcviz-legendLi:before
+.gcviz-legendLi: before
 {
-  content: "\25ba\00a0";
-}
-.gcviz-legendLiLayer
-{
-  padding-left: 30px;
-}
-.gcviz-legendImg
-{
-  display: block;
-  margin: 0px;
-  padding : 0px;
-  width: 45px;
-  height: 40px;
+	content: "\25ba\00a0";
 }
 
+.gcviz-legendLiLayer
+{
+	padding-left: 30px;
+}
+
+.gcviz-legendImg
+{
+	display: block;
+	margin: 0px;
+	padding : 0px;
+	width: 45px;
+	height: 40px;
+}
 
 .gcviz-legendlayersUl
 {
-    list-style-type: none;
-    display:block;
-  	margin:0;
-  	padding-left:0;
+	list-style-type: none;
+	display: block;
+	margin: 0;
+	padding-left: 0;
 }
-
 
 .gcviz-legendSymbolDiv
 {
-  display: inline-block;
-  vertical-align: middle;
+	display: inline-block;
+	vertical-align: middle;
 }
-
 
 .gcviz-legendCheck
 {
- display:inline-block;
- margin: 0;
- padding: 0;
+	display: inline-block;
+	margin: 0;
+	padding: 0;
 }

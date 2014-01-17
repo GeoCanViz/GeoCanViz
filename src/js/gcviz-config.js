@@ -172,7 +172,7 @@
 				name: 'magnificpopup',
 				location: locationPath + 'gcviz/dependencies',
 				main: 'magnificpopup.min'
-			}, {
+            }, {
 				name: 'kineticpanning',
 				location: locationPath + 'gcviz/dependencies',
 				main: 'kineticpanning.min'

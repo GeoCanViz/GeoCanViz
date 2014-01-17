@@ -344,13 +344,13 @@
 				$lb = $viz(id),
 				$back = $elem.find('.gcviz-play-background'),
 				func = { beforeOpen: function() { 
-										$lb.find('video').height((window.innerHeight * 0.8));
-										$back.addClass('gcviz-hidden');
-                                    },
-						close: function() { 
-										$lb.find('video')[0].pause();
-										$back.removeClass('gcviz-hidden');
-									}
+							$lb.find('video').height((window.innerHeight * 0.8));
+							$back.addClass('gcviz-hidden');
+                            },
+                        close: function() { 
+							$lb.find('video')[0].pause();
+							$back.removeClass('gcviz-hidden');
+							}
 						};
 
 			// set src path

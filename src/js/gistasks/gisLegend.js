@@ -27,114 +27,112 @@
             createSVGSurface,
 			setLayerOpacity;
 			
-		esri.config.defaults.io.proxyUrl = "../../proxy.ashx";
+		esri.config.defaults.io.proxyUrl = '../../proxy.ashx';
 		esri.config.defaults.io.alwaysUseProxy = false;
 
 		setLayerVisibility = function(mymap, selectedLayer, visState) {
-
 			var layer = mymap.getLayer(selectedLayer);
 			layer.setVisibility(visState);
 		};
 		
 		getFeatureLayerSymbol = function(layer) {
-			var mySurface,descriptors,shape, aFields, ren;
-			ren = layer.renderer;
+			var mySurface,
+                descriptors,
+                shape,
+                aFields,
+                ren = layer.renderer,
+                renDefSym = ren.defaultSymbol,
+                renInfo = ren.infos,
+                renSym = ren.symbol,
+                normField = ren.normalizationField,
+                field1 = ren.attributeField,
+                field2 = ren.attributeField2,
+                field3 = ren.attributeField3,
+                anode,
+                layerid = layer.id,
+                nodeImage,
+                nodeLabel;
 
-            if(ren.infos)
-            { //unique renderer, class break renderer
-                    var legs = ren.infos;
-                if (ren.defaultSymbol && legs.length > 0 && legs[0].label !== '[all other values]') {
+            if (renInfo) {
+                //unique renderer, class break renderer
+                var legs = renInfo;
+                if (renDefSym && legs.length > 0 && legs[0].label !== '[all other values]') {
                      // add to front of array
                     legs.unshift({
-                      label: '[all other values]',
-                      symbol: ren.defaultSymbol
+                        label: '[all other values]',
+                        symbol: renDefSym
                     });
                 }
               
-              //fields symbology is based on
-              aFields = ren.attributeField + (ren.normalizationField ? '/' + ren.normalizationField : '');
-              aFields += (ren.attributeField2 ? '/' + ren.attributeField2 : '') + (ren.attributeField3 ? '/' + ren.attributeField3 : '');
-              //var anode = domConstruct.create('div', {id:"featureLayerSymbol" + layer.id, class:'legendUnqiueFieldHolderDiv'});
-              //anode.innerHTML = aFields;
-              
-              var anode = '<div id="featureLayerSymbol'+layer.id+'" class="legendUnqiueFieldHolderDiv">';
-              anode += aFields;
-              anode += '</div>';
-             
+                //fields symbology is based on
+                aFields = field1 + (normField ? '/' + normField : '');
+                aFields += (field2 ? '/' + field2 : '') + (field3 ? '/' + field3 : '');
+                anode = '<div id="featureLayerSymbol' + layerid + '" class="legendUnqiueFieldHolderDiv">';
+                anode += aFields + '</div>';
 
-              //need a spot in div for each renderer
-              domConstruct.place(anode, dom.byId("featureLayerSymbol" + layer.id));
-              //domConstruct.place(dojo.create("br"), dom.byId("featureLayerSymbol" + layer.id) );
-              domConstruct.place(dom.create("br"), dom.byId("featureLayerSymbol" + layer.id) );
-              var nodeList = [];
+                //need a spot in div for each renderer
+                domConstruct.place(anode, dom.byId('featureLayerSymbol' + layerid));
+                domConstruct.place(dom.create("br"), dom.byId('featureLayerSymbol' + layerid));
+                var nodeList = [];
              
-               $viz.each(legs, function( key, value ) {
-                  var nodeImage = domConstruct.create('div', {'class': 'legendSymbolDiv'});
-                  var nodeLabel = domConstruct.create('span', {'class': 'LegendUniqueValueSpan'});
-                  var descriptors = jsonUtils.getShapeDescriptors(value.symbol);
-                  
-                  mySurface = createSVGSurface(value, nodeImage);
-                  shape = mySurface.createShape(descriptors.defaultShape);
-              
-                  createSymbols(descriptors, shape, value);
-                  nodeLabel.innerHTML = value.label;
-                 
-                  domConstruct.place(nodeImage, dom.byId("featureLayerSymbol" + layer.id));
-                  domConstruct.place(nodeLabel, dom.byId("featureLayerSymbol" + layer.id));
-                  //domConstruct.place(dojo.create("br"), dom.byId("featureLayerSymbol" + layer.id) );
-                  domConstruct.place(dom.create("br"), dom.byId("featureLayerSymbol" + layer.id) );
-               });
-             
-            }
-            else
-            {
+                $viz.each(legs, function( key, value ) {
+                    nodeImage = domConstruct.create('div', {'class': 'legendSymbolDiv'});
+                    nodeLabel = domConstruct.create('span', {'class': 'legendUniqueValueSpan'});
+                    descriptors = jsonUtils.getShapeDescriptors(value.symbol);
+                    mySurface = createSVGSurface(value, nodeImage);
+                    shape = mySurface.createShape(descriptors.defaultShape);
+                    createSymbols(descriptors, shape, value);
+                    nodeLabel.innerHTML = value.label;
+                    domConstruct.place(nodeImage, dom.byId('featureLayerSymbol' + layerid));
+                    domConstruct.place(nodeLabel, dom.byId('featureLayerSymbol' + layerid));
+                    domConstruct.place(dom.create("br"), dom.byId('featureLayerSymbol' + layerid));
+                });
+            } else {
                 //picture marker, simple marker
-                if (ren.symbol){
-
-                 descriptors = jsonUtils.getShapeDescriptors(ren.symbol);
-                 mySurface = createSVGSurface(ren, "featureLayerSymbol" + layer.id );
-                 shape = mySurface.createShape(descriptors.defaultShape);
-                 createSymbols(descriptors, shape, ren);
-
+                if (renSym) {
+                    descriptors = jsonUtils.getShapeDescriptors(renSym);
+                    mySurface = createSVGSurface(ren, 'featureLayerSymbol' + layerid);
+                    shape = mySurface.createShape(descriptors.defaultShape);
+                    createSymbols(descriptors, shape, ren);
                 }
             }
 		};
 
-        createSVGSurface = function (renderer, domid){
-           
+        createSVGSurface = function(renderer, domid) {
             var mySurface;
-           
-            if(renderer.symbol.width && renderer.symbol.height) {
-                mySurface = gfx.createSurface(dom.byId(domid),  renderer.symbol.width, renderer.symbol.height);
+            var symWidth = renderer.symbol.width;
+            var symHeight = renderer.symbol.height;
+            if (symWidth && symHeight) {
+                mySurface = gfx.createSurface(dom.byId(domid), symWidth, symHeight);
             } else {
-                mySurface = gfx.createSurface(dom.byId(domid),  30, 30);   
+                mySurface = gfx.createSurface(dom.byId(domid), 30, 30);   
             }
-           return mySurface; 
-    
-       };
+            return mySurface; 
+        };
 
-        createSymbols = function(descript, shp, renderer){
-                  
-          if (descript.fill) {
-            shp.setFill(descript.fill);
-          }
-          if (descript.stroke) {
-            shp.setStroke(descript.stroke);
-          }
-          if(renderer.symbol.width && renderer.symbol.height){ //wont work for simple fill, no width or height
-            shp.applyTransform({
-               dx: renderer.symbol.width /2,
-               dy: renderer.symbol.height /2
+        createSymbols = function(descript, shp, renderer) {
+            var descFill = descript.fill;
+            var descStroke = descript.stroke;
+            var symWidth = renderer.symbol.width;
+            var symHeight = renderer.symbol.height;
+            
+            if (descFill) {
+                shp.setFill(descFill);
+            }
+            if (descStroke) {
+                shp.setStroke(descStroke);
+            }
+            if (symWidth && symHeight) { //wont work for simple fill, no width or height
+                shp.applyTransform({
+                    dx: symWidth / 2,
+                    dy: symHeight / 2
             });
-          }
-          else
-          {
-            shp.applyTransform({
-              dx: 15,
-              dy: 15
-            });
-          }
-                  
+            } else {
+                shp.applyTransform({
+                    dx: 15,
+                    dy: 15
+                });
+            }
         };
 
         getLegend = function(serviceDetails, version) { 
@@ -142,10 +140,9 @@
                 legendUrl;
 
             if (version >= 10.01) {
-                legendUrl = serviceUrl +'/legend';
+                legendUrl = serviceUrl + '/legend';
             } else {
-                //legendUrl= 'http://www.arcgis.com/sharing/tools/legend' + '?soapUrl' + escape(serviceUrl);
-                legendUrl= 'http://www.arcgis.com/sharing/tools/legend' + '?soapUrl' + encodeURI(serviceUrl);
+                legendUrl = 'http://www.arcgis.com/sharing/tools/legend' + '?soapUrl' + encodeURI(serviceUrl);
             }
 
             console.log(legendUrl);

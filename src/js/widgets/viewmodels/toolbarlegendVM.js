@@ -51,10 +51,10 @@
 				};
 
 				_self.changeServiceVisibility = function(selectedLayer, event) {
-
-                    $viz.each($viz(event.target).parents('li.legendLi').children('ul').children('li').children('div').children('div').find(':checkbox'), function(key, obj) {
+                    var evtTarget = $viz(event.target);
+                    $viz.each(evtTarget.parents('li.legendLi').children('ul').children('li').children('div').children('div').find(':checkbox'), function(key, obj) {
 						$viz(obj).prop('checked', event.target.checked);
-							gisLegend.setLayerVisibility(_self.mymap, obj.value, $viz(event.target).prop('checked'));
+                        gisLegend.setLayerVisibility(_self.mymap, obj.value, evtTarget.prop('checked'));
 					});
 					return true;
 				};
@@ -64,14 +64,12 @@
 					layer.setOpacity(opacityValue);
 				};
 
-				_self.toggleView =function(selectedLayer, event)
-				{
-                    if ($viz(event.target).parent().attr("id") === "serviceList") {
-                        $viz(event.target).parent().find('ul').toggle();
+				_self.toggleView = function(selectedLayer, event) {
+                    var evtTarget = $viz(event.target);
+                    if (evtTarget.parent().attr('id') === 'serviceList') {
+                        evtTarget.parent().find('ul').toggle();
                     }
-
                     return true;
-
 				};
 
 				_self.init();

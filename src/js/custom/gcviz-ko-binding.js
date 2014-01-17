@@ -12,7 +12,8 @@
 	define(['jquery-private',
 			'knockout',
 			'dijit/form/HorizontalSlider',
-			'jqueryui'	], function($viz, ko, slider) {
+			'jqueryui'
+			], function($viz, ko, slider) {
     
     ko.bindingHandlers.tooltip = {
 		init: function(element, valueAccessor) {
@@ -104,11 +105,10 @@
                 maximum: options.extent[1],
                 intermediateChanges: true,
                 value: options.value,
-                //class: "gcviz-legendSlider",
                 showButtons: false
 			}).placeAt(element);
 			
-			dojo.addClass(widget.domNode, "gcviz-legendSlider");
+			dojo.addClass(widget.domNode, 'gcviz-legendSlider');
 
 			widget.on('Change', function(e) {
 				if (viewModel.layers) {

@@ -127,7 +127,10 @@
             //LM
             map.on('layer-add-result', function(e) { 
                 //no renderer for tiles map services
-                if (e.layer.renderer) {gisLegend.getFeatureLayerSymbol(e.layer);}
+                var layer = e.layer;
+                if (layer.renderer) {
+                    gisLegend.getFeatureLayerSymbol(layer);
+                }
             });
 
 			return map;
@@ -274,7 +277,7 @@
 				map.addLayer(new esri.layers.ArcGISDynamicMapServiceLayer(url, { 'id': layerid }));
 			} else if (type === 'feature') {
 				map.addLayer(new esri.layers.FeatureLayer(url, {
-					mode: esri.layers.FeatureLayer.MODE_ONDEMAND,
+                    mode: esri.layers.FeatureLayer.MODE_ONDEMAND,
                     outFields: ["*"],
                     id: layerid
 				}));
@@ -337,7 +340,7 @@
 			});
 
 			ctxMenuMap.addChild(new menuItem({ 
-				label: "Add Point",
+				label: 'Add Point',
 				onClick: function() {
                     alert('click');
 				}
