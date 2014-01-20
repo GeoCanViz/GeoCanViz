@@ -18,7 +18,8 @@
 		var initialize,
 			vm, 
 			getServiceList, 
-			getLayerList;
+			getLayerList,
+			toggleView;
 		
 		initialize = function($mapElem, mapid, config) {
 			
@@ -39,7 +40,7 @@
 					});
 
 					_self.theArray = ko.observableArray(config.service);
-				
+
 					return { controlsDescendantBindings: true };
 				};
 
@@ -50,9 +51,10 @@
 				};
 
 				_self.changeServiceVisibility = function(selectedLayer, event) {
-					$viz.each($viz(event.target).siblings().find(':checkbox'), function(key, obj) {
+                    var evtTarget = $viz(event.target);
+                    $viz.each(evtTarget.parents('li.legendLi').children('ul').children('li').children('div').children('div').find(':checkbox'), function(key, obj) {
 						$viz(obj).prop('checked', event.target.checked);
-							gisLegend.setLayerVisibility(_self.mymap, obj.value, $viz(event.target).prop('checked'));
+                        gisLegend.setLayerVisibility(_self.mymap, obj.value, evtTarget.prop('checked'));
 					});
 					return true;
 				};
@@ -61,7 +63,15 @@
 					var layer = map.getLayer(layerid);
 					layer.setOpacity(opacityValue);
 				};
-      	
+
+				_self.toggleView = function(selectedLayer, event) {
+                    var evtTarget = $viz(event.target);
+                    if (evtTarget.parent().attr('id') === 'serviceList') {
+                        evtTarget.parent().find('ul').toggle();
+                    }
+                    return true;
+				};
+
 				_self.init();
 			};
 

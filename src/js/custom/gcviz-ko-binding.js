@@ -6,13 +6,14 @@
  * hold custom Knockout binding
  */
 /* global vmArray: false */
+/* global dojo: false */
 (function() {
 	'use strict';
 	define(['jquery-private',
 			'knockout',
 			'dijit/form/HorizontalSlider',
 			'jqueryui'
-	], function($viz, ko, slider) {
+			], function($viz, ko, slider) {
     
     ko.bindingHandlers.tooltip = {
 		init: function(element, valueAccessor) {
@@ -80,31 +81,34 @@
 			// get function name to call from the binding
 			var func = valueAccessor().func,
 				keyType = valueAccessor().keyType;
-			
+
 			ko.utils.registerEventHandler(element, keyType, function(event) {
 				if (viewModel[func](event.which, event.shiftKey, event.type)) {
 					event.preventDefault();
 					return false;
-				};
-				
+				}
+
 				return true;
 			});
 		}         
 	};
 
 	ko.bindingHandlers.HorizontalSliderDijit = {
-    	init: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
+        init: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
 			var options = valueAccessor(),
 				widget;
 
 			$viz(element).attr('Visible', options.visible);
 			widget = new slider({
 				name: "slider",
-				minimum: 0,
-				maximum: options.max,
-				intermediateChanges: true,
-				value:options.max
+                minimum: options.extent[0],
+                maximum: options.extent[1],
+                intermediateChanges: true,
+                value: options.value,
+                showButtons: false
 			}).placeAt(element);
+			
+			dojo.addClass(widget.domNode, 'gcviz-legendSlider');
 
 			widget.on('Change', function(e) {
 				if (viewModel.layers) {
