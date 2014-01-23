@@ -35,68 +35,66 @@
 			layer.setVisibility(visState);
 		};
 		
-		getFeatureLayerSymbol = function(layer) {
-			var mySurface,
-                descriptors,
-                shape,
-                aFields,
-                ren = layer.renderer,
-                renDefSym = ren.defaultSymbol,
-                renInfo = ren.infos,
-                renSym = ren.symbol,
-                normField = ren.normalizationField,
-                field1 = ren.attributeField,
-                field2 = ren.attributeField2,
-                field3 = ren.attributeField3,
-                anode,
-                layerid = layer.id,
-                nodeImage,
-                nodeLabel;
+		getFeatureLayerSymbol = function(layer,mapID) {
+            var mySurface,descriptors,shape, aFields, ren;
+            var ren = layer.renderer;
 
-            if (renInfo) {
-                //unique renderer, class break renderer
-                var legs = renInfo;
-                if (renDefSym && legs.length > 0 && legs[0].label !== '[all other values]') {
-                     // add to front of array
-                    legs.unshift({
-                        label: '[all other values]',
-                        symbol: renDefSym
-                    });
-                }
-              
-                //fields symbology is based on
-                aFields = field1 + (normField ? '/' + normField : '');
-                aFields += (field2 ? '/' + field2 : '') + (field3 ? '/' + field3 : '');
-                anode = '<div id="featureLayerSymbol' + layerid + '" class="legendUnqiueFieldHolderDiv">';
-                anode += aFields + '</div>';
-
-                //need a spot in div for each renderer
-                domConstruct.place(anode, dom.byId('featureLayerSymbol' + layerid));
-                domConstruct.place(dom.create("br"), dom.byId('featureLayerSymbol' + layerid));
-                var nodeList = [];
-             
-                $viz.each(legs, function( key, value ) {
-                    nodeImage = domConstruct.create('div', {'class': 'legendSymbolDiv'});
-                    nodeLabel = domConstruct.create('span', {'class': 'legendUniqueValueSpan'});
-                    descriptors = jsonUtils.getShapeDescriptors(value.symbol);
-                    mySurface = createSVGSurface(value, nodeImage);
-                    shape = mySurface.createShape(descriptors.defaultShape);
-                    createSymbols(descriptors, shape, value);
-                    nodeLabel.innerHTML = value.label;
-                    domConstruct.place(nodeImage, dom.byId('featureLayerSymbol' + layerid));
-                    domConstruct.place(nodeLabel, dom.byId('featureLayerSymbol' + layerid));
-                    domConstruct.place(dom.create("br"), dom.byId('featureLayerSymbol' + layerid));
+               if(ren.infos)
+                { //unique renderer, class break renderer
+                       var legs = ren.infos;
+                if (ren.defaultSymbol && legs.length > 0 && legs[0].label != '[all other values]') {
+                 // add to front of array
+                legs.unshift({
+                  label: '[all other values]',
+                  symbol: ren.defaultSymbol
                 });
-            } else {
-                //picture marker, simple marker
-                if (renSym) {
-                    descriptors = jsonUtils.getShapeDescriptors(renSym);
-                    mySurface = createSVGSurface(ren, 'featureLayerSymbol' + layerid);
-                    shape = mySurface.createShape(descriptors.defaultShape);
-                    createSymbols(descriptors, shape, ren);
+               }
+              
+              //fields symbology is based on
+              aFields = ren.attributeField + (ren.normalizationField ? '/' + ren.normalizationField : '');
+              aFields += (ren.attributeField2 ? '/' + ren.attributeField2 : '') + (ren.attributeField3 ? '/' + ren.attributeField3 : '');
+              var anode = domConstruct.create('div', {id:"featureLayerSymbol" + layer.id, 'class':'gcviz-legendUnqiueFieldHolderDiv'});
+              anode.innerHTML = aFields;
+                
+
+              //need a spot in div for each renderer
+              domConstruct.place(anode, dom.byId("featureLayerSymbol" + layer.id));
+              domConstruct.place(dojo.create("br"), dom.byId("featureLayerSymbol" + layer.id) );
+              var nodeList = [];
+             
+               $.each(legs, function( key, value ) {  
+                  var nodeImage = domConstruct.create('div', {'class': 'gcviz-legendSymbolUniqueValueDiv'});
+                  var nodeLabel = domConstruct.create('span', {'class': 'gcviz-LegendUniqueValueSpan'});
+                  var descriptors = jsonUtils.getShapeDescriptors(value.symbol);
+                  
+                  mySurface = createSVGSurface(value, nodeImage);
+                  shape = mySurface.createShape(descriptors.defaultShape);
+              
+                  createSymbols(descriptors, shape, value);
+                  nodeLabel.innerHTML = value.label;
+                 
+                  domConstruct.place(nodeImage, dom.byId("featureLayerSymbol" + layer.id));
+                  domConstruct.place(nodeLabel, dom.byId("featureLayerSymbol" + layer.id));
+                  domConstruct.place(dojo.create("br"), dom.byId("featureLayerSymbol" + layer.id) );
+               });
+             
                 }
-            }
-		};
+                else
+                {
+                     //picture marker, simple marker
+                     if (ren.symbol){
+
+                 descriptors = jsonUtils.getShapeDescriptors(ren.symbol);
+                 mySurface = createSVGSurface(ren, "featureLayerSymbol" + layer.id );
+                 shape = mySurface.createShape(descriptors.defaultShape);
+                 createSymbols(descriptors, shape, ren);
+                        
+                     }
+
+                }       
+                    
+        };
+
 
         createSVGSurface = function(renderer, domid) {
             var mySurface;
@@ -136,7 +134,7 @@
         };
 
         getLegend = function(serviceDetails, version) { 
-            var serviceUrl = serviceDetails.service,
+            var serviceUrl = serviceDetails.items,
                 legendUrl;
 
             if (version >= 10.01) {
