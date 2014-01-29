@@ -136,9 +136,9 @@ var vmArray = {},
 			}
 			
 			// add custom widgets
-			while (customLen--) {
-				
-			}
+			//while (customLen--) {
+			//	
+			//}
 			
 			mapsNum += 1;
 			

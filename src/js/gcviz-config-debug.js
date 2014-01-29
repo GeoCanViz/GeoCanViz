@@ -171,10 +171,14 @@
 				name: 'magnificpopup',
 				location: locationPath + 'src/js/dependencies',
 				main: 'magnificpopup.min'
-			}, {
-				name: 'kineticpanning',
-				location: locationPath + 'src/js/dependencies',
-				main: 'kineticpanning.min'
+            }, {
+                name: 'kineticpanning',
+                location: locationPath + 'src/js/dependencies',
+                main: 'kineticpanning.min'
+            }, {
+                name: 'media',
+                location: locationPath + 'src/js/dependencies',
+                main: 'jquery.media.min'
 			}, {
 				name: 'gcviz',
 				location: locationPath + 'src/js',
@@ -273,13 +277,13 @@
     
 	// start the process with a private jquery. If we dont, it creates a conflict because we laod jQuery and it is different then the one loaded by WET
 	define('jquery-private', ['jquery'], function ($viz) {
-	    var noConflict = $viz.noConflict(true);
-	    
-	    // if there is no jQuery loaded, set the window jquery to be the one from this project. Otherwise keep the outside one because it is use
-	    // by script outside this project.
-	    window.jQuery = !(window.jQuery) ? window.$ = $viz : window.jQuery;
-	    
-	    return noConflict;
+        var noConflict = $viz.noConflict(true);
+
+        // if there is no jQuery loaded, set the window jquery to be the one from this project. Otherwise keep the outside one because it is use
+        // by script outside this project.
+        window.jQuery = !(window.jQuery) ? window.$ = $viz : window.jQuery;
+
+        return noConflict;
 	});
 	
 	require(['jquery-private', 'gcviz'], function($viz, gcviz) {
