@@ -122,5 +122,39 @@
 		}
 	};
 
+	ko.bindingHandlers.LegendServiceUL = {
+		init: function(element, valueAccessor) {
+			var options = valueAccessor();
+			$viz(element).parent().find('ul').toggle(options.expanded);
+		/**	if ($viz(element).parent().find('ul').is(':hidden'))
+			{
+				$viz(element).addClass('gcviz-legendLiActive');
+				$viz(element).removeClass('gcviz-legendLi');
+			}**/
+			
+		}
+	};
+
+	ko.bindingHandlers.LegendLayersUL = {
+		init: function(element, valueAccessor) {
+			var options = valueAccessor();
+			
+			if(options.numLayers > 1) //don't want arrow when only 1 layer, service will collapase it
+			{
+				$viz(element).children('div.gcviz-legendSymbolDiv').toggle(options.expanded);
+			/**	$viz(element).addClass('gcviz-legendLiLayerMultiple'); //different style when multiple layers show
+				if ($viz(element).children('div.gcviz-legendSymbolDiv').is(':hidden'))
+				{
+						$viz(element).addClass('gcviz-legendLiLayerMultipleActive');
+						$viz(element).removeClass('gcviz-legendLiLayerMultiple');
+						
+				}**/
+
+			}
+				
+			
+		}
+	};
+
 	});
 }).call(this);

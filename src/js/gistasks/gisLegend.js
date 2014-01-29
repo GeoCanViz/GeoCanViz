@@ -8,24 +8,24 @@
 /* global esri: false */
 (function () {
 	'use strict';
-	define(['jquery-private',
-            'esri/request',
-			'esri/renderers/Renderer',
-			'dojo/dom-construct',
-			'esri/symbols/jsonUtils',
-			'dojox/gfx', 
-			'dojo/dom',
-            'dojo/dom-style'
-			], function($viz, Request, Renderer, domConstruct, jsonUtils, gfx, dom, domStyle) {
-		var setLayerVisibility,
-			getLegend,
-			getLegendResultsSucceeded,
-			getLegendResultsFailed,
-			getFeatureLayerSymbol,
-			changeServiceVisibility,
-            createSymbols,
-            createSVGSurface,
-			setLayerOpacity;
+define(['jquery-private',
+      'esri/request',
+      'esri/renderers/Renderer',
+      'dojo/dom-construct',
+      'esri/symbols/jsonUtils',
+      'dojox/gfx', 
+      'dojo/dom',
+      'dojo/dom-style'
+      ], function($viz, Request, Renderer, domConstruct, jsonUtils, gfx, dom, domStyle) {
+    var setLayerVisibility,
+      getLegend,
+      getLegendResultsSucceeded,
+      getLegendResultsFailed,
+      getFeatureLayerSymbol,
+      changeServiceVisibility,
+      createSymbols,
+      createSVGSurface,
+      setLayerOpacity;
 			
 		esri.config.defaults.io.proxyUrl = '../../proxy.ashx';
 		esri.config.defaults.io.alwaysUseProxy = false;
@@ -35,68 +35,71 @@
 			layer.setVisibility(visState);
 		};
 		
-		getFeatureLayerSymbol = function(layer,mapID) {
-            var mySurface,descriptors,shape, aFields, ren;
-            var ren = layer.renderer;
+	getFeatureLayerSymbol = function(layer) {
+      var mySurface,
+          descriptors,
+          shape,
+          aFields,
+          ren = layer.renderer,
+          renDefSym = ren.defaultSymbol,
+          renInfo = ren.infos,
+          renSym = ren.symbol,
+          normField = ren.normalizationField,
+          field1 = ren.attributeField,
+          field2 = ren.attributeField2,
+          field3 = ren.attributeField3,
+          anode,
+          layerid = layer.id,
+          nodeImage,
+          nodeLabel;
 
-               if(ren.infos)
-                { //unique renderer, class break renderer
-                       var legs = ren.infos;
-                if (ren.defaultSymbol && legs.length > 0 && legs[0].label != '[all other values]') {
-                 // add to front of array
-                legs.unshift({
-                  label: '[all other values]',
-                  symbol: ren.defaultSymbol
-                });
-               }
-              
-              //fields symbology is based on
-              aFields = ren.attributeField + (ren.normalizationField ? '/' + ren.normalizationField : '');
-              aFields += (ren.attributeField2 ? '/' + ren.attributeField2 : '') + (ren.attributeField3 ? '/' + ren.attributeField3 : '');
-              var anode = domConstruct.create('div', {id:"featureLayerSymbol" + layer.id, 'class':'gcviz-legendUnqiueFieldHolderDiv'});
-              anode.innerHTML = aFields;
-                
-
-              //need a spot in div for each renderer
-              domConstruct.place(anode, dom.byId("featureLayerSymbol" + layer.id));
-              domConstruct.place(dojo.create("br"), dom.byId("featureLayerSymbol" + layer.id) );
-              var nodeList = [];
-             
-               $.each(legs, function( key, value ) {  
-                  var nodeImage = domConstruct.create('div', {'class': 'gcviz-legendSymbolUniqueValueDiv'});
-                  var nodeLabel = domConstruct.create('span', {'class': 'gcviz-LegendUniqueValueSpan'});
-                  var descriptors = jsonUtils.getShapeDescriptors(value.symbol);
-                  
-                  mySurface = createSVGSurface(value, nodeImage);
-                  shape = mySurface.createShape(descriptors.defaultShape);
-              
-                  createSymbols(descriptors, shape, value);
-                  nodeLabel.innerHTML = value.label;
-                 
-                  domConstruct.place(nodeImage, dom.byId("featureLayerSymbol" + layer.id));
-                  domConstruct.place(nodeLabel, dom.byId("featureLayerSymbol" + layer.id));
-                  domConstruct.place(dojo.create("br"), dom.byId("featureLayerSymbol" + layer.id) );
-               });
-             
+            if (renInfo) {
+                //unique renderer, class break renderer
+                var legs = renInfo;
+                if (renDefSym && legs.length > 0 && legs[0].label !== '[all other values]') {
+                     // add to front of array
+                    legs.unshift({
+                        label: '[all other values]',
+                        symbol: renDefSym
+                    });
                 }
-                else
-                {
-                     //picture marker, simple marker
-                     if (ren.symbol){
+              
+                //fields symbology is based on
+                aFields = field1 + (normField ? '/' + normField : '');
+                aFields += (field2 ? '/' + field2 : '') + (field3 ? '/' + field3 : '');
+                anode = '<div id="featureLayerSymbol' + layerid + '" class="gcviz-legendUnqiueFieldHolderDiv">';
+                anode += aFields + '</div>';
 
-                 descriptors = jsonUtils.getShapeDescriptors(ren.symbol);
-                 mySurface = createSVGSurface(ren, "featureLayerSymbol" + layer.id );
-                 shape = mySurface.createShape(descriptors.defaultShape);
-                 createSymbols(descriptors, shape, ren);
-                        
-                     }
+                //need a spot in div for each renderer
+                domConstruct.place(anode, dom.byId('featureLayerSymbol' + layerid));
+                domConstruct.place(domConstruct.create('br'), dom.byId('featureLayerSymbol' + layerid));
+                
+                $viz.each(legs, function( key, value ) {
+                    nodeImage = domConstruct.create('div', {'class': 'gcviz-legendSymbolUniqueValueDiv'});
+                    nodeLabel = domConstruct.create('span', {'class': 'gcviz-legendUniqueValueSpan'});
+                    descriptors = jsonUtils.getShapeDescriptors(value.symbol);
+                    mySurface = createSVGSurface(value, nodeImage);
+                    shape = mySurface.createShape(descriptors.defaultShape);
+                    createSymbols(descriptors, shape, value);
+                    nodeLabel.innerHTML = value.label;
+                    domConstruct.place(nodeImage, dom.byId('featureLayerSymbol' + layerid));
+                    domConstruct.place(nodeLabel, dom.byId('featureLayerSymbol' + layerid));
+                    domConstruct.place(domConstruct.create('br'), dom.byId('featureLayerSymbol' + layerid));
+                });
+            } else {
+                //picture marker, simple marker
+                if (renSym) {
+                    descriptors = jsonUtils.getShapeDescriptors(renSym);
+                    mySurface = createSVGSurface(ren, 'featureLayerSymbol' + layerid);
+                    shape = mySurface.createShape(descriptors.defaultShape);
+                    createSymbols(descriptors, shape, ren);
+                }
+            }
+    };
 
-                }       
-                    
-        };
 
 
-        createSVGSurface = function(renderer, domid) {
+      createSVGSurface = function(renderer, domid) {
             var mySurface;
             var symWidth = renderer.symbol.width;
             var symHeight = renderer.symbol.height;

@@ -19,7 +19,8 @@
 			vm, 
 			getServiceList, 
 			getLayerList,
-			toggleView;
+			toggleView,
+			selectedLayerId;
 		
 		initialize = function($mapElem, mapid, config) {
 			
@@ -46,15 +47,16 @@
 
 			
 				_self.changeLayerVisibility = function(selectedLayer, event) {
-					gisLegend.setLayerVisibility(_self.mymap, selectedLayer.id, $viz(event.target).prop('checked'));
+					selectedLayerId = selectedLayer.id;
+					gisLegend.setLayerVisibility(_self.mymap, selectedLayerId, $viz(event.target).prop('checked'));
 					return true;
 				};
 
 				_self.changeServiceVisibility = function(selectedLayer, event) {
-				    
-					$viz.each($viz(event.target).parents('li.gcviz-legendLi').children('ul').children('li').children('div').children('div').find(':checkbox'), function(key, obj) {
+                    var evtTarget = $viz(event.target);
+                    $viz.each(evtTarget.parents('li.gcviz-legendLi').children('ul').children('li').children('div').children('div').find(':checkbox'), function(key, obj) {
 						$viz(obj).prop('checked', event.target.checked);
-							gisLegend.setLayerVisibility(_self.mymap, obj.value, $viz(event.target).prop('checked'));
+                        gisLegend.setLayerVisibility(_self.mymap, obj.value, evtTarget.prop('checked'));
 					});
 					return true;
 				};
@@ -64,43 +66,23 @@
 					layer.setOpacity(opacityValue);
 				};
 
-				_self.toggleViewService =function(selectedLayer, event)
-				{
-					if($viz(event.target).parent().attr("id") ==="serviceList")
-					{
-					 $viz(event.target).parent().find('ul').toggle();
-					 if ($viz(event.target).parent().find('ul').is(':hidden'))
-					 {
-					 	$viz(event.target).removeClass('gcviz-legendLiActive');
-					 	$viz(event.target).addClass('gcviz-legendLi');
-					 }else{
-					 	$viz(event.target).removeClass('gcviz-legendLi');
-					 	$viz(event.target).addClass('gcviz-legendLiActive');
-					}}
-
-					return true;
-
-				};
-				_self.toggleViewLayers =function(selectedLayer, event)
-				{
-					if($viz(event.target).parent().attr("id") ==="layerList")
-					{	
-					 	$viz(event.target).children('div#featureLayerSymbol' +selectedLayer.id + '.gcviz-legendSymbolDiv').toggle();
-				
-						if ($viz(event.target).children('div#featureLayerSymbol' +selectedLayer.id + '.gcviz-legendSymbolDiv').is(':hidden'))
-					 	{
-					 		$viz(event.target).removeClass('gcviz-legendLiLayerMultipleActive');
-					 		$viz(event.target).addClass('gcviz-legendLiLayerMultiple');
-					 	}else{
-					 		$viz(event.target).removeClass('gcviz-legendLiLayerMultiple');
-					 		$viz(event.target).addClass('gcviz-legendLiLayerMultipleActive');
-						}
+				_self.toggleViewService = function(selectedLayer, event) {
+					var evtTarget = $viz(event.target);
+					if (evtTarget.parent().attr('id') === 'serviceList'){
+						evtTarget.parent().find('ul').toggle();
 					}
-
 					return true;
-
 				};
 
+				_self.toggleViewLayers =function(selectedLayer, event) {
+					var evtTarget = $viz(event.target);
+					selectedLayerId = selectedLayer.id
+					if (evtTarget.parent().attr('id') === 'layerList'){	
+					 	evtTarget.children('div#featureLayerSymbol' + selectedLayerId + '.gcviz-legendSymbolDiv').toggle();
+					}
+					return true;
+				};
+				
 				_self.init();
 			};
 
