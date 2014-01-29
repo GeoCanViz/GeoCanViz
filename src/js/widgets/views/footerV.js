@@ -22,12 +22,12 @@
 			
 			// set north arrow
 			if (config.northarrow.enable) {
-				node += '<div id="north_' + mapid + '" class="gcviz-foot-north"><img class="gcviz-foot-imgarrow" data-bind="attr:{src: imgNorth}"></img></div>';
+				node += '<div id="north_' + mapid + '" class="gcviz-foot-north" data-bind="mapevent: [{ func: \'showNorthArrow\', evtType: \'zoom-end\' }, { func: \'showNorthArrow\', evtType: \'pan-end\' }]"><img class="gcviz-foot-imgarrow" data-bind="attr: { src: imgNorth }"></img></div>';
 			}
 			
 			// set mouse coordinates
 			if (config.mousecoords.enable) {
-				node += '<div id="mousecoord_' + mapid + '" class="gcviz-foot-coords"></div>';
+				node += '<div id="mousecoord_' + mapid + '" class="gcviz-foot-coords" data-bind="mapevent: [{ func: \'showCoordinates\', evtType: \'mouse-move\' }]"></div>';
 			}
 			
 			$footer.append(node);

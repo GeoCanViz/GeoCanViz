@@ -77,7 +77,7 @@
 
 	ko.bindingHandlers.enterkey = {
 		init: function(element, valueAccessor, allBindings, viewModel) {
-			// get function name to call from the binding
+			// get function name to call and event type from the binding
 			var func = valueAccessor().func,
 				keyType = valueAccessor().keyType;
 			
@@ -89,6 +89,25 @@
 				
 				return true;
 			});
+		}         
+	};
+	
+	ko.bindingHandlers.mapevent = {
+		init: function(element, valueAccessor, allBindings, viewModel) {
+			// loop trought array of events
+			var len = valueAccessor().length,
+				map = viewModel.mymap,
+				value, func, evtType;
+			
+			while(len--) {
+				value = valueAccessor()[len];
+				func = value.func;
+				evtType = value.evtType;
+							
+				map.on(evtType, function(evt) {
+					viewModel[func](evt);
+				});
+			}
 		}         
 	};
 

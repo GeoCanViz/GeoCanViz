@@ -35,7 +35,7 @@
 
 			gsvc.project(params, function(projectedPoints) {
 				point = projectedPoints[0];
-				dojo.byId(div).innerHTML = ' Lat: ' + point.y.toFixed(3) + ' Long: ' + point.x.toFixed(3);
+				div.innerHTML = ' Lat: ' + point.y.toFixed(3) + ' Long: ' + point.x.toFixed(3);
 			});
 		};
 		
@@ -65,11 +65,11 @@
 				bearing = Math.atan2(y, x)  * 180 / Math.PI;
 				bearing = ((bearing + 360) % 360).toFixed(1) - 90; //Converting -ve to +ve (0-360)
 					 
-				dojo.byId(div).style.webkitTransform = 'rotate(' + bearing + 'deg)';
-				dojo.byId(div).style.MozTransform = 'rotate(' + bearing + 'deg)';
-				dojo.byId(div).style.msTransform = 'rotate(' + bearing + 'deg)';
-				dojo.byId(div).style.OTransform = 'rotate(' + bearing + 'deg)';
-				dojo.byId(div).style.transform = 'rotate(' + bearing + 'deg)';
+				div.style.webkitTransform = 'rotate(' + bearing + 'deg)';
+				div.style.MozTransform = 'rotate(' + bearing + 'deg)';
+				div.style.msTransform = 'rotate(' + bearing + 'deg)';
+				div.style.OTransform = 'rotate(' + bearing + 'deg)';
+				div.style.transform = 'rotate(' + bearing + 'deg)';
 			});
 		};
 			

@@ -27,38 +27,27 @@
 				// images path
 				_self.imgNorth = pathNorth;
 				
+				// the map and control
+				_self.mymap = vmArray[mapid].map.map;
+				_self.coords = $mapElem.find('.gcviz-foot-coords')[0];
+				_self.north = $mapElem.find('.gcviz-foot-north')[0];
+				_self.inwkid = config.northarrow.inwkid;
+				
 				// geoprocessing and projection objects
 				_self.outSR = gisGeo.getOutSR(configMouse.outwkid);
 				_self.gsvc = gisGeo.getGSVC(configMouse.urlgeomserv);
 				
 				_self.init = function() {
-					var mymap = vmArray[mapid].map.map;
-
-					if (config.mousecoords) {
-						mymap.on('mouse-move', function(evt) {
-							_self.showCoordinates(evt, 'mousecoord_' + mapid);
-						});
-					}
-							
-					if (config.northarrow) {
-						mymap.on('pan-end', function(evt) {
-							_self.showNorthArrow(evt, 'north_' + mapid, configNorth);
-						});
-							
-						mymap.on('zoom-end', function(evt) {
-							_self.showNorthArrow(evt, 'north_' + mapid, configNorth);
-						});
-					}
 
 					return { controlsDescendantBindings: true };
 				};
 				
 				_self.showCoordinates = function(evt, div) {
-					gisGeo.getCoord(evt.mapPoint, div, _self.outSR, _self.gsvc);
+					gisGeo.getCoord(evt.mapPoint, _self.coords, _self.outSR, _self.gsvc);
 				};
 				
 				_self.showNorthArrow = function(evt, div, inwkid) {
-					gisGeo.getNorthAngle(evt.extent, div, inwkid, _self.gsvc);
+					gisGeo.getNorthAngle(evt.extent, _self.north, _self.inwkid, _self.gsvc);
 				};
 				
 				_self.init();
