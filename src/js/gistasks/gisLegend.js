@@ -50,6 +50,7 @@ define(['jquery-private',
           field3 = ren.attributeField3,
           anode,
           layerid = layer.id,
+          symbolLocation = dom.byId('featureLayerSymbol' + layerid),
           nodeImage,
           nodeLabel;
 
@@ -72,7 +73,7 @@ define(['jquery-private',
 
                 //need a spot in div for each renderer
                 domConstruct.place(anode, dom.byId('featureLayerSymbol' + layerid));
-                domConstruct.place(domConstruct.create('br'), dom.byId('featureLayerSymbol' + layerid));
+                domConstruct.place(domConstruct.create('br'), symbolLocation);
                 
                 $viz.each(legs, function( key, value ) {
                     nodeImage = domConstruct.create('div', {'class': 'gcviz-legendSymbolUniqueValueDiv'});
@@ -82,9 +83,9 @@ define(['jquery-private',
                     shape = mySurface.createShape(descriptors.defaultShape);
                     createSymbols(descriptors, shape, value);
                     nodeLabel.innerHTML = value.label;
-                    domConstruct.place(nodeImage, dom.byId('featureLayerSymbol' + layerid));
-                    domConstruct.place(nodeLabel, dom.byId('featureLayerSymbol' + layerid));
-                    domConstruct.place(domConstruct.create('br'), dom.byId('featureLayerSymbol' + layerid));
+                    domConstruct.place(nodeImage, symbolLocation);
+                    domConstruct.place(nodeLabel, symbolLocation);
+                    domConstruct.place(domConstruct.create('br'), symbolLocation);
                 });
             } else {
                 //picture marker, simple marker

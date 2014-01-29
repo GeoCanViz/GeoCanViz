@@ -68,7 +68,7 @@
 
 				_self.toggleViewService = function(selectedLayer, event) {
 					var evtTarget = $viz(event.target);
-					if (evtTarget.parent().attr('id') === 'serviceList'){
+					if (evtTarget.parent().attr('id') === 'serviceList') {
 						evtTarget.parent().find('ul').toggle();
 					}
 					return true;
@@ -77,12 +77,12 @@
 				_self.toggleViewLayers =function(selectedLayer, event) {
 					var evtTarget = $viz(event.target);
 					selectedLayerId = selectedLayer.id
-					if (evtTarget.parent().attr('id') === 'layerList'){	
+					if (evtTarget.parent().attr('id') === 'layerList') {	
 					 	evtTarget.children('div#featureLayerSymbol' + selectedLayerId + '.gcviz-legendSymbolDiv').toggle();
 					}
 					return true;
 				};
-				
+
 				_self.init();
 			};
 
