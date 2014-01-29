@@ -19,7 +19,8 @@
 			vm, 
 			getServiceList, 
 			getLayerList,
-			toggleView;
+			toggleView,
+			selectedLayerId;
 		
 		initialize = function($mapElem, mapid, config) {
 			
@@ -32,27 +33,28 @@
 				_self.tpVisible = i18n.getDict('%toolbarlegend-tgvis');
 		
 				_self.init = function () {
-					$viz.each(config.service, function(index, service) {
-						$viz.each(service.layers, function(index2, layers) {
+					$viz.each(config.items, function(index, items) {
+						$viz.each(items.layers, function(index2, layers) {
 							//if(layers.id !=='basemap')
 							//	gisLegend.getFeatureLayerSymbol(mymap, layers.id);
 						});
 					});
 
-					_self.theArray = ko.observableArray(config.service);
+					_self.theArray = ko.observableArray(config.items);
 
 					return { controlsDescendantBindings: true };
 				};
 
 			
 				_self.changeLayerVisibility = function(selectedLayer, event) {
-					gisLegend.setLayerVisibility(_self.mymap, selectedLayer.id, $viz(event.target).prop('checked'));
+					selectedLayerId = selectedLayer.id;
+					gisLegend.setLayerVisibility(_self.mymap, selectedLayerId, $viz(event.target).prop('checked'));
 					return true;
 				};
 
 				_self.changeServiceVisibility = function(selectedLayer, event) {
                     var evtTarget = $viz(event.target);
-                    $viz.each(evtTarget.parents('li.legendLi').children('ul').children('li').children('div').children('div').find(':checkbox'), function(key, obj) {
+                    $viz.each(evtTarget.parents('li.gcviz-legendLi').children('ul').children('li').children('div').children('div').find(':checkbox'), function(key, obj) {
 						$viz(obj).prop('checked', event.target.checked);
                         gisLegend.setLayerVisibility(_self.mymap, obj.value, evtTarget.prop('checked'));
 					});
@@ -64,12 +66,21 @@
 					layer.setOpacity(opacityValue);
 				};
 
-				_self.toggleView = function(selectedLayer, event) {
-                    var evtTarget = $viz(event.target);
-                    if (evtTarget.parent().attr('id') === 'serviceList') {
-                        evtTarget.parent().find('ul').toggle();
-                    }
-                    return true;
+				_self.toggleViewService = function(selectedLayer, event) {
+					var evtTarget = $viz(event.target);
+					if (evtTarget.parent().attr('id') === 'serviceList') {
+						evtTarget.parent().find('ul').toggle();
+					}
+					return true;
+				};
+
+				_self.toggleViewLayers =function(selectedLayer, event) {
+					var evtTarget = $viz(event.target);
+					selectedLayerId = selectedLayer.id
+					if (evtTarget.parent().attr('id') === 'layerList') {	
+					 	evtTarget.children('div#featureLayerSymbol' + selectedLayerId + '.gcviz-legendSymbolDiv').toggle();
+					}
+					return true;
 				};
 
 				_self.init();

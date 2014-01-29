@@ -122,5 +122,25 @@
 		}
 	};
 
+	ko.bindingHandlers.LegendServiceUL = {
+		init: function(element, valueAccessor) {
+			var options = valueAccessor(),
+				$element = $viz(element);
+			$element.parent().find('ul').toggle(options.expanded);
+		}
+	};
+
+	ko.bindingHandlers.LegendLayersUL = {
+		init: function(element, valueAccessor) {
+			var options = valueAccessor(),
+				$element = $viz(element);
+			if(options.numLayers > 1){ //don't want arrow when only 1 layer, service will collapase it
+				$element.children('div.gcviz-legendSymbolDiv').toggle(options.expanded);
+			}
+				
+			
+		}
+	};
+
 	});
 }).call(this);

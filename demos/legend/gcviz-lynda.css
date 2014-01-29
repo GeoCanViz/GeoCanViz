@@ -1,101 +1,127 @@
+a :link { color: black; text-decoration: none; font-weight: bold; }
+a :active { color:black; text-decoration: none; }
+a :visited { color: black; text-decoration: none; }
+a :hover { color:#39F; text-decoration: none; }
 
 .gcviz-legendDiv
 {
-	padding: 0px;
+    padding: 0px;
 }
-
 .gcviz-legendHolderDiv
 {
-	display: inline-block;
-	padding-right: 5px;
-	vertical-align: bottom;
-	height: 20px;
+    display: inline-block;
+    padding-right: 5px;
+    vertical-align: bottom;
+    height: 20px;
 }
-
 .gcviz-legendUnqiueFieldHolderDiv
 {
-	display: inline-block;
-	padding-right: 5px;
-	vertical-align: middle;
-	height: 100%;
-	font-size: 10px;
-	font-weight: bold;
-	text-align: center;
-	width: 100%;
+    display: inline-block;
+    padding-right: 5px;
+    vertical-align: middle;
+    height: 100%;
+    font-size: 10px;
+    font-weight: bold;
+    text-align: center;
+    width: 100%;
 }
-
 .gcviz-legendUniqueValueSpan
 {
-	display: inline-block;
-	font-size: 10px;
-	font-weight: normal;
-	padding-left: 5px;
-};
-
+    display: inline-block;
+    font-size: 10px;
+    font-weight: normal;
+    padding-left: 5px;
+}
 .gcviz-legendCheck
 {
-	display: block;
-	vertical-align: middle;
+    display: block;
+    vertical-align: middle;
 }
-
 .gcviz-legendSlider
 {
-	display: block;
-	vertical-align: bottom;
-	width: 50px;
-	margin-top: 5px;
+    display: block;
+    vertical-align: bottom;
+    width: 50px;
+    margin-top: 5px;
 }
-
 .gcviz-legendSpan
 {
-	display: block;
-	vertical-align: middle;
+    display: block;
+    vertical-align: middle;
 }
-
 .gcviz-legendUl
 {
-	display: inline-block;
-	margin: 0;
-	padding: 0;
-	list-style-type: none;
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
 }
-
-.gcviz-legendLi: before
+.gcviz-legendLi 
 {
-	content: "\25ba\00a0";
+    content: "\25ba\00a0";
 }
-
+.gcviz-legendLi 
+{
+    content: none;
+}
+.gcviz-legendLiActive 
+{
+    content: "\25bc\00a0";
+}
 .gcviz-legendLiLayer
 {
-	padding-left: 30px;
+    padding-left: 30px;
+    display: inline-block;
 }
-
+.gcviz-legendLiLayerMultiple
+{
+    content: "\25ba\00a0";
+}
+.gcviz-legendLiLayerMultipleActive
+{
+    content: "\25bc\00a0";
+}
+.gcviz-legendLiLayerMultiple
+{
+    padding-left: 30px;
+    display: inline-block;
+}
 .gcviz-legendImg
 {
-	display: block;
-	margin: 0px;
-	padding : 0px;
-	width: 45px;
-	height: 40px;
+    display: block;
+    margin: 0px;
+    padding: 0px;
+    width: 45px;
+    height: 40px;
 }
-
 .gcviz-legendlayersUl
 {
-	list-style-type: none;
-	display: block;
-	margin: 0;
-	padding-left: 0;
+    list-style-type: none;
+    display: block;
+    margin: 0;
+    padding-left: 0;
 }
-
+.gcviz-legendSymbolUniqueValueDiv
+{
+    display: inline-block;
+    vertical-align: middle;
+    padding-left: 15px;
+}
 .gcviz-legendSymbolDiv
 {
-	display: inline-block;
-	vertical-align: middle;
+    vertical-align: middle;
+    padding-left: 15px;
 }
-
 .gcviz-legendCheck
 {
-	display: inline-block;
-	margin: 0;
-	padding: 0;
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+}
+.gcviz-layerlistparentdiv
+{
+    display: inline-block;
+    padding-right: 5px;
+    vertical-align: bottom;
+    height: 20px;
 }
