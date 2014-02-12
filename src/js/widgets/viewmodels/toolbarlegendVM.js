@@ -12,15 +12,10 @@
 			'knockout',
 			'gcviz-i18n',
 			'gcviz-gislegend',
-			'gcviz-ko',
-			'esri/request'
-	], function($viz, ko, i18n, gisLegend, Request, binding) {
+			'gcviz-ko'
+	], function($viz, ko, i18n, gisLegend) {
 		var initialize,
-			vm, 
-			getServiceList, 
-			getLayerList,
-			toggleView,
-			selectedLayerId;
+			vm;
 		
 		initialize = function($mapElem, mapid, config) {
 			
@@ -33,31 +28,14 @@
 				_self.tpVisible = i18n.getDict('%toolbarlegend-tgvis');
 		
 				_self.init = function () {
-					$viz.each(config.items, function(index, items) {
-						$viz.each(items.layers, function(index2, layers) {
-							//if(layers.id !=='basemap')
-							//	gisLegend.getFeatureLayerSymbol(mymap, layers.id);
-						});
-					});
-
 					_self.theArray = ko.observableArray(config.items);
-
 					return { controlsDescendantBindings: true };
 				};
 
-			
-				_self.changeLayerVisibility = function(selectedLayer, event) {
-					selectedLayerId = selectedLayer.id;
-					gisLegend.setLayerVisibility(_self.mymap, selectedLayerId, $viz(event.target).prop('checked'));
-					return true;
-				};
-
-				_self.changeServiceVisibility = function(selectedLayer, event) {
+				_self.changeItemsVisibility = function(selectedItem, event) {
                     var evtTarget = $viz(event.target);
-                    $viz.each(evtTarget.parents('li.gcviz-legendLi').children('ul').children('li').children('div').children('div').find(':checkbox'), function(key, obj) {
-						$viz(obj).prop('checked', event.target.checked);
-                        gisLegend.setLayerVisibility(_self.mymap, obj.value, evtTarget.prop('checked'));
-					});
+					loopChildrenVisibility(selectedItem, evtTarget.prop('checked'), _self.mymap, loopChildrenVisibility);
+					event.stopPropagation();
 					return true;
 				};
 
@@ -67,23 +45,26 @@
 				};
 
 				_self.toggleViewService = function(selectedLayer, event) {
+					
 					var evtTarget = $viz(event.target);
-					if (evtTarget.parent().attr('id') === 'serviceList') {
-						evtTarget.parent().find('ul').toggle();
-					}
-					return true;
-				};
-
-				_self.toggleViewLayers =function(selectedLayer, event) {
-					var evtTarget = $viz(event.target);
-					selectedLayerId = selectedLayer.id
-					if (evtTarget.parent().attr('id') === 'layerList') {	
-					 	evtTarget.children('div#featureLayerSymbol' + selectedLayerId + '.gcviz-legendSymbolDiv').toggle();
-					}
-					return true;
+					evtTarget.children('div#childItems.gcviz-legendHolderDiv').toggle();
+					evtTarget.children('.gcviz-legendSymbolDiv').toggle();
+					event.stopPropagation(); //prevent toggling of inner hested lists
 				};
 
 				_self.init();
+			};
+
+			var loopChildrenVisibility = function(itemMaster, e, map)
+			{
+				if(itemMaster.items.length > 0){
+					Object.keys(itemMaster.items).forEach(function(key) {
+							loopChildrenVisibility(itemMaster.items[key], e, map, loopChildrenVisibility);
+					});
+				}
+				else{
+					gisLegend.setLayerVisibility(map, itemMaster.id, e);
+				}
 			};
 
 			vm = new toolbarlegendViewModel($mapElem, mapid, config);

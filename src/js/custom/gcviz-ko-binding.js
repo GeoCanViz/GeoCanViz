@@ -90,7 +90,7 @@
 
 				return true;
 			});
-		}         
+		}
 	};
 
 	ko.bindingHandlers.HorizontalSliderDijit = {
@@ -100,7 +100,7 @@
 
 			$viz(element).attr('Visible', options.visible);
 			widget = new slider({
-				name: "slider",
+				name: 'slider',
                 minimum: options.extent[0],
                 maximum: options.extent[1],
                 intermediateChanges: true,
@@ -111,34 +111,41 @@
 			dojo.addClass(widget.domNode, 'gcviz-legendSlider');
 
 			widget.on('Change', function(e) {
-				if (viewModel.layers) {
-					Object.keys(viewModel.layers).forEach(function(key) {
-						bindingContext.$parent.changeServiceOpacity(bindingContext.$parent.mymap,viewModel.layers[key].id, e);
-					});
-				} else {
+				
+				if(viewModel.items.length === 0){
 					bindingContext.$parentContext.$parent.changeServiceOpacity(bindingContext.$parentContext.$parent.mymap,viewModel.id, e);
 				}
+				else{
+					loopChildren(viewModel, e, loopChildren);
+				}
 			});
-		}
-	};
 
-	ko.bindingHandlers.LegendServiceUL = {
-		init: function(element, valueAccessor) {
-			var options = valueAccessor(),
-				$element = $viz(element);
-			$element.parent().find('ul').toggle(options.expanded);
-		}
-	};
-
-	ko.bindingHandlers.LegendLayersUL = {
-		init: function(element, valueAccessor) {
-			var options = valueAccessor(),
-				$element = $viz(element);
-			if(options.numLayers > 1){ //don't want arrow when only 1 layer, service will collapase it
-				$element.children('div.gcviz-legendSymbolDiv').toggle(options.expanded);
+			function loopChildren(VM, e)
+			{
+				if(VM.items.length > 0){
+					Object.keys(VM.items).forEach(function(key) {
+							loopChildren(VM.items[key], e, loopChildren);
+					});
+				}
+				else{
+					bindingContext.$parentContext.$parent.changeServiceOpacity(bindingContext.$parentContext.$parent.mymap,VM.id, e);
+				}
 			}
-				
-			
+		}
+	};
+
+	ko.bindingHandlers.LegendItemList = {
+		init: function(element, valueAccessor, allBindings, viewModel) {
+			var options = valueAccessor(),
+				$element = $viz(element);
+			if (viewModel.items.length > 0)
+				$element.children('div#childItems.gcviz-legendHolderDiv').toggle(options.expanded,function(event){
+					event.stopPropagation();
+				});
+			else
+				$element.children('.gcviz-legendSymbolDiv').toggle(options.expanded);
+
+			return false;
 		}
 	};
 

@@ -99,23 +99,6 @@
 
             },
             {
-                "id": "Parks2",
-                "type": "feature",
-                "url": "http://maps.ottawa.ca/ArcGIS/rest/services/Parks_Inventory/MapServer/24",
-                "selectable": false,
-                "swiper": {
-                    "enable": false
-                },
-                "cluster": {
-                    "enable": false
-                },
-                "resolution": {
-                    "min": -1,
-                    "max": -1
-                }
-
-            },
-            {
                 "id": "Parking",
                 "type": "feature",
                 "url": "http://maps.ottawa.ca/ArcGIS/rest/services/Parks_Inventory/MapServer/14",
@@ -132,7 +115,6 @@
                 }
 
             },
-            
             {
                 "id": "Beaches",
                 "type": "feature",
@@ -148,39 +130,6 @@
                     "min": -1,
                     "max": -1
                 }
-            },
-             {
-                "id": "Beaches2",
-                "type": "feature",
-                "url": "http://maps.ottawa.ca/ArcGIS/rest/services/Parks_Inventory/MapServer/0",
-                "selectable": false,
-                "swiper": {
-                    "enable": false
-                },
-                "cluster": {
-                    "enable": false
-                },
-                "resolution": {
-                    "min": -1,
-                    "max": -1
-                }
-            },
-            {
-                "id": "Parking2",
-                "type": "feature",
-                "url": "http://maps.ottawa.ca/ArcGIS/rest/services/Parks_Inventory/MapServer/14",
-                "selectable": false,
-                "swiper": {
-                    "enable": false
-                },
-                "cluster": {
-                    "enable": false
-                },
-                "resolution": {
-                    "min": -1,
-                    "max": -1
-                }
-
             },
             {
                 "id": "Greenbelt",
@@ -418,16 +367,201 @@
         "expand" : true,
         "items": [{
             "expand": false,
-            "type": 1,
+            "id": "",
+            "displayfields": false,
             "label":{
-                    "value": "Basemap",
-                    "alttext": "",
-                    "justify": "left"
+                    "value": "Basemap1",
+                    "alttext": "basemap alttext"
              },
              "metadata":{
-                "enable":true,
+                "enable":false,
                 "value": "http://maps.ottawa.ca/ArcGIS/rest/services/Basemap_Imagery_2011/MapServer",
                 "alttext":"metadata alt text"
+             },
+             "opacity": {
+                    "enable": false,
+                    "minmax": [0,1.0],
+                    "initstate" : 1.0
+             }, 
+            "visibility": {
+                    "enable": true,
+                    "initstate" : true,
+                    "type": 1
+             },
+            "displaychild": false,
+            "customimage":{
+                "enable":false,
+                "url":"http://www.fourshoreservices.com/img/urban-dev-gis.gif",
+                "alttext": ""
+            },
+            "items": [{
+                    "expand": true,
+                    "id": "basemap",
+                    "displayfields": false,
+                    "label":{
+                            "value": "Basemap2",
+                            "alttext": "basemap alttext"
+                     },
+                     "metadata":{
+                        "enable":true,
+                        "value": "http://maps.ottawa.ca/ArcGIS/rest/services/Basemap_Imagery_2011/MapServer",
+                        "alttext":"metadata alt text"
+                     },
+                     "opacity": {
+                            "enable": true,
+                            "minmax": [0,1.0],
+                            "initstate" : 1.0
+                     }, 
+                    "visibility": {
+                            "enable": true,
+                            "initstate" : true,
+                            "type": 1
+                     },
+                    "displaychild": false,
+                    "customimage":{
+                        "enable":true,
+                        "url":"http://www.fourshoreservices.com/img/urban-dev-gis.gif",
+                        "alttext": ""
+                    },
+                    "items":[]
+                   
+                }]
+        },
+        {
+            "expand": false,
+            "id": "",
+            "displayfields": false,
+            "label":{
+                    "value": "Basemap3",
+                    "alttext": "basemap alttext"
+             },
+             "metadata":{
+                "enable":false,
+                "value": "http://maps.ottawa.ca/ArcGIS/rest/services/Basemap_Imagery_2011/MapServer",
+                "alttext":"metadata alt text"
+             },
+             "opacity": {
+                    "enable": false,
+                    "minmax": [0,1.0],
+                    "initstate" : 1.0
+             }, 
+            "visibility": {
+                    "enable": true,
+                    "initstate" : true,
+                    "type": 1
+             },
+            "displaychild": false,
+            "customimage":{
+                "enable":false,
+                "url":"http://www.fourshoreservices.com/img/urban-dev-gis.gif",
+                "alttext": ""
+            },
+            "items": [{
+                    "expand": false,
+                    "id": "",
+                    "displayfields": false,
+                    "label":{
+                            "value": "Basemap4",
+                            "alttext": "basemap alttext"
+                     },
+                     "metadata":{
+                        "enable":false,
+                        "value": "http://maps.ottawa.ca/ArcGIS/rest/services/Basemap_Imagery_2011/MapServer",
+                        "alttext":"metadata alt text"
+                     },
+                     "opacity": {
+                            "enable": false,
+                            "minmax": [0,1.0],
+                            "initstate" : 1.0
+                     }, 
+                    "visibility": {
+                            "enable": true,
+                            "initstate" : true,
+                            "type": 1
+                     },
+                    "displaychild": false,
+                    "customimage":{
+                        "enable":true,
+                        "url":"http://www.fourshoreservices.com/img/urban-dev-gis.gif",
+                        "alttext": ""
+                    },
+                    "items" :[{
+                        "expand": false,
+                        "id": "basemap",
+                        "displayfields": false,
+                        "label":{
+                                "value": "Basemap5",
+                                "alttext": "basemap alttext"
+                         },
+                         "metadata":{
+                            "enable":true,
+                            "value": "http://maps.ottawa.ca/ArcGIS/rest/services/Basemap_Imagery_2011/MapServer",
+                            "alttext":"metadata alt text"
+                         },
+                         "opacity": {
+                                "enable": true,
+                                "minmax": [0,1.0],
+                                "initstate" : 1.0
+                         }, 
+                        "visibility": {
+                                "enable": true,
+                                "initstate" : true,
+                                "type": 1
+                         },
+                        "displaychild": false,
+                        "customimage":{
+                            "enable":false,
+                            "url":"http://www.fourshoreservices.com/img/urban-dev-gis.gif",
+                            "alttext": ""
+                        },
+                        "items" :[]
+                   
+                         }]
+                },
+                {
+                    "expand": false,
+                    "id": "",
+                    "displayfields": false,
+                    "label":{
+                            "value": "Basemap7",
+                            "alttext": "basemap alttext"
+                     },
+                     "metadata":{
+                        "enable":false,
+                        "value": "http://maps.ottawa.ca/ArcGIS/rest/services/Basemap_Imagery_2011/MapServer",
+                        "alttext":"metadata alt text"
+                     },
+                     "opacity": {
+                            "enable": false,
+                            "minmax": [0,1.0],
+                            "initstate" : 1.0
+                     }, 
+                    "visibility": {
+                            "enable": true,
+                            "initstate" : false,
+                            "type": 1
+                     },
+                    "displaychild": false,
+                    "customimage":{
+                        "enable":false,
+                        "url":"http://www.fourshoreservices.com/img/urban-dev-gis.gif",
+                        "alttext": ""
+                    },
+                    "items": []
+               }]
+        },
+        {
+            "expand": false,
+            "id": "hospitals",
+            "displayfields": false,
+            "label":{
+                    "value": "Hosptials",
+                    "alttext": "basemap alttext"
+             },
+             "metadata":{
+                "enable":false,
+                "value": "http://maps.ottawa.ca/ArcGIS/rest/services/Hospitals/MapServer/0",
+                "alttext":"hospitals metadata alt text"
              },
              "opacity": {
                     "enable": true,
@@ -436,537 +570,174 @@
              }, 
             "visibility": {
                     "enable": true,
-                    "initstate" : true
+                    "initstate" : true,
+                    "type": 1
              },
-            "displaylayer": false,
+            "displaychild": true,
             "customimage":{
-                "enable":true,
-                "url":"http://www.fourshoreservices.com/img/urban-dev-gis.gif",
-                "alttext"   : ""
+                "enable":false,
+                "url":"",
+                "alttext": ""
             },
-            "layers" : [{
-                "expand": false,
-                "id": "basemap",
-                "label": {
-                    "value": "basemap",
-                    "alttext": "basemap altext",
-                    "justify": "right"
-                },  
-                "displayfields": false,
-                "metadata":{
-                    "enable":false,
-                    "value": "",
-                    "alttext":""
-                 },
-                "opacity": {
-                    "enable": false,
-                    "minmax": [0,1.0],
-                    "initstate" : 1.0
-                },
-                "visibility": {
-                    "enable": true,
-                    "initstate" : true
-                },
-                "symbology": true,
-                "customimage":{
-                    "enable":false,
-                    "url":"",
-                    "alttext": ""
-                }
-            
-            }]
+            "items": []
         },
         {
             "expand": false,
-            "type": 1,
+            "id": "Beaches",
+            "displayfields": false,
             "label":{
-                    "value": " Ottawa Hospitals",
-                    "alttext": "",
-                    "justify": "left"
-            },
-            "metadata":{
-                "enable":false,
-                "value": "",
-                "alttext":""
+                    "value": "Beaches",
+                    "alttext": "basemap alttext"
              },
-            "opacity": {
-                    "enable": false,
+             "metadata":{
+                "enable":false,
+                "value": "http://maps.ottawa.ca/ArcGIS/rest/services/Hospitals/MapServer/0",
+                "alttext":"Beaches metadata alt text"
+             },
+             "opacity": {
+                    "enable": true,
                     "minmax": [0,1.0],
                     "initstate" : 1.0
              }, 
             "visibility": {
                     "enable": true,
-                    "initstate" : true
-                },
-            "displaylayer": false,
-            "customimage":{
-                "enable":true,
-                "url":"http://www.fourshoreservices.com/img/urban-dev-gis.gif",
-                "alttext": ""
-            },  
-            "layers" : [{
-                "expand": false,
-                "id": "hospitals",
-                "label": {
-                    "value": "hospitals label",
-                    "alttext": "basemap altext",
-                    "justify": "right"
-                },  
-                "displayfields": false,
-                "metadata":{
-                    "enable":false,
-                    "value": "",
-                    "alttext":""
-                 },
-                "opacity": {
-                    "enable": false,
-                    "minmax": [0,1.0],
-                    "initstate" : 1.0
-                },
-                "visibility": {
-                    "enable": true,
-                    "initstate" : true
-                },
-                "symbology": true,
-                "customimage":{
-                    "enable":false,
-                    "url":"",
-                    "alttext": ""
-                }
-            
-            }]
-        },
-        {
-            "expand": true,
-            "type": 1,
-            "label":{
-                    "value": " Cycle Structures",
-                    "alttext": "",
-                    "justify": "left"
-            },
-            "metadata":{
-                "enable":false,
-                "value": "",
-                "alttext":""
+                    "initstate" : true,
+                    "type": 1
              },
-            "opacity": {
-                    "enable": false,
-                    "minmax": [0,1.0],
-                    "initstate" : 1.0
-             }, 
-            "visibility": {
-                    "enable": true,
-                    "initstate" : true
-                },
-            "displaylayer": true,
+            "displaychild": true,
             "customimage":{
                 "enable":false,
                 "url":"",
                 "alttext": ""
             },
-            "layers" : [{
-                "expand": false,
-                "id": "bikestructure",
-                "label": {
-                    "value": "bikes",
-                    "alttext": "bike altext",
-                    "justify": "right"
-                },
-                "displayfields": false,
-                "metadata":{
-                    "enable":false,
-                    "value": "",
-                    "alttext":""
-                 }, 
-                "opacity": {
-                    "enable": false,
-                    "minmax": [0,1.0],
-                    "initstate" : 1.0
-                },
-                "visibility": {
-                    "enable": true,
-                    "initstate" : true
-                },
-                "symbology": true,
-                "customimage":{
-                    "enable":false,
-                    "url":"",
-                    "alttext": ""
-                }
-            
-            }]
+            "items": []
         },
         {
             "expand": true,
-            "type": 1,
+            "id": "",
+            "displayfields": false,
             "label":{
-                    "value": "Ottawa Truck Routes",
-                    "alttext": "",
-                    "justify": "left"
-            },
-            "metadata":{
-                "enable":false,
-                "value": "",
-                "alttext":""
+                    "value": "Parks Group",
+                    "alttext": "basemap alttext"
              },
-            "opacity": {
-                    "enable": false,
+             "metadata":{
+                "enable":false,
+                "value": "http://maps.ottawa.ca/ArcGIS/rest/services/Hospitals/MapServer/0",
+                "alttext":"Beaches metadata alt text"
+             },
+             "opacity": {
+                    "enable": true,
                     "minmax": [0,1.0],
                     "initstate" : 1.0
              }, 
             "visibility": {
                     "enable": true,
-                    "initstate" : true
-                },
-            "displaylayer": false,
-            "customimage":{
-                "enable":false,
-                "url":"http://www.fourshoreservices.com/img/urban-dev-gis.gif",
-                "alttext": ""
-            },  
-            "layers" : [{
-                "expand": false,
-                "id": "roadnames",
-                "label": {
-                    "value": "Truck Routes",
-                    "alttext": "basemap altext",
-                    "justify": "right"
-                }, 
-                "displayfields": false, 
-                "metadata":{
-                    "enable":false,
-                    "value": "",
-                    "alttext":""
-                 },
-                "opacity": {
-                    "enable": false,
-                    "minmax": [0,1.0],
-                    "initstate" : 1.0
-                },
-                "visibility": {
-                    "enable": true,
-                    "initstate" : true
-                },
-                "symbology": true,
-                "customimage":{
-                    "enable":false,
-                    "url":"http://www.fourshoreservices.com/img/urban-dev-gis.gif",
-                    "alttext": ""
-                }
-            
-            }]
-        },
-        {
-            "expand": true,
-            "type": 1,
-            "label":{
-                    "value": " Greenbelt",
-                    "alttext": "",
-                    "justify": "left"
-            },
-            "metadata":{
-                "enable":false,
-                "value": "",
-                "alttext":""
+                    "initstate" : true,
+                    "type": 1
              },
-            "opacity": {
-                    "enable": false,
-                    "minmax": [0,1.0],
-                    "initstate" : 1.0
-             }, 
-            "visibility": {
-                    "enable": true,
-                    "initstate" : true
-                },
-            "displaylayer": true,
-            "customimage":{
-                "enable":false,
-                "url":"http://www.fourshoreservices.com/img/urban-dev-gis.gif",
-                "alttext": "custom image alt text - service"
-            },  
-            "layers" : [{
-                "expand": false,
-                "id": "Greenbelt",
-                "label": {
-                    "value": "Greenbelt Ottawa",
-                    "alttext": "basemap altext",
-                    "justify": "right"
-                }, 
-                "displayfields": false, 
-                "metadata":{
-                    "enable":false,
-                    "value": "",
-                    "alttext":""
-                 },
-                "opacity": {
-                    "enable": false,
-                    "minmax": [0,1.0],
-                    "initstate" : 1.0
-                },
-                "visibility": {
-                    "enable": true,
-                    "initstate" : true
-                },
-                "symbology": false,
-                "customimage":{
-                    "enable":true,
-                    "url":"http://www.fourshoreservices.com/img/urban-dev-gis.gif",
-                    "alttext": "custom image alt text - layer"
-                }
-            
-            }]
-        },
-        {
-            "expand": true,
-            "type": 2,
-            "label":{
-                    "value": "Park Inventory - radio",
-                    "alttext": "",
-                    "justify": "left"
-            },
-            "metadata":{
-                "enable":false,
-                "value": "",
-                "alttext":""
-             },
-            "opacity": {
-                    "enable": false,
-                    "minmax": [0,1.0],
-                    "initstate" : 0.5
-             },     
-            "visibility": {
-                    "enable": true,
-                    "initstate" : true
-            },
-            "displaylayer": true,
+            "displaychild": true,
             "customimage":{
                 "enable":false,
                 "url":"",
                 "alttext": ""
             },
-            "layers" : [{
-                "expand": false,
-                "id": "Parks2",
-                "label": {
-                    "value": "Parks",
-                    "alttext": "basemap altext",
-                    "justify": "right"
-                },
-                "displayfields": false,
-                "metadata":{
-                    "enable":true,
-                    "value": "http://maps.ottawa.ca/ArcGIS/rest/services/Parks_Inventory/MapServer/24",
-                    "alttext":"park metadata alttext"
-                 }, 
-                "opacity": {
-                    "enable": true,
-                    "minmax": [0,1.0],
-                    "initstate" : 1.0
-                },
-                "visibility": {
-                    "enable": true,
-                    "initstate" : true
-                },
-                "symbology": true,
-                "customimage":{
-                    "enable":false,
-                    "url":"",
-                    "alttext": ""
-                }
-            
-            },
-            {
-                "expand": false,
-                "id": "Parking2",
-                "label": {
-                    "value": "Parking",
-                    "alttext": "basemap altext",
-                    "justify": "right"
-                },
-                "displayfields": false,
-                "metadata":{
-                    "enable":false,
-                    "value": "",
-                    "alttext":""
-                 }, 
-                "opacity": {
-                    "enable": true,
-                    "minmax": [0,1.0],
-                    "initstate" : 1.0
-                },
-                "visibility": {
-                    "enable": true,
-                    "initstate" : false
-                },
-                "symbology": true,
-                "customimage":{
-                    "enable":false,
-                    "url":"",
-                    "alttext": ""
-                }
-            
-            },
-            {
+            "items": [{
                 "expand": true,
-                "id": "Beaches2",
-                "label": {
-                    "value": "Beaches label",
-                    "alttext": "basemap altext",
-                    "justify": "right"
-                },  
-                "displayfields": false,
-                "metadata":{
-                    "enable":false,
-                    "value": "",
-                    "alttext":""
-                 },
-                "opacity": {
-                    "enable": true,
-                    "minmax": [0,1.0],
-                    "initstate" : 1.0
-                },
-                "visibility": {
-                    "enable": true,
-                    "initstate" : true
-                },
-                "symbology": true,
-                "customimage":{
-                    "enable":false,
-                    "url":"",
-                    "alttext": ""
-                }
-            
-            }
-
-            ]
-        },
-        
-        {
-            "expand": true,
-            "type": 1,
-            "label":{
-                    "value": "Park Inventory - Checkbox",
-                    "alttext": "",
-                    "justify": "left"
-            },
-            "metadata":{
-                "enable":false,
-                "value": "",
-                "alttext":""
-             },
-            "opacity": {
-                    "enable": false,
-                    "minmax": [0,1.0],
-                    "initstate" : 0.5
-             },     
-            "visibility": {
-                    "enable": true,
-                    "initstate" : true
-            },
-            "displaylayer": true,
-            "customimage":{
-                "enable":false,
-                "url":"",
-                "alttext": ""
-            },
-            "layers" : [{
-                "expand": false,
                 "id": "Parks",
-                "label": {
-                    "value": "Parks",
-                    "alttext": "basemap altext",
-                    "justify": "right"
-                },
                 "displayfields": false,
-                "metadata":{
-                    "enable":true,
-                    "value": "http://maps.ottawa.ca/ArcGIS/rest/services/Parks_Inventory/MapServer/24",
-                    "alttext":"park metadata alttext"
+                "label":{
+                        "value": "Parks",
+                        "alttext": "basemap alttext"
+                 },
+                 "metadata":{
+                    "enable":false,
+                    "value": "http://maps.ottawa.ca/ArcGIS/rest/services/Hospitals/MapServer/0",
+                    "alttext":"Beaches metadata alt text"
+                 },
+                 "opacity": {
+                        "enable": false,
+                        "minmax": [0,1.0],
+                        "initstate" : 1.0
                  }, 
-                "opacity": {
-                    "enable": true,
-                    "minmax": [0,1.0],
-                    "initstate" : 1.0
-                },
                 "visibility": {
-                    "enable": true,
-                    "initstate" : true
-                },
-                "symbology": true,
+                        "enable": true,
+                        "initstate" : true,
+                        "type": 1
+                 },
+                "displaychild": true,
                 "customimage":{
                     "enable":false,
                     "url":"",
                     "alttext": ""
-                }
-            
+                },
+                "items": []
             },
             {
                 "expand": false,
-                "id": "Parking",
-                "label": {
-                    "value": "Parking",
-                    "alttext": "basemap altext",
-                    "justify": "right"
-                },
+                "id": "",
                 "displayfields": false,
-                "metadata":{
-                    "enable":false,
-                    "value": "",
-                    "alttext":""
-                 }, 
-                "opacity": {
-                    "enable": true,
-                    "minmax": [0,1.0],
-                    "initstate" : 1.0
-                },
-                "visibility": {
-                    "enable": true,
-                    "initstate" : false
-                },
-                "symbology": true,
-                "customimage":{
-                    "enable":false,
-                    "url":"",
-                    "alttext": ""
-                }
-            
-            },
-            {
-                "expand": true,
-                "id": "Beaches",
-                "label": {
-                    "value": "Beaches label",
-                    "alttext": "basemap altext",
-                    "justify": "right"
-                },  
-                "displayfields": false,
-                "metadata":{
-                    "enable":false,
-                    "value": "",
-                    "alttext":""
+                "label":{
+                        "value": "Greenbelt group",
+                        "alttext": "basemap alttext"
                  },
-                "opacity": {
-                    "enable": true,
-                    "minmax": [0,1.0],
-                    "initstate" : 1.0
-                },
+                 "metadata":{
+                    "enable":false,
+                    "value": "http://maps.ottawa.ca/ArcGIS/rest/services/Hospitals/MapServer/0",
+                    "alttext":"Beaches metadata alt text"
+                 },
+                 "opacity": {
+                        "enable": false,
+                        "minmax": [0,1.0],
+                        "initstate" : 1.0
+                 }, 
                 "visibility": {
-                    "enable": true,
-                    "initstate" : true
-                },
-                "symbology": true,
+                        "enable": true,
+                        "initstate" : true,
+                        "type": 1
+                 },
+                "displaychild": true,
                 "customimage":{
                     "enable":false,
                     "url":"",
                     "alttext": ""
-                }
-            
-            }
+                },
+                "items": [{
+                        "expand": false,
+                        "id": "Greenbelt",
+                        "displayfields": false,
+                        "label":{
+                                "value": "Greenbelt",
+                                "alttext": "basemap alttext"
+                         },
+                         "metadata":{
+                            "enable":false,
+                            "value": "http://maps.ottawa.ca/ArcGIS/rest/services/Hospitals/MapServer/0",
+                            "alttext":"Beaches metadata alt text"
+                         },
+                         "opacity": {
+                                "enable": false,
+                                "minmax": [0,1.0],
+                                "initstate" : 1.0
+                         }, 
+                        "visibility": {
+                                "enable": true,
+                                "initstate" : true,
+                                "type": 1
+                         },
+                        "displaychild": true,
+                        "customimage":{
+                            "enable":false,
+                            "url":"",
+                            "alttext": ""
+                        },
+                        "items": []
+                    }]
+            }]
 
-            ]
         }]
-     
     },
+     
+    
     "customwidgets": []
 }}
 
