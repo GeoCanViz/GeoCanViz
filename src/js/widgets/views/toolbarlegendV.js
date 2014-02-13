@@ -19,9 +19,9 @@
                 mapid = $mapElem.mapframe.id,
                 tp,
                 node = '',
-                itemsTemplate ='';
+                itemsTemplate = '';
 
-            tp = new dojotitle({id: 'tbleg' + mapid, title: i18n.getDict('%toolbarlegend-name'), content: '<div class="gcviz-tbleg-content gcviz-tbcontent-nobkg"></div>', open: config.expand});
+            tp = new dojotitle({ id: 'tbleg' + mapid, title: i18n.getDict('%toolbarlegend-name'), content: '<div class="gcviz-tbleg-content gcviz-tbcontent-nobkg"></div>', open: config.expand});
             $mapElem.find('.gcviz-tbholder').append(tp.domNode);
             tp.startup();
             
@@ -31,7 +31,7 @@
             // find toolbar and start to add items
             $legend = $mapElem.find('.gcviz-tbleg-content');
 
-            //template for recrusive item loading
+            //template for recursive item loading
             itemsTemplate = '<script id="itemsTmpl" type="text/html">';
                 itemsTemplate += ' <ul class="gcviz-legendULLayer" id="layerList"  data-bind="foreach: $data">';
                     itemsTemplate += '<li  class="gcviz-legendLiLayer" data-bind="LegendItemList: { expanded: expand }, click: $root.toggleViewService">';
