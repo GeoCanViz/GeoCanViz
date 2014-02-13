@@ -120,15 +120,14 @@
 				}
 			});
 
-			function loopChildren(VM, e)
-			{
-				if(VM.items.length > 0){
+			function loopChildren(VM, e){
+				if (VM.items.length > 0) {
 					Object.keys(VM.items).forEach(function(key) {
 							loopChildren(VM.items[key], e, loopChildren);
 					});
 				}
 				else{
-					bindingContext.$parentContext.$parent.changeServiceOpacity(bindingContext.$parentContext.$parent.mymap,VM.id, e);
+					bindingContext.$parentContext.$parent.changeServiceOpacity(bindingContext.$parentContext.$parent.mymap, VM.id, e);
 				}
 			}
 		}
@@ -139,7 +138,7 @@
 			var options = valueAccessor(),
 				$element = $viz(element);
 			if (viewModel.items.length > 0)
-				$element.children('div#childItems.gcviz-legendHolderDiv').toggle(options.expanded,function(event){
+				$element.children('div#childItems.gcviz-legendHolderDiv').toggle(options.expanded, function(event){
 					event.stopPropagation();
 				});
 			else

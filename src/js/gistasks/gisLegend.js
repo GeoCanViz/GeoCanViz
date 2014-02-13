@@ -23,7 +23,9 @@ define(['jquery-private',
       getFeatureLayerSymbol,
       createSymbols,
       createSVGSurface;
-			
+      
+		
+    //TODO: MOVE PROXY VARIABLES OUTSIDE GISLEGNED - USED FOR ESRIREQUESTS	
 		esri.config.defaults.io.proxyUrl = '../../proxy.ashx';
 		esri.config.defaults.io.alwaysUseProxy = false;
 
@@ -51,7 +53,7 @@ define(['jquery-private',
           nodeImage,
           nodeLabel;
 
-            if (renInfo){
+            if (renInfo) {
                 //unique renderer, class break renderer
                 var legs = renInfo;
                 if (renDefSym && legs.length > 0 && legs[0].label !== '[all other values]') {
@@ -134,7 +136,8 @@ define(['jquery-private',
             }
         };
 
-        getLegend = function(serviceDetails, version) {
+       //TODO: CODE FOR GET DYNAMIC MAP SERVER LEGEND IMAGE - MIGHT NOT BE NEEDED
+       /** getLegend = function(serviceDetails, version) {
             var serviceUrl = serviceDetails.items,
                 legendUrl;
 
@@ -154,18 +157,20 @@ define(['jquery-private',
 
             request.then(getLegendResultsSucceeded, getLegendResultsFailed);
         };
+
+         
             
         getLegendResultsSucceeded = function(response, io) {
-            //console.log(response);
+            console.log(response);
         };
             
         getLegendResultsFailed = function(error, io) {
-           // console.log('fail');
-        };
+            console.log('fail');
+        }; **/
 	
 		return {
 			setLayerVisibility: setLayerVisibility,
-			getFeatureLayerSymbol:getFeatureLayerSymbol
-		};
+			getFeatureLayerSymbol: getFeatureLayerSymbol
+     };
 	});
 }());

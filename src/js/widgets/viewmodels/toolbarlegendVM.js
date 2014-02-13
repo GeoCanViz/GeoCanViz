@@ -57,7 +57,7 @@
 
 			var loopChildrenVisibility = function(itemMaster, e, map)
 			{
-				if(itemMaster.items.length > 0){
+				if(itemMaster.items.length > 0) {
 					Object.keys(itemMaster.items).forEach(function(key) {
 							loopChildrenVisibility(itemMaster.items[key], e, map, loopChildrenVisibility);
 					});
