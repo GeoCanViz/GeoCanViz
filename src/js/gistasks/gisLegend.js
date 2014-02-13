@@ -13,20 +13,19 @@ define(['jquery-private',
       'esri/renderers/Renderer',
       'dojo/dom-construct',
       'esri/symbols/jsonUtils',
-      'dojox/gfx', 
-      'dojo/dom',
-      'dojo/dom-style'
-      ], function($viz, Request, Renderer, domConstruct, jsonUtils, gfx, dom, domStyle) {
-    var setLayerVisibility,
+      'dojox/gfx',
+      'dojo/dom'
+      ], function($viz, Request, Renderer, domConstruct, jsonUtils, gfx, dom){
+      var setLayerVisibility,
       getLegend,
       getLegendResultsSucceeded,
       getLegendResultsFailed,
       getFeatureLayerSymbol,
-      changeServiceVisibility,
       createSymbols,
-      createSVGSurface,
-      setLayerOpacity;
-			
+      createSVGSurface;
+      
+		
+    //TODO: MOVE PROXY VARIABLES OUTSIDE GISLEGNED - USED FOR ESRIREQUESTS	
 		esri.config.defaults.io.proxyUrl = '../../proxy.ashx';
 		esri.config.defaults.io.alwaysUseProxy = false;
 
@@ -107,9 +106,9 @@ define(['jquery-private',
             if (symWidth && symHeight) {
                 mySurface = gfx.createSurface(dom.byId(domid), symWidth, symHeight);
             } else {
-                mySurface = gfx.createSurface(dom.byId(domid), 30, 30);   
+                mySurface = gfx.createSurface(dom.byId(domid), 30, 30);
             }
-            return mySurface; 
+            return mySurface;
         };
 
         createSymbols = function(descript, shp, renderer) {
@@ -137,7 +136,8 @@ define(['jquery-private',
             }
         };
 
-        getLegend = function(serviceDetails, version) { 
+       //TODO: CODE FOR GET DYNAMIC MAP SERVER LEGEND IMAGE - MIGHT NOT BE NEEDED
+       /** getLegend = function(serviceDetails, version) {
             var serviceUrl = serviceDetails.items,
                 legendUrl;
 
@@ -147,11 +147,9 @@ define(['jquery-private',
                 legendUrl = 'http://www.arcgis.com/sharing/tools/legend' + '?soapUrl' + encodeURI(serviceUrl);
             }
 
-            console.log(legendUrl);
-
             var request = Request({
                 'url': legendUrl,
-                'content': { 
+                'content': {
                     f: 'json'
                 },
                 'handleAs': 'json'
@@ -159,6 +157,8 @@ define(['jquery-private',
 
             request.then(getLegendResultsSucceeded, getLegendResultsFailed);
         };
+
+         
             
         getLegendResultsSucceeded = function(response, io) {
             console.log(response);
@@ -166,12 +166,11 @@ define(['jquery-private',
             
         getLegendResultsFailed = function(error, io) {
             console.log('fail');
-        };
+        }; **/
 	
 		return {
 			setLayerVisibility: setLayerVisibility,
-			getFeatureLayerSymbol:getFeatureLayerSymbol,
-			changeServiceVisibility: changeServiceVisibility
-		};
+			getFeatureLayerSymbol: getFeatureLayerSymbol
+     };
 	});
 }());
