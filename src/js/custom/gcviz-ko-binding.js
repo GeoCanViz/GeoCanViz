@@ -12,8 +12,9 @@
 	define(['jquery-private',
 			'knockout',
 			'dijit/form/HorizontalSlider',
+			'dijit/form/RadioButton',
 			'jqueryui'
-			], function($viz, ko, slider) {
+			], function($viz, ko, slider, radio) {
     
     ko.bindingHandlers.tooltip = {
 		init: function(element, valueAccessor) {
@@ -87,7 +88,6 @@
 					event.preventDefault();
 					return false;
 				}
-
 				return true;
 			});
 		}
@@ -115,7 +115,7 @@
 				if(viewModel.items.length === 0) {
 					bindingContext.$parentContext.$parent.changeServiceOpacity(bindingContext.$parentContext.$parent.mymap,viewModel.id, e);
 				}
-				else{
+				else {
 					loopChildren(viewModel, e, loopChildren);
 				}
 			});
@@ -123,10 +123,10 @@
 			function loopChildren(VM, e) {
 				if (VM.items.length > 0) {
 					Object.keys(VM.items).forEach(function(key) {
-							loopChildren(VM.items[key], e, loopChildren);
+				    	loopChildren(VM.items[key], e, loopChildren);
 					});
 				}
-				else{
+				else {
 					bindingContext.$parentContext.$parent.changeServiceOpacity(bindingContext.$parentContext.$parent.mymap, VM.id, e);
 				}
 			}
@@ -141,10 +141,31 @@
 				$element.children('div#childItems.gcviz-legendHolderDiv').toggle(options.expanded, function(event) {
 					event.stopPropagation();
 				});
-			else
+			else {
 				$element.children('.gcviz-legendSymbolDiv').toggle(options.expanded);
+				$element.children('div#customImage.gcviz-legendHolderImgDiv').toggle(options.expanded);
+				if(viewModel.displaychild === false && viewModel.customimage.enable === false)  //remove bullet symbol
+						$element.css('background-image', 'none');
+			}
 
 			return false;
+		}
+	};
+
+	ko.bindingHandlers.LegendRadioButtons = {
+		init: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
+			var options = valueAccessor(),
+				widget;
+
+			widget = new radio({
+				name: options.group,
+                value: options.value,
+                checked: options.value
+            }).placeAt(element);
+
+			widget.on('Change', function(e) {
+				bindingContext.$root.switchRadioButtonVisibility(bindingContext.$root.mymap, viewModel.id, e);
+			});
 		}
 	};
 

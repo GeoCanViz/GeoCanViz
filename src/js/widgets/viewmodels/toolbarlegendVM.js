@@ -34,9 +34,13 @@
 
 				_self.changeItemsVisibility = function(selectedItem, event) {
                     var evtTarget = $viz(event.target);
-					loopChildrenVisibility(selectedItem, evtTarget.prop('checked'), _self.mymap, loopChildrenVisibility);
+                    loopChildrenVisibility(selectedItem, evtTarget.prop('checked'), _self.mymap, evtTarget, loopChildrenVisibility);
 					event.stopPropagation();
 					return true;
+				};
+
+				_self.switchRadioButtonVisibility = function(map, id, value) {
+					gisLegend.setLayerVisibility(map, id, value);
 				};
 
 				_self.changeServiceOpacity = function(map, layerid, opacityValue) {
@@ -49,20 +53,27 @@
 					var evtTarget = $viz(event.target);
 					evtTarget.children('div#childItems.gcviz-legendHolderDiv').toggle();
 					evtTarget.children('.gcviz-legendSymbolDiv').toggle();
+					evtTarget.children('div#customImage.gcviz-legendHolderImgDiv').toggle();
 					event.stopPropagation(); //prevent toggling of inner hested lists
 				};
 
 				_self.init();
 			};
 
-			var loopChildrenVisibility = function(itemMaster, e, map) {
+			var loopChildrenVisibility = function(itemMaster, e, map, evtTarget) {
+				
 				if(itemMaster.items.length > 0) {
 					Object.keys(itemMaster.items).forEach(function(key) {
-							loopChildrenVisibility(itemMaster.items[key], e, map, loopChildrenVisibility);
+							loopChildrenVisibility(itemMaster.items[key], e, map, evtTarget, loopChildrenVisibility);
 					});
 				}
-				else{
-					gisLegend.setLayerVisibility(map, itemMaster.id, e);
+				else {
+					//check if each checkbox is checked, only turn layers on if their checkbox is checked.
+					var control = evtTarget.find('checkbox' + itemMaster.id);
+					if(control) {
+						if((!control.attr('checked') && e === true) || e === false)
+							gisLegend.setLayerVisibility(map, itemMaster.id, e);
+					}
 				}
 			};
 

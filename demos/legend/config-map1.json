@@ -67,7 +67,7 @@
             {
                 "id": "bikestructure",
                 "type": "feature",
-                "url": "http://maps.ottawa.ca/ArcGIS/rest/services/CyclingMap/MapServer/8",
+                "url": "http://maps.ottawa.ca/ArcGIS/rest/services/CyclingMap/MapServer/7",
                 "selectable": false,
                 "swiper": {
                     "enable": false
@@ -152,6 +152,23 @@
                 "id": "roadnames",
                 "type": "feature",
                 "url": "http://maps.ottawa.ca/ArcGIS/rest/services/Roads/MapServer/1",
+                "selectable": false,
+                "swiper": {
+                    "enable": false
+                },
+                "cluster": {
+                    "enable": false
+                },
+                "resolution": {
+                    "min": -1,
+                    "max": -1
+                }
+
+            },
+            {
+                "id": "communitygardens",
+                "type": "feature",
+                "url": "http://maps.ottawa.ca/ArcGIS/rest/services/Community_Gardens/MapServer/0",
                 "selectable": false,
                 "swiper": {
                     "enable": false
@@ -385,8 +402,9 @@
              }, 
             "visibility": {
                     "enable": true,
-                    "initstate" : true,
-                    "type": 1
+                    "initstate": true,
+                    "type": 1,
+                    "radioid": 0
              },
             "displaychild": false,
             "customimage":{
@@ -414,14 +432,15 @@
                      }, 
                     "visibility": {
                             "enable": true,
-                            "initstate" : true,
-                            "type": 1
+                            "initstate": true,
+                            "type": 1,
+                            "radioid": 0
                      },
                     "displaychild": false,
-                    "customimage":{
-                        "enable":true,
-                        "url":"http://www.fourshoreservices.com/img/urban-dev-gis.gif",
-                        "alttext": ""
+                    "customimage": {
+                        "enable": true,
+                        "url": "http://www.fourshoreservices.com/img/urban-dev-gis.gif",
+                        "alttext": "basemap alt text"
                     },
                     "items":[]
                    
@@ -447,8 +466,9 @@
              }, 
             "visibility": {
                     "enable": true,
-                    "initstate" : true,
-                    "type": 1
+                    "initstate": true,
+                    "type": 1,
+                    "radioid": 0
              },
             "displaychild": false,
             "customimage":{
@@ -476,12 +496,13 @@
                      }, 
                     "visibility": {
                             "enable": true,
-                            "initstate" : true,
-                            "type": 1
+                            "initstate": true,
+                            "type": 1,
+                            "radioid": 0
                      },
                     "displaychild": false,
-                    "customimage":{
-                        "enable":true,
+                    "customimage": {
+                        "enable":false,
                         "url":"http://www.fourshoreservices.com/img/urban-dev-gis.gif",
                         "alttext": ""
                     },
@@ -494,9 +515,9 @@
                                 "alttext": "basemap alttext"
                          },
                          "metadata":{
-                            "enable":true,
+                            "enable": true,
                             "value": "http://maps.ottawa.ca/ArcGIS/rest/services/Basemap_Imagery_2011/MapServer",
-                            "alttext":"metadata alt text"
+                            "alttext": "metadata alt text"
                          },
                          "opacity": {
                                 "enable": true,
@@ -505,13 +526,14 @@
                          }, 
                         "visibility": {
                                 "enable": true,
-                                "initstate" : true,
-                                "type": 1
+                                "initstate": true,
+                                "type": 1,
+                                "radioid": 0
                          },
                         "displaychild": false,
                         "customimage":{
-                            "enable":false,
-                            "url":"http://www.fourshoreservices.com/img/urban-dev-gis.gif",
+                            "enable": true,
+                            "url": "http://www.fourshoreservices.com/img/urban-dev-gis.gif",
                             "alttext": ""
                         },
                         "items" :[]
@@ -527,24 +549,25 @@
                             "alttext": "basemap alttext"
                      },
                      "metadata":{
-                        "enable":false,
+                        "enable": false,
                         "value": "http://maps.ottawa.ca/ArcGIS/rest/services/Basemap_Imagery_2011/MapServer",
                         "alttext":"metadata alt text"
                      },
                      "opacity": {
                             "enable": false,
                             "minmax": [0,1.0],
-                            "initstate" : 1.0
+                            "initstate": 1.0
                      }, 
                     "visibility": {
                             "enable": true,
                             "initstate" : false,
-                            "type": 1
+                            "type": 1,
+                            "radioid": 0
                      },
                     "displaychild": false,
-                    "customimage":{
-                        "enable":false,
-                        "url":"http://www.fourshoreservices.com/img/urban-dev-gis.gif",
+                    "customimage": {
+                        "enable": false,
+                        "url": "http://www.fourshoreservices.com/img/urban-dev-gis.gif",
                         "alttext": ""
                     },
                     "items": []
@@ -559,7 +582,7 @@
                     "alttext": "basemap alttext"
              },
              "metadata":{
-                "enable":false,
+                "enable": false,
                 "value": "http://maps.ottawa.ca/ArcGIS/rest/services/Hospitals/MapServer/0",
                 "alttext":"hospitals metadata alt text"
              },
@@ -570,13 +593,14 @@
              }, 
             "visibility": {
                     "enable": true,
-                    "initstate" : true,
-                    "type": 1
+                    "initstate": true,
+                    "type": 1,
+                    "radioid": 0
              },
             "displaychild": true,
-            "customimage":{
-                "enable":false,
-                "url":"",
+            "customimage": {
+                "enable": false,
+                "url": "",
                 "alttext": ""
             },
             "items": []
@@ -601,13 +625,14 @@
              }, 
             "visibility": {
                     "enable": true,
-                    "initstate" : true,
-                    "type": 1
+                    "initstate": true,
+                    "type": 1,
+                    "radioid": 0
              },
             "displaychild": true,
             "customimage":{
-                "enable":false,
-                "url":"",
+                "enable": false,
+                "url": "",
                 "alttext": ""
             },
             "items": []
@@ -621,7 +646,7 @@
                     "alttext": "basemap alttext"
              },
              "metadata":{
-                "enable":false,
+                "enable": false,
                 "value": "http://maps.ottawa.ca/ArcGIS/rest/services/Hospitals/MapServer/0",
                 "alttext":"Beaches metadata alt text"
              },
@@ -632,13 +657,14 @@
              }, 
             "visibility": {
                     "enable": true,
-                    "initstate" : true,
-                    "type": 1
+                    "initstate": true,
+                    "type": 1,
+                    "radioid": 0
              },
             "displaychild": true,
-            "customimage":{
-                "enable":false,
-                "url":"",
+            "customimage": {
+                "enable": false,
+                "url": "",
                 "alttext": ""
             },
             "items": [{
@@ -650,6 +676,38 @@
                         "alttext": "basemap alttext"
                  },
                  "metadata":{
+                    "enable": false,
+                    "value": "http://maps.ottawa.ca/ArcGIS/rest/services/Hospitals/MapServer/0",
+                    "alttext":"Beaches metadata alt text"
+                 },
+                 "opacity": {
+                        "enable": false,
+                        "minmax": [0,1.0],
+                        "initstate": 1.0
+                 }, 
+                "visibility": {
+                        "enable": true,
+                        "initstate": true,
+                        "type": 1,
+                        "radioid": 0
+                 },
+                "displaychild": true,
+                "customimage": {
+                    "enable": false,
+                    "url": "",
+                    "alttext": ""
+                },
+                "items": []
+            },
+            {
+                "expand": true,
+                "id": "bikestructure",
+                "displayfields": false,
+                "label": {
+                        "value": "Bike Structures",
+                        "alttext": "bike structures alttext"
+                 },
+                 "metadata": {
                     "enable":false,
                     "value": "http://maps.ottawa.ca/ArcGIS/rest/services/Hospitals/MapServer/0",
                     "alttext":"Beaches metadata alt text"
@@ -657,17 +715,18 @@
                  "opacity": {
                         "enable": false,
                         "minmax": [0,1.0],
-                        "initstate" : 1.0
+                        "initstate": 1.0
                  }, 
                 "visibility": {
                         "enable": true,
-                        "initstate" : true,
-                        "type": 1
+                        "initstate": true,
+                        "type": 1,
+                        "radioid": 0
                  },
                 "displaychild": true,
-                "customimage":{
-                    "enable":false,
-                    "url":"",
+                "customimage": {
+                    "enable": false,
+                    "url": "",
                     "alttext": ""
                 },
                 "items": []
@@ -676,29 +735,30 @@
                 "expand": false,
                 "id": "",
                 "displayfields": false,
-                "label":{
+                "label": {
                         "value": "Greenbelt group",
                         "alttext": "basemap alttext"
                  },
                  "metadata":{
-                    "enable":false,
+                    "enable": false,
                     "value": "http://maps.ottawa.ca/ArcGIS/rest/services/Hospitals/MapServer/0",
-                    "alttext":"Beaches metadata alt text"
+                    "alttext": "Beaches metadata alt text"
                  },
                  "opacity": {
                         "enable": false,
                         "minmax": [0,1.0],
-                        "initstate" : 1.0
+                        "initstate": 1.0
                  }, 
                 "visibility": {
                         "enable": true,
                         "initstate" : true,
-                        "type": 1
+                        "type": 1,
+                        "radioid": 0
                  },
                 "displaychild": true,
-                "customimage":{
-                    "enable":false,
-                    "url":"",
+                "customimage": {
+                    "enable": false,
+                    "url": "",
                     "alttext": ""
                 },
                 "items": [{
@@ -709,25 +769,58 @@
                                 "value": "Greenbelt",
                                 "alttext": "basemap alttext"
                          },
-                         "metadata":{
-                            "enable":false,
+                         "metadata": {
+                            "enable": false,
                             "value": "http://maps.ottawa.ca/ArcGIS/rest/services/Hospitals/MapServer/0",
                             "alttext":"Beaches metadata alt text"
                          },
                          "opacity": {
                                 "enable": false,
                                 "minmax": [0,1.0],
-                                "initstate" : 1.0
+                                "initstate": 1.0
+                         }, 
+                        "visibility": {
+                                "enable": true,
+                                "initstate" : false,
+                                "type": 2,
+                                "radioid": 0
+                         },
+                        "displaychild": true,
+                        "customimage": {
+                            "enable": false,
+                            "url": "",
+                            "alttext": ""
+                        },
+                        "items": []
+                    },
+                    {
+                        "expand": false,
+                        "id": "communitygardens",
+                        "displayfields": false,
+                        "label":{
+                                "value": "Community Gardens",
+                                "alttext": "community alttext"
+                         },
+                         "metadata": {
+                            "enable": false,
+                            "value": "http://maps.ottawa.ca/ArcGIS/rest/services/Hospitals/MapServer/0",
+                            "alttext":"Community metadata alt text"
+                         },
+                         "opacity": {
+                                "enable": false,
+                                "minmax": [0,1.0],
+                                "initstate": 1.0
                          }, 
                         "visibility": {
                                 "enable": true,
                                 "initstate" : true,
-                                "type": 1
+                                "type": 2,
+                                "radioid": 0
                          },
-                        "displaychild": true,
-                        "customimage":{
-                            "enable":false,
-                            "url":"",
+                        "displaychild": false,
+                        "customimage": {
+                            "enable": false,
+                            "url": "",
                             "alttext": ""
                         },
                         "items": []
