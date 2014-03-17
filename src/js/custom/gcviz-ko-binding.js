@@ -115,7 +115,7 @@
 				if(viewModel.items.length === 0) {
 					bindingContext.$parentContext.$parent.changeServiceOpacity(bindingContext.$parentContext.$parent.mymap,viewModel.id, e);
 				}
-				else{
+				else {
 					loopChildren(viewModel, e, loopChildren);
 				}
 			});
@@ -123,10 +123,10 @@
 			function loopChildren(VM, e) {
 				if (VM.items.length > 0) {
 					Object.keys(VM.items).forEach(function(key) {
-						   loopChildren(VM.items[key], e, loopChildren);
+				    	loopChildren(VM.items[key], e, loopChildren);
 					});
 				}
-				else{
+				else {
 					bindingContext.$parentContext.$parent.changeServiceOpacity(bindingContext.$parentContext.$parent.mymap, VM.id, e);
 				}
 			}

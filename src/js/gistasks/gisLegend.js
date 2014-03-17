@@ -76,7 +76,6 @@ define(['jquery-private',
                 
                 $viz.each(legs, function( key, value ) {
                     nodeImage = domConstruct.create('div', {'class': 'gcviz-legendSymbolUniqueValueDiv'});
-                   // nodeLabel = domConstruct.create('span', {'class': 'gcviz-legendUniqueValueSpan'});
                     nodeLabel = domConstruct.create('span');
                     dojo.addClass(nodeLabel, 'gcviz-LegendUniqueValueSpan');
                     descriptors = jsonUtils.getShapeDescriptors(value.symbol);
