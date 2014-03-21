@@ -24,9 +24,9 @@
 			setHtml,
 			setMap,
 			setLightbox;
-					
+
 		initialize = function($mapElem, mapid, inset) {
-			
+
 			// data model				
 			var insetViewModel = function($mapElem, mapid, inset) {
 				var _self = this,
@@ -37,15 +37,15 @@
 					pathLightbox = locationPath + 'gcviz/images/insetLightbox.png',
 					pathPlayVideo = locationPath + 'gcviz/images/insetPlayVideo.png',
 					headerHeight = vmArray[mapid].header.headerHeight;
-								
+
 				// image path
 				_self.imgLightbox = pathLightbox;
 				_self.imgPlayVideo = pathPlayVideo;
-				
+
 				// tooltip
 				_self.tpLight = i18n.getDict('%inset-tplight');
 				_self.tpPlayVideo = i18n.getDict('%inset-tpPlayVideo');
-				
+
 				// keep inset position, size and type
 				_self.bottom = parseInt($mapElem.css('bottom'), 10);
 				_self.left = parseInt($mapElem.css('left'), 10);
@@ -53,12 +53,12 @@
 				_self.width = parseInt($mapElem.css('width'), 10);
 				_self.size = inset.size;
 				_self.type = inset.type;
-					
+
 				// inset state in fullscreen
 				_self.fullscreen = inset.fullscreen;
 				_self.VisibleState = true;
 				_self.fullscreenState = false;
-			
+
 				// keep id
 				_self.mapid = mapid;
 
@@ -78,11 +78,11 @@
 					return { controlsDescendantBindings: true };
 				};
 
-				_self.insetClick = function(data, event) {
+				_self.insetClick = function() {
 					$mapElem.find('a')[0].click();
 				};
-				
-				_self.videoClick = function(data, event) {
+
+				_self.videoClick = function() {
 					var video = $mapElem[0].getElementsByTagName('Video')[0],
 						$button = $mapElem.find('.gcviz-play-background');
 
@@ -97,7 +97,7 @@
 						$button.removeClass('gcviz-hidden');
 					}
 				};
-				
+
 				_self.stopVideo = function(key, shift, type) {
 					var video,
 						$back,
@@ -108,30 +108,29 @@
 							video = $mapElem[0].getElementsByTagName('Video')[0],
 							$back = $mapElem.find('.gcviz-play-background'),
 							button = $mapElem.find('.gcviz-play-button')[0];
-						
+
 							video.pause();
 							video.tabIndex = -1;
 							video.blur();
 							$back.removeClass('gcviz-hidden');
 							setTimeout(function() { button.focus(); }, 100);
-						
+
 							return true;
 						} else {
 							return true;
 						}
 					}
-					
+
 					return false;
 				};
-				
+
 				_self.setVisibility = function(visible) {
-					var height,
-						mymap = _self.map;
-						
+					var height;
+
 					if (visible) {
 						$mapElem.removeClass('gcviz-hidden');
 						_self.VisibleState = true;
-						
+
 						if (_self.type === 'map') {
 							if (_self.fullscreenState) {
 								height = _self.fullscreenHeight;
@@ -146,13 +145,14 @@
 						_self.VisibleState = false;
 					}
 				};
-				
+
 				_self.enterFullscreen = function(mapWidth, mapHeight) {
 					_self.fullscreenState = true;
-					
+
 					// check if inset can be open in full screen
 					if (_self.fullscreen) {
-						// get maximal height and width from browser window and original height and width for the map
+						// get maximal height and width from browser window
+						// and original height and width for the map
 						var param = gcvizfunc.getFullscreenParam(mapWidth, mapHeight),
 							w = param.width,
 							h = param.height,
@@ -162,13 +162,13 @@
 							left = _self.left,
 							height = _self.height,
 							width = _self.width,
-							options,
 							map = _self.map;
-							
+
 						// check if px or %
 						if (_self.size === '%') {
 							if (bottom !== headerHeight) {
-								css.bottom  = ((bottom * ratio) + ((headerHeight * ratio) - headerHeight)) + 'px';
+								css.bottom  = ((bottom * ratio) +
+											((headerHeight * ratio) - headerHeight)) + 'px';
 							}
 							if (left !== 0) {
 								css.left = (left * ratio) + 'px';
@@ -176,24 +176,26 @@
 						} else {
 							if (bottom !== headerHeight) {
 								ratio = (h / mapHeight);
-								css.bottom = ((bottom + height + headerHeight) / mapHeight) * (h - headerHeight - height) + 'px';
+								css.bottom = ((bottom + height + headerHeight) / mapHeight) *
+											(h - headerHeight - height) + 'px';
 							}
 							if (left !== 0) {
 								ratio = (w / mapWidth);
 								css.left = ((left + width) / mapWidth) * (w - width) + 'px';
 							}
 						}
-						
+
 						_self.fullscreenHeight = height * ratio;
-						
+
 						gcvizfunc.setStyle($mapElem[0], css);
-						
+
 						// resize map
 						if (_self.type === 'map' && _self.VisibleState) {
-							// if the inset is visible resize. If not wait until the inset is made visible
-							// if resize is set to hidden element, it breaks the map.
-							$mapElem.find('#' + $mapElem[0].id + 'm').css({ 'height': (height * ratio) - 20 });
-							
+							// if the inset is visible resize. If not wait until the inset
+							// is made visible if resize is set to hidden element, it breaks the map.
+							$mapElem.find('#' + $mapElem[0].id + 'm').
+										css({ 'height': (height * ratio) - 20 });
+
 							if (map.vType !== 'static') {
 								gisM.resizeMap(map);
 							} else {
@@ -204,22 +206,25 @@
 						$mapElem.addClass('gcviz-inset-hidden');
 					}
 				};
-				
+
 				_self.exitFullscreen = function() {
 					_self.fullscreenState = false;
-					
+
 					if (_self.fullscreen) {
-						var options,
-							map = _self.map;
-						
-						gcvizfunc.setStyle($mapElem[0], { 'bottom': _self.bottom + 'px', 'left': _self.left + 'px' });
-						
+						var map = _self.map;
+
+						gcvizfunc.setStyle($mapElem[0], { 'bottom': _self.bottom + 'px',
+											'left': _self.left + 'px' }
+										);
+
 						// resize map
-						if (_self.type === 'map' && _self.VisibleState) {	
-							// if the inset is visible resize. If not wait until the inset is made visible
-							// if resize is set to hidden element, it breaks the map.
-							$mapElem.find('#' + $mapElem[0].id + 'm').css({ 'height': _self.height - 20 });
-							
+						if (_self.type === 'map' && _self.VisibleState) {
+							// if the inset is visible resize. If not wait until the
+							// inset is made visible if resize is set to hidden element,
+							// it breaks the map.
+							$mapElem.find('#' + $mapElem[0].id + 'm').
+										css({ 'height': _self.height - 20 });
+
 							if (map.vType !== 'static') {
 								gisM.resizeMap(map);
 							} else {
@@ -230,11 +235,11 @@
 						$mapElem.removeClass('gcviz-inset-hidden');
 					}
 				};
-				
+
 				_self.applyKey = function(key, shift) {
 					var map = _self.map,
 						prevent = false;
-					
+
 					if (key === 37) {
 						gisM.panLeft(map);
 						prevent = true;
@@ -248,27 +253,30 @@
 						gisM.panDown(map);
 						prevent = true;
 					}
-					
+
 					return prevent;
 				};
-				
+
 				_self.init();
 			};
-			
+
 			vm = new insetViewModel($mapElem, mapid, inset);
 			ko.applyBindings(vm, $mapElem[0]); // This makes Knockout get to work
 			return vm;
 		};
-		
+
+		// set slides.js and magnific popup. We dont put this in a custom binding because
+		// it is use only in inset class. If in the futur we start to use this outside
+		// insets we will have to create custom binding.
 		setImage = function($elem, _self, paths) {
 			var source = $elem.vSource,
 				length = source.length,
 				lbId,
 				elems, elem, $el;
-						
+
 			// set src path
 			_self.img = [];
-						
+
 			while (length--) {
 				if (source[length].location === 'internet') {
 					_self.img[length] = source[length].url;
@@ -307,11 +315,12 @@
 			} else {
 				lbId = '.' + $elem.attr('id');
 			}
-			
+
 			// set lightbox
 			setLightbox('image', $elem, null, lbId, null);
-			
-			// remove anchor from tabindex if not part of navigation. If part of navigation add tabindex and images
+
+			// remove anchor from tabindex if not part of navigation.
+			// If part of navigation add tabindex and images
 			elems = $elem.find('a');
 			length = elems.length;
 			while (length--) {
@@ -336,18 +345,18 @@
 				}
 			}
 		};
-		
+
 		setVideo = function($elem, _self) {
 			var source = $elem.vSource,
 				length = source.length,
 				id = '#' + $elem[0].id + 'v',
 				$lb = $viz(id),
 				$back = $elem.find('.gcviz-play-background'),
-				func = { beforeOpen: function() { 
+				func = { beforeOpen: function() {
 							$lb.find('video').height((window.innerHeight * 0.8));
 							$back.addClass('gcviz-hidden');
                             },
-                        close: function() { 
+                        close: function() {
 							$lb.find('video')[0].pause();
 							$back.removeClass('gcviz-hidden');
 							}
@@ -355,7 +364,7 @@
 
 			// set src path
 			_self.vid = [];
-						
+
 			while (length--) {
 				if (source[length].location === 'internet') {
 					_self.vid[length] = source[length].url;
@@ -363,21 +372,20 @@
 					_self.vid[length] = locationPath + source[length].url;
 				}
 			}
-			
+
 			// set lightbox
 			setLightbox('inline', $elem, $lb, id, func);
 		};
-		
-		setHtml = function($elem, inset) {
-			var type = inset.inset.type,
-				id = '#' + $elem[0].id + 'h',
+
+		setHtml = function($elem) {
+			var id = '#' + $elem[0].id + 'h',
 				$lb = $viz(id),
 				func = { beforeOpen: null, close: null };
 
 			// set lightbox
 			setLightbox('inline', $elem, $lb, id, func);
 		};
-		
+
 		setMap = function($elem, inset, _self) {
 			var configMap = inset.inset,
 				lenLayers = configMap.layers.length,
@@ -391,17 +399,17 @@
 				id = '#' + mapid,
 				$lb = $viz(id),
 				initHeight;
-						
+
 			// create map	
 			mymap = gisM.createInset(mapid, configMap, _self.mapid);
-						
+
 			// add layers
 			layers = layers.reverse();
 			while (lenLayers--) {
 				var layer = layers[lenLayers];
 				gisM.addLayer(mymap, layer.type, layer.url);
 			}
-			
+
 			// set tabindex if type !static and pan
 			if (inset.inset.type !== 'static') {
 				if (inset.inset.typeinfo.pan) {
@@ -448,7 +456,7 @@
 					afterClose: function() {
 						$lb.removeClass('mfp-hide');
 						$lb.removeClass('mp-inset');
-						
+
 						// hide load image
 						setTimeout(function() { $load.addClass('gcviz-hidden'); }, 2000);
 					}
@@ -456,12 +464,12 @@
 				key: 'map-key',
 				mainClass: 'mfp-with-fade'
 			});
-			
+
 			return mymap;
 		};
-		
+
 		setLightbox = function(type, $elem, $lb, id, func) {
-			
+
 			if (type === 'inline') {
 				$elem.find('.mp-link').magnificPopup({
 					items: {
@@ -499,7 +507,7 @@
 				});
 			}
 		};
-		
+
 		return {
 			initialize: initialize
 		};

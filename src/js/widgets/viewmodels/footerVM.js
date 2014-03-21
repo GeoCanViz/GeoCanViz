@@ -14,9 +14,9 @@
 	], function(ko, i18n, gisGeo) {
 		var initialize,
 			vm;
-		
+
 		initialize = function($mapElem, mapid, config) {
-			
+
 			// data model				
 			var footerViewModel = function($mapElem, mapid, config) {
 				var _self = this,
@@ -26,11 +26,11 @@
 
 				// images path
 				_self.imgNorth = pathNorth;
-				
+
 				// geoprocessing and projection objects
 				_self.outSR = gisGeo.getOutSR(configMouse.outwkid);
 				_self.gsvc = gisGeo.getGSVC(configMouse.urlgeomserv);
-				
+
 				_self.init = function() {
 					var mymap = vmArray[mapid].map.map;
 
@@ -39,12 +39,12 @@
 							_self.showCoordinates(evt, 'mousecoord_' + mapid);
 						});
 					}
-							
+
 					if (config.northarrow) {
 						mymap.on('pan-end', function(evt) {
 							_self.showNorthArrow(evt, 'north_' + mapid, configNorth);
 						});
-							
+
 						mymap.on('zoom-end', function(evt) {
 							_self.showNorthArrow(evt, 'north_' + mapid, configNorth);
 						});
@@ -52,23 +52,23 @@
 
 					return { controlsDescendantBindings: true };
 				};
-				
+
 				_self.showCoordinates = function(evt, div) {
 					gisGeo.getCoord(evt.mapPoint, div, _self.outSR, _self.gsvc);
 				};
-				
+
 				_self.showNorthArrow = function(evt, div, inwkid) {
 					gisGeo.getNorthAngle(evt.extent, div, inwkid, _self.gsvc);
 				};
-				
+
 				_self.init();
 			};
-			
+
 			vm = new footerViewModel($mapElem, mapid, config);
 			ko.applyBindings(vm, $mapElem[0]); // This makes Knockout get to work
 			return vm;
 		};
-		
+
 		return {
 			initialize: initialize
 		};

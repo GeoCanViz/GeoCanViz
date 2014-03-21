@@ -14,7 +14,7 @@
 	], function(ko, i18n, gisNavigation) {
 		var initialize,
 			vm;
-		
+
 		initialize = function($mapElem, mapid) {
 
 			// data model				
@@ -30,7 +30,7 @@
 				_self.init = function() {
 					return { controlsDescendantBindings: true };
 				};
-				
+
 				_self.extentClick = function() {
 					elem.focus();
 					gisNavigation.zoomFullExtent(mymap);
@@ -38,15 +38,15 @@
 						elem.blur();
 					}, 2000);
 				};
-				
+
 				_self.init();
 			};
-			
+
 			vm = new toolbarnavViewModel($mapElem, mapid);
 			ko.applyBindings(vm, $mapElem[0]); // This makes Knockout get to work
 			return vm;
 		};
-		
+
 		return {
 			initialize: initialize
 		};
