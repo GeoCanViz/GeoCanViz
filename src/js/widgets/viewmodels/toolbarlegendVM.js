@@ -69,9 +69,9 @@
 				}
 				else {
 					//check if each checkbox is checked, only turn layers on if their checkbox is checked.
-					var control = evtTarget.find('checkbox' + itemMaster.id);
+					var control = evtTarget.find('input#checkbox' + itemMaster.id + '.gcviz-legendCheck');
 					if(control) {
-						if((!control.attr('checked') && e === true) || e === false)
+						if((control.context.checked && e === true) || e === false)
 							gisLegend.setLayerVisibility(map, itemMaster.id, e);
 					}
 				}
