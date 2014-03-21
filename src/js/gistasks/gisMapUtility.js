@@ -48,8 +48,9 @@
 			linkCount,
 			noLink = false;
 
-        createMap = function(id, config, fExtent) {
-            var iExtent = config.extent,
+        createMap = function(id, config) {
+            var iExtent = config.extentinit,
+            	fExtent = config.extentmax,
                 wkid = config.sr.wkid,
                 initExtent = new esriExt({ 'xmin': iExtent.xmin, 'ymin': iExtent.ymin,
 										'xmax': iExtent.xmax, 'ymax': iExtent.ymax,
@@ -275,11 +276,11 @@
 		};
 
 		addLayer = function(map, type, url, layerid) {
-			if (type === 'tiled') {
+			if (type === 3) {
 				map.addLayer(new esriTiled(url, { 'id': layerid }));
-			} else if (type === 'dynamic') {
+			} else if (type === 4) {
 				map.addLayer(new esriDyna(url, { 'id': layerid }));
-			} else if (type === 'feature') {
+			} else if (type === 5) {
 				map.addLayer(new esriFL(url, {
                     mode: esriFL.MODE_ONDEMAND,
                     outFields: ['*'],

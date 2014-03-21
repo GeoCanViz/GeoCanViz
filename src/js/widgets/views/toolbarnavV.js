@@ -30,7 +30,7 @@
 			$toolbar = $mapElem.find('.gcviz-tbnav-content');
 
 			// set full extent button
-			if (config.fullextent) {
+			if (config.zoom) {
 				node += '<button class="gcviz-button" tabindex="0" data-bind="click: extentClick"><img class="gcviz-img-button" data-bind="attr: { src: imgExtent }"></img></button>';
 			}
 
