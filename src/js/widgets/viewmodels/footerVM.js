@@ -29,7 +29,7 @@
 
 				// geoprocessing and projection objects
 				_self.outSR = gisGeo.getOutSR(configMouse.outwkid);
-				_self.gsvc = gisGeo.getGSVC(configMouse.urlgeomserv);
+				_self.gsvc = gisGeo.getGSVC(config.urlgeomserv);
 
 				_self.init = function() {
 					var mymap = vmArray[mapid].map.map;

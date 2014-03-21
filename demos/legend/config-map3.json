@@ -210,9 +210,9 @@
             "enable": true
         },
         "measure": {
-            "enable": false,
-            "type": "full",
-            "unit": "km"
+            "enable": true,
+            "type": 3,
+            "unit": 1
         },
         "importexport": {
             "enable": false,

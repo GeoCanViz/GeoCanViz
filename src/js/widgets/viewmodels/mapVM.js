@@ -27,6 +27,7 @@
 				_self.init = function() {
 					var layers = config.layers,
 						lenLayers = layers.length,
+						base = config.bases[0],
 						$map = $viz('#' + mapid + '_holder'),
 						$root,
 						$container;
@@ -35,8 +36,11 @@
 					_self.mapholder = $map;
 
 					// create map	
-					map = gisM.createMap(mapid + '_holder', config, mapframe.extent);
+					map = gisM.createMap(mapid + '_holder', config);
 
+					// add basemap
+					gisM.addLayer(map, base.type, base.url, base.id);
+					
 					// add layers
 					layers = layers.reverse();
 					while (lenLayers--) {
