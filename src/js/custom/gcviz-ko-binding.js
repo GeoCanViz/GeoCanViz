@@ -5,8 +5,7 @@
  *
  * hold custom Knockout binding
  */
-/* global vmArray: false */
-/* global dojo: false */
+/* global vmArray: false, dojo: false */
 (function() {
 	'use strict';
 	define(['jquery-private',
@@ -14,20 +13,20 @@
 			'dijit/form/HorizontalSlider',
 			'dijit/form/RadioButton',
 			'jqueryui'
-			], function($viz, ko, slider, radio) {
-    
+	], function($viz, ko, slider, radio) {
+
     ko.bindingHandlers.tooltip = {
 		init: function(element, valueAccessor) {
 			var local = ko.utils.unwrapObservable(valueAccessor()),
 				options = {},
 				$element = $viz(element);
-					
+
 			ko.utils.extend(options, ko.bindingHandlers.tooltip.options);
 			ko.utils.extend(options, local);
-				
+
 			$element.attr('title', options.content);
 			$element.tooltip(options);
-					
+
 			ko.utils.domNodeDisposal.addDisposeCallback(element, function() {
 					$element.tooltip('destroy');
 				});
@@ -48,32 +47,34 @@
 				trigger: 'hover, focus'
 			}
 	};
-		
+
 	ko.bindingHandlers.fullscreen = {
 		init: function(element, valueAccessor, allBindings, viewModel) {
-			var mapid = viewModel.mapid,
+			var manageFullscreen,
+				mapid = viewModel.mapid,
 				vm = vmArray[mapid].header;
 			vm.isFullscreen.subscribe(manageFullscreen);
-			
-			function manageFullscreen(fullscreen) {
+
+			manageFullscreen = function(fullscreen) {
 				if (fullscreen) {
 					viewModel.enterFullscreen(vm.widthSection, vm.heightSection);
 				} else {
 					viewModel.exitFullscreen();
 				}
-			}
+			};
 		}
 	};
-	
+
 	ko.bindingHandlers.insetVisibility = {
 		init: function(element, valueAccessor, allBindings, viewModel) {
-			var mapid = viewModel.mapid,
+			var manageInsetVisibility,
+				mapid = viewModel.mapid,
 				vm = vmArray[mapid].header;
 			vm.isInsetVisible.subscribe(manageInsetVisibility);
-			
-			function manageInsetVisibility(visible) {
+
+			manageInsetVisibility = function(visible) {
 				viewModel.setVisibility(visible);
-			}
+			};
 		}
 	};
 
@@ -107,13 +108,15 @@
                 value: options.value,
                 showButtons: false
 			}).placeAt(element);
-			
+
 			dojo.addClass(widget.domNode, 'gcviz-legendSlider');
 
 			widget.on('Change', function(e) {
-				
+
 				if(viewModel.items.length === 0) {
-					bindingContext.$parentContext.$parent.changeServiceOpacity(bindingContext.$parentContext.$parent.mymap,viewModel.id, e);
+					bindingContext.$parentContext.$parent.changeServiceOpacity(
+						bindingContext.$parentContext.$parent.mymap,viewModel.id, e
+					);
 				}
 				else {
 					loopChildren(viewModel, e, loopChildren);
@@ -123,11 +126,13 @@
 			function loopChildren(VM, e) {
 				if (VM.items.length > 0) {
 					Object.keys(VM.items).forEach(function(key) {
-				    	loopChildren(VM.items[key], e, loopChildren);
+						loopChildren(VM.items[key], e, loopChildren);
 					});
 				}
 				else {
-					bindingContext.$parentContext.$parent.changeServiceOpacity(bindingContext.$parentContext.$parent.mymap, VM.id, e);
+					bindingContext.$parentContext.$parent.changeServiceOpacity(
+						bindingContext.$parentContext.$parent.mymap, VM.id, e
+					);
 				}
 			}
 		}
@@ -137,15 +142,17 @@
 		init: function(element, valueAccessor, allBindings, viewModel) {
 			var options = valueAccessor(),
 				$element = $viz(element);
-			if (viewModel.items.length > 0)
+
+			if (viewModel.items.length > 0) {
 				$element.children('div#childItems.gcviz-legendHolderDiv').toggle(options.expanded, function(event) {
 					event.stopPropagation();
 				});
-			else {
+			} else {
 				$element.children('.gcviz-legendSymbolDiv').toggle(options.expanded);
 				$element.children('div#customImage.gcviz-legendHolderImgDiv').toggle(options.expanded);
-				if(viewModel.displaychild === false && viewModel.customimage.enable === false)  //remove bullet symbol
+				if(viewModel.displaychild === false && viewModel.customimage.enable === false) { //remove bullet symbol
 						$element.css('background-image', 'none');
+				}
 			}
 
 			return false;

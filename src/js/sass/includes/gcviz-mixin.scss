@@ -20,6 +20,22 @@ $base-classname: "gcviz";
 //font-size: 62.5%; // 1 rem = 10px
 $rembase: 0.625; // 100% come from WET, they set body to 80% if we put html to 62.5% it will screw up their css
 
+// responsive grid (http://viget.com/inspire/building-a-nested-responsive-grid-with-sass-compass)
+$cols: 12;
+$gutter: 2%;
+$one_col: (100% - ($gutter * ($cols - 1))) / $cols;
+
+@mixin cols($num) {
+	width: ($one_col * $num) + ($gutter * ($num - 1));
+}
+
+@mixin sub_cols($num_child, $num_parent) {
+	$parent_size: ($one_col * $num_parent) + ($gutter * ($num_parent - 1));
+	$child_size: ($one_col * $num_child) + ($gutter * ($num_child - 1));
+	margin-left: ($gutter / $parent_size) * 100%;
+	width: ($child_size / $parent_size) * 100%;
+}
+
 @mixin app-gradiant {
   background-color: $app-strong; // old browsers
 	@include background-image(linear-gradient(top,  $app-strong 0%, $app-light 100%));

@@ -6,6 +6,7 @@
  * Version: @gcviz.version@
  *
  */
+/* global $: false */
 var vmArray = {},
 	locationPath;
 (function() {
@@ -16,6 +17,7 @@ var vmArray = {},
 	define(['jquery-private',
 			'magnificpopup',
 			'jqueryui',
+			'esri/config',
 			'gcviz-i18n',
 			'gcviz-func',
 			'gcviz-v-map',
@@ -24,13 +26,13 @@ var vmArray = {},
 			'gcviz-v-footer',
 			'gcviz-v-tbdraw',
 			'gcviz-v-tbnav',
-			'gcviz-v-tblegend'], function($viz, mp, jqui, i18n, func, map, inset, header, footer, tbdraw, tbnav, tblegend) {
+			'gcviz-v-tblegend'], function($viz, mp, jqui, esriConfig, i18n, func, map, inset, header, footer, tbdraw, tbnav, tblegend) {
 		var initialize,
 			readConfig,
 			execConfig,
 			setLocationPath,
 			setLocalMP;
-			
+
 		/*
 		 *  initialize the GCViz application
 		 */
@@ -38,43 +40,47 @@ var vmArray = {},
 			var maps = $viz('.gcviz'),
 				mapElem,
 				len = maps.length;
-			
+
 			// extent or private AMD jQuery with the jQuery from outside project to get reference to some dependencies (magnificPopup, jqueryUI, slidesJS)
 			// we need to do this because those libraries are not AMD and use the window.jQuery object to initialize themselves.
 			$viz.extend(true, $viz, $);
-			
+
+			// set proxy for esri request (https://github.com/Esri/resource-proxy)
+			esriConfig.defaults.io.proxyUrl = '../../proxy.ashx';
+			esriConfig.defaults.io.alwaysUseProxy = false;
+
 			// initialize map number and total for the ready event
 			mapsTotal = len;
-			mapsNum = 0;	
-			
+			mapsNum = 0;
+
 			// set location path
 			setLocationPath();
-			
+
 			// set local for magnificpopup plugin
 			setLocalMP();
 
 			// loop trought maps
 			while (len--) {
 				mapElem = maps[len];
-				
+
 				// read configuration file
 				readConfig(mapElem);
-			}	
+			}
 		};
-		
+
 		/*
 		 *  read configuration file and start execution
 		 */
 		readConfig = function(mapElem) {
 			var file = mapElem.getAttribute('data-gcviz');
-			
+
 			// ajax call to get the config file info
 			$viz.support.cors = true; // force cross-site scripting for IE9
 			$viz.ajax({
 				url: file,
 				crossDomain: true,
 				dataType: 'json',
-				async: false,					
+				async: false,
 				success: function(config) {
 					// add the id of map container and execute the configuration
 					config.gcviz.mapframe.id = mapElem.getAttribute('id');
@@ -86,7 +92,7 @@ var vmArray = {},
 				}
 			}); // end ajax
 		};
-		
+
 		/*
 		 *  execute the configuration file. add all viewmodel to a master view model. This viewmodel will be store in an array
 		 *  of view models (one for each map)
@@ -98,11 +104,11 @@ var vmArray = {},
 				mapid = mapframe.id,
 				size = mapframe.size,
 				customLen = config.customwidgets.length;
-			
+
 			// // create section around map. This way we can bind Knockout to the section
 			$mapElem.wrap('<section id=section' + mapid + ' class="gcviz-section" role="map" style="width:' + size.width + 'px; height:' + size.height + 'px;">');
 			$mapSection = $viz(document).find('#section' + mapid);
-			
+
 			// extend the section with configuration file info
 			$viz.extend($mapSection, config);
 
@@ -110,60 +116,60 @@ var vmArray = {},
 			// save the result of every view model in an array of view models
 			vmArray[mapid] = {};
 			vmArray[mapid].map = map.initialize($mapSection);
-			
+
 			// add header and footer
 			vmArray[mapid].header = header.initialize($mapSection);
 			vmArray[mapid].footer = footer.initialize($mapSection);
-			
+
 			// add draw toolbar
 			if (config.toolbardraw.enable) {
 				vmArray[mapid].draw = tbdraw.initialize($mapSection);
 			}
-			
+
 			// add navigation toolbar
 			if (config.toolbarnav.enable) {
 				vmArray[mapid].nav = tbnav.initialize($mapSection);
 			}
-			
+
 			//add legend
 			if (config.toolbarlegend.enable) {
 				vmArray[mapid].legend = tblegend.initialize($mapSection);
 			}
-			
+
 			// add inset
 			if (config.insetframe.enable) {
 				vmArray[mapid].insets = inset.initialize($mapSection);
 			}
-			
+
 			// add custom widgets
 			//while (customLen--) {
 			//	
 			//}
-			
+
 			mapsNum += 1;
-			
+
 			if (mapsNum === mapsTotal) {
 				// if all maps are there, trigger the ready event
 				$viz.event.trigger('gcviz-ready');
-				
+
 				// set the resize event
 				window.onresize = func.debounce(function (evt) {
 
 				}, 500, false);
 			}
 		};
-		
+
 		setLocationPath = function() {
 			// get code location from meta tag
 			var metas = document.getElementsByTagName('meta'),
-			i = metas.length; 
-		
+			i = metas.length;
+
 			while(i--) {
-				if (metas[i].getAttribute('property') === 'location') { 
-					locationPath = metas[i].getAttribute('content'); 
-				} 
-			} 
-		
+				if (metas[i].getAttribute('property') === 'location') {
+					locationPath = metas[i].getAttribute('content');
+				}
+			}
+
 			// if location path is not set in html set by default at GeoCanViz
 			if (typeof locationPath === 'undefined') {
 				var url = window.location.toString(),
@@ -173,7 +179,7 @@ var vmArray = {},
 				}
 			}
 		};
-		
+
 		setLocalMP = function() {
 			// keep $ because $viz wont work
 			$viz.extend(true, $.magnificPopup.defaults, {
@@ -189,7 +195,7 @@ var vmArray = {},
 				}
 			});
 		};
-		
+
 		return {
 			initialize: initialize
 		};

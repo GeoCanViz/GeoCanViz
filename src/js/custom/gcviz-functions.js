@@ -8,7 +8,6 @@
 (function () {
 	'use strict';
 	define([], function() {
-	
 		var debounce,
 			debounceClick,
 			setStyle,
@@ -21,16 +20,16 @@
 			var timeout;
 
 			return function debounced () {
-				var obj = this, 
+				var obj = this,
 					args = arguments;
-						
+
 				function delayed () {
 					if (!execAsap) {
 						func.apply(obj, args);
 					}
-					timeout = null; 
+					timeout = null;
 				}
-				
+
 				if (timeout) {
 					clearTimeout(timeout);
 				}
@@ -38,10 +37,10 @@
 					func.apply(obj, args);
 				}
 
-				timeout = setTimeout(delayed, threshold || 100); 
+				timeout = setTimeout(delayed, threshold || 100);
 			};
 		};
-		
+
 		debounceClick = function(func, threshold) {
 			if (timer) {
 				clearTimeout(timer);
@@ -49,7 +48,7 @@
 
 			timer = setTimeout(func, threshold);
 		};
-		
+
 		setStyle = function(elem, propertyObject) {
 			for (var property in propertyObject) {
 				if (propertyObject.hasOwnProperty(property)) {
@@ -63,39 +62,40 @@
 			var minWW = window.innerWidth,
 				minWH = window.innerHeight,
 				w, h, ratio;
-					
+
 			// calculate the width, height and ratio with the window
 			w = minWW - 50;
 			ratio = (w / width);
 			h = height * ratio;
-				
-			// if the minimum window width is smaller then map height, use height as starting point to calculate dimension
+
+			// if the minimum window width is smaller then map height,
+			// use height as starting point to calculate dimension
 			if (minWH < h) {
 				h = minWH - 50;
 				ratio = (h / height);
 				w = width * ratio;
 			}
-		
+
 			return { 'width': w, 'height': h, 'ratio': ratio };
 		};
 
 		checkObjectValue = function(obj, key, value) {
 			var len,
 				myobject;
-			
+
 			// check if it is an array
 			if (typeof obj.length !== 'undefined') {
 				len = obj.length;
-				
+
 				while (len--) {
 					myobject = obj[len];
 					if (myobject[key] !== value) { return false; }
 				}
 			}
-			
+
 			return true;
 		};
-		
+
 		return {
 			debounce: debounce,
 			debounceClick: debounceClick,

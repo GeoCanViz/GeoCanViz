@@ -9,11 +9,11 @@
 	'use strict';
 	define([], function() {
 		var zoomFullExtent;
-			
+
 		zoomFullExtent = function(mymap) {
 			mymap.setExtent(mymap.vFullExtent, mymap.spatialReference.wkid);
 		};
-			
+
 		return {
 			zoomFullExtent: zoomFullExtent
 		};

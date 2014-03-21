@@ -8,6 +8,31 @@
  */
 @import "includes/gcviz-mixin";
 
+// responsive grid (http://viget.com/inspire/building-a-nested-responsive-grid-with-sass-compass)
+.row {
+	#{enumerate('.span', 1, $cols, '')} {
+		float: left;
+		margin-left: $gutter;
+	}
+
+	@for $i from 1 through $cols {
+		.span#{$i} {
+			@include cols($i);
+
+			@for $j from 1 through ($i - 1) {
+				.span#{$j} {
+					@include sub_cols($j, $i);
+				}
+			}
+		}
+	}
+
+	> :first-child,
+	.row > :first-child {
+		margin-left: 0;
+	}
+}
+
 .gcviz-section {
 	padding: (1.5 * $rembase) + rem;
 	background: #FFF;

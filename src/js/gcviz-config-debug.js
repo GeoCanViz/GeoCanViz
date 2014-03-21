@@ -6,6 +6,7 @@
  * Version: @gcviz.version@
  *
  */
+/* global alert: false */
 (function() {
 	'use strict';
 	// get the language
@@ -14,7 +15,7 @@
 		language = 'en-min',
 		metas,
 		i;
-	
+
 	if ((url.search(/_f\.htm/) > -1) || (url.search(/-fra\./) > -1) || (url.search(/-fr\./) > -1) || (url.search(/lang=fra/) > -1) || (url.search(/lang=fr/) > -1)) {
 		language = 'fr-min';
 	} else if ((url.search(/_e\.htm/) > -1) || (url.search(/-eng\./) > -1) || (url.search(/-en\./) > -1) || (url.search(/lang=eng/) > -1) || (url.search(/lang=en/) > -1)) {
@@ -25,13 +26,13 @@
 
 	// get code location from meta tag
 	metas = document.getElementsByTagName('meta'),
-	i = metas.length; 
+	i = metas.length;
 
-	while(i--) { 
-		if (metas[i].getAttribute('property') === 'location') { 
-			locationPath = metas[i].getAttribute('content'); 
-		} 
-	} 
+	while(i--) {
+		if (metas[i].getAttribute('property') === 'location') {
+			locationPath = metas[i].getAttribute('content');
+		}
+	}
 
 	// if location path is not set in html set by default at GeoCanViz
 	if (typeof locationPath === 'undefined') {
@@ -58,12 +59,12 @@
 			i = 0,
 			dataString,
 			dataProp;
-		
+
 		while (length--) {
 			dataString = data[i].string;
 			dataProp = data[i].prop;
 			this.versionSearchString = data[i].versionSearch || data[i].identity;
-			
+
 			if (dataString) {
 				if (dataString.indexOf(data[i].subString) !== -1) {
 					return data[i].identity;
@@ -135,7 +136,7 @@
 		}]
 	};
 	browserDetect.init();
-	
+
 	// if browser not supported, redirect
 	if (window.browser !== 'Explorer' && window.browser !== 'Firefox' && window.browser !== 'Chrome' && window.browser !== 'Safari') {
 		alert('Browser not suported: needs to be Chrome, Firefox, Safari or Explorer');
@@ -146,7 +147,7 @@
 	}
 
 	// load the require libraries
-	define.amd.jQuery = true;	
+	define.amd.jQuery = true;
 	require({
 		async: true,
 		parseOnLoad: false,
@@ -274,7 +275,7 @@
 			}
 		]
 	});
-    
+
 	// start the process with a private jquery. If we dont, it creates a conflict because we laod jQuery and it is different then the one loaded by WET
 	define('jquery-private', ['jquery'], function ($viz) {
         var noConflict = $viz.noConflict(true);
@@ -285,7 +286,7 @@
 
         return noConflict;
 	});
-	
+
 	require(['jquery-private', 'gcviz'], function($viz, gcviz) {
 		return $viz(document).ready(function() {
 			return gcviz.initialize();

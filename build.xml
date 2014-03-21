@@ -109,7 +109,7 @@
 	<!-- jshint -->
 	<target name="call-jshint">
 		<echo level="info" message="---Checking syntax with JSHint---"/>
-		<jshint dir="${src.dir}" fail="${jshint.failbuild}" globalsFile="${jshint.globals.file}" options="newcap: false, unused: true">
+		<jshint dir="${src.dir}" fail="${jshint.failbuild}" options="maxerr=5000,bitwise=true,camelcase=true,curly=true,eqeqeq=true,forin=true,immed=true,latedef=true,newcap=false,noarg=true,noempty=true,nonew=true,plusplus=false,quotmark=true,undef=true,unused=true,strict=true,trailing=true" globalsFile="${jshint.globals.file}">
 			<report type="xml" destfile="${src.dir}/jshint.out.xml"/>
 			<include name="**/*.js"/>
 			<exclude name="**/*.min.js"/>

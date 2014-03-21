@@ -5,48 +5,48 @@
  *
  * GIS geoprocessing functions
  */
-/* global esri: false, dojo: false */
 (function () {
 	'use strict';
 	define(['esri/tasks/ProjectParameters',
 			'esri/tasks/GeometryService',
 			'esri/SpatialReference',
-			'esri/geometry/Point'], function() {
-	
+			'esri/geometry/Point',
+			'dojo/dom'
+	], function(esriProj, esriGeom, esriSR, esriPoint, dojoDom) {
 		var getOutSR,
 			getGSVC,
 			getCoord,
 			getNorthAngle,
-			params = new esri.tasks.ProjectParameters(),
-			outSR,
-			gsvc;
+			params = new esriProj();
 
 		getOutSR = function(wkid) {
-			return new esri.SpatialReference({ 'wkid': wkid });
+			return new esriSR({ 'wkid': wkid });
 		};
-		
+
 		getGSVC = function(urlgeomserv) {
-			return new esri.tasks.GeometryService(urlgeomserv);
+			return new esriGeom(urlgeomserv);
 		};
-		
+
 		getCoord = function(point, div, outSR, gsvc) {
 			params.geometries = [point];
 			params.outSR = outSR;
 
 			gsvc.project(params, function(projectedPoints) {
 				point = projectedPoints[0];
-				dojo.byId(div).innerHTML = ' Lat: ' + point.y.toFixed(3) + ' Long: ' + point.x.toFixed(3);
+				dojoDom.byId(div).innerHTML = ' Lat: ' + point.y.toFixed(3) +
+											' Long: ' + point.x.toFixed(3);
 			});
 		};
-		
+
 		getNorthAngle = function(extent, div, inwkid, gsvc) {
-			
-			var outSR = new esri.SpatialReference({ 'wkid': 4326 }),
-				pointB = new esri.geometry.Point((extent.xmin + extent.xmax) / 2, extent.ymin, new esri.SpatialReference({ 'wkid': inwkid }));
-			
+
+			var outSR = new esriSR({ 'wkid': 4326 }),
+				pointB = new esriPoint((extent.xmin + extent.xmax) / 2,
+										extent.ymin, new esriSR({ 'wkid': inwkid }));
+
 			params.geometries = [pointB];
 			params.outSR = outSR;
-			
+
 			gsvc.project(params, function(projectedPoints) {
 				var pointA = {x: -100, y: 90},
 					dLon,
@@ -64,15 +64,15 @@
 				x = Math.cos(lat1) * Math.sin(lat2) - Math.sin(lat1) * Math.cos(lat2) * Math.cos(dLon);
 				bearing = Math.atan2(y, x)  * 180 / Math.PI;
 				bearing = ((bearing + 360) % 360).toFixed(1) - 90; //Converting -ve to +ve (0-360)
-					 
-				dojo.byId(div).style.webkitTransform = 'rotate(' + bearing + 'deg)';
-				dojo.byId(div).style.MozTransform = 'rotate(' + bearing + 'deg)';
-				dojo.byId(div).style.msTransform = 'rotate(' + bearing + 'deg)';
-				dojo.byId(div).style.OTransform = 'rotate(' + bearing + 'deg)';
-				dojo.byId(div).style.transform = 'rotate(' + bearing + 'deg)';
+
+				dojoDom.byId(div).style.webkitTransform = 'rotate(' + bearing + 'deg)';
+				dojoDom.byId(div).style.MozTransform = 'rotate(' + bearing + 'deg)';
+				dojoDom.byId(div).style.msTransform = 'rotate(' + bearing + 'deg)';
+				dojoDom.byId(div).style.OTransform = 'rotate(' + bearing + 'deg)';
+				dojoDom.byId(div).style.transform = 'rotate(' + bearing + 'deg)';
 			});
 		};
-			
+
 		return {
 			getOutSR: getOutSR,
 			getGSVC: getGSVC,
