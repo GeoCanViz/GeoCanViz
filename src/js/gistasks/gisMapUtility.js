@@ -13,13 +13,14 @@
 			'dijit/MenuItem',
 			'dijit/PopupMenuItem',
             'gcviz-gislegend',
+            'gcviz-gisrequest',
 			'esri/map',
 			'esri/layers/FeatureLayer',
 			'esri/layers/ArcGISTiledMapServiceLayer',
 			'esri/layers/ArcGISDynamicMapServiceLayer',
 			'esri/geometry/Extent',
             'esri/geometry/Point'
-	], function(kpan, func, menu, menuItem, menupopup, gisLegend, esriMap, esriFL, esriTiled, esriDyna, esriExt, esriPoint) {
+	], function(kpan, func, menu, menuItem, menupopup, gisLegend, gisRequest, esriMap, esriFL, esriTiled, esriDyna, esriExt, esriPoint) {
 		var mapArray = {},
 			createMap,
 			createInset,
@@ -131,6 +132,13 @@
                 var layer = e.layer;
                 if (layer.renderer) {
                     gisLegend.getFeatureLayerSymbol(layer);
+                }
+                if (layer.isCluster) {
+                	// remove the layer from the map and replace the link to the cluster layer
+                	//map.removeLayer(layer);
+                	
+                	// create cluster layer
+                	gisRequest.getClusterInfo(map, layer);
                 }
             });
 
@@ -275,18 +283,24 @@
 			}, 1000, false));
 		};
 
-		addLayer = function(map, type, url, layerid) {
+		addLayer = function(map, type, url, layerid, cluster) {
+			var layer;
 			if (type === 3) {
-				map.addLayer(new esriTiled(url, { 'id': layerid }));
+				layer = new esriTiled(url, { 'id': layerid });
 			} else if (type === 4) {
-				map.addLayer(new esriDyna(url, { 'id': layerid }));
+				layer = new esriDyna(url, { 'id': layerid });
 			} else if (type === 5) {
-				map.addLayer(new esriFL(url, {
+				layer = new esriFL(url, {
                     mode: esriFL.MODE_ONDEMAND,
                     outFields: ['*'],
                     id: layerid
-				}));
+				});
 			}
+			
+			if (typeof cluster !== 'undefined') {
+				layer.isCluster = cluster.enable;
+			}
+			map.addLayer(layer);
 		};
 
 		resizeMap = function(map) {

@@ -151,6 +151,9 @@
 		                "scale": {
                         "min": 100100,
                         "max": 0
+                    },
+                    "cluster": {
+                    	"enable": false
                     }
            			}, {
                     "id": "Wetlands100k",
@@ -160,6 +163,9 @@
                     "scale": {
                         "min": 300000,
                         "max": 100101
+                    },
+                    "cluster": {
+                    	"enable": false
                     }
                 }, {
                     "id": "Geochronology",
@@ -169,6 +175,9 @@
                     "scale": {
                         "min": 0,
                         "max": 0
+                    },
+                    "cluster": {
+                    	"enable": true
                     }
                 }]
             }
