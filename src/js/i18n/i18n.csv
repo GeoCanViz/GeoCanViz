@@ -3,13 +3,22 @@ Language code (ISO 639-1)#%lang-code#en#fr
 Language name (English)#%lang-eng#English#French
 Language name (French)#%lang-fra#anglais#français
 General (i18n)#%all#All#Tous
+#%cancel#Cancel#Annuler
 #%close#Close#Fermer
+#%footer-tpgithub#Get GeoCanViz on GitHub#Obtenir GéoCanViz de GitHub
 #%home#Home#Accueil
 #%of#of#de
+#%west#W#O
+#%github-urlgcvizrepo#https://github.com/GeoCanViz/GeoCanViz#https://github.com/GeoCanViz/GeoCanViz
 #%msg-configread#Configuration file read#Fichier de configuration lu
 #%msg-configerr#Configuration file error#Erreur fichier de configuration
 #%main-page#Main page#Page principale
+#%header-abouttitle#Open the help manual#Ouvrir le manuel d'aide
+#%header-urlabout#../../HelpManual.pdf#../../HelpManual.pdf
 #%header-help#GeoCanViz Help#Aide pour GéoCanViz
+#%header-helptitle#Open the help manual#Ouvrir le manuel d'aide
+#%header-urlhelp#../../HelpManual.pdf#../../HelpManual.pdf
+#%header-tpabout#About this map#À propos de cette carte
 #%header-tphelp#Open help page#Ouvrir la page d'aide
 #%header-tptools#Open/Close tools panel#Ouvrir/Fermer le panneau d'outils
 #%header-tpinset#Show or hide insets#Afficher ou cacher les insertions
@@ -17,6 +26,7 @@ General (i18n)#%all#All#Tous
 #%help-instr#Keyboard user: setup your keyboard to control the mouse to access the following PDF document.#Utilisateur du clavier: configurez votre clavier pour contrôler la souris et accéder au document PDF ci-dessous.
 #%toolbarholder-caption#Toolbars#Barre d'outils
 #%toolbardraw-name#Draw#Dessiner
+#%toolbardraw-insinputbox#Click OK to place the text on the map or click Cancel to abort.#Cliquez sur OK pour placer le texte sur la carte ou cliquez sur Annuler pour abandonner.
 #%toolbardraw-inputbox-name#Add text#Ajouter du texte
 #%toolbardraw-inputbox-label#Enter a value: #Entrez une valeur: 
 #%toolbardraw-tpdraw#Draw on the map#Dessiner sur la carte
@@ -24,8 +34,32 @@ General (i18n)#%all#All#Tous
 #%toolbardraw-tperase#Erase annotations#Effacer les annotations
 #%toolbarlegend-name#Legend#Légende
 #%toolbarlegend-tgvis#Toggle Visibility#Basculer la visibilité
+#%toolbarnav-geoloclabel#Zoom to:#Zoom à:
+#%toolbarnav-geolocsample#Prov./City name/...#Prov./Nom de ville/...
+#%toolbarnav-info#Click on the map to get location information#Cliquez sur la carte et obtenez de l'information de localisation
+#%toolbarnav-infoaltitude#ALTITUDE#ALTITUDE
+#%toolbarnav-infoclickmap#Click on map#Cliquez sur la carte
+#%toolbarnav-infodecdeg#Degrees Decimal#Degrés décimaux
+#%toolbarnav-infodms#Degrees Minutes Seconds (DMS)#Degrés minutes secondes (DMS)
+#%toolbarnav-infogetinfo#Get information#Obtenez de l'information
+#%toolbarnav-infogetlocinfo#Location:#Emplacement :
+#%toolbarnav-infolat#Latitude:#Latitude :
+#%toolbarnav-infolong#Longitude:#Longitude :
+#%toolbarnav-infonts#NTS MAPSHEET#CARTE DU SNRC
+#%toolbarnav-infopption1#Option 1 - Select a point on the map#Option 1 - Sélectionnez un point sur ​​la carte
+#%toolbarnav-infopption2#Option 2 - Get information using coordinates#Option 2 - Obtenir des informations en utilisant des coordonnées
+#%toolbarnav-inforesults#Information Results#Information - résultats
+#%toolbarnav-infotopocoord#TOPOGRAPHIC COORDINATES#COORDONNÉES TOPOGRAPHIQUES
+#%toolbarnav-infoutm#UTM COORDINATES#COORDONNÉES UTM
+#%toolbarnav-infoutneast#Easting:#Abscisse :
+#%toolbarnav-infoutmnorth#Northing:#Ordonnée :
+#%toolbarnav-infoutmz#Zone:#Zone :
+#%toolbarnav-inskeyboard#When entering a geographic location	suggested names will appear in the auto-fill list below the text entry box.  Suggestions will start appearing after you type 3 characters.#Lorsque vous spécifiez un lieu géographique	des suggestions apparaissent dans la liste d'auto-remplissage en dessous de la zone de texte. Les suggestions commenceront à apparaître après avoir tapé 3 caractères.
+#%toolbarnav-magnify#Magnify part of the map#Agrandir une partie de la carte
+#%toolbarnav-ovdrag#Drag To Change The Map Extent#Faites glisser pour changer l'étendue de la carte
+#%toolbarnav-zoomfull#Zoom to full extent#Zoom à l`étendue maximum
 #%inset-tplight#Open the content in a lightbox#Ouvrir le contenu dans un lightbox
-#%inset-tpPlayVideo#Play video#Jouer la vidéo
+#%inset-tpplayvideo#Play video#Jouer la vidéo
 #%mp-close#Close (Esc)#Fermer (Esc)
 #%mp-load#Loading...#Chargement...
 #%mp-next#Previous (Left arrow key)#Precédent (touche flèche gauche)

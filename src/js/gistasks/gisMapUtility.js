@@ -50,7 +50,7 @@
 
         createMap = function(id, config) {
             var iExtent = config.extentinit,
-            	fExtent = config.extentmax,
+                fExtent = config.extentmax,
                 wkid = config.sr.wkid,
                 initExtent = new esriExt({ 'xmin': iExtent.xmin, 'ymin': iExtent.ymin,
 										'xmax': iExtent.xmax, 'ymax': iExtent.ymax,

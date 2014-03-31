@@ -40,7 +40,7 @@
 
 					// add basemap
 					gisM.addLayer(map, base.type, base.url, base.id);
-					
+
 					// add layers
 					layers = layers.reverse();
 					while (lenLayers--) {

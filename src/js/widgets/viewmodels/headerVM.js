@@ -33,13 +33,28 @@
                 width: 950
             });
 
+			//TODO: Look at custum bindings
+            // Setup the about dialog box
+            $viz('#divAbout').dialog({
+                autoOpen: false,
+                closeText: i18n.getDict('%close'),
+                show: {effect: 'fade', speed: 1000},
+                hide: {effect: 'fade', speed: 1000},
+                title: i18n.getDict('%header-tpabout'),
+                resizable: false,
+                height: 400,
+                width: 950
+            });
+
 			// data model				
 			var headerViewModel = function($mapElem, mapid) {
 				var _self = this,
+                    pathAbout = locationPath + 'gcviz/images/headAbout.png',
 					pathFullscreen = locationPath + 'gcviz/images/headFullscreen.png',
 					pathShowInset = locationPath + 'gcviz/images/headShowInset2.png',
 					pathSmallscreen = locationPath + 'gcviz/images/headSmallscreen.png',
-					pathTools = locationPath + 'gcviz/images/headTools.png',
+                    pathClosedTools = locationPath + 'gcviz/images/headToolsClosed.png',
+                    pathOpenTools = locationPath + 'gcviz/images/headToolsOpen.png',
 					pathHelp = locationPath + 'gcviz/images/headHelp.png',
 					$section = $viz('#section' + mapid),
 					$mapholder = $viz('#' + mapid),
@@ -48,15 +63,17 @@
 					map = vmArray[mapid].map.map;
 
 				// images path
+                _self.imgAbout = ko.observable(pathAbout);
 				_self.imgFullscreen = ko.observable(pathFullscreen);
 				_self.imgShowInset = pathShowInset;
-				_self.imgTools = pathTools;
+                _self.imgTools = ko.observable(pathClosedTools);
 				_self.imgHelp = pathHelp;
 
 				// tooltip
 				_self.tpHelp = i18n.getDict('%header-tphelp');
 				_self.tpTools = i18n.getDict('%header-tptools');
 				_self.tpInset = i18n.getDict('%header-tpinset');
+                _self.tpAbout = i18n.getDict('%header-tpabout');
 				_self.tpFullScreen = i18n.getDict('%header-tpfullscreen');
 
 				// fullscreen
@@ -64,6 +81,7 @@
 				_self.isInsetVisible = ko.observable(true);
 				_self.insetState = true;
 				_self.fullscreenState = 0;
+                _self.opencloseToolsState = 0;
 
 				_self.init = function() {
 					// keep map size
@@ -112,12 +130,24 @@
 				};
 
 				_self.toolsClick = function() {
-					var tool = $mapholder.find('.gcviz-tbholder');
-                    tool.toggle('slow');
-					if (tool.hasClass('gcviz-hidden')) {
-						// set focus on the first element
-						$section.find('.dijitTitlePaneTitleFocus')[0].focus();
-					}
+                    var tool = $mapholder.find('.gcviz-tbcontainer');
+                    tool.slideToggle('slow');
+                    if (_self.opencloseToolsState === 0) {
+                        _self.opencloseToolsState = 1;
+                        _self.imgTools(pathOpenTools);
+                    } else {
+                        _self.opencloseToolsState = 0;
+                        _self.imgTools(pathClosedTools);
+                    }
+                    setTimeout(function() {
+                        if (tool.hasClass('gcviz-hidden')) {
+                            // set focus on the first element
+                            $section.find('.dijitTitlePaneTitleFocus')[0].focus();
+                        } else {
+                            // set focus back on button
+                            $viz('#btnTools' + mapid).focus();
+                        }
+                    }, 1000);
 				};
 
 				_self.helpClick = function() {
@@ -125,17 +155,27 @@
 					// Open the Help dialog box
                     $viz('#divHelp').dialog('open');
                     //Open PDF in media player
-                    html = '<a class="media" href="../../HelpManual.pdf" tabindex="0" title="My PDF"></a>';
+                    html = '<a class="media" href="'+i18n.getDict('%header-urlhelp')+'" tabindex="0" title="'+i18n.getDict('%header-helptitle')+'F"></a>';
                     $viz('#divHelpContent').html(html);
-                    $viz('.media').media( { width:900,height:300 } );
+                    $viz('.media').media({ width:900,height:300 });
+                };
+
+                _self.aboutClick = function() {
+                    var html = '';
+                    // Open the About dialog box
+                    $viz('#divAbout').dialog('open');
+                    //Open PDF in media player
+                    html = '<a class="media" href="'+i18n.getDict('%header-urlabout')+'" tabindex="0" title="'+i18n.getDict('%header-abouttitle')+'F"></a>';
+                    $viz('#divAboutContent').html(html);
+                    $viz('.media').media({ width:900,height:300 });
                 };
 
 				_self.cancelFullScreen = function() {
 					// set style back for the map
-					func.setStyle($section[0], {'width': _self.widthSection + 'px', 'height': _self.heightSection + 'px'});
-					func.setStyle($mapholder[0], {'width': _self.widthSection + 'px', 'height': _self.heightSection + 'px'});
-					func.setStyle($map[0], {'width': _self.widthMap + 'px', 'height': _self.heightMap + 'px'});
-					func.setStyle($maproot[0], {'width': _self.widthMap + 'px', 'height': _self.heightMap + 'px'});
+					func.setStyle($section[0], { 'width': _self.widthSection + 'px', 'height': _self.heightSection + 'px' });
+					func.setStyle($mapholder[0], { 'width': _self.widthSection + 'px', 'height': _self.heightSection + 'px' });
+					func.setStyle($map[0], { 'width': _self.widthMap + 'px', 'height': _self.heightMap + 'px' });
+					func.setStyle($maproot[0], { 'width': _self.widthMap + 'px', 'height': _self.heightMap + 'px' });
 					$section.removeClass('gcviz-sectionfs');
 
 					// trigger the fullscreen custom binding and set state and image

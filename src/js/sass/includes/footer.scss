@@ -1,38 +1,71 @@
 @import "gcviz-mixin";
 
 %gcviz-foot-display {
-	display: inline;
-	float: left;
-	margin-left: (2 * $rembase) + rem;
+  display: inline;
+  float: right;
 }
 
 .gcviz-foot {
-	@include app-head-foot;
-	@include app-gradiant-reverse;
-	
-	.gcviz-foot-coords {
-    margin-top: (1.2 * $rembase) + rem;
+  @include app-head-foot;
+/*  @include app-gradiant-reverse;*/
+  
+  .gcviz-foot-coords {
+/*    margin-top: (1.5 * $rembase) + rem;
+    @include app-text; */
+    @extend %gcviz-foot-display;
+    color: #fff!important;
+    background-color: $logogreydark;
+    -moz-border-radius: 1em 0em 0em 1em;
+    border-radius: 1em 0em 0em 1em;
+    height: 40px;
+    z-index:1!important;
+    width: 200px;
+    position: relative;
+    right: -10px;
+  }
+  
+  .gcviz-foot-coords-values {
+    margin-top: (1.5 * $rembase) + rem;
+    padding-left: rem;
     @include app-text;
-		@extend %gcviz-foot-display;
-	}
-	
-	.gcviz-foot-north {
-  	@extend %gcviz-foot-display;
-		-webkit-transform: rotate(90deg); /* Safari & Chrome */
-		-moz-transform: rotate(90deg); /* Firefox */
-		-ms-transform: rotate(90deg); /* Internet Explorer */
-		-o-transform: rotate(90deg); /* Opera */
-		
-		.gcviz-foot-imgarrow {
-			margin: (0.56 * $rembase) + rem;
-		  height: (2.2 * $rembase) + rem;
-		  width: (2.2 * $rembase) + rem;
-		}
-	}
+    color: #fff!important;
+    position: relative;
+    left: 10px;
+    top: 10px;
+  }
+  
+  .gcviz-foot-north {
+    @extend %gcviz-foot-display;
+    background-color: $logogrey;
+    -moz-border-radius: 1em 0em 0em 1em;
+    border-radius: 1em 0em 0em 1em;
+    height: 40px;
+    z-index: 2!important;
+    position: relative;
+    right: 0px;
+    
+    .gcviz-foot-imgarrow {
+      margin-top: (0.75 * $rembase) + rem;
+      margin-right: (1.5 * $rembase);
+      height: (2.2 * $rembase) + rem;
+      width: (2.2 * $rembase) + rem;
+      -webkit-transform: rotate(90deg); /* Safari & Chrome */
+      -moz-transform: rotate(90deg); /* Firefox */
+      -ms-transform: rotate(90deg); /* Internet Explorer */
+      -o-transform: rotate(90deg); /* Opera */
+    }
+  }
+}
+
+.gcviz-foot-logo {
+  float: left;
+  margin-left: 0px;
+  width: 50px;
+  height: 40px;
 }
 
 
-	
+  
 
 
 
