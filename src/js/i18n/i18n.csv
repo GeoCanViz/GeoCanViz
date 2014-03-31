@@ -9,15 +9,15 @@ General (i18n)#%all#All#Tous
 #%home#Home#Accueil
 #%of#of#de
 #%west#W#O
-#%github-utlgcvizrepo#https://github.com/GeoCanViz/GeoCanViz#https://github.com/GeoCanViz/GeoCanViz
+#%github-urlgcvizrepo#https://github.com/GeoCanViz/GeoCanViz#https://github.com/GeoCanViz/GeoCanViz
 #%msg-configread#Configuration file read#Fichier de configuration lu
 #%msg-configerr#Configuration file error#Erreur fichier de configuration
 #%main-page#Main page#Page principale
 #%header-abouttitle#Open the help manual#Ouvrir le manuel d'aide
-#%header-abouturl#../../HelpManual.pdf#../../HelpManual.pdf
+#%header-urlabout#../../HelpManual.pdf#../../HelpManual.pdf
 #%header-help#GeoCanViz Help#Aide pour GéoCanViz
 #%header-helptitle#Open the help manual#Ouvrir le manuel d'aide
-#%header-helpurl#../../HelpManual.pdf#../../HelpManual.pdf
+#%header-urlhelp#../../HelpManual.pdf#../../HelpManual.pdf
 #%header-tpabout#About this map#À propos de cette carte
 #%header-tphelp#Open help page#Ouvrir la page d'aide
 #%header-tptools#Open/Close tools panel#Ouvrir/Fermer le panneau d'outils

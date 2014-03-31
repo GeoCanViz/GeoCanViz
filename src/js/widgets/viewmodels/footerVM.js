@@ -28,7 +28,7 @@
 				// images path
 				_self.imgNorth = pathNorth;
                 _self.imgLogoPNG = pathGCVizPNG;
-                _self.urlLogo = i18n.getDict('%footer-utlgcvizrepo');
+                _self.urlLogo = i18n.getDict('%footer-urlgcvizrepo');
                 _self.urlLogoAlt = i18n.getDict('%footer-tpgithub');
 
 				// geoprocessing and projection objects

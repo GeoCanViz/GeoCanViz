@@ -155,7 +155,7 @@
 					// Open the Help dialog box
                     $viz('#divHelp').dialog('open');
                     //Open PDF in media player
-                    html = '<a class="media" href="'+i18n.getDict('%header-helpurl')+'" tabindex="0" title="'+i18n.getDict('%header-helptitle')+'F"></a>';
+                    html = '<a class="media" href="'+i18n.getDict('%header-urlhelp')+'" tabindex="0" title="'+i18n.getDict('%header-helptitle')+'F"></a>';
                     $viz('#divHelpContent').html(html);
                     $viz('.media').media({ width:900,height:300 });
                 };
@@ -165,7 +165,7 @@
                     // Open the About dialog box
                     $viz('#divAbout').dialog('open');
                     //Open PDF in media player
-                    html = '<a class="media" href="'+i18n.getDict('%header-abouturl')+'" tabindex="0" title="'+i18n.getDict('%header-abouttitle')+'F"></a>';
+                    html = '<a class="media" href="'+i18n.getDict('%header-urlabout')+'" tabindex="0" title="'+i18n.getDict('%header-abouttitle')+'F"></a>';
                     $viz('#divAboutContent').html(html);
                     $viz('.media').media({ width:900,height:300 });
                 };
