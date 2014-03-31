@@ -20,14 +20,19 @@
 			$mapElem.find('#' + mapid).append('<div id="foot' + mapid + '" class="gcviz-foot"></div>');
 			$footer = $mapElem.find('.gcviz-foot');
 
+            // Add DIV with logo and link to GitHub
+            node += '<div><a data-bind="attr:{href: urlLogo}, tooltip: { content: urlLogoAlt }">';
+            node += '<img class="gcviz-foot-logo" data-bind="attr:{src: imgLogoPNG}"></img></a></div>';
+            node += '</a></div>';
+
 			// set north arrow
 			if (config.northarrow.enable) {
-				node += '<div id="north_' + mapid + '" class="gcviz-foot-north"><img class="gcviz-foot-imgarrow" data-bind="attr: { src: imgNorth }"></img></div>';
+				node += '<div id="north_' + mapid + '" class="gcviz-foot-north"><img id="imgarrow_' + mapid + '" class="gcviz-foot-imgarrow" data-bind="attr: { src: imgNorth }"></img></div>';
 			}
 
 			// set mouse coordinates
 			if (config.mousecoords.enable) {
-				node += '<div id="mousecoord_' + mapid + '" class="gcviz-foot-coords"></div>';
+				node += '<div class="gcviz-foot-coords"><span id="mousecoord_' + mapid + '" class="gcviz-foot-coords-values"></span</div>';
 			}
 
 			$footer.append(node);

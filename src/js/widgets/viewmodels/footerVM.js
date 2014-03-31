@@ -21,11 +21,15 @@
 			var footerViewModel = function($mapElem, mapid, config) {
 				var _self = this,
 					pathNorth = locationPath + 'gcviz/images/footNorthArrow.png',
+                    pathGCVizPNG = locationPath + 'gcviz/images/GCVizLogo.svg',
 					configMouse = config.mousecoords,
 					configNorth = config.northarrow.inwkid;
 
 				// images path
 				_self.imgNorth = pathNorth;
+                _self.imgLogoPNG = pathGCVizPNG;
+                _self.urlLogo = 'https://github.com/GeoCanViz/GeoCanViz';
+                _self.urlLogoAlt = i18n.getDict('%footGcvizTooltip');
 
 				// geoprocessing and projection objects
 				_self.outSR = gisGeo.getOutSR(configMouse.outwkid);
@@ -42,11 +46,13 @@
 
 					if (config.northarrow) {
 						mymap.on('pan-end', function(evt) {
-							_self.showNorthArrow(evt, 'north_' + mapid, configNorth);
+							//_self.showNorthArrow(evt, 'north_' + mapid, configNorth);
+                            _self.showNorthArrow(evt, 'imgarrow_' + mapid, configNorth);
 						});
 
 						mymap.on('zoom-end', function(evt) {
-							_self.showNorthArrow(evt, 'north_' + mapid, configNorth);
+                            //_self.showNorthArrow(evt, 'north_' + mapid, configNorth);
+                            _self.showNorthArrow(evt, 'imgarrow_' + mapid, configNorth);
 						});
 					}
 

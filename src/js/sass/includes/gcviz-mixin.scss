@@ -4,11 +4,21 @@ $img-root: "images/";
 
 $font: Verdana, Arial, Helvetica, sans-serif;
 $orange: #EFA23E;
+$orange-dark: #E54F06;
 $yellow: #FAFA0A;
 $red: #EF300A;
+//$grey: #999999;
+//$lightgrey: #DDDDDD;
+$grey: #000000;
+$lightgrey: #333333;
+$logogrey: #D1D3D4;
+$logogreydark: #636466;
+$white: #FFFFFF;
+$lightyellow: #FAFAF5;
 $app-strong: #98B8CC;
 $app-light: #D2EDFF;
-$tb-strong: #D2EDFF;
+//$tb-strong: #D2EDFF;
+$tb-strong: #FADDB6;
 $tb-light: #FFF;
 $disabled-light: #98B8CC;
 $disabled-strong: #728A99;
@@ -20,54 +30,50 @@ $base-classname: "gcviz";
 //font-size: 62.5%; // 1 rem = 10px
 $rembase: 0.625; // 100% come from WET, they set body to 80% if we put html to 62.5% it will screw up their css
 
-// responsive grid (http://viget.com/inspire/building-a-nested-responsive-grid-with-sass-compass)
-$cols: 12;
-$gutter: 2%;
-$one_col: (100% - ($gutter * ($cols - 1))) / $cols;
-
-@mixin cols($num) {
-	width: ($one_col * $num) + ($gutter * ($num - 1));
-}
-
-@mixin sub_cols($num_child, $num_parent) {
-	$parent_size: ($one_col * $num_parent) + ($gutter * ($num_parent - 1));
-	$child_size: ($one_col * $num_child) + ($gutter * ($num_child - 1));
-	margin-left: ($gutter / $parent_size) * 100%;
-	width: ($child_size / $parent_size) * 100%;
-}
-
 @mixin app-gradiant {
   background-color: $app-strong; // old browsers
-	@include background-image(linear-gradient(top,  $app-strong 0%, $app-light 100%));
+  @include background-image(linear-gradient(top,  $app-strong 0%, $app-light 100%));
 }
 
 @mixin app-gradiant-reverse {
   background-color: $app-strong; // old browsers
-	@include background-image(linear-gradient(top,  $app-light 0%, $app-strong 100%));
+  @include background-image(linear-gradient(top,  $app-light 0%, $app-strong 100%));
+}
+
+@mixin app-gradiant-reverse-semiopaque {
+  background-color: $app-strong; // old browsers
+  background-color: rgba(100,100,100,0.5);
+  @include background-image(linear-gradient(top,  $app-light 0%, $app-strong 100%));
+}
+
+@mixin app-gradiant-reverse-opaque {
+  background-color: $app-strong; // old browsers
+  backgrond-color: rgba(100,100,100,1);
+  @include background-image(linear-gradient(top,  $app-light 0%, $app-strong 100%));
 }
 
 @mixin button-gradiant-hover {
-  @include background-image(-ms-radial-gradient(center, circle closest-corner, $yellow 0%, $orange 100%)); /* IE10 Consumer Preview */
-  @include background-image(-moz-radial-gradient(center, circle closest-corner, $yellow 0%, $orange 100%)); /* Mozilla Firefox */
-  @include background-image(-o-radial-gradient(center, circle closest-corner, $yellow 0%, $orange 100%)); /* Opera */ 
-  @include background-image(-webkit-gradient(radial, center center, 0, center center, 497, color-stop(0, $yellow), color-stop(1, $orange))); /* Webkit (Safari/Chrome 10) */ 
-  @include background-image(-webkit-radial-gradient(center, circle closest-corner, $yellow 0%, $orange 100%)); /* Webkit (Chrome 11+) */
-  @include background-image(radial-gradient(circle closest-corner at center, $yellow 0%, $orange 100%)); /* W3C Markup, IE10 Release Preview */
+  @include background-image(-ms-radial-gradient(center, circle closest-corner, $orange 0%, $orange-dark 100%)); /* IE10 Consumer Preview */
+  @include background-image(-moz-radial-gradient(center, circle closest-corner, $orange 0%, $orange-dark 100%)); /* Mozilla Firefox */
+  @include background-image(-o-radial-gradient(center, circle closest-corner, $orange 0%, $orange-dark 100%)); /* Opera */ 
+  @include background-image(-webkit-gradient(radial, center center, 0, center center, 497, color-stop(0, $orange), color-stop(1, $orange-dark))); /* Webkit (Safari/Chrome 10) */ 
+  @include background-image(-webkit-radial-gradient(center, circle closest-corner, $orange 0%, $orange-dark 100%)); /* Webkit (Chrome 11+) */
+  @include background-image(radial-gradient(circle closest-corner at center, $orange 0%, $orange-dark 100%)); /* W3C Markup, IE10 Release Preview */
   background-color: $tb-light; // old browsers
 }
 
 @mixin button-gradiant-active {
-  @include background-image(-ms-radial-gradient(center, circle closest-corner, $yellow 0%, $red 100%)); /* IE10 Consumer Preview */
-  @include background-image(-moz-radial-gradient(center, circle closest-corner, $yellow 0%, $red 100%)); /* Mozilla Firefox */
-  @include background-image(-o-radial-gradient(center, circle closest-corner, $yellow 0%, $red 100%)); /* Opera */ 
-  @include background-image(-webkit-gradient(radial, center center, 0, center center, 497, color-stop(0, $yellow), color-stop(1, $red))); /* Webkit (Safari/Chrome 10) */ 
-  @include background-image(-webkit-radial-gradient(center, circle closest-corner, $yellow 0%, $red 100%)); /* Webkit (Chrome 11+) */
-  @include background-image(radial-gradient(circle closest-corner at center, $yellow 0%, $red 100%)); /* W3C Markup, IE10 Release Preview */
+  @include background-image(-ms-radial-gradient(center, circle closest-corner, $orange 0%, $orange-dark 100%)); /* IE10 Consumer Preview */
+  @include background-image(-moz-radial-gradient(center, circle closest-corner, $orange 0%, $orange-dark 100%)); /* Mozilla Firefox */
+  @include background-image(-o-radial-gradient(center, circle closest-corner, $orange 0%, $orange-dark 100%)); /* Opera */ 
+  @include background-image(-webkit-gradient(radial, center center, 0, center center, 497, color-stop(0, $orange), color-stop(1, $orange-dark))); /* Webkit (Safari/Chrome 10) */ 
+  @include background-image(-webkit-radial-gradient(center, circle closest-corner, $orange 0%, $orange-dark 100%)); /* Webkit (Chrome 11+) */
+  @include background-image(radial-gradient(circle closest-corner at center, $orange 0%, $orange-dark 100%)); /* W3C Markup, IE10 Release Preview */
   background-color: $tb-light; // old browsers
 }
 
 @mixin button-gradiant-disable {
-	@include background-image(-ms-radial-gradient(center, circle closest-corner, $disabled-light 0%, $disabled-strong 100%)); /* IE10 Consumer Preview */
+  @include background-image(-ms-radial-gradient(center, circle closest-corner, $disabled-light 0%, $disabled-strong 100%)); /* IE10 Consumer Preview */
   @include background-image(-moz-radial-gradient(center, circle closest-corner, $disabled-light 0%, $disabled-strong 100%)); /* Mozilla Firefox */
   @include background-image(-o-radial-gradient(center, circle closest-corner, $disabled-light 0%, $disabled-strong 100%)); /* Opera */ 
   @include background-image(-webkit-gradient(radial, center center, 0, center center, 497, color-stop(0, $disabled-light), color-stop(1, $disabled-strong))); /* Webkit (Safari/Chrome 10) */ 
@@ -77,7 +83,7 @@ $one_col: (100% - ($gutter * ($cols - 1))) / $cols;
 }
 
 @mixin content-border-radius($radius: 0.5, $moz: true, $webkit: true, $ms: true, $o: true) {
-	@if $moz    { -moz-border-radius: ($radius * $rembase) + rem; }
+  @if $moz    { -moz-border-radius: ($radius * $rembase) + rem; }
   @if $webkit { -webkit-border-radius: ($radius * $rembase) + rem; }
   @if $ms     { -ms-border-radius: ($radius * $rembase) + rem; }
   @if $ms     { -o-border-radius: ($radius * $rembase) + rem; }
@@ -85,30 +91,80 @@ $one_col: (100% - ($gutter * ($cols - 1))) / $cols;
 }
 
 @mixin app-head-foot() {
-	width: 100%;
-	height: (4 * $rembase) + rem;
-	text-align: center;
+  width: 100%;
+  height: (4 * $rembase) + rem;
+  text-align: left;
+  background-image: url("/GeoCanViz/gcviz/images/BlackOrange2_bg.png");
+  background-position: right;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 @mixin app-text($size: 1.2, $weight: normal, $color: $text-color) {
-	font: {
-		family: $font;
-		weight: $weight;
-		size: ($size * 10) + px; // old browsers
-		size: ($size * $rembase) + rem;
-	}
-	color: $color;
+  font: {
+    family: $font!important;
+    weight: $weight!important;
+    size: ($size * 10) + px!important; // old browsers
+    size: ($size * $rembase) + rem!important;
+  }
+  color: $color;
+}
+
+@mixin app-text-grey($size: 1.2, $weight: normal, $color: $grey) {
+  font: {
+    family: $font;
+    weight: $weight;
+    size: ($size * 10) + px; // old browsers
+    size: ($size * $rembase) + rem;
+  }
+  color: $color;
+}
+
+@mixin app-text-white($size: 1.2, $weight: normal, $color: $white) {
+  font: {
+    family: $font;
+    weight: $weight;
+    size: ($size * 10) + px; // old browsers
+    size: ($size * $rembase) + rem;
+  }
+  color: $color;
 }
 
 @mixin app-border($width: 1, $style: solid, $color: #000) {
-	border: {
-		width: ($width * $rembase) + rem;
-		style: $style;
-		color: $color;
-	}	
+  border: {
+    width: ($width * $rembase) + rem;
+    style: $style;
+    color: $color;
+  } 
 }
 
 @mixin toolbar-background {
-	background-color: $tb-light; // old browsers
+  background-color: $tb-light; // old browsers
   @include background-image(linear-gradient(bottom, $tb-strong 0%, $tb-light 100%));
+}
+
+@mixin toolbar-background-opaque {
+  background-color: $tb-light; // old browsers
+  background-color: rgba(100,100,100,1);
+}
+
+@mixin toolbar-background-semiopaque {
+  background-color: $tb-light; // old browsers
+  background-color: rgba(100,100,100,0.6);
+}
+
+// responsive grid (http://viget.com/inspire/building-a-nested-responsive-grid-with-sass-compass)
+$cols: 12;
+$gutter: 2%;
+$one_col: (100% - ($gutter * ($cols - 1))) / $cols;
+
+@mixin cols($num) {
+  width: ($one_col * $num) + ($gutter * ($num - 1));
+}
+
+@mixin sub_cols($num_child, $num_parent) {
+  $parent_size: ($one_col * $num_parent) + ($gutter * ($num_parent - 1));
+  $child_size: ($one_col * $num_child) + ($gutter * ($num_child - 1));
+  margin-left: ($gutter / $parent_size) * 100%;
+  width: ($child_size / $parent_size) * 100%;
 }
