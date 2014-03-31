@@ -3,7 +3,6 @@
 %gcviz-foot-display {
   display: inline;
   float: right;
-  /*margin-right: (2 * $rembase) + rem;*/
 }
 
 .gcviz-foot {
@@ -30,9 +29,9 @@
     padding-left: rem;
     @include app-text;
     color: #fff!important;
-    position:relative;
-    left:10px;
-    top:10px;
+    position: relative;
+    left: 10px;
+    top: 10px;
   }
   
   .gcviz-foot-north {
@@ -42,8 +41,8 @@
     border-radius: 1em 0em 0em 1em;
     height: 40px;
     z-index: 2!important;
-    position:relative;
-    right:0px;
+    position: relative;
+    right: 0px;
     
     .gcviz-foot-imgarrow {
       margin-top: (0.75 * $rembase) + rem;
@@ -62,7 +61,7 @@
   float: left;
   margin-left: 0px;
   width: 50px;
-  height:40px;
+  height: 40px;
 }
 
 

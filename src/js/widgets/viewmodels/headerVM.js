@@ -33,6 +33,7 @@
                 width: 950
             });
 
+			//TODO: Look at custum bindings
             // Setup the about dialog box
             $viz('#divAbout').dialog({
                 autoOpen: false,
@@ -52,8 +53,8 @@
 					pathFullscreen = locationPath + 'gcviz/images/headFullscreen.png',
 					pathShowInset = locationPath + 'gcviz/images/headShowInset2.png',
 					pathSmallscreen = locationPath + 'gcviz/images/headSmallscreen.png',
-                    pathClosedTools = locationPath + 'gcviz/images/headTools_closed.png',
-                    pathOpenTools = locationPath + 'gcviz/images/headTools_open.png',
+                    pathClosedTools = locationPath + 'gcviz/images/headToolsClosed.png',
+                    pathOpenTools = locationPath + 'gcviz/images/headToolsOpen.png',
 					pathHelp = locationPath + 'gcviz/images/headHelp.png',
 					$section = $viz('#section' + mapid),
 					$mapholder = $viz('#' + mapid),
@@ -154,9 +155,9 @@
 					// Open the Help dialog box
                     $viz('#divHelp').dialog('open');
                     //Open PDF in media player
-                    html = '<a class="media" href="../../HelpManual.pdf" tabindex="0" title="My PDF"></a>';
+                    html = '<a class="media" href="'+i18n.getDict('%header-helpurl')+'" tabindex="0" title="'+i18n.getDict('%header-helptitle')+'F"></a>';
                     $viz('#divHelpContent').html(html);
-                    $viz('.media').media( { width:900,height:300 } );
+                    $viz('.media').media({ width:900,height:300 });
                 };
 
                 _self.aboutClick = function() {
@@ -164,17 +165,17 @@
                     // Open the About dialog box
                     $viz('#divAbout').dialog('open');
                     //Open PDF in media player
-                    html = '<a class="media" href="../../HelpManual.pdf" tabindex="0" title="My PDF"></a>';
+                    html = '<a class="media" href="'+i18n.getDict('%header-abouturl')+'" tabindex="0" title="'+i18n.getDict('%header-abouttitle')+'F"></a>';
                     $viz('#divAboutContent').html(html);
-                    $viz('.media').media( { width:900,height:300 } );
+                    $viz('.media').media({ width:900,height:300 });
                 };
 
 				_self.cancelFullScreen = function() {
 					// set style back for the map
-					func.setStyle($section[0], {'width': _self.widthSection + 'px', 'height': _self.heightSection + 'px'});
-					func.setStyle($mapholder[0], {'width': _self.widthSection + 'px', 'height': _self.heightSection + 'px'});
-					func.setStyle($map[0], {'width': _self.widthMap + 'px', 'height': _self.heightMap + 'px'});
-					func.setStyle($maproot[0], {'width': _self.widthMap + 'px', 'height': _self.heightMap + 'px'});
+					func.setStyle($section[0], { 'width': _self.widthSection + 'px', 'height': _self.heightSection + 'px' });
+					func.setStyle($mapholder[0], { 'width': _self.widthSection + 'px', 'height': _self.heightSection + 'px' });
+					func.setStyle($map[0], { 'width': _self.widthMap + 'px', 'height': _self.heightMap + 'px' });
+					func.setStyle($maproot[0], { 'width': _self.widthMap + 'px', 'height': _self.heightMap + 'px' });
 					$section.removeClass('gcviz-sectionfs');
 
 					// trigger the fullscreen custom binding and set state and image
