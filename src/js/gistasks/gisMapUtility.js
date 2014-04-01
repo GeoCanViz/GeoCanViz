@@ -13,14 +13,14 @@
 			'dijit/MenuItem',
 			'dijit/PopupMenuItem',
             'gcviz-gislegend',
-            'gcviz-gisrequest',
+            'gcviz-giscluster',
 			'esri/map',
 			'esri/layers/FeatureLayer',
 			'esri/layers/ArcGISTiledMapServiceLayer',
 			'esri/layers/ArcGISDynamicMapServiceLayer',
 			'esri/geometry/Extent',
             'esri/geometry/Point'
-	], function(kpan, func, menu, menuItem, menupopup, gisLegend, gisRequest, esriMap, esriFL, esriTiled, esriDyna, esriExt, esriPoint) {
+	], function(kpan, func, menu, menuItem, menupopup, gisLegend, gisCluster, esriMap, esriFL, esriTiled, esriDyna, esriExt, esriPoint) {
 		var mapArray = {},
 			createMap,
 			createInset,
@@ -133,12 +133,13 @@
                 if (layer.renderer) {
                     gisLegend.getFeatureLayerSymbol(layer);
                 }
+                
                 if (layer.isCluster) {
                 	// remove the layer from the map and replace the link to the cluster layer
                 	//map.removeLayer(layer);
                 	
                 	// create cluster layer
-                	gisRequest.getClusterInfo(map, layer);
+                	gisCluster.getClusterInfo(map, layer);
                 }
             });
 

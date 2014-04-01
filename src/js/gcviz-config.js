@@ -221,9 +221,9 @@
 				location: locationPath + 'gcviz/js/gistasks',
 				main: 'gisLegend-min'
 			}, {
-				name: 'gcviz-gisrequest',
+				name: 'gcviz-giscluster',
 				location: locationPath + 'gcviz/js/gistasks',
-				main: 'gisRequest-min'
+				main: 'gisCluster-min'
 			}, {
 				name: 'gcviz-v-header',
 				location: locationPath + 'gcviz/js/views',

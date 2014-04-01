@@ -179,7 +179,7 @@
             }, {
                 name: 'cluster',
                 location: locationPath + 'src/js/dependencies',
-                main: 'esri.clusterlayer.min'
+                main: 'light.esri.clusterlayer.min'
             }, {
                 name: 'media',
                 location: locationPath + 'src/js/dependencies',
@@ -221,9 +221,9 @@
 				location: locationPath + 'src/js/gistasks',
 				main: 'gisLegend'
 			}, {
-				name: 'gcviz-gisrequest',
+				name: 'gcviz-giscluster',
 				location: locationPath + 'src/js/gistasks',
-				main: 'gisRequest'
+				main: 'gisCluster'
 			}, {
 				name: 'gcviz-v-header',
 				location: locationPath + 'src/js/widgets/views',

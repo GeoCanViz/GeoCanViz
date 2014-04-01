@@ -59,13 +59,6 @@
 
 					// keep map reference in the viewmodel to be accessible from other view model
 					_self.map = map;
-
-					// TODO: keep the best
-					// faster (approx: 3 seconds)
-					//gisRequest.getResourceInfo('http://geoappext.nrcan.gc.ca/arcgis/rest/services/GSCC/Geochronology/MapServer/0/query?where=OBJECTID+>+0&dirty=' + (new Date()).getTime(), _self.cluster);
-					
-					// slower (approx: 10 seconds) but no owner error...
-					//gisRequest.getClusterFormat('http://geoappext.nrcan.gc.ca/arcgis/rest/services/GSCC/Geochronology/MapServer/0', _self.cluster);
 					
 					return { controlsDescendantBindings: true };
 				};

@@ -74,7 +74,7 @@
 			clusterLayer = new cluster({
 				'url': 'http://geoappext.nrcan.gc.ca/arcgis/rest/services/GSCC/Geochronology/MapServer/0',
 				'data': data,
-				'distance': 100,
+				'distance': 50,
 				'id': 'clusters',
 				'returnLimit': len,
 				'labelColor': '#000',
@@ -84,29 +84,29 @@
 				'spatialReference': 3978,
 				'zoomOnClick': false,
 				'maxSingles': len,
-				'singleRenderer': renderer,
+				//'renderer': renderer,
 				'outFields': ['AGE']
 			});
 		            
-		            var defaultSym = new esriMarker().setSize(4);
-            		var renderer = new esriRender(defaultSym, "clusterCount");
-
-					var small = new esri.symbol.SimpleMarkerSymbol('circle', 20,
-                        new esri.symbol.SimpleMarkerSymbol(esri.symbol.SimpleMarkerSymbol.STYLE_SOLID, new dojo.Color([255,191,0,0.25]), 100),
-                        new dojo.Color([255,191,0,0.75]));
-                    
-                    var medium = new esri.symbol.SimpleMarkerSymbol('circle', 30,
-                        new esri.symbol.SimpleMarkerSymbol(esri.symbol.SimpleMarkerSymbol.STYLE_SOLID, new dojo.Color([148,0,211,0.25]), 15),
-                        new dojo.Color([148,0,211,0.75]));
-                        
-                    var large = new esri.symbol.SimpleMarkerSymbol('circle', 50,
-                        new esri.symbol.SimpleMarkerSymbol(esri.symbol.SimpleMarkerSymbol.STYLE_SOLID, new dojo.Color([255,0,0,0.25]), 15),
-                        new dojo.Color([255,0,0,0.75]));
-                        
-		            renderer.addBreak(2, 100, small);
-		            renderer.addBreak(100, 2000, medium);
-		            renderer.addBreak(2000, len, large);
-            		clusterLayer.setRenderer(renderer);
+		            // var defaultSym = new esriMarker().setSize(4);
+            		// var renderer = new esriRender(defaultSym, "clusterCount");
+// 
+					// var small = new esri.symbol.SimpleMarkerSymbol('circle', 5,
+                        // new esri.symbol.SimpleMarkerSymbol(esri.symbol.SimpleMarkerSymbol.STYLE_SOLID, new dojo.Color([255,191,0,0.25]), 100),
+                        // new dojo.Color([255,191,0,0.75]));
+//                     
+                    // var medium = new esri.symbol.SimpleMarkerSymbol('circle', 10,
+                        // new esri.symbol.SimpleMarkerSymbol(esri.symbol.SimpleMarkerSymbol.STYLE_SOLID, new dojo.Color([148,0,211,0.25]), 15),
+                        // new dojo.Color([148,0,211,0.75]));
+//                         
+                    // var large = new esri.symbol.SimpleMarkerSymbol('circle', 50,
+                        // new esri.symbol.SimpleMarkerSymbol(esri.symbol.SimpleMarkerSymbol.STYLE_SOLID, new dojo.Color([255,0,0,0.25]), 15),
+                        // new dojo.Color([255,0,0,0.75]));
+//                         
+		            // renderer.addBreak(2, 100, small);
+		            // renderer.addBreak(100, 2000, medium);
+		            // renderer.addBreak(2000, len, large);
+            		//clusterLayer.setRenderer(renderer);
             		
 		            map.addLayer(clusterLayer);
 		};
