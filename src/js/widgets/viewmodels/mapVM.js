@@ -39,13 +39,13 @@
 					map = gisM.createMap(mapid + '_holder', config);
 
 					// add basemap
-					gisM.addLayer(map, base.type, base.url, base.id);
+					gisM.addLayer(map, base);
 					
 					// add layers
 					layers = layers.reverse();
 					while (lenLayers--) {
 						var layer = layers[lenLayers];
-						gisM.addLayer(map, layer.type, layer.url, layer.id, layer.cluster);
+						gisM.addLayer(map, layer);
 					}
 					
 					// set class and remove cursor for container

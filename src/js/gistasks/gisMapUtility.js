@@ -133,14 +133,6 @@
                 if (layer.renderer) {
                     gisLegend.getFeatureLayerSymbol(layer);
                 }
-                
-                if (layer.isCluster) {
-                	// remove the layer from the map and replace the link to the cluster layer
-                	//map.removeLayer(layer);
-                	
-                	// create cluster layer
-                	gisCluster.getClusterInfo(map, layer);
-                }
             });
 
 			return map;
@@ -284,24 +276,29 @@
 			}, 1000, false));
 		};
 
-		addLayer = function(map, type, url, layerid, cluster) {
-			var layer;
+		addLayer = function(map, layerInfo) {
+			var layer,
+				type = layerInfo.type;
+				
 			if (type === 3) {
-				layer = new esriTiled(url, { 'id': layerid });
+				layer = new esriTiled(layerInfo.url, { 'id': layerInfo.id });
 			} else if (type === 4) {
-				layer = new esriDyna(url, { 'id': layerid });
+				layer = new esriDyna(layerInfo.url, { 'id': layerInfo.id });
 			} else if (type === 5) {
-				layer = new esriFL(url, {
+				layer = new esriFL(layerInfo.url, {
                     mode: esriFL.MODE_ONDEMAND,
                     outFields: ['*'],
-                    id: layerid
+                    id: layerInfo.id
 				});
+			} else if (type === 6) {
+				// cluster layer
+				gisCluster.startCluster(map, layerInfo);
 			}
 			
-			if (typeof cluster !== 'undefined') {
-				layer.isCluster = cluster.enable;
+			// cluster layer is added in gisCluster class
+			if (type !== 6) {
+				map.addLayer(layer);
 			}
-			map.addLayer(layer);
 		};
 
 		resizeMap = function(map) {

@@ -179,7 +179,7 @@
             }, {
                 name: 'cluster',
                 location: locationPath + 'src/js/dependencies',
-                main: 'light.esri.clusterlayer.min'
+                main: 'esri.clusterlayer.min'
             }, {
                 name: 'media',
                 location: locationPath + 'src/js/dependencies',
