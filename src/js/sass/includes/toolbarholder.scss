@@ -1,25 +1,37 @@
 @import "gcviz-mixin";
 
-.gcviz-tbholder {
-	@include app-text($weight: bold);
-	padding: (1 * $rembase) + rem;
-	position: absolute;
-	z-index: 1000;
-	width: (27.5 * $rembase) + rem;
-	right: 0rem;
-	@include app-gradiant-reverse;
-	cursor: pointer;
-	
-	.gcviz-tbcontent {
-		padding: (0.2 * $rembase) + rem;
-		margin: (0.3 * $rembase) + rem;
-		@include toolbar-background;
-		@include content-border-radius;
-		
-		.dijitTitlePane {
-			margin:( 0.5 * $rembase) + rem;
-		}
-	}
+.gcviz-tbcontainer {
+  @include app-text($weight: bold);
+  padding: (1 * $rembase) + rem;
+  position: absolute;
+  z-index: 100;
+  width: (28.0 * $rembase) + rem;
+  right: 0rem;
+  /*@include app-gradiant-reverse-semiopaque;
+  opacity:0.90;*/
+  /*background-color: rgba(165,193,211, 0.6);
+  border-bottom: 2px solid #336699;*/
+  background-color: rgba(100,100,100, 0.6);
+  border-bottom: 2px solid #666666;
+  cursor: pointer;
+  overflow-y: scroll;
 }
 
+.gcviz-tbholder {
+/*  overflow-y: scroll;*/
+  
+  .gcviz-tbcontent {
+    padding: (0.2 * $rembase) + rem;
+    margin: (0.3 * $rembase) + rem;
+    z-index: 101;
+    /*opacity:1.0!important;*/
+    /*@include toolbar-background;*/
+    background-color: $lightyellow;
+    @include content-border-radius;
+    
+    .dijitTitlePane {
+      margin:( 0.5 * $rembase) + rem;
+    }
+  }
+}
 
