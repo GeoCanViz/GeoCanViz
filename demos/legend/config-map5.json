@@ -5,7 +5,7 @@
     "gcviz": {
         "mapframe": {
             "size": {
-                "height": 600,
+                "height": 500,
                 "width": 800
             },
             "map": {
@@ -203,7 +203,7 @@
             },
             "tools": true,
             "about": {
-                "enable": false,
+                "enable": true,
                 "type": 1,
                 "value": ""
             },

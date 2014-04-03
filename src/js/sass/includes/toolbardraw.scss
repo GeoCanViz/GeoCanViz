@@ -1,9 +1,9 @@
 @import "gcviz-mixin";
 
 .gcviz-text-cursor {
-	cursor: url(#{$img-root}drawText.png), crosshair;
+  cursor: url(#{$img-root}drawTextCursor.cur), text;
 }
 
 .gcviz-draw-cursor {
-	cursor: url(#{$img-root}drawDraw.png), crosshair;
+  cursor: url(#{$img-root}drawDraw.cur), crosshair;
 }

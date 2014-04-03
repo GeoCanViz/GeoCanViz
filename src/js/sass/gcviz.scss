@@ -44,6 +44,10 @@ div.gcviz-container img {
 	background: #FFF;
 }
 
+.gcviz-h3-dialog {
+  color: #FFFFFF!important;
+}
+
 .gcviz-button {
 	cursor: pointer;
 	background: transparent;
@@ -52,12 +56,18 @@ div.gcviz-container img {
 	margin: (0.3 * $rembase) + rem;
 	height: (3 * $rembase) + rem;
 	width: (3 * $rembase) + rem;
+  position: relative;
+  top: 5px!important;
   
 	.gcviz-img-button {
 		margin: 0 !important;
 		height: (2.2 * $rembase) + rem;
 		width: (2.2 * $rembase) + rem;
 	}
+  
+  .gcviz-button200 {
+    width: (20 * $rembase);
+  }
 	
 	&:disabled {
 		@include button-gradiant-disable;
@@ -83,11 +93,15 @@ div.gcviz-container img {
 
 .gcviz {
 	position: relative;
+  border-top: solid 1px $lightgrey;
+  border-left: solid 1px $lightgrey;
+  border-right: solid 1px $grey;
+  border-bottom: solid 1px $grey;
 }
 
 .gcviz-tooltip {
 	.ui-tooltip-content {
-		@include app-text(1.2);
+		@include app-text-white(1.2);
 	}
 }
 
@@ -95,10 +109,99 @@ div.gcviz-container img {
 	display: none;
 }
 
-/* fullc screen */
+/* full screen */
 .gcviz-sectionfs {
 	position: fixed;
 	z-index: 1200;
 	top: 0;
 	left: 0;
+}
+
+.gcviz-float-left {
+  float: left;
+}
+
+.gcviz-inline {
+  display: inline!important;
+}
+
+.gcviz-geoloclabel {
+  width: 65px;
+}
+
+.gcviz-appText {
+  @include app-text;
+}
+
+.gcviz-insinputbox {
+  @include app-text-grey;
+  width: 130px;
+}
+
+.gcviz-h50 {
+  height: 50px;
+}
+
+.gcviz-h200 {
+  height: 200px;
+}
+
+.gcviz-h250 {
+  height: 250px;
+}
+
+.gcviz-h300 {
+  height: 300px;
+}
+
+.gcviz-h320 {
+  height: 320px;
+}
+
+.gcviz-hidden {
+  display: none;
+}
+
+.gcviz-w90 {
+  width: 90px;
+}
+
+.gcviz-w100 {
+  width: 100px;
+}
+
+.gcviz-w210 {
+  width: 210px;
+}
+
+.gcviz-w231 {
+  width: 231px;
+}
+
+.gcviz-w241 {
+  width: 241px;
+}
+
+.gcviz-w247 {
+  width: 247px;
+}
+
+.gcviz-up5 {
+  position: relative;
+  top: -5px!important;
+}
+
+.gcviz-border {
+  border: solid 1px #369!important;
+}
+
+/* Overwrite some ESRI classses */
+.dijitTitlePaneHover .dijitTitlePaneTitleHover {
+  background-color: $orange!important;
+  color: #000000!important;
+}
+
+.dijitTitlePaneTitleOpen {
+  background-color: $orange!important;
+  color: #000000!important;
 }

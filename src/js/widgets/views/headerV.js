@@ -16,6 +16,7 @@
 				config = $mapElem.header,
 				mapid = $mapElem.mapframe.id,
 				title = config.title.value,
+                toolbarSize = 0,
 				node = '';
 
 			$mapElem.find('#' + mapid).prepend('<div id="head' + mapid + '" class="gcviz-head"></div>');
@@ -31,10 +32,16 @@
 			// add help button (must always be there!)
 			node += '<button class="gcviz-button" tabindex="0" data-bind="click: helpClick, tooltip: { content: tpHelp }"><img class="gcviz-img-button" data-bind="attr: { src: imgHelp }"></img></button>';
 
+            // add about button
+            if (config.about.enable) {
+                node += '<button class="gcviz-button" tabindex="0" data-bind="click: aboutClick, tooltip: { content: tpAbout }"><img class="gcviz-img-button" data-bind="attr: { src: imgAbout }"></img></button>';
+            }
+
 			// add tools button
 			if (config.tools) {
-				node += '<button class="gcviz-button gcviz-tools-button" tabindex="0" data-bind="click: toolsClick, tooltip: { content: tpTools }"><img class="gcviz-img-button" data-bind="attr: { src: imgTools }"></img></button>';
-				$mapElem.find('.gcviz-head').after('<div class="gcviz-tbholder gcviz-hidden"></div>');
+                node += '<button id="btnTools' + mapid + '" class="gcviz-button gcviz-tools-button" tabindex="0" data-bind="click: toolsClick, tooltip: { content: tpTools }"><img class="gcviz-img-button" data-bind="attr: { src: imgTools }"></img></button>';
+                toolbarSize = parseInt($mapElem.mapframe.size.height, 10) - 105;
+                $mapElem.find('.gcviz-head').after('<div class="gcviz-tbcontainer gcviz-hidden" style="max-height:' + toolbarSize.toString() + 'px!important;"><div class="gcviz-tbholder"></div></div>');
 			}
 
 			// add inset button if inset are present

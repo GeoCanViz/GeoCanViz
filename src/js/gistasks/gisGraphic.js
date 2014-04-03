@@ -65,6 +65,8 @@
 						symbol = new esriText(text);
 						symbol.setFont(font);
 						symbol.setOffset(0, 0);
+						symbol.setHorizontalAlignment('left');
+						symbol.setVerticalAlignment('baseline');
 						text = '';
 						$cursor.removeClass('gcviz-text-cursor');
 					}

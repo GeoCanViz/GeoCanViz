@@ -2,16 +2,17 @@
 
 .gcviz-head {
 	@include app-head-foot;
-	@include app-gradiant;
+	/*@include app-gradiant;*/
 	
 	.gcviz-head-title {
 		display: inline-block;
 		height: (4 * $rembase) + rem;
 	
 	.gcviz-head-titlelabel {
-			margin-top: (0.5 * $rembase) + rem;
+      margin-top: (0.5 * $rembase) + rem;
+      margin-left: (0.5 * $rembase) + rem!important;
 			line-height: (3.5 * $rembase) + rem;
-			@include app-text(1.6, bold);
+			@include app-text-white(1.6, bold);
 		}
 	}
   
