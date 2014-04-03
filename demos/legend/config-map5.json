@@ -169,7 +169,9 @@
                     	"enable": true,
                     	"distance": 20,
                     	"label": false,
-                    	"symbol": 2
+                    	"symbol": 2,
+                    	"maxSizeProp": 50,
+                    	"maxDataProp": 1000
                     }
                 }, {
                     "id": "Cluster_Geochronology2",
@@ -184,7 +186,9 @@
                     	"enable": true,
                     	"distance": 40,
                     	"label": true,
-                    	"symbol": 1
+                    	"symbol": 2,
+                    	"maxSizeProp": 70,
+                    	"maxDataProp": 1000
                     }
                 }]
             }

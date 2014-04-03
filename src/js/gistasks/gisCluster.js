@@ -85,6 +85,8 @@
 				'distance': clusterInfo.distance,
 				'id': layerInfo.id,
 				'label': clusterInfo.label,
+				'maxSizeProp': clusterInfo.maxSizeProp,
+				'maxDataProp': clusterInfo.maxDataProp,
 				'spatialReference': sr,
 			});
 
