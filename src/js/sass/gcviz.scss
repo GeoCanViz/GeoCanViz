@@ -188,3 +188,14 @@
 .gcviz-border {
   border: solid 1px #369!important;
 }
+
+/* Overwrite some ESRI classses */
+.dijitTitlePaneHover .dijitTitlePaneTitleHover {
+  background-color: $orange!important;
+  color: #000000!important;
+}
+
+.dijitTitlePaneTitleOpen {
+  background-color: $orange!important;
+  color: #000000!important;
+}

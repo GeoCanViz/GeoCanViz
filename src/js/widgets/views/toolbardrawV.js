@@ -46,6 +46,7 @@
 										'<form><fieldset>' +
 										'<label for="value">' + i18n.getDict('%toolbardraw-inputbox-label') + '</label>' +
 										' <input id="value" class="text ui-widget-content ui-corner-all"/>' +
+										'<div>' + i18n.getDict('%toolbardraw-insinputbox') + '</div>' +
 										'</fieldset></form></div>');
 				}
 			}
