@@ -9,7 +9,7 @@
 	'use strict';
 	define(['jquery-private',
 			'knockout',
-			'gcviz-gismap'
+			'gcviz-gismap',
 	], function($viz, ko, gisM) {
 		var initialize,
 			vm;
@@ -39,15 +39,15 @@
 					map = gisM.createMap(mapid + '_holder', config);
 
 					// add basemap
-					gisM.addLayer(map, base.type, base.url, base.id);
-
+					gisM.addLayer(map, base);
+					
 					// add layers
 					layers = layers.reverse();
 					while (lenLayers--) {
 						var layer = layers[lenLayers];
-						gisM.addLayer(map, layer.type, layer.url, layer.id);
+						gisM.addLayer(map, layer);
 					}
-
+					
 					// set class and remove cursor for container
 					$root = $viz('#' + mapid + '_holder_root');
 					$container = $viz('#' + mapid + '_holder_container');
@@ -59,10 +59,10 @@
 
 					// keep map reference in the viewmodel to be accessible from other view model
 					_self.map = map;
-
+					
 					return { controlsDescendantBindings: true };
 				};
-
+				
 				_self.enterMouse = function() {
 					_self.mapholder.focus();
 				};
