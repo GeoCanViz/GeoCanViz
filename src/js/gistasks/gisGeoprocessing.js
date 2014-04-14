@@ -17,6 +17,8 @@
 			getGSVC,
 			getCoord,
 			getNorthAngle,
+			projectPoints,
+			glbGSVC,
 			params = new esriProj();
 
 		getOutSR = function(wkid) {
@@ -24,7 +26,15 @@
 		};
 
 		getGSVC = function(urlgeomserv) {
-			return new esriGeom(urlgeomserv);
+			var gsvc = new esriGeom(urlgeomserv);
+
+			// TODO: do we create a global geometry service or one by call? For example
+			// I need one for cluster. Do i crate one, use a global or have one for the entire
+			// project. Depend of the answer, modifications will have to be made.
+			if (typeof glbGSVC === 'undefined') {
+				glbGSVC = gsvc;
+			}
+			return gsvc;
 		};
 
 		getCoord = function(point, div, outSR, gsvc) {
@@ -39,7 +49,6 @@
 		};
 
 		getNorthAngle = function(extent, div, inwkid, gsvc) {
-
 			var outSR = new esriSR({ 'wkid': 4326 }),
 				pointB = new esriPoint((extent.xmin + extent.xmax) / 2,
 										extent.ymin, new esriSR({ 'wkid': inwkid }));
@@ -48,7 +57,7 @@
 			params.outSR = outSR;
 
 			gsvc.project(params, function(projectedPoints) {
-				var pointA = {x: -100, y: 90},
+				var pointA = { x: -100, y: 90 },
 					dLon,
 					lat1,
 					lat2,
@@ -73,11 +82,28 @@
 			});
 		};
 
+		projectPoints = function(points, outwkid, success) {
+			params.geometries = points;
+			params.outSR = new esriSR({ 'wkid': outwkid });
+
+			glbGSVC.project(params, function(projectedPoints) {
+				var geom = params.geometries,
+					len = geom.length;
+
+				// put back the attributes
+				while (len--) {
+					projectedPoints[len].attributes = geom[len].attributes;
+				}
+				success(projectedPoints);
+			});
+		};
+
 		return {
 			getOutSR: getOutSR,
 			getGSVC: getGSVC,
 			getCoord: getCoord,
-			getNorthAngle: getNorthAngle
+			getNorthAngle: getNorthAngle,
+			projectPoints: projectPoints
 		};
 	});
 }());
