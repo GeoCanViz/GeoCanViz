@@ -18,9 +18,11 @@
 			'esri/layers/FeatureLayer',
 			'esri/layers/ArcGISTiledMapServiceLayer',
 			'esri/layers/ArcGISDynamicMapServiceLayer',
+			'esri/layers/WMSLayer',
+			'esri/layers/WMSLayerInfo',
 			'esri/geometry/Extent',
             'esri/geometry/Point'
-	], function(kpan, func, menu, menuItem, menupopup, gisLegend, gisCluster, esriMap, esriFL, esriTiled, esriDyna, esriExt, esriPoint) {
+	], function(kpan, func, menu, menuItem, menupopup, gisLegend, gisCluster, esriMap, esriFL, esriTiled, esriDyna, wms, wmsInfo, esriExt, esriPoint) {
 		var mapArray = {},
 			createMap,
 			createInset,
@@ -278,9 +280,24 @@
 
 		addLayer = function(map, layerInfo) {
 			var layer,
+				options,
+				resourceInfo,
 				type = layerInfo.type;
-				
-			if (type === 3) {
+
+			if (type === 1) {
+				options = layerInfo.options;
+				resourceInfo = {
+					extent: map.extent,
+					layerInfos: options.layerinfos
+				};
+
+				layer = new wms(layerInfo.url, {
+					resourceInfo: resourceInfo,
+					visibleLayers: options.visiblelayers
+				});
+			} else if (type === 2) {
+
+			} else if (type === 3) {
 				layer = new esriTiled(layerInfo.url, { 'id': layerInfo.id });
 			} else if (type === 4) {
 				layer = new esriDyna(layerInfo.url, { 'id': layerInfo.id });
@@ -294,7 +311,7 @@
 				// cluster layer
 				gisCluster.startCluster(map, layerInfo);
 			}
-			
+
 			// cluster layer is added in gisCluster class
 			if (type !== 6) {
 				map.addLayer(layer);

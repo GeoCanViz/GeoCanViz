@@ -1,0 +1,189 @@
+{
+    "gcaut": {
+        "name": "Carte 1.json"
+    },
+    "gcviz": {
+        "mapframe": {
+            "size": {
+                "height": 600,
+                "width": 1000
+            },
+            "map": {
+                "urlgeomserv": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/Utilities/Geometry/GeometryServer",
+                "sr": {
+                    "wkid": 4326
+                },
+                "extentmax": {
+                    "xmin": -141,
+                    "ymin": 41,
+                    "xmax": -52,
+                    "ymax": 84
+                },
+                "extentinit": {
+                    "xmin": -141,
+                    "ymin": 41,
+                    "xmax": -52,
+                    "ymax": 84
+                },
+                "lods": {
+                    "enable": false,
+                    "values": []
+                },
+                "link": false,
+                "bases": [{
+                    "id": "toporama",
+                    "type": 1,
+                    "category": "base",
+                    "url": "http://wms.ess-ws.nrcan.gc.ca/wms/toporama_en",
+                    "options": {
+	                    "layerinfos": [{
+	                    	"name": "WMS-Toporama",
+							"title": "WMS-Toporama"
+	          			}],
+	          			"visiblelayers": ["WMS-Toporama"]
+          			}
+                }],
+                "layers": [{
+                    "id": "us_cities",
+                    "type": 1,
+                    "category": "layer",
+                    "url": "http://sampleserver1.arcgisonline.com/ArcGIS/services/Specialty/ESRI_StatesCitiesRivers_USA/MapServer/WMSServer",
+                    "options": {
+	                    "layerinfos": [{
+	                    	"name": "2",
+							"title": "![CDATA[ Cities ]]"
+	          			}],
+	          			"visiblelayers": ["2"]
+          			}
+                }, {
+                    "id": "Cluster_Geochronology1",
+                    "type": 6,
+                    "category": "layer",
+                    "url": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/GSCC/Geochronology/MapServer/",
+                    "scale": {
+                        "min": 0,
+                        "max": 0
+                    },
+                    "cluster": {
+                    	"enable": true,
+                    	"distance": 20,
+                    	"label": false,
+                    	"symbol": 2,
+                    	"maxSizeProp": 50,
+                    	"maxDataProp": 1000
+                    }
+                }]
+            }
+        },
+        "insetframe": {
+        	"enable": false
+        },
+        "header": {
+            "title": {
+                "value": "My Toporama",
+                "alttext": "alt"
+            },
+            "tools": true,
+            "about": {
+                "enable": true,
+                "type": 1,
+                "value": ""
+            },
+            "print": {
+                "enable": true,
+                "type": 1
+            },
+            "fullscreen": true,
+            "inset": true
+        },
+        "footer": {
+            "urlgeomserv": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/Utilities/Geometry/GeometryServer",
+            "northarrow": {
+                "enable": true,
+                "inwkid": 4326
+            },
+            "mousecoords": {
+                "enable": true,
+                "outwkid": 4326
+            },
+            "datatable": {
+                "direction": "in"
+            }
+        },
+        "toolbarlegend": {
+            "enable": true,
+            "expand": false,
+            "items": [{
+                "expand": false,
+                "fullid": "Geochronology Géochronologie",
+                "last": true,
+                "id": "Cluster_Geochronology1",
+                "displayfields": false,
+                "label": {
+                    "value": "Geochronology Cluster",
+                    "alttext": "Geochronology Cluster"
+                },
+                "metadata": {
+                    "enable": false
+                },
+                "opacity": {
+                    "enable": false,
+                    "min": 0,
+                    "max": 1
+                },
+                "visibility": {
+                    "enable": true,
+                    "initstate": false,
+                    "type": 1,
+                    "radioid": 0
+                },
+                "displaychild": true,
+                "customimage": {
+                    "enable": false
+                },
+                "items": []
+            }]
+        },
+        "toolbardraw": {
+            "enable": true,
+            "expand": false,
+            "drawline": {
+                "enable": true
+            },
+            "drawtext": {
+                "enable": true
+            },
+            "measure": {
+                "enable": true,
+                "type": 3,
+                "unit": 1
+            },
+            "importexport": {
+                "enable": true
+            }
+        },
+        "toolbarnav": {
+            "enable": true,
+            "expand": false,
+            "zoom": true,
+            "urlgeomserv": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/Utilities/Geometry/GeometryServer",
+            "geolocation": {
+                "enable": false,
+                "type": -1
+            },
+            "scalebar": {
+                "enable": false,
+                "unit": 1
+            },
+            "scaledisplay": {
+                "enable": false,
+                "format": 1
+            },
+            "overview": {
+                "enable": false,
+                "url": ""
+            }
+        },
+        "customwidgets": []
+    }
+}
