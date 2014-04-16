@@ -164,6 +164,10 @@
   width: 100px;
 }
 
+.gcviz-w145 {
+  width: 145px;
+}
+
 .gcviz-w210 {
   width: 210px;
 }
@@ -180,22 +184,19 @@
   width: 247px;
 }
 
+.gcviz-w250 {
+  width: 250px;
+}
+
 .gcviz-up5 {
   position: relative;
   top: -5px!important;
 }
 
+.gcviz-margin-left5 {
+  margin-left: 5px;
+}
+
 .gcviz-border {
   border: solid 1px #369!important;
-}
-
-/* Overwrite some ESRI classses */
-.dijitTitlePaneHover .dijitTitlePaneTitleHover {
-  background-color: $orange!important;
-  color: #000000!important;
-}
-
-.dijitTitlePaneTitleOpen {
-  background-color: $orange!important;
-  color: #000000!important;
 }

@@ -332,16 +332,17 @@
                 "enable": true,
                 "unit": 1
             },
-            "scaledisplay": {
-                "enable": true,
-                "format": 1
-            },
             "position": {
                 "enable": true
             },
+            "scaledisplay": {
+                "enable": false,
+                "format": 1
+            },
             "overview": {
                 "enable": true,
-                "url": ""
+                "url": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/BaseMaps/CBCT3978/MapServer",
+                "type": 3
             }
         },
         "customwidgets": []
