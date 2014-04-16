@@ -55,7 +55,7 @@
 				if (config.geolocation.enable) {
 					node += '<span id="divAutoCompleteInstructions' + mapid + '" class="ui-helper-hidden-accessible gcviz-inline">' + i18n.getDict('%toolbarnav-inskeyboard') + '</span>';
 					node += '<label class="gcviz-geoloclabel gcviz-inline" for="inGeoLocation">' + i18n.getDict('%toolbarnav-geoloclabel') + '</label>';
-					node += '<input id="inGeoLocation' + mapid + '" class="gcviz-greyTextGeoLoc gcviz-inline gcviz-w145" value="' + i18n.getDict('%toolbarnav-geolocsample') + '" title="' + i18n.getDict('%toolbarnav-geolocsample') + '"/>';
+					node += '<input id="inGeoLocation' + mapid + '" class="gcviz-greyTextGeoLoc gcviz-inline gcviz-w140" value="' + i18n.getDict('%toolbarnav-geolocsample') + '" title="' + i18n.getDict('%toolbarnav-geolocsample') + '"/>';
 				}
 				node += '</div>';
 
