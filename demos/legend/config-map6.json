@@ -161,15 +161,6 @@
                         "min": 300000,
                         "max": 100101
                     }
-                }, {
-                    "id": "CGKNSurficial",
-                    "type": 4,
-                    "category": "layer",
-                    "url": "http://s-bsc-geoappint.nrn.nrcan.gc.ca/arcgis/rest/services/GSCC/CGKNSurficial/MapServer",
-                    "scale": {
-                        "min": 0,
-                        "max": 0
-                    }
                 }]
             }
         },
@@ -270,36 +261,7 @@
 		                "enable": false
 		            },
 		            "items": []
-		        	}, {
-                    "expand": true,
-                    "fullid": "CGKNSurficial",
-                    "last": true,
-                    "id": "CGKNSurficial",
-                    "displayfields": false,
-                    "label": {
-                        "value": "CGKN Surficial Geology",
-                        "alttext": "CGKN Surficial Geology"
-                    },
-                    "metadata": {
-                        "enable": false
-                    },
-                    "opacity": {
-                        "enable": false,
-                        "min": 0,
-                        "max": 1
-                    },
-                    "visibility": {
-                        "enable": true,
-                        "initstate": false,
-                        "type": 1,
-                        "radioid": 0
-                    },
-                    "displaychild": true,
-                    "customimage": {
-                        "enable": false
-                    },
-                    "items": []
-                }]
+		        	}]
         },
         "toolbardraw": {
             "enable": true,

@@ -24,24 +24,24 @@
             getNTS,
             getUTM,
             getUTMzone,
-			params = new esriProj();
+			params = new esriProj(),
+			zoomFullExtent,
+			zoomLocation;
 
 		calcDDtoDMS = function(lati, longi) {
-            var DMS = {};
-            var eastWest;
-            var latD;
-            var latM;
-            var latReal;
-            var latS;
-            var longD;
-            var longM;
-            var longReal;
-            var longS;
-            var northSouth;
-            var tmp;
+            var DMS = {},
+				eastWest,
+				latD,
+				latM,
+				latS,
+				longD,
+				longM,
+				longS,
+				northSouth,
+				tmp,
+				latReal = parseFloat(lati),
+				longReal = parseFloat(longi);
 
-            latReal = parseFloat(lati);
-            longReal = parseFloat(longi);
             if (latReal < 0.0) {
                 northSouth = 'S';
                 latReal = latReal * -1.0;
@@ -107,7 +107,6 @@
 		};
 
 		getNorthAngle = function(extent, div, inwkid, gsvc) {
-
 			var outSR = new esriSR({ 'wkid': 4326 }),
 				pointB = new esriPoint((extent.xmin + extent.xmax) / 2,
 										extent.ymin, new esriSR({ 'wkid': inwkid }));
@@ -140,10 +139,11 @@
 				dojoDom.byId(div).style.transform = 'rotate(' + bearing + 'deg)';
 			});
 		};
+
         getNTS = function(lati, longi) {
-            var urlNTS = 'http://geogratis.gc.ca/services/delimitation/' + i18n.getDict('%lang-code') + '/nts?bbox=';
-            // Use a deferred object to call the service
-            var def = $viz.Deferred();
+            var urlNTS = i18n.getDict('%gisurlnts'),
+				def = $viz.Deferred(); // Use a deferred object to call the service
+
             urlNTS += longi + ',' + lati + ',' + longi + ',' + lati;
             $viz.getJSON(urlNTS).done(function(data){
                 def.resolve({
@@ -155,9 +155,9 @@
         };
 
         getUTMzone = function(lati, longi) {
-            var urlUTM = 'http://geogratis.gc.ca/services/delimitation/' + i18n.getDict('%lang-code') + '/utmzone?bbox=';
-            // Use a deferred object to call the service
-            var def = $viz.Deferred();
+            var urlUTM = i18n.getDict('%gisurlutm'),
+				def = $viz.Deferred(); // Use a deferred object to call the service
+
             urlUTM += longi + ',' + lati + ',' + longi + ',' + lati;
             $viz.getJSON(urlUTM).done(function(data){
                 def.resolve({
@@ -168,6 +168,30 @@
             return def;
         };
 
+		zoomFullExtent = function(mymap) {
+			mymap.setExtent(mymap.vFullExtent, mymap.spatialReference.wkid);
+		};
+
+		zoomLocation = function(minx, miny, maxx, maxy, mymap, urlgeomserv) {
+            var inSR = new esri.SpatialReference({'wkid': 4326}),
+				outSR = new esri.SpatialReference({'wkid': mymap.spatialReference.wkid}),
+				extent = new esri.geometry.Extent(),
+				geometryService = getGSVC(urlgeomserv),
+				inputpoint1 = new esri.geometry.Point(minx, miny, inSR),
+				inputpoint2 = new esri.geometry.Point(maxx, maxy, inSR),
+				geom = [inputpoint1, inputpoint2],
+				prjParams = new esri.tasks.ProjectParameters();
+
+            prjParams.geometries = geom;
+            prjParams.outSR = outSR;
+            prjParams.transformation = 'Default';
+            // Transform the lat/long extent to map coordinates
+            geometryService.project(prjParams, function(projectedPoints) {
+                extent = new esri.geometry.Extent(projectedPoints[0].x, projectedPoints[0].y, projectedPoints[1].x, projectedPoints[1].y, outSR);
+                mymap.setExtent(extent, true);
+            });
+		};
+
 		return {
             calcDDtoDMS: calcDDtoDMS,
 			getOutSR: getOutSR,
@@ -176,7 +200,9 @@
 			getNorthAngle: getNorthAngle,
             getNTS: getNTS,
             getUTM: getUTM,
-            getUTMzone: getUTMzone
+            getUTMzone: getUTMzone,
+            zoomFullExtent: zoomFullExtent,
+            zoomLocation: zoomLocation
 		};
 	});
 }());

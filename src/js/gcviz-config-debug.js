@@ -209,10 +209,6 @@
 				location: locationPath + 'src/js/gistasks',
 				main: 'gisGraphic'
 			}, {
-				name: 'gcviz-gisnavigation',
-				location: locationPath + 'src/js/gistasks',
-				main: 'gisNavigation'
-			}, {
 				name: 'gcviz-gislegend',
 				location: locationPath + 'src/js/gistasks',
 				main: 'gisLegend'

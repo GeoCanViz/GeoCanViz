@@ -13,6 +13,9 @@ General (i18n)#%all#All#Tous
 #%msg-configread#Configuration file read#Fichier de configuration lu
 #%msg-configerr#Configuration file error#Erreur fichier de configuration
 #%main-page#Main page#Page principale
+#%gisurllocate#http://geogratis.gc.ca/services/geolocation/en/locate?#http://geogratis.gc.ca/services/geolocation/fr/locate?
+#%gisurlnts#http://geogratis.gc.ca/services/delimitation/en/nts?bbox=#http://geogratis.gc.ca/services/delimitation/fr/nts?bbox=
+#%gisurlutm#http://geogratis.gc.ca/services/delimitation/en/utmzone?bbox=#http://geogratis.gc.ca/services/delimitation/fr/utmzone?bbox=
 #%header-abouttitle#Open the help manual#Ouvrir le manuel d'aide
 #%header-urlabout#../../HelpManual.pdf#../../HelpManual.pdf
 #%header-help#GeoCanViz Help#Aide pour GéoCanViz
@@ -38,6 +41,7 @@ General (i18n)#%all#All#Tous
 #%toolbarnav-geolocsample#Prov./City name/...#Prov./Nom de ville/...
 #%toolbarnav-info#Click on the map to get location information#Cliquez sur la carte et obtenez de l'information de localisation
 #%toolbarnav-infoaltitude#ALTITUDE#ALTITUDE
+#%toolbarnav-infoaltitudeurl#http://geogratis.gc.ca/services/elevation/cdem/altitude?#http://geogratis.gc.ca/services/elevation/cdem/altitude?
 #%toolbarnav-infoclickmap#Click on map#Cliquez sur la carte
 #%toolbarnav-infodecdeg#Degrees Decimal#Degrés décimaux
 #%toolbarnav-infodms#Degrees Minutes Seconds (DMS)#Degrés minutes secondes (DMS)
@@ -60,6 +64,7 @@ General (i18n)#%all#All#Tous
 #%toolbarnav-zoomfull#Zoom to full extent#Zoom à l`étendue maximum
 #%inset-tplight#Open the content in a lightbox#Ouvrir le contenu dans un lightbox
 #%inset-tpplayvideo#Play video#Jouer la vidéo
+#%mapcursurtarget#url(/GeoCanViz/gcviz/images/navCursor.cur), auto#url(/GeoCanViz/gcviz/images/navCursor.cur), auto
 #%mp-close#Close (Esc)#Fermer (Esc)
 #%mp-load#Loading...#Chargement...
 #%mp-next#Previous (Left arrow key)#Precédent (touche flèche gauche)

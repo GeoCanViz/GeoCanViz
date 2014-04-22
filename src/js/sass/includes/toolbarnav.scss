@@ -82,10 +82,21 @@
 .esriOverviewMap .ovwContainer .map .container .container {-webkit-tap-highlight-color: rgba(0, 0, 0, 0);}
 /* End of Reset some ESRI classes that are being modified by the Map classes */
 
+.gcviz-ovtoolcontainer {
+  width: 250px;
+  height: 100px;
+  opacity:1.0!important;
+}
+
 .gcviz-overviewMap {
   width: 247px!important;
   height: 100px!important;
   position:relative!important;
+}
+
+.gcviz-overviewMapContent {
+  width: 247px!important;
+  height: 100px!important;
 }
 
 /* Change overview highlight of ESRI element */
@@ -194,6 +205,21 @@
   cursor: default!important;
 }
 
+.gcviz-scaleBarToolbar {
+  width: 247px!important;
+  height: 30px!important;
+}
+
+.gcviz-scaleBarToolbarContainer {
+  width: 200px!important;
+  height: 25px!important;
+}
+
 .esriScalebarLabel {
   @include app-text(0.75);
+}
+
+.gcviz-positionToolbar {
+  width: 247px!important;
+  height: 30px!important;
 }
