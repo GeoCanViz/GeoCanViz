@@ -12,13 +12,15 @@
 	define(['jquery-private',
             'knockout',
 			'gcviz-i18n',
+			'gcviz-func',
             'gcviz-gisgeo',
+            'gcviz-gismap',
 			'esri/dijit/OverviewMap',
 			'esri/dijit/Scalebar',
             'dojo/dom',
             'dojo/dom-style',
 			'esri/layers/layer'
-	], function($viz, ko, i18n, gisgeo, ov, sb, dom, domStyle, lyr) {
+	], function($viz, ko, i18n, gcvizfunc, gisgeo, gismap, ov, sb, dom, domStyle, lyr) {
 		var initialize,
 			vm;
 
@@ -31,10 +33,12 @@
 				var _self = this,
 					configoverview = config.overview,
 					configoverviewtype = configoverview.type,
+					configoverviewurl = config.overview.url,
 					configscalebar = config.scalebar,
                     currentAutoComplText = i18n.getDict('%toolbarnav-geolocsample'),
                     defaultAutoComplText = i18n.getDict('%toolbarnav-geolocsample'),
                     eventHandler,
+                    eventCount = 0,
                     inMapField = $viz('#inGeoLocation' + mapid),
 					itemCount = 0,
 					loctype = '',
@@ -58,10 +62,16 @@
 				_self.imgPosition = ko.observable(pathPosition);
 				_self.imgPosition2 = locationPath + 'gcviz/images/navInfo.png';
 
-                // tooltips and text strings
+                // tooltips, text strings and other things from dictionary
+                _self.cancel = i18n.getDict('%cancel');
+                _self.close = i18n.getDict('%close');
+                _self.cursorTarget = i18n.getDict('%cursor-target');
                 _self.geoLocLabel = i18n.getDict('%toolbarnav-geoloclabel');
                 _self.geoLocSample = i18n.getDict('%toolbarnav-geolocsample');
+                _self.geoLocUrl = i18n.getDict('%gisurllocate');
+                _self.info = i18n.getDict('%toolbarnav-info');
                 _self.infoAltitude = i18n.getDict('%toolbarnav-infoaltitude');
+                _self.infoAltitudeUrl = i18n.getDict('%toolbarnav-infoaltitudeurl');
                 _self.infoClickMap = i18n.getDict('%toolbarnav-infoclickmap');
                 _self.infoDecDeg = i18n.getDict('%toolbarnav-infodecdeg');
                 _self.infoDMS = i18n.getDict('%toolbarnav-infodms');
@@ -107,13 +117,7 @@
 							ovDiv = dom.byId('divOverviewMap' + mapid),
                             divOVmap = $viz('#divOverviewMap' + mapid + '-map');
 
-                        if (configoverviewtype === 3) { // tiled service
-							bLayer = new esri.layers.ArcGISTiledMapServiceLayer(config.overview.url);
-                        } else if (configoverviewtype === 4) { // dynamic service
-							bLayer = new esri.layers.FeatureLayer(config.overview.url);
-                        } else if (configoverviewtype === 5) { // feature layer
-							bLayer = new esri.layers.FeatureLayer(config.overview.url);
-                        }
+						bLayer = gismap.getOverviewLayer(configoverviewtype, configoverviewurl);
                         // If no layer specified, use the main map
                         if (bLayer === null) {
                             overviewMapDijit = new esri.dijit.OverviewMap(
@@ -146,7 +150,7 @@
 							ovSB = dom.byId('divScalebar' + mapid);
 
 						if (configscalebar.unit === 1) { units = 'metric'; }
-						if (configscalebar.unit === 2) { units = 'english'; }
+						else if (configscalebar.unit === 2) { units = 'english'; }
 						sbMapDijit = new esri.dijit.Scalebar(
                                { map: mymap,
                                 scalebarStyle: 'line',
@@ -161,7 +165,7 @@
 
 				// Clear the input field on focus if it contains the default text
 				inMapField.focus(function() {
-					if (inMapField.val() === i18n.getDict('%toolbarnav-geolocsample')) {
+					if (inMapField.val() === _self.geoLocSample) {
 						inMapField.val('');
 					}
 				});
@@ -169,7 +173,7 @@
 				inMapField.autocomplete({
 					source: function(request, response) {
 						$viz.ajax({
-							url: i18n.getDict('%gisurllocate'),
+							url: _self.geoLocUrl,
 							dataType: 'json',
 							data: {
 								q: request.term + '*'
@@ -268,9 +272,9 @@
                     // Define the dialog window
                     $viz( '#divGetLocInfo' + mapid ).dialog({
                         autoOpen: false,
-                        closeText: i18n.getDict('%close'),
+                        closeText: _self.close,
                         modal: true,
-                        title: i18n.getDict('%toolbarnav-info'),
+                        title: _self.info,
                         width: 400,
                         show: {
                             effect: 'fade',
@@ -282,8 +286,8 @@
                         },
                         buttons: [
                             {
-                                text: i18n.getDict('%cancel'),
-                                title: i18n.getDict('%cancel'),
+                                text: _self.cancel,
+                                title: _self.cancel,
                                 click: function() {
                                     $viz(this).dialog('close');
                                 }
@@ -299,16 +303,23 @@
                     loctype = 'map';
                     vmArray[mapid].header.toolsClick();
                     // Set the cursor
-                    mymap.setMapCursor(i18n.getDict('%mapcursurtarget'));
-					mymap.on('key-down', function(keyargs) {
-						// Capture an escape while on the map
-						if (keyargs.keyCode === 27) {
-							mymap.setMapCursor('default');
-							// Open the toolbars
-							vmArray[mapid].header.toolsClick();
-							$viz('#btnClickMap' + mapid).focus();
-						}
-                    });
+                    mymap.setMapCursor(_self.cursorTarget);
+                    if (eventCount === 0) {
+						eventCount++;
+						mymap.on('key-down', function(keyargs) {
+							// Capture an escape while on the map
+							if (keyargs.keyCode === 27) {
+								mymap.setMapCursor('default');
+								// Open the toolbars
+								vmArray[mapid].header.toolsClick();
+								$viz('#btnClickMap' + mapid).focus();
+							}
+						});
+                    } else {
+						// Reset if not first time
+						mymap.on('key-down', null);
+						eventCount = 0;
+                    }
                     // Get user to click on map and capture event
                     eventHandler = mymap.on('click', _self.getMapPoint);
                 };
@@ -352,15 +363,15 @@
 						outSR,
 						prjParams,
 						tmp,
-						urlAlti = i18n.getDict('%toolbarnav-infoaltitudeurl'),
+						urlAlti = _self.infoAltitudeUrl,
 						utmZone = '';
 
                     // Define the results dialog
                     $viz('#divGetLocResults' + mapid).dialog({
                         autoOpen: false,
-                        closeText: i18n.getDict('%close'),
+                        closeText: _self.close,
                         modal: true,
-                        title: i18n.getDict('%toolbarnav-inforesults'),
+                        title: _self.close,
                         width: 400,
                         show: {
                             effect: 'fade',
@@ -392,7 +403,7 @@
                                         $viz('#btnGetInfo' + mapid).focus();
                                     }
 									// Reopen the toolbars
-									vmArray[mapid].header.toolsClick();
+									//vmArray[mapid].header.toolsClick();
                                 }
                             }
                         ]

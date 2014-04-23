@@ -173,8 +173,8 @@
 		};
 
 		zoomLocation = function(minx, miny, maxx, maxy, mymap, urlgeomserv) {
-            var inSR = new esri.SpatialReference({'wkid': 4326}),
-				outSR = new esri.SpatialReference({'wkid': mymap.spatialReference.wkid}),
+            var inSR = new esri.SpatialReference({ 'wkid': 4326 }),
+				outSR = new esri.SpatialReference({ 'wkid': mymap.spatialReference.wkid }),
 				extent = new esri.geometry.Extent(),
 				geometryService = getGSVC(urlgeomserv),
 				inputpoint1 = new esri.geometry.Point(minx, miny, inSR),

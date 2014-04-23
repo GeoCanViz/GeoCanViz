@@ -9,6 +9,7 @@ General (i18n)#%all#All#Tous
 #%home#Home#Accueil
 #%of#of#de
 #%west#W#O
+#%cursor-target#url(/GeoCanViz/gcviz/images/navCursor.cur), auto#url(/GeoCanViz/gcviz/images/navCursor.cur), auto
 #%github-urlgcvizrepo#https://github.com/GeoCanViz/GeoCanViz#https://github.com/GeoCanViz/GeoCanViz
 #%msg-configread#Configuration file read#Fichier de configuration lu
 #%msg-configerr#Configuration file error#Erreur fichier de configuration
@@ -64,7 +65,6 @@ General (i18n)#%all#All#Tous
 #%toolbarnav-zoomfull#Zoom to full extent#Zoom à l`étendue maximum
 #%inset-tplight#Open the content in a lightbox#Ouvrir le contenu dans un lightbox
 #%inset-tpplayvideo#Play video#Jouer la vidéo
-#%mapcursurtarget#url(/GeoCanViz/gcviz/images/navCursor.cur), auto#url(/GeoCanViz/gcviz/images/navCursor.cur), auto
 #%mp-close#Close (Esc)#Fermer (Esc)
 #%mp-load#Loading...#Chargement...
 #%mp-next#Previous (Left arrow key)#Precédent (touche flèche gauche)
