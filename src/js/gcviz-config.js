@@ -177,6 +177,10 @@
 				location: locationPath + 'gcviz/dependencies',
 				main: 'kineticpanning.min'
             }, {
+				name: 'cluster',
+				location: locationPath + 'gcviz/dependencies',
+				main: 'esri.clusterlayer.min'
+            }, {
                 name: 'media',
                 location: locationPath + 'gcviz/dependencies',
                 main: 'jquery.media.min'
@@ -212,6 +216,10 @@
 				name: 'gcviz-gislegend',
 				location: locationPath + 'gcviz/js/gistasks',
 				main: 'gisLegend-min'
+			}, {
+				name: 'gcviz-giscluster',
+				location: locationPath + 'gcviz/js/gistasks',
+				main: 'gisCluster-min'
 			}, {
 				name: 'gcviz-v-header',
 				location: locationPath + 'gcviz/js/views',

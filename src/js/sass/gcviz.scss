@@ -8,6 +8,12 @@
  */
 @import "includes/gcviz-mixin";
 
+// this is use to override img in theme-min.css (character 135450) because it introduces
+// a shift in dynamic web service image
+div.gcviz-container img {
+	margin-left: 0px!important;
+}
+
 // responsive grid (http://viget.com/inspire/building-a-nested-responsive-grid-with-sass-compass)
 .row {
 	#{enumerate('.span', 1, $cols, '')} {

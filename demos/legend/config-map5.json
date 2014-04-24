@@ -145,30 +145,50 @@
                     "url": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/BaseMaps/CBCT3978/MapServer"
                 }],
                 "layers": [{
-		                "id": "Beaches",
-		                "type": 5,
-		                "url": "http://maps.ottawa.ca/ArcGIS/rest/services/Parks_Inventory/MapServer/0",
-		                "scale": {
-                        "min": 100100,
-                        "max": 0
-                    }
-           			}, {
-                    "id": "Wetlands100k",
-                    "type": 5,
-                    "category": "layer",
-                    "url": "http://apps.geomatics.gov.nt.ca/arcgis/rest/services/GNWT/BiologicEcologic_LCC/MapServer/6",
-                    "scale": {
-                        "min": 300000,
-                        "max": 100101
-                    }
-                }, {
-                    "id": "CGKNSurficial",
+                    "id": "Geochronology",
                     "type": 4,
                     "category": "layer",
-                    "url": "http://s-bsc-geoappint.nrn.nrcan.gc.ca/arcgis/rest/services/GSCC/CGKNSurficial/MapServer",
+                    "url": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/GSCC/Geochronology/MapServer/",
                     "scale": {
                         "min": 0,
                         "max": 0
+                    },
+                    "cluster": {
+                    	"enable": false
+                    }
+                }, {
+                    "id": "Cluster_Geochronology1",
+                    "type": 6,
+                    "category": "layer",
+                    "url": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/GSCC/Geochronology/MapServer/",
+                    "scale": {
+                        "min": 0,
+                        "max": 0
+                    },
+                    "cluster": {
+                    	"enable": true,
+                    	"distance": 20,
+                    	"label": false,
+                    	"symbol": 2,
+                    	"maxSizeProp": 50,
+                    	"maxDataProp": 1000
+                    }
+                }, {
+                    "id": "Cluster_Geochronology2",
+                    "type": 6,
+                    "category": "layer",
+                    "url": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/GSCC/Geochronology/MapServer/",
+                    "scale": {
+                        "min": 0,
+                        "max": 0
+                    },
+                    "cluster": {
+                    	"enable": true,
+                    	"distance": 40,
+                    	"label": true,
+                    	"symbol": 2,
+                    	"maxSizeProp": 70,
+                    	"maxDataProp": 1000
                     }
                 }]
             }
@@ -202,7 +222,7 @@
             },
             "mousecoords": {
                 "enable": true,
-                "outwkid": 4326
+                "outwkid": 3978
             },
             "datatable": {
                 "direction": "in"
@@ -212,94 +232,93 @@
             "enable": true,
             "expand": false,
             "items": [{
-                        "expand": false,
-                        "fullid": "CanVec/Wetlands/Wetlands - 100-300k scale",
-                        "last": true,
-                        "id": "Wetlands100k",
-                        "label": {
-                            "value": "Wetlands - 100-300k scale",
-                            "alttext": "Wetlands - 100-300k scale"
-                        },
-                        "metadata": {
-                            "enable": false
-                        },
-                        "opacity": {
-                            "enable": false,
-                            "min": 0,
-                            "max": 100
-                        },
-                        "visibility": {
-                            "enable": true,
-                            "initstate": false,
-                            "type": 1,
-                            "radioid": 0
-                        },
-                        "displaychild": true,
-                        "customimage": {
-                            "enable": false
-                        },
-                        "items": []
-                    }, {
-		            "expand": false,
-		            "fullid": "Beaches",
-                    "last": true,
-		            "id": "Beaches",
-		            "displayfields": false,
-		            "label":{
-		                    "value": "Beaches",
-		                    "alttext": "basemap alttext"
-		             },
-		             "metadata":{
-		                "enable":false,
-		                "value": "http://maps.ottawa.ca/ArcGIS/rest/services/Hospitals/MapServer/0",
-		                "alttext":"Beaches metadata alt text"
-		             },
-		             "opacity": {
-		                    "enable": true,
-		                    "min": 0,
-		                    "max": 1
-		             }, 
-		            "visibility": {
-		                    "enable": true,
-		                    "initstate": false,
-		                    "type": 1,
-		                    "radioid": 0
-		             },
-		            "displaychild": true,
-		            "customimage":{
-		                "enable": false
-		            },
-		            "items": []
-		        	}, {
-                    "expand": true,
-                    "fullid": "CGKNSurficial",
-                    "last": true,
-                    "id": "CGKNSurficial",
-                    "displayfields": false,
-                    "label": {
-                        "value": "CGKN Surficial Geology",
-                        "alttext": "CGKN Surficial Geology"
-                    },
-                    "metadata": {
-                        "enable": false
-                    },
-                    "opacity": {
-                        "enable": false,
-                        "min": 0,
-                        "max": 1
-                    },
-                    "visibility": {
-                        "enable": true,
-                        "initstate": false,
-                        "type": 1,
-                        "radioid": 0
-                    },
-                    "displaychild": true,
-                    "customimage": {
-                        "enable": false
-                    },
-                    "items": []
-                }]
+                "expand": false,
+                "fullid": "Geochronology Géochronologie",
+                "last": true,
+                "id": "Geochronology",
+                "displayfields": false,
+                "label": {
+                    "value": "Geochronology Géochronologie",
+                    "alttext": "Geochronology Géochronologie"
+                },
+                "metadata": {
+                    "enable": false
+                },
+                "opacity": {
+                    "enable": false,
+                    "min": 0,
+                    "max": 1
+                },
+                "visibility": {
+                    "enable": true,
+                    "initstate": false,
+                    "type": 1,
+                    "radioid": 0
+                },
+                "displaychild": true,
+                "customimage": {
+                    "enable": false
+                },
+                "items": []
+            }, {
+                "expand": false,
+                "fullid": "Geochronology Géochronologie",
+                "last": true,
+                "id": "Cluster_Geochronology1",
+                "displayfields": false,
+                "label": {
+                    "value": "Geochronology Cluster",
+                    "alttext": "Geochronology Cluster"
+                },
+                "metadata": {
+                    "enable": false
+                },
+                "opacity": {
+                    "enable": false,
+                    "min": 0,
+                    "max": 1
+                },
+                "visibility": {
+                    "enable": true,
+                    "initstate": false,
+                    "type": 1,
+                    "radioid": 0
+                },
+                "displaychild": true,
+                "customimage": {
+                    "enable": false
+                },
+                "items": []
+            }, {
+                "expand": false,
+                "fullid": "Geochronology Géochronologie",
+                "last": true,
+                "id": "Cluster_Geochronology2",
+                "displayfields": false,
+                "label": {
+                    "value": "Geochronology Cluster custom",
+                    "alttext": "Geochronology Cluster custom"
+                },
+                "metadata": {
+                    "enable": false
+                },
+                "opacity": {
+                    "enable": false,
+                    "min": 0,
+                    "max": 1
+                },
+                "visibility": {
+                    "enable": true,
+                    "initstate": false,
+                    "type": 1,
+                    "radioid": 0
+                },
+                "displaychild": true,
+                "customimage": {
+                    "enable": false
+                },
+                "items": []
+            }]
         },
         "toolbardraw": {
             "enable": true,

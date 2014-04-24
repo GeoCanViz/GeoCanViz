@@ -35,7 +35,6 @@
 					configoverviewtype = configoverview.type,
 					configoverviewurl = config.overview.url,
 					configscalebar = config.scalebar,
-                    currentAutoComplText = i18n.getDict('%toolbarnav-geolocsample'),
                     defaultAutoComplText = i18n.getDict('%toolbarnav-geolocsample'),
                     eventHandler,
                     eventCount = 0,
@@ -48,7 +47,6 @@
 					miny,
 					mymap = vmArray[mapid].map.map,
 					elem = document.getElementById(mymap.vIdName + '_holder'),
-					mapextent = mymap.extent,
                     pathExtent = locationPath + 'gcviz/images/navFullExtent.png',
                     pathMagnify = locationPath + 'gcviz/images/navMagnify.png',
                     pathPosition = locationPath + 'gcviz/images/getInfo.png',
@@ -114,8 +112,7 @@
                     if (configoverview.enable) {
                         var overviewMapDijit,
 							bLayer = null,
-							ovDiv = dom.byId('divOverviewMap' + mapid),
-                            divOVmap = $viz('#divOverviewMap' + mapid + '-map');
+							ovDiv = dom.byId('divOverviewMap' + mapid);
 
 						bLayer = gismap.getOverviewLayer(configoverviewtype, configoverviewurl);
                         // If no layer specified, use the main map
@@ -355,7 +352,6 @@
                 _self.displayInfo = function(lati, longi, config) {
                     var alti = '',
 						DMS,
-						domElem,
 						geom,
 						geometryService = gisgeo.getGSVC(config.urlgeomserv),
 						inputpoint,

@@ -67,10 +67,10 @@
 				domConstruct.place(anode, dom.byId('featureLayerSymbol' + layerid));
 				domConstruct.place(domConstruct.create('br'), symbolLocation);
 
-				$viz.each(legs, function( key, value ) {
+				$viz.each(legs, function(key, value) {
 					nodeImage = domConstruct.create('div', { 'class': 'gcviz-legendSymbolUniqueValueDiv' });
 					nodeLabel = domConstruct.create('span');
-					dojoClass(nodeLabel, 'gcviz-LegendUniqueValueSpan');
+					dojoClass.add(nodeLabel, 'gcviz-LegendUniqueValueSpan');
 					descriptors = jsonUtils.getShapeDescriptors(value.symbol);
 					mySurface = createSVGSurface(value, nodeImage);
 					shape = mySurface.createShape(descriptors.defaultShape);

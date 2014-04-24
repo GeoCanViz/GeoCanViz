@@ -13,15 +13,18 @@
 			'dijit/MenuItem',
 			'dijit/PopupMenuItem',
             'gcviz-gislegend',
+            'gcviz-giscluster',
 			'esri/map',
 			'esri/layers/FeatureLayer',
 			'esri/layers/ArcGISTiledMapServiceLayer',
 			'esri/layers/ArcGISDynamicMapServiceLayer',
 			'esri/layers/ArcGISImageServiceLayer',
 			'esri/layers/WebTiledLayer',
+			'esri/layers/WMSLayer',
+			'esri/layers/WMSLayerInfo',
 			'esri/geometry/Extent',
             'esri/geometry/Point'
-	], function(kpan, func, menu, menuItem, menupopup, gisLegend, esriMap, esriFL, esriTiled, esriDyna, esriImage, webTiled, esriExt, esriPoint) {
+	], function(kpan, func, menu, menuItem, menupopup, gisLegend, gisCluster, esriMap, esriFL, esriTiled, esriDyna, esriImage, webTiled, wms, wmsInfo, esriExt, esriPoint) {
 		var mapArray = {},
 			createMap,
 			createInset,
@@ -278,17 +281,43 @@
 			}, 1000, false));
 		};
 
-		addLayer = function(map, type, url, layerid) {
-			if (type === 3) {
-				map.addLayer(new esriTiled(url, { 'id': layerid }));
+		addLayer = function(map, layerInfo) {
+			var layer,
+				options,
+				resourceInfo,
+				type = layerInfo.type;
+
+			if (type === 1) {
+				options = layerInfo.options;
+				resourceInfo = {
+					extent: map.extent,
+					layerInfos: options.layerinfos
+				};
+
+				layer = new wms(layerInfo.url, {
+					resourceInfo: resourceInfo,
+					visibleLayers: options.visiblelayers
+				});
+			} else if (type === 2) {
+
+			} else if (type === 3) {
+				layer = new esriTiled(layerInfo.url, { 'id': layerInfo.id });
 			} else if (type === 4) {
-				map.addLayer(new esriDyna(url, { 'id': layerid }));
+				layer = new esriDyna(layerInfo.url, { 'id': layerInfo.id });
 			} else if (type === 5) {
-				map.addLayer(new esriFL(url, {
+				layer = new esriFL(layerInfo.url, {
                     mode: esriFL.MODE_ONDEMAND,
                     outFields: ['*'],
-                    id: layerid
-				}));
+                    id: layerInfo.id
+				});
+			} else if (type === 6) {
+				// cluster layer
+				gisCluster.startCluster(map, layerInfo);
+			}
+
+			// cluster layer is added in gisCluster class
+			if (type !== 6) {
+				map.addLayer(layer);
 			}
 		};
 
