@@ -32,6 +32,10 @@ General (i18n)#%all#All#Tous
 #%toolbardraw-tpdraw#Draw on the map#Dessiner sur la carte
 #%toolbardraw-tptext#Add text on the map#Ajouter du texte sur la carte
 #%toolbardraw-tperase#Erase annotations#Effacer les annotations
+#%toolbardraw-tpimport#Import annotations#Importer des annotations
+#%toolbardraw-tpexport#Export annotations#Exporter des annotations
+#%toolbardraw-dist#Length: #Longueur: 
+#%toolbardraw-area#Area: #Aire: 
 #%toolbarlegend-name#Legend#Légende
 #%toolbarlegend-tgvis#Toggle Visibility#Basculer la visibilité
 #%toolbarnav-geoloclabel#Zoom to:#Zoom à:

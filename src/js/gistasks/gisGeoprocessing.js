@@ -8,15 +8,20 @@
 (function () {
 	'use strict';
 	define(['esri/tasks/ProjectParameters',
+			'esri/tasks/DistanceParameters',
+			'esri/tasks/AreasAndLengthsParameters',
+			'esri/tasks/AreasAndLengthsParameters',
 			'esri/tasks/GeometryService',
 			'esri/SpatialReference',
 			'esri/geometry/Point',
 			'dojo/dom'
-	], function(esriProj, esriGeom, esriSR, esriPoint, dojoDom) {
+	], function(esriProj, esriDist, esriArea, esriLengthArea, esriGeom, esriSR, esriPoint, dojoDom) {
 		var getOutSR,
 			getGSVC,
 			getCoord,
 			getNorthAngle,
+			measureLength,
+			measureArea,
 			params = new esriProj();
 
 		getOutSR = function(wkid) {
@@ -73,11 +78,66 @@
 			});
 		};
 
+		measureLength = function(array, unit, success) {
+			var distUnit,
+				distParams = new esriDist(),
+				len = array.length;
+			
+			// TODO remove when we have the global one!
+			var gserv = new esriGeom('http://geoappext.nrcan.gc.ca/arcgis/rest/services/Utilities/Geometry/GeometryServer');
+			
+			if (unit === 'km') {
+				distUnit = esriGeom.UNIT_KILOMETER;
+			} else {
+				distUnit = esriGeom.UNIT_STATUTE_MILE;
+			}
+			
+			distParams.distanceUnit = distUnit;
+			distParams.geometry1 = array[len - 1];
+			distParams.geometry2 = array[len - 2];
+			distParams.geodesic = true;
+			
+			gserv.distance(distParams, function(distance) {
+				// keep 2 decimals
+				array[len - 1].distance = Math.floor(distance * 100) / 100;
+				success(array);
+			});
+		};
+		
+		measureArea = function(poly, unit, success) {
+			var areaUnit, distUnit,
+				areaParams = new esriArea();
+			
+			// TODO remove when we have the global one!
+			var gserv = new esriGeom('http://geoappext.nrcan.gc.ca/arcgis/rest/services/Utilities/Geometry/GeometryServer');
+			
+			if (unit === 'km') {
+				areaUnit = esriGeom.UNIT_SQUARE_KILOMETERS;
+				distUnit = esriGeom.UNIT_KILOMETER;
+			} else {
+				areaUnit = esriGeom.UNIT_SQUARE_MILES;
+				distUnit = esriGeom.UNIT_STATUTE_MILE;
+			}
+			
+			areaParams.areaUnit = areaUnit;
+			areaParams.lengthUnit = distUnit;
+			areaParams.calculationType = 'preserveShape';
+						
+			gserv.simplify([poly], function(simplifiedGeometries) {
+				areaParams.polygons = simplifiedGeometries;
+				gserv.areasAndLengths(areaParams, function(areas) {
+					success(areaParams.polygons[0].rings, areas, unit);
+				});
+			});
+		};
+		
 		return {
 			getOutSR: getOutSR,
 			getGSVC: getGSVC,
 			getCoord: getCoord,
-			getNorthAngle: getNorthAngle
+			getNorthAngle: getNorthAngle,
+			measureLength: measureLength,
+			measureArea: measureArea
 		};
 	});
 }());

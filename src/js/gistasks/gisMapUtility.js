@@ -110,6 +110,7 @@
 				// this is made with custom events)
 				map.enableScrollWheelZoom();
 				map.isZoomSlider = false;
+				map.disableDoubleClickZoom();
 
 				// connect event map
 				if (config.link) {

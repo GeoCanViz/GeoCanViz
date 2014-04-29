@@ -109,6 +109,17 @@ div.gcviz-container img {
 	display: none;
 }
 
+/* hide the input type */
+input[type="file"] {
+	opacity: 0;
+	top:	0rem;
+	left: 0rem;
+	position: absolute;
+	margin: 0 !important;
+	height: (2.2 * $rembase) + rem;
+	width: (2.2 * $rembase) + rem;
+}
+
 /* full screen */
 .gcviz-sectionfs {
 	position: fixed;

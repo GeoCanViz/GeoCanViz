@@ -56,14 +56,25 @@
 
 			// set measure button
 			if (config.measure.enable) {
-				node += '<button class="gcviz-button" tabindex="0" data-bind="click: measureClick"><img class="gcviz-img-button" data-bind="attr: { src: imgMeasure }"></img></button>';
+				node += '<button class="gcviz-button" tabindex="0" data-bind="click: measureLengthClick"><img class="gcviz-img-button" data-bind="attr: { src: imgMeasure }"></img></button>';
+				node += '<button class="gcviz-button" tabindex="0" data-bind="click: measureAreaClick"><img class="gcviz-img-button" data-bind="attr: { src: imgMeasure }"></img></button>';
 			}
 
 			// set import and save buttons
 			if (config.importexport.enable) {
-				node += '<button class="gcviz-button" tabindex="0" data-bind="click: importClick"><img class="gcviz-img-button" data-bind="attr: { src: imgImport }"></img></button>';
-				node += '<button class="gcviz-button" tabindex="0" data-bind="click: exportClick"><img class="gcviz-img-button" data-bind="attr: { src: imgExport }"></img></button>';
+				node += '<input id="fileDialogFF" type="file" accept="application/json" data-bind="event: { change: importClick }"></input>' +
+						'<button class="gcviz-button" tabindex="0" data-bind="tooltip: { content: tpImport }">' +
+							'<input type="file" accept="application/json" data-bind="event: { change: importClick }"></input>' +
+							'<img class="gcviz-img-button" data-bind="attr: { src: imgImport }"></img></button>';
+				node += '<button class="gcviz-button" tabindex="0" data-bind="click: exportClick, tooltip: { content: tpExport }, enable: isGraphics"><img class="gcviz-img-button" data-bind="attr: { src: imgExport }"></img></button>';
 			}
+			
+			node += '<div class="row">' +
+						'<button class="gcviz-button" tabindex="0" data-bind="click: selectColor(\'black\'), tooltip: { content: tpDraw }"><img class="gcviz-img-button" data-bind="attr: { src: imgDraw }"></img></button>' +
+						'<button class="gcviz-button" tabindex="0" data-bind="click: selectColor(\'red\'), tooltip: { content: tpDraw }"><img class="gcviz-img-button" data-bind="attr: { src: imgDraw }"></img></button>' +
+						'<button class="gcviz-button" tabindex="0" data-bind="click: selectColor(\'green\'), tooltip: { content: tpDraw }"><img class="gcviz-img-button" data-bind="attr: { src: imgDraw }"></img></button>' +
+						'<button class="gcviz-button" tabindex="0" data-bind="click: selectColor(\'blue\'), tooltip: { content: tpDraw }"><img class="gcviz-img-button" data-bind="attr: { src: imgDraw }"></img></button>' +
+					'</div>'
 
 			$toolbar.append(node);
 			return(tbdrawVM.initialize($toolbar, mapid));
