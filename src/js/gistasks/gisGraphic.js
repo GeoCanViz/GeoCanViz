@@ -29,125 +29,45 @@
 			// data model				
 			var graphic = function(mymap, lblDist, lblArea) {
 				var _self = this,
-					measureLength,
-					measureArea,
-					measureAreaCallback,
-					measureText,
-					addToMap,
+					measureLength, measureArea, measureAreaCallback, measureLabelCallback, measureText,
+					addBackgroundText, addToMap,
 					setColor,
+					getSymbLine, getSymbPoly, getSymbPoint, getSymbText,
 					toolbar,
-					text,
-					color,
-					key,
+					gText, gColor, gKey, gBackColor,
 					map = mymap,
 					wkid = mymap.vWkid,
 					txtDist = lblDist,
 					txtArea = lblArea,
-					red = [239,13,13,255],
-					blue = [17,69,238,255],
-					green = [13,156,32,255],
 					black = [0,0,0,255],
+					red = [255,0,0,255],
+					green = [0,255,0,255],
+					blue = [0,0,255,255],
+					yellow = [255,255,0,255],
+					white = [255,255,255,255],
+					polyFill = [205,197,197,100],
 					font  = new esriFont();
-
-				// symbology for draw tool
-				_self.drawSymb = new esriLine({
-									'type': 'esriSLS',
-									'style': 'esriSLSSolid',
-									'color': [239,13,13,255],
-									'width': 2
-								});
-				
-				
-				_self.textSymb = new esriText({
-									'type': 'esriTS',
-									'color': [78,78,78,255],
-									'backgroundColor': null,
-									'borderLineColor': null,
-									'verticalAlignment': 'bottom',
-									'horizontalAlignment': 'left',
-									'rightToLeft': false,
-									'angle': 0,
-									'xoffset': 0,
-									'yoffset': 0,
-									'font': {
-										'family': 'Arial',
-										'size': 8,
-										'style': 'normal',
-										'weight': 'bold',
-										'decoration': 'none'
-									}
-								});
-									
-				// symbology for measure tool
-				_self.measLineSymb = new esriLine({
-									'type': 'esriSLS',
-									'style': 'esriSLSSolid',
-									'color': [239,13,13,255],
-									'width': 1
-								});
-
-				_self.measFillSymb = new esriFill({
-									'type': 'esriSFS',
-									'style': 'esriSFSSolid',
-									'color': [205,197,197,50]
-								});
-				
-   				_self.measPointSymb = new esriMarker({
-										'type': 'esriSMS',
-										'style': 'esriSMSCircle',
-										'color': [205,197,197,100],
-										'size': 5,
-										'angle': 0,
-										'xoffset': 0,
-										'yoffset': 0,
-										'outline': 
-										{
-											'color': [239,13,13,200],
-											'width': 1
-										}
-								});
-				
-				_self.measTextSymb = new esriText({
-										'type': 'esriTS',
-										'color': [78,78,78,255],
-										'backgroundColor': null,
-										'borderLineColor': null,
-										'verticalAlignment': 'baseline',
-										'horizontalAlignment': 'left',
-										'rightToLeft': false,
-										'angle': 0,
-										'xoffset': 0,
-										'yoffset': 0,
-										'font': {
-											'family': 'Arial',
-											'size': 8,
-											'style': 'normal',
-											'weight': 'bold',
-											'decoration': 'none'
-										}
-									});
 							
 				_self.init = function() {
 					toolbar = new esriTools(map, { showTooltips: false });
 					dojoOn(toolbar, 'DrawEnd', addToMap);
 				};
 
-				_self.drawLine = function(inKey, inColor) {
-					var symbol = _self.drawSymb;
-					symbol.color.setColor(setColor(inColor));
-					toolbar.setLineSymbol(symbol);
-					
+				_self.drawLine = function(key, color) {
 					// set global then call the tool
-					color = inColor;
-					key = inKey;
+					gKey = key;
+					setColor(color);
+
+					toolbar.setLineSymbol(getSymbLine(gColor, 2));
 					toolbar.activate(esriTools.FREEHAND_POLYLINE);
 				};
 
-				_self.drawText = function(mytext, inKey, inColor) {
+				_self.drawText = function(text, key, color) {
 					// set global then call the tool
-					text = mytext;
-					color = inColor;
-					key = inKey;
+					gText = text;
+					gKey = key;
+					setColor(color);
+					
 					toolbar.activate(esriTools.POINT);
 				};
 
@@ -168,15 +88,15 @@
 					}
 				};
 				
-				_self.addMeasure = function(array, inKey, type, unit, inColor, point) {
+				_self.addMeasure = function(array, key, type, unit, color, point) {
 					var graphic,
 						len,
 						screenPt = point.screenPoint,
 						geometry = map.toMap(new esriScreenPt(screenPt.x, screenPt.y));
 					
 					// set global then call the tool
-					color = inColor;
-					key = inKey;
+					gKey = key;
+					setColor(color);
 					
 					// push the geometry to the array
 					array().push(geometry);
@@ -193,14 +113,14 @@
 					}
 				};
 				
-				_self.addMeasureSumLength = function(array, inKey, unit) {
+				_self.addMeasureSumLength = function(array, key, unit) {
 					var pt, text,
 						dist = 0,
 						len = array().length,
 						last = array()[len - 1];
 					
 					// set global then call the tool
-					key = inKey;
+					gKey = key;
 					
 					// calculate values
 					while (len--) {
@@ -218,14 +138,14 @@
 					measureText(last);
 				};
 				
-				_self.addMeasureSumArea = function(array, inKey, unit) {
+				_self.addMeasureSumArea = function(array, key, unit) {
 					var item, polyJson, poly,
 						polyArr = [],
 						len = array().length,
 						lastPoly = len - 1;
 				
 					// set global then call the tool
-					key = inKey;
+					gKey = key;
 					
 					// create poly geom and add the closing point
 					while (len--) {
@@ -236,41 +156,44 @@
 					item = array()[lastPoly];
 					polyArr.push([item.x, item.y]);
 							
-					polyJson = { 
-								'rings': [polyArr],
-								'spatialReference': { 'wkid': wkid } };
+					polyJson = { 'rings': [polyArr],
+									'spatialReference': { 'wkid': wkid } };
 					poly = new esriPoly(polyJson);
+					
+					// area and length from geosprocessing
 					gisgeo.measureArea(poly, unit, measureAreaCallback);
 				};
 				
-				measureAreaCallback = function(polys, areas, unit) {
-					var last, poly,
-						area, length, text,
-						len = polys.length - 1;
+				measureAreaCallback = function(poly, areas, unit) {
+					var info = {};
 					
-					area = Math.floor(areas.areas[0] * 100) / 100;
-					length = Math.floor(areas.lengths[0] * 100) / 100;
-					poly = polys[len];
-					last = poly[poly.length - 1];
-
+					info.area = Math.floor(areas.areas[0] * 100) / 100;
+					info.length = Math.floor(areas.lengths[0] * 100) / 100;
+					info.unit = unit;
+					
+					// get label coordinnate from geoprocessing
+					gisgeo.labelPoints(poly, info, measureLabelCallback);
+				};
+				
+				measureLabelCallback = function(points, info) {
 					// add text
-					text = { 'geometry': { 
-								'x': last[0], 'y': last[1],
+					var pt = points[0],
+						text = { 'geometry': { 
+								'x': pt.x, 'y': pt.y,
 								'spatialReference': { 'wkid': wkid } } };
-					text.text = txtArea + ' ' + area + unit;
+					text.text = txtArea + info.area + ' ' + info.unit + '2';
 					measureText(text);
 				};
 				
-				measureLength = function(array) {
+				measureLength = function(array, unit) {
 					var line, pt1, pt2, text,
 						len = array.length,
 						mapGraph = map.graphics;
 					
 					// add the point symbol
 					graphic = new esriGraph(array[len - 1]);
-					graphic.symbol =  _self.measPointSymb;
-					graphic.symbol.outline.color.setColor(setColor(color));
-					graphic.key = key;
+					graphic.symbol =  getSymbPoint(gColor);
+					graphic.key = gKey;
 					mapGraph.add(graphic);
 						
 					// draw a line between points
@@ -282,16 +205,15 @@
 										'spatialReference': { 'wkid': wkid } } };
 
 						graphic = new esriGraph(line);
-						graphic.symbol =  _self.measLineSymb;
-						graphic.symbol.color.setColor(setColor(color));
-						graphic.key = key;
+						graphic.symbol =  getSymbLine(gColor, 1);
+						graphic.key = gKey;
 						mapGraph.add(graphic);
 						
 						// add text
 						text = { 'geometry': { 
 									'x': (pt1.x + pt2.x) / 2, 'y': (pt1.y + pt2.y) / 2,
 									'spatialReference': { 'wkid': wkid } } };
-						text.text = pt1.distance;
+						text.text = pt1.distance + ' ' + unit;
 						measureText(text);
 					}
 				};
@@ -305,9 +227,8 @@
 					
 					// add the point symbol
 					graphic = new esriGraph(array()[len - 1]);
-					graphic.symbol =  _self.measPointSymb;
-					graphic.symbol.outline.color.setColor(setColor(color));
-					graphic.key = key;
+					graphic.symbol =  getSymbPoint(gColor);
+					graphic.key = gKey;
 					mapGraph.add(graphic);
 					
 					// create poly geom and add the closing point
@@ -324,28 +245,60 @@
 									'rings': [polyArr],
 									'spatialReference': { 'wkid': wkid } } };
 						
+						// remove previous area graphic
 						if (len > 2) {
 							mapGraph.remove(mapGraph.graphics[mapGraph.graphics.length - 2]);
 						}
 						
 						graphic = new esriGraph(poly);
-						_self.measFillSymb.outline = _self.measLineSymb;
-						graphic.symbol =  _self.measFillSymb;
-						graphic.symbol.outline.color.setColor(setColor(color));
-						graphic.key = key;
+						graphic.symbol =  getSymbPoly(gColor, polyFill, 1);
+						graphic.key = gKey;
 						mapGraph.add(graphic);
 					}
 				};
 				
 				measureText = function(pt) {
-					var graphic;
+					var graphic, symbol;
+
+					graphic = new esriGraph(pt, symbol);
+					graphic.symbol = getSymbText(black, white, pt.text);
+					graphic.key = gKey;
 					
-					graphic = new esriGraph(pt);
-					_self.measTextSymb.setText(pt.text);
-					graphic.symbol = _self.measTextSymb;
-					graphic.key = key;
+					// add background then text
+					addBackgroundText(graphic, white);
 					map.graphics.add(graphic);
 				};
+				
+				addBackgroundText = function(graphic, backColor) {
+					var graphic, poly,
+						symb = graphic.symbol,
+						geom = graphic.geometry,
+						polyArr = [],
+						xVal = geom.x,
+						yVal = geom.y,
+						width = symb.getWidth(),
+						height = symb.getHeight(),
+						tr = map.toMap(new esriScreenPt(0, 0)),
+						bl = map.toMap(new esriScreenPt(width, height)),
+						deltaX = (bl.x - tr.x) / 2,
+						deltaY = (tr.y - bl.y);
+					
+					// create the geometry array
+					polyArr.push([xVal - deltaX, yVal + deltaY]);
+					polyArr.push([xVal + deltaX, yVal + deltaY]);
+					polyArr.push([xVal + deltaX, yVal]);
+					polyArr.push([xVal - deltaX, yVal]);
+					polyArr.push([xVal - deltaX, yVal + deltaY]);
+					
+					poly = { 'geometry': { 
+									'rings': [polyArr],
+									'spatialReference': { 'wkid': wkid } } };
+					
+					graphic = new esriGraph(poly);
+					graphic.symbol =  getSymbPoly(backColor, backColor, 1);
+					graphic.key = gKey;
+					map.graphics.add(graphic);
+				},
 				
 				addToMap = function(geometry) {
 					var symbol = new esriLine(),
@@ -355,35 +308,97 @@
 					toolbar.deactivate();
 
 					if (geometry.type === 'polyline') {
-						symbol = _self.drawSymb;
-						symbol.color.setColor(setColor(color));
+						symbol = getSymbLine(gColor, 2);
+						graphic = new esriGraph(geometry, symbol);
 						$cursor.removeClass('gcviz-draw-cursor');
 					} else if (geometry.type === 'point') {
-						 _self.textSymb.setText(text);
-						symbol = _self.textSymb;
-						symbol.color.setColor(setColor(color));
+						symbol = getSymbText(gColor, gBackColor, gText);
+						graphic = new esriGraph(geometry, symbol);
+						addBackgroundText(graphic, gBackColor);
 						$cursor.removeClass('gcviz-text-cursor');
 					}
-
-					graphic = new esriGraph(geometry, symbol);
-					graphic.key = key;
+					
+					graphic.key = gKey;
 					map.graphics.add(graphic);
 				};
 
 				setColor = function(color) {
-					var selColor;
-					
-					if (color === 'blue') {
-						selColor = blue;
-					} else if  (color === 'red') {
-						selColor = red;
-					} else if (color === 'green') {
-						selColor = green;
+					if (color === 'red') {
+						gColor = red;
+						gBackColor = white;
+					} else if  (color === 'green') {
+						gColor = green;
+						gBackColor = black;
+					} else if (color === 'blue') {
+						gColor = blue;
+						gBackColor = white;
+					} else if (color === 'yellow') {
+						gColor = yellow;
+						gBackColor = black;
+					} else if (color === 'white') {
+						gColor = white;
+						gBackColor = black;
 					} else {
-						selColor = black;
+						gColor = black;
+						gBackColor = white;
 					}
-					
-					return selColor;
+				};
+				
+				getSymbLine = function(color, width) {
+					return new esriLine({
+									'type': 'esriSLS',
+									'style': 'esriSLSSolid',
+									'color': color,
+									'width': width
+								});
+				};
+				
+				getSymbPoly = function(color, fill, width) {
+					return new esriFill({
+									'type': 'esriSFS',
+									'style': 'esriSFSSolid',
+									'color': fill,
+									'outline': 
+									{
+										'type': 'esriSLS',
+										'style': 'esriSLSSolid',
+										'color': color,
+										'width': width
+									}
+								});
+				};
+				
+				getSymbPoint = function(color) {
+					return new esriMarker({
+										'type': 'esriSMS',
+										'style': 'esriSMSCircle',
+										'color': color,
+										'size': 4,
+										'angle': 0,
+										'xoffset': 0,
+										'yoffset': 0
+								});
+				};
+				
+				getSymbText = function(color, bgcolor, text) {
+					return new esriText({
+										'type': 'esriTS',
+										'color': color,
+										'verticalAlignment': 'baseline',
+										'horizontalAlignment': 'center',
+										'rightToLeft': false,
+										'angle': 0,
+										'xoffset': 0,
+										'yoffset': 0,
+										'text': text,
+										'font': {
+											'family': 'Arial',
+											'size': 8,
+											'style': 'normal',
+											'weight': 'bold',
+											'decoration': 'none'
+										}
+									});	
 				};
 				
 				_self.init();

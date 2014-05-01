@@ -22,6 +22,7 @@
 			getNorthAngle,
 			measureLength,
 			measureArea,
+			labelPoints,
 			params = new esriProj();
 
 		getOutSR = function(wkid) {
@@ -100,7 +101,7 @@
 			gserv.distance(distParams, function(distance) {
 				// keep 2 decimals
 				array[len - 1].distance = Math.floor(distance * 100) / 100;
-				success(array);
+				success(array, unit);
 			});
 		};
 		
@@ -126,7 +127,19 @@
 			gserv.simplify([poly], function(simplifiedGeometries) {
 				areaParams.polygons = simplifiedGeometries;
 				gserv.areasAndLengths(areaParams, function(areas) {
-					success(areaParams.polygons[0].rings, areas, unit);
+					success(areaParams.polygons[0], areas, unit);
+				});
+			});
+		};
+		
+		labelPoints = function(poly, info, success) {
+			
+			// TODO remove when we have the global one!
+			var gserv = new esriGeom('http://geoappext.nrcan.gc.ca/arcgis/rest/services/Utilities/Geometry/GeometryServer');
+			
+			gserv.simplify([poly], function(simplifiedGeometries) {
+				gserv.labelPoints(simplifiedGeometries, function(labelPoints) {
+					success(labelPoints, info);
 				});
 			});
 		};
@@ -137,7 +150,8 @@
 			getCoord: getCoord,
 			getNorthAngle: getNorthAngle,
 			measureLength: measureLength,
-			measureArea: measureArea
+			measureArea: measureArea,
+			labelPoints: labelPoints
 		};
 	});
 }());
