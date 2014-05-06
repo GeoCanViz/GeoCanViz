@@ -10,7 +10,6 @@
 	define(['jquery-private',
 			'gcviz-gisgeo',
 			'esri/toolbars/draw',
-			'esri/symbols/Font',
 			'esri/symbols/SimpleLineSymbol',
 			'esri/symbols/SimpleFillSymbol',
 			'esri/symbols/SimpleMarkerSymbol',
@@ -19,15 +18,15 @@
 			'esri/geometry/Polygon',
 			'esri/graphic',
 			'dojo/on'
-	], function($viz, gisgeo, esriTools, esriFont, esriLine, esriFill, esriMarker, esriText, esriScreenPt, esriPoly, esriGraph, dojoOn) {
+	], function($viz, gisgeo, esriTools, esriLine, esriFill, esriMarker, esriText, esriScreenPt, esriPoly, esriGraph, dojoOn) {
 		var initialize,
 			importGraphics,
 			exportGraphics;
 
-		initialize = function(mymap, lblDist, lblArea) {
+		initialize = function(mymap, isGraphics, lblDist, lblArea) {
 
 			// data model				
-			var graphic = function(mymap, lblDist, lblArea) {
+			var graphic = function(mymap, isGraphics, lblDist, lblArea) {
 				var _self = this,
 					measureLength, measureArea, measureAreaCallback, measureLabelCallback, measureText,
 					addBackgroundText, addToMap,
@@ -35,6 +34,8 @@
 					getSymbLine, getSymbPoly, getSymbPoint, getSymbText,
 					toolbar,
 					gText, gColor, gKey, gBackColor,
+					undoCount,
+					undoStack = [],
 					map = mymap,
 					wkid = mymap.vWkid,
 					txtDist = lblDist,
@@ -45,8 +46,7 @@
 					blue = [0,0,255,255],
 					yellow = [255,255,0,255],
 					white = [255,255,255,255],
-					polyFill = [205,197,197,100],
-					font  = new esriFont();
+					polyFill = [205,197,197,100];
 							
 				_self.init = function() {
 					toolbar = new esriTools(map, { showTooltips: false });
@@ -71,10 +71,76 @@
 					toolbar.activate(esriTools.POINT);
 				};
 
+				_self.drawExtent = function(undo) {
+					undoCount = undo;
+					toolbar.activate(esriTools.EXTENT);
+				};
+				
 				_self.erase = function() {
+					var stackGraph = [],
+						mapGraph = map.graphics,
+						graphics = mapGraph.graphics,
+						len = mapGraph.graphics.length;
+						
+					// add to undo stack
+					while (len--) {
+						stackGraph.push(graphics[len]);
+					}
+					undoStack.push(stackGraph);
+					
+					// clear graphics and set isGraphics
 					map.graphics.clear();
+					isGraphics(false);
 				};
 
+				_self.eraseSelect = function(geometry) {
+					var graphic, key, lenKey,
+						flagDel = false,
+						keys = [],
+						stackGraph = [],
+						mapGraph = map.graphics,
+						graphics = mapGraph.graphics,
+						lenGraph = mapGraph.graphics.length,
+						$cursor = $viz('#' + map.vIdName + '_holder_container');;
+					
+					// get key from geometries that intersect the extent
+					while (lenGraph--) {
+						graphic = graphics[lenGraph];
+						if (geometry.intersects(graphic.geometry)) {
+							keys.push(graphic.key);
+						}
+					}
+					
+					// loop trought the keys and delete the graphic
+					lenKey = keys.length;
+					while (lenKey--) {
+						lenGraph = graphics.length;
+						while (lenGraph --) {
+							graphic = graphics[lenGraph];
+							
+							if (keys[lenKey] === graphic.key) {
+								mapGraph.remove(graphic);
+								stackGraph.push(graphic);
+								flagDel = true;
+							}
+						}
+					}
+					
+					// add to undo stack, set default cursor and
+					// increment undo
+					undoStack.push(stackGraph);
+					$cursor.removeClass('gcviz-draw-cursor');
+					if (flagDel) {
+						undoCount(undoCount() + 1);
+					}
+					
+					if (mapGraph.graphics.length === 0) {
+						isGraphics(false);
+					} else if (mapGraph.graphics[0]._extent.xmax === 0) {
+						isGraphics(false);
+					}
+				};
+				
 				_self.eraseUnfinish = function() {
 					var mapGraph = map.graphics,
 						graphics = mapGraph.graphics,
@@ -86,6 +152,17 @@
 						mapGraph.remove(graphics[len]);
 						lastKey = graphics[len - 1].key;
 					}
+				};
+				
+				_self.eraseUndo = function() {
+					var graphics = undoStack.pop(),
+						len = graphics.length;
+					
+					while (len--) {
+						map.graphics.add(graphics[len]);
+					}
+					
+					isGraphics(true);
 				};
 				
 				_self.addMeasure = function(array, key, type, unit, color, point) {
@@ -267,6 +344,7 @@
 					// add background then text
 					addBackgroundText(graphic, white);
 					map.graphics.add(graphic);
+					isGraphics(true);
 				};
 				
 				addBackgroundText = function(graphic, backColor) {
@@ -301,25 +379,32 @@
 				},
 				
 				addToMap = function(geometry) {
-					var symbol = new esriLine(),
-						graphic,
+					var graphic,
+						symbol = new esriLine(),
+						geomType = geometry.type,
 						$cursor = $viz('#' + map.vIdName + '_holder_container');
 
 					toolbar.deactivate();
 
-					if (geometry.type === 'polyline') {
-						symbol = getSymbLine(gColor, 2);
-						graphic = new esriGraph(geometry, symbol);
-						$cursor.removeClass('gcviz-draw-cursor');
-					} else if (geometry.type === 'point') {
-						symbol = getSymbText(gColor, gBackColor, gText);
-						graphic = new esriGraph(geometry, symbol);
-						addBackgroundText(graphic, gBackColor);
-						$cursor.removeClass('gcviz-text-cursor');
+					if (geomType === 'extent') {
+						_self.eraseSelect(geometry);
+					} else {
+						if (geomType === 'polyline') {
+							symbol = getSymbLine(gColor, 2);
+							graphic = new esriGraph(geometry, symbol);
+							$cursor.removeClass('gcviz-draw-cursor');
+						} else if (geomType === 'point') {
+							symbol = getSymbText(gColor, gBackColor, gText);
+							graphic = new esriGraph(geometry, symbol);
+							addBackgroundText(graphic, gBackColor);
+							$cursor.removeClass('gcviz-text-cursor');
+						}
+					
+						graphic.key = gKey;
+						map.graphics.add(graphic);
+						isGraphics(true);
 					}
 					
-					graphic.key = gKey;
-					map.graphics.add(graphic);
 				};
 
 				setColor = function(color) {
@@ -404,7 +489,7 @@
 				_self.init();
 			};
 
-			return new graphic(mymap, lblDist, lblArea);
+			return new graphic(mymap, isGraphics, lblDist, lblArea);
 		};
 		
 		importGraphics = function(map, graphics) {
@@ -415,17 +500,22 @@
 			while (len--) {
 				item = graphics[len];
 				graphic = new esriGraph(item);
+				graphic.key = item.key;
 				map.graphics.add(graphic);
 			}
 		};
 		
 		exportGraphics = function(map) {
-			var output = [],
+			var json, graphic,
+				output = [],
 				graphics = map.graphics.graphics,
 				len = graphics.length;
 			
 			while (len--) {
-				output.push(graphics[len].toJson());
+				graphic = graphics[len];
+				json = graphic.toJson();
+				json.key = graphic.key;
+				output.push(json);
 			}
 			
 			return JSON.stringify(output);
