@@ -165,6 +165,10 @@
 				location: locationPath + 'src/js/dependencies',
 				main: 'jqueryui.min'
 			}, {
+				name: 'genfile',
+				location: locationPath + 'src/js/dependencies',
+				main: 'generatefile.min'
+			}, {
 				name: 'jqueryslide',
 				location: locationPath + 'src/js/dependencies',
 				main: 'jquery.slides.min'

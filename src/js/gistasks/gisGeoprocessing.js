@@ -5,22 +5,28 @@
  *
  * GIS geoprocessing functions
  */
-/* global esri: false, dojo: false */
+/* global esri: false */
 (function () {
 	'use strict';
 	define(['jquery-private',
             'gcviz-i18n',
             'esri/tasks/ProjectParameters',
+            'esri/tasks/DistanceParameters',
+			'esri/tasks/AreasAndLengthsParameters',
+			'esri/tasks/AreasAndLengthsParameters',
 			'esri/tasks/GeometryService',
 			'esri/SpatialReference',
 			'esri/geometry/Point',
 			'dojo/dom'
-	], function($viz, i18n, esriProj, esriGeom, esriSR, esriPoint, dojoDom) {
-		var calcDDtoDMS,
-            getOutSR,
+	], function($viz, i18n, esriProj, esriDist, esriArea, esriLengthArea, esriGeom, esriSR, esriPoint, dojoDom) {
+		var getOutSR,
 			getGSVC,
 			getCoord,
 			getNorthAngle,
+			measureLength,
+			measureArea,
+			labelPoints,
+			calcDDtoDMS,
             getNTS,
             getUTM,
             getUTMzone,
@@ -150,6 +156,71 @@
 			});
 		};
 
+		measureLength = function(array, unit, success) {
+			var distUnit,
+				distParams = new esriDist(),
+				len = array.length;
+
+			// TODO remove when we have the global one!
+			var gserv = new esriGeom('http://geoappext.nrcan.gc.ca/arcgis/rest/services/Utilities/Geometry/GeometryServer');
+
+			if (unit === 'km') {
+				distUnit = esriGeom.UNIT_KILOMETER;
+			} else {
+				distUnit = esriGeom.UNIT_STATUTE_MILE;
+			}
+
+			distParams.distanceUnit = distUnit;
+			distParams.geometry1 = array[len - 1];
+			distParams.geometry2 = array[len - 2];
+			distParams.geodesic = true;
+
+			gserv.distance(distParams, function(distance) {
+				// keep 2 decimals
+				array[len - 1].distance = Math.floor(distance * 100) / 100;
+				success(array, unit);
+			});
+		};
+
+		measureArea = function(poly, unit, success) {
+			var areaUnit, distUnit,
+				areaParams = new esriArea();
+
+			// TODO remove when we have the global one!
+			var gserv = new esriGeom('http://geoappext.nrcan.gc.ca/arcgis/rest/services/Utilities/Geometry/GeometryServer');
+
+			if (unit === 'km') {
+				areaUnit = esriGeom.UNIT_SQUARE_KILOMETERS;
+				distUnit = esriGeom.UNIT_KILOMETER;
+			} else {
+				areaUnit = esriGeom.UNIT_SQUARE_MILES;
+				distUnit = esriGeom.UNIT_STATUTE_MILE;
+			}
+
+			areaParams.areaUnit = areaUnit;
+			areaParams.lengthUnit = distUnit;
+			areaParams.calculationType = 'preserveShape';
+
+			gserv.simplify([poly], function(simplifiedGeometries) {
+				areaParams.polygons = simplifiedGeometries;
+				gserv.areasAndLengths(areaParams, function(areas) {
+					success(areaParams.polygons[0], areas, unit);
+				});
+			});
+		};
+
+		labelPoints = function(poly, info, success) {
+
+			// TODO remove when we have the global one!
+			var gserv = new esriGeom('http://geoappext.nrcan.gc.ca/arcgis/rest/services/Utilities/Geometry/GeometryServer');
+
+			gserv.simplify([poly], function(simplifiedGeometries) {
+				gserv.labelPoints(simplifiedGeometries, function(labelPoints) {
+					success(labelPoints, info);
+				});
+			});
+		};
+
         getNTS = function(lati, longi) {
             var urlNTS = i18n.getDict('%gisurlnts'),
 				def = $viz.Deferred(); // Use a deferred object to call the service
@@ -206,7 +277,10 @@
 			params.geometries = points;
 			params.outSR = new esriSR({ 'wkid': outwkid });
 
-			glbGSVC.project(params, function(projectedPoints) {
+			// TODO remove when we have the global one!
+			var gserv = new esriGeom('http://geoappext.nrcan.gc.ca/arcgis/rest/services/Utilities/Geometry/GeometryServer');
+
+			gserv.project(params, function(projectedPoints) {
 				var geom = params.geometries,
 					len = geom.length;
 
@@ -224,6 +298,9 @@
 			getGSVC: getGSVC,
 			getCoord: getCoord,
 			getNorthAngle: getNorthAngle,
+			measureLength: measureLength,
+			measureArea: measureArea,
+			labelPoints: labelPoints,
             getNTS: getNTS,
             getUTM: getUTM,
             getUTMzone: getUTMzone,

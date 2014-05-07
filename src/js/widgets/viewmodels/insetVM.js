@@ -236,7 +236,7 @@
 					}
 				};
 
-				_self.applyKey = function(key, shift) {
+				_self.applyKey = function(key) {
 					var map = _self.map,
 						prevent = false;
 

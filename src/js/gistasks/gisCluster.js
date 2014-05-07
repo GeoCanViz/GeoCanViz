@@ -105,7 +105,7 @@
 				'label': clusterInfo.label,
 				'maxSizeProp': clusterInfo.maxSizeProp,
 				'maxDataProp': clusterInfo.maxDataProp,
-				'spatialReference': map.spatialReference.wkid
+				'spatialReference': map.spatialReference
 			});
 
 			map.addLayer(clusterLayer);

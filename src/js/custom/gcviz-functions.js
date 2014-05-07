@@ -13,6 +13,7 @@
 			setStyle,
 			getFullscreenParam,
 			checkObjectValue,
+			getUUID,
 			timer;
 
 		debounce = function(func, threshold, execAsap) {
@@ -96,12 +97,22 @@
 			return true;
 		};
 
+		// http://slavik.meltser.info/?p=142
+		getUUID = function() {
+			function _p8(s) {
+				var p = (Math.random().toString(16) + '000000000').substr(2,8);
+				return s ? '-' + p.substr(0,4) + '-' + p.substr(4,4) : p ;
+			}
+			return _p8() + _p8(true) + _p8(true) + _p8();
+		};
+
 		return {
 			debounce: debounce,
 			debounceClick: debounceClick,
 			setStyle: setStyle,
 			getFullscreenParam: getFullscreenParam,
-			checkObjectValue: checkObjectValue
+			checkObjectValue: checkObjectValue,
+			getUUID: getUUID
 		};
 	});
 }());

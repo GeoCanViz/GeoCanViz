@@ -165,6 +165,10 @@
 				location: locationPath + 'gcviz/dependencies',
 				main: 'jqueryui.min'
 			}, {
+				name: 'genfile',
+				location: locationPath + 'gcviz/dependencies',
+				main: 'generatefile.min'
+			}, {
 				name: 'jqueryslide',
 				location: locationPath + 'gcviz/dependencies',
 				main: 'jquery.slides.min'

@@ -1,288 +1,232 @@
 {"gcviz": { 
     "mapframe": {
         "size": {
-            "height": 400,
+            "height": 500,
             "width": 800
         },
-        "extent": {
-            "xmin": -8540948.84175534,
-            "ymin": 5609757.019105,
-            "xmax": -8333944.82914467,
-            "ymax": 5722087.690195
-        },
-        "resolution": {
-            "min": -1,
-            "max": -1
-        },
-        "map": { 
-            "sr": {
-                "wkid": 3857
-            },
-            "extent": {
-                "xmin": -8540948.84175534,
-                "ymin": 5609757.019105,
-                "xmax": -8333944.82914467,
-                "ymax": 5722087.690195
-            },
-            "lods": [],
-            "resolution": {
-                "min": -1,
-                "max": -1
-            },
-            "link": true,
-            "layers": [{
-                "id": "basemap6",
-                "type": "tiled",
-                "url": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/BaseMaps/CBCT3978/MapServer",
-                "selectable": false,
-                "swiper": {
-                    "enable": false
+            "map": {
+                "urlgeomserv": "http://tasks.arcgisonline.com/ArcGIS/rest/services/Geometry/GeometryServer",
+                "sr": {
+                    "wkid": 3978
                 },
-                "cluster": {
-                    "enable": false
+                "extentmax": {
+                    "xmin": -4282638.06150141,
+                    "ymin": -5153821.09213678,
+                    "xmax": 4852210.1755664,
+                    "ymax": 4376714.4420974
                 },
-                "resolution": {
-                    "min": -1,
-                    "max": -1
-                }
-
-            }]
-        }
-    },
-    "insetframe": {
-        "enable": false,
-        "size": {
-            "numrow": 10,
-            "numcol": 10
-        },
-        "insets": [{
-            "pos": {
-                "startrowcol": [0,0],
-                "endrowcol": [4,3]
-            },
-            "type": "image",
-            "fullscreen": true,
-            "size": "px",
-            "label": {
-                "value": "My image 1",
-                "alttext": "My image 1",
-                "justify": "left"
-            },
-            "inset" : {
-                "interval": 0,
-                "sources" :[{
-                    "label": {
-                        "value": "My description 1",
-                        "alttext": "My description 1",
-                        "justify": "left"
-                    },
-                    "image": {
-                        "location": "local",
-                        "url": "demos/inset/canada1.jpg"
-                    }
-                }, {
-                    "label": {
-                        "value": "My description 2",
-                        "alttext": "My description 2",
-                        "justify": "left"
-                    },
-                    "image": {
-                        "location": "local",
-                        "url": "demos/inset/canada2.jpg"
-                    }
-                }, {
-                    "label": {
-                        "value": "My description 3",
-                        "alttext": "My description 3",
-                        "justify": "left"
-                    },
-                    "image": {
-                        "location": "local",
-                        "url": "demos/inset/canada3.jpg"
-                    }
-                }, {
-                    "label": {
-                        "value": "My description 4",
-                        "alttext": "My description 4",
-                        "justify": "left"
-                    },
-                    "image": {
-                        "location": "local",
-                        "url": "demos/inset/canada4.jpg"
-                    }
-                }]
-            }
-        }, {
-            "pos": {
-                "startrowcol": [4,4],
-                "endrowcol": [6,5]
-            },
-            "type": "image",
-            "fullscreen": false,
-            "size": "px",
-            "label": {
-                "value": "My image 2",
-                "alttext": "My image 2",
-                "justify": "left"
-            },
-            "inset" : {
-                "interval": 0,
-                "sources" :[{
-                    "label": {
-                        "value": "My description 2",
-                        "alttext": "My description 2",
-                        "justify": "left"
-                    },
-                    "image": {
-                        "location": "internet",
-                        "url": "http://rlv.zcache.ca/made_in_canada_stickers-r750856602c5c4ed6b54f7cb978573f04_v9waf_8byvr_324.jpg?bg=0xffffff"
-                    }
-                }]
-            }
-        }, {
-            "pos": {
-                "startrowcol": [5,5],
-                "endrowcol": [10,10]
-            },
-            "type": "image",
-            "fullscreen": false,
-            "size": "px",
-            "label": {
-                "value": "My image 3",
-                "alttext": "My image 3",
-                "justify": "left"
-            },
-            "inset" : {
-                "interval": 0,
-                "sources" :[{
-                    "label": {
-                        "value": "My description 3",
-                        "alttext": "My description 3",
-                        "justify": "left"
-                    },
-                    "image": {
-                        "location": "internet",
-                        "url": "http://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Boulevard_Ren%C3%A9-L%C3%A9vesque_Est_Montr%C3%A9al_Canada.jpg/267px-Boulevard_Ren%C3%A9-L%C3%A9vesque_Est_Montr%C3%A9al_Canada.jpg"
-                    }
-                }]
-            }
-        }]
-    },
-    "header": {
-        "title": {
-            "value": "Map 1",
-            "alttext": "Map 1",
-            "justify": "center"
-        },
-        "tools": true,
-        "print": {
-            "enable": false,
-            "type": "simple"
-        },
-        "fullscreen": true,
-        "inset": false,
-        "link": {
-            "enable": false,
-            "visible": false
-        }
-    },
-    "footer": {
-        "northarrow": {
-            "enable": true,
-            "inwkid": 3978
-        },
-        "mousecoords": {
-            "enable": true,
-            "outwkid": 3978,
-            "urlgeomserv": "http://tasks.arcgisonline.com/ArcGIS/rest/services/Geometry/GeometryServer"
-        },
-        "datatable": { 
-            "direction": "in"
-        }
-    },
-    "toolbardraw": {
-        "enable": true,
-        "expand": false,
-        "drawline": {
-            "enable": true
-        },
-        "drawtext": {
-            "enable": true
-        },
-        "measure": {
-            "enable": true,
-            "type": 3,
-            "unit": 1
-        },
-        "importexport": {
-            "enable": false,
-            "format": "JSON"
-        }
-    },
-    "toolbarnav": {
-        "enable": true,
-        "expand": false,
-        "zoom": false,
-        "fullextent": true,
-        "geolocation": {
-            "enable": false,
-            "type": "all"
-        },
-        "scalebar": {
-            "enable": false,
-            "unit": "km"
-        },
-        "scaledisplay": {
-            "enable": false,
-            "format": "standard"
-        },
-        "overview": {
-            "enable": false,
-            "url": "http"
-        },
-        "position":  {
-            "enable": false
-        }
-    },
-    "toolbarlegend": {
-        "enable": true,
-        "expand" : true,
-        "items": [{
-            "expand": false,
-            "id": "basemap6",
-            "displayfields": false,
-            "label":{
-                    "value": "Basemap6",
-                    "alttext": "basemap alttext"
-             },
-             "metadata":{
-                "enable":false,
-                "value": "http://maps.ottawa.ca/ArcGIS/rest/services/Basemap_Imagery_2011/MapServer",
-                "alttext":"metadata alt text"
-             },
-             "opacity": {
+                "extentinit": {
+                    "xmin": -4113918.895875429,
+                    "ymin": 785780.8489331966,
+                    "xmax": 3990284.8125319886,
+                    "ymax": 5349852.477076453
+                },
+                "lods": {
                     "enable": false,
-                    "minmax": [0,1.0],
-                    "initstate" : 1.0
-             }, 
-            "visibility": {
-                    "enable": true,
-                    "initstate": true,
-                    "type": 1,
-                    "radioid": 0
-             },
-            "displaychild": false,
-            "customimage":{
-                "enable":false,
-                "url":"http://www.fourshoreservices.com/img/urban-dev-gis.gif",
-                "alttext": ""
+                    "values": [{
+                        "level": 0,
+                        "resolution": 38364.660062653464,
+                        "scale": 145000000,
+                        "check": true,
+                        "check": true
+                    }, {
+                        "level": 1,
+                        "resolution": 22489.62831258996,
+                        "scale": 85000000,
+                        "check": true,
+                        "check": true
+                    }, {
+                        "level": 2,
+                        "resolution": 13229.193125052918,
+                        "scale": 50000000,
+                        "check": true,
+                        "check": true
+                    }, {
+                        "level": 3,
+                        "resolution": 7937.5158750317505,
+                        "scale": 30000000,
+                        "check": true,
+                        "check": true
+                    }, {
+                        "level": 4,
+                        "resolution": 4630.2175937685215,
+                        "scale": 17500000,
+                        "check": true,
+                        "check": true
+                    }, {
+                        "level": 5,
+                        "resolution": 2645.8386250105837,
+                        "scale": 10000000,
+                        "check": true,
+                        "check": true
+                    }, {
+                        "level": 6,
+                        "resolution": 1587.5031750063501,
+                        "scale": 6000000,
+                        "check": true,
+                        "check": true
+                    }, {
+                        "level": 7,
+                        "resolution": 926.0435187537042,
+                        "scale": 3500000,
+                        "check": true,
+                        "check": true
+                    }, {
+                        "level": 8,
+                        "resolution": 529.1677250021168,
+                        "scale": 2000000,
+                        "check": true,
+                        "check": true
+                    }, {
+                        "level": 9,
+                        "resolution": 317.50063500127004,
+                        "scale": 1200000,
+                        "check": true,
+                        "check": true
+                    }, {
+                        "level": 10,
+                        "resolution": 185.20870375074085,
+                        "scale": 700000,
+                        "check": true,
+                        "check": true
+                    }, {
+                        "level": 11,
+                        "resolution": 111.12522225044451,
+                        "scale": 420000,
+                        "check": true,
+                        "check": true
+                    }, {
+                        "level": 12,
+                        "resolution": 66.1459656252646,
+                        "scale": 250000,
+                        "check": true,
+                        "check": true
+                    }, {
+                        "level": 13,
+                        "resolution": 38.36466006265346,
+                        "scale": 145000,
+                        "check": true,
+                        "check": true
+                    }, {
+                        "level": 14,
+                        "resolution": 22.48962831258996,
+                        "scale": 85000,
+                        "check": true,
+                        "check": true
+                    }, {
+                        "level": 15,
+                        "resolution": 13.229193125052918,
+                        "scale": 50000,
+                        "check": true,
+                        "check": true
+                    }, {
+                        "level": 16,
+                        "resolution": 7.9375158750317505,
+                        "scale": 30000,
+                        "check": true,
+                        "check": true
+                    }, {
+                        "level": 17,
+                        "resolution": 4.6302175937685215,
+                        "scale": 17500,
+                        "check": true,
+                        "check": true
+                    }]
+                },
+                "link": false,
+                "bases": [{
+                    "id": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/BaseMaps/CBCT3978/MapServer",
+                    "type": 3,
+                    "category": "base",
+                    "url": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/BaseMaps/CBCT3978/MapServer"
+                }],
+                "layers": []
+            }
+        },
+        "insetframe": {
+        	"enable": false
+        },
+        "header": {
+            "title": {
+                "value": "my new config map",
+                "alttext": "alt"
             },
+            "tools": true,
+            "about": {
+                "enable": true,
+                "type": 1,
+                "value": ""
+            },
+            "print": {
+                "enable": true,
+                "type": 1
+            },
+            "fullscreen": true,
+            "inset": true
+        },
+        "footer": {
+            "urlgeomserv": "http://tasks.arcgisonline.com/ArcGIS/rest/services/Geometry/GeometryServer",
+            "northarrow": {
+                "enable": true,
+                "inwkid": 3978
+            },
+            "mousecoords": {
+                "enable": true,
+                "outwkid": 3978
+            },
+            "datatable": {
+                "direction": "in"
+            }
+        },
+        "toolbarlegend": {
+            "enable": true,
+            "expand": false,
             "items": []
-        }]
-    },
-     
-    
-    "customwidgets": []
-}}
-
-
+        },
+        "toolbardraw": {
+            "enable": true,
+            "expand": false,
+            "drawline": {
+                "enable": true
+            },
+            "drawtext": {
+                "enable": true
+            },
+            "measure": {
+                "enable": true,
+                "type": 3,
+                "unit": 1
+            },
+            "importexport": {
+                "enable": true
+            }
+        },
+        "toolbarnav": {
+            "enable": true,
+            "expand": false,
+            "zoom": true,
+            "urlgeomserv": "http://tasks.arcgisonline.com/ArcGIS/rest/services/Geometry/GeometryServer",
+            "geolocation": {
+                "enable": true,
+                "type": -1
+            },
+            "scalebar": {
+                "enable": true,
+                "unit": 1
+            },
+            "position": {
+                "enable": true
+            },
+            "scaledisplay": {
+                "enable": false,
+                "format": 1
+            },
+            "overview": {
+                "enable": true,
+                "url": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/BaseMaps/CBCT3978/MapServer",
+                "type": 2
+            }
+        },
+        "customwidgets": []
+    }
+}

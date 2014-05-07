@@ -109,6 +109,17 @@ div.gcviz-container img {
 	display: none;
 }
 
+/* hide the input type */
+input[type="file"] {
+	opacity: 0;
+	top:	0rem;
+	left: 0rem;
+	position: absolute;
+	margin: 0 !important;
+	height: (2.2 * $rembase) + rem;
+	width: (2.2 * $rembase) + rem;
+}
+
 /* full screen */
 .gcviz-sectionfs {
 	position: fixed;
@@ -125,12 +136,26 @@ div.gcviz-container img {
   display: inline!important;
 }
 
-.gcviz-geoloclabel {
-  width: 65px;
+.gcviz-inlineblock {
+  display: inline-block!important;
 }
+
+.gcviz-tbseparator {
+	display: inline-block;
+	border-width: (0.1 * $rembase) + rem;
+	border-style: solid;
+	border-color: $grey;
+	height: (3 * $rembase) + rem;
+	margin-bottom: (-1 * $rembase) + rem;
+}
+
 
 .gcviz-appText {
   @include app-text;
+}
+
+.gcviz-label {
+  color: red;
 }
 
 .gcviz-insinputbox {

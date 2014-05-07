@@ -1,5 +1,9 @@
 @import "includes/gcviz-mixin";
 
+.gcviz-geoloclabel {
+  width: 65px;
+}
+
 .gcviz-hideAutoComplete {
   visibility:hidden;
   position:relative;
