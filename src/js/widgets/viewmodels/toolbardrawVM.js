@@ -13,12 +13,10 @@
 			'genfile',
 			'gcviz-i18n',
 			'gcviz-func',
-			'gcviz-gisgraphic',
-			'gcviz-gisgeo',
-	], function($viz, ko, generateFile, i18n, gcvizFunc, gisGraphic, gisGeo) {
+			'gcviz-gisgraphic'
+	], function($viz, ko, generateFile, i18n, gcvizFunc, gisGraphic) {
 		var initialize,
-			vm,
-			loadFile;
+			vm;
 
 		initialize = function($mapElem, mapid) {
 
@@ -69,28 +67,28 @@
 				_self.tpEraseUndo = i18n.getDict('%toolbardraw-tperaseundo');
 				_self.tpImport = i18n.getDict('%toolbardraw-tpimport');
 				_self.tpExport = i18n.getDict('%toolbardraw-tpexport');
-				
+
 				// keep color setting
 				_self.selectedColor = ko.observable();
-				
+
 				// unique graphic id (use this for text because the function is in the dialog box)
 				_self.uniqueID = ko.observable('');
-				
+
 				// enable buttons (undo, export)
 				_self.isColor = ko.observable(false);
 				_self.stackUndo = ko.observable(0);
 				_self.isGraphics = ko.observable(false);
-				
+
 				// grpphic object
 				mygraphic = new gisGraphic.initialize(mymap, _self.isGraphics, lblDist, lblArea);
-				
+
 				// keep info for annotation input box
 				_self.mapid = mapid;
 				_self.graphic = mygraphic;
-				
+
 				// measure array
 				_self.measureHolder = ko.observableArray([]);
-				
+
 				// set annotation window
 				$text.dialog({
 					autoOpen: false,
@@ -130,23 +128,23 @@
 					setTimeout(function() {
 						_self.selectedColor('black');
 					}, 1000);
-					
+
 					return { controlsDescendantBindings: true };
 				};
 
 				_self.colorClick = function() {
 					_self.isColor(!_self.isColor());
 				};
-				
+
 				_self.selectColorClick = function(color) {
 					_self.selectedColor(color);
 					_self.isColor(false);
 				};
-				
+
 				_self.drawClick = function() {
 					$container.css('cursor', '');
 					$container.addClass('gcviz-draw-cursor');
-					
+
 					_self.uniqueID(gcvizFunc.getUUID());
 					_self.graphic.drawLine(_self.uniqueID(), _self.selectedColor());
 				};
@@ -160,30 +158,30 @@
 					// set graphic and mapid to the current map
 					$text.dialog('option', { graphic: _self.graphic, mapid: _self.mapid });
 				};
-				
+
 				_self.eraseClick = function() {
 					_self.graphic.erase();
-					
+
 					// increment undo
 					_self.stackUndo(_self.stackUndo() + 1);
 				};
-				
+
 				_self.eraseSelClick = function() {
 					$container.css('cursor', '');
 					$container.addClass('gcviz-draw-cursor');
-					
+
 					// increment in gisGraphic because we want to do it only
 					// when graphics is really removed
 					_self.graphic.drawExtent(_self.stackUndo);
 				};
-				
+
 				_self.eraseUndoClick = function() {
 					_self.graphic.eraseUndo();
-					
+
 					// workaround to remove tooltip on undo. The tooltip appears
 					// even if the button is disable
 					$viz('.ui-tooltip').remove();
-					
+
 					// decrement undo
 					_self.stackUndo(_self.stackUndo() - 1);
 				};
@@ -197,14 +195,13 @@
 					clickMeasureLength = mymap.on('click', function(event) {
 										_self.graphic.addMeasure(_self.measureHolder, key, 0, 'km', _self.selectedColor(), event);
 									});
-					
+
 					// on double click, close line and show total length
-					dblclickMeasure = mymap.on('dbl-click', function(event) {
+					dblclickMeasure = mymap.on('dbl-click', function() {
 						var len = _self.measureHolder().length;
 
 						if (len >= 2) {
 							_self.graphic.addMeasureSumLength(_self.measureHolder, key, 'km');
-							
 						} else {
 							_self.graphic.eraseUnfinish();
 						}
@@ -215,8 +212,8 @@
 						$container.removeClass('gcviz-draw-cursor');
 					});
 				};
-				
-				_self.measureAreaClick = function(type) {
+
+				_self.measureAreaClick = function() {
 					var key = gcvizFunc.getUUID();
 
 					$container.css('cursor', '');
@@ -227,12 +224,11 @@
 									});
 
 					// on double click, close polygon and show total length and area
-					dblclickMeasure = mymap.on('dbl-click', function(event) {
+					dblclickMeasure = mymap.on('dbl-click', function() {
 						var len = _self.measureHolder().length;
 
 						if (len >= 3) {
 							_self.graphic.addMeasureSumArea(_self.measureHolder, key, 'km');
-							
 						} else {
 							_self.graphic.eraseUnfinish();
 						}
@@ -259,7 +255,7 @@
 						reader.readAsText(file);
 					}
 				};
-				
+
 				_self.loadFile = function() {
 					return function(e) {
 						var jsonGraphics;

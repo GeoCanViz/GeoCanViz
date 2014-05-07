@@ -83,35 +83,35 @@
 			var distUnit,
 				distParams = new esriDist(),
 				len = array.length;
-			
+
 			// TODO remove when we have the global one!
 			var gserv = new esriGeom('http://geoappext.nrcan.gc.ca/arcgis/rest/services/Utilities/Geometry/GeometryServer');
-			
+
 			if (unit === 'km') {
 				distUnit = esriGeom.UNIT_KILOMETER;
 			} else {
 				distUnit = esriGeom.UNIT_STATUTE_MILE;
 			}
-			
+
 			distParams.distanceUnit = distUnit;
 			distParams.geometry1 = array[len - 1];
 			distParams.geometry2 = array[len - 2];
 			distParams.geodesic = true;
-			
+
 			gserv.distance(distParams, function(distance) {
 				// keep 2 decimals
 				array[len - 1].distance = Math.floor(distance * 100) / 100;
 				success(array, unit);
 			});
 		};
-		
+
 		measureArea = function(poly, unit, success) {
 			var areaUnit, distUnit,
 				areaParams = new esriArea();
-			
+
 			// TODO remove when we have the global one!
 			var gserv = new esriGeom('http://geoappext.nrcan.gc.ca/arcgis/rest/services/Utilities/Geometry/GeometryServer');
-			
+
 			if (unit === 'km') {
 				areaUnit = esriGeom.UNIT_SQUARE_KILOMETERS;
 				distUnit = esriGeom.UNIT_KILOMETER;
@@ -119,11 +119,11 @@
 				areaUnit = esriGeom.UNIT_SQUARE_MILES;
 				distUnit = esriGeom.UNIT_STATUTE_MILE;
 			}
-			
+
 			areaParams.areaUnit = areaUnit;
 			areaParams.lengthUnit = distUnit;
 			areaParams.calculationType = 'preserveShape';
-						
+
 			gserv.simplify([poly], function(simplifiedGeometries) {
 				areaParams.polygons = simplifiedGeometries;
 				gserv.areasAndLengths(areaParams, function(areas) {
@@ -131,19 +131,19 @@
 				});
 			});
 		};
-		
+
 		labelPoints = function(poly, info, success) {
-			
+
 			// TODO remove when we have the global one!
 			var gserv = new esriGeom('http://geoappext.nrcan.gc.ca/arcgis/rest/services/Utilities/Geometry/GeometryServer');
-			
+
 			gserv.simplify([poly], function(simplifiedGeometries) {
 				gserv.labelPoints(simplifiedGeometries, function(labelPoints) {
 					success(labelPoints, info);
 				});
 			});
 		};
-		
+
 		return {
 			getOutSR: getOutSR,
 			getGSVC: getGSVC,

@@ -98,7 +98,7 @@ div.gcviz-container img {
   border-right: solid 1px $grey;
   border-bottom: solid 1px $grey;
 }
-grey
+
 .gcviz-tooltip {
 	.ui-tooltip-content {
 		@include app-text-white(1.2);
@@ -144,7 +144,7 @@ input[type="file"] {
 	display: inline-block;
 	border-width: (0.1 * $rembase) + rem;
 	border-style: solid;
-	border-color: grey;
+	border-color: $grey;
 	height: (3 * $rembase) + rem;
 	margin-bottom: (-1 * $rembase) + rem;
 }

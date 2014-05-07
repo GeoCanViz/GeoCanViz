@@ -33,7 +33,7 @@
 
 			// set color picker
 			node += '<button class="gcviz-button" tabindex="0" data-bind="click: colorClick, tooltip: { content: tpColor }"><img class="gcviz-img-button" data-bind="attr: { src: imgColor }"></img></button>';
-			
+
 			// set draw button
 			if (config.drawline.enable) {
 				node += '<button class="gcviz-button" tabindex="0" data-bind="click: drawClick, tooltip: { content: tpDraw }"><img class="gcviz-img-button" data-bind="attr: { src: imgDraw }"></img></button>';
@@ -59,7 +59,7 @@
 				node += '<button class="gcviz-button" tabindex="0" data-bind="click: measureLengthClick"><img class="gcviz-img-button" data-bind="attr: { src: imgMeasure }"></img></button>';
 				node += '<button class="gcviz-button" tabindex="0" data-bind="click: measureAreaClick"><img class="gcviz-img-button" data-bind="attr: { src: imgMeasure }"></img></button>';
 			}
-			
+
 			// color selection panel
 			node += '<div class="row" data-bind="visible: isColor">' +
 						'<button class="gcviz-button" tabindex="0" data-bind="click: selectColorClick(\'black\'), tooltip: { content: tpBlack }"><img class="gcviz-img-button" data-bind="attr: { src: imgDraw }"></img></button>' +
@@ -71,14 +71,14 @@
 					'</div>';
 
 			// set erase buttons and undo erase
-			node += '<div class="row">' +
+			node += '<div class="row gcviz-inlineblock">' +
 						'<button class="gcviz-button" tabindex="0" data-bind="click: eraseClick, tooltip: { content: tpErase }"><img class="gcviz-img-button" data-bind="attr: { src: imgErase }"></img></button>' +
 						'<button class="gcviz-button" tabindex="0" data-bind="click: eraseSelClick, tooltip: { content: tpEraseSel }"><img class="gcviz-img-button" data-bind="attr: { src: imgEraseSel }"></img></button>' +
-						'<button class="gcviz-button" tabindex="0" data-bind="click: eraseUndoClick, tooltip: { content: tpEraseUndo }, enable: stackUndo() > 0"><img class="gcviz-img-button" data-bind="attr: { src: imgEraseUndo }"></img></button>';
+						'<button class="gcviz-button" tabindex="0" data-bind="click: eraseUndoClick, tooltip: { content: tpEraseUndo }, enable: stackUndo() > 0"><img class="gcviz-img-button" data-bind="attr: { src: imgEraseUndo }"></img></button>' +
 					'</div>';
-			
+
 			node += '<div class="gcviz-tbseparator"></div>';
-			
+
 			// set import and save buttons
 			if (config.importexport.enable) {
 			node += '<div class="gcviz-inlineblock">' +

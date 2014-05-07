@@ -280,7 +280,7 @@
 		addLayer = function(map, layerInfo) {
 			var layer,
 				type = layerInfo.type;
-				
+
 			if (type === 3) {
 				layer = new esriTiled(layerInfo.url, { 'id': layerInfo.id });
 			} else if (type === 4) {
@@ -295,7 +295,7 @@
 				// cluster layer
 				gisCluster.startCluster(map, layerInfo);
 			}
-			
+
 			// cluster layer is added in gisCluster class
 			if (type !== 6) {
 				map.addLayer(layer);
