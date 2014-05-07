@@ -46,7 +46,9 @@ var vmArray = {},
 			$viz.extend(true, $viz, $);
 
 			// set proxy for esri request (https://github.com/Esri/resource-proxy)
-			esriConfig.defaults.io.proxyUrl = '../../proxy.ashx';
+			// proxy needs to be in the same domain
+			//esriConfig.defaults.io.proxyUrl = 'http://s-bsc-geoappint.nrn.nrcan.gc.ca/DotNet/proxy.ashx';
+			esriConfig.defaults.io.proxyUrl = 'http://localhost:8888/php/proxy.php';
 			esriConfig.defaults.io.alwaysUseProxy = false;
 
 			// initialize map number and total for the ready event

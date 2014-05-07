@@ -18,9 +18,13 @@
 			'esri/layers/FeatureLayer',
 			'esri/layers/ArcGISTiledMapServiceLayer',
 			'esri/layers/ArcGISDynamicMapServiceLayer',
+			'esri/layers/ArcGISImageServiceLayer',
+			'esri/layers/WebTiledLayer',
+			'esri/layers/WMSLayer',
+			'esri/layers/WMSLayerInfo',
 			'esri/geometry/Extent',
             'esri/geometry/Point'
-	], function(kpan, func, menu, menuItem, menupopup, gisLegend, gisCluster, esriMap, esriFL, esriTiled, esriDyna, esriExt, esriPoint) {
+	], function(kpan, func, menu, menuItem, menupopup, gisLegend, gisCluster, esriMap, esriFL, esriTiled, esriDyna, esriImage, webTiled, wms, wmsInfo, esriExt, esriPoint) {
 		var mapArray = {},
 			createMap,
 			createInset,
@@ -41,6 +45,7 @@
 			panRight,
 			panDown,
 			getKeyExtent,
+			getOverviewLayer,
 			linkNames = [],
 			manageScreenState,
 			linkInset,
@@ -279,9 +284,24 @@
 
 		addLayer = function(map, layerInfo) {
 			var layer,
+				options,
+				resourceInfo,
 				type = layerInfo.type;
 
-			if (type === 3) {
+			if (type === 1) {
+				options = layerInfo.options;
+				resourceInfo = {
+					extent: map.extent,
+					layerInfos: options.layerinfos
+				};
+
+				layer = new wms(layerInfo.url, {
+					resourceInfo: resourceInfo,
+					visibleLayers: options.visiblelayers
+				});
+			} else if (type === 2) {
+
+			} else if (type === 3) {
 				layer = new esriTiled(layerInfo.url, { 'id': layerInfo.id });
 			} else if (type === 4) {
 				layer = new esriDyna(layerInfo.url, { 'id': layerInfo.id });
@@ -300,6 +320,24 @@
 			if (type !== 6) {
 				map.addLayer(layer);
 			}
+		};
+
+		getOverviewLayer = function(configoverviewtype, configoverviewurl) {
+			var bLayer;
+            if (configoverviewtype === 1) { // WMTS service
+				bLayer = new webTiled(configoverviewurl);
+            } else if (configoverviewtype === 2) { // tiled service
+				bLayer = new esriTiled(configoverviewurl);
+            } else if (configoverviewtype === 4) { // dynamic service
+				bLayer = new esriDyna(configoverviewurl);
+            // } else if (configoverviewtype === 7) { // image service
+				// bLayer = new esriImage(configoverviewurl);
+            // } else if (configoverviewtype === 8) { // Virtual Earth service
+				// bLayer = new esriImage(configoverviewurl);
+            // } else if (configoverviewtype === 9) { // Open Street Map service
+				// bLayer = new esriImage(configoverviewurl);
+            }
+            return bLayer;
 		};
 
 		resizeMap = function(map) {
@@ -450,6 +488,7 @@
 			resizeMap: resizeMap,
 			resizeCenterMap: resizeCenterMap,
 			zoomPoint: zoomPoint,
+			getOverviewLayer: getOverviewLayer,
 			getMapCenter: getMapCenter,
 			manageScreenState: manageScreenState,
 			createMapMenu: createMapMenu,

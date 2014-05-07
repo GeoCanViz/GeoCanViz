@@ -207,20 +207,24 @@
             "zoom": true,
             "urlgeomserv": "http://tasks.arcgisonline.com/ArcGIS/rest/services/Geometry/GeometryServer",
             "geolocation": {
-                "enable": false,
+                "enable": true,
                 "type": -1
             },
             "scalebar": {
-                "enable": false,
+                "enable": true,
                 "unit": 1
+            },
+            "position": {
+                "enable": true
             },
             "scaledisplay": {
                 "enable": false,
                 "format": 1
             },
             "overview": {
-                "enable": false,
-                "url": ""
+                "enable": true,
+                "url": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/BaseMaps/CBCT3978/MapServer",
+                "type": 2
             }
         },
         "customwidgets": []
