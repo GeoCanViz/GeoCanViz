@@ -106,13 +106,27 @@
 		};
 
 		getCoord = function(point, div, outSR, gsvc) {
+			var strPointX,
+				strPointY;
 			params.geometries = [point];
 			params.outSR = outSR;
 
 			gsvc.project(params, function(projectedPoints) {
 				point = projectedPoints[0];
-				dojoDom.byId(div).innerHTML = ' Lat: ' + point.y.toFixed(3) +
-											' Long: ' + point.x.toFixed(3);
+				if (point.x < 0) {
+					strPointX = (-1 * point.x.toFixed(3)).toString() + i18n.getDict('%west');
+				} else {
+					strPointX = point.x.toFixed(3).toString() + 'E';
+				}
+				if (point.y < 0) {
+					strPointY = (-1 * point.y.toFixed(3)).toString() + 'S';
+				} else {
+					strPointY = point.y.toFixed(3).toString() + 'N';
+				}
+				dojoDom.byId(div).innerHTML = '<span class="gcviz-foot-coords-values">' +
+					' Lat: ' + strPointY +
+					' Long: ' + strPointX +
+					'</span>';
 			});
 		};
 

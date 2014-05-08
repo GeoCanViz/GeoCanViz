@@ -1,24 +1,71 @@
 @import "gcviz-mixin";
 
 .gcviz-head {
-	@include app-head-foot;
-	/*@include app-gradiant;*/
-	
-	.gcviz-head-title {
-		display: inline-block;
-		height: (4 * $rembase) + rem;
-	
-	.gcviz-head-titlelabel {
-      margin-top: (0.5 * $rembase) + rem;
-      margin-left: (0.5 * $rembase) + rem!important;
-			line-height: (3.5 * $rembase) + rem;
-			@include app-text-white(1.6, bold);
-		}
-	}
-  
-	.gcviz-head-button {
-		float: right;
-		display: inline-block;
-	}
+  margin: 0;
+  padding: 0;
+  background-position: right;
+  background-repeat: repeat-x;
 }
 
+.gcviz-head-left {
+  display: inline-block;
+  position: absolute;
+  float: left;
+  height: 40px;
+  width: calc(100% - 290px);
+  background-image: url("images/black_bg.png");
+  background-position: right;
+}
+  
+.gcviz-head-titlelabel {
+    @include app-text-white(1.6, bold);
+    position: relative;
+    top: 10px;
+    left: 5px;
+}
+
+.gcviz-head-right {
+  position: relative;
+  float: right;
+  height: 40px;
+  width: 290px;
+  background-image: url("images/black_bg.png");
+}
+
+.gcviz-head-buttons {
+  position:relative;
+  right: 5px!important;
+  float: right;
+}
+
+#headbuttons { position: relative; top: -3px; cursor: url(#{$img-root}hand.cur), default; }
+#headbuttons li { margin: 0; padding: 0; list-style: none; position: absolute; top: 0; }
+#headbuttons li { height: 22px; display: block; }
+
+#inset { width: 22px; }
+#inset { background: url("images/spriteheader.png") -25px -1px; }
+#inset:hover { background: url("images/spriteheader.png") -25px -24px; }
+
+#link { width: 22px; }
+#link { background: url("images/spriteheader.png") -49px -1px; }
+#link:hover { background: url("images/spriteheader.png") -49px -24px; }
+
+#help { width: 22px; }
+#help { background: url("images/spriteheader.png") -73px -1px; }
+#help:hover { background: url("images/spriteheader.png") -73px -24px; }
+
+#about { width: 20px; }
+#about { background: url("images/spriteheader.png") -98px -1px; }
+#about:hover { background: url("images/spriteheader.png") -98px -24px; }
+
+#tools { width: 22px; }
+#tools { background: url("images/spriteheader.png") -120px -1px; }
+#tools:hover { background: url("images/spriteheader.png") -120px -24px; }
+
+#full { width: 22px; }
+#full { background: url("images/spriteheader.png") -144px -1px; }
+#full:hover { background: url("images/spriteheader.png") -144px -24px; }       
+
+#print { width: 22px; }
+#print { background: url("images/spriteheader.png") 1px -1px; }
+#print:hover { background: url("images/spriteheader.png") 1px -24px; }       

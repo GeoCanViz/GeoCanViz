@@ -21,7 +21,7 @@
 			var footerViewModel = function($mapElem, mapid, config) {
 				var _self = this,
 					pathNorth = locationPath + 'gcviz/images/footNorthArrow.png',
-                    pathGCVizPNG = locationPath + 'gcviz/images/GCVizLogo.svg',
+                    pathGCVizPNG = locationPath + 'gcviz/images/GCVizLogo.png',
 					configMouse = config.mousecoords,
 					configNorth = config.northarrow.inwkid;
 

@@ -58,7 +58,6 @@
 				_self.imgExtent = ko.observable(pathExtent);
                 _self.imgMagnify = ko.observable(pathMagnify);
 				_self.imgPosition = ko.observable(pathPosition);
-				_self.imgPosition2 = locationPath + 'gcviz/images/navInfo.png';
 
                 // tooltips, text strings and other things from dictionary
                 _self.cancel = i18n.getDict('%cancel');
@@ -297,6 +296,10 @@
                 };
 
                 _self.getMapClick = function(data, event) {
+					var divLat,
+						divLong;
+					divLat = $viz('#inLat' + mapid);
+					divLong = $viz('#inLat' + mapid);
                     loctype = 'map';
                     vmArray[mapid].header.toolsClick();
                     // Set the cursor
@@ -319,6 +322,22 @@
                     }
                     // Get user to click on map and capture event
                     eventHandler = mymap.on('click', _self.getMapPoint);
+                };
+
+                _self.specifyCoord = function(maplat, maplong) {
+                    var mymap = vmArray[mapid].map.map,
+						geomServ = new esri.tasks.GeometryService(config.urlgeomserv),
+						inSR = mymap.spatialReference,
+						outSR = new esri.SpatialReference({ 'wkid': 4326 }),
+						prjParams = new esri.tasks.ProjectParameters(),
+						inPoint = new esri.geometry.Point(maplong, maplat, inSR),
+						geom = [inPoint];
+
+                    // Convert to lat/long
+                    prjParams.geometries = geom;
+                    prjParams.outSR = outSR;
+                    prjParams.transformation = 'Default';
+                    eventHandler = geomServ.project(prjParams, _self.projectDone);
                 };
 
                 _self.getMapPoint = function(event) {
@@ -379,13 +398,9 @@
                         },
 						close: function() {
                                     $viz(this).dialog('close');
-                                    if (loctype === 'map') {
-                                        $viz('#btnClickMap' + mapid).focus();
-                                     } else {
-                                        $viz('#btnGetInfo' + mapid).focus();
-                                    }
 									// Reopen the toolbars
 									vmArray[mapid].header.toolsClick();
+									setTimeout(function() { $viz('#btnClickMap' + mapid).focus(); }, 1000);
                                 },
                         buttons: [
                             {
@@ -393,13 +408,7 @@
                                 title: i18n.getDict('%close'),
                                 click: function() {
                                     $viz(this).dialog('close');
-                                    if (loctype === 'map') {
-                                        $viz('#btnClickMap' + mapid).focus();
-                                     } else {
-                                        $viz('#btnGetInfo' + mapid).focus();
-                                    }
-									// Reopen the toolbars
-									//vmArray[mapid].header.toolsClick();
+                                    setTimeout(function() { $viz('#btnClickMap' + mapid).focus(); }, 1000);
                                 }
                             }
                         ]
