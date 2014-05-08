@@ -13,7 +13,7 @@
   float: left;
   height: 40px;
   width: calc(100% - 290px);
-  background-image: url("images/black_bg.png");
+  background-image: url('images/black_bg.png');
   background-position: right;
 }
   
@@ -29,43 +29,43 @@
   float: right;
   height: 40px;
   width: 290px;
-  background-image: url("images/black_bg.png");
+  background-image: url('images/black_bg.png');
 }
 
 .gcviz-head-buttons {
-  position:relative;
+  position: relative;
   right: 5px!important;
   float: right;
 }
 
-#headbuttons { position: relative; top: -3px; cursor: url(#{$img-root}hand.cur), default; }
+#headbuttons { position: relative; top: -3px; cursor: url(#{ $img-root }hand.cur), default; }
 #headbuttons li { margin: 0; padding: 0; list-style: none; position: absolute; top: 0; }
 #headbuttons li { height: 22px; display: block; }
 
 #inset { width: 22px; }
-#inset { background: url("images/spriteheader.png") -25px -1px; }
-#inset:hover { background: url("images/spriteheader.png") -25px -24px; }
+#inset { background: url('images/spriteheader.png') -25px -1px; }
+#inset:hover { background: url('images/spriteheader.png') -25px -24px; }
 
 #link { width: 22px; }
-#link { background: url("images/spriteheader.png") -49px -1px; }
-#link:hover { background: url("images/spriteheader.png") -49px -24px; }
+#link { background: url('images/spriteheader.png') -49px -1px; }
+#link:hover { background: url('images/spriteheader.png') -49px -24px; }
 
 #help { width: 22px; }
-#help { background: url("images/spriteheader.png") -73px -1px; }
-#help:hover { background: url("images/spriteheader.png") -73px -24px; }
+#help { background: url('images/spriteheader.png') -73px -1px; }
+#help:hover { background: url('images/spriteheader.png') -73px -24px; }
 
 #about { width: 20px; }
-#about { background: url("images/spriteheader.png") -98px -1px; }
-#about:hover { background: url("images/spriteheader.png") -98px -24px; }
+#about { background: url('images/spriteheader.png') -98px -1px; }
+#about:hover { background: url('images/spriteheader.png') -98px -24px; }
 
 #tools { width: 22px; }
-#tools { background: url("images/spriteheader.png") -120px -1px; }
-#tools:hover { background: url("images/spriteheader.png") -120px -24px; }
+#tools { background: url('images/spriteheader.png') -120px -1px; }
+#tools:hover { background: url('images/spriteheader.png') -120px -24px; }
 
 #full { width: 22px; }
-#full { background: url("images/spriteheader.png") -144px -1px; }
-#full:hover { background: url("images/spriteheader.png") -144px -24px; }       
+#full { background: url('images/spriteheader.png') -144px -1px; }
+#full:hover { background: url('images/spriteheader.png') -144px -24px; }       
 
 #print { width: 22px; }
-#print { background: url("images/spriteheader.png") 1px -1px; }
-#print:hover { background: url("images/spriteheader.png") 1px -24px; }       
+#print { background: url('images/spriteheader.png') 1px -1px; }
+#print:hover { background: url('images/spriteheader.png') 1px -24px; }       

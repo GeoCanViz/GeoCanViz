@@ -111,13 +111,13 @@
 				if (config.about.enable) {
 					_self.positionHelp += 35;
 				}
-				_self.xpositionHelp = 'right:' + _self.positionHelp.toString() + 'px!important';
-				_self.xpositionAbout = 'right:' + _self.positionAbout.toString() + 'px!important';
-				_self.xpositionInset = 'right:' + _self.positionInset.toString() + 'px!important';
-				_self.xpositionLink = 'right:' + _self.positionLink.toString() + 'px!important';
-				_self.xpositionTools = 'right:' + _self.positionTools.toString() + 'px!important';
-				_self.xpositionPrint = 'right:' + _self.positionPrint.toString() + 'px!important';
-				_self.xpositionFull = 'right:' + _self.positionFull.toString() + 'px!important';
+				_self.xpositionHelp('right:' + _self.positionHelp.toString() + 'px!important');
+				_self.xpositionAbout('right:' + _self.positionAbout.toString() + 'px!important');
+				_self.xpositionInset('right:' + _self.positionInset.toString() + 'px!important');
+				_self.xpositionLink('right:' + _self.positionLink.toString() + 'px!important');
+				_self.xpositionTools('right:' + _self.positionTools.toString() + 'px!important');
+				_self.xpositionPrint('right:' + _self.positionPrint.toString() + 'px!important');
+				_self.xpositionFull('right:' + _self.positionFull.toString() + 'px!important');
 
 				// images path
                 _self.imgAbout = ko.observable(pathAbout);

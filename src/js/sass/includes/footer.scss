@@ -9,7 +9,7 @@
   @include app-head-foot;
   background-color: #636466;
   background-repeat: repeat-x;
-  background-image: url("images/grey_bg.png");
+  background-image: url('images/grey_bg.png');
   border-bottom: solid 1px #000000;
   position: relative;
   left: -0.5px;
@@ -19,7 +19,7 @@
     color: #000!important;
     background-color: $logogreydark;
     background-repeat: repeat-x;
-    background-image: url("images/grey_bg.png");
+    background-image: url('images/grey_bg.png');
     height: 40px;
     z-index:1!important;
     width: 280px;
@@ -29,7 +29,6 @@
   
   .gcviz-foot-coords-values {
     margin-top: (1.5 * $rembase) + rem;
-    padding-left: rem;
     color: #000!important;
     @include app-text;
     position: relative;
@@ -37,22 +36,6 @@
     top: -5px;
     float: right;
     width: 278px;
-  }
-  
-  .gcviz-foot-coords-input {
-    margin-top: (1.5 * $rembase) + rem;
-    padding-left: rem;
-    @include app-text;
-    color: #fff!important;
-    float: right;
-    position: relative;
-    right: -60px;
-    width: 280px;
-    top: -8px;
-  }
-  
-  .gcviz-foot-coords-input-values {
-    width: 55px;
   }
   
   .gcviz-foot-north {

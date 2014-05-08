@@ -324,22 +324,6 @@
                     eventHandler = mymap.on('click', _self.getMapPoint);
                 };
 
-                _self.specifyCoord = function(maplat, maplong) {
-                    var mymap = vmArray[mapid].map.map,
-						geomServ = new esri.tasks.GeometryService(config.urlgeomserv),
-						inSR = mymap.spatialReference,
-						outSR = new esri.SpatialReference({ 'wkid': 4326 }),
-						prjParams = new esri.tasks.ProjectParameters(),
-						inPoint = new esri.geometry.Point(maplong, maplat, inSR),
-						geom = [inPoint];
-
-                    // Convert to lat/long
-                    prjParams.geometries = geom;
-                    prjParams.outSR = outSR;
-                    prjParams.transformation = 'Default';
-                    eventHandler = geomServ.project(prjParams, _self.projectDone);
-                };
-
                 _self.getMapPoint = function(event) {
                     // Get results
                     var x = event.mapPoint.x,

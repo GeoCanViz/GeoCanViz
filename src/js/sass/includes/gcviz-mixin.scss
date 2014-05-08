@@ -8,8 +8,6 @@ $orange-dark: #E54F06;
 $orange-light: #FADFBB;
 $yellow: #FAFA0A;
 $red: #EF300A;
-//$grey: #999999;
-//$lightgrey: #DDDDDD;
 $grey: #000000;
 $lightgrey: #333333;
 $logogrey: #D1D3D4;
@@ -18,7 +16,6 @@ $white: #FFFFFF;
 $lightyellow: #FAFAF5;
 $app-strong: #98B8CC;
 $app-light: #D2EDFF;
-//$tb-strong: #D2EDFF;
 $tb-strong: #FADDB6;
 $tb-light: #FFF;
 $disabled-light: #98B8CC;
@@ -111,10 +108,6 @@ $one_col: (100% - ($gutter * ($cols - 1))) / $cols;
   width: 100%;
   height: (4 * $rembase) + rem;
   text-align: left;
-//  background-image: url("/GeoCanViz/gcviz/images/BlackOrange2_bg.png");
-//  background-position: right;
-//  background-repeat: no-repeat;
-//  background-size: cover;
 }
 
 @mixin app-text($size: 1.2, $weight: normal, $color: $text-color) {
