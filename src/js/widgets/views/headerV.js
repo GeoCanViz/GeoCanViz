@@ -22,41 +22,48 @@
 			$mapElem.find('#' + mapid).prepend('<div id="head' + mapid + '" class="gcviz-head"></div>');
 			$header = $mapElem.find('.gcviz-head');
 
+			// Left side of header
+			node += '<div class="gcviz-head-left">';
 			// set title
 			if (typeof title !== 'undefined') {
-				node += '<div class="gcviz-head-title"><label class="gcviz-head-titlelabel">' + title + '</label></div>';
-			}
-
-			// add buttons
-			node += '<div class="gcviz-head-button">';
-			// add help button (must always be there!)
-			node += '<button class="gcviz-button" tabindex="0" data-bind="click: helpClick, tooltip: { content: tpHelp }"><img class="gcviz-img-button" data-bind="attr: { src: imgHelp }"></img></button>';
-
-            // add about button
-            if (config.about.enable) {
-                node += '<button class="gcviz-button" tabindex="0" data-bind="click: aboutClick, tooltip: { content: tpAbout }"><img class="gcviz-img-button" data-bind="attr: { src: imgAbout }"></img></button>';
-            }
-
-			// add tools button
-			if (config.tools) {
-                node += '<button id="btnTools' + mapid + '" class="gcviz-button gcviz-tools-button" tabindex="0" data-bind="click: toolsClick, tooltip: { content: tpTools }"><img class="gcviz-img-button" data-bind="attr: { src: imgTools }"></img></button>';
-                toolbarSize = parseInt($mapElem.mapframe.size.height, 10) - 105;
-                $mapElem.find('.gcviz-head').after('<div class="gcviz-tbcontainer gcviz-hidden" style="max-height:' + toolbarSize.toString() + 'px!important;"><div class="gcviz-tbholder"></div></div>');
-			}
-
-			// add inset button if inset are present
-			if ($mapElem.insetframe.enable) {
-				node += '<button class="gcviz-button" tabindex="0" data-bind="click: insetClick, tooltip: { content: tpInset }"><img class="gcviz-img-button" data-bind="attr: { src: imgShowInset }"></img></button>';
-			}
-
-			// add fullscreen button
-			if (config.fullscreen) {
-				node += '<button class="gcviz-button" tabindex="0" data-bind="click: fullscreenClick, tooltip: { content: tpFullScreen }"><img class="gcviz-img-button" data-bind="attr: { src: imgFullscreen }"></img></button>';
+				node += '<label class="gcviz-head-titlelabel">' + title + '</label>';
 			}
 			node += '</div>';
 
+			// Right side of header
+			node += '<div class="gcviz-head-right">';
+				// Add buttons using sprite
+				node += '<ul id="headbuttons">';
+					node += '  <li id="help" data-bind="click: helpClick, tooltip: { content: tpHelp }, attr: { style: xpositionHelp }"></li>';
+					if (config.about.enable) {
+						node += '  <li id="about" data-bind="click: aboutClick, tooltip: { content: tpAbout }, attr: { style: xpositionAbout }"></li>';
+					}
+					// add inset button if inset are present
+					if (config.inset) {
+						node += '  <li id="inset" data-bind="click: insetClick, tooltip: { content: tpInset }, attr: { style: xpositionInset }"></li>';
+					}
+					if (config.link.enable) {
+						node += '  <li id="link" data-bind="click: insetClick, tooltip: { content: tpInset }, attr: { style: xpositionLink }"></li>';
+					}
+					// add tools button
+					if (config.tools) {
+						node += '  <li id="tools" data-bind="click: toolsClick, tooltip: { content: tpTools }, attr: { style: xpositionTools }"></li>';
+						toolbarSize = parseInt($mapElem.mapframe.size.height, 10) - 105;
+						$mapElem.find('.gcviz-head').after('<div class="gcviz-tbcontainer gcviz-hidden" style="max-height:' + toolbarSize.toString() + 'px!important;"><div class="gcviz-tbholder" style="max-height:' + toolbarSize.toString() + 'px!important;"></div></div>');
+					}
+					// add print button
+					if (config.print.enable) {
+						node += '  <li id="print" data-bind="click: printClick, tooltip: { content: tpPrint }, attr: { style: xpositionPrint }"></li>';
+					}
+					// add fullscreen button
+					if (config.fullscreen) {
+						node += '  <li id="full" data-bind="click: fullscreenClick, tooltip: { content: tpFullScreen }, attr: { style: xpositionFull }"></li>';
+					}
+				node += '</ul>';
+			node += '</div>';
+
 			$header.append(node);
-			return (headerVM.initialize($header, mapid));
+			return (headerVM.initialize($header, mapid, config));
 		};
 
 		return {

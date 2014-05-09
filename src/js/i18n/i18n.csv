@@ -6,6 +6,7 @@ General (i18n)#%all#All#Tous
 #%cancel#Cancel#Annuler
 #%close#Close#Fermer
 #%footer-tpgithub#Get GeoCanViz on GitHub#Obtenir GéoCanViz de GitHub
+#%footer-urlgcvizrepo#https://github.com/GeoCanViz/GeoCanViz#https://github.com/GeoCanViz/GeoCanViz
 #%home#Home#Accueil
 #%of#of#de
 #%west#W#O
@@ -17,6 +18,7 @@ General (i18n)#%all#All#Tous
 #%gisurllocate#http://geogratis.gc.ca/services/geolocation/en/locate?#http://geogratis.gc.ca/services/geolocation/fr/locate?
 #%gisurlnts#http://geogratis.gc.ca/services/delimitation/en/nts?bbox=#http://geogratis.gc.ca/services/delimitation/fr/nts?bbox=
 #%gisurlutm#http://geogratis.gc.ca/services/delimitation/en/utmzone?bbox=#http://geogratis.gc.ca/services/delimitation/fr/utmzone?bbox=
+#%footer-tpNorth#North arrow#Flèche du nord
 #%header-abouttitle#Open the help manual#Ouvrir le manuel d'aide
 #%header-urlabout#../../HelpManual.pdf#../../HelpManual.pdf
 #%header-help#GeoCanViz Help#Aide pour GéoCanViz
@@ -25,6 +27,7 @@ General (i18n)#%all#All#Tous
 #%header-tpabout#About this map#À propos de cette carte
 #%header-tphelp#Open help page#Ouvrir la page d'aide
 #%header-tptools#Open/Close tools panel#Ouvrir/Fermer le panneau d'outils
+#%header-tpprint#Print the map#Imprimer la carte
 #%header-tpinset#Show or hide insets#Afficher ou cacher les insertions
 #%header-tpfullscreen#Go full screen#Allez en mode plein écran
 #%help-instr#Keyboard user: setup your keyboard to control the mouse to access the following PDF document.#Utilisateur du clavier: configurez votre clavier pour contrôler la souris et accéder au document PDF ci-dessous.

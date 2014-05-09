@@ -56,7 +56,6 @@
 				_self.imgExtent = ko.observable(pathExtent);
                 _self.imgMagnify = ko.observable(pathMagnify);
 				_self.imgPosition = ko.observable(pathPosition);
-				_self.imgPosition2 = locationPath + 'gcviz/images/navInfo.png';
 
                 // tooltips, text strings and other things from dictionary
                 _self.cancel = i18n.getDict('%cancel');
@@ -380,13 +379,9 @@
                         },
 						close: function() {
                                     $viz(this).dialog('close');
-                                    if (loctype === 'map') {
-                                        $viz('#btnClickMap' + mapid).focus();
-                                     } else {
-                                        $viz('#btnGetInfo' + mapid).focus();
-                                    }
 									// Reopen the toolbars
 									vmArray[mapid].header.toolsClick();
+									setTimeout(function() { $viz('#btnClickMap' + mapid).focus(); }, 1000);
                                 },
                         buttons: [
                             {
@@ -394,13 +389,7 @@
                                 title: i18n.getDict('%close'),
                                 click: function() {
                                     $viz(this).dialog('close');
-                                    if (loctype === 'map') {
-                                        $viz('#btnClickMap' + mapid).focus();
-                                     } else {
-                                        $viz('#btnGetInfo' + mapid).focus();
-                                    }
-									// Reopen the toolbars
-									//vmArray[mapid].header.toolsClick();
+                                    setTimeout(function() { $viz('#btnClickMap' + mapid).focus(); }, 1000);
                                 }
                             }
                         ]

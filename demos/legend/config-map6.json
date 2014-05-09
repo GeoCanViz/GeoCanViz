@@ -169,7 +169,7 @@
         },
         "header": {
             "title": {
-                "value": "my new config map",
+                "value": "Test 6",
                 "alttext": "alt"
             },
             "tools": true,
@@ -183,7 +183,11 @@
                 "type": 1
             },
             "fullscreen": true,
-            "inset": true
+            "inset": true,
+            "link": {
+                "enable": true,
+                "visible": false
+            }
         },
         "footer": {
             "urlgeomserv": "http://tasks.arcgisonline.com/ArcGIS/rest/services/Geometry/GeometryServer",
@@ -207,6 +211,7 @@
                         "fullid": "CanVec/Wetlands/Wetlands - 100-300k scale",
                         "last": true,
                         "id": "Wetlands100k",
+                        "displayfields": true,
                         "label": {
                             "value": "Wetlands - 100-300k scale",
                             "alttext": "Wetlands - 100-300k scale"

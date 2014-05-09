@@ -95,10 +95,6 @@
 						//TODO - Implement magnifier later
                         //if (configposition.enable || configmagnify.enable) {
                         if (configposition.enable) {
-                            //node += '<button id="btnGetInfo' + mapid + '" class="gcviz-button gcviz-img-button gcviz-inline" tabindex="0" data-bind="click: infoClick, tooltip: { content: tpGetLocInfo }"><img class="gcviz-img-button" data-bind="attr:{src: imgPosition}"></img></button>';
-                            node += '<div class="row">';
-                            node += '   <span class="gcviz-appText" data-bind="text: infoGetLocInfo"></span>';
-                            node += '</div>';
                             node += '<div class="row">';
                             node += '   <div class="span2">';
                             node += '       <button id="btnClickMap' + mapid + '" class="gcviz-button gcviz-img-button gcviz-inline gcviz-up5" tabindex="0" data-bind="click: getMapClick, tooltip: { content: tpGetLocInfo }"><img class="gcviz-img-button" data-bind="attr:{src: imgPosition}"></img></button>';

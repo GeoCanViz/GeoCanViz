@@ -7,25 +7,19 @@
   z-index: 100;
   width: (28.0 * $rembase) + rem;
   right: 0rem;
-  /*@include app-gradiant-reverse-semiopaque;
-  opacity:0.90;*/
-  /*background-color: rgba(165,193,211, 0.6);
-  border-bottom: 2px solid #336699;*/
+  top: 40px;
   background-color: rgba(100,100,100, 0.6);
   border-bottom: 2px solid #666666;
   cursor: pointer;
-  overflow-y: scroll;
 }
 
 .gcviz-tbholder {
-/*  overflow-y: scroll;*/
+  overflow-y: scroll;
   
   .gcviz-tbcontent {
     padding: (0.2 * $rembase) + rem;
-    /*margin: (0.3 * $rembase) + rem;*/
+    margin: (0.3 * $rembase) + rem;
     z-index: 101;
-    /*opacity:1.0!important;*/
-    /*@include toolbar-background;*/
     background-color: $lightyellow;
     @include content-border-radius;
     

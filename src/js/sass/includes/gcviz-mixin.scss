@@ -5,10 +5,9 @@ $img-root: "images/";
 $font: Verdana, Arial, Helvetica, sans-serif;
 $orange: #EFA23E;
 $orange-dark: #E54F06;
+$orange-light: #FADFBB;
 $yellow: #FAFA0A;
 $red: #EF300A;
-//$grey: #999999;
-//$lightgrey: #DDDDDD;
 $grey: #000000;
 $lightgrey: #333333;
 $logogrey: #D1D3D4;
@@ -17,7 +16,6 @@ $white: #FFFFFF;
 $lightyellow: #FAFAF5;
 $app-strong: #98B8CC;
 $app-light: #D2EDFF;
-//$tb-strong: #D2EDFF;
 $tb-strong: #FADDB6;
 $tb-light: #FFF;
 $disabled-light: #98B8CC;
@@ -69,12 +67,12 @@ $one_col: (100% - ($gutter * ($cols - 1))) / $cols;
 }
 
 @mixin button-gradiant-hover {
-  @include background-image(-ms-radial-gradient(center, circle closest-corner, $orange 0%, $orange-dark 100%)); /* IE10 Consumer Preview */
-  @include background-image(-moz-radial-gradient(center, circle closest-corner, $orange 0%, $orange-dark 100%)); /* Mozilla Firefox */
-  @include background-image(-o-radial-gradient(center, circle closest-corner, $orange 0%, $orange-dark 100%)); /* Opera */ 
-  @include background-image(-webkit-gradient(radial, center center, 0, center center, 497, color-stop(0, $orange), color-stop(1, $orange-dark))); /* Webkit (Safari/Chrome 10) */ 
-  @include background-image(-webkit-radial-gradient(center, circle closest-corner, $orange 0%, $orange-dark 100%)); /* Webkit (Chrome 11+) */
-  @include background-image(radial-gradient(circle closest-corner at center, $orange 0%, $orange-dark 100%)); /* W3C Markup, IE10 Release Preview */
+  @include background-image(-ms-radial-gradient(center, circle closest-corner, $orange-light 0%, $orange-dark 100%)); /* IE10 Consumer Preview */
+  @include background-image(-moz-radial-gradient(center, circle closest-corner, $orange-light 0%, $orange-dark 100%)); /* Mozilla Firefox */
+  @include background-image(-o-radial-gradient(center, circle closest-corner, $orange-light 0%, $orange-dark 100%)); /* Opera */ 
+  @include background-image(-webkit-gradient(radial, center center, 0, center center, 497, color-stop(0, $orange-light), color-stop(1, $orange-dark))); /* Webkit (Safari/Chrome 10) */ 
+  @include background-image(-webkit-radial-gradient(center, circle closest-corner, $orange-light 0%, $orange-dark 100%)); /* Webkit (Chrome 11+) */
+  @include background-image(radial-gradient(circle closest-corner at center, $orange-light 0%, $orange-dark 100%)); /* W3C Markup, IE10 Release Preview */
   background-color: $tb-light; // old browsers
 }
 
@@ -110,10 +108,6 @@ $one_col: (100% - ($gutter * ($cols - 1))) / $cols;
   width: 100%;
   height: (4 * $rembase) + rem;
   text-align: left;
-  background-image: url("/GeoCanViz/gcviz/images/BlackOrange2_bg.png");
-  background-position: right;
-  background-repeat: no-repeat;
-  background-size: cover;
 }
 
 @mixin app-text($size: 1.2, $weight: normal, $color: $text-color) {

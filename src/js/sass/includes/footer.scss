@@ -7,38 +7,40 @@
 
 .gcviz-foot {
   @include app-head-foot;
-/*  @include app-gradiant-reverse;*/
+  background-color: #636466;
+  background-repeat: repeat-x;
+  background-image: url('images/grey_bg.png');
+  border-bottom: solid 1px #000000;
+  position: relative;
+  left: -0.5px;
   
   .gcviz-foot-coords {
-/*    margin-top: (1.5 * $rembase) + rem;
-    @include app-text; */
     @extend %gcviz-foot-display;
-    color: #fff!important;
+    color: #000!important;
     background-color: $logogreydark;
-    -moz-border-radius: 1em 0em 0em 1em;
-    border-radius: 1em 0em 0em 1em;
+    background-repeat: repeat-x;
+    background-image: url('images/grey_bg.png');
     height: 40px;
     z-index:1!important;
-    width: 200px;
+    width: 280px;
     position: relative;
     right: -10px;
   }
   
   .gcviz-foot-coords-values {
     margin-top: (1.5 * $rembase) + rem;
-    padding-left: rem;
+    color: #000!important;
     @include app-text;
-    color: #fff!important;
     position: relative;
-    left: 10px;
-    top: 10px;
+    right: -70px;
+    top: -5px;
+    float: right;
+    width: 278px;
   }
   
   .gcviz-foot-north {
     @extend %gcviz-foot-display;
-    background-color: $logogrey;
-    -moz-border-radius: 1em 0em 0em 1em;
-    border-radius: 1em 0em 0em 1em;
+    background-image: url("images/grey_bg.png");
     height: 40px;
     z-index: 2!important;
     position: relative;
@@ -59,9 +61,12 @@
 
 .gcviz-foot-logo {
   float: left;
-  margin-left: 0px;
-  width: 50px;
-  height: 40px;
+  margin-left: 5px;
+  position: relative;
+  top: 3px;
+  left: 3px;
+  width: 34px;
+  height: 35px;
 }
 
 
