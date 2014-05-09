@@ -17,10 +17,8 @@
             'gcviz-gismap',
 			'esri/dijit/OverviewMap',
 			'esri/dijit/Scalebar',
-            'dojo/dom',
-            'dojo/dom-style',
-			'esri/layers/layer'
-	], function($viz, ko, i18n, gcvizfunc, gisgeo, gismap, ov, sb, dom, domStyle, lyr) {
+            'dojo/dom'
+	], function($viz, ko, i18n, gcvizfunc, gisgeo, gismap, ov, sb, dom) {
 		var initialize,
 			vm;
 
@@ -36,7 +34,7 @@
 					configoverviewurl = config.overview.url,
 					configscalebar = config.scalebar,
                     defaultAutoComplText = i18n.getDict('%toolbarnav-geolocsample'),
-                    eventHandler,
+                    eventHandler, clickPosition,
                     eventCount = 0,
                     inMapField = $viz('#inGeoLocation' + mapid),
 					itemCount = 0,
@@ -174,7 +172,7 @@
 							data: {
 								q: request.term + '*'
 							},
-							focus: function(event, ui) {
+							focus: function() {
 								if (inMapField.val() === defaultAutoComplText) {
 									inMapField.val('');
 								}
@@ -295,11 +293,7 @@
                     return true;
                 };
 
-                _self.getMapClick = function(data, event) {
-					var divLat,
-						divLong;
-					divLat = $viz('#inLat' + mapid);
-					divLong = $viz('#inLat' + mapid);
+                _self.getMapClick = function() {
                     loctype = 'map';
                     vmArray[mapid].header.toolsClick();
                     // Set the cursor
@@ -321,7 +315,7 @@
 						eventCount = 0;
                     }
                     // Get user to click on map and capture event
-                    eventHandler = mymap.on('click', _self.getMapPoint);
+                    clickPosition = mymap.on('click', _self.getMapPoint);
                 };
 
                 _self.getMapPoint = function(event) {
@@ -341,6 +335,9 @@
                     prjParams.outSR = outSR;
                     prjParams.transformation = 'Default';
                     eventHandler = geomServ.project(prjParams, _self.projectDone);
+
+                    // remove click event
+                    clickPosition.remove();
                 };
 
                 _self.projectDone = function(outPoint) {

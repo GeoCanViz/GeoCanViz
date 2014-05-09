@@ -36,9 +36,22 @@ General (i18n)#%all#All#Tous
 #%toolbardraw-insinputbox#Click OK to place the text on the map or click Cancel to abort.#Cliquez sur OK pour placer le texte sur la carte ou cliquez sur Annuler pour abandonner.
 #%toolbardraw-inputbox-name#Add text#Ajouter du texte
 #%toolbardraw-inputbox-label#Enter a value: #Entrez une valeur: 
+#%toolbardraw-tpcolor#Select color#sélectionner la couleur
+#%toolbardraw-tpcolorblack#Black#Noir
+#%toolbardraw-tpcolorred#Red#Rouge
+#%toolbardraw-tpcolorgreen#Green#Vert
+#%toolbardraw-tpcolorblue#Blue#Bleu
+#%toolbardraw-tpcoloryellow#Yellow#Jaune
+#%toolbardraw-tpcolorwhite#White#Blanc
 #%toolbardraw-tpdraw#Draw on the map#Dessiner sur la carte
 #%toolbardraw-tptext#Add text on the map#Ajouter du texte sur la carte
 #%toolbardraw-tperase#Erase annotations#Effacer les annotations
+#%toolbardraw-tperasesel#Erase selected annotations#Effacer les annotations sélectionnées
+#%toolbardraw-tperaseundo#Undo erase annotations#Annuler effacer les annotations
+#%toolbardraw-tpimport#Import annotations#Importer des annotations
+#%toolbardraw-tpexport#Export annotations#Exporter des annotations
+#%toolbardraw-dist#Length: #Longueur: 
+#%toolbardraw-area#Area: #Aire: 
 #%toolbarlegend-name#Legend#Légende
 #%toolbarlegend-tgvis#Toggle Visibility#Basculer la visibilité
 #%toolbarnav-geoloclabel#Zoom to:#Zoom à:
