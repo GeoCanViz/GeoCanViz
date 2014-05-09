@@ -28,7 +28,7 @@
 
 			// set north arrow
 			if (config.northarrow.enable) {
-				node += '<div id="north_' + mapid + '" class="gcviz-foot-north"><img id="imgarrow_' + mapid + '" class="gcviz-foot-imgarrow" data-bind="attr: { src: imgNorth }"></img></div>';
+				node += '<div id="north_' + mapid + '" class="gcviz-foot-north"><img id="imgarrow_' + mapid + '" class="gcviz-foot-imgarrow" data-bind="attr: { src: imgNorth }, tooltip: { content: tpNorth }"></img></div>';
 			}
 
 			// set mouse coordinates

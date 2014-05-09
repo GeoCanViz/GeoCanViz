@@ -20,7 +20,7 @@
 			// data model				
 			var footerViewModel = function($mapElem, mapid, config) {
 				var _self = this,
-					pathNorth = locationPath + 'gcviz/images/footNorthArrow.png',
+					pathNorth = locationPath + 'gcviz/images/footNorthArrowGrey.png',
                     pathGCVizPNG = locationPath + 'gcviz/images/GCVizLogo.png',
 					configMouse = config.mousecoords,
 					configNorth = config.northarrow.inwkid;
@@ -30,6 +30,9 @@
                 _self.imgLogoPNG = pathGCVizPNG;
                 _self.urlLogo = i18n.getDict('%footer-urlgcvizrepo');
                 _self.urlLogoAlt = i18n.getDict('%footer-tpgithub');
+
+				// Tooltips
+				_self.tpNorth = i18n.getDict('%footer-tpNorth');
 
 				// geoprocessing and projection objects
 				_self.outSR = gisGeo.getOutSR(configMouse.outwkid);
