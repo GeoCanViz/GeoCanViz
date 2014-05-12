@@ -4,6 +4,30 @@
   cursor: url(#{$img-root}drawTextCursor.cur), text;
 }
 
-.gcviz-draw-cursor {
-  cursor: url(#{$img-root}drawDraw.cur), crosshair;
+.gcviz-select-cursor {
+  cursor: crosshair;
+}
+
+.gcviz-draw-cursor-black {
+  cursor: url(#{$img-root}drawpencilblack.cur), crosshair;
+}
+
+.gcviz-draw-cursor-blue {
+  cursor: url(#{$img-root}drawpencilblue.cur), crosshair;
+}
+
+.gcviz-draw-cursor-green {
+  cursor: url(#{$img-root}drawpencilgreen.cur), crosshair;
+}
+
+.gcviz-draw-cursor-red {
+  cursor: url(#{$img-root}drawpencilred.cur), crosshair;
+}
+
+.gcviz-draw-cursor-yellow {
+  cursor: url(#{$img-root}drawpencilyellow.cur), crosshair;
+}
+
+.gcviz-draw-cursor-white {
+  cursor: url(#{$img-root}drawpencilwhite.cur), crosshair;
 }

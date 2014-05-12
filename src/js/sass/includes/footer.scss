@@ -17,9 +17,9 @@
   .gcviz-foot-coords {
     @extend %gcviz-foot-display;
     color: #000!important;
-    background-color: $logogreydark;
-    background-repeat: repeat-x;
-    background-image: url('images/grey_bg.png');
+    //background-color: $logogreydark;
+    //background-repeat: repeat-x;
+    //background-image: url('images/grey_bg.png');
     height: 40px;
     z-index:1!important;
     width: 280px;
@@ -40,7 +40,7 @@
   
   .gcviz-foot-north {
     @extend %gcviz-foot-display;
-    background-image: url("images/grey_bg.png");
+    //background-image: url("images/grey_bg.png");
     height: 40px;
     z-index: 2!important;
     position: relative;

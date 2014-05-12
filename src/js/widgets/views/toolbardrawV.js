@@ -56,18 +56,18 @@
 
 			// set measure button
 			if (config.measure.enable) {
-				node += '<button class="gcviz-button" tabindex="0" data-bind="click: measureLengthClick"><img class="gcviz-img-button" data-bind="attr: { src: imgMeasure }"></img></button>';
-				node += '<button class="gcviz-button" tabindex="0" data-bind="click: measureAreaClick"><img class="gcviz-img-button" data-bind="attr: { src: imgMeasure }"></img></button>';
+				node += '<button class="gcviz-button" tabindex="0" data-bind="click: measureLengthClick, tooltip: { content: tpMeasureLength }"><img class="gcviz-img-button" data-bind="attr: { src: imgMeasureLength }"></img></button>';
+				node += '<button class="gcviz-button" tabindex="0" data-bind="click: measureAreaClick, tooltip: { content: tpMeasureArea }"><img class="gcviz-img-button" data-bind="attr: { src: imgMeasureArea }"></img></button>';
 			}
 
 			// color selection panel
 			node += '<div class="row" data-bind="visible: isColor">' +
-						'<button class="gcviz-button" tabindex="0" data-bind="click: selectColorClick(\'black\'), tooltip: { content: tpBlack }"><img class="gcviz-img-button" data-bind="attr: { src: imgDraw }"></img></button>' +
-						'<button class="gcviz-button" tabindex="0" data-bind="click: selectColorClick(\'red\'), tooltip: { content: tpRed }"><img class="gcviz-img-button" data-bind="attr: { src: imgDraw }"></img></button>' +
-						'<button class="gcviz-button" tabindex="0" data-bind="click: selectColorClick(\'green\'), tooltip: { content: tpGreen }"><img class="gcviz-img-button" data-bind="attr: { src: imgDraw }"></img></button>' +
-						'<button class="gcviz-button" tabindex="0" data-bind="click: selectColorClick(\'blue\'), tooltip: { content: tpBlue }"><img class="gcviz-img-button" data-bind="attr: { src: imgDraw }"></img></button>' +
-						'<button class="gcviz-button" tabindex="0" data-bind="click: selectColorClick(\'yellow\'), tooltip: { content: tpYellow }"><img class="gcviz-img-button" data-bind="attr: { src: imgDraw }"></img></button>' +
-						'<button class="gcviz-button" tabindex="0" data-bind="click: selectColorClick(\'white\'), tooltip: { content: tpWhite }"><img class="gcviz-img-button" data-bind="attr: { src: imgDraw }"></img></button>' +
+						'<button class="gcviz-button-picker" tabindex="0" data-bind="click: selectColorClick(\'white\'), tooltip: { content: tpWhite }"><img class="gcviz-picker-colour" data-bind="attr: { src: imgDrawWhite }"></img></button>' +
+						'<button class="gcviz-button-picker" tabindex="0" data-bind="click: selectColorClick(\'yellow\'), tooltip: { content: tpYellow }"><img class="gcviz-picker-colour" data-bind="attr: { src: imgDrawYellow }"></img></button>' +
+						'<button class="gcviz-button-picker" tabindex="0" data-bind="click: selectColorClick(\'red\'), tooltip: { content: tpRed }"><img class="gcviz-picker-colour" data-bind="attr: { src: imgDrawRed }"></img></button>' +
+						'<button class="gcviz-button-picker" tabindex="0" data-bind="click: selectColorClick(\'green\'), tooltip: { content: tpGreen }"><img class="gcviz-picker-colour" data-bind="attr: { src: imgDrawGreen }"></img></button>' +
+						'<button class="gcviz-button-picker" tabindex="0" data-bind="click: selectColorClick(\'blue\'), tooltip: { content: tpBlue }"><img class="gcviz-picker-colour" data-bind="attr: { src: imgDrawBlue }"></img></button>' +
+						'<button class="gcviz-button-picker" tabindex="0" data-bind="click: selectColorClick(\'black\'), tooltip: { content: tpBlack }"><img class="gcviz-picker-colour" data-bind="attr: { src: imgDrawBlack }"></img></button>' +
 					'</div>';
 
 			// set erase buttons and undo erase
