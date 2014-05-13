@@ -32,6 +32,12 @@
 					return { controlsDescendantBindings: true };
 				};
 
+				_self.createSymbol = function(data, node) {
+					if (data.displaychild.enable && typeof data.displaychild.symbol !== 'undefined') {
+						gisLegend.getFeatureLayerSymbol(data.displaychild.symbol, node, data.graphid);
+					}
+				};
+				
 				_self.changeItemsVisibility = function(selectedItem, event) {
                     var evtTarget = $viz(event.target);
                     loopChildrenVisibility(selectedItem, evtTarget.prop('checked'), _self.mymap,

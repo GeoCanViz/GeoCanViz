@@ -12,10 +12,11 @@
 			'esri/renderers/Renderer',
 			'dojo/dom-construct',
 			'esri/symbols/jsonUtils',
+			'esri/renderers/jsonUtils',
 			'dojox/gfx',
 			'dojo/dom',
 			'dojo/dom-class'
-	], function($viz, Request, Renderer, domConstruct, jsonUtils, gfx, dom, dojoClass) {
+	], function($viz, Request, Renderer, domConstruct, esriJsonUtilS, esriJsonUtilR, gfx, dom, dojoClass) {
 		var setLayerVisibility,
 			getFeatureLayerSymbol,
 			createSymbols,
@@ -26,24 +27,26 @@
 			layer.setVisibility(visState);
 		};
 
-		getFeatureLayerSymbol = function(layer) {
+		getFeatureLayerSymbol = function(renderer, node, layerid) {
 			var mySurface,
 				descriptors,
 				shape,
 				aFields,
-				ren = layer.renderer,
-				renDefSym = ren.defaultSymbol,
-				renInfo = ren.infos,
-				renSym = ren.symbol,
-				normField = ren.normalizationField,
-				field1 = ren.attributeField,
-				field2 = ren.attributeField2,
-				field3 = ren.attributeField3,
 				anode,
-				layerid = layer.id,
-				symbolLocation = dom.byId('featureLayerSymbol' + layerid),
 				nodeImage,
 				nodeLabel;
+			
+			var jsonRen = JSON.parse(renderer);
+			var	ren = esriJsonUtilR.fromJson(jsonRen);
+			var	renDefSym = ren.defaultSymbol;
+			var	renInfo = ren.infos;
+			var	renSym = ren.symbol;
+			var	normField = ren.normalizationField;
+			var	field1 = ren.attributeField;
+			var	field2 = ren.attributeField2;
+			var	field3 = ren.attributeField3;
+			var	symbolLocation = node;
+				
 
 			if (renInfo) {
 				//unique renderer, class break renderer
@@ -64,14 +67,14 @@
 				anode += aFields + '</div>';
 
 				//need a spot in div for each renderer
-				domConstruct.place(anode, dom.byId('featureLayerSymbol' + layerid));
+				domConstruct.place(anode, node);
 				domConstruct.place(domConstruct.create('br'), symbolLocation);
 
 				$viz.each(legs, function(key, value) {
 					nodeImage = domConstruct.create('div', { 'class': 'gcviz-legendSymbolUniqueValueDiv' });
 					nodeLabel = domConstruct.create('span');
 					dojoClass.add(nodeLabel, 'gcviz-LegendUniqueValueSpan');
-					descriptors = jsonUtils.getShapeDescriptors(value.symbol);
+					descriptors = esriJsonUtilS.getShapeDescriptors(value.symbol);
 					mySurface = createSVGSurface(value, nodeImage);
 					shape = mySurface.createShape(descriptors.defaultShape);
 					createSymbols(descriptors, shape, value);
@@ -83,23 +86,23 @@
 			} else {
 				//picture marker, simple marker
 				if (renSym) {
-					descriptors = jsonUtils.getShapeDescriptors(renSym);
-					mySurface = createSVGSurface(ren, 'featureLayerSymbol' + layerid);
+					descriptors = esriJsonUtilS.getShapeDescriptors(renSym);
+					mySurface = createSVGSurface(ren, node);
 					shape = mySurface.createShape(descriptors.defaultShape);
 					createSymbols(descriptors, shape, ren);
 				}
 			}
 		};
 
-		createSVGSurface = function(renderer, domid) {
+		createSVGSurface = function(renderer, node, domid) {
 			var mySurface,
 				symWidth = renderer.symbol.width,
 				symHeight = renderer.symbol.height;
 
 			if (symWidth && symHeight) {
-				mySurface = gfx.createSurface(dom.byId(domid), symWidth, symHeight);
+				mySurface = gfx.createSurface(node, symWidth, symHeight);
 			} else {
-				mySurface = gfx.createSurface(dom.byId(domid), 30, 30);
+				mySurface = gfx.createSurface(node, 30, 30);
 			}
 
 			return mySurface;
