@@ -17,7 +17,6 @@ var vmArray = {},
 	define(['jquery-private',
 			'magnificpopup',
 			'jqueryui',
-			'esri/config',
 			'gcviz-i18n',
 			'gcviz-func',
 			'gcviz-v-map',
@@ -26,7 +25,7 @@ var vmArray = {},
 			'gcviz-v-footer',
 			'gcviz-v-tbdraw',
 			'gcviz-v-tbnav',
-			'gcviz-v-tblegend'], function($viz, mp, jqui, esriConfig, i18n, func, map, inset, header, footer, tbdraw, tbnav, tblegend) {
+			'gcviz-v-tblegend'], function($viz, mp, jqui, i18n, func, map, inset, header, footer, tbdraw, tbnav, tblegend) {
 		var initialize,
 			readConfig,
 			execConfig,
@@ -44,12 +43,6 @@ var vmArray = {},
 			// extent or private AMD jQuery with the jQuery from outside project to get reference to some dependencies (magnificPopup, jqueryUI, slidesJS)
 			// we need to do this because those libraries are not AMD and use the window.jQuery object to initialize themselves.
 			$viz.extend(true, $viz, $);
-
-			// set proxy for esri request (https://github.com/Esri/resource-proxy)
-			// proxy needs to be in the same domain
-			//esriConfig.defaults.io.proxyUrl = 'http://s-bsc-geoappint.nrn.nrcan.gc.ca/DotNet/proxy.ashx';
-			esriConfig.defaults.io.proxyUrl = 'http://localhost:8888/php/proxy.php';
-			esriConfig.defaults.io.alwaysUseProxy = false;
 
 			// initialize map number and total for the ready event
 			mapsTotal = len;
@@ -107,7 +100,7 @@ var vmArray = {},
 				size = mapframe.size,
 				customLen = config.customwidgets.length;
 
-			// // create section around map. This way we can bind Knockout to the section
+			// create section around map. This way we can bind Knockout to the section
 			$mapElem.wrap('<section id=section' + mapid + ' class="gcviz-section" role="map" style="width:' + size.width + 'px; height:' + size.height + 'px;">');
 			$mapSection = $viz(document).find('#section' + mapid);
 

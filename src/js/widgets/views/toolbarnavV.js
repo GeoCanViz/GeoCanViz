@@ -66,7 +66,7 @@
 				if (configgeolocation.enable) {
 					node += '<span id="divAutoCompleteInstructions' + mapid + '" class="ui-helper-hidden-accessible gcviz-inline" data-bind="text: insKeyboard"></span>';
 					node += '<label class="gcviz-geoloclabel gcviz-inline" for="inGeoLocation" data-bind="text: geoLocLabel"></label>';
-					node += '<input id="inGeoLocation' + mapid + '" class="gcviz-greyTextGeoLoc gcviz-inline gcviz-w140" data-bind="value: geoLocSample, tooltip: { content: geoLocSample }" />';
+					node += '<input id="inGeoLocation' + mapid + '" class="gcviz-greyTextGeoLoc gcviz-inline gcviz-w140" data-bind="value: geoLocSample,, tooltip: { content: geoLocSample }" />';
 				}
 				node += '</div>';
 

@@ -5,122 +5,53 @@
  *
  * GIS geoprocessing functions
  */
-/* global esri: false */
 (function () {
 	'use strict';
 	define(['jquery-private',
-            'gcviz-i18n',
+            'esri/config',
             'esri/tasks/ProjectParameters',
             'esri/tasks/DistanceParameters',
-			'esri/tasks/AreasAndLengthsParameters',
 			'esri/tasks/AreasAndLengthsParameters',
 			'esri/tasks/GeometryService',
 			'esri/SpatialReference',
 			'esri/geometry/Point',
+			'esri/geometry/Extent',
 			'dojo/dom'
-	], function($viz, i18n, esriProj, esriDist, esriArea, esriLengthArea, esriGeom, esriSR, esriPoint, dojoDom) {
-		var getOutSR,
-			getGSVC,
+	], function($viz, esriConfig, esriProj, esriDist, esriArea, esriGeom, esriSR, esriPoint, esriExtent, dojoDom) {
+		var setGeomServ,
+			getOutSR,
 			getCoord,
 			getNorthAngle,
 			measureLength,
 			measureArea,
 			labelPoints,
-			calcDDtoDMS,
-            getNTS,
-            getUTM,
-            getUTMzone,
-			projectPoints,
-			glbGSVC,
-			zoomFullExtent,
 			zoomLocation,
+			projectPoints,
+			getUTMEastNorth,
 			params = new esriProj();
 
-		calcDDtoDMS = function(lati, longi) {
-            var DMS = {},
-				eastWest,
-				latD,
-				latM,
-				latS,
-				longD,
-				longM,
-				longS,
-				northSouth,
-				tmp,
-				latReal = parseFloat(lati),
-				longReal = parseFloat(longi);
-
-            if (latReal < 0.0) {
-                northSouth = 'S';
-                latReal = latReal * -1.0;
-            } else {
-                northSouth = 'N';
-            }
-            latD = parseInt(latReal, 10);
-            tmp = latReal - latD;
-            tmp = tmp * 60.0;
-            latM = parseInt(tmp, 10);
-            tmp = tmp - latM;
-            tmp = tmp * 60;
-            latD = latD.toString();
-            latM = latM.toString();
-            // round lat seconds two 3 decimals
-            latS = (Math.round(tmp * 1000) / 1000).toString();
-            if (longReal < 0.0) {
-                eastWest = i18n.getDict('%west');
-                longReal = longReal * -1.0;
-            } else {
-                eastWest = 'E';
-            }
-            longD = parseInt(longReal, 10);
-            tmp = longReal - longD;
-            tmp = tmp * 60.0;
-            longM = parseInt(tmp, 10);
-            tmp = tmp - longM;
-            tmp = tmp * 60;
-            longD = longD.toString();
-            longM = longM.toString();
-            // round long seconds two 3 decimals
-            longS = (Math.round(tmp * 1000) / 1000).toString();
-            // Put info in object
-            DMS.latD = latD;
-            DMS.latM = latM;
-            DMS.latS = latS;
-            DMS.northSouth = northSouth;
-            DMS.longD = longD;
-            DMS.longM = longM;
-            DMS.longS = longS;
-            DMS.eastWest = eastWest;
-            // return object
-            return DMS;
+		setGeomServ = function(url) {
+			// all function will use this geometry server it is set once
+			// for the map.
+			esriConfig.defaults.io.geometryService = new esriGeom(url);
 		};
 
 		getOutSR = function(wkid) {
 			return new esriSR({ 'wkid': wkid });
 		};
 
-		getGSVC = function(urlgeomserv) {
-			var gsvc = new esriGeom(urlgeomserv);
-
-			// TODO: do we create a global geometry service or one by call? For example
-			// I need one for cluster. Do i crate one, use a global or have one for the entire
-			// project. Depend of the answer, modifications will have to be made.
-			if (typeof glbGSVC === 'undefined') {
-				glbGSVC = gsvc;
-			}
-			return gsvc;
-		};
-
-		getCoord = function(point, div, outSR, gsvc) {
+		getCoord = function(point, div, outSR, lblWest) {
 			var strPointX,
-				strPointY;
+				strPointY,
+				geomServ = esriConfig.defaults.io.geometryService;
+
 			params.geometries = [point];
 			params.outSR = outSR;
 
-			gsvc.project(params, function(projectedPoints) {
+			geomServ.project(params, function(projectedPoints) {
 				point = projectedPoints[0];
 				if (point.x < 0) {
-					strPointX = (-1 * point.x.toFixed(3)).toString() + i18n.getDict('%west');
+					strPointX = (-1 * point.x.toFixed(3)).toString() + lblWest;
 				} else {
 					strPointX = point.x.toFixed(3).toString() + 'E';
 				}
@@ -136,15 +67,16 @@
 			});
 		};
 
-		getNorthAngle = function(extent, div, inwkid, gsvc) {
+		getNorthAngle = function(extent, div, inwkid) {
 			var outSR = new esriSR({ 'wkid': 4326 }),
 				pointB = new esriPoint((extent.xmin + extent.xmax) / 2,
-										extent.ymin, new esriSR({ 'wkid': inwkid }));
+										extent.ymin, new esriSR({ 'wkid': inwkid })),
+				geomServ = esriConfig.defaults.io.geometryService;
 
 			params.geometries = [pointB];
 			params.outSR = outSR;
 
-			gsvc.project(params, function(projectedPoints) {
+			geomServ.project(params, function(projectedPoints) {
 				var pointA = { x: -100, y: 90 },
 					dLon,
 					lat1,
@@ -173,10 +105,8 @@
 		measureLength = function(array, unit, success) {
 			var distUnit,
 				distParams = new esriDist(),
-				len = array.length;
-
-			// TODO remove when we have the global one!
-			var gserv = new esriGeom('http://geoappext.nrcan.gc.ca/arcgis/rest/services/Utilities/Geometry/GeometryServer');
+				len = array.length,
+				geomServ = esriConfig.defaults.io.geometryService;
 
 			if (unit === 'km') {
 				distUnit = esriGeom.UNIT_KILOMETER;
@@ -189,7 +119,7 @@
 			distParams.geometry2 = array[len - 2];
 			distParams.geodesic = true;
 
-			gserv.distance(distParams, function(distance) {
+			geomServ.distance(distParams, function(distance) {
 				// keep 2 decimals
 				array[len - 1].distance = Math.floor(distance * 100) / 100;
 				success(array, unit);
@@ -198,10 +128,8 @@
 
 		measureArea = function(poly, unit, success) {
 			var areaUnit, distUnit,
-				areaParams = new esriArea();
-
-			// TODO remove when we have the global one!
-			var gserv = new esriGeom('http://geoappext.nrcan.gc.ca/arcgis/rest/services/Utilities/Geometry/GeometryServer');
+				areaParams = new esriArea(),
+				geomServ = esriConfig.defaults.io.geometryService;
 
 			if (unit === 'km') {
 				areaUnit = esriGeom.UNIT_SQUARE_KILOMETERS;
@@ -215,86 +143,52 @@
 			areaParams.lengthUnit = distUnit;
 			areaParams.calculationType = 'preserveShape';
 
-			gserv.simplify([poly], function(simplifiedGeometries) {
+			geomServ.simplify([poly], function(simplifiedGeometries) {
 				areaParams.polygons = simplifiedGeometries;
-				gserv.areasAndLengths(areaParams, function(areas) {
+				geomServ.areasAndLengths(areaParams, function(areas) {
 					success(areaParams.polygons[0], areas, unit);
 				});
 			});
 		};
 
 		labelPoints = function(poly, info, success) {
+			var geomServ = esriConfig.defaults.io.geometryService;
 
-			// TODO remove when we have the global one!
-			var gserv = new esriGeom('http://geoappext.nrcan.gc.ca/arcgis/rest/services/Utilities/Geometry/GeometryServer');
-
-			gserv.simplify([poly], function(simplifiedGeometries) {
-				gserv.labelPoints(simplifiedGeometries, function(labelPoints) {
+			geomServ.simplify([poly], function(simplifiedGeometries) {
+				geomServ.labelPoints(simplifiedGeometries, function(labelPoints) {
 					success(labelPoints, info);
 				});
 			});
 		};
 
-        getNTS = function(lati, longi) {
-            var urlNTS = i18n.getDict('%gisurlnts'),
-				def = $viz.Deferred(); // Use a deferred object to call the service
-
-            urlNTS += longi + ',' + lati + ',' + longi + ',' + lati;
-            $viz.getJSON(urlNTS).done(function(data){
-                def.resolve({
-                    nts:data.features[0].properties.identifier + ' - ' + data.features[0].properties.name
-                });
-            });
-            // return the deferred object for listening
-            return def;
-        };
-
-        getUTMzone = function(lati, longi) {
-            var urlUTM = i18n.getDict('%gisurlutm'),
-				def = $viz.Deferred(); // Use a deferred object to call the service
-
-            urlUTM += longi + ',' + lati + ',' + longi + ',' + lati;
-            $viz.getJSON(urlUTM).done(function(data){
-                def.resolve({
-                    zone:data.features[0].properties.identifier
-                });
-            });
-            // return the deferred object for listening
-            return def;
-        };
-
-		zoomFullExtent = function(mymap) {
-			mymap.setExtent(mymap.vFullExtent, mymap.spatialReference.wkid);
-		};
-
-		zoomLocation = function(minx, miny, maxx, maxy, mymap, urlgeomserv) {
-            var inSR = new esri.SpatialReference({ 'wkid': 4326 }),
-				outSR = new esri.SpatialReference({ 'wkid': mymap.spatialReference.wkid }),
-				extent = new esri.geometry.Extent(),
-				geometryService = getGSVC(urlgeomserv),
-				inputpoint1 = new esri.geometry.Point(minx, miny, inSR),
-				inputpoint2 = new esri.geometry.Point(maxx, maxy, inSR),
+		zoomLocation = function(minx, miny, maxx, maxy, mymap, outSR) {
+            var inSR = new esriSR({ 'wkid': 4326 }),
+				extent = new esriExtent(),
+				inputpoint1 = new esriPoint(minx, miny, inSR),
+				inputpoint2 = new esriPoint(maxx, maxy, inSR),
 				geom = [inputpoint1, inputpoint2],
-				prjParams = new esri.tasks.ProjectParameters();
+				geomServ = esriConfig.defaults.io.geometryService;
 
-            prjParams.geometries = geom;
-            prjParams.outSR = outSR;
-            prjParams.transformation = 'Default';
+            params.geometries = geom;
+            params.outSR = outSR;
+            params.transformation = 'Default';
+
             // Transform the lat/long extent to map coordinates
-            geometryService.project(prjParams, function(projectedPoints) {
-                extent = new esri.geometry.Extent(projectedPoints[0].x, projectedPoints[0].y, projectedPoints[1].x, projectedPoints[1].y, outSR);
+            geomServ.project(params, function(projectedPoints) {
+				var pt1 = projectedPoints[0],
+					pt2 = projectedPoints[1];
+				extent = new esriExtent(pt1.x, pt1.y, pt2.x, pt2.y, outSR);
                 mymap.setExtent(extent, true);
             });
 		};
 
 		projectPoints = function(points, outwkid, success) {
+			var geomServ = esriConfig.defaults.io.geometryService;
+
 			params.geometries = points;
 			params.outSR = new esriSR({ 'wkid': outwkid });
 
-			// TODO remove when we have the global one!
-			var gserv = new esriGeom('http://geoappext.nrcan.gc.ca/arcgis/rest/services/Utilities/Geometry/GeometryServer');
-
-			gserv.project(params, function(projectedPoints) {
+			geomServ.project(params, function(projectedPoints) {
 				var geom = params.geometries,
 					len = geom.length;
 
@@ -306,21 +200,37 @@
 			});
 		};
 
+		getUTMEastNorth = function(lati, longi, utmZone, spnUTMeast, spnUTMnorth) {
+			// Get the UTM easting/northing information using a geometry service
+			var geomServ = esriConfig.defaults.io.geometryService,
+				inSR = new esriSR({ 'wkid': 4326 }),
+				outUTM = '326' + utmZone,
+				outWkid = parseInt(outUTM, 10),
+				outSR = new esriSR({ 'wkid': outWkid }),
+				inputpoint = new esriPoint(parseFloat(longi), parseFloat(lati), inSR);
+
+			params.geometries = [inputpoint];
+			params.outSR = outSR;
+			params.transformation = 'Default';
+
+			// Transform the lat/long extent to map coordinates
+			geomServ.project(params, function(projectedPoints) {
+				spnUTMeast(' ' + Math.round(projectedPoints[0].x));
+				spnUTMnorth(' ' + Math.round(projectedPoints[0].y));
+			});
+		};
+
 		return {
-            calcDDtoDMS: calcDDtoDMS,
+			setGeomServ: setGeomServ,
 			getOutSR: getOutSR,
-			getGSVC: getGSVC,
 			getCoord: getCoord,
 			getNorthAngle: getNorthAngle,
 			measureLength: measureLength,
 			measureArea: measureArea,
 			labelPoints: labelPoints,
-            getNTS: getNTS,
-            getUTM: getUTM,
-            getUTMzone: getUTMzone,
-            zoomFullExtent: zoomFullExtent,
             zoomLocation: zoomLocation,
-			projectPoints: projectPoints
+			projectPoints: projectPoints,
+			getUTMEastNorth: getUTMEastNorth
 		};
 	});
 }());

@@ -9,8 +9,9 @@
 	'use strict';
 	define(['jquery-private',
 			'knockout',
-			'gcviz-gismap'
-	], function($viz, ko, gisM) {
+			'gcviz-gismap',
+			'gcviz-gisgeo'
+	], function($viz, ko, gisM, gisGeo) {
 		var initialize,
 			vm;
 
@@ -31,6 +32,12 @@
 						$map = $viz('#' + mapid + '_holder'),
 						$root,
 						$container;
+
+					// set proxy for esri request (https://github.com/Esri/resource-proxy)
+					gisM.setProxy(config.urlproxy);
+
+					// set the geometry server url
+					gisGeo.setGeomServ(config.urlgeomserv);
 
 					// keep reference for map holder
 					_self.mapholder = $map;
