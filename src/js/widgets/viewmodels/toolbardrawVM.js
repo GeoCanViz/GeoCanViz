@@ -151,6 +151,7 @@
 					// Set color here to avoid overrides
 					setTimeout(function() {
 						_self.selectedColor('black');
+						_self.selectColorClick('black');
 					}, 1000);
 
 					return { controlsDescendantBindings: true };

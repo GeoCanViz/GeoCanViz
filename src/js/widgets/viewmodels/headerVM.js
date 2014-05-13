@@ -79,7 +79,7 @@
 
 				// Determine the position of the icons
 				if (config.fullscreen) {
-					_self.positionHelp += 35;
+					_self.positionHelp += 34;
 					_self.positionAbout += 35;
 					_self.positionInset += 35;
 					_self.positionLink += 35;
@@ -87,29 +87,29 @@
 					_self.positionPrint += 35;
 				}
 				if (config.print.enable) {
-					_self.positionHelp += 35;
+					_self.positionHelp += 34;
 					_self.positionAbout += 35;
 					_self.positionInset += 35;
 					_self.positionLink += 35;
 					_self.positionTools += 35;
 				}
 				if (config.tools) {
-					_self.positionHelp += 35;
+					_self.positionHelp += 34;
 					_self.positionAbout += 35;
 					_self.positionInset += 35;
 					_self.positionLink += 35;
 				}
 				if (config.link.enable) {
-					_self.positionHelp += 35;
+					_self.positionHelp += 34;
 					_self.positionAbout += 35;
 					_self.positionInset += 35;
 				}
 				if (config.inset) {
-					_self.positionHelp += 35;
+					_self.positionHelp += 34;
 					_self.positionAbout += 35;
 				}
 				if (config.about.enable) {
-					_self.positionHelp += 35;
+					_self.positionHelp += 34;
 				}
 				_self.xpositionHelp('right:' + _self.positionHelp.toString() + 'px!important');
 				_self.xpositionAbout('right:' + _self.positionAbout.toString() + 'px!important');
