@@ -94,6 +94,8 @@ $one_col: (100% - ($gutter * ($cols - 1))) / $cols;
   @include background-image(-webkit-radial-gradient(center, circle closest-corner, $disabled-light 0%, $disabled-strong 100%)); /* Webkit (Chrome 11+) */
   @include background-image(radial-gradient(circle closest-corner at center, $disabled-light 0%, $disabled-strong 100%)); /* W3C Markup, IE10 Release Preview */
   background-color: $tb-light; // old browsers
+  cursor: not-allowed!important;
+  opacity: 0.65;
 }
 
 @mixin content-border-radius($radius: 0.5, $moz: true, $webkit: true, $ms: true, $o: true) {
