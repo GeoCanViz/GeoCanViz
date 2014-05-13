@@ -14,6 +14,7 @@
 			'dijit/PopupMenuItem',
             'gcviz-gislegend',
             'gcviz-giscluster',
+            'esri/config',
 			'esri/map',
 			'esri/layers/FeatureLayer',
 			'esri/layers/ArcGISTiledMapServiceLayer',
@@ -24,8 +25,9 @@
 			'esri/layers/WMSLayerInfo',
 			'esri/geometry/Extent',
             'esri/geometry/Point'
-	], function(kpan, func, menu, menuItem, menupopup, gisLegend, gisCluster, esriMap, esriFL, esriTiled, esriDyna, esriImage, webTiled, wms, wmsInfo, esriExt, esriPoint) {
+	], function(kpan, func, menu, menuItem, menupopup, gisLegend, gisCluster, esriConfig, esriMap, esriFL, esriTiled, esriDyna, esriImage, webTiled, wms, wmsInfo, esriExt, esriPoint) {
 		var mapArray = {},
+			setProxy,
 			createMap,
 			createInset,
 			applyLink,
@@ -53,6 +55,14 @@
 			isFullscreen,
 			linkCount,
 			noLink = false;
+
+		setProxy = function(url) {
+			// set proxy for esri request (https://github.com/Esri/resource-proxy)
+			// proxy needs to be in the same domain
+			//esriConfig.defaults.io.proxyUrl = 'http://s-bsc-geoappint.nrn.nrcan.gc.ca/DotNet/proxy.ashx';
+			esriConfig.defaults.io.proxyUrl = url;
+			esriConfig.defaults.io.alwaysUseProxy = false;
+		};
 
         createMap = function(id, config) {
             var iExtent = config.extentinit,
@@ -133,11 +143,12 @@
             });
 
             //LM
+            // TODO remove because now everything is in config file
             map.on('layer-add-result', function(e) {
                 //no renderer for tiles map services
                 var layer = e.layer;
                 if (layer.renderer) {
-                    gisLegend.getFeatureLayerSymbol(layer);
+                    //gisLegend.getFeatureLayerSymbol(layer);
                 }
             });
 
@@ -289,6 +300,10 @@
 				type = layerInfo.type;
 
 			if (type === 1) {
+				// TODO add WMTS functions
+			} else if (type === 2) {
+				layer = new esriTiled(layerInfo.url, { 'id': layerInfo.id });
+			} else if (type === 3) {
 				options = layerInfo.options;
 				resourceInfo = {
 					extent: map.extent,
@@ -299,10 +314,6 @@
 					resourceInfo: resourceInfo,
 					visibleLayers: options.visiblelayers
 				});
-			} else if (type === 2) {
-
-			} else if (type === 3) {
-				layer = new esriTiled(layerInfo.url, { 'id': layerInfo.id });
 			} else if (type === 4) {
 				layer = new esriDyna(layerInfo.url, { 'id': layerInfo.id });
 			} else if (type === 5) {
@@ -482,6 +493,7 @@
 		};
 
 		return {
+			setProxy: setProxy,
 			createMap: createMap,
 			createInset: createInset,
 			addLayer: addLayer,

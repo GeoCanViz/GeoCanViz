@@ -213,6 +213,10 @@
 				location: locationPath + 'gcviz/js/gistasks',
 				main: 'gisGeoprocessing-min'
 			}, {
+				name: 'gcviz-gisnav',
+				location: locationPath + 'gcviz/js/gistasks',
+				main: 'gisNavigation-min'
+			}, {
 				name: 'gcviz-gisgraphic',
 				location: locationPath + 'gcviz/js/gistasks',
 				main: 'gisGraphic-min'

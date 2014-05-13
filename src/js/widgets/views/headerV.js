@@ -42,7 +42,7 @@
 					if (config.inset) {
 						node += '  <li id="inset" data-bind="click: insetClick, tooltip: { content: tpInset }, attr: { style: xpositionInset }"></li>';
 					}
-					if (config.link.enable) {
+					if (config.link) {
 						node += '  <li id="link" data-bind="click: insetClick, tooltip: { content: tpInset }, attr: { style: xpositionLink }"></li>';
 					}
 					// add tools button

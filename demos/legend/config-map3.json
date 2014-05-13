@@ -136,7 +136,7 @@
                 "link": false,
                 "bases": [{
                     "id": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/BaseMaps/CBCT3978/MapServer",
-                    "type": 3,
+                    "type": 2,
                     "category": "base",
                     "url": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/BaseMaps/CBCT3978/MapServer"
                 }],

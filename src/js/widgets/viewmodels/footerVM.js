@@ -30,13 +30,13 @@
                 _self.imgLogoPNG = pathGCVizPNG;
                 _self.urlLogo = i18n.getDict('%footer-urlgcvizrepo');
                 _self.urlLogoAlt = i18n.getDict('%footer-tpgithub');
+                _self.lblWest = i18n.getDict('%west');
 
 				// Tooltips
 				_self.tpNorth = i18n.getDict('%footer-tpNorth');
 
-				// geoprocessing and projection objects
+				// projection objects
 				_self.outSR = gisGeo.getOutSR(configMouse.outwkid);
-				_self.gsvc = gisGeo.getGSVC(config.urlgeomserv);
 
 				_self.init = function() {
 					var mymap = vmArray[mapid].map.map;
@@ -61,11 +61,11 @@
 				};
 
 				_self.showCoordinates = function(evt, div) {
-					gisGeo.getCoord(evt.mapPoint, div, _self.outSR, _self.gsvc);
+					gisGeo.getCoord(evt.mapPoint, div, _self.outSR, _self.lblWest);
 				};
 
 				_self.showNorthArrow = function(evt, div, inwkid) {
-					gisGeo.getNorthAngle(evt.extent, div, inwkid, _self.gsvc);
+					gisGeo.getNorthAngle(evt.extent, div, inwkid);
 				};
 
 				_self.init();

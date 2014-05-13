@@ -12,45 +12,30 @@
 	define(['jquery-private',
             'knockout',
 			'gcviz-i18n',
-			'gcviz-func',
             'gcviz-gisgeo',
-            'gcviz-gismap',
-			'esri/dijit/OverviewMap',
-			'esri/dijit/Scalebar',
-            'dojo/dom'
-	], function($viz, ko, i18n, gcvizfunc, gisgeo, gismap, ov, sb, dom) {
+            'gcviz-gisnav'
+	], function($viz, ko, i18n, gisgeo, gisnav) {
 		var initialize,
+			calcDDtoDMS,
+			getDMS,
 			vm;
 
 		initialize = function($mapElem, mapid, config) {
 
-            var autoCompleteArray = [ {minx:0,miny:0,maxx:0,maxy:0,title:'ddd'} ];
-
 			// data model				
 			var toolbarnavViewModel = function($mapElem, mapid) {
 				var _self = this,
-					configoverview = config.overview,
-					configoverviewtype = configoverview.type,
-					configoverviewurl = config.overview.url,
-					configscalebar = config.scalebar,
-                    defaultAutoComplText = i18n.getDict('%toolbarnav-geolocsample'),
-                    eventHandler, clickPosition,
-                    eventCount = 0,
+					overview = config.overview,
+					scalebar = config.scalebar,
+                    clickPosition, escPosition,
                     inMapField = $viz('#inGeoLocation' + mapid),
-					itemCount = 0,
-					loctype = '',
-					maxy,
-					maxx,
-					minx,
-					miny,
+                    infoWindow = $viz('#divGetLocResults' + mapid),
+                    btnClickMap = $viz('#btnClickMap' + mapid),
 					mymap = vmArray[mapid].map.map,
-					elem = document.getElementById(mymap.vIdName + '_holder'),
                     pathExtent = locationPath + 'gcviz/images/navFullExtent.png',
                     pathMagnify = locationPath + 'gcviz/images/navMagnify.png',
                     pathPosition = locationPath + 'gcviz/images/getInfo.png',
-					txtLabel,
-					valItem,
-					selItemNum;
+                    autoCompleteArray = [ { minx: 0 , miny: 0, maxx: 0, maxy: 0, title: 'ddd' } ];
 
 				// images path
 				_self.imgExtent = ko.observable(pathExtent);
@@ -62,7 +47,6 @@
                 _self.close = i18n.getDict('%close');
                 _self.cursorTarget = i18n.getDict('%cursor-target');
                 _self.geoLocLabel = i18n.getDict('%toolbarnav-geoloclabel');
-                _self.geoLocSample = i18n.getDict('%toolbarnav-geolocsample');
                 _self.geoLocUrl = i18n.getDict('%gisurllocate');
                 _self.info = i18n.getDict('%toolbarnav-info');
                 _self.infoAltitude = i18n.getDict('%toolbarnav-infoaltitude');
@@ -87,6 +71,11 @@
                 _self.tpMagnify = i18n.getDict('%toolbarnav-magnify');
                 _self.tpOverview = i18n.getDict('%toolbarnav-ovdrag');
                 _self.tpZoomFull = i18n.getDict('%toolbarnav-zoomfull');
+                _self.lblWest = i18n.getDict('%west');
+
+				// autocomplete default
+				_self.defaultAutoComplText = i18n.getDict('%toolbarnav-geolocsample');
+				_self.geoLocSample = i18n.getDict('%toolbarnav-geolocsample');
 
                 // Observables
                 _self.infoLatDD = ko.observable();
@@ -100,58 +89,24 @@
                 _self.spnUTMeast = ko.observable();
                 _self.spnUTMnorth = ko.observable();
 
-                _self.opencloseToolsState = false;
+				// url for position info box
+				_self.urlNTS = i18n.getDict('%gisurlnts');
+				_self.urlUTM = i18n.getDict('%gisurlutm');
+
+				// projection objects
+				_self.outSR = gisgeo.getOutSR(config.mapwkid);
 
 				_self.init = function() {
                     _self.theAutoCompleteArray = ko.observableArray(autoCompleteArray);
 
                     // See if user wanted an overview map. If so, initialize it here
-                    if (configoverview.enable) {
-                        var overviewMapDijit,
-							bLayer = null,
-							ovDiv = dom.byId('divOverviewMap' + mapid);
-
-						bLayer = gismap.getOverviewLayer(configoverviewtype, configoverviewurl);
-                        // If no layer specified, use the main map
-                        if (bLayer === null) {
-                            overviewMapDijit = new esri.dijit.OverviewMap(
-                                { map: mymap,
-                                expandFactor: 2,
-                                height: 100,
-                                width: 247 },
-                                ovDiv);
-                        } else {
-                            overviewMapDijit = new esri.dijit.OverviewMap(
-                                { map: mymap,
-                                expandFactor: 2,
-                                baseLayer: bLayer,
-                                height: 100,
-                                width: 247 },
-                                ovDiv);
-                        }
-                        setTimeout(function(){
-							overviewMapDijit.startup();
-                            var divOV = $viz('#divOverviewMap' + mapid + '-map');
-                            divOV.width(247).height(100);
-                            overviewMapDijit.resize();
-                       }, 3000);
+                    if (overview.enable) {
+                       gisnav.setOverview(mymap, overview);
                     }
 
                     // See if user wanted a scalebar. If so, initialize it here
-                    if (configscalebar.enable) {
-						var sbMapDijit,
-							units,
-							ovSB = dom.byId('divScalebar' + mapid);
-
-						if (configscalebar.unit === 1) { units = 'metric'; }
-						else if (configscalebar.unit === 2) { units = 'english'; }
-						sbMapDijit = new esri.dijit.Scalebar(
-                               { map: mymap,
-                                scalebarStyle: 'line',
-                                scalebarUnit: units,
-                                height: 25,
-                                width: 200 },
-                                ovSB);
+                    if (scalebar.enable) {
+						gisnav.setScaleBar(mymap, scalebar);
                     }
 
 					return { controlsDescendantBindings: true };
@@ -163,6 +118,7 @@
 						inMapField.val('');
 					}
 				});
+
 				// Set the input field has an autocomplete field and define the source and events for it
 				inMapField.autocomplete({
 					source: function(request, response) {
@@ -172,58 +128,45 @@
 							data: {
 								q: request.term + '*'
 							},
-							focus: function() {
-								if (inMapField.val() === defaultAutoComplText) {
-									inMapField.val('');
-								}
-							},
 							success: function(data) {
 								response($viz.map(data, function(item) {
-									switch (item.type) {
-										case 'ca.gc.nrcan.geoloc.data.model.PostalCode':
-										case 'ca.gc.nrcan.geoloc.data.model.Intersection':
-											// Convert the lat/long to a bbox with 2km width
-											// 2km = 0.01799856 degrees
-											miny = item.geometry.coordinates[1] - 0.01799856;
-											maxy = item.geometry.coordinates[1] + 0.01799856;
-											minx = item.geometry.coordinates[0] - 0.01799856;
-											maxx = item.geometry.coordinates[0] + 0.01799856;
-											txtLabel = item.title;
-											valItem = item.title;
-											itemCount++;
-											autoCompleteArray[itemCount] = { minx:minx,miny:miny,maxx:maxx,maxy:maxy,title:item.title };
-											selItemNum = itemCount;
-											break;
-										default:
-											switch (item.qualifier){
-												case 'LOCATION':
-													miny = item.bbox[1];
-													maxy = item.bbox[3];
-													minx = item.bbox[0];
-													maxx = item.bbox[2];
-													break;
-												case 'INTERPOLATED_CENTROID':
-												case 'INTERPOLATED_POSITION':
-													// Convert the lat/long to a bbox with 2km width
-													// 2km = 0.01799856 degrees
-													miny = item.geometry.coordinates[1] - 0.01799856;
-													maxy = item.geometry.coordinates[1] + 0.01799856;
-													minx = item.geometry.coordinates[0] - 0.01799856;
-													maxx = item.geometry.coordinates[0] + 0.01799856;
-													break;
-												}
-											txtLabel = item.title;
-											valItem = item.title;
-											itemCount++;
-											autoCompleteArray[itemCount] = { minx: minx,miny: miny,maxx: maxx,maxy: maxy,title: item.title };
-											selItemNum = itemCount;
-											break;
+									var geom, pt1, pt2,
+										miny, maxy, minx, maxx,
+										txtLabel, valItem,
+										type = item.type,
+										qualifier = item.qualifier,
+										bufVal = 0.01799856; // 2km = 0.01799856 degrees
+
+									if (type === 'ca.gc.nrcan.geoloc.data.model.PostalCode' || type === 'ca.gc.nrcan.geoloc.data.model.Intersection' || qualifier === 'INTERPOLATED_POSITION') {
+										// Convert the lat/long to a bbox with 2km width
+										geom = item.geometry.coordinates;
+										pt1 = geom[1];
+										pt2 = geom[0];
+										miny = pt1 - bufVal;
+										maxy = pt1 + bufVal;
+										minx = pt2 - bufVal;
+										maxx = pt2 + bufVal;
+									} else {
+										if (qualifier === 'LOCATION') {
+											geom = item.bbox;
+											miny = geom[1];
+											maxy = geom[3];
+											minx = geom[0];
+											maxx = geom[2];
+										} else if (qualifier === 'INTERPOLATED_CENTROID') {
+											// TODO add code for this value. If not required, remove.
 										}
-										return {
-											label: txtLabel,
-											value: valItem
-										};
-									}));
+									}
+
+									txtLabel = item.title;
+									valItem = item.title;
+									autoCompleteArray.push({ minx: minx, miny: miny, maxx: maxx, maxy: maxy, title: item.title });
+
+									return {
+										label: txtLabel,
+										value: valItem
+									};
+								}));
 							}
 						});
 					},
@@ -233,12 +176,12 @@
 						for (var i=0; i<autoCompleteArray.length; i++) {
 							var acai = autoCompleteArray[i];
 							if (ui.item.label === acai.title) {
-								gisgeo.zoomLocation(acai.minx, acai.miny, acai.maxx, acai.maxy, mymap, config.urlgeomserv);
+								gisgeo.zoomLocation(acai.minx, acai.miny, acai.maxx, acai.maxy, mymap, _self.outSR);
 							}
 						}
 						// Reset the array
-						autoCompleteArray = [{ minx: 0,miny: 0,maxx: 0,maxy: 0,title: 'ddd' }];
-						itemCount = 0;
+						autoCompleteArray = [{ minx: 0, miny: 0, maxx: 0, maxy: 0, title: 'ddd' }];
+
 						// Put focus back on input field
 						inMapField.focus();
 					},
@@ -252,19 +195,52 @@
 				});
 
 				_self.extentClick = function() {
-					elem.focus();
-					gisgeo.zoomFullExtent(mymap);
-					setTimeout(function() {
-						elem.blur();
-					}, 2000);
-                    $viz('#btnFullExtent' + mapid).focus();
-                    return true;
+					gisnav.zoomFullExtent(mymap);
 				};
 
-                _self.infoClick = function() {
-                    elem.focus();
-                    // Define the dialog window
-                    $viz( '#divGetLocInfo' + mapid ).dialog({
+                _self.getMapClick = function() {
+                    vmArray[mapid].header.toolsClick();
+
+                    // Set the cursor
+                    mymap.setMapCursor(_self.cursorTarget);
+
+					escPosition = mymap.on('key-down', function(keyargs) {
+						// Capture an escape while on the map
+						if (keyargs.keyCode === 27) {
+							mymap.setMapCursor('default');
+
+							// Open the toolbars
+							vmArray[mapid].header.toolsClick();
+							btnClickMap.focus();
+
+							// remove click and esc event
+							clickPosition.remove();
+							escPosition.remove();
+						}
+					});
+
+                    // Get user to click on map and capture event
+                    clickPosition = mymap.on('click', function(event) {
+						gisgeo.projectPoints([event.mapPoint], 4326, _self.displayInfo);
+                    });
+                };
+
+                _self.displayInfo = function(outPoint) {
+                    var DMS, alti,
+						utmZone = '',
+						lati = outPoint[0].y,
+						longi = outPoint[0].x,
+						urlAlti = _self.infoAltitudeUrl + 'lat=' + lati + '&lon=' +  longi;
+
+					// Reset cursor
+                    mymap.setMapCursor('default');
+
+					// remove click and esc event
+                    clickPosition.remove();
+                    escPosition.remove();
+
+                    // Define the results dialog
+                    infoWindow.dialog({
                         autoOpen: false,
                         closeText: _self.close,
                         modal: true,
@@ -278,165 +254,52 @@
                             effect: 'fade',
                             duration: 500
                         },
-                        buttons: [
-                            {
-                                text: _self.cancel,
-                                title: _self.cancel,
-                                click: function() {
-                                    $viz(this).dialog('close');
-                                }
-                            }
-                        ]
-                    });
-                    // Show the dialog window
-                    $viz('#divGetLocInfo' + mapid).dialog('open');
-                    return true;
-                };
-
-                _self.getMapClick = function() {
-                    loctype = 'map';
-                    vmArray[mapid].header.toolsClick();
-                    // Set the cursor
-                    mymap.setMapCursor(_self.cursorTarget);
-                    if (eventCount === 0) {
-						eventCount++;
-						mymap.on('key-down', function(keyargs) {
-							// Capture an escape while on the map
-							if (keyargs.keyCode === 27) {
-								mymap.setMapCursor('default');
-								// Open the toolbars
-								vmArray[mapid].header.toolsClick();
-								$viz('#btnClickMap' + mapid).focus();
-							}
-						});
-                    } else {
-						// Reset if not first time
-						mymap.on('key-down', null);
-						eventCount = 0;
-                    }
-                    // Get user to click on map and capture event
-                    clickPosition = mymap.on('click', _self.getMapPoint);
-                };
-
-                _self.getMapPoint = function(event) {
-                    // Get results
-                    var x = event.mapPoint.x,
-						y = event.mapPoint.y,
-						mymap = vmArray[mapid].map.map,
-						geomServ = new esri.tasks.GeometryService(config.urlgeomserv),
-						inSR = mymap.spatialReference,
-						outSR = new esri.SpatialReference({ 'wkid': 4326 }),
-						prjParams = new esri.tasks.ProjectParameters(),
-						inPoint = new esri.geometry.Point(x, y, inSR),
-						geom = [inPoint];
-
-                    // Convert to lat/long
-                    prjParams.geometries = geom;
-                    prjParams.outSR = outSR;
-                    prjParams.transformation = 'Default';
-                    eventHandler = geomServ.project(prjParams, _self.projectDone);
-
-                    // remove click event
-                    clickPosition.remove();
-                };
-
-                _self.projectDone = function(outPoint) {
-                    var lati = outPoint[0].y;
-                    var longi = outPoint[0].x;
-                    // Reset cursor
-                    mymap.setMapCursor('default');
-                    // Display information
-                    _self.displayInfo(lati, longi, config);
-                };
-
-                _self.displayInfo = function(lati, longi, config) {
-                    var alti = '',
-						DMS,
-						geom,
-						geometryService = gisgeo.getGSVC(config.urlgeomserv),
-						inputpoint,
-						inSR,
-						outSR,
-						prjParams,
-						tmp,
-						urlAlti = _self.infoAltitudeUrl,
-						utmZone = '';
-
-                    // Define the results dialog
-                    $viz('#divGetLocResults' + mapid).dialog({
-                        autoOpen: false,
-                        closeText: _self.close,
-                        modal: true,
-                        title: _self.close,
-                        width: 400,
-                        show: {
-                            effect: 'fade',
-                            duration: 700
-                        },
-                        hide: {
-                            effect: 'fade',
-                            duration: 500
-                        },
 						close: function() {
-                                    $viz(this).dialog('close');
-									// Reopen the toolbars
+                                    // Reopen the toolbars
 									vmArray[mapid].header.toolsClick();
-									setTimeout(function() { $viz('#btnClickMap' + mapid).focus(); }, 1000);
+									setTimeout(function() {
+										btnClickMap.focus();
+									}, 1000);
                                 },
                         buttons: [
                             {
-                                text: i18n.getDict('%close'),
-                                title: i18n.getDict('%close'),
+                                text: _self.close,
+                                title: _self.close,
                                 click: function() {
                                     $viz(this).dialog('close');
-                                    setTimeout(function() { $viz('#btnClickMap' + mapid).focus(); }, 1000);
                                 }
                             }
                         ]
                     });
                     // Show results
-                    $viz('#divGetLocResults' + mapid).dialog('open');
+                    infoWindow.dialog('open');
 
                     // Get lat/long in DD
                     _self.infoLatDD(' ' + lati);
                     _self.infoLongDD(' ' + longi);
 
                     // Calculate lat/long in DMS
-                    DMS = gisgeo.calcDDtoDMS(lati, longi);
-                    _self.infoLatDMS(' ' + DMS.latD + '° ' + DMS.latM + '\' ' + DMS.latS + '\" ' + DMS.northSouth);
-                    _self.infoLongDMS(' ' + DMS.longD + '° ' + DMS.longM + '\' ' + DMS.longS + '\" ' + DMS.eastWest);
+                    DMS = calcDDtoDMS(lati, longi, _self.lblWest);
+                    _self.infoLatDMS(' ' + DMS.latitude.format);
+                    _self.infoLongDMS(' ' + DMS.longitude.format);
 
                     // Get the NTS location using a deferred objec and listen for completion
-                    gisgeo.getNTS(lati, longi)
+                    gisnav.getNTS(lati, longi, _self.urlNTS)
                         .done(function(data) {
                             _self.spnNTS(data.nts);
-                        });
+					});
 
                     // Get the UTM zone information using a deferred objec and listen for completion
-                    gisgeo.getUTMzone(lati, longi)
+                    gisnav.getUTMzone(lati, longi, _self.urlUTM)
                         .done(function(data) {
                             utmZone = data.zone;
                             _self.spnUTMzone(utmZone);
-                            // Get the UTM easting/northing information using a geometry service
-                            inSR = new esri.SpatialReference({ 'wkid': 4326 });
-                            tmp = '326' + utmZone;
-                            tmp = parseInt(tmp, 10);
-                            outSR = new esri.SpatialReference({ 'wkid': tmp });
-                            // Transform the lat/long extent to map coordinates
-                            inputpoint = new esri.geometry.Point(parseFloat(longi), parseFloat(lati), inSR);
-                            geom = [inputpoint];
-                            prjParams = new esri.tasks.ProjectParameters();
-                            prjParams.geometries = geom;
-                            prjParams.outSR = outSR;
-                            prjParams.transformation = 'Default';
-                            geometryService.project(prjParams, function(projectedPoints) {
-                                _self.spnUTMeast(' ' + Math.round(projectedPoints[0].x));
-                                _self.spnUTMnorth(' ' + Math.round(projectedPoints[0].y));
-                            });
+
+                           gisgeo.getUTMEastNorth(lati, longi, utmZone, _self.spnUTMeast, _self.spnUTMnorth);
                         });
 
                     // Get the altitude
-                    urlAlti += 'lat=' + lati + '&lon=' +  longi;
+
                     $viz.getJSON(urlAlti,
                         function(data) {
                            alti = '0';
@@ -455,7 +318,48 @@
 			return vm;
 		};
 
+		calcDDtoDMS = function(lati, longi, lblWest) {
+            var DMS = {},
+				nswe,
+				latReal = parseFloat(lati),
+				longReal = parseFloat(longi);
+
+			// set latitude
+            if (latReal < 0.0) {
+                nswe = 'S';
+                latReal = latReal * -1.0;
+            } else {
+                nswe = 'N';
+            }
+            DMS.latitude = getDMS(latReal, nswe);
+
+			// set longitude
+            if (longReal < 0.0) {
+                nswe = lblWest;
+                longReal = longReal * -1.0;
+            } else {
+                nswe = 'E';
+            }
+
+			DMS.longitude = getDMS(longReal, nswe);
+
+            return DMS;
+		};
+
+		getDMS = function(val, nsew) {
+			var deg = parseInt(val, 10),
+				tmp = (val - deg) * 60,
+				min = parseInt(tmp, 10),
+				sec = Math.round(((tmp - min) * 60) * 1000) / 1000,
+				out = { d: deg,
+						m: min,
+						s: sec,
+						format: deg + '° ' + min + '\' ' + sec + '\" ' + nsew };
+			return out;
+		};
+
 		return {
-			initialize: initialize		};
+			initialize: initialize
+		};
 	});
 }).call(this);
