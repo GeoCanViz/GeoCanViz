@@ -33,21 +33,22 @@
 
 			//template for recursive item loading
 			itemsTemplate = '<script id="itemsTmpl" type="text/html">';
-				itemsTemplate += '<li class="gcviz-legendLiLayer" data-bind="LegendItemList: { expanded: expand }, click: $root.toggleViewService">';
-					itemsTemplate += '<div class="gcviz-legendHolderDiv" data-bind="if: visibility.enable && visibility.type === 1"><input class="gcviz-legendCheck" type="checkbox" data-bind="click: $root.changeItemsVisibility, attr: { title: $root.tpVisible, id: \'checkbox\' + id }, checked: visibility.initstate"/></div>';
+				itemsTemplate += '<li class="gcviz-legendLiLayer" data-bind="legendItemList: { expanded: expand }, click: $root.toggleViewService">';
+					itemsTemplate += '<div class="gcviz-legendHolderDiv" data-bind="if: visibility.enable && visibility.type === 1"><input class="gcviz-legendCheck" type="checkbox" data-bind="click: $root.changeItemsVisibility, clickBubble: false, attr: { title: $root.tpVisible, id: \'checkbox\' + id }, checked: visibility.initstate"/></div>';
 					itemsTemplate += '<div class="gcviz-legendHolderDiv" data-bind="LegendRadioButtons: { value: visibility.initstate, group: \'radio\' + visibility.radioid }, if: visibility.enable && visibility.type === 2"></div>';
-					itemsTemplate += '<div class="gcviz-legendHolderDiv" data-bind="HorizontalSliderDijit: { widget: $root.HorizontalSlider, extent: [opacity.min, opacity.max], value: opacity.initstate }, if: opacity.enable"></div>';
-					itemsTemplate += '<div class="gcviz-legendHolderDiv" data-bind="if: metadata.enable"><span data-bind=" attr: { id: \'span\' + id }"><a class="gcviz-legendLink" target="_blank" data-bind="attr: { href: metadata.value, title: metadata.alttext, alt: metadata.alttext }, text: label.value"></a></span></div>';
+					itemsTemplate += '<div class="gcviz-legendHolderDiv" data-bind="HorizontalSliderDijit: { widget: $root.HorizontalSlider, extent: [opacity.min, opacity.max], value: opacity.initstate, enable: opacity.enable}, if: opacity.enable"></div>';
+					itemsTemplate += '<div class="gcviz-legendHolderDiv" data-bind="if: metadata.enable"><span data-bind=" attr: { id: \'span\' + id }"><a class="gcviz-legendLink" target="_blank" data-bind="click: $root.openMetadata($element), attr: { href: metadata.value, title: metadata.alttext, alt: metadata.alttext }, text: label.value"></a></span></div>';
 					itemsTemplate += '<div class="gcviz-legendHolderDiv" data-bind="ifnot: metadata.enable"><span data-bind="text: label.value, attr: { id: \'span\' + id }"></span></div>';
 					itemsTemplate += '<div class="gcviz-legendHolderImgDiv" id="customImage" data-bind="if: customimage.enable"><img class="gcviz-legendImg" data-bind="attr: { src: customimage.url, title: customimage.alttext, alt: customimage.alttext }"></img></div>';
 					itemsTemplate += '<div class="gcviz-legendHolderDiv" data-bind="visible: displayfields"><div class="gcviz-legendSymbolDiv" data-bind="attr: { id: \'featureLayerSymbolFieldName\' + id }"/></div>';
 					itemsTemplate += '<div class="gcviz-legendSymbolDiv" data-bind="visible: displaychild, event: { onload: $root.createSymbol($data, $element) }, attr: { id: \'featureLayerSymbol\' + graphid }"></div>';
-					itemsTemplate += '<div class="gcviz-legendHolderDiv" id="childItems"><ul data-bind="template: { name: \'itemsTmpl\', foreach: $data.items }"></ul></div>';
+					itemsTemplate += '<div class="gcviz-legendHolderDiv" id="childItems" data-bind="if: displaychild.enable"><ul class="gcviz-legendULLayer" data-bind="template: { name: \'itemsTmpl\', foreach: $data.items }"></ul></div>';
 				itemsTemplate += '</li>';
 			itemsTemplate += '</script>';
 
             $legend.append(itemsTemplate);
-            node += '<div><ul data-bind="template: { name: \'itemsTmpl\', foreach: $data.theArray }"></ul></div>';
+            node += '<div><ul class="gcviz-legendULLayer" data-bind="template: { name: \'itemsTmpl\', foreach: $data.basesArray }"></ul></div>';
+            node += '<div><ul class="gcviz-legendULLayer" data-bind="template: { name: \'itemsTmpl\', foreach: $data.layersArray }"></ul></div>';
             $legend.append(node);
             return (tblegendVM.initialize($legend, mapid, config));
         };

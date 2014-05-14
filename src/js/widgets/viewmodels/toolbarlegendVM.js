@@ -15,6 +15,7 @@
 			'gcviz-ko'
 	], function($viz, ko, i18n, gisLegend) {
 		var initialize,
+			loopChildrenVisibility,
 			vm;
 
 		initialize = function($mapElem, mapid, config) {
@@ -26,24 +27,49 @@
 
 				//tooltips
 				_self.tpVisible = i18n.getDict('%toolbarlegend-tgvis');
-
+    
 				_self.init = function() {
-					_self.theArray = ko.observableArray(config.items);
+					_self.layersArray = ko.observableArray(config.items);
+					_self.basesArray = ko.observableArray(config.basemaps);
+					
+					// set initial visibility state
+					setTimeout(function() {
+						var lenBases = _self.basesArray().length,
+							lenLayers = _self.layersArray().length;
+						
+						while (lenBases--) {
+							_self.changeItemsVisibility(_self.basesArray()[lenBases]);
+						}
+						while (lenLayers--) {
+							_self.changeItemsVisibility(_self.layersArray()[lenLayers]);
+						}
+					}, 1000);
 					return { controlsDescendantBindings: true };
 				};
 
+				// needs this function because the a tag inside li tag doesn't work.
+				_self.openMetadata = function(node) {
+					var href = node.href;
+					
+					if (href !== '') {
+						window.open(href, '_blank');
+					}
+				};
+				
 				_self.createSymbol = function(data, node) {
 					if (data.displaychild.enable && typeof data.displaychild.symbol !== 'undefined') {
 						gisLegend.getFeatureLayerSymbol(data.displaychild.symbol, node, data.graphid);
 					}
 				};
-				
-				_self.changeItemsVisibility = function(selectedItem, event) {
-                    var evtTarget = $viz(event.target);
-                    loopChildrenVisibility(selectedItem, evtTarget.prop('checked'), _self.mymap,
-											evtTarget, loopChildrenVisibility
-										);
-					event.stopPropagation();
+
+				_self.changeItemsVisibility = function(selectedItem) {
+					// loop trought items (we use event when the check box is clicked) event is
+					// undefined at initialization
+					if (typeof event !== 'undefined') {
+						selectedItem.visibility.initstate = event.target.checked;
+					}
+                    loopChildrenVisibility(_self.mymap, selectedItem, selectedItem.visibility.initstate, loopChildrenVisibility);
+
 					return true;
 				};
 
@@ -51,8 +77,8 @@
 					gisLegend.setLayerVisibility(map, id, value);
 				};
 
-				_self.changeServiceOpacity = function(map, layerid, opacityValue) {
-					var layer = map.getLayer(layerid);
+				_self.changeServiceOpacity = function(layerid, opacityValue) {
+					var layer = _self.mymap.getLayer(layerid);
 					layer.setOpacity(opacityValue);
 				};
 
@@ -68,23 +94,16 @@
 				_self.init();
 			};
 
-			var loopChildrenVisibility = function(itemMaster, e, map, evtTarget) {
-
-				if (itemMaster.items.length > 0) {
-					Object.keys(itemMaster.items).forEach(function(key) {
-							loopChildrenVisibility(itemMaster.items[key], e, map,
-								evtTarget, loopChildrenVisibility
-							);
+			loopChildrenVisibility = function(map, itemMaster, isCheck) {
+				var items = itemMaster.items;
+				
+				if (items.length > 0) {
+					Object.keys(items).forEach(function(key) {
+						loopChildrenVisibility(map, items[key], isCheck, loopChildrenVisibility);
 					});
 				}
 				else {
-					//check if each checkbox is checked, only turn layers on if their checkbox is checked.
-					var control = evtTarget.find('input#checkbox' + itemMaster.id + '.gcviz-legendCheck');
-					if (control) {
-						if ((control.context.checked && e === true) || e === false) {
-							gisLegend.setLayerVisibility(map, itemMaster.id, e);
-						}
-					}
+					gisLegend.setLayerVisibility(map, itemMaster.id, isCheck);
 				}
 			};
 

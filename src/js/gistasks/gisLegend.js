@@ -73,7 +73,7 @@
 				$viz.each(legs, function(key, value) {
 					nodeImage = domConstruct.create('div', { 'class': 'gcviz-legendSymbolUniqueValueDiv' });
 					nodeLabel = domConstruct.create('span');
-					dojoClass.add(nodeLabel, 'gcviz-LegendUniqueValueSpan');
+					dojoClass.add(nodeLabel, 'gcviz-legendUniqueValueSpan');
 					descriptors = esriJsonUtilS.getShapeDescriptors(value.symbol);
 					mySurface = createSVGSurface(value, nodeImage);
 					shape = mySurface.createShape(descriptors.defaultShape);

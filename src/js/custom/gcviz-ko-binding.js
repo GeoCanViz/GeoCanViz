@@ -97,31 +97,39 @@
 	ko.bindingHandlers.HorizontalSliderDijit = {
         init: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
 			var options = valueAccessor(),
+				id = viewModel.id,
+				type = viewModel.type,
 				widget;
 
-			$viz(element).attr('Visible', options.visible);
-			widget = new slider({
-				name: 'slider',
-                minimum: options.extent[0],
-                maximum: options.extent[1],
-                intermediateChanges: true,
-                value: options.value,
-                showButtons: false
-			}).placeAt(element);
-
-			dojo.addClass(widget.domNode, 'gcviz-legendSlider');
-
-			widget.on('Change', function(e) {
-
+			if (options.enable) {
+				$viz(element).attr('Visible', options.visible);
+				widget = new slider({
+					name: 'slider',
+	                minimum: options.extent[0],
+	                maximum: options.extent[1],
+	                intermediateChanges: true,
+	                value: options.value,
+	                showButtons: false
+				}).placeAt(element);
+	
+				// set initstate opacity
 				if(viewModel.items.length === 0) {
-					bindingContext.$parentContext.$parent.changeServiceOpacity(
-						bindingContext.$parentContext.$parent.mymap,viewModel.id, e
-					);
+					bindingContext.$root.changeServiceOpacity(id, options.value);
+				} else {
+					loopChildren(viewModel, options.value, loopChildren);
 				}
-				else {
-					loopChildren(viewModel, e, loopChildren);
-				}
-			});
+				
+				dojo.addClass(widget.domNode, 'gcviz-legendSlider');
+	
+				widget.on('Change', function(e) {
+	
+					if(viewModel.items.length === 0) {
+						bindingContext.$root.changeServiceOpacity(id, e);
+					} else {
+						loopChildren(viewModel, e, loopChildren);
+					}
+				});
+			}
 
 			function loopChildren(VM, e) {
 				if (VM.items.length > 0) {
@@ -130,15 +138,13 @@
 					});
 				}
 				else {
-					bindingContext.$parentContext.$parent.changeServiceOpacity(
-						bindingContext.$parentContext.$parent.mymap, VM.id, e
-					);
+					bindingContext.$root.changeServiceOpacity(VM.id, e);
 				}
 			}
 		}
 	};
 
-	ko.bindingHandlers.LegendItemList = {
+	ko.bindingHandlers.legendItemList = {
 		init: function(element, valueAccessor, allBindings, viewModel) {
 			var options = valueAccessor(),
 				$element = $viz(element);
@@ -150,9 +156,10 @@
 			} else {
 				$element.children('.gcviz-legendSymbolDiv').toggle(options.expanded);
 				$element.children('div#customImage.gcviz-legendHolderImgDiv').toggle(options.expanded);
-				if(viewModel.displaychild === false && viewModel.customimage.enable === false) { //remove bullet symbol
-						$element.css('background-image', 'none');
-				}
+			}
+			
+			if (viewModel.displaychild.enable === false && viewModel.customimage.enable === false) { //remove bullet symbol
+				$element.css('background-image', 'none');
 			}
 
 			return false;
