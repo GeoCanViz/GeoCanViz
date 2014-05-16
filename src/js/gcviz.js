@@ -116,20 +116,20 @@ var vmArray = {},
 			vmArray[mapid].header = header.initialize($mapSection);
 			vmArray[mapid].footer = footer.initialize($mapSection);
 
-			// add draw toolbar
-			if (config.toolbardraw.enable) {
-				vmArray[mapid].draw = tbdraw.initialize($mapSection);
-			}
-
-			// add navigation toolbar
-			if (config.toolbarnav.enable) {
-				vmArray[mapid].nav = tbnav.initialize($mapSection);
-			}
-
-			//add legend
-			if (config.toolbarlegend.enable) {
-				vmArray[mapid].legend = tblegend.initialize($mapSection);
-			}
+			// // add draw toolbar
+			// if (config.toolbardraw.enable) {
+				// vmArray[mapid].draw = tbdraw.initialize($mapSection);
+			// }
+// 
+			// // add navigation toolbar
+			// if (config.toolbarnav.enable) {
+				// vmArray[mapid].nav = tbnav.initialize($mapSection);
+			// }
+// 
+			// //add legend
+			// if (config.toolbarlegend.enable) {
+				// vmArray[mapid].legend = tblegend.initialize($mapSection);
+			// }
 
 			// add inset
 			if (config.insetframe.enable) {

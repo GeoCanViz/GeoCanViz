@@ -55,8 +55,10 @@
 			}
 
 			// set measure button
-			if (config.measure.enable) {
+			if (config.measureline.enable) {
 				node += '<button class="gcviz-button" tabindex="0" data-bind="click: measureLengthClick"><img class="gcviz-img-button" data-bind="attr: { src: imgMeasure }"></img></button>';
+			}
+			if (config.measurearea.enable) {
 				node += '<button class="gcviz-button" tabindex="0" data-bind="click: measureAreaClick"><img class="gcviz-img-button" data-bind="attr: { src: imgMeasure }"></img></button>';
 			}
 
