@@ -92,6 +92,24 @@ div.gcviz-container img {
 	}
 }
 
+.gcviz-button-picker {
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  padding: 0px!important;
+  margin: 0px!important;
+  //height: 22px;
+  //width: 22px;
+  position: relative;
+  top: 3px!important;
+  right: 0px!important;
+  
+  .gcviz-picker-colour {
+    margin-left: 0px!important;
+    margin-right: 0px!important;
+  }
+}
+
 .gcviz {
 	position: relative;
   border-top: solid 1px $lightgrey;
@@ -148,6 +166,7 @@ input[type="file"] {
 	border-color: $grey;
 	height: (3 * $rembase) + rem;
 	margin-bottom: (-1 * $rembase) + rem;
+	margin-right: 10px;
 }
 
 

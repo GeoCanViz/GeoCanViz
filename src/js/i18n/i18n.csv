@@ -45,6 +45,8 @@ General (i18n)#%all#All#Tous
 #%toolbardraw-tpcolorwhite#White#Blanc
 #%toolbardraw-tpdraw#Draw on the map#Dessiner sur la carte
 #%toolbardraw-tptext#Add text on the map#Ajouter du texte sur la carte
+#%toolbardraw-tpmeasurearea#Measure an area on the map#Mesurer une surface sur la carte
+#%toolbardraw-tpmeasurelength#Measure a length on the map#Mesurer une longueur sur la carte
 #%toolbardraw-tperase#Erase annotations#Effacer les annotations
 #%toolbardraw-tperasesel#Erase selected annotations#Effacer les annotations sélectionnées
 #%toolbardraw-tperaseundo#Undo erase annotations#Annuler effacer les annotations
