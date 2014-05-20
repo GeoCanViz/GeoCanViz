@@ -55,9 +55,11 @@
 			}
 
 			// set measure button
-			if (config.measure.enable) {
-				node += '<button class="gcviz-button" tabindex="0" data-bind="click: measureLengthClick, tooltip: { content: tpMeasureLength }"><img class="gcviz-img-button" data-bind="attr: { src: imgMeasureLength }"></img></button>';
-				node += '<button class="gcviz-button" tabindex="0" data-bind="click: measureAreaClick, tooltip: { content: tpMeasureArea }"><img class="gcviz-img-button" data-bind="attr: { src: imgMeasureArea }"></img></button>';
+			if (config.measureline.enable) {
+				node += '<button class="gcviz-button" tabindex="0" data-bind="click: measureLengthClick"><img class="gcviz-img-button" data-bind="attr: { src: imgMeasureLength }"></img></button>';
+			}
+			if (config.measurearea.enable) {
+				node += '<button class="gcviz-button" tabindex="0" data-bind="click: measureAreaClick"><img class="gcviz-img-button" data-bind="attr: { src: imgMeasureArea }"></img></button>';
 			}
 
 			// color selection panel

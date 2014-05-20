@@ -196,6 +196,7 @@
     <target name="copy-images">
     	<echo level="info" message="---Copying images---"/>
 		<copy todir="${dist.dir}/images">
+			<fileset dir="${src.dir}/js/images/global"/>
 			<fileset dir="${src.dir}/js/images/jqueryui"/>
 			<fileset dir="${src.dir}/js/images/lightbox"/>
 			<fileset dir="${src.dir}/js/images/head"/>

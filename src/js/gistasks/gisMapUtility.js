@@ -62,6 +62,7 @@
 			//esriConfig.defaults.io.proxyUrl = 'http://s-bsc-geoappint.nrn.nrcan.gc.ca/DotNet/proxy.ashx';
 			esriConfig.defaults.io.proxyUrl = url;
 			esriConfig.defaults.io.alwaysUseProxy = false;
+			esriConfig.defaults.io.corsDetection = false;
 		};
 
         createMap = function(id, config) {
@@ -140,16 +141,6 @@
 
 				// add context menu
 				//gisM.createMapMenu(mymap);
-            });
-
-            //LM
-            // TODO remove because now everything is in config file
-            map.on('layer-add-result', function(e) {
-                //no renderer for tiles map services
-                var layer = e.layer;
-                if (layer.renderer) {
-                    //gisLegend.getFeatureLayerSymbol(layer);
-                }
             });
 
 			return map;
