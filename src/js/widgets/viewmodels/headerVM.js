@@ -11,11 +11,12 @@
 	define(['jquery-private',
 			'knockout',
 			'media',
+			'gcviz-gisprint',
 			'gcviz-i18n',
 			'gcviz-ko',
 			'gcviz-func',
 			'gcviz-gismap'
-	], function($viz, ko, media, i18n, binding, func, gisM) {
+	], function($viz, ko, media, gisPrint, i18n, binding, func, gisM) {
 		var initialize,
 			vm;
 
@@ -168,6 +169,7 @@
 
 				_self.printClick = function() {
 					// Print the map
+					gisPrint.printMap('http://geoappext.nrcan.gc.ca/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task', map);
 				};
 
 				_self.insetClick = function() {
