@@ -171,7 +171,6 @@
 
             params.geometries = geom;
             params.outSR = outSR;
-            params.transformation = 'Default';
 
             // Transform the lat/long extent to map coordinates
             geomServ.project(params, function(projectedPoints) {
@@ -211,7 +210,6 @@
 
 			params.geometries = [inputpoint];
 			params.outSR = outSR;
-			params.transformation = 'Default';
 
 			// Transform the lat/long extent to map coordinates
 			geomServ.project(params, function(projectedPoints) {

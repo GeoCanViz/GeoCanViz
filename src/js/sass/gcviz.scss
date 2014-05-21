@@ -169,6 +169,23 @@ input[type="file"] {
 	margin-right: 10px;
 }
 
+.gcviz-loading {
+	position:absolute;
+	right: 10%;
+	top:45%;
+	padding:0!important;
+	z-index:100;
+	width:80%;
+	height: (3 * $rembase) + rem;
+}
+
+.gcviz-loadingLabel {
+    position: absolute;
+    left: 50%;
+    top:  (0.7 * $rembase) + rem;
+    @include app-text-white(1.2);
+    text-align: middle;
+  }
 
 .gcviz-appText {
   @include app-text;

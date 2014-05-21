@@ -10,8 +10,7 @@
 	define(['jquery-private',
 			'gcviz-vm-tbnav',
 			'gcviz-i18n',
-			'dijit/TitlePane',
-            'esri/dijit/OverviewMap'
+			'dijit/TitlePane'
 	], function($viz, tbnavVM, i18n, dojotitle) {
 		var initialize;
 
@@ -42,7 +41,7 @@
 				navheight += 45;
 			}
 
-			tp = new dojotitle({ id: 'tbnav' + mapid, title: 'Navigation', content: '<div class="gcviz-tbnav-content gcviz-tbcontent" style="height:' + navheight+ 'px;"></div>', open: false });
+			tp = new dojotitle({ id: 'tbnav' + mapid, title: 'Navigation', content: '<div class="gcviz-tbnav-content gcviz-tbcontent" style="height:' + navheight + 'px;"></div>', open: config.expand });
 			$mapElem.find('.gcviz-tbholder').append(tp.domNode);
 			tp.startup();
 
@@ -55,7 +54,7 @@
 			// Put everything inside a DIV
 			node += '<div>';
 
-				// if present, group the the 2 items (fullextent and geolocation) on the same line
+				// if present, group the 2 items (fullextent and geolocation) on the same line
 				node += '<div class="gcviz-float-left gcviz-w247">';
 				// Item 1 of group - set full extent button
 				if (config.zoom) {

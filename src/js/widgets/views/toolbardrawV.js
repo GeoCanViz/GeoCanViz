@@ -21,7 +21,7 @@
 				tp,
 				node = '';
 
-			tp = new dojotitle({id: 'tbanno' + mapid, title: '' + i18n.getDict('%toolbardraw-name') + '', content: '<div class="gcviz-tbdraw-content gcviz-tbcontent"></div>', open: false});
+			tp = new dojotitle({id: 'tbanno' + mapid, title: '' + i18n.getDict('%toolbardraw-name') + '', content: '<div class="gcviz-tbdraw-content gcviz-tbcontent"></div>', open: config.expand});
 			$mapElem.find('.gcviz-tbholder').append(tp.domNode);
 			tp.startup();
 

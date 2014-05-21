@@ -38,6 +38,10 @@
   float: right;
 }
 
+.gcviz-print {
+	@include app-border(0.1);
+}
+
 #headbuttons { position: relative; top: -3px; cursor: url(#{ $img-root }hand.cur), default; }
 #headbuttons li { margin: 0; padding: 0; list-style: none; position: absolute; top: 0; }
 #headbuttons li { height: 22px; display: block; }
