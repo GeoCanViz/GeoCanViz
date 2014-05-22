@@ -62,7 +62,6 @@
 			//esriConfig.defaults.io.proxyUrl = 'http://s-bsc-geoappint.nrn.nrcan.gc.ca/DotNet/proxy.ashx';
 			esriConfig.defaults.io.proxyUrl = url;
 			esriConfig.defaults.io.alwaysUseProxy = false;
-			esriConfig.defaults.io.corsDetection = false;
 		};
 
         createMap = function(id, config) {

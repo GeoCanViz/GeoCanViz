@@ -30,6 +30,8 @@ General (i18n)#%all#All#Tous
 #%header-tpprint#Print the map#Imprimer la carte
 #%header-tpinset#Show or hide insets#Afficher ou cacher les insertions
 #%header-tpfullscreen#Go full screen#Allez en mode plein écran
+#%header-printcopyright#© Her Majesty the Queen in Right of Canada / © Sa Majesté la Reine du chef du Canada# © Sa Majesté la Reine du chef du Canada / © Her Majesty the Queen in Right of Canada
+#%header-printurl#http://geoappext.nrcan.gc.ca/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task#http://geoappext.nrcan.gc.ca/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task
 #%help-instr#Keyboard user: setup your keyboard to control the mouse to access the following PDF document.#Utilisateur du clavier: configurez votre clavier pour contrôler la souris et accéder au document PDF ci-dessous.
 #%toolbarholder-caption#Toolbars#Barre d'outils
 #%toolbardraw-name#Draw#Dessiner

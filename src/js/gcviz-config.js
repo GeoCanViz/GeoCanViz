@@ -229,6 +229,10 @@
 				location: locationPath + 'gcviz/js/gistasks',
 				main: 'gisCluster-min'
 			}, {
+				name: 'gcviz-gisprint',
+				location: locationPath + 'gcviz/js/gistasks',
+				main: 'gisPrint-min'
+			}, {
 				name: 'gcviz-v-header',
 				location: locationPath + 'gcviz/js/views',
 				main: 'headerV-min'

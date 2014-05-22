@@ -11,11 +11,12 @@
 	define(['jquery-private',
 			'knockout',
 			'media',
+			'gcviz-gisprint',
 			'gcviz-i18n',
 			'gcviz-ko',
 			'gcviz-func',
 			'gcviz-gismap'
-	], function($viz, ko, media, i18n, binding, func, gisM) {
+	], function($viz, ko, media, gisPrint, i18n, binding, func, gisM) {
 		var initialize,
 			vm;
 
@@ -56,6 +57,7 @@
                     pathClosedTools = locationPath + 'gcviz/images/headToolsClosed.png',
                     pathOpenTools = locationPath + 'gcviz/images/headToolsOpen.png',
 					pathHelp = locationPath + 'gcviz/images/headHelp.png',
+					pathPrint = locationPath + 'gcviz/print/',
 					$section = $viz('#section' + mapid),
 					$mapholder = $viz('#' + mapid),
 					$map = $viz('#' + mapid + '_holder'),
@@ -134,6 +136,13 @@
                 _self.tpAbout = i18n.getDict('%header-tpabout');
 				_self.tpFullScreen = i18n.getDict('%header-tpfullscreen');
 
+				// print info
+				_self.printInfo = {
+					url: i18n.getDict('%header-printurl'),
+					copyright: i18n.getDict('%header-printcopyright'),
+					template: pathPrint
+				};
+
 				// fullscreen
 				_self.isFullscreen = ko.observable(false);
 				_self.isInsetVisible = ko.observable(true);
@@ -168,6 +177,7 @@
 
 				_self.printClick = function() {
 					// Print the map
+					gisPrint.printMap(map, _self.printInfo);
 				};
 
 				_self.insetClick = function() {

@@ -7,13 +7,16 @@
  */
 (function () {
 	'use strict';
-	define([], function() {
+	define(['jquery-private'
+	], function($viz) {
 		var debounce,
 			debounceClick,
 			setStyle,
 			getFullscreenParam,
 			checkObjectValue,
 			getUUID,
+			setProgressBar,
+			destroyProgressBar,
 			timer;
 
 		debounce = function(func, threshold, execAsap) {
@@ -106,13 +109,25 @@
 			return _p8() + _p8(true) + _p8(true) + _p8();
 		};
 
+		setProgressBar = function(label) {
+			$viz('.gcviz-loadingLabel').text(label);
+			$viz('.gcviz-loading').progressbar({ value: false });
+		};
+
+		destroyProgressBar = function() {
+			$viz('.gcviz-loadingLabel').text('');
+			$viz('.gcviz-loading').progressbar('destroy');
+		};
+
 		return {
 			debounce: debounce,
 			debounceClick: debounceClick,
 			setStyle: setStyle,
 			getFullscreenParam: getFullscreenParam,
 			checkObjectValue: checkObjectValue,
-			getUUID: getUUID
+			getUUID: getUUID,
+			setProgressBar: setProgressBar,
+			destroyProgressBar: destroyProgressBar
 		};
 	});
 }());

@@ -207,6 +207,14 @@
 		</copy>
 	</target>
 
+	<!-- copy print templates -->
+    <target name="copy-printtemplates">
+    	<echo level="info" message="---Copying print templates---"/>
+		<copy todir="${dist.dir}/print">
+			<fileset dir="${src.dir}/print"/>
+		</copy>
+	</target>
+	
 	<!-- copy dependencies -->
 	<target name="copy-dependencies">
     	<echo level="info" message="---Copying dependencies---"/>
@@ -231,5 +239,5 @@
 	</target>
     
 	<!-- build -->
-	<target name="build" depends="classpath-lib, create-dist, build-jruby, compile-sass, call-jshint, consolidate-css, minify, create-i18n, copy-images, copy-dependencies, update-headers, finish"></target>
+	<target name="build" depends="classpath-lib, create-dist, build-jruby, compile-sass, call-jshint, consolidate-css, minify, create-i18n, copy-images, copy-printtemplates, copy-dependencies, update-headers, finish"></target>
 </project>
