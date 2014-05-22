@@ -26,6 +26,7 @@ General (i18n)#%all#All#Tous
 #%header-urlhelp#../../HelpManual.pdf#../../HelpManual.pdf
 #%header-tpabout#About this map#À propos de cette carte
 #%header-tphelp#Open help page#Ouvrir la page d'aide
+#%header-tools#Tools#Outils
 #%header-tptools#Open/Close tools panel#Ouvrir/Fermer le panneau d'outils
 #%header-tpprint#Print the map#Imprimer la carte
 #%header-tpinset#Show or hide insets#Afficher ou cacher les insertions
@@ -80,6 +81,7 @@ General (i18n)#%all#All#Tous
 #%toolbarnav-inskeyboard#When entering a geographic location	suggested names will appear in the auto-fill list below the text entry box.  Suggestions will start appearing after you type 3 characters.#Lorsque vous spécifiez un lieu géographique	des suggestions apparaissent dans la liste d'auto-remplissage en dessous de la zone de texte. Les suggestions commenceront à apparaître après avoir tapé 3 caractères.
 #%toolbarnav-magnify#Magnify part of the map#Agrandir une partie de la carte
 #%toolbarnav-ovdrag#Drag To Change The Map Extent#Faites glisser pour changer l'étendue de la carte
+#%toolbarnav-scale#Scale: #Échelle : 
 #%toolbarnav-zoomfull#Zoom to full extent#Zoom à l`étendue maximum
 #%inset-tplight#Open the content in a lightbox#Ouvrir le contenu dans un lightbox
 #%inset-tpplayvideo#Play video#Jouer la vidéo

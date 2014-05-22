@@ -32,9 +32,9 @@
                     infoWindow = $viz('#divGetLocResults' + mapid),
                     btnClickMap = $viz('#btnClickMap' + mapid),
 					mymap = vmArray[mapid].map.map,
-                    pathExtent = locationPath + 'gcviz/images/navFullExtent.png',
+                    pathExtent = locationPath + 'gcviz/images/navFullExtentGrey.png',
                     pathMagnify = locationPath + 'gcviz/images/navMagnify.png',
-                    pathPosition = locationPath + 'gcviz/images/getInfo.png',
+                    pathPosition = locationPath + 'gcviz/images/getInfoGrey.png',
                     autoCompleteArray = [ { minx: 0 , miny: 0, maxx: 0, maxy: 0, title: 'ddd' } ];
 
 				// images path
@@ -88,6 +88,7 @@
                 _self.spnUTMzone = ko.observable();
                 _self.spnUTMeast = ko.observable();
                 _self.spnUTMnorth = ko.observable();
+                _self.lblScale = ko.observable(i18n.getDict('%toolbarnav-scale'));
 
 				// url for position info box
 				_self.urlNTS = i18n.getDict('%gisurlnts');
@@ -101,13 +102,18 @@
 
                     // See if user wanted an overview map. If so, initialize it here
                     if (overview.enable) {
-                       gisnav.setOverview(mymap, overview);
+						gisnav.setOverview(mymap, overview);
                     }
 
                     // See if user wanted a scalebar. If so, initialize it here
                     if (scalebar.enable) {
 						gisnav.setScaleBar(mymap, scalebar);
                     }
+
+                    mymap.on('extent-change', function() {
+						var currentScale = Math.round(mymap.getScale()).toString();
+						_self.lblScale(i18n.getDict('%toolbarnav-scale') + currentScale);
+					});
 
 					return { controlsDescendantBindings: true };
 				};

@@ -87,13 +87,13 @@
 /* End of Reset some ESRI classes that are being modified by the Map classes */
 
 .gcviz-ovtoolcontainer {
-  width: 250px;
+  width: 240px;
   height: 100px;
   opacity: 1.0!important;
 }
 
 .gcviz-overviewMap {
-  width: 247px!important;
+  width: 237px!important;
   height: 100px!important;
   position: relative!important;
 }
@@ -139,15 +139,25 @@
 }
 
 .esriScalebar {
-  z-index:30;position: absolute; width: 0px; height:20px;
+  z-index:30;
+  width: 0px;
+  height:20px;
 }
 
 .esriScalebarRuler {
-  overflow:hidden;position: relative; width: 100%; height:6px; background-color: White; border:1px solid #444444;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  height:6px;
+  background-color: White;
+  border:1px solid #444444;
 }
 
 .esriScalebarRulerBlock {
-  overflow:hidden;position: absolute; height:50%; background-color: #444444;
+  overflow: hidden;
+  position: absolute;
+  height:50%;
+  background-color: #444444;
 }
 
 .upper_firstpiece {
@@ -201,6 +211,10 @@
 .esriScalebarSecondNumber {
   left:95%;
 }
+
+.esriScalebarLabel {
+  @include app-text(0.75);
+}
 /* End of classes from esri.css for scalebar */
 
 .gcviz-scaleBar {
@@ -219,11 +233,20 @@
   height: 25px!important;
 }
 
-.esriScalebarLabel {
+.gcviz-scaleBarLabel {
   @include app-text(0.75);
 }
 
 .gcviz-positionToolbar {
   width: 247px!important;
   height: 30px!important;
+}
+
+.gcviz-scaleDisplay {
+  margin-top: 15px;
+}
+
+.gcviz-scale {
+  @include app-text(0.75);
+  color: blue;
 }

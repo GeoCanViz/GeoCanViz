@@ -2,24 +2,28 @@
 
 .gcviz-tbcontainer {
   @include app-text($weight: bold);
-  padding: (1 * $rembase) + rem;
+  padding-top: 0rem;
+  padding-right: (1 * $rembase) + rem;
+  padding-left: (1 * $rembase) + rem;
+  padding-bottom: (1 * $rembase) + rem;
   position: absolute;
   z-index: 100;
   width: (28.0 * $rembase) + rem;
   right: 0rem;
   top: 40px;
   background-color: rgba(100,100,100, 0.6);
-  border-bottom: 2px solid #666666;
   cursor: pointer;
 }
 
 .gcviz-tbholder {
   overflow-y: scroll;
+  overflow-x: scroll;
   
   .gcviz-tbcontent {
     padding: (0.2 * $rembase) + rem;
     margin: (0.3 * $rembase) + rem;
     margin-left: 10px;
+    margin-top: 0px!important;
     z-index: 101;
     background-color: $lightyellow;
     @include content-border-radius;

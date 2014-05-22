@@ -82,8 +82,8 @@
 			// set import and save buttons
 			if (config.importexport.enable) {
 			node += '<div class="gcviz-inlineblock">' +
-						'<input id="fileDialogFF" type="file" accept="application/json" data-bind="event: { change: importClick }"></input>' +
 						'<button class="gcviz-button" tabindex="0" data-bind="tooltip: { content: tpImport }">' +
+						'<input id="fileDialogFF" type="file" accept="application/json" data-bind="event: { change: importClick }"></input>' +
 							'<input type="file" accept="application/json" data-bind="event: { change: importClick }"></input>' +
 							'<img class="gcviz-img-button" data-bind="attr: { src: imgImport }"></img></button>' +
 						'<button class="gcviz-button" tabindex="0" data-bind="click: exportClick, tooltip: { content: tpExport }, enable: isGraphics"><img class="gcviz-img-button" data-bind="attr: { src: imgExport }"></img></button>'+
