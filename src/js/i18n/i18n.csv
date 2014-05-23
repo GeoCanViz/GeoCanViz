@@ -51,7 +51,8 @@ General (i18n)#%all#All#Tous
 #%toolbardraw-tpmeasurelength#Measure a length on the map#Mesurer une longueur sur la carte
 #%toolbardraw-tperase#Erase annotations#Effacer les annotations
 #%toolbardraw-tperasesel#Erase selected annotations#Effacer les annotations sélectionnées
-#%toolbardraw-tperaseundo#Undo erase annotations#Annuler effacer les annotations
+#%toolbardraw-tpundo#Undo last operation#Annuler la dèrniere opération
+#%toolbardraw-tpredo#Redo last operation#Refaire la dèrniere opération
 #%toolbardraw-tpimport#Import annotations#Importer des annotations
 #%toolbardraw-tpexport#Export annotations#Exporter des annotations
 #%toolbardraw-dist#Length: #Longueur: 

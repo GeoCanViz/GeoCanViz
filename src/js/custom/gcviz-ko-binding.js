@@ -182,5 +182,35 @@
 		}
 	};
 
+	// http://stackoverflow.com/questions/9877301/knockoutjs-observablearray-data-grouping
+	ko.observableArray.fn.uniqueArray = function() {
+		var target = this;   
+	
+		ko.computed(function() {
+			// http://jsfiddle.net/gabrieleromanato/BrLfv/
+			var found, x, y,
+				origArr = target(),
+				newArr = [],
+				origLen = origArr.length;
+
+			for (x = 0; x < origLen; x++) {
+				found = undefined;
+				for (y = 0; y < newArr.length; y++) {
+					if (origArr[x] === newArr[y]) {
+						found = true;
+						break;
+					}
+				}
+				if (!found) {
+					newArr.push(origArr[x]);
+				}
+			}
+				
+			return target(newArr);
+    	}).extend({ notify: 'always' });
+    	
+    	return target;
+	};
+	
 	});
 }).call(this);

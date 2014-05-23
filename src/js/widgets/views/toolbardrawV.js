@@ -20,6 +20,9 @@
 				mapid = $mapElem.mapframe.id,
 				tp,
 				node = '';
+				
+			// add the url for dowload page to config
+			config.urldownload = $mapElem.mapframe.map.urldownload;
 
 			tp = new dojotitle({id: 'tbanno' + mapid, title: '' + i18n.getDict('%toolbardraw-name') + '', content: '<div class="gcviz-tbdraw-content gcviz-tbcontent"></div>', open: config.expand});
 			$mapElem.find('.gcviz-tbholder').append(tp.domNode);
@@ -47,8 +50,8 @@
 				if ($viz('#gcviz-draw-inputbox').length === 0) {
 					$viz('body').prepend('<div id="gcviz-draw-inputbox">' +
 										'<form><fieldset>' +
-										'<label for="value">' + i18n.getDict('%toolbardraw-inputbox-label') + '</label>' +
-										' <input id="value" class="text ui-widget-content ui-corner-all"/>' +
+										'<label for="gcviz-textvalue">' + i18n.getDict('%toolbardraw-inputbox-label') + '</label>' +
+											'<input id="gcviz-textvalue" class="text ui-widget-content ui-corner-all" data-bind="value: drawTextValue, valueUpdate: \'afterkeydown\'"/>' +
 										'<div>' + i18n.getDict('%toolbardraw-insinputbox') + '</div>' +
 										'</fieldset></form></div>');
 				}
@@ -62,21 +65,28 @@
 				node += '<button class="gcviz-button" tabindex="0" data-bind="click: measureAreaClick"><img class="gcviz-img-button" data-bind="attr: { src: imgMeasureArea }"></img></button>';
 			}
 
-			// color selection panel
+			// color selection panel (wrap function setColorClick because there is parameter. If we dont do this, it will fire at init)
 			node += '<div class="row" data-bind="visible: isColor">' +
-						'<button class="gcviz-button-picker" tabindex="0" data-bind="click: selectColorClick(\'black\'), tooltip: { content: tpBlack }"><img class="gcviz-picker-colour" data-bind="attr: { src: imgDrawBlack }"></img></button>' +
-						'<button class="gcviz-button-picker" tabindex="0" data-bind="click: selectColorClick(\'blue\'), tooltip: { content: tpBlue }"><img class="gcviz-picker-colour" data-bind="attr: { src: imgDrawBlue }"></img></button>' +
-						'<button class="gcviz-button-picker" tabindex="0" data-bind="click: selectColorClick(\'green\'), tooltip: { content: tpGreen }"><img class="gcviz-picker-colour" data-bind="attr: { src: imgDrawGreen }"></img></button>' +
-						'<button class="gcviz-button-picker" tabindex="0" data-bind="click: selectColorClick(\'red\'), tooltip: { content: tpRed }"><img class="gcviz-picker-colour" data-bind="attr: { src: imgDrawRed }"></img></button>' +
-						'<button class="gcviz-button-picker" tabindex="0" data-bind="click: selectColorClick(\'yellow\'), tooltip: { content: tpYellow }"><img class="gcviz-picker-colour" data-bind="attr: { src: imgDrawYellow }"></img></button>' +
-						'<button class="gcviz-button-picker" tabindex="0" data-bind="click: selectColorClick(\'white\'), tooltip: { content: tpWhite }"><img class="gcviz-picker-colour" data-bind="attr: { src: imgDrawWhite }"></img></button>' +
+						'<button class="gcviz-button-picker" tabindex="0" data-bind="click: function() { selectColorClick(\'black\') }, tooltip: { content: tpBlack }"><img class="gcviz-picker-colour" data-bind="attr: { src: imgDrawBlack }"></img></button>' +
+						'<button class="gcviz-button-picker" tabindex="0" data-bind="click: function() { selectColorClick(\'blue\') }, tooltip: { content: tpBlue }"><img class="gcviz-picker-colour" data-bind="attr: { src: imgDrawBlue }"></img></button>' +
+						'<button class="gcviz-button-picker" tabindex="0" data-bind="click: function() { selectColorClick(\'green\') }, tooltip: { content: tpGreen }"><img class="gcviz-picker-colour" data-bind="attr: { src: imgDrawGreen }"></img></button>' +
+						'<button class="gcviz-button-picker" tabindex="0" data-bind="click: function() { selectColorClick(\'red\') }, tooltip: { content: tpRed }"><img class="gcviz-picker-colour" data-bind="attr: { src: imgDrawRed }"></img></button>' +
+						'<button class="gcviz-button-picker" tabindex="0" data-bind="click: function() { selectColorClick(\'yellow\') }, tooltip: { content: tpYellow }"><img class="gcviz-picker-colour" data-bind="attr: { src: imgDrawYellow }"></img></button>' +
+						'<button class="gcviz-button-picker" tabindex="0" data-bind="click: function() { selectColorClick(\'white\') }, tooltip: { content: tpWhite }"><img class="gcviz-picker-colour" data-bind="attr: { src: imgDrawWhite }"></img></button>' +
 					'</div>';
 
 			// set erase buttons and undo erase
 			node += '<div class="row gcviz-inlineblock">' +
 						'<button class="gcviz-button" tabindex="0" data-bind="click: eraseClick, tooltip: { content: tpErase }"><img class="gcviz-img-button" data-bind="attr: { src: imgErase }"></img></button>' +
 						'<button class="gcviz-button" tabindex="0" data-bind="click: eraseSelClick, tooltip: { content: tpEraseSel }"><img class="gcviz-img-button" data-bind="attr: { src: imgEraseSel }"></img></button>' +
-						'<button class="gcviz-button" tabindex="0" data-bind="click: eraseUndoClick, tooltip: { content: tpEraseUndo }, enable: stackUndo() > 0"><img class="gcviz-img-button" data-bind="attr: { src: imgEraseUndo }"></img></button>' +
+					'</div>';
+
+			node += '<div class="gcviz-tbseparator"></div>';
+
+			// set undo and redo buttons
+			node += '<div class="row gcviz-inlineblock">' +
+						'<button class="gcviz-button" tabindex="0" data-bind="click: undoClick, tooltip: { content: tpUndo }, enable: stackUndo().length > 0"><img class="gcviz-img-button" data-bind="attr: { src: imgUndo }"></img></button>' +
+						'<button class="gcviz-button" tabindex="0" data-bind="click: redoClick, tooltip: { content: tpRedo }, enable: stackRedo().length > 0"><img class="gcviz-img-button" data-bind="attr: { src: imgRedo }"></img></button>' +
 					'</div>';
 
 			node += '<div class="gcviz-tbseparator"></div>';
@@ -93,7 +103,7 @@
 			}
 
 			$toolbar.append(node);
-			return(tbdrawVM.initialize($toolbar, mapid));
+			return(tbdrawVM.initialize($toolbar, mapid, config));
 		};
 
 		return {

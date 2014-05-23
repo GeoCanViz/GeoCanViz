@@ -170,12 +170,12 @@ input[type="file"] {
 }
 
 .gcviz-loading {
-	position:absolute;
+	position: absolute;
 	right: 10%;
-	top:45%;
-	padding:0!important;
-	z-index:100;
-	width:80%;
+	top: 45%;
+	padding: 0!important;
+	z-index: -1;
+	width: 80%;
 	height: (3 * $rembase) + rem;
 }
 
