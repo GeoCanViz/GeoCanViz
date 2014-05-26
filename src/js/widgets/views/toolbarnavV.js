@@ -49,7 +49,6 @@
 			tp = new dojotitle({ id: 'tbnav' + mapid, title: 'Navigation', content: '<div class="gcviz-tbnav-content gcviz-tbcontent" style="height:' + navheight+ 'px;"></div>', open: false });
 			$mapElem.find('.gcviz-tbholder').append(tp.domNode);
 			tp.startup();
-			tp.set('open', config.expand);
 
 			// add tabindex
 			tp.domNode.getElementsByClassName('dijitTitlePaneTitleFocus')[0].setAttribute('tabindex', '0');
@@ -78,7 +77,7 @@
                 // See if overview map desired
                 if (configoverview.enable) {
                     node += '<div class="gcviz-float-left gcviz-w240 gcviz-border gcviz-margin-left5 toolbar-background-opaque gcviz-ovtoolcontainer">';
-                        node += '<div id="divOverviewMapContainer' + mapid + '" class="gcviz-overviewMap" data-bind="tooltip: { content: tpOverview }" style="width: 237px; height: 100px;" tabindex="-1">';
+                        node += '<div id="divOverviewMapContainer' + mapid + '" class="gcviz-overviewMap" data-bind="tooltip: { content: tpOverview }" tabindex="-1">';
                             node += '<div id="divOverviewMap' + mapid + '" class="gcviz-overviewMapContent" tabindex="-1"></div>';
                         node += '</div>';
                     node += '</div>';
@@ -95,7 +94,7 @@
                 // See if scale display is desired
                 if (configscaledisplay.enable) {
                     node += '<div class="gcviz-float-left gcviz-w247 gcviz-scaleDisplay">';
-                        node += '<div id="divScale' + mapid + '" class="row"><label class="span6" data-bind="text: lblScale"></label><a class="span4 gcviz-scale">(approx.)</a></div>';
+                        node += '<div id="divScale' + mapid + '" class="row"><span class="span6 gcviz-scaleDisplayLabel" data-bind="text: lblScale"></span><a class="span4 gcviz-scale">(approx.)</a></div>';
                     node += '</div>';
                 }
 
@@ -110,7 +109,7 @@
                         if (configposition.enable) {
                             node += '<div class="row">';
                             node += '   <div class="span2">';
-                            node += '       <button id="btnClickMap' + mapid + '" class="gcviz-button gcviz-img-button gcviz-inline gcviz-up5" tabindex="0" data-bind="click: getMapClick, tooltip: { content: tpGetLocInfo }"><img class="gcviz-img-button" data-bind="attr:{src: imgPosition}"></img></button>';
+                            node += '       <button id="btnClickMap' + mapid + '" class="gcviz-button gcviz-img-button gcviz-inline" tabindex="0" data-bind="click: getMapClick, tooltip: { content: tpGetLocInfo }"><img class="gcviz-img-button" data-bind="attr:{src: imgPosition}"></img></button>';
                             node += '   </div>';
                             node += '</div>';
                         }

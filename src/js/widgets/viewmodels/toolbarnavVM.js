@@ -27,6 +27,7 @@
 				var _self = this,
 					overview = config.overview,
 					scalebar = config.scalebar,
+					scaledisplay = config.scaledisplay,
                     clickPosition, escPosition,
                     inMapField = $viz('#inGeoLocation' + mapid),
                     infoWindow = $viz('#divGetLocResults' + mapid),
@@ -72,6 +73,7 @@
                 _self.tpOverview = i18n.getDict('%toolbarnav-ovdrag');
                 _self.tpZoomFull = i18n.getDict('%toolbarnav-zoomfull');
                 _self.lblWest = i18n.getDict('%west');
+                _self.ScaleLabel = i18n.getDict('%toolbarnav-scale');
 
 				// autocomplete default
 				_self.defaultAutoComplText = i18n.getDict('%toolbarnav-geolocsample');
@@ -110,10 +112,12 @@
 						gisnav.setScaleBar(mymap, scalebar);
                     }
 
-                    mymap.on('extent-change', function() {
-						var currentScale = Math.round(mymap.getScale()).toString();
-						_self.lblScale(i18n.getDict('%toolbarnav-scale') + currentScale);
-					});
+                    if (scaledisplay.enable) {
+						mymap.on('extent-change', function() {
+							var currentScale = Math.round(mymap.getScale()).toString();
+							_self.lblScale(_self.ScaleLabel + currentScale);
+						});
+					}
 
 					return { controlsDescendantBindings: true };
 				};

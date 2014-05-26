@@ -92,16 +92,16 @@
 					_self.positionInset += 35;
 					_self.positionLink += 35;
 				}
-				if (config.tools) {
+				if (config.link.enable) {
 					_self.positionHelp += 34;
 					_self.positionAbout += 35;
 					_self.positionInset += 35;
 				}
-				if (config.link.enable) {
+				if (config.inset) {
 					_self.positionHelp += 34;
 					_self.positionAbout += 35;
 				}
-				if (config.inset) {
+				if (config.about.enable) {
 					_self.positionHelp += 34;
 				}
 
@@ -134,8 +134,6 @@
                 _self.opencloseToolsState = 0;
 
 				_self.init = function() {
-					var toolbarheight = 0;
-
 					// keep map size
 					_self.heightSection = parseInt($section.css('height'), 10);
 					_self.heightMap = parseInt($map.css('height'), 10);
@@ -145,11 +143,7 @@
 
 					// Set the toolbar container height
                     setTimeout(function() {
-						toolbarheight = parseInt(map.height, 10) - 15;
-						_self.xheightToolsOuter('max-height:' + toolbarheight + 'px!important');
-						_self.xheightToolsInner('max-height:' + toolbarheight + 'px!important');
-						toolbarheight = toolbarheight - 25;
-						_self.widthheightTBholder('max-height:' + toolbarheight + 'px!important;max-width:290px!important');
+						_self.adjustContainerHeight();
 					}, 2000);
 
 					return { controlsDescendantBindings: true };
@@ -222,8 +216,6 @@
                 };
 
 				_self.cancelFullScreen = function() {
-					var toolbarheight = 0;
-
 					// set style back for the map
 					func.setStyle($section[0], { 'width': _self.widthSection + 'px', 'height': _self.heightSection + 'px' });
 					func.setStyle($mapholder[0], { 'width': _self.widthSection + 'px', 'height': _self.heightSection + 'px' });
@@ -241,12 +233,8 @@
 
 					// Set the toolbar container height
                     setTimeout(function() {
-						toolbarheight = parseInt(map.height, 10) - 25;
-						_self.xheightToolsOuter('max-height:' + toolbarheight + 'px!important');
-						_self.xheightToolsInner('max-height:' + toolbarheight + 'px!important');
-						toolbarheight = toolbarheight - 10;
-						_self.widthheightTBholder('max-height:' + toolbarheight + 'px!important;max-width:290px!important');
-                   }, 2000);
+						_self.adjustContainerHeight();
+					}, 2000);
 
 					// remove the event that keeps tab in map section
 					$section.off('keydown.fs');
@@ -257,7 +245,6 @@
 					var param = func.getFullscreenParam(_self.widthSection, _self.heightSection),
 						w = param.width,
 						h = param.height,
-						toolbarheight = 0,
 						array = $section.find('[tabindex = 0]');
 
 					// set style for the map
@@ -277,12 +264,8 @@
 
 					// Set the toolbar container height
                     setTimeout(function() {
-						toolbarheight = parseInt(map.height, 10) - 25;
-						_self.xheightToolsOuter('max-height:' + toolbarheight + 'px!important');
-						_self.xheightToolsInner('max-height:' + toolbarheight + 'px!important');
-						toolbarheight = toolbarheight - 10;
-						_self.widthheightTBholder('max-height:' + toolbarheight + 'px!important;max-width:290px!important');
-                   }, 2000);
+						_self.adjustContainerHeight();
+					}, 2000);
 
 					// create keydown event to keep tab in the map section
 					_self.first = array[0];
@@ -290,6 +273,14 @@
 					$section.on('keydown.fs', function(event) {
 						_self.manageTabbingOrder(event);
                     });
+                };
+
+                _self.adjustContainerHeight = function() {
+					var toolbarheight = parseInt(map.height, 10) - 15;
+					_self.xheightToolsOuter('max-height:' + toolbarheight + 'px!important');
+					_self.xheightToolsInner('max-height:' + toolbarheight + 'px!important');
+					toolbarheight = toolbarheight - 25;
+					_self.widthheightTBholder('max-height:' + toolbarheight + 'px!important;max-width:290px!important');
                 };
 
 				_self.manageTabbingOrder = function(evt) {

@@ -24,11 +24,13 @@
 				node = '';
 
 			$mapElem.find('#' + mapid).prepend('<div id="head' + mapid + '" class="gcviz-head"></div>');
-			// Add a collapsible container for tools to hold all the toolbars instead of having a tools icon
-			$mapElem.find('.gcviz-head').append('<div id="divToolsOuter' + mapid + '" class="gcviz-tbcontainer" data-bind="attr: { style: xheightToolsOuter }"><div id="divToolsInner' + mapid + '" class="gcviz-toolsholder" data-bind="attr: { style: xheightToolsInner }"></div></div>');
-			tp = new dojotitle({ id: 'tbTools' + mapid, title: '' + i18n.getDict('%header-tools') + '', content: '<div class="gcviz-tbholder" data-bind="attr: { style: widthheightTBholder }"></div>', open: false });
-			$mapElem.find('.gcviz-toolsholder').append(tp.domNode);
-			tp.startup();
+			if (config.tools === true) {
+				// Add a collapsible container for tools to hold all the toolbars instead of having a tools icon
+				$mapElem.find('.gcviz-head').append('<div id="divToolsOuter' + mapid + '" class="gcviz-tbcontainer" data-bind="attr: { style: xheightToolsOuter }"><div id="divToolsInner' + mapid + '" class="gcviz-toolsholder" data-bind="attr: { style: xheightToolsInner }"></div></div>');
+				tp = new dojotitle({ id: 'tbTools' + mapid, title: '' + i18n.getDict('%header-tools') + '', content: '<div class="gcviz-tbholder" data-bind="attr: { style: widthheightTBholder }"></div>', open: false });
+				$mapElem.find('.gcviz-toolsholder').append(tp.domNode);
+				tp.startup();
+			}
 
 			// Find the header element to insert things in
 			$header = $mapElem.find('.gcviz-head');
