@@ -15,6 +15,7 @@
   width: calc(100% - 290px);
   background-image: url('images/head_blackbar.png');
   background-position: right;
+  z-index: 99!important;
 }
   
 .gcviz-head-titlelabel {
@@ -30,6 +31,7 @@
   height: 40px;
   width: 290px;
   background-image: url('images/head_blackbar.png');
+  z-index: 99!important;
 }
 
 .gcviz-head-buttons {
