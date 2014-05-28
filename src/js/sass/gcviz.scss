@@ -135,8 +135,12 @@ input[type="file"] {
 	left: 0rem;
 	position: absolute;
 	margin: 0 !important;
-	height: (2.2 * $rembase) + rem;
-	width: (2.2 * $rembase) + rem;
+	height: 0rem;
+	width: 0rem;
+	padding: 0rem;
+	border-width: 0rem;
+	min-width: 0rem;
+	min-height: 0rem;
 }
 
 /* full screen */
@@ -170,12 +174,12 @@ input[type="file"] {
 }
 
 .gcviz-loading {
-	position:absolute;
+	position: absolute;
 	right: 10%;
-	top:45%;
-	padding:0!important;
-	z-index:100;
-	width:80%;
+	top: 45%;
+	padding: 0!important;
+	z-index: -1;
+	width: 80%;
 	height: (3 * $rembase) + rem;
 }
 

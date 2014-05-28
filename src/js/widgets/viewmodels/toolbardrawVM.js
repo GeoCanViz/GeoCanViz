@@ -17,15 +17,13 @@
 	], function($viz, ko, generateFile, i18n, gcvizFunc, gisGraphic) {
 		var initialize,
 			vm,
-			addColourCursor,
-			removeColourCursor;
+			addDrawCursor;
 
-		initialize = function($mapElem, mapid) {
+		initialize = function($mapElem, mapid, config) {
 
 			// data model				
 			var toolbardrawViewModel = function($mapElem, mapid) {
 				var _self = this,
-					mygraphic,
 					clickMeasureLength, clickMeasureArea,
 					dblclickMeasure,
 					pathColor = locationPath + 'gcviz/images/drawPicColourBlack.png',
@@ -45,7 +43,8 @@
 					pathText = locationPath + 'gcviz/images/drawText.png',
 					pathErase = locationPath + 'gcviz/images/drawErase.png',
 					pathEraseSel = locationPath + 'gcviz/images/drawEraseSel.png',
-					pathEraseUndo = locationPath + 'gcviz/images/drawEraseUndo.png',
+					pathUndo = locationPath + 'gcviz/images/drawUndo.png',
+					pathRedo = locationPath + 'gcviz/images/drawRedo.png',
 					pathMeasureArea = locationPath + 'gcviz/images/drawMeasureArea.png',
 					pathMeasureLength = locationPath + 'gcviz/images/drawMeasureLength.png',
 					pathImport = locationPath + 'gcviz/images/drawImport.png',
@@ -53,8 +52,7 @@
 					lblDist = i18n.getDict('%toolbardraw-dist'),
 					lblArea = i18n.getDict('%toolbardraw-area'),
 					mymap = vmArray[mapid].map.map,
-					$container = $viz('#' + mapid + '_holder_container'),
-					$text = $viz('#gcviz-draw-inputbox');
+					$container = $viz('#' + mapid + '_holder_container');
 
 				// images path
 				_self.imgColor = ko.observable(pathColor);
@@ -68,7 +66,8 @@
 				_self.imgText = ko.observable(pathText);
 				_self.imgErase = ko.observable(pathErase);
 				_self.imgEraseSel = ko.observable(pathEraseSel);
-				_self.imgEraseUndo = ko.observable(pathEraseUndo);
+				_self.imgUndo = ko.observable(pathUndo);
+				_self.imgRedo = ko.observable(pathRedo);
 				_self.imgMeasureArea = ko.observable(pathMeasureArea);
 				_self.imgMeasureLength = ko.observable(pathMeasureLength);
 				_self.imgImport = ko.observable(pathImport);
@@ -88,153 +87,154 @@
 				_self.tpMeasureLength = i18n.getDict('%toolbardraw-tpmeasurelength');
 				_self.tpErase = i18n.getDict('%toolbardraw-tperase');
 				_self.tpEraseSel = i18n.getDict('%toolbardraw-tperasesel');
-				_self.tpEraseUndo = i18n.getDict('%toolbardraw-tperaseundo');
+				_self.tpUndo = i18n.getDict('%toolbardraw-tpundo');
+				_self.tpRedo = i18n.getDict('%toolbardraw-tpredo');
 				_self.tpImport = i18n.getDict('%toolbardraw-tpimport');
 				_self.tpExport = i18n.getDict('%toolbardraw-tpexport');
+
+				// dialog window for text
+				_self.lblTextTitle = i18n.getDict('%toolbardraw-inputbox-name');
+				_self.lblTextDesc = i18n.getDict('%toolbardraw-inputbox-label');
+				_self.lblTextInfo = i18n.getDict('%toolbardraw-insinputbox');
+				_self.isTextDialogOpen = ko.observable();
+				_self.isText = ko.observable(false);
+				_self.drawTextValue = ko.observable('');
 
 				// keep color setting
 				_self.selectedColor = ko.observable();
 
-				// unique graphic id (use this for text because the function is in the dialog box)
-				_self.uniqueID = ko.observable('');
-
 				// enable buttons (undo, export)
 				_self.isColor = ko.observable(false);
-				_self.stackUndo = ko.observable(0);
+				_self.stackUndo = ko.observableArray([]);
+				_self.stackRedo = ko.observableArray([]);
 				_self.isGraphics = ko.observable(false);
 
-				// grpphic object
-				mygraphic = new gisGraphic.initialize(mymap, _self.isGraphics, lblDist, lblArea);
-
-				// keep info for annotation input box
-				_self.mapid = mapid;
-				_self.graphic = mygraphic;
+				// graphic object
+				_self.graphic = new gisGraphic.initialize(mymap, _self.isGraphics, _self.stackUndo, _self.stackRedo, lblDist, lblArea);
 
 				// measure array
 				_self.measureHolder = ko.observableArray([]);
 
-				// set annotation window
-				$text.dialog({
-					autoOpen: false,
-					modal: true,
-					resizable: false,
-					draggable: false,
-					show: 'fade',
-					hide: 'fade',
-					closeOnEscape: true,
-					title: i18n.getDict('%toolbardraw-inputbox-name'),
-					width: 400,
-					close: function() { $viz('#value').val(''); },
-					buttons: [{
-								text: 'Ok',
-								click: function() {
-											var value = $viz('#value').val(),
-												graphic = $text.dialog('option', 'graphic');
-
-											if (value !== '') {
-												graphic.drawText(value, _self.uniqueID(), _self.selectedColor());
-											} else {
-												$container.removeClass('gcviz-text-cursor');
-											}
-											$viz(this).dialog('close');
-										}
-								}, {
-								text: 'Cancel',
-								click: function() {
-											$container.removeClass('gcviz-text-cursor');
-											$viz(this).dialog('close');
-										}
-							}]
-				});
-
 				_self.init = function() {
-					// Set color here to avoid overrides
-					setTimeout(function() {
-						_self.selectedColor('black');
-						_self.selectColorClick('black');
-					}, 1000);
-
 					return { controlsDescendantBindings: true };
 				};
 
+				// add text dialog buttons functions (ok and cancel)
+				_self.dialogTextOk = function() {
+					var value = _self.drawTextValue();
+
+					if (value !== '') {
+						_self.graphic.drawText(value, gcvizFunc.getUUID(), _self.selectedColor());
+						_self.isText(true);
+						_self.isTextDialogOpen(false);
+					} else {
+						_self.dialogTextCancel();
+					}
+				};
+
+				_self.dialogTextOkEnter = function() {
+					_self.dialogTextOk();
+				};
+
+				_self.dialogTextCancel = function() {
+					_self.isTextDialogOpen(false);
+				};
+
+				_self.dialogTextClose = function() {
+					// if there is not text to add
+					if (!_self.isText()) {
+						// open menu and reset cursor
+						vmArray[mapid].header.toolsClick();
+						$container.removeClass('gcviz-text-cursor');
+
+						_self.drawTextValue('');
+						_self.isTextDialogOpen(false);
+					}
+				};
+
 				_self.colorClick = function() {
+					// show panel
 					_self.isColor(!_self.isColor());
 				};
 
 				_self.selectColorClick = function(color) {
-					// Remove cursor class
-					removeColourCursor($container, _self.selectedColor());
 					_self.selectedColor(color);
 					_self.isColor(false);
-					// Set colour picker to selected colour
+					// set colour picker to selected colour
 					if (color === 'black') {
 						_self.imgColor(pathColorBlack);
-					}
-					if (color === 'blue') {
+					} else if (color === 'blue') {
 						_self.imgColor(pathColorBlue);
-					}
-					if (color === 'green') {
+					} else if (color === 'green') {
 						_self.imgColor(pathColorGreen);
-					}
-					if (color === 'red') {
+					} else if (color === 'red') {
 						_self.imgColor(pathColorRed);
-					}
-					if (color === 'yellow') {
+					} else if (color === 'yellow') {
 						_self.imgColor(pathColorYellow);
-					}
-					if (color === 'white') {
+					} else if (color === 'white') {
 						_self.imgColor(pathColorWhite);
 					}
 				};
 
 				_self.drawClick = function() {
+					vmArray[mapid].header.toolsClick();
+
+					// set cursor to selected colour (remove default cursor first)
 					$container.css('cursor', '');
-					// Set cursor to selected colour
-					addColourCursor($container, _self.selectedColor());
-					_self.uniqueID(gcvizFunc.getUUID());
-					_self.graphic.drawLine(_self.uniqueID(), _self.selectedColor());
+					addDrawCursor($container, _self.selectedColor());
+					_self.graphic.drawLine(gcvizFunc.getUUID(), _self.selectedColor());
 				};
 
 				_self.textClick = function() {
+					vmArray[mapid].header.toolsClick();
+
+					// set cursor (remove default cursor first)
 					$container.css('cursor', '');
-					// Remove cursor class
-					removeColourCursor($container, _self.selectedColor());
-					// Use a text cursor
 					$container.addClass('gcviz-text-cursor');
-					$text.dialog('open');
-					_self.uniqueID(gcvizFunc.getUUID());
-					// set graphic and mapid to the current map
-					$text.dialog('option', { graphic: _self.graphic, mapid: _self.mapid });
+
+					// show dialog
+					_self.isText(false);
+					_self.drawTextValue('');
+					_self.isTextDialogOpen(true);
 				};
 
 				_self.eraseClick = function() {
 					_self.graphic.erase();
-					// increment undo
-					_self.stackUndo(_self.stackUndo() + 1);
 				};
 
 				_self.eraseSelClick = function() {
+					vmArray[mapid].header.toolsClick();
+
+					// set cursor (remove default cursor first)
 					$container.css('cursor', '');
-					// Remove cursor class
-					removeColourCursor($container, _self.selectedColor());
-					// increment in gisGraphic because we want to do it only
-					// when graphics is really removed
-					_self.graphic.drawExtent(_self.stackUndo);
+					$container.addClass('gcviz-text-cursor'); // TODO set right cursor
+					_self.graphic.drawExtent();
 				};
 
-				_self.eraseUndoClick = function() {
-					_self.graphic.eraseUndo();
+				_self.undoClick = function() {
+					_self.graphic.undo();
+
 					// workaround to remove tooltip on undo. The tooltip appears
 					// even if the button is disable
 					$viz('.ui-tooltip').remove();
-					// decrement undo
-					_self.stackUndo(_self.stackUndo() - 1);
+				};
+
+				_self.redoClick = function() {
+					_self.graphic.redo();
+
+					// workaround to remove tooltip on undo. The tooltip appears
+					// even if the button is disable
+					$viz('.ui-tooltip').remove();
 				};
 
 				_self.measureLengthClick = function() {
 					var key = gcvizFunc.getUUID();
+					vmArray[mapid].header.toolsClick();
 
+					// set cursor (remove default cursor first)
 					$container.css('cursor', '');
+					$container.addClass('gcviz-text-cursor'); // TODO set right cursor
+
 					clickMeasureLength = mymap.on('click', function(event) {
 										_self.graphic.addMeasure(_self.measureHolder, key, 0, 'km', _self.selectedColor(), event);
 									});
@@ -243,21 +243,27 @@
 						var len = _self.measureHolder().length;
 						if (len >= 2) {
 							_self.graphic.addMeasureSumLength(_self.measureHolder, key, 'km');
-						} else {
+						} else if (len > 0) {
 							_self.graphic.eraseUnfinish();
 						}
 						clickMeasureLength.remove();
 						dblclickMeasure.remove();
 						_self.measureHolder([]);
-						// Remove cursor class
-						removeColourCursor($container, _self.selectedColor());
+
+						// Remove cursor class and reopen panel
+						$container.removeClass('gcviz-text-cursor');
+						vmArray[mapid].header.toolsClick();
 					});
 				};
 
 				_self.measureAreaClick = function() {
 					var key = gcvizFunc.getUUID();
+					vmArray[mapid].header.toolsClick();
 
+					// set cursor (remove default cursor first)
 					$container.css('cursor', '');
+					$container.addClass('gcviz-text-cursor'); // TODO set right cursor
+
 					clickMeasureArea = mymap.on('click', function(event) {
 										_self.graphic.addMeasure(_self.measureHolder, key, 1, 'km', _self.selectedColor(), event);
 									});
@@ -266,15 +272,24 @@
 						var len = _self.measureHolder().length;
 						if (len >= 3) {
 							_self.graphic.addMeasureSumArea(_self.measureHolder, key, 'km');
-						} else {
+						} else if (len > 0) {
 							_self.graphic.eraseUnfinish();
 						}
 						clickMeasureArea.remove();
 						dblclickMeasure.remove();
 						_self.measureHolder([]);
-						// Remove cursor class
-						removeColourCursor($container, _self.selectedColor());
+
+						// Remove cursor class and reopen panel
+						$container.removeClass('gcviz-text-cursor');
+						vmArray[mapid].header.toolsClick();
 					});
+				};
+
+				_self.launchDialog = function() {
+					// launch the dialog. We cant put the dialog in the button because
+					// Firefox will not launch the window. To be able to open the window,
+					// we mimic the click
+					$viz(document.getElementById('fileDialogAnno'))[0].click();
 				};
 
 				_self.importClick = function(vm, event) {
@@ -290,6 +305,9 @@
 						reader.onload = _self.loadFile();
 						reader.readAsText(file);
 					}
+
+					// clear the selected file
+					document.getElementById('fileDialogAnno').value = '';
 				};
 
 				_self.loadFile = function() {
@@ -311,54 +329,27 @@
 					$viz.generateFile({
 						filename	: 'graphics.json',
 						content		: graphics,
-						script		: 'http://localhost:8888/php/download.php' //TODO: put ext server when php installed
+						script		: config.urldownload
 					});
 				};
 
 				_self.init();
 			};
 
-			addColourCursor = function(container, colour) {
+			addDrawCursor = function(container, colour) {
 				// Add cursor class
 				if (colour === 'black') {
 					container.addClass('gcviz-draw-cursor-black');
-				}
-				if (colour === 'blue') {
+				} else if (colour === 'blue') {
 					container.addClass('gcviz-draw-cursor-blue');
-				}
-				if (colour === 'green') {
+				} else if (colour === 'green') {
 					container.addClass('gcviz-draw-cursor-green');
-				}
-				if (colour === 'red') {
+				} else if (colour === 'red') {
 					container.addClass('gcviz-draw-cursor-red');
-				}
-				if (colour === 'yellow') {
+				} else if (colour === 'yellow') {
 					container.addClass('gcviz-draw-cursor-yellow');
-				}
-				if (colour === 'white') {
+				} else if (colour === 'white') {
 					container.addClass('gcviz-draw-cursor-white');
-				}
-			};
-
-			removeColourCursor = function(container, colour) {
-				// Remove cursor class
-				if (colour === 'black') {
-					container.removeClass('gcviz-draw-cursor-black');
-				}
-				if (colour === 'blue') {
-					container.removeClass('gcviz-draw-cursor-blue');
-				}
-				if (colour === 'green') {
-					container.removeClass('gcviz-draw-cursor-green');
-				}
-				if (colour === 'red') {
-					container.removeClass('gcviz-draw-cursor-red');
-				}
-				if (colour === 'yellow') {
-					container.removeClass('gcviz-draw-cursor-yellow');
-				}
-				if (colour === 'white') {
-					container.removeClass('gcviz-draw-cursor-white');
 				}
 			};
 
