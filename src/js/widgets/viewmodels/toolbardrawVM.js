@@ -24,7 +24,6 @@
 			// data model				
 			var toolbardrawViewModel = function($mapElem, mapid) {
 				var _self = this,
-					mygraphic,
 					clickMeasureLength, clickMeasureArea,
 					dblclickMeasure,
 					pathColor = locationPath + 'gcviz/images/drawPicColourBlack.png',
@@ -53,8 +52,7 @@
 					lblDist = i18n.getDict('%toolbardraw-dist'),
 					lblArea = i18n.getDict('%toolbardraw-area'),
 					mymap = vmArray[mapid].map.map,
-					$container = $viz('#' + mapid + '_holder_container'),
-					$text = $viz('#gcviz-draw-inputbox');
+					$container = $viz('#' + mapid + '_holder_container');
 
 				// images path
 				_self.imgColor = ko.observable(pathColor);
@@ -94,11 +92,16 @@
 				_self.tpImport = i18n.getDict('%toolbardraw-tpimport');
 				_self.tpExport = i18n.getDict('%toolbardraw-tpexport');
 
+				// dialog window for text
+				_self.lblTextTitle = i18n.getDict('%toolbardraw-inputbox-name');
+				_self.lblTextDesc = i18n.getDict('%toolbardraw-inputbox-label');
+				_self.lblTextInfo = i18n.getDict('%toolbardraw-insinputbox');
+				_self.isTextDialogOpen = ko.observable();
+				_self.isText = ko.observable(false);
+				_self.drawTextValue = ko.observable('');
+
 				// keep color setting
 				_self.selectedColor = ko.observable();
-
-				// unique graphic id (use this for text because the function is in the dialog box)
-				_self.uniqueID = ko.observable('');
 
 				// enable buttons (undo, export)
 				_self.isColor = ko.observable(false);
@@ -107,61 +110,46 @@
 				_self.isGraphics = ko.observable(false);
 
 				// graphic object
-				mygraphic = new gisGraphic.initialize(mymap, _self.isGraphics, _self.stackUndo, _self.stackRedo, lblDist, lblArea);
-
-				// keep info for annotation input box
-				_self.mapid = mapid;
-				_self.graphic = mygraphic;
-				_self.drawTextValue = ko.observable();
+				_self.graphic = new gisGraphic.initialize(mymap, _self.isGraphics, _self.stackUndo, _self.stackRedo, lblDist, lblArea);
 
 				// measure array
 				_self.measureHolder = ko.observableArray([]);
 
 				_self.init = function() {
-					// set annotation window
-					$text.dialog({
-						autoOpen: false,
-						modal: true,
-						resizable: false,
-						draggable: false,
-						show: 'fade',
-						hide: 'fade',
-						closeOnEscape: true,
-						title: i18n.getDict('%toolbardraw-inputbox-name'),
-						width: 400,
-						close: function() {
-							$viz('#value').val('');
-							$container.removeClass('gcviz-text-cursor');
-						},
-						buttons: [{
-									text: 'Ok',
-									click: function() {
-												var value = $viz('#value').val(),
-													graphic = $text.dialog('option', 'graphic');
-	
-												if (value !== '') {
-													graphic.drawText(value, _self.uniqueID(), _self.selectedColor());
-												} else {
-													vmArray[mapid].header.toolsClick();
-												}
-												$viz(this).dialog('close');
-											}
-									}, {
-									text: 'Cancel',
-									click: function() {
-												vmArray[mapid].header.toolsClick();
-												$viz(this).dialog('close');
-											}
-								}]
-					});
-
-					// to solve page refresh bug on enter on input field
-					// http://www.w3.org/MarkUp/html-spec/html-spec_8.html#SEC8.2
-					document.getElementById('gcviz-textvalue').onkeydown = function(event) {
-						event.cancelBubble = true;
-					};
-
 					return { controlsDescendantBindings: true };
+				};
+
+				// add text dialog buttons functions (ok and cancel)
+				_self.dialogTextOk = function() {
+					var value = _self.drawTextValue();
+
+					if (value !== '') {
+						_self.graphic.drawText(value, gcvizFunc.getUUID(), _self.selectedColor());
+						_self.isText(true);
+						_self.isTextDialogOpen(false);
+					} else {
+						_self.dialogTextCancel();
+					}
+				};
+
+				_self.dialogTextOkEnter = function() {
+					_self.dialogTextOk();
+				};
+
+				_self.dialogTextCancel = function() {
+					_self.isTextDialogOpen(false);
+				};
+
+				_self.dialogTextClose = function() {
+					// if there is not text to add
+					if (!_self.isText()) {
+						// open menu and reset cursor
+						vmArray[mapid].header.toolsClick();
+						$container.removeClass('gcviz-text-cursor');
+
+						_self.drawTextValue('');
+						_self.isTextDialogOpen(false);
+					}
 				};
 
 				_self.colorClick = function() {
@@ -175,45 +163,39 @@
 					// set colour picker to selected colour
 					if (color === 'black') {
 						_self.imgColor(pathColorBlack);
-					}
-					if (color === 'blue') {
+					} else if (color === 'blue') {
 						_self.imgColor(pathColorBlue);
-					}
-					if (color === 'green') {
+					} else if (color === 'green') {
 						_self.imgColor(pathColorGreen);
-					}
-					if (color === 'red') {
+					} else if (color === 'red') {
 						_self.imgColor(pathColorRed);
-					}
-					if (color === 'yellow') {
+					} else if (color === 'yellow') {
 						_self.imgColor(pathColorYellow);
-					}
-					if (color === 'white') {
+					} else if (color === 'white') {
 						_self.imgColor(pathColorWhite);
 					}
 				};
 
 				_self.drawClick = function() {
 					vmArray[mapid].header.toolsClick();
-					
+
 					// set cursor to selected colour (remove default cursor first)
 					$container.css('cursor', '');
 					addDrawCursor($container, _self.selectedColor());
-					_self.uniqueID(gcvizFunc.getUUID());
-					_self.graphic.drawLine(_self.uniqueID(), _self.selectedColor());
+					_self.graphic.drawLine(gcvizFunc.getUUID(), _self.selectedColor());
 				};
 
 				_self.textClick = function() {
 					vmArray[mapid].header.toolsClick();
-					
-					// use a text cursor (remove default cursor first)
+
+					// set cursor (remove default cursor first)
 					$container.css('cursor', '');
 					$container.addClass('gcviz-text-cursor');
-					$text.dialog('open');
-					_self.uniqueID(gcvizFunc.getUUID());
 
-					// set graphic and mapid to the current map
-					$text.dialog('option', { graphic: _self.graphic, mapid: _self.mapid });
+					// show dialog
+					_self.isText(false);
+					_self.drawTextValue('');
+					_self.isTextDialogOpen(true);
 				};
 
 				_self.eraseClick = function() {
@@ -222,7 +204,7 @@
 
 				_self.eraseSelClick = function() {
 					vmArray[mapid].header.toolsClick();
-					
+
 					// set cursor (remove default cursor first)
 					$container.css('cursor', '');
 					$container.addClass('gcviz-text-cursor'); // TODO set right cursor
@@ -236,7 +218,7 @@
 					// even if the button is disable
 					$viz('.ui-tooltip').remove();
 				};
-				
+
 				_self.redoClick = function() {
 					_self.graphic.redo();
 
@@ -303,6 +285,13 @@
 					});
 				};
 
+				_self.launchDialog = function() {
+					// launch the dialog. We cant put the dialog in the button because
+					// Firefox will not launch the window. To be able to open the window,
+					// we mimic the click
+					$viz(document.getElementById('fileDialogAnno'))[0].click();
+				};
+
 				_self.importClick = function(vm, event) {
 					var file, reader,
 						files = event.target.files,
@@ -316,6 +305,9 @@
 						reader.onload = _self.loadFile();
 						reader.readAsText(file);
 					}
+
+					// clear the selected file
+					document.getElementById('fileDialogAnno').value = '';
 				};
 
 				_self.loadFile = function() {
@@ -348,20 +340,15 @@
 				// Add cursor class
 				if (colour === 'black') {
 					container.addClass('gcviz-draw-cursor-black');
-				}
-				if (colour === 'blue') {
+				} else if (colour === 'blue') {
 					container.addClass('gcviz-draw-cursor-blue');
-				}
-				if (colour === 'green') {
+				} else if (colour === 'green') {
 					container.addClass('gcviz-draw-cursor-green');
-				}
-				if (colour === 'red') {
+				} else if (colour === 'red') {
 					container.addClass('gcviz-draw-cursor-red');
-				}
-				if (colour === 'yellow') {
+				} else if (colour === 'yellow') {
 					container.addClass('gcviz-draw-cursor-yellow');
-				}
-				if (colour === 'white') {
+				} else if (colour === 'white') {
 					container.addClass('gcviz-draw-cursor-white');
 				}
 			};

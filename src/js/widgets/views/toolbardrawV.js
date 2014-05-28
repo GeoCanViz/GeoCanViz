@@ -20,7 +20,7 @@
 				mapid = $mapElem.mapframe.id,
 				tp,
 				node = '';
-				
+
 			// add the url for dowload page to config
 			config.urldownload = $mapElem.mapframe.map.urldownload;
 
@@ -45,16 +45,6 @@
 			// set text button
 			if (config.drawtext.enable) {
 				node += '<button class="gcviz-button" tabindex="0" data-bind="click: textClick, tooltip: { content: tpText }"><img class="gcviz-img-button" data-bind="attr: { src: imgText }"></img></button>';
-
-				// create the annotation inputbox (dont use knockout data-bind because there one window for the whole page not by ViewModel)
-				if ($viz('#gcviz-draw-inputbox').length === 0) {
-					$viz('body').prepend('<div id="gcviz-draw-inputbox">' +
-										'<form><fieldset>' +
-										'<label for="gcviz-textvalue">' + i18n.getDict('%toolbardraw-inputbox-label') + '</label>' +
-											'<input id="gcviz-textvalue" class="text ui-widget-content ui-corner-all" data-bind="value: drawTextValue, valueUpdate: \'afterkeydown\'"/>' +
-										'<div>' + i18n.getDict('%toolbardraw-insinputbox') + '</div>' +
-										'</fieldset></form></div>');
-				}
 			}
 
 			// set measure button
@@ -94,13 +84,23 @@
 			// set import and save buttons
 			if (config.importexport.enable) {
 			node += '<div class="gcviz-inlineblock">' +
-						'<input id="fileDialogFF" type="file" accept="application/json" data-bind="event: { change: importClick }"></input>' +
-						'<button class="gcviz-button" tabindex="0" data-bind="tooltip: { content: tpImport }">' +
-							'<input type="file" accept="application/json" data-bind="event: { change: importClick }"></input>' +
+						'<input id="fileDialogAnno" type="file" accept="application/json" data-bind="event: { change: importClick }"></input>' +
+						'<button class="gcviz-button" tabindex="0" data-bind="click: launchDialog, tooltip: { content: tpImport }">' +
 							'<img class="gcviz-img-button" data-bind="attr: { src: imgImport }"></img></button>' +
 						'<button class="gcviz-button" tabindex="0" data-bind="click: exportClick, tooltip: { content: tpExport }, enable: isGraphics"><img class="gcviz-img-button" data-bind="attr: { src: imgExport }"></img></button>'+
 					'</div>';
 			}
+
+			// dialog text to add annotation
+			node += '<div id="text_add" data-bind="uiDialog: { title: $root.lblTextTitle, width: 450, height: 220, ok: $root.dialogTextOk, cancel: $root.dialogTextCancel, close: $root.dialogTextClose, openDialog: \'isTextDialogOpen\' }">' +
+						'<div id="gcviz-draw-inputbox">' +
+							'<form><fieldset>' +
+								'<label for="gcviz-textvalue" data-bind="value: lblTextDesc"></label>' +
+								'<input id="gcviz-textvalue" class="text ui-widget-content ui-corner-all" data-bind="value: drawTextValue, valueUpdate: \'afterkeydown\', returnKey: dialogTextOkEnter"/>' +
+								'<div style="clear: both"></div><span data-bind="text: lblTextInfo"></span>' +
+							'</fieldset></form>' +
+						'</div>' +
+					'</div>';
 
 			$toolbar.append(node);
 			return(tbdrawVM.initialize($toolbar, mapid, config));

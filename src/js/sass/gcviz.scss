@@ -135,8 +135,12 @@ input[type="file"] {
 	left: 0rem;
 	position: absolute;
 	margin: 0 !important;
-	height: (2.2 * $rembase) + rem;
-	width: (2.2 * $rembase) + rem;
+	height: 0rem;
+	width: 0rem;
+	padding: 0rem;
+	border-width: 0rem;
+	min-width: 0rem;
+	min-height: 0rem;
 }
 
 /* full screen */
