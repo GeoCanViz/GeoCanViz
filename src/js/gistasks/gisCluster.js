@@ -16,8 +16,7 @@
 			'esri/renderers/jsonUtils',
 			'esri/geometry/Point',
 			'esri/SpatialReference'
-			], function($aut, cluster, gisGeo, esriRequest, esriMarker, esriRender, esriJsonUtil, esriPoint, esriSR) {
-
+	], function($viz, cluster, gisGeo, esriRequest, esriMarker, esriRender, esriJsonUtil, esriPoint, esriSR) {
 		var setCluster,
 			startCluster,
 			createCluster,

@@ -25,7 +25,8 @@ var vmArray = {},
 			'gcviz-v-footer',
 			'gcviz-v-tbdraw',
 			'gcviz-v-tbnav',
-			'gcviz-v-tblegend'], function($viz, mp, jqui, i18n, func, map, inset, header, footer, tbdraw, tbnav, tblegend) {
+			'gcviz-v-tblegend',
+			'gcviz-v-tbdata'], function($viz, mp, jqui, i18n, func, map, inset, header, footer, tbdraw, tbnav, tblegend, tbdata) {
 		var initialize,
 			readConfig,
 			execConfig,
@@ -129,6 +130,11 @@ var vmArray = {},
 			//add legend
 			if (config.toolbarlegend.enable) {
 				vmArray[mapid].legend = tblegend.initialize($mapSection);
+			}
+
+			//add legend
+			if (config.toolbardata.enable) {
+				vmArray[mapid].data = tbdata.initialize($mapSection);
 			}
 
 			// add inset

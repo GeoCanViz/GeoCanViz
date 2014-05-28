@@ -84,6 +84,8 @@ General (i18n)#%all#All#Tous
 #%toolbarnav-magnify#Magnify part of the map#Agrandir une partie de la carte
 #%toolbarnav-ovdrag#Drag To Change The Map Extent#Faites glisser pour changer l'étendue de la carte
 #%toolbarnav-zoomfull#Zoom to full extent#Zoom à l`étendue maximum
+#%toolbardata-name#Data#Données
+#%toolbardata-tpadd#Add Data#Ajouter des données
 #%inset-tplight#Open the content in a lightbox#Ouvrir le contenu dans un lightbox
 #%inset-tpplayvideo#Play video#Jouer la vidéo
 #%mp-close#Close (Esc)#Fermer (Esc)
