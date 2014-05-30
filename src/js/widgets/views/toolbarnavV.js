@@ -109,7 +109,7 @@
                         if (configposition.enable) {
                             node += '<div class="row">';
                             node += '   <div class="span2">';
-                            node += '       <button id="btnClickMap' + mapid + '" class="gcviz-button gcviz-img-button gcviz-inline" tabindex="0" data-bind="click: getMapClick, tooltip: { content: tpGetLocInfo }"><img class="gcviz-img-button" data-bind="attr:{src: imgPosition}"></img></button>';
+                            node += '       <button id="btnClickMap' + mapid + '" class="gcviz-button gcviz-img-button gcviz-inline" tabindex="0" data-bind="click: getMapClick, tooltip: { content: tpGetLocInfo }"><img class="gcviz-img-button" data-bind="attr:{ src: imgPosition }"></img></button>';
                             node += '   </div>';
                             node += '</div>';
                         }
