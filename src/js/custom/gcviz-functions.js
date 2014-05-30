@@ -17,6 +17,7 @@
 			getUUID,
 			setProgressBar,
 			destroyProgressBar,
+			checkMatch,
 			timer;
 
 		debounce = function(func, threshold, execAsap) {
@@ -119,6 +120,20 @@
 			$viz('.gcviz-loading').progressbar('destroy');
 		};
 
+		checkMatch = function(array, val) {
+			var item,
+				len = array.length;
+
+			while (len--) {
+				item = array[len];
+				if (item.toUpperCase() === val.toUpperCase()) {
+					return true;
+				}
+			}
+
+			return false;
+		};
+
 		return {
 			debounce: debounce,
 			debounceClick: debounceClick,
@@ -127,7 +142,8 @@
 			checkObjectValue: checkObjectValue,
 			getUUID: getUUID,
 			setProgressBar: setProgressBar,
-			destroyProgressBar: destroyProgressBar
+			destroyProgressBar: destroyProgressBar,
+			checkMatch: checkMatch
 		};
 	});
 }());
