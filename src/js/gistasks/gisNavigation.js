@@ -30,7 +30,7 @@
 				options = { map: mymap,
 							expandFactor: 2,
 							height: 100,
-							width: 247 };
+							width: 237 };
 
 				// If no layer specified, use the main map
 				// layer must be ArcGIS tiled, dynamic or imagery. It can also be OpenStreet map
@@ -49,7 +49,7 @@
 				// with the option from the dijit.
 				setTimeout(function() {
 					var divOV = $viz('#divOverviewMap' + mapid + '-map');
-					divOV.width(247).height(100);
+					divOV.width(237).height(100);
 					overviewMapDijit.resize();
 				}, 2000);
 		};

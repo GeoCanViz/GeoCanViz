@@ -15,8 +15,17 @@
 			'gcviz-i18n',
 			'gcviz-ko',
 			'gcviz-func',
-			'gcviz-gismap'
-	], function($viz, ko, media, gisPrint, i18n, binding, func, gisM) {
+			'gcviz-gismap',
+			'dijit/registry'
+//<<<<<<< HEAD
+//			'gcviz-gismap',
+//			'dijit/registry'
+//	], function($viz, ko, media, i18n, binding, func, gisM, dijit) {
+//=======
+//			'gcviz-gismap'
+//	], function($viz, ko, media, gisPrint, i18n, binding, func, gisM) {
+//>>>>>>> 2aa75f7655d8a98ad09573b99dd395d565eca747
+	], function($viz, ko, media, gisPrint, i18n, binding, func, gisM, dijit) {
 		var initialize,
 			vm;
 
@@ -54,8 +63,6 @@
 					pathFullscreen = locationPath + 'gcviz/images/headFullscreen.png',
 					pathShowInset = locationPath + 'gcviz/images/headShowInset2.png',
 					pathSmallscreen = locationPath + 'gcviz/images/headSmallscreen.png',
-                    pathClosedTools = locationPath + 'gcviz/images/headToolsClosed.png',
-                    pathOpenTools = locationPath + 'gcviz/images/headToolsOpen.png',
 					pathHelp = locationPath + 'gcviz/images/headHelp.png',
 					pathPrint = locationPath + 'gcviz/print/',
 					$section = $viz('#section' + mapid),
@@ -71,11 +78,13 @@
 				_self.xpositionTools = ko.observable();
 				_self.xpositionPrint = ko.observable();
 				_self.xpositionFull = ko.observable();
+				_self.xheightToolsOuter = ko.observable('max-height:100px!important');
+				_self.xheightToolsInner = ko.observable('max-height:100px!important');
+				_self.widthheightTBholder =  ko.observable('max-height:390px!important;max-width:290px!important');
 				_self.positionHelp = 0,
 				_self.positionAbout = 0,
 				_self.positionInset = 0,
 				_self.positionLink = 0,
-				_self.positionTools = 0,
 				_self.positionPrint = 0,
 				_self.positionFull = 0;
 
@@ -85,17 +94,9 @@
 					_self.positionAbout += 35;
 					_self.positionInset += 35;
 					_self.positionLink += 35;
-					_self.positionTools += 35;
-					_self.positionPrint += 35;
+					_self.positionPrint += 36;
 				}
 				if (config.print.enable) {
-					_self.positionHelp += 34;
-					_self.positionAbout += 35;
-					_self.positionInset += 35;
-					_self.positionLink += 35;
-					_self.positionTools += 35;
-				}
-				if (config.tools) {
 					_self.positionHelp += 34;
 					_self.positionAbout += 35;
 					_self.positionInset += 35;
@@ -113,11 +114,11 @@
 				if (config.about.enable) {
 					_self.positionHelp += 34;
 				}
+
 				_self.xpositionHelp('right:' + _self.positionHelp.toString() + 'px!important');
 				_self.xpositionAbout('right:' + _self.positionAbout.toString() + 'px!important');
 				_self.xpositionInset('right:' + _self.positionInset.toString() + 'px!important');
 				_self.xpositionLink('right:' + _self.positionLink.toString() + 'px!important');
-				_self.xpositionTools('right:' + _self.positionTools.toString() + 'px!important');
 				_self.xpositionPrint('right:' + _self.positionPrint.toString() + 'px!important');
 				_self.xpositionFull('right:' + _self.positionFull.toString() + 'px!important');
 
@@ -125,10 +126,9 @@
                 _self.imgAbout = ko.observable(pathAbout);
 				_self.imgFullscreen = ko.observable(pathFullscreen);
 				_self.imgShowInset = pathShowInset;
-                _self.imgTools = ko.observable(pathClosedTools);
 				_self.imgHelp = pathHelp;
 
-				// tooltip
+				// tooltip, text strings
 				_self.tpHelp = i18n.getDict('%header-tphelp');
 				_self.tpTools = i18n.getDict('%header-tptools');
 				_self.tpPrint = i18n.getDict('%header-tpprint');
@@ -157,6 +157,11 @@
 					_self.widthSection = parseInt($section.css('width'), 10);
 					_self.widthMap = parseInt($map.css('width'), 10);
 					_self.headerHeight = parseInt($mapElem.css('height'), 10);
+
+					// Set the toolbar container height
+                    setTimeout(function() {
+						_self.adjustContainerHeight();
+					}, 2000);
 
 					return { controlsDescendantBindings: true };
 				};
@@ -202,24 +207,10 @@
 				};
 
 				_self.toolsClick = function() {
-                    var tool = $mapholder.find('.gcviz-tbcontainer');
-                    tool.slideToggle('slow');
-                    if (_self.opencloseToolsState === 0) {
-                        _self.opencloseToolsState = 1;
-                        _self.imgTools(pathOpenTools);
-                    } else {
-                        _self.opencloseToolsState = 0;
-                        _self.imgTools(pathClosedTools);
-                    }
-                    setTimeout(function() {
-                        if (tool.hasClass('gcviz-hidden')) {
-                            // set focus on the first element
-                            $section.find('.dijitTitlePaneTitleFocus')[0].focus();
-                        } else {
-                            // set focus back on button
-                            $viz('#btnTools' + mapid).focus();
-                        }
-                    }, 1000);
+					// Toggle the tools container
+					var tc = dijit.byId('tbTools' + mapid);
+					tc.toggle();
+
 				};
 
 				_self.helpClick = function() {
@@ -258,6 +249,11 @@
 					// resize map and keep the extent
 					gisM.manageScreenState(map, 500, false);
 
+					// Set the toolbar container height
+                    setTimeout(function() {
+						_self.adjustContainerHeight();
+					}, 2000);
+
 					// remove the event that keeps tab in map section
 					$section.off('keydown.fs');
 				};
@@ -284,12 +280,25 @@
 					// resize map ans keep the extent
 					gisM.manageScreenState(map, 1000, true);
 
+					// Set the toolbar container height
+                    setTimeout(function() {
+						_self.adjustContainerHeight();
+					}, 2000);
+
 					// create keydown event to keep tab in the map section
 					_self.first = array[0];
 					_self.last = array[array.length - 1];
 					$section.on('keydown.fs', function(event) {
 						_self.manageTabbingOrder(event);
                     });
+                };
+
+                _self.adjustContainerHeight = function() {
+					var toolbarheight = parseInt(map.height, 10) - 15;
+					_self.xheightToolsOuter('max-height:' + toolbarheight + 'px!important');
+					_self.xheightToolsInner('max-height:' + toolbarheight + 'px!important');
+					toolbarheight = toolbarheight - 25;
+					_self.widthheightTBholder('max-height:' + toolbarheight + 'px!important;max-width:290px!important');
                 };
 
 				_self.manageTabbingOrder = function(evt) {

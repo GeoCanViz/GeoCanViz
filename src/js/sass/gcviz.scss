@@ -112,10 +112,6 @@ div.gcviz-container img {
 
 .gcviz {
 	position: relative;
-  border-top: solid 1px $lightgrey;
-  border-left: solid 1px $lightgrey;
-  border-right: solid 1px $grey;
-  border-bottom: solid 1px $grey;
 }
 
 .gcviz-tooltip {
@@ -131,9 +127,9 @@ div.gcviz-container img {
 /* hide the input type */
 input[type="file"] {
 	opacity: 0;
+	position: absolute;
 	top:	0rem;
 	left: 0rem;
-	position: absolute;
 	margin: 0 !important;
 	height: 0rem;
 	width: 0rem;
@@ -170,7 +166,7 @@ input[type="file"] {
 	border-color: $grey;
 	height: (3 * $rembase) + rem;
 	margin-bottom: (-1 * $rembase) + rem;
-	margin-right: 10px;
+	margin-right: 15px;
 }
 
 .gcviz-loading {
@@ -246,6 +242,10 @@ input[type="file"] {
 
 .gcviz-w231 {
   width: 231px;
+}
+
+.gcviz-w240 {
+  width: 240px;
 }
 
 .gcviz-w241 {

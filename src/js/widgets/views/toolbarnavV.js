@@ -21,6 +21,7 @@
 				configoverview = config.overview,
 				configposition = config.position,
 				configscalebar = config.scalebar,
+				configscaledisplay = config.scaledisplay,
 				configzoom = config.zoom,
 				navheight = 0,
 				mapid = $mapElem.mapframe.id,
@@ -35,10 +36,13 @@
 				navheight += 105;
 			}
 			if (configscalebar.enable) {
-				navheight += 30;
+				navheight += 45;
+			}
+			if (configscalebar.enable) {
+				navheight += 20;
 			}
 			if (configposition.enable) {
-				navheight += 45;
+				navheight += 25;
 			}
 
 			tp = new dojotitle({ id: 'tbnav' + mapid, title: 'Navigation', content: '<div class="gcviz-tbnav-content gcviz-tbcontent" style="height:' + navheight + 'px;"></div>', open: config.expand });
@@ -71,8 +75,8 @@
 
                 // See if overview map desired
                 if (configoverview.enable) {
-                    node += '<div class="gcviz-float-left gcviz-w250 gcviz-border gcviz-margin-left5 toolbar-background-opaque gcviz-ovtoolcontainer">';
-                        node += '<div id="divOverviewMapContainer' + mapid + '" class="gcviz-overviewMap" data-bind="tooltip: { content: tpOverview }" style="width: 247px; height: 100px;" tabindex="-1">';
+                    node += '<div class="gcviz-float-left gcviz-w240 gcviz-border gcviz-margin-left5 toolbar-background-opaque gcviz-ovtoolcontainer">';
+                        node += '<div id="divOverviewMapContainer' + mapid + '" class="gcviz-overviewMap" data-bind="tooltip: { content: tpOverview }" tabindex="-1">';
                             node += '<div id="divOverviewMap' + mapid + '" class="gcviz-overviewMapContent" tabindex="-1"></div>';
                         node += '</div>';
                     node += '</div>';
@@ -82,6 +86,14 @@
                 if (configscalebar.enable) {
                     node += '<div class="gcviz-float-left gcviz-scaleBar gcviz-scaleBarToolbar">';
                         node += '<div id="divScalebar' + mapid + '" class="gcviz-scaleBarToolbarContainer" tabindex="-1"></div>';
+                        node += '<div id="divScalebarLabel' + mapid + '" class="gcviz-scaleBarToolbarContainer gcviz-scaleBarLabel" tabindex="-1">(approx.)</div>';
+                    node += '</div>';
+                }
+
+                // See if scale display is desired
+                if (configscaledisplay.enable) {
+                    node += '<div class="gcviz-float-left gcviz-w247 gcviz-scaleDisplay">';
+                        node += '<div id="divScale' + mapid + '" class="row"><span class="span6 gcviz-scaleDisplayLabel" data-bind="text: lblScale"></span><a class="span4 gcviz-scale">(approx.)</a></div>';
                     node += '</div>';
                 }
 
@@ -96,7 +108,7 @@
                         if (configposition.enable) {
                             node += '<div class="row">';
                             node += '   <div class="span2">';
-                            node += '       <button id="btnClickMap' + mapid + '" class="gcviz-button gcviz-img-button gcviz-inline gcviz-up5" tabindex="0" data-bind="click: getMapClick, tooltip: { content: tpGetLocInfo }"><img class="gcviz-img-button" data-bind="attr:{src: imgPosition}"></img></button>';
+                            node += '       <button id="btnClickMap' + mapid + '" class="gcviz-button gcviz-img-button gcviz-inline" tabindex="0" data-bind="click: getMapClick, tooltip: { content: tpGetLocInfo }"><img class="gcviz-img-button" data-bind="attr:{ src: imgPosition }"></img></button>';
                             node += '   </div>';
                             node += '</div>';
                         }
