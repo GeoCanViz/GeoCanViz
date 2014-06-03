@@ -10,6 +10,7 @@
 	'use strict';
 	define(['jquery-private',
 			'gcviz-gisgeo',
+			'esri/layers/GraphicsLayer',
 			'esri/toolbars/draw',
 			'esri/symbols/SimpleLineSymbol',
 			'esri/symbols/SimpleFillSymbol',
@@ -19,7 +20,7 @@
 			'esri/geometry/Polygon',
 			'esri/graphic',
 			'dojo/on'
-	], function($viz, gisgeo, esriTools, esriLine, esriFill, esriMarker, esriText, esriScreenPt, esriPoly, esriGraph, dojoOn) {
+	], function($viz, gisgeo, esriGraphLayer, esriTools, esriLine, esriFill, esriMarker, esriText, esriScreenPt, esriPoly, esriGraph, dojoOn) {
 		var initialize,
 			importGraphics,
 			exportGraphics;
@@ -29,6 +30,7 @@
 			// data model				
 			var graphic = function(mymap, isGraphics, undo, redo, lblDist, lblArea) {
 				var _self = this,
+					symbLayer,
 					measureLength, measureArea, measureAreaCallback, measureLabelCallback, measureText,
 					addBackgroundText, addToMap,
 					addUndoStack,
@@ -51,6 +53,11 @@
 					polyFill = [205,197,197,100];
 
 				_self.init = function() {
+					// add the graphic layers tot he map
+					mymap.addLayer(new esriGraphLayer({ id: 'gcviz-symbol' }));
+					symbLayer = map.getLayer('gcviz-symbol');
+					
+					// create esri toolbar
 					toolbar = new esriTools(map, { showTooltips: false });
 					dojoOn(toolbar, 'DrawEnd', addToMap);
 				};
@@ -79,9 +86,8 @@
 
 				_self.erase = function() {
 					var grp = [],
-						mapGraph = map.graphics,
-						graphics = mapGraph.graphics,
-						len = mapGraph.graphics.length;
+						graphics = symbLayer.graphics,
+						len = symbLayer.graphics.length;
 
 					// add to undo stack
 					while (len--) {
@@ -93,7 +99,7 @@
 					}
 
 					// clear graphics and set isGraphics
-					map.graphics.clear();
+					symbLayer.clear();
 					isGraphics(false);
 				};
 
@@ -101,9 +107,8 @@
 					var graphic, lenKey,
 						keys = [],
 						grp = [],
-						mapGraph = map.graphics,
-						graphics = mapGraph.graphics,
-						lenGraph = mapGraph.graphics.length,
+						graphics = symbLayer.graphics,
+						lenGraph = symbLayer.graphics.length,
 						$cursor = $viz('#' + map.vIdName + '_holder_container');
 
 					// get key from geometries that intersect the extent
@@ -122,7 +127,7 @@
 							graphic = graphics[lenGraph];
 
 							if (keys[lenKey] === graphic.key) {
-								mapGraph.remove(graphic);
+								symbLayer.remove(graphic);
 								grp.push(graphic);
 							}
 						}
@@ -138,22 +143,21 @@
 
 					// check if there is graphics. Check if the only one is a point at x:0;y:0
 					// this point is created by the API sometimes
-					if (mapGraph.graphics.length === 0) {
+					if (symbLayer.graphics.length === 0) {
 						isGraphics(false);
-					} else if (mapGraph.graphics.length === 1 && mapGraph.graphics[0]._extent.xmax === 0) {
+					} else if (symbLayer.graphics.length === 1 && symbLayer.graphics[0]._extent.xmax === 0) {
 						isGraphics(false);
 					}
 				};
 
 				_self.eraseUnfinish = function() {
-					var mapGraph = map.graphics,
-						graphics = mapGraph.graphics,
-						len = mapGraph.graphics.length,
+					var graphics = symbLayer.graphics,
+						len = graphics.length,
 						key = graphics[len - 1].key,
 						lastKey = key;
 
 					while (len-- && key === lastKey) {
-						mapGraph.remove(graphics[len]);
+						symbLayer.remove(graphics[len]);
 						lastKey = graphics[len - 1].key;
 					}
 				};
@@ -165,11 +169,11 @@
 
 					if (graphics.task === 'delete') {
 						while (len--) {
-							map.graphics.add(geoms[len]);
+							symbLayer.add(geoms[len]);
 						}
 					} else {
 						while (len--) {
-							map.graphics.remove(geoms[len]);
+							symbLayer.remove(geoms[len]);
 						}
 					}
 
@@ -186,11 +190,11 @@
 
 					if (graphics.task === 'delete') {
 						while (len--) {
-							map.graphics.remove(geoms[len]);
+							symbLayer.remove(geoms[len]);
 						}
 					} else {
 						while (len--) {
-							map.graphics.add(geoms[len]);
+							symbLayer.add(geoms[len]);
 						}
 					}
 
@@ -304,14 +308,13 @@
 
 				measureLength = function(array, unit) {
 					var line, pt1, pt2, text,
-						len = array.length,
-						mapGraph = map.graphics;
+						len = array.length;
 
 					// add the point symbol
 					graphic = new esriGraph(array[len - 1]);
 					graphic.symbol =  getSymbPoint(gColor, 4);
 					graphic.key = gKey;
-					mapGraph.add(graphic);
+					symbLayer.add(graphic);
 
 					// draw a line between points
 					if (len > 1) {
@@ -324,7 +327,7 @@
 						graphic = new esriGraph(line);
 						graphic.symbol =  getSymbLine(gColor, 1);
 						graphic.key = gKey;
-						mapGraph.add(graphic);
+						symbLayer.add(graphic);
 
 						// add text
 						text = { 'geometry': {
@@ -339,14 +342,13 @@
 					var item, poly, polyArr = [],
 						len = array().length,
 						lenPoly = len,
-						lastPoly = len - 1,
-						mapGraph = map.graphics;
+						lastPoly = len - 1;
 
 					// add the point symbol
 					graphic = new esriGraph(array()[len - 1]);
 					graphic.symbol =  getSymbPoint(gColor, 4);
 					graphic.key = gKey;
-					mapGraph.add(graphic);
+					symbLayer.add(graphic);
 
 					// create poly geom and add the closing point
 					if (len > 1) {
@@ -364,13 +366,13 @@
 
 						// remove previous area graphic
 						if (len > 2) {
-							mapGraph.remove(mapGraph.graphics[mapGraph.graphics.length - 2]);
+							symbLayer.remove(symbLayer.graphics[symbLayer.graphics.length - 2]);
 						}
 
 						graphic = new esriGraph(poly);
 						graphic.symbol =  getSymbPoly(gColor, polyFill, 1);
 						graphic.key = gKey;
-						mapGraph.add(graphic);
+						symbLayer.add(graphic);
 					}
 				};
 
@@ -383,14 +385,14 @@
 
 					// add background then text
 					addBackgroundText(graphic, white, 'center');
-					map.graphics.add(graphic);
+					symbLayer.add(graphic);
 					isGraphics(true);
 				};
 
 				addBackgroundText = function(item, backColor, align) {
 					var graphic, point,
 						text = '',
-						offset = 0,
+						offset = -1,
 						len = item.symbol.text.length * 2,
 						geom = item.geometry;
 
@@ -407,20 +409,13 @@
 						text += 'l';
 					}
 
-					graphic = new esriGraph(point);
-					graphic.symbol =  getSymbText(backColor, text, 9, offset, -1, 'bold', align);
-					graphic.key = gKey;
-					map.graphics.add(graphic);
-
-					graphic = new esriGraph(point);
-					graphic.symbol =  getSymbText(backColor, text, 9, offset - 1, -1, 'bold', align);
-					graphic.key = gKey;
-					map.graphics.add(graphic);
-
-					graphic = new esriGraph(point);
-					graphic.symbol =  getSymbText(backColor, text, 9, offset + 1, -1, 'bold', align);
-					graphic.key = gKey;
-					map.graphics.add(graphic);
+					while (offset <= 1) {
+						graphic = new esriGraph(point);
+						graphic.symbol =  getSymbText(backColor, text, 9, offset, -1, 'bold', align);
+						graphic.key = gKey;
+						symbLayer.add(graphic);
+						offset++;
+					}
 				},
 
 				addToMap = function(geometry) {
@@ -447,7 +442,7 @@
 
 						// add graphic
 						graphic.key = gKey;
-						map.graphics.add(graphic);
+						symbLayer.add(graphic);
 						isGraphics(true);
 
 						// add to stack
@@ -461,9 +456,8 @@
 				addUndoStack = function(key) {
 					var graphic,
 						grp = [],
-						mapGraph = map.graphics,
-						graphics = mapGraph.graphics,
-						len = mapGraph.graphics.length;
+						graphics = symbLayer.graphics,
+						len = symbLayer.graphics.length;
 
 					while (len--) {
 						graphic = graphics[len];

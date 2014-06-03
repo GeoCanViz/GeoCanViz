@@ -18,6 +18,7 @@
 			'gcviz-gismap'
 	], function($viz, ko, media, gisPrint, i18n, binding, func, gisM) {
 		var initialize,
+			printSimple,
 			vm;
 
 		initialize = function($mapElem, mapid, config) {
@@ -177,7 +178,12 @@
 
 				_self.printClick = function() {
 					// Print the map
-					gisPrint.printMap(map, _self.printInfo);
+					// TODO this sample doent work because text, csv and cluster does not work.
+					//_self.printInfo.url = 'http://geoappext.nrcan.gc.ca/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task';
+					//gisPrint.printMap(vmArray[mapid].map.map, _self.printInfo);
+					
+					// This is the simple print. It doesn't use esri print task
+					printSimple(map, _self.printInfo.template);
 				};
 
 				_self.insetClick = function() {
@@ -318,6 +324,20 @@
 			vm = new headerViewModel($mapElem, mapid);
 			ko.applyBindings(vm, $mapElem[0]); // This makes Knockout get to work
 			return vm;
+		};
+
+		printSimple = function(map, template) {
+			var win,
+				node = $viz('#' + map.vIdName + '_holder').clone();
+
+			win = window.open(template + 'defaultPrint.html');
+			win.onload = function() {
+				// we clone the map and add it to our print page
+				var print = win.document.getElementsByClassName('gcviz-print');
+				print[0].style.width = node.width();
+				$viz(print).append(node);
+				win.print();
+			};
 		};
 
 		return {

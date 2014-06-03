@@ -18,10 +18,10 @@
 			setProgressBar,
 			destroyProgressBar,
 			checkMatch,
+			getRandomColor,
 			timer;
 
 		debounce = function(func, threshold, execAsap) {
-
 			var timeout;
 
 			return function debounced () {
@@ -134,6 +134,13 @@
 			return false;
 		};
 
+		getRandomColor = function() {
+			function c() {
+				return Math.floor(Math.random() * 256);
+			}
+			return [c(), c(), c() ,255];
+		};
+
 		return {
 			debounce: debounce,
 			debounceClick: debounceClick,
@@ -143,7 +150,8 @@
 			getUUID: getUUID,
 			setProgressBar: setProgressBar,
 			destroyProgressBar: destroyProgressBar,
-			checkMatch: checkMatch
+			checkMatch: checkMatch,
+			getRandomColor: getRandomColor
 		};
 	});
 }());

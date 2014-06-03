@@ -10,26 +10,23 @@
 	define(['jquery-private',
 			'gcviz-func',
 			'gcviz-gisgeo',
+			'gcviz-gislegend',
 			'dojox/data/CsvStore',
-			'esri/Color',
-			'esri/symbols/SimpleMarkerSymbol',
-			'esri/renderers/SimpleRenderer',
-			'esri/InfoTemplate',
 			'esri/layers/FeatureLayer',
 			'esri/SpatialReference',
 			'esri/geometry/Point'
-	], function($viz, gcvizFunc, gisGeo, esriCSVStore, color, esriMarker, esriRender, esriTemplate, esriFeatLayer, esriSR, esriPoint) {
+	], function($viz, gcvizFunc, gisGeo, gisLegend, esriCSVStore, esriFeatLayer, esriSR, esriPoint) {
 		var addCSV,
 			createLayer,
 			getSeparator,
 			getFeatCollectionTemplateCSV,
-			featCollection,
+			featCollection, guuid,
 			mymap;
 
 		// https://developers.arcgis.com/javascript/jssamples/exp_dragdrop.html
 		// we dont use the drag and drop because it is not WCAG but we use the way they
 		// add CSV info on map
-		addCSV = function(map, data)  {
+		addCSV = function(map, data, uuid)  {
 			var latFields = ['lat', 'latitude', 'y', 'ycenter'], // list of lat field strings
 				longFields = ['lon', 'long', 'longitude', 'x', 'xcenter'], // list of lon field strings
 				firstLine = data.substr(0, data.indexOf('\n')),
@@ -53,6 +50,7 @@
 
 					// set global because they will be use in a callback after projection
 					featCollection = getFeatCollectionTemplateCSV(csvStore, items);
+					guuid = uuid;
 					mymap = map;
 					
 					// get lat long field name
@@ -121,8 +119,11 @@
 				featCollection.featureSet.features.push(feature);
 			}
 
-			featureLayer = new esriFeatLayer(featCollection);
+			featureLayer = new esriFeatLayer(featCollection, { 'id': guuid });
 			mymap.addLayer(featureLayer);
+			
+			// set legend symbol
+			gisLegend.getFeatureLayerSymbol(JSON.stringify(featureLayer.renderer.toJson()), $viz('#symbol' + guuid)[0], guuid);
 		};
 		
 		getSeparator = function(string) {
@@ -168,7 +169,7 @@
 						'symbol': {
 							'type': 'esriSMS',
 							'style': 'esriSMSCircle',
-							'color': [255,0,0,255],
+							'color': gcvizFunc.getRandomColor(),
 							'size': 10,
 							'angle': 0,
 							'xoffset': 0,
