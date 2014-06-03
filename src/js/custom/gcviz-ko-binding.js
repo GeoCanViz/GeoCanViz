@@ -97,31 +97,8 @@
 	ko.bindingHandlers.HorizontalSliderDijit = {
         init: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
 			var options = valueAccessor(),
+				id = viewModel.id,
 				widget;
-
-			$viz(element).attr('Visible', options.visible);
-			widget = new slider({
-				name: 'slider',
-                minimum: options.extent[0],
-                maximum: options.extent[1],
-                intermediateChanges: true,
-                value: options.value,
-                showButtons: false
-			}).placeAt(element);
-
-			dojo.addClass(widget.domNode, 'gcviz-legendSlider');
-
-			widget.on('Change', function(e) {
-
-				if(viewModel.items.length === 0) {
-					bindingContext.$parentContext.$parent.changeServiceOpacity(
-						bindingContext.$parentContext.$parent.mymap,viewModel.id, e
-					);
-				}
-				else {
-					loopChildren(viewModel, e, loopChildren);
-				}
-			});
 
 			function loopChildren(VM, e) {
 				if (VM.items.length > 0) {
@@ -130,15 +107,43 @@
 					});
 				}
 				else {
-					bindingContext.$parentContext.$parent.changeServiceOpacity(
-						bindingContext.$parentContext.$parent.mymap, VM.id, e
-					);
+					bindingContext.$root.changeServiceOpacity(VM.id, e);
 				}
+			}
+
+			if (options.enable) {
+				$viz(element).attr('Visible', options.visible);
+				widget = new slider({
+					name: 'slider',
+					minimum: options.extent[0],
+					maximum: options.extent[1],
+					intermediateChanges: true,
+					value: options.value,
+					showButtons: false
+				}).placeAt(element);
+
+				// set initstate opacity
+				if(viewModel.items.length === 0) {
+					bindingContext.$root.changeServiceOpacity(id, options.value);
+				} else {
+					loopChildren(viewModel, options.value, loopChildren);
+				}
+
+				dojo.addClass(widget.domNode, 'gcviz-legendSlider');
+
+				widget.on('Change', function(e) {
+
+					if(viewModel.items.length === 0) {
+						bindingContext.$root.changeServiceOpacity(id, e);
+					} else {
+						loopChildren(viewModel, e, loopChildren);
+					}
+				});
 			}
 		}
 	};
 
-	ko.bindingHandlers.LegendItemList = {
+	ko.bindingHandlers.legendItemList = {
 		init: function(element, valueAccessor, allBindings, viewModel) {
 			var options = valueAccessor(),
 				$element = $viz(element);
@@ -150,9 +155,10 @@
 			} else {
 				$element.children('.gcviz-legendSymbolDiv').toggle(options.expanded);
 				$element.children('div#customImage.gcviz-legendHolderImgDiv').toggle(options.expanded);
-				if(viewModel.displaychild === false && viewModel.customimage.enable === false) { //remove bullet symbol
-						$element.css('background-image', 'none');
-				}
+			}
+
+			if (viewModel.displaychild.enable === false && viewModel.customimage.enable === false) { //remove bullet symbol
+				$element.css('background-image', 'none');
 			}
 
 			return false;
@@ -172,6 +178,107 @@
 
 			widget.on('Change', function(e) {
 				bindingContext.$root.switchRadioButtonVisibility(bindingContext.$root.mymap, viewModel.id, e);
+			});
+		}
+	};
+
+	// http://stackoverflow.com/questions/9877301/knockoutjs-observablearray-data-grouping
+	ko.observableArray.fn.uniqueArray = function() {
+		var target = this;
+
+		ko.computed(function() {
+			// http://jsfiddle.net/gabrieleromanato/BrLfv/
+			var found, x, y,
+				origArr = target(),
+				newArr = [],
+				origLen = origArr.length;
+
+			for (x = 0; x < origLen; x++) {
+				found = undefined;
+				for (y = 0; y < newArr.length; y++) {
+					if (origArr[x] === newArr[y]) {
+						found = true;
+						break;
+					}
+				}
+				if (!found) {
+					newArr.push(origArr[x]);
+				}
+			}
+
+			return target(newArr);
+		}).extend({ notify: 'always' });
+
+		return target;
+	};
+
+	ko.bindingHandlers.uiDialog = {
+		init: function(element, valueAccessor, allBindings, viewModel) {
+			var customFunc,
+				local = ko.utils.unwrapObservable(valueAccessor()),
+				options = {},
+				$element = $viz(element);
+
+			ko.utils.extend(options, ko.bindingHandlers.uiDialog.options);
+			ko.utils.extend(options, local);
+
+			// if function are provided for ok and/or cancel, update
+			if (typeof options.ok !== 'undefined') {
+				options.buttons[0].click = options.ok;
+			}
+			if (typeof options.cancel !== 'undefined') {
+				options.buttons[1].click = options.cancel;
+			}
+			if (typeof options.close !== 'undefined') {
+				options.close = options.close;
+			}
+
+			$element.dialog(options);
+
+			customFunc = function(value) {
+				$element.dialog(value ? 'open' : 'close');
+			};
+
+			viewModel[local.openDialog].subscribe(customFunc);
+
+			//handle disposal (if KO removes by the template binding)
+			ko.utils.domNodeDisposal.addDisposeCallback(element, function() {
+				$element.dialog('destroy');
+			});
+		},
+		options: {
+			autoOpen: false,
+			modal: true,
+			resizable: false,
+			draggable: false,
+			show: 'fade',
+			hide: 'fade',
+			closeOnEscape: true,
+			close: function() { },
+			buttons: [{
+				text: 'Ok',
+				click: function() {
+					$viz(this).dialog('close');
+				}
+				}, {
+				text: 'Cancel',
+				click: function() {
+					$viz(this).dialog('close');
+				}
+			}]
+		}
+	};
+
+	// http://lassieadventurestudio.wordpress.com/2012/06/14/return-key-binding-knockout/
+	ko.bindingHandlers.returnKey = {
+		init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+			ko.utils.registerEventHandler(element, 'keydown', function(evt) {
+				if (evt.keyCode === 13) {
+					// to solve page refresh bug on enter on input field
+					// http://www.w3.org/MarkUp/html-spec/html-spec_8.html#SEC8.2
+					evt.preventDefault();
+					valueAccessor().call(viewModel, bindingContext.$data);
+				}
 			});
 		}
 	};

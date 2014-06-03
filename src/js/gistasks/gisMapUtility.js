@@ -142,16 +142,6 @@
 				//gisM.createMapMenu(mymap);
             });
 
-            //LM
-            // TODO remove because now everything is in config file
-            map.on('layer-add-result', function(e) {
-                //no renderer for tiles map services
-                var layer = e.layer;
-                if (layer.renderer) {
-                    //gisLegend.getFeatureLayerSymbol(layer);
-                }
-            });
-
 			return map;
 		};
 

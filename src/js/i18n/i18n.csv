@@ -31,6 +31,8 @@ General (i18n)#%all#All#Tous
 #%header-tpprint#Print the map#Imprimer la carte
 #%header-tpinset#Show or hide insets#Afficher ou cacher les insertions
 #%header-tpfullscreen#Go full screen#Allez en mode plein écran
+#%header-printcopyright#© Her Majesty the Queen in Right of Canada / © Sa Majesté la Reine du chef du Canada# © Sa Majesté la Reine du chef du Canada / © Her Majesty the Queen in Right of Canada
+#%header-printurl#http://geoappext.nrcan.gc.ca/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task#http://geoappext.nrcan.gc.ca/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task
 #%help-instr#Keyboard user: setup your keyboard to control the mouse to access the following PDF document.#Utilisateur du clavier: configurez votre clavier pour contrôler la souris et accéder au document PDF ci-dessous.
 #%toolbarholder-caption#Toolbars#Barre d'outils
 #%toolbardraw-name#Draw#Dessiner
@@ -50,7 +52,8 @@ General (i18n)#%all#All#Tous
 #%toolbardraw-tpmeasurelength#Measure a length on the map#Mesurer une longueur sur la carte
 #%toolbardraw-tperase#Erase annotations#Effacer les annotations
 #%toolbardraw-tperasesel#Erase selected annotations#Effacer les annotations sélectionnées
-#%toolbardraw-tperaseundo#Undo erase annotations#Annuler effacer les annotations
+#%toolbardraw-tpundo#Undo last operation#Annuler la dèrniere opération
+#%toolbardraw-tpredo#Redo last operation#Refaire la dèrniere opération
 #%toolbardraw-tpimport#Import annotations#Importer des annotations
 #%toolbardraw-tpexport#Export annotations#Exporter des annotations
 #%toolbardraw-dist#Length: #Longueur: 
@@ -83,6 +86,8 @@ General (i18n)#%all#All#Tous
 #%toolbarnav-ovdrag#Drag To Change The Map Extent#Faites glisser pour changer l'étendue de la carte
 #%toolbarnav-scale#Scale: #Échelle : 
 #%toolbarnav-zoomfull#Zoom to full extent#Zoom à l`étendue maximum
+#%toolbardata-name#Data#Données
+#%toolbardata-tpadd#Add Data#Ajouter des données
 #%inset-tplight#Open the content in a lightbox#Ouvrir le contenu dans un lightbox
 #%inset-tpplayvideo#Play video#Jouer la vidéo
 #%mp-close#Close (Esc)#Fermer (Esc)

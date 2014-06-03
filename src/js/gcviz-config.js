@@ -229,6 +229,14 @@
 				location: locationPath + 'gcviz/js/gistasks',
 				main: 'gisCluster-min'
 			}, {
+				name: 'gcviz-gisprint',
+				location: locationPath + 'gcviz/js/gistasks',
+				main: 'gisPrint-min'
+			}, {
+				name: 'gcviz-gisdata',
+				location: locationPath + 'gcviz/js/gistasks',
+				main: 'gisData-min'
+			}, {
 				name: 'gcviz-v-header',
 				location: locationPath + 'gcviz/js/views',
 				main: 'headerV-min'
@@ -268,6 +276,14 @@
 				name: 'gcviz-vm-tblegend',
 				location: locationPath + 'gcviz/js/viewmodels',
 				main: 'toolbarlegendVM-min'
+			}, {
+				name: 'gcviz-v-tbdata',
+				location: locationPath + 'gcviz/js/views',
+				main: 'toolbardataV-min'
+			},{
+				name: 'gcviz-vm-tbdata',
+				location: locationPath + 'gcviz/js/viewmodels',
+				main: 'toolbardataVM-min'
 			}, {
 				name: 'gcviz-v-map',
 				location: locationPath + 'gcviz/js/views',

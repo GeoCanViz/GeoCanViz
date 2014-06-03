@@ -33,16 +33,21 @@
 							width: 237 };
 
 				// If no layer specified, use the main map
+				// layer must be ArcGIS tiled, dynamic or imagery. It can also be OpenStreet map
 				bLayer = gisMap.getOverviewLayer(type, url);
 				if (bLayer !== null) {
-					options.baseLayer = bLayer;
+						options.baseLayer = bLayer;
 				}
 				overviewMapDijit = new esriOV(options, ovDiv);
+
+				// TODO:
+				// we need to startup only when we see the div.
+				// open the tools and panels, startup then put back the original state
 				overviewMapDijit.startup();
 
 				// work around to resize the overview div because it wont work only
 				// with the option from the dijit.
-				setTimeout(function(){
+				setTimeout(function() {
 					var divOV = $viz('#divOverviewMap' + mapid + '-map');
 					divOV.width(237).height(100);
 					overviewMapDijit.resize();

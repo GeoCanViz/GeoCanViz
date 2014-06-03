@@ -5,6 +5,7 @@
  *
  * GIS graphic functions
  */
+/* global vmArray: false */
 (function () {
 	'use strict';
 	define(['jquery-private',
@@ -23,20 +24,22 @@
 			importGraphics,
 			exportGraphics;
 
-		initialize = function(mymap, isGraphics, lblDist, lblArea) {
+		initialize = function(mymap, isGraphics, stackUndo, stackRedo, lblDist, lblArea) {
 
 			// data model				
-			var graphic = function(mymap, isGraphics, lblDist, lblArea) {
+			var graphic = function(mymap, isGraphics, undo, redo, lblDist, lblArea) {
 				var _self = this,
 					measureLength, measureArea, measureAreaCallback, measureLabelCallback, measureText,
 					addBackgroundText, addToMap,
-					setColor,
+					addUndoStack,
+					setColor, removeDrawCursor,
 					getSymbLine, getSymbPoly, getSymbPoint, getSymbText,
 					toolbar,
-					gText, gColor, gKey, gBackColor, gUndoCount,
-					undoStack = [],
+					gText, gColor, gKey, gBackColor, gColorName,
+					stackUndo = undo,
+					stackRedo = redo,
 					map = mymap,
-					wkid = mymap.vWkid,
+					wkid = map.vWkid,
 					txtDist = lblDist,
 					txtArea = lblArea,
 					black = [0,0,0,255],
@@ -70,22 +73,24 @@
 					toolbar.activate(esriTools.POINT);
 				};
 
-				_self.drawExtent = function(undo) {
-					gUndoCount = undo;
+				_self.drawExtent = function() {
 					toolbar.activate(esriTools.EXTENT);
 				};
 
 				_self.erase = function() {
-					var stackGraph = [],
+					var grp = [],
 						mapGraph = map.graphics,
 						graphics = mapGraph.graphics,
 						len = mapGraph.graphics.length;
 
 					// add to undo stack
 					while (len--) {
-						stackGraph.push(graphics[len]);
+						grp.push(graphics[len]);
 					}
-					undoStack.push(stackGraph);
+
+					if (grp.length > 0) {
+						stackUndo.push({ task: 'delete', geom: grp });
+					}
 
 					// clear graphics and set isGraphics
 					map.graphics.clear();
@@ -94,9 +99,8 @@
 
 				_self.eraseSelect = function(geometry) {
 					var graphic, lenKey,
-						flagDel = false,
 						keys = [],
-						stackGraph = [],
+						grp = [],
 						mapGraph = map.graphics,
 						graphics = mapGraph.graphics,
 						lenGraph = mapGraph.graphics.length,
@@ -119,19 +123,18 @@
 
 							if (keys[lenKey] === graphic.key) {
 								mapGraph.remove(graphic);
-								stackGraph.push(graphic);
-								flagDel = true;
+								grp.push(graphic);
 							}
 						}
 					}
 
-					// add to undo stack, set default cursor and
-					// increment undo
-					$cursor.removeClass('gcviz-draw-cursor');
-					if (flagDel) {
-						undoStack.push(stackGraph);
-						gUndoCount(gUndoCount() + 1);
+					// add to undo stack
+					if (grp.length > 0) {
+						stackUndo.push({ task: 'delete', geom: grp });
 					}
+
+					// set default cursor
+					$cursor.removeClass('gcviz-draw-cursor');
 
 					// check if there is graphics. Check if the only one is a point at x:0;y:0
 					// this point is created by the API sometimes
@@ -155,13 +158,44 @@
 					}
 				};
 
-				_self.eraseUndo = function() {
-					var graphics = undoStack.pop(),
-						len = graphics.length;
+				_self.undo = function() {
+					var graphics = stackUndo.pop(),
+						geoms = graphics.geom,
+						len = geoms.length;
 
-					while (len--) {
-						map.graphics.add(graphics[len]);
+					if (graphics.task === 'delete') {
+						while (len--) {
+							map.graphics.add(geoms[len]);
+						}
+					} else {
+						while (len--) {
+							map.graphics.remove(geoms[len]);
+						}
 					}
+
+					// add redo
+					stackRedo.push(graphics);
+
+					isGraphics(true);
+				};
+
+				_self.redo = function() {
+					var graphics = stackRedo.pop(),
+						geoms = graphics.geom,
+						len = geoms.length;
+
+					if (graphics.task === 'delete') {
+						while (len--) {
+							map.graphics.remove(geoms[len]);
+						}
+					} else {
+						while (len--) {
+							map.graphics.add(geoms[len]);
+						}
+					}
+
+					// add undo
+					stackUndo.push(graphics);
 
 					isGraphics(true);
 				};
@@ -175,7 +209,7 @@
 					gKey = key;
 					setColor(color);
 
-					// push the geometry to the array
+					// push the geometry to the array (first point)
 					array().push(geometry);
 					len = array().length;
 
@@ -213,6 +247,9 @@
 					text = txtDist + dist + ' ' + unit;
 					last.text = text;
 					measureText(last);
+
+					// add to stack
+					addUndoStack(gKey);
 				};
 
 				_self.addMeasureSumArea = function(array, key, unit) {
@@ -260,6 +297,9 @@
 								'spatialReference': { 'wkid': wkid } } };
 					text.text = txtArea + info.area + ' ' + info.unit + '2';
 					measureText(text);
+
+					// add to stack
+					addUndoStack(gKey);
 				};
 
 				measureLength = function(array, unit) {
@@ -338,18 +378,19 @@
 					var graphic, symbol;
 
 					graphic = new esriGraph(pt, symbol);
-					graphic.symbol = getSymbText(black, pt.text, 8, 0, 0, 'normal');
+					graphic.symbol = getSymbText(black, pt.text, 8, 0, 0, 'normal', 'center');
 					graphic.key = gKey;
 
 					// add background then text
-					addBackgroundText(graphic, white);
+					addBackgroundText(graphic, white, 'center');
 					map.graphics.add(graphic);
 					isGraphics(true);
 				};
 
-				addBackgroundText = function(item, backColor) {
+				addBackgroundText = function(item, backColor, align) {
 					var graphic, point,
 						text = '',
+						offset = 0,
 						len = item.symbol.text.length * 2,
 						geom = item.geometry;
 
@@ -367,17 +408,17 @@
 					}
 
 					graphic = new esriGraph(point);
-					graphic.symbol =  getSymbText(backColor, text, 9, 0, -1, 'bold');
+					graphic.symbol =  getSymbText(backColor, text, 9, offset, -1, 'bold', align);
 					graphic.key = gKey;
 					map.graphics.add(graphic);
 
 					graphic = new esriGraph(point);
-					graphic.symbol =  getSymbText(backColor, text, 9, -1, -1, 'bold');
+					graphic.symbol =  getSymbText(backColor, text, 9, offset - 1, -1, 'bold', align);
 					graphic.key = gKey;
 					map.graphics.add(graphic);
 
 					graphic = new esriGraph(point);
-					graphic.symbol =  getSymbText(backColor, text, 9, +1, -1, 'bold');
+					graphic.symbol =  getSymbText(backColor, text, 9, offset + 1, -1, 'bold', align);
 					graphic.key = gKey;
 					map.graphics.add(graphic);
 				},
@@ -396,19 +437,42 @@
 						if (geomType === 'polyline') {
 							symbol = getSymbLine(gColor, 2);
 							graphic = new esriGraph(geometry, symbol);
-							$cursor.removeClass('gcviz-draw-cursor');
+							removeDrawCursor($cursor, gColorName);
 						} else if (geomType === 'point') {
-							symbol = getSymbText(gColor, gText, 8, 0, 0, 'normal');
+							symbol = getSymbText(gColor, gText, 8, 0, 0, 'normal', 'left');
 							graphic = new esriGraph(geometry, symbol);
-							addBackgroundText(graphic, gBackColor);
+							addBackgroundText(graphic, gBackColor, 'left');
 							$cursor.removeClass('gcviz-text-cursor');
 						}
 
+						// add graphic
 						graphic.key = gKey;
 						map.graphics.add(graphic);
 						isGraphics(true);
+
+						// add to stack
+						addUndoStack(gKey);
 					}
 
+					// reopen panel
+					vmArray[map.vIdName].header.toolsClick();
+				};
+
+				addUndoStack = function(key) {
+					var graphic,
+						grp = [],
+						mapGraph = map.graphics,
+						graphics = mapGraph.graphics,
+						len = mapGraph.graphics.length;
+
+					while (len--) {
+						graphic = graphics[len];
+						if (graphic.key === key) {
+							grp.push(graphic);
+						}
+					}
+
+					stackUndo.push({ task: 'add', geom: grp });
 				};
 
 				setColor = function(color) {
@@ -430,6 +494,25 @@
 					} else {
 						gColor = black;
 						gBackColor = white;
+					}
+
+					gColorName = color;
+				};
+
+				removeDrawCursor = function(container, colour) {
+					// Remove cursor class
+					if (colour === 'black') {
+						container.removeClass('gcviz-draw-cursor-black');
+					} else if (colour === 'blue') {
+						container.removeClass('gcviz-draw-cursor-blue');
+					} else if (colour === 'green') {
+						container.removeClass('gcviz-draw-cursor-green');
+					} else if (colour === 'red') {
+						container.removeClass('gcviz-draw-cursor-red');
+					} else if (colour === 'yellow') {
+						container.removeClass('gcviz-draw-cursor-yellow');
+					} else if (colour === 'white') {
+						container.removeClass('gcviz-draw-cursor-white');
 					}
 				};
 
@@ -469,12 +552,12 @@
 								});
 				};
 
-				getSymbText = function(color, text, size, xOff, yOff, weight) {
+				getSymbText = function(color, text, size, xOff, yOff, weight, align) {
 					return new esriText({
 										'type': 'esriTS',
 										'color': color,
 										'verticalAlignment': 'baseline',
-										'horizontalAlignment': 'center',
+										'horizontalAlignment': align,
 										'rightToLeft': false,
 										'angle': 0,
 										'xoffset': xOff,
@@ -493,7 +576,7 @@
 				_self.init();
 			};
 
-			return new graphic(mymap, isGraphics, lblDist, lblArea);
+			return new graphic(mymap, isGraphics, stackUndo, stackRedo, lblDist, lblArea);
 		};
 
 		importGraphics = function(map, graphics) {

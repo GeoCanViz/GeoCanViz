@@ -277,11 +277,8 @@
             "drawtext": {
                 "enable": true
             },
-            "measure": {
-                "enable": true,
-                "type": 3,
-                "unit": 1
-            },
+            "measureline": {"enable": true,"unit": 1},
+            "measurearea": {"enable": true,"unit": 1},
             "importexport": {
                 "enable": true
             }

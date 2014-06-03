@@ -6,7 +6,6 @@
  * Toolbar navigation view model widget
  */
 /* global vmArray: false, locationPath: false */
-/* global esri: false */
 (function() {
 	'use strict';
 	define(['jquery-private',

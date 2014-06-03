@@ -11,12 +11,21 @@
 	define(['jquery-private',
 			'knockout',
 			'media',
+			'gcviz-gisprint',
 			'gcviz-i18n',
 			'gcviz-ko',
 			'gcviz-func',
 			'gcviz-gismap',
 			'dijit/registry'
-	], function($viz, ko, media, i18n, binding, func, gisM, dijit) {
+//<<<<<<< HEAD
+//			'gcviz-gismap',
+//			'dijit/registry'
+//	], function($viz, ko, media, i18n, binding, func, gisM, dijit) {
+//=======
+//			'gcviz-gismap'
+//	], function($viz, ko, media, gisPrint, i18n, binding, func, gisM) {
+//>>>>>>> 2aa75f7655d8a98ad09573b99dd395d565eca747
+	], function($viz, ko, media, gisPrint, i18n, binding, func, gisM, dijit) {
 		var initialize,
 			vm;
 
@@ -55,6 +64,7 @@
 					pathShowInset = locationPath + 'gcviz/images/headShowInset2.png',
 					pathSmallscreen = locationPath + 'gcviz/images/headSmallscreen.png',
 					pathHelp = locationPath + 'gcviz/images/headHelp.png',
+					pathPrint = locationPath + 'gcviz/print/',
 					$section = $viz('#section' + mapid),
 					$mapholder = $viz('#' + mapid),
 					$map = $viz('#' + mapid + '_holder'),
@@ -126,6 +136,13 @@
                 _self.tpAbout = i18n.getDict('%header-tpabout');
 				_self.tpFullScreen = i18n.getDict('%header-tpfullscreen');
 
+				// print info
+				_self.printInfo = {
+					url: i18n.getDict('%header-printurl'),
+					copyright: i18n.getDict('%header-printcopyright'),
+					template: pathPrint
+				};
+
 				// fullscreen
 				_self.isFullscreen = ko.observable(false);
 				_self.isInsetVisible = ko.observable(true);
@@ -165,6 +182,7 @@
 
 				_self.printClick = function() {
 					// Print the map
+					gisPrint.printMap(map, _self.printInfo);
 				};
 
 				_self.insetClick = function() {

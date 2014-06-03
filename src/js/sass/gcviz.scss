@@ -131,8 +131,12 @@ input[type="file"] {
 	top:	0rem;
 	left: 0rem;
 	margin: 0 !important;
-	height: (2.2 * $rembase) + rem;
-	width: (2.2 * $rembase) + rem;
+	height: 0rem;
+	width: 0rem;
+	padding: 0rem;
+	border-width: 0rem;
+	min-width: 0rem;
+	min-height: 0rem;
 }
 
 /* full screen */
@@ -162,9 +166,26 @@ input[type="file"] {
 	border-color: $grey;
 	height: (3 * $rembase) + rem;
 	margin-bottom: (-1 * $rembase) + rem;
-	margin-right: 10px;
+	margin-right: 15px;
 }
 
+.gcviz-loading {
+	position: absolute;
+	right: 10%;
+	top: 45%;
+	padding: 0!important;
+	z-index: -1;
+	width: 80%;
+	height: (3 * $rembase) + rem;
+}
+
+.gcviz-loadingLabel {
+    position: absolute;
+    left: 50%;
+    top:  (0.7 * $rembase) + rem;
+    @include app-text-white(1.2);
+    text-align: middle;
+  }
 
 .gcviz-appText {
   @include app-text;
