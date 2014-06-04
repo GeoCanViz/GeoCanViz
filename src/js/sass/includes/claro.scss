@@ -1827,7 +1827,7 @@ div.dijitTabDisabled,  .dj_ie div.dijitTabDisabled  {
 }
 .claro .dijitValidationTextBoxError .dijitValidationContainer  {
     background-color:  #d46464;
-     background-image:  url("form/images/error.png");
+     background-image:  url("images/error.png");
      background-position:  top center;
      border:  solid #d46464 0;
      width:  9px;
@@ -1912,7 +1912,7 @@ div.dijitTabDisabled,  .dj_ie div.dijitTabDisabled  {
     color:  #1b1b1b;
 }
 .claro .dijitSelect .dijitArrowButtonInner, .claro .dijitComboBox .dijitArrowButtonInner  {
-    background-image:  url("form/images/commonFormArrows.png");
+    background-image:  url("images/commonFormArrows.png");
      background-position:  -35px 53%;
      background-repeat:  no-repeat;
      margin:  0;
@@ -1997,7 +1997,7 @@ div.dijitTabDisabled,  .dj_ie div.dijitTabDisabled  {
      -moz-box-shadow:  0 1px 1px rgba(0,  0,  0,  0.15);
      box-shadow:  0 1px 1px rgba(0,  0,  0,  0.15);
      background-color:  #bcd8f4;
-     background-image:  url("form/images/buttonEnabled.png");
+     background-image:  url("images/buttonEnabled.png");
      background-repeat:  repeat-x;
      background-image:  -moz-linear-gradient(#ffffff 0px,  rgba(255,  255,  255,  0) 3px,  rgba(255,  255,  255,  0.75) 100%);
      background-image:  -webkit-linear-gradient(#ffffff 0px,  rgba(255,  255,  255,  0) 3px,  rgba(255,  255,  255,  0.75) 100%);
@@ -2013,7 +2013,7 @@ div.dijitTabDisabled,  .dj_ie div.dijitTabDisabled  {
     width:  15px;
      height:  15px;
      margin:  0 auto;
-     background-image:  url("form/images/buttonArrows.png");
+     background-image:  url("images/buttonArrows.png");
      background-repeat:  no-repeat;
      background-position:  -51px 53%;
 }
@@ -2069,7 +2069,7 @@ div.dijitTabDisabled,  .dj_ie div.dijitTabDisabled  {
      -webkit-box-shadow:  0 0 0 rgba(0,  0,  0,  0);
      -moz-box-shadow:  0 0 0 rgba(0,  0,  0,  0);
      box-shadow:  0 0 0 rgba(0,  0,  0,  0);
-     background-image:  url("form/images/buttonDisabled.png");
+     background-image:  url("images/buttonDisabled.png");
      background-image:  -moz-linear-gradient(#ffffff 0%,  rgba(255,  255,  255,  0) 40%);
      background-image:  -webkit-linear-gradient(#ffffff 0%,  rgba(255,  255,  255,  0) 40%);
      background-image:  -o-linear-gradient(#ffffff 0%,  rgba(255,  255,  255,  0) 40%);
@@ -2097,7 +2097,7 @@ div.dijitTabDisabled,  .dj_ie div.dijitTabDisabled  {
     background-image:  url("images/checkmarkNoBorder.gif");
 }
 .claro .dijitCheckBox, .claro .dijitCheckBoxIcon  {
-    background-image:  url("form/images/checkboxRadioButtonStates.png");
+    background-image:  url("images/checkboxRadioButtonStates.png");
      background-repeat:  no-repeat;
      width:  15px;
      height:  16px;
@@ -2105,7 +2105,7 @@ div.dijitTabDisabled,  .dj_ie div.dijitTabDisabled  {
      padding:  0;
 }
 .dj_ie6 .claro .dijitCheckBox, .dj_ie6 .claro .dijitCheckBoxIcon  {
-    background-image:  url("form/images/checkboxAndRadioButtons_IE6.png");
+    background-image:  url("images/checkboxAndRadioButtons_IE6.png");
 }
 .claro .dijitCheckBox, .claro .dijitToggleButton .dijitCheckBoxIcon  {
     background-position:  -15px;
@@ -2126,13 +2126,13 @@ div.dijitTabDisabled,  .dj_ie div.dijitTabDisabled  {
     background-position:  -30px;
 }
 .claro .dijitToggleButton .dijitRadio, .claro .dijitToggleButton .dijitRadioIcon  {
-    background-image:  url("form/images/checkboxRadioButtonStates.png");
+    background-image:  url("images/checkboxRadioButtonStates.png");
 }
 .dj_ie6 .claro .dijitToggleButton .dijitRadio, .dj_ie6 .claro .dijitToggleButton .dijitRadioIcon  {
-    background-image:  url("form/images/checkboxAndRadioButtons_IE6.png");
+    background-image:  url("images/checkboxAndRadioButtons_IE6.png");
 }
 .claro .dijitRadio, .claro .dijitRadioIcon  {
-    background-image:  url("form/images/checkboxRadioButtonStates.png");
+    background-image:  url("images/checkboxRadioButtonStates.png");
      background-repeat:  no-repeat;
      width:  15px;
      height:  15px;
@@ -2140,7 +2140,7 @@ div.dijitTabDisabled,  .dj_ie div.dijitTabDisabled  {
      padding:  0;
 }
 .dj_ie6 .claro .dijitRadio, .dj_ie6 .claro .dijitRadioIcon  {
-    background-image:  url("form/images/checkboxAndRadioButtons_IE6.png");
+    background-image:  url("images/checkboxAndRadioButtons_IE6.png");
 }
 .claro .dijitRadio  {
     background-position:  -105px;
@@ -2445,7 +2445,7 @@ div.dijitTabDisabled,  .dj_ie div.dijitTabDisabled  {
     height:  15px;
      width:  15px;
      margin:  0 auto;
-     background:  url("form/images/buttonArrows.png") no-repeat -75px 50%;
+     background:  url("images/buttonArrows.png") no-repeat -75px 50%;
      background-color:  transparent;
 }
 .claro .dijitTabStripSlideRightIcon  {
@@ -3081,14 +3081,14 @@ div.dijitTabDisabled,  .dj_ie div.dijitTabDisabled  {
      margin-bottom:  1px;
 }
 .claro .dijitCheckedMenuItem .dijitMenuItemIcon, .claro .dijitRadioMenuItem .dijitMenuItemIcon  {
-    background-image:  url("form/images/checkboxRadioButtonStates.png");
+    background-image:  url("images/checkboxRadioButtonStates.png");
      background-repeat:  no-repeat;
      background-position:  -15px 50%;
      width:  15px;
      height:  16px;
 }
 .dj_ie6 .claro .dijitCheckedMenuItem .dijitMenuItemIcon, .dj_ie6 .claro .dijitRadioMenuItem .dijitMenuItemIcon  {
-    background-image:  url("form/images/checkboxAndRadioButtons_IE6.png");
+    background-image:  url("images/checkboxAndRadioButtons_IE6.png");
 }
 .claro .dijitCheckedMenuItemChecked .dijitCheckedMenuItemIcon  {
     background-position:  0 50%;
@@ -3234,7 +3234,7 @@ div.dijitTabDisabled,  .dj_ie div.dijitTabDisabled  {
     border:  0;
      width:  18px;
      height:  16px;
-     background-image:  url("form/images/sliderThumbs.png");
+     background-image:  url("images/sliderThumbs.png");
      background-repeat:  no-repeat;
      background-position:  0 0;
 }
@@ -3257,7 +3257,7 @@ div.dijitTabDisabled,  .dj_ie div.dijitTabDisabled  {
     border:  0;
      width:  18px;
      height:  16px;
-     background-image:  url("form/images/sliderThumbs.png");
+     background-image:  url("images/sliderThumbs.png");
      background-repeat:  no-repeat;
      background-position:  -289px 0;
 }
@@ -3283,7 +3283,7 @@ div.dijitTabDisabled,  .dj_ie div.dijitTabDisabled  {
     padding:  3px 1px 2px 1px;
 }
 .claro .dijitSliderDecrementIconH, .claro .dijitSliderIncrementIconH, .claro .dijitSliderDecrementIconV, .claro .dijitSliderIncrementIconV  {
-    background-image:  url("form/images/commonFormArrows.png");
+    background-image:  url("images/commonFormArrows.png");
      background-repeat:  no-repeat;
      background-color:  #efefef;
      -moz-border-radius:  2px;
@@ -3480,7 +3480,7 @@ div.dijitTabDisabled,  .dj_ie div.dijitTabDisabled  {
 }
 .claro .dijitTimePicker .dijitArrowButtonInner  {
     height:  100%;
-     background-image:  url("form/images/commonFormArrows.png");
+     background-image:  url("images/commonFormArrows.png");
      background-repeat:  no-repeat;
      background-position:  -140px 45%;
 }
@@ -4102,7 +4102,7 @@ div.dijitTabDisabled,  .dj_ie div.dijitTabDisabled  {
 .claro .dijitSpinner .dijitArrowButtonInner  {
     border:  solid 1px #ffffff;
      border-bottom-width:  0;
-     background-image:  url("form/images/commonFormArrows.png");
+     background-image:  url("images/commonFormArrows.png");
      background-repeat:  no-repeat;
      height:  100%;
      width:  15px;
