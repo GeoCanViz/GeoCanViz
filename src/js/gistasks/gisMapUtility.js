@@ -59,7 +59,6 @@
 		setProxy = function(url) {
 			// set proxy for esri request (https://github.com/Esri/resource-proxy)
 			// proxy needs to be in the same domain
-			//esriConfig.defaults.io.proxyUrl = 'http://s-bsc-geoappint.nrn.nrcan.gc.ca/DotNet/proxy.ashx';
 			esriConfig.defaults.io.proxyUrl = url;
 			esriConfig.defaults.io.alwaysUseProxy = false;
 		};
