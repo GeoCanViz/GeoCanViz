@@ -8,6 +8,7 @@ General (i18n)#%all#All#Tous
 #%footer-tpgithub#Get GeoCanViz on GitHub#Obtenir GéoCanViz de GitHub
 #%footer-urlgcvizrepo#https://github.com/GeoCanViz/GeoCanViz#https://github.com/GeoCanViz/GeoCanViz
 #%home#Home#Accueil
+#%linkopens#This link opens in a new browser window, browser tab or is downloaded, depending on your setting.#Ce lien s'ouvre dans une nouvelle fenêtre, onglet du navigateur ou est téléchargé, selon vos réglages.
 #%of#of#de
 #%west#W#O
 #%cursor-target#url(/GeoCanViz/gcviz/images/navCursor.cur), auto#url(/GeoCanViz/gcviz/images/navCursor.cur), auto
@@ -19,11 +20,14 @@ General (i18n)#%all#All#Tous
 #%gisurlnts#http://geogratis.gc.ca/services/delimitation/en/nts?bbox=#http://geogratis.gc.ca/services/delimitation/fr/nts?bbox=
 #%gisurlutm#http://geogratis.gc.ca/services/delimitation/en/utmzone?bbox=#http://geogratis.gc.ca/services/delimitation/fr/utmzone?bbox=
 #%footer-tpNorth#North arrow#Flèche du nord
-#%header-abouttitle#Open the help manual#Ouvrir le manuel d'aide
-#%header-urlabout#../../HelpManual.pdf#../../HelpManual.pdf
+#%header-abouttitle#about this map#à-propos de cette carte
+#%header-aboutread#Read#Lire
+#%header-urlabout#../../AboutThisMap.pdf#../../AproposDeCetteCarte.pdf
 #%header-help#GeoCanViz Help#Aide pour GéoCanViz
+#%header-helpdownload#Download the#Téléchargé le
+#%header-helpmanual#GeoCanViz Help Manual#Manuel d'aide pour GéoCanViz
 #%header-helptitle#Open the help manual#Ouvrir le manuel d'aide
-#%header-urlhelp#../../HelpManual.pdf#../../HelpManual.pdf
+#%header-urlhelp#../../HelpManual.pdf#../../ManuelAide.pdf
 #%header-tpabout#About this map#À propos de cette carte
 #%header-tphelp#Open help page#Ouvrir la page d'aide
 #%header-tools#Tools#Outils

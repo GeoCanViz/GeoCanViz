@@ -1,14 +1,15 @@
 @import "gcviz-mixin";
 
 .gcviz-tbcontainer {
-  @include app-text($weight: bold);
+  //@include app-text($weight: bold);
+  @include app-text();
   padding-top: 0rem;
   padding-right: (1 * $rembase) + rem;
   padding-left: (1 * $rembase) + rem;
   padding-bottom: (1 * $rembase) + rem;
   position: absolute;
   z-index: 100;
-  width: (28.0 * $rembase) + rem;
+  width: 340px;
   right: 0rem;
   top: 40px;
   background-color: rgba(100,100,100, 0.6);

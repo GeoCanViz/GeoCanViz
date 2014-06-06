@@ -1,5 +1,10 @@
 @import "gcviz-mixin";
 
+// Modify the font of the toolbar title
+div[class*='tbdraw'] {
+  font-size: 10px!important;
+}
+
 .gcviz-text-cursor {
   cursor: url(#{$img-root}drawTextCursor.cur), text;
 }
@@ -30,4 +35,8 @@
 
 .gcviz-draw-cursor-white {
   cursor: url(#{$img-root}drawpencilwhite.cur), crosshair;
+}
+
+.gcviz-draw-cursor-measure {
+  cursor: url(#{$img-root}drawmeasure.cur), crosshair;
 }

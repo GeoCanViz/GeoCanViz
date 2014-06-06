@@ -4024,7 +4024,8 @@ div.dijitTabDisabled,  .dj_ie div.dijitTabDisabled  {
   }
 .claro .dijitTitlePaneTitleActive  {
   background-color:  #7dbdfa;
-  border-color:  #759dc0;
+  //border-color:  #759dc0;
+  padding-top: 5px!important;
   background-image:  url("images/activeGradient.png");
   background-repeat:  repeat-x;
   background-image:  -moz-linear-gradient(rgba(190,  190,  190,  0.98) 0px,  rgba(255,  255,  255,  0.65) 3px,  rgba(255,  255,  255,  0) 100%);

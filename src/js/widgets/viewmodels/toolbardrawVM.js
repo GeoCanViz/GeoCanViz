@@ -233,7 +233,7 @@
 
 					// set cursor (remove default cursor first)
 					$container.css('cursor', '');
-					$container.addClass('gcviz-text-cursor'); // TODO set right cursor
+					$container.addClass('gcviz-draw-cursor-measure');
 
 					clickMeasureLength = mymap.on('click', function(event) {
 										_self.graphic.addMeasure(_self.measureHolder, key, 0, 'km', _self.selectedColor(), event);
@@ -262,7 +262,7 @@
 
 					// set cursor (remove default cursor first)
 					$container.css('cursor', '');
-					$container.addClass('gcviz-text-cursor'); // TODO set right cursor
+					$container.addClass('gcviz-draw-cursor-measure');
 
 					clickMeasureArea = mymap.on('click', function(event) {
 										_self.graphic.addMeasure(_self.measureHolder, key, 1, 'km', _self.selectedColor(), event);
