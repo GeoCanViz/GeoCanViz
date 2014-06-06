@@ -251,7 +251,7 @@
 						_self.measureHolder([]);
 
 						// Remove cursor class and reopen panel
-						$container.removeClass('gcviz-text-cursor');
+						$container.removeClass('gcviz-draw-cursor-measure');
 						vmArray[mapid].header.toolsClick();
 					});
 				};
@@ -280,7 +280,7 @@
 						_self.measureHolder([]);
 
 						// Remove cursor class and reopen panel
-						$container.removeClass('gcviz-text-cursor');
+						$container.removeClass('gcviz-draw-cursor-measure');
 						vmArray[mapid].header.toolsClick();
 					});
 				};
