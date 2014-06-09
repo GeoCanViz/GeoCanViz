@@ -5,10 +5,10 @@
  *
  * GIS graphic functions
  */
-/* global vmArray: false */
 (function () {
 	'use strict';
 	define(['jquery-private',
+			'gcviz-func',
 			'gcviz-gisgeo',
 			'esri/layers/GraphicsLayer',
 			'esri/toolbars/draw',
@@ -20,7 +20,7 @@
 			'esri/geometry/Polygon',
 			'esri/graphic',
 			'dojo/on'
-	], function($viz, gisgeo, esriGraphLayer, esriTools, esriLine, esriFill, esriMarker, esriText, esriScreenPt, esriPoly, esriGraph, dojoOn) {
+	], function($viz, gcvizFunc, gisgeo, esriGraphLayer, esriTools, esriLine, esriFill, esriMarker, esriText, esriScreenPt, esriPoly, esriGraph, dojoOn) {
 		var initialize,
 			importGraphics,
 			exportGraphics;
@@ -31,10 +31,10 @@
 			var graphic = function(mymap, isGraphics, undo, redo, lblDist, lblArea) {
 				var _self = this,
 					symbLayer,
-					measureLength, measureArea, measureAreaCallback, measureLabelCallback, measureText,
+					measureLength, measureArea, measureAreaCallback, measureLabelCallback, measureText, mouseMeasureLength, nextMeasureLength,
 					addBackgroundText, addToMap,
 					addUndoStack,
-					setColor, removeDrawCursor,
+					setColor,
 					getSymbLine, getSymbPoly, getSymbPoint, getSymbText,
 					toolbar,
 					gText, gColor, gKey, gBackColor, gColorName,
@@ -62,19 +62,21 @@
 					dojoOn(toolbar, 'DrawEnd', addToMap);
 				};
 
-				_self.drawLine = function(key, color) {
+				_self.deactivate = function() {
+					toolbar.deactivate();
+				};
+				
+				_self.drawLine = function(color) {
 					// set global then call the tool
-					gKey = key;
 					setColor(color);
 
 					toolbar.setLineSymbol(getSymbLine(gColor, 2));
 					toolbar.activate(esriTools.FREEHAND_POLYLINE);
 				};
 
-				_self.drawText = function(text, key, color) {
+				_self.drawText = function(text, color) {
 					// set global then call the tool
 					gText = text;
-					gKey = key;
 					setColor(color);
 
 					toolbar.activate(esriTools.POINT);
@@ -108,8 +110,7 @@
 						keys = [],
 						grp = [],
 						graphics = symbLayer.graphics,
-						lenGraph = symbLayer.graphics.length,
-						$cursor = $viz('#' + map.vIdName + '_holder_container');
+						lenGraph = symbLayer.graphics.length;
 
 					// get key from geometries that intersect the extent
 					while (lenGraph--) {
@@ -138,9 +139,6 @@
 						stackUndo.push({ task: 'delete', geom: grp });
 					}
 
-					// set default cursor
-					$cursor.removeClass('gcviz-draw-cursor');
-
 					// check if there is graphics. Check if the only one is a point at x:0;y:0
 					// this point is created by the API sometimes
 					if (symbLayer.graphics.length === 0) {
@@ -158,8 +156,15 @@
 
 					while (len-- && key === lastKey) {
 						symbLayer.remove(graphics[len]);
-						lastKey = graphics[len - 1].key;
+						
+						if (len > 0) {
+							lastKey = graphics[len - 1].key;
+						}
 					}
+					
+					// remove mouse move event and clear the dump graphics
+					mouseMeasureLength.remove();
+					mymap.graphics.clear();
 				};
 
 				_self.undo = function() {
@@ -220,6 +225,13 @@
 					if (type === 0) {
 						if (len === 1) {
 							measureLength(array());
+							
+							// add mouse mouve event to shop the theoric measure line
+							mouseMeasureLength = mymap.on('mouse-move', gcvizFunc.debounce(function(evt) {
+								var screenPt = evt.screenPoint,
+									geometry = map.toMap(new esriScreenPt(screenPt.x, screenPt.y));
+								nextMeasureLength(geometry, unit);
+							}, 100, false));
 						} else {
 							gisgeo.measureLength(array(), unit, measureLength);
 						}
@@ -254,6 +266,10 @@
 
 					// add to stack
 					addUndoStack(gKey);
+					
+					// remove mouse move event and clear the dump graphics
+					mouseMeasureLength.remove();
+					mymap.graphics.clear();
 				};
 
 				_self.addMeasureSumArea = function(array, key, unit) {
@@ -310,12 +326,6 @@
 					var line, pt1, pt2, text,
 						len = array.length;
 
-					// add the point symbol
-					graphic = new esriGraph(array[len - 1]);
-					graphic.symbol =  getSymbPoint(gColor, 4);
-					graphic.key = gKey;
-					symbLayer.add(graphic);
-
 					// draw a line between points
 					if (len > 1) {
 						pt1 = array[len - 1];
@@ -324,6 +334,7 @@
 										'paths': [[[pt1.x, pt1.y], [pt2.x, pt2.y]]],
 										'spatialReference': { 'wkid': wkid } } };
 
+						// add line
 						graphic = new esriGraph(line);
 						graphic.symbol =  getSymbLine(gColor, 1);
 						graphic.key = gKey;
@@ -336,8 +347,38 @@
 						text.text = pt1.distance + ' ' + unit;
 						measureText(text);
 					}
+					
+					// add the point symbol
+					graphic = new esriGraph(array[len - 1]);
+					graphic.symbol =  getSymbPoint(gColor, 4);
+					graphic.key = gKey;
+					symbLayer.add(graphic);
 				};
 
+				// show the measure line before the user select the second point
+				nextMeasureLength = function(geometry, unit) {
+					var line,
+						graphics = symbLayer.graphics,
+						len = graphics.length,
+						first = graphics[len - 1].geometry,
+						line = { 'geometry': {
+										'paths': [[[first.x, first.y], [geometry.x, geometry.y]]],
+										'spatialReference': { 'wkid': wkid } } };
+
+						mymap.graphics.clear();
+						graphic = new esriGraph(line);
+						graphic.symbol =  getSymbLine(gColor, 1);
+						mymap.graphics.add(graphic);
+						
+						var pt1 = { 'type': 'point',
+									'x': first.x, 'y': first.y,
+									'spatialReference': { 'wkid': wkid } };
+						var pt2 = { 'type': 'point',
+									'x': geometry.x, 'y': geometry.y,
+									'spatialReference': { 'wkid': wkid } };
+						gisgeo.measureLength([pt1, pt2], unit, measureLength);
+				};
+				
 				measureArea = function(array) {
 					var item, poly, polyArr = [],
 						len = array().length,
@@ -422,9 +463,7 @@
 					var graphic,
 						symbol = new esriLine(),
 						geomType = geometry.type,
-						$cursor = $viz('#' + map.vIdName + '_holder_container');
-
-					toolbar.deactivate();
+						key = gcvizFunc.getUUID();
 
 					if (geomType === 'extent') {
 						_self.eraseSelect(geometry);
@@ -432,25 +471,25 @@
 						if (geomType === 'polyline') {
 							symbol = getSymbLine(gColor, 2);
 							graphic = new esriGraph(geometry, symbol);
-							removeDrawCursor($cursor, gColorName);
 						} else if (geomType === 'point') {
 							symbol = getSymbText(gColor, gText, 8, 0, 0, 'normal', 'left');
 							graphic = new esriGraph(geometry, symbol);
 							addBackgroundText(graphic, gBackColor, 'left');
-							$cursor.removeClass('gcviz-text-cursor');
+							
+							// reopen the dialog box.
+							setTimeout(function() {
+								gcvizFunc.getElemValueVM(map.vIdName, ['draw', 'isTextDialogOpen'], 'js')(true);
+							}, 1500);
 						}
 
 						// add graphic
-						graphic.key = gKey;
+						graphic.key = key;
 						symbLayer.add(graphic);
 						isGraphics(true);
 
 						// add to stack
-						addUndoStack(gKey);
+						addUndoStack(key);
 					}
-
-					// reopen panel
-					vmArray[map.vIdName].header.toolsClick();
 				};
 
 				addUndoStack = function(key) {
@@ -491,23 +530,6 @@
 					}
 
 					gColorName = color;
-				};
-
-				removeDrawCursor = function(container, colour) {
-					// Remove cursor class
-					if (colour === 'black') {
-						container.removeClass('gcviz-draw-cursor-black');
-					} else if (colour === 'blue') {
-						container.removeClass('gcviz-draw-cursor-blue');
-					} else if (colour === 'green') {
-						container.removeClass('gcviz-draw-cursor-green');
-					} else if (colour === 'red') {
-						container.removeClass('gcviz-draw-cursor-red');
-					} else if (colour === 'yellow') {
-						container.removeClass('gcviz-draw-cursor-yellow');
-					} else if (colour === 'white') {
-						container.removeClass('gcviz-draw-cursor-white');
-					}
 				};
 
 				getSymbLine = function(color, width) {

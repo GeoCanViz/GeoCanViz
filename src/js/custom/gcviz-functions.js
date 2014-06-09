@@ -19,7 +19,10 @@
 			destroyProgressBar,
 			checkMatch,
 			getRandomColor,
-			timer;
+			getElemValueVM,
+			setVM,
+			timer,
+			vmObject = { };
 
 		debounce = function(func, threshold, execAsap) {
 			var timeout;
@@ -141,6 +144,28 @@
 			return [c(), c(), c() ,255];
 		};
 
+		getElemValueVM = function(name, elements, type) {
+			var val,
+				len = elements.length;
+			
+			if (len === 1) {
+				val = vmObject[name][elements[0]];
+			} else if (len === 2) {
+				val = vmObject[name][elements[0]][elements[1]];
+			} else if (len === 3) {
+				val = vmObject[name][elements[0]][elements[1]][elements[2]];
+			}
+			
+			if (type === 'ko') {
+				val = val();
+			}
+			return val;
+		};
+
+		setVM = function(name, vm) {
+			vmObject[name] = vm;
+		};
+
 		return {
 			debounce: debounce,
 			debounceClick: debounceClick,
@@ -151,7 +176,9 @@
 			setProgressBar: setProgressBar,
 			destroyProgressBar: destroyProgressBar,
 			checkMatch: checkMatch,
-			getRandomColor: getRandomColor
+			getRandomColor: getRandomColor,
+			getElemValueVM: getElemValueVM,
+			setVM: setVM
 		};
 	});
 }());

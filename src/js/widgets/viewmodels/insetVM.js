@@ -5,7 +5,7 @@
  *
  * Inset view model widget
  */
-/* global vmArray: false, locationPath: false */
+/* global locationPath: false */
 (function() {
 	'use strict';
 	define(['jquery-private',
@@ -36,7 +36,7 @@
 							locationPath + 'gcviz/images/insetStop.png'],
 					pathLightbox = locationPath + 'gcviz/images/insetLightbox.png',
 					pathPlayVideo = locationPath + 'gcviz/images/insetPlayVideo.png',
-					headerHeight = vmArray[mapid].header.headerHeight;
+					headerHeight = gcvizfunc.getElemValueVM(mapid, header.headerHeight);
 
 				// image path
 				_self.imgLightbox = pathLightbox;

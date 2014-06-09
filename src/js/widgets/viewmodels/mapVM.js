@@ -9,9 +9,10 @@
 	'use strict';
 	define(['jquery-private',
 			'knockout',
+			'gcviz-func',
 			'gcviz-gismap',
 			'gcviz-gisgeo'
-	], function($viz, ko, gisM, gisGeo) {
+	], function($viz, ko, gcvizFunc, gisM, gisGeo) {
 		var initialize,
 			vm;
 
@@ -122,6 +123,10 @@
 						// firefox trigger internal api zoom even if shift is not press. Grab this key and prevent default.
 						} else if (key === 61) {
 							prevent = true;
+						// open tools if esc is press
+						} else if (key === 27) {
+							gcvizFunc.getElemValueVM(mapid, ['draw', 'endDraw'], 'js')();
+							gcvizFunc.getElemValueVM(mapid, ['header', 'toolsClick'], 'js')();
 						}
 					}
 					return prevent;

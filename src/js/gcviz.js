@@ -7,8 +7,7 @@
  *
  */
 /* global $: false */
-var vmArray = {},
-	locationPath;
+var locationPath;
 (function() {
 	'use strict';
 	var mapsTotal,
@@ -26,7 +25,7 @@ var vmArray = {},
 			'gcviz-v-tbdraw',
 			'gcviz-v-tbnav',
 			'gcviz-v-tblegend',
-			'gcviz-v-tbdata'], function($viz, mp, jqui, i18n, func, map, inset, header, footer, tbdraw, tbnav, tblegend, tbdata) {
+			'gcviz-v-tbdata'], function($viz, mp, jqui, i18n, gcvizFunc, map, inset, header, footer, tbdraw, tbnav, tblegend, tbdata) {
 		var initialize,
 			readConfig,
 			execConfig,
@@ -99,7 +98,8 @@ var vmArray = {},
 				mapframe = config.mapframe,
 				mapid = mapframe.id,
 				size = mapframe.size,
-				customLen = config.customwidgets.length;
+				customLen = config.customwidgets.length,
+				vmArray = {};
 
 			// create section around map. This way we can bind Knockout to the section
 			$mapElem.wrap('<section id=section' + mapid + ' class="gcviz-section" role="map" style="width:' + size.width + 'px; height:' + size.height + 'px;">');
@@ -110,38 +110,42 @@ var vmArray = {},
 
 			// create map and add layers
 			// save the result of every view model in an array of view models
-			vmArray[mapid] = {};
-			vmArray[mapid].map = map.initialize($mapSection);
-
+			vmArray.map = map.initialize($mapSection);
+			// set the global vm to retreive link vm together
+			gcvizFunc.setVM(mapid, vmArray);
+			
 			// add header and footer
-			vmArray[mapid].header = header.initialize($mapSection);
-			vmArray[mapid].footer = footer.initialize($mapSection);
+			vmArray.header = header.initialize($mapSection);
+			vmArray.footer = footer.initialize($mapSection);
 
 			// add draw toolbar
 			if (config.toolbardraw.enable) {
-				vmArray[mapid].draw = tbdraw.initialize($mapSection);
+				vmArray.draw = tbdraw.initialize($mapSection);
 			}
 
 			// add navigation toolbar
 			if (config.toolbarnav.enable) {
-				vmArray[mapid].nav = tbnav.initialize($mapSection);
+				vmArray.nav = tbnav.initialize($mapSection);
 			}
 
-			//add legend
+			// add legend
 			if (config.toolbarlegend.enable) {
-				vmArray[mapid].legend = tblegend.initialize($mapSection);
+				vmArray.legend = tblegend.initialize($mapSection);
 			}
 
-			//add legend
+			// add data
 			if (config.toolbardata.enable) {
-				vmArray[mapid].data = tbdata.initialize($mapSection);
+				vmArray.data = tbdata.initialize($mapSection);
 			}
 
 			// add inset
 			if (config.insetframe.enable) {
-				vmArray[mapid].insets = inset.initialize($mapSection);
+				vmArray.insets = inset.initialize($mapSection);
 			}
 
+			// set the global vm to retreive link vm together
+			gcvizFunc.setVM(mapid, vmArray);
+			
 			// add custom widgets
 			//while (customLen--) {
 			//	
@@ -154,7 +158,7 @@ var vmArray = {},
 				$viz.event.trigger('gcviz-ready');
 
 				// set the resize event
-				window.onresize = func.debounce(function (evt) {
+				window.onresize = gcvizFunc.debounce(function (evt) {
 
 				}, 500, false);
 			}

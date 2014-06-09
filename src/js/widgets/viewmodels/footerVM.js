@@ -5,13 +5,14 @@
  *
  * Footer view model widget
  */
-/* global vmArray: false, locationPath: false */
+/* global locationPath: false */
 (function() {
 	'use strict';
 	define(['knockout',
 			'gcviz-i18n',
+			'gcviz-func',
 			'gcviz-gisgeo'
-	], function(ko, i18n, gisGeo) {
+	], function(ko, i18n, gcvizFunc, gisGeo) {
 		var initialize,
 			vm;
 
@@ -39,7 +40,7 @@
 				_self.outSR = gisGeo.getOutSR(configMouse.outwkid);
 
 				_self.init = function() {
-					var mymap = vmArray[mapid].map.map;
+					var mymap = gcvizFunc.getElemValueVM(mapid, ['map', 'map'], 'js');
 
 					if (config.mousecoords) {
 						mymap.on('mouse-move', function(evt) {

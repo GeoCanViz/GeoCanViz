@@ -5,7 +5,7 @@
  *
  * Toolbar data view model widget
  */
-/* global vmArray: false, locationPath: false */
+/* global locationPath: false */
 (function() {
 	'use strict';
 	define(['jquery-private',
@@ -23,7 +23,7 @@
 			// data model				
 			var toolbardataViewModel = function($mapElem, mapid) {
 				var _self = this,
-					mymap = vmArray[mapid].map.map,
+					mymap = gcvizFunc.getElemValueVM(mapid, ['map', 'map'], 'js'),
 					pathAdd = locationPath + 'gcviz/images/dataAdd.png',
 					pathDel = locationPath + 'gcviz/images/dataDelete.png';
 
