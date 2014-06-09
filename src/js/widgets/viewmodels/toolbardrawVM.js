@@ -116,6 +116,7 @@
 				_self.measureHolder = ko.observableArray([]);
 
 				_self.init = function() {
+					_self.selectColorClick('black');
 					return { controlsDescendantBindings: true };
 				};
 
@@ -188,8 +189,9 @@
 				_self.textClick = function() {
 					vmArray[mapid].header.toolsClick();
 
-					// set cursor (remove default cursor first)
+					// set cursor (remove default cursor first and all other cursors)
 					$container.css('cursor', '');
+					_self.removeCursors();
 					$container.addClass('gcviz-text-cursor');
 
 					// show dialog
@@ -205,9 +207,10 @@
 				_self.eraseSelClick = function() {
 					vmArray[mapid].header.toolsClick();
 
-					// set cursor (remove default cursor first)
+					// set cursor (remove default cursor first and all other cursors)
 					$container.css('cursor', '');
-					$container.addClass('gcviz-text-cursor'); // TODO set right cursor
+					_self.removeCursors();
+					$container.addClass('gcviz-draw-cursor-erase');
 					_self.graphic.drawExtent();
 				};
 
@@ -231,8 +234,9 @@
 					var key = gcvizFunc.getUUID();
 					vmArray[mapid].header.toolsClick();
 
-					// set cursor (remove default cursor first)
+					// set cursor (remove default cursor first and all other cursors)
 					$container.css('cursor', '');
+					_self.removeCursors();
 					$container.addClass('gcviz-draw-cursor-measure');
 
 					clickMeasureLength = mymap.on('click', function(event) {
@@ -260,8 +264,9 @@
 					var key = gcvizFunc.getUUID();
 					vmArray[mapid].header.toolsClick();
 
-					// set cursor (remove default cursor first)
+					// set cursor (remove default cursor first and all other cursors)
 					$container.css('cursor', '');
+					_self.removeCursors();
 					$container.addClass('gcviz-draw-cursor-measure');
 
 					clickMeasureArea = mymap.on('click', function(event) {
@@ -283,6 +288,18 @@
 						$container.removeClass('gcviz-draw-cursor-measure');
 						vmArray[mapid].header.toolsClick();
 					});
+				};
+				
+				_self.removeCursors = function() {
+					$container.removeClass('gcviz-draw-cursor-black');
+					$container.removeClass('gcviz-draw-cursor-blue');
+					$container.removeClass('gcviz-draw-cursor-green');
+					$container.removeClass('gcviz-draw-cursor-red');
+					$container.removeClass('gcviz-draw-cursor-yellow');
+					$container.removeClass('gcviz-draw-cursor-white');
+					$container.removeClass('gcviz-text-cursor');
+					$container.removeClass('gcviz-draw-cursor-measure');
+					$container.removeClass('gcviz-draw-cursor-erase');
 				};
 
 				_self.launchDialog = function() {

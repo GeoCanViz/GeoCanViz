@@ -40,3 +40,7 @@ div[class*='tbdraw'] {
 .gcviz-draw-cursor-measure {
   cursor: url(#{$img-root}drawmeasure.cur), crosshair;
 }
+
+.gcviz-draw-cursor-erase {
+  cursor: url(#{$img-root}drawerase.cur), crosshair;
+}
