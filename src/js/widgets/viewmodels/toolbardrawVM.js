@@ -169,8 +169,8 @@
 				};
 
 				_self.dialogTextClose = function() {
-					// if there is no text to add
-					if (!_self.isText()) {
+					// if window is close with the close X
+					if (_self.isTextDialogOpen()) {
 						// open menu and reset cursor
 						_self.endDraw();
 						openTools();

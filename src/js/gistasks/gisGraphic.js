@@ -17,10 +17,11 @@
 			'esri/symbols/SimpleMarkerSymbol',
 			'esri/symbols/TextSymbol',
 			'esri/geometry/ScreenPoint',
+			'esri/geometry/Point',
 			'esri/geometry/Polygon',
 			'esri/graphic',
 			'dojo/on'
-	], function($viz, gcvizFunc, gisgeo, esriGraphLayer, esriTools, esriLine, esriFill, esriMarker, esriText, esriScreenPt, esriPoly, esriGraph, dojoOn) {
+	], function($viz, gcvizFunc, gisgeo, esriGraphLayer, esriTools, esriLine, esriFill, esriMarker, esriText, esriScreenPt, esriPt, esriPoly, esriGraph, dojoOn) {
 		var initialize,
 			importGraphics,
 			exportGraphics;
@@ -31,7 +32,8 @@
 			var graphic = function(mymap, isGraphics, undo, redo, lblDist, lblArea) {
 				var _self = this,
 					symbLayer,
-					measureLength, measureArea, measureAreaCallback, measureLabelCallback, measureText, mouseMeasureLength, nextMeasureLength,
+					measureLength, measureArea, measureAreaCallback, measureLabelCallback, measureText,
+					mouseMeasureLength, nextMeasureLength, showNextMeasureLength,
 					addBackgroundText, addToMap,
 					addUndoStack,
 					setColor,
@@ -210,7 +212,8 @@
 				};
 
 				_self.addMeasure = function(array, key, type, unit, color, point) {
-					var len,
+					var len, previous,
+						flag = false,
 						screenPt = point.screenPoint,
 						geometry = map.toMap(new esriScreenPt(screenPt.x, screenPt.y));
 
@@ -218,34 +221,47 @@
 					gKey = key;
 					setColor(color);
 
-					// push the geometry to the array (first point)
-					array().push(geometry);
+					// check if the point is different from last one if so, add it
 					len = array().length;
-
-					if (type === 0) {
-						if (len === 1) {
-							measureLength(array());
-							
-							// add mouse mouve event to shop the theoric measure line
-							mouseMeasureLength = mymap.on('mouse-move', gcvizFunc.debounce(function(evt) {
-								var screenPt = evt.screenPoint,
-									geometry = map.toMap(new esriScreenPt(screenPt.x, screenPt.y));
-								nextMeasureLength(geometry, unit);
-							}, 100, false));
-						} else {
-							gisgeo.measureLength(array(), unit, measureLength);
+					if (len >= 1) {
+						previous = array()[len - 1];
+						if (previous.x === geometry.x && previous.y === geometry.y) {
+							flag = true;
 						}
-					} else if (type === 1) {
-						measureArea(array);
+					}
+					
+					if (!flag) {
+						// push the geometry to the array (first point)
+						array().push(geometry);
+	
+						if (type === 0) {
+							if (len === 0) {
+								measureLength(array());
+								
+								// add mouse mouve event to shop the theoric measure line
+								mouseMeasureLength = mymap.on('mouse-move', gcvizFunc.debounce(function(evt) {
+									var screenPt = evt.screenPoint,
+										geometry = map.toMap(new esriScreenPt(screenPt.x, screenPt.y));
+									nextMeasureLength(geometry, unit);
+								}, 50, false));
+							} else {
+								gisgeo.measureLength(array(), unit, measureLength);
+							}
+						} else if (type === 1) {
+							measureArea(array);
+						}
 					}
 				};
 
 				_self.addMeasureSumLength = function(array, key, unit) {
-					var pt, text,
+					var pt, text, offx, offy,
 						dist = 0,
 						len = array().length,
-						last = array()[len - 1];
-
+						last = array()[len - 1],
+						secLast = array()[len - 2],
+						angle = (Math.atan2((last.y - secLast.y), (last.x - secLast.x)) * (180 / Math.PI)),
+						off = Math.round(angle/90);
+					
 					// set global then call the tool
 					gKey = key;
 
@@ -258,11 +274,26 @@
 						}
 					}
 
+					// set good offset from angle and off
+					if (off === 0) {
+						offx = 20;
+						offy = 10;
+					} else if (off === 1) {
+						offx = 0;
+						offy = 10;
+					} else if (off === -1) {
+						offx = 0;
+						offy = -20;
+					} else {
+						offx = -20;
+						offy = 10;
+					}
+					
 					// add text
 					dist = Math.floor(dist * 100) / 100;
 					text = txtDist + dist + ' ' + unit;
 					last.text = text;
-					measureText(last);
+					measureText(last, 0, offx, offy);
 
 					// add to stack
 					addUndoStack(gKey);
@@ -316,14 +347,16 @@
 								'x': pt.x, 'y': pt.y,
 								'spatialReference': { 'wkid': wkid } } };
 					text.text = txtArea + info.area + ' ' + info.unit + '2';
-					measureText(text);
+					measureText(text, 0, 0, 0);
 
 					// add to stack
 					addUndoStack(gKey);
 				};
 
 				measureLength = function(array, unit) {
-					var line, pt1, pt2, text,
+					var line, pt1, pt2, text, angle, off,
+						offx = 0,
+						offy = -15,
 						len = array.length;
 
 					// draw a line between points
@@ -345,19 +378,39 @@
 									'x': (pt1.x + pt2.x) / 2, 'y': (pt1.y + pt2.y) / 2,
 									'spatialReference': { 'wkid': wkid } } };
 						text.text = pt1.distance + ' ' + unit;
-						measureText(text);
+						
+						// calculate angle
+						angle = (Math.atan2((pt1.y - pt2.y), (pt1.x - pt2.x)) * (180 / Math.PI));
+						if (angle > 90 || angle < -90) {
+							angle -= 180;
+						}
+						
+						// change offset if vertical
+						off = Math.round(Math.abs(angle)/90);
+						if (off === 1) {
+							offx = 15;
+							offy = 0;
+						} else if (off === 3) {
+							offx = -15;
+							offy = 0;
+						}
+
+						measureText(text, angle, offx, offy);
 					}
 					
 					// add the point symbol
 					graphic = new esriGraph(array[len - 1]);
-					graphic.symbol =  getSymbPoint(gColor, 4);
+					graphic.symbol = getSymbPoint(gColor, 4);
 					graphic.key = gKey;
 					symbLayer.add(graphic);
+					
+					mymap.graphics.clear();
 				};
 
 				// show the measure line before the user select the second point
 				nextMeasureLength = function(geometry, unit) {
 					var line,
+						sr = map.spatialReference,
 						graphics = symbLayer.graphics,
 						len = graphics.length,
 						first = graphics[len - 1].geometry,
@@ -369,14 +422,24 @@
 						graphic = new esriGraph(line);
 						graphic.symbol =  getSymbLine(gColor, 1);
 						mymap.graphics.add(graphic);
-						
-						var pt1 = { 'type': 'point',
-									'x': first.x, 'y': first.y,
-									'spatialReference': { 'wkid': wkid } };
-						var pt2 = { 'type': 'point',
-									'x': geometry.x, 'y': geometry.y,
-									'spatialReference': { 'wkid': wkid } };
-						gisgeo.measureLength([pt1, pt2], unit, measureLength);
+
+						gisgeo.measureLength([new esriPt(first.x, first.y, sr), new esriPt(geometry.x, geometry.y, sr)], unit, showNextMeasureLength);
+				};
+				
+				showNextMeasureLength = function(array, unit) {
+					// add text
+					var symbol, back,
+						pt = array[1],
+						text = { 'geometry': {
+									'x': pt.x, 'y': pt.y,
+									'spatialReference': { 'wkid': wkid } } },
+						graphic = new esriGraph(pt, symbol);
+						graphic.symbol = getSymbText(black, pt.distance + ' ' + unit, 10, 0, 0, 10, 'bold', 'center');
+					
+					// add background then text
+					addBackgroundText(graphic, white, 'center', 11, 0, 0, 10, mymap.graphics);
+					mymap.graphics.add(graphic);
+					
 				};
 				
 				measureArea = function(array) {
@@ -417,25 +480,27 @@
 					}
 				};
 
-				measureText = function(pt) {
+				measureText = function(pt, angle, offX, offY) {
 					var graphic, symbol;
 
 					graphic = new esriGraph(pt, symbol);
-					graphic.symbol = getSymbText(black, pt.text, 8, 0, 0, 'normal', 'center');
+					graphic.symbol = getSymbText(black, pt.text, 8, angle, offX, offY, 'normal', 'center');
 					graphic.key = gKey;
 
 					// add background then text
-					addBackgroundText(graphic, white, 'center');
+					addBackgroundText(graphic, white, 'center', 9, angle, offX, offY, symbLayer);
 					symbLayer.add(graphic);
 					isGraphics(true);
 				};
 
-				addBackgroundText = function(item, backColor, align) {
+				addBackgroundText = function(item, backColor, align, size, angle, offX, offY, graphLayer) {
 					var graphic, point,
 						text = '',
-						offset = -1,
+						offsetX = -1 + offX,
+						offsetY = -1 + offY,
 						len = item.symbol.text.length * 2,
-						geom = item.geometry;
+						geom = item.geometry,
+						loop = 1;
 
 					// create the geometry array
 					point = { 'geometry': {
@@ -450,12 +515,12 @@
 						text += 'l';
 					}
 
-					while (offset <= 1) {
+					while (loop <= 3) {
 						graphic = new esriGraph(point);
-						graphic.symbol =  getSymbText(backColor, text, 9, offset, -1, 'bold', align);
+						graphic.symbol =  getSymbText(backColor, text, size, angle, offsetX + loop, offsetY, 'bold', align);
 						graphic.key = gKey;
-						symbLayer.add(graphic);
-						offset++;
+						graphLayer.add(graphic);
+						loop++;
 					}
 				},
 
@@ -472,9 +537,9 @@
 							symbol = getSymbLine(gColor, 2);
 							graphic = new esriGraph(geometry, symbol);
 						} else if (geomType === 'point') {
-							symbol = getSymbText(gColor, gText, 8, 0, 0, 'normal', 'left');
+							symbol = getSymbText(gColor, gText, 8, 0, 0, 0, 'normal', 'left');
 							graphic = new esriGraph(geometry, symbol);
-							addBackgroundText(graphic, gBackColor, 'left');
+							addBackgroundText(graphic, gBackColor, 'left', 9, 0, 0, 0, symbLayer);
 							
 							// reopen the dialog box.
 							setTimeout(function() {
@@ -568,14 +633,14 @@
 								});
 				};
 
-				getSymbText = function(color, text, size, xOff, yOff, weight, align) {
+				getSymbText = function(color, text, size, angle, xOff, yOff, weight, align) {
 					return new esriText({
 										'type': 'esriTS',
 										'color': color,
 										'verticalAlignment': 'baseline',
 										'horizontalAlignment': align,
 										'rightToLeft': false,
-										'angle': 0,
+										'angle': angle,
 										'xoffset': xOff,
 										'yoffset': yOff,
 										'text': text,
@@ -598,20 +663,21 @@
 		importGraphics = function(map, graphics) {
 			var item,
 				graphic,
+				layer = map.getLayer('gcviz-symbol'),
 				len = graphics.length;
 
 			while (len--) {
 				item = graphics[len];
 				graphic = new esriGraph(item);
 				graphic.key = item.key;
-				map.graphics.add(graphic);
+				layer.add(graphic);
 			}
 		};
 
 		exportGraphics = function(map) {
 			var json, graphic,
 				output = [],
-				graphics = map.graphics.graphics,
+				graphics = map.getLayer('gcviz-symbol').graphics,
 				len = graphics.length;
 
 			while (len--) {

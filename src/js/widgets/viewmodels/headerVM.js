@@ -208,7 +208,6 @@
 					// Toggle the tools container
 					var tc = dijit.byId('tbTools' + mapid);
 					tc.toggle();
-
 				};
 
 				_self.helpClick = function() {
