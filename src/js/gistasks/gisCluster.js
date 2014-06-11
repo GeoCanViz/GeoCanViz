@@ -109,6 +109,9 @@
 
 			map.addLayer(clusterLayer);
 			params = {};
+			
+			// reorder layer to make sure graphic one is on top
+			map.reorderLayer(map.getLayer('gcviz-symbol'), 1000);
 		};
 
 		return {

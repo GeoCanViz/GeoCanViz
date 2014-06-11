@@ -21,6 +21,7 @@
 			getRandomColor,
 			getElemValueVM,
 			setVM,
+			getTextWidth,
 			timer,
 			vmObject = { };
 
@@ -166,6 +167,18 @@
 			vmObject[name] = vm;
 		};
 
+		// Uses canvas.measureText to compute and return the width of the given text of given font in pixels.
+		// http://stackoverflow.com/questions/118241/calculate-text-width-with-javascript/21015393#21015393
+		getTextWidth = function(text, font) {
+			var metric,
+				canvas = document.createElement('canvas'),
+				context = canvas.getContext('2d');
+
+			context.font = font;
+			metric = context.measureText(text);
+			return metric.width;
+		};
+
 		return {
 			debounce: debounce,
 			debounceClick: debounceClick,
@@ -178,7 +191,8 @@
 			checkMatch: checkMatch,
 			getRandomColor: getRandomColor,
 			getElemValueVM: getElemValueVM,
-			setVM: setVM
+			setVM: setVM,
+			getTextWidth: getTextWidth
 		};
 	});
 }());

@@ -434,10 +434,10 @@
 									'x': pt.x, 'y': pt.y,
 									'spatialReference': { 'wkid': wkid } } },
 						graphic = new esriGraph(pt, symbol);
-						graphic.symbol = getSymbText(black, pt.distance + ' ' + unit, 10, 0, 0, 10, 'bold', 'center');
+						graphic.symbol = getSymbText(black, pt.distance + ' ' + unit, 10, 0, 0, 10, 'normal', 'center');
 					
 					// add background then text
-					addBackgroundText(graphic, white, 'center', 11, 0, 0, 10, mymap.graphics);
+					addBackgroundText(graphic, white, 'center', 14, 0, -2, 9, mymap.graphics);
 					mymap.graphics.add(graphic);
 					
 				};
@@ -488,17 +488,17 @@
 					graphic.key = gKey;
 
 					// add background then text
-					addBackgroundText(graphic, white, 'center', 9, angle, offX, offY, symbLayer);
+					addBackgroundText(graphic, white, 'center', 14, angle, offX, offY - 2, symbLayer);
 					symbLayer.add(graphic);
 					isGraphics(true);
 				};
 
 				addBackgroundText = function(item, backColor, align, size, angle, offX, offY, graphLayer) {
-					var graphic, point,
+					var graphic, point, textWidth, len,
 						text = '',
 						offsetX = -1 + offX,
 						offsetY = -1 + offY,
-						len = item.symbol.text.length * 2,
+						symbol = item.symbol,
 						geom = item.geometry,
 						loop = 1;
 
@@ -507,12 +507,20 @@
 									'x': geom.x, 'y': geom.y,
 									'spatialReference': { 'wkid': wkid } } };
 
+					// get text width from canvas because symbol.getWidth give same result between I and M
+					// we need this to calculate background length
+					textWidth = gcvizFunc.getTextWidth(symbol.text, symbol.font);
+					len = Math.ceil(textWidth / 4);
+					if (len < 5) {
+						len += 1;
+					}
+
 					// there is no background color for text symbol. To solve this, we create
 					// 3 text symbol with offset to mimic a text background. If we use line or
 					// polygon, we have problem when user zooms in or out because the geometry
 					// does not follow the text because it is scale dependent.
 					while (len--) {
-						text += 'l';
+						text += 'I';
 					}
 
 					while (loop <= 3) {
@@ -540,7 +548,7 @@
 						} else if (geomType === 'point') {
 							symbol = getSymbText(gColor, gText, 8, 0, 0, 0, 'normal', 'left');
 							graphic = new esriGraph(geometry, symbol);
-							addBackgroundText(graphic, gBackColor, 'left', 9, 0, 0, 0, symbLayer);
+							addBackgroundText(graphic, gBackColor, 'left', 14, 0, -4, -2, symbLayer);
 							
 							// deactivate toolbar
 							_self.deactivate();
