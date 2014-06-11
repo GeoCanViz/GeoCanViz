@@ -34,7 +34,7 @@
     @include content-border-radius;
     
     .dijitTitlePane {
-      margin:( 0.5 * $rembase) + rem;
+      margin: ( 0.5 * $rembase) + rem;
     }
   }
 }
@@ -44,6 +44,6 @@
 }
 
 .gcviz-tbspacer {
-  background-color:rgba(100,100,100,0.6)!important;
-  height:3px;
+  background-color: rgba(100,100,100,0.6)!important;
+  height: 3px;
 }

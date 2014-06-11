@@ -46,7 +46,7 @@
 			}
 
 			$mapElem.find('.gcviz-tbholder').append('<div class="gcviz-tbwidth gcviz-tbspacer"></div>');
-			tp = new dojotitle({ id: 'tbnav' + mapid, title: 'Navigation', content: '<div class="gcviz-tbwidth gcviz-tbnav-content gcviz-tbcontent" style="height:' + navheight + 'px;"></div>', open: config.expand });
+			tp = new dojotitle({ id: 'tbnav' + mapid, title: 'Navigation', content: '<div class="gcviz-tbnav-content gcviz-tbcontent" style="height:' + navheight + 'px;"></div>', open: config.expand });
 			$mapElem.find('.gcviz-tbholder').append(tp.domNode);
 			tp.startup();
 			$viz('#tbnav' + mapid).addClass('gcviz-tbwidth');
@@ -60,6 +60,8 @@
 			// Put everything inside a DIV
 			node += '<div>';
 
+//TODO: Try using the dynamic grid instead of the gcviz-w*** classes
+
 				// if present, group the 2 items (fullextent and geolocation) on the same line
 				node += '<div class="gcviz-w247">';
 				// Item 1 of group - set full extent button
@@ -71,7 +73,7 @@
 				if (configgeolocation.enable) {
 					node += '<span id="divAutoCompleteInstructions' + mapid + '" class="ui-helper-hidden-accessible gcviz-inline" data-bind="text: insKeyboard"></span>';
 					node += '<label class="gcviz-geoloclabel gcviz-inline" for="inGeoLocation" data-bind="text: geoLocLabel"></label>';
-					node += '<input id="inGeoLocation' + mapid + '" class="gcviz-greyTextGeoLoc gcviz-inline gcviz-w140" data-bind="value: geoLocSample,, tooltip: { content: geoLocSample }" />';
+					node += '<input id="inGeoLocation' + mapid + '" class="gcviz-greyTextGeoLoc gcviz-inline gcviz-w140" data-bind="value: geoLocSample, tooltip: { content: geoLocSample }" />';
 				}
 				node += '</div>';
 				node += '<br/>';

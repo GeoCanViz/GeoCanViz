@@ -22,7 +22,7 @@
 				node = '';
 
 			$mapElem.find('.gcviz-tbholder').append('<div class="gcviz-tbwidth gcviz-tbspacer"></div>');
-			tp = new dojotitle({ id: 'tbdata' + mapid, title: i18n.getDict('%toolbardata-name'), content: '<div class="gcviz-tbwidth gcviz-tbdata-content gcviz-tbcontent-nobkg"></div>', open: config.expand });
+			tp = new dojotitle({ id: 'tbdata' + mapid, title: i18n.getDict('%toolbardata-name'), content: '<div class="gcviz-tbdata-content gcviz-tbcontent-nobkg"></div>', open: config.expand });
 			$mapElem.find('.gcviz-tbholder').append(tp.domNode);
 			tp.startup();
 			$viz('#tbdata' + mapid).addClass('gcviz-tbwidth');

@@ -23,7 +23,7 @@
 				itemsTemplate = '';
 
 			$mapElem.find('.gcviz-tbholder').append('<div class="gcviz-tbwidth gcviz-tbspacer"></div>');
-			tp = new dojotitle({ id: 'tbleg' + mapid, title: i18n.getDict('%toolbarlegend-name'), content: '<div class="gcviz-tbwidth gcviz-tbleg-content gcviz-tbcontent-nobkg"></div>', open: config.expand });
+			tp = new dojotitle({ id: 'tbleg' + mapid, title: i18n.getDict('%toolbarlegend-name'), content: '<div class="gcviz-tbleg-content gcviz-tbcontent-nobkg"></div>', open: config.expand });
 			$mapElem.find('.gcviz-tbholder').append(tp.domNode);
 			tp.startup();
 			$viz('#tbleg' + mapid).addClass('gcviz-tbwidth');
@@ -36,10 +36,7 @@
 
 			//template for recursive item loading
 			itemsTemplate = '<script id="itemsTmpl" type="text/html">';
-			// if displaychild.enable = true, use gcviz-legendLiLayerOpen
 					itemsTemplate += '<li data-bind="legendItemList: { expanded: expand }, click: $root.toggleViewService, css: $root.determineCSS($parent, $data)">';
-					//itemsTemplate += '<li data-bind="legendItemList: { expanded: expand }, click: $root.toggleViewService, css: expand == true || displaychild.enable == true ? \'gcviz-legendLiLayerOpen\' : \'gcviz-legendLiLayern\'">';
-					//itemsTemplate += '<li class="gcviz-legendLiLayer" data-bind="legendItemList: { expanded: expand }, click: $root.toggleViewService">';
 					itemsTemplate += '<div class="gcviz-legendHolderDiv" data-bind="if: visibility.enable && visibility.type === 1"><input class="gcviz-legendCheck" type="checkbox" data-bind="click: $root.changeItemsVisibility, clickBubble: false, attr: { title: $root.tpVisible, id: \'checkbox\' + id }, checked: visibility.initstate"/></div>';
 					itemsTemplate += '<div class="gcviz-legendHolderDiv" data-bind="if: visibility.enable && visibility.type === 2"><div data-bind="LegendRadioButtons: { value: visibility.initstate, group: \'radio\' + visibility.radioid }"></div></div>';
 					itemsTemplate += '<div class="gcviz-legendHolderDiv" data-bind="HorizontalSliderDijit: { widget: $root.HorizontalSlider, extent: [opacity.min, opacity.max], value: opacity.initstate, enable: opacity.enable}, if: opacity.enable"></div>';
