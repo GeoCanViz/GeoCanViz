@@ -24,7 +24,8 @@
 	], function($viz, gcvizFunc, gisgeo, esriGraphLayer, esriTools, esriLine, esriFill, esriMarker, esriText, esriScreenPt, esriPt, esriPoly, esriGraph, dojoOn) {
 		var initialize,
 			importGraphics,
-			exportGraphics;
+			exportGraphics,
+			addUndoStack;
 
 		initialize = function(mymap, isGraphics, stackUndo, stackRedo, lblDist, lblArea) {
 
@@ -35,7 +36,6 @@
 					measureLength, measureArea, measureAreaCallback, measureLabelCallback, measureText,
 					mouseMeasureLength, nextMeasureLength, showNextMeasureLength,
 					addBackgroundText, addToMap,
-					addUndoStack,
 					setColor,
 					getSymbLine, getSymbPoly, getSymbPoint, getSymbText,
 					toolbar,
@@ -527,8 +527,9 @@
 				addToMap = function(geometry) {
 					var graphic,
 						symbol = new esriLine(),
-						geomType = geometry.type,
-						key = gcvizFunc.getUUID();
+						geomType = geometry.type;
+						
+					gKey = gcvizFunc.getUUID();
 
 					if (geomType === 'extent') {
 						_self.eraseSelect(geometry);
@@ -541,19 +542,25 @@
 							graphic = new esriGraph(geometry, symbol);
 							addBackgroundText(graphic, gBackColor, 'left', 9, 0, 0, 0, symbLayer);
 							
-							// reopen the dialog box.
+							// deactivate toolbar
+							_self.deactivate();
+							
+							// reopen the dialog box and reactivate text tool
 							setTimeout(function() {
 								gcvizFunc.getElemValueVM(map.vIdName, ['draw', 'isTextDialogOpen'], 'js')(true);
+							}, 1000);
+							setTimeout(function() {
+								toolbar.activate(esriTools.POINT);;
 							}, 1500);
 						}
 
 						// add graphic
-						graphic.key = key;
+						graphic.key = gKey;
 						symbLayer.add(graphic);
 						isGraphics(true);
 
 						// add to stack
-						addUndoStack(key);
+						addUndoStack(gKey);
 					}
 				};
 
@@ -663,15 +670,19 @@
 		importGraphics = function(map, graphics) {
 			var item,
 				graphic,
+				key = key = gcvizFunc.getUUID(),
 				layer = map.getLayer('gcviz-symbol'),
 				len = graphics.length;
 
 			while (len--) {
 				item = graphics[len];
 				graphic = new esriGraph(item);
-				graphic.key = item.key;
+				graphic.key = key;
 				layer.add(graphic);
 			}
+			
+			// add undo stack
+			addUndoStack(key);
 		};
 
 		exportGraphics = function(map) {

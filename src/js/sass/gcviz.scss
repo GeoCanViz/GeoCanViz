@@ -16,7 +16,7 @@ div.gcviz-container img {
 
 // responsive grid (http://viget.com/inspire/building-a-nested-responsive-grid-with-sass-compass)
 .row {
-	#{enumerate('.span', 1, $cols, '')} {
+	#{enumerate(".span", 1, $cols, "")} {
 		float: left;
 		margin-left: $gutter;
 	}
@@ -37,6 +37,15 @@ div.gcviz-container img {
 	.row > :first-child {
 		margin-left: 0;
 	}
+}
+
+// set text unselectable (solve problem that select graphic text when drawing)
+text, .unselectable {
+   -moz-user-select: -moz-none;
+   -khtml-user-select: none;
+   -webkit-user-select: none;
+   -ms-user-select: none;
+   user-select: none;
 }
 
 .gcviz-section {
@@ -128,8 +137,8 @@ div.gcviz-container img {
 input[type="file"] {
 	opacity: 0;
 	position: absolute;
-	top:	0rem;
-	left: 0rem;
+	top:	-1000rem;
+	left: -1000rem;
 	margin: 0 !important;
 	height: 0rem;
 	width: 0rem;

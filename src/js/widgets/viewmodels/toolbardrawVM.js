@@ -114,8 +114,9 @@
 				// graphic object
 				_self.graphic = new gisGraphic.initialize(mymap, _self.isGraphics, _self.stackUndo, _self.stackRedo, lblDist, lblArea);
 
-				// measure array
+				// measure array and info
 				_self.measureHolder = ko.observableArray([]);
+				_self.measureType = '';
 
 				_self.init = function() {
 					// set event for the toolbar
@@ -128,21 +129,19 @@
 				// end draw action on tools toolbar click
 				_self.endDraw = function() {
 					
-					// measure length
-					if (typeof clickMeasureLength !== 'undefined') {
+					// measure length or area
+					if (_self.measureType === 'length') {
 						clickMeasureLength.remove();
 						dblclickMeasure.remove();
 						_self.endMeasureLength();
-					}
-
-					// measure area
-					if (typeof clickMeasureArea !== 'undefined') {
+					} else if (_self.measureType === 'area') {
 						clickMeasureArea.remove();
 						dblclickMeasure.remove();
 						_self.endMeasureArea();
 					}
 					
 					_self.graphic.deactivate();
+					_self.measureType = '';
 				};
 				
 				// add text dialog buttons functions (ok and cancel)
@@ -258,6 +257,7 @@
 				_self.measureLengthClick = function() {
 					globalKey = gcvizFunc.getUUID();
 					openTools();
+					_self.measureType = 'length';
 
 					// set cursor (remove default cursor first)
 					$container.css('cursor', '');
@@ -287,6 +287,7 @@
 				_self.measureAreaClick = function() {
 					globalKey = gcvizFunc.getUUID();
 					openTools();
+					_self.measureType = 'area';
 
 					// set cursor (remove default cursor first)
 					$container.css('cursor', '');
