@@ -1,7 +1,6 @@
 @import "gcviz-mixin";
 
 .gcviz-tbcontainer {
-  //@include app-text($weight: bold);
   @include app-text();
   padding-top: 0rem;
   padding-right: (1 * $rembase) + rem;
@@ -16,9 +15,14 @@
   cursor: pointer;
 }
 
+.gcviz-tbcontent-nobkg {
+  background-image: none!important;
+  margin-top: 0px!important;
+  width: 1000px;
+}
+
 .gcviz-tbholder {
   overflow-y: scroll;
-  overflow-x: scroll;
   
   .gcviz-tbcontent {
     padding: (0.2 * $rembase) + rem;
@@ -35,3 +39,11 @@
   }
 }
 
+.gcviz-tbwidth {
+  width: 1000px!important;
+}
+
+.gcviz-tbspacer {
+  background-color:rgba(100,100,100,0.6)!important;
+  height:3px;
+}

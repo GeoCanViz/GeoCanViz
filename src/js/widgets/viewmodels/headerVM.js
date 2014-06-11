@@ -182,7 +182,7 @@
 					// TODO this sample doent work because text, csv and cluster does not work.
 					//_self.printInfo.url = 'http://geoappext.nrcan.gc.ca/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task';
 					//gisPrint.printMap(vmArray[mapid].map.map, _self.printInfo);
-					
+
 					// This is the simple print. It doesn't use esri print task
 					printSimple(map, _self.printInfo.template);
 				};

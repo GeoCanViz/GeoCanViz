@@ -7,10 +7,11 @@
  */
 (function() {
 	'use strict';
-	define(['gcviz-vm-tblegend',
+	define(['jquery-private',
+			'gcviz-vm-tblegend',
 			'dijit/TitlePane',
 			'gcviz-i18n'
-	], function(tblegendVM, dojotitle, i18n) {
+	], function($viz, tblegendVM, dojotitle, i18n) {
 		var initialize;
 
 		initialize = function($mapElem) {
@@ -21,10 +22,11 @@
 				node = '',
 				itemsTemplate = '';
 
-			$mapElem.find('.gcviz-tbholder').append('<div style="background-color:rgba(100,100,100,0.6)!important; height:3px;"></div>');
-			tp = new dojotitle({ id: 'tbleg' + mapid, title: i18n.getDict('%toolbarlegend-name'), content: '<div class="gcviz-tbleg-content gcviz-tbcontent-nobkg"></div>', open: config.expand });
+			$mapElem.find('.gcviz-tbholder').append('<div class="gcviz-tbwidth gcviz-tbspacer"></div>');
+			tp = new dojotitle({ id: 'tbleg' + mapid, title: i18n.getDict('%toolbarlegend-name'), content: '<div class="gcviz-tbwidth gcviz-tbleg-content gcviz-tbcontent-nobkg"></div>', open: config.expand });
 			$mapElem.find('.gcviz-tbholder').append(tp.domNode);
 			tp.startup();
+			$viz('#tbleg' + mapid).addClass('gcviz-tbwidth');
 
 			// add tabinndex
 			tp.domNode.getElementsByClassName('dijitTitlePaneTitleFocus')[0].setAttribute('tabindex', '0');
@@ -34,7 +36,10 @@
 
 			//template for recursive item loading
 			itemsTemplate = '<script id="itemsTmpl" type="text/html">';
-				itemsTemplate += '<li class="gcviz-legendLiLayer" data-bind="legendItemList: { expanded: expand }, click: $root.toggleViewService">';
+			// if displaychild.enable = true, use gcviz-legendLiLayerOpen
+					itemsTemplate += '<li data-bind="legendItemList: { expanded: expand }, click: $root.toggleViewService, css: $root.determineCSS($parent, $data)">';
+					//itemsTemplate += '<li data-bind="legendItemList: { expanded: expand }, click: $root.toggleViewService, css: expand == true || displaychild.enable == true ? \'gcviz-legendLiLayerOpen\' : \'gcviz-legendLiLayern\'">';
+					//itemsTemplate += '<li class="gcviz-legendLiLayer" data-bind="legendItemList: { expanded: expand }, click: $root.toggleViewService">';
 					itemsTemplate += '<div class="gcviz-legendHolderDiv" data-bind="if: visibility.enable && visibility.type === 1"><input class="gcviz-legendCheck" type="checkbox" data-bind="click: $root.changeItemsVisibility, clickBubble: false, attr: { title: $root.tpVisible, id: \'checkbox\' + id }, checked: visibility.initstate"/></div>';
 					itemsTemplate += '<div class="gcviz-legendHolderDiv" data-bind="if: visibility.enable && visibility.type === 2"><div data-bind="LegendRadioButtons: { value: visibility.initstate, group: \'radio\' + visibility.radioid }"></div></div>';
 					itemsTemplate += '<div class="gcviz-legendHolderDiv" data-bind="HorizontalSliderDijit: { widget: $root.HorizontalSlider, extent: [opacity.min, opacity.max], value: opacity.initstate, enable: opacity.enable}, if: opacity.enable"></div>';
@@ -46,6 +51,7 @@
 					itemsTemplate += '<div class="gcviz-legendHolderDiv" id="childItems" data-bind="if: displaychild.enable"><ul class="gcviz-legendULLayer" data-bind="template: { name: \'itemsTmpl\', foreach: $data.items }"></ul></div>';
 				itemsTemplate += '</li>';
 			itemsTemplate += '</script>';
+            $legend.append(itemsTemplate);
 
             $legend.append(itemsTemplate);
             node += '<div><ul class="gcviz-legendULLayer" data-bind="template: { name: \'itemsTmpl\', foreach: $data.basesArray }"></ul></div>';

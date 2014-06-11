@@ -676,20 +676,20 @@ body .dijitAlignClient  {
 }
 .dijitSplitContainerSizerH .thumb,  .dijitSplitterV .dijitSplitterThumb  {
     overflow: hidden;
-     position: absolute;
-     top: 49%;
+    position: absolute;
+    top: 49%;
 }
 .dijitSplitContainerSizerV .thumb,  .dijitSplitterH .dijitSplitterThumb  {
     position: absolute;
-     left: 49%;
+    left: 49%;
 }
 .dijitSplitterShadow, .dijitSplitContainerVirtualSizerH, .dijitSplitContainerVirtualSizerV  {
     font-size:  1px;
-     background-color:  ThreeDShadow;
-     -moz-opacity:  0.5;
-     opacity:  0.5;
-     filter:  Alpha(Opacity=50);
-     margin:  0;
+    background-color:  ThreeDShadow;
+    -moz-opacity:  0.5;
+    opacity:  0.5;
+    filter:  Alpha(Opacity=50);
+    margin:  0;
 }
 .dijitSplitContainerSizerH,  .dijitSplitContainerVirtualSizerH  {
     cursor:  col-resize;
@@ -699,16 +699,16 @@ body .dijitAlignClient  {
 }
 .dj_a11y .dijitSplitterH  {
     border-top: 1px solid #d3d3d3 !important;
-     border-bottom: 1px solid #d3d3d3 !important;
+    border-bottom: 1px solid #d3d3d3 !important;
 }
 .dj_a11y .dijitSplitterV  {
     border-left: 1px solid #d3d3d3 !important;
-     border-right: 1px solid #d3d3d3 !important;
+    border-right: 1px solid #d3d3d3 !important;
 }
 .dijitContentPane  {
     display:  block;
-     overflow:  auto;
-     -webkit-overflow-scrolling:  touch;
+    overflow:  auto;
+    -webkit-overflow-scrolling:  touch;
 }
 .dijitContentPaneSingleChild  {
     overflow:  hidden;
@@ -720,7 +720,7 @@ body .dijitAlignClient  {
 
 .dijitTitlePane  {
     display:  block;
-     overflow:  hidden;
+    overflow:  hidden;
 }
 
 .dijitFieldset  {
@@ -729,7 +729,7 @@ body .dijitAlignClient  {
 
 .dijitTitlePaneTitle,  .dijitFieldset legend  {
     cursor:  pointer;
-     -webkit-tap-highlight-color:  transparent;
+    -webkit-tap-highlight-color:  transparent;
 }
 
 .dijitFixedOpen,  .dijitFixedClosed  {

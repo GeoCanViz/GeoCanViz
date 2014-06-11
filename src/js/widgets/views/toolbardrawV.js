@@ -24,10 +24,11 @@
 			// add the url for dowload page to config
 			config.urldownload = $mapElem.mapframe.map.urldownload;
 
-			$mapElem.find('.gcviz-tbholder').append('<div style="background-color:rgba(100,100,100,0.6)!important; height:3px;"></div>');
-			tp = new dojotitle({id: 'tbdraw' + mapid, title: '' + i18n.getDict('%toolbardraw-name') + '', content: '<div class="gcviz-tbdraw-content gcviz-tbcontent"></div>', open: config.expand});
+			$mapElem.find('.gcviz-tbholder').append('<div class="gcviz-tbwidth gcviz-tbspacer"></div>');
+			tp = new dojotitle({id: 'tbdraw' + mapid, title: '' + i18n.getDict('%toolbardraw-name') + '', content: '<div class="gcviz-tbwidth gcviz-tbdraw-content gcviz-tbcontent"></div>', open: config.expand});
 			$mapElem.find('.gcviz-tbholder').append(tp.domNode);
 			tp.startup();
+			$viz('#tbdraw' + mapid).addClass('gcviz-tbwidth');
 
 			// change tabinndex
 			tp.domNode.getElementsByClassName('dijitTitlePaneTitleFocus')[0].setAttribute('tabindex', '0');

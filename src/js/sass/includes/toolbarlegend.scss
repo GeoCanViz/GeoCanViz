@@ -1,26 +1,33 @@
 @import "includes/gcviz-mixin";
 
 .gcviz-tbleg-content {
-	overflow-x: scroll;
-}
-
-.gcviz-tbcontent-nobkg {
-  background-image: none!important;
-  margin-top: 0px!important;
+//	overflow-x: scroll;
+  width: 1000px;
 }
 
 .gcviz-legendULLayer
 {
 	list-style-type: none;
 	margin: 0;
-	padding-left: 0;
+  padding-left: 0;
 }
 
 .gcviz-legendLiLayer
 {
-	padding-left: 15px;
-	background-image: url(images/arrowbullet.png);
-	background-repeat: no-repeat;
+  margin-top: 5px;
+  padding-left: 15px;
+  background-image: url(images/arrowbullet.png);
+  background-repeat: no-repeat;
+  width: 1000px;
+}
+
+.gcviz-legendLiLayerOpen
+{
+  margin-top: 5px;
+  padding-left: 15px;
+  background-image: url(images/arrowbulletopen.png);
+  background-repeat: no-repeat;
+  width: 1000px;
 }
 
 .gcviz-legendImg
@@ -77,6 +84,7 @@
 	padding-left: 15px;
 	font-size: 8px;
 	font-weight: normal;
+//border: solid 1px black;
 }
 
 .gcviz-legendUniqueValueSpan
@@ -92,6 +100,16 @@
 	padding-right: 5px;
 	vertical-align: middle;
 	height: 100%;
-	text-align: center;
-	width: 100%;
+  text-align: left;
+  width: 1000px;
+}
+
+.gcviz-verticalAlignTop
+{
+  vertical-align: top;
+}
+
+.gcviz-verticalAlignMiddle
+{
+  vertical-align: middle;
 }

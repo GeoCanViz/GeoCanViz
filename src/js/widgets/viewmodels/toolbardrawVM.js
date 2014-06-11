@@ -289,7 +289,7 @@
 						vmArray[mapid].header.toolsClick();
 					});
 				};
-				
+
 				_self.removeCursors = function() {
 					$container.removeClass('gcviz-draw-cursor-black');
 					$container.removeClass('gcviz-draw-cursor-blue');

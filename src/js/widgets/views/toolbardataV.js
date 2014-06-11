@@ -7,10 +7,11 @@
  */
 (function() {
 	'use strict';
-	define(['gcviz-vm-tbdata',
+	define(['jquery-private',
+			'gcviz-vm-tbdata',
 			'dijit/TitlePane',
 			'gcviz-i18n'
-	], function(tbdataVM, dojotitle, i18n) {
+	], function($viz, tbdataVM, dojotitle, i18n) {
 		var initialize;
 
 		initialize = function($mapElem) {
@@ -20,10 +21,11 @@
 				tp,
 				node = '';
 
-			$mapElem.find('.gcviz-tbholder').append('<div style="background-color:rgba(100,100,100,0.6)!important; height:3px;"></div>');
-			tp = new dojotitle({ id: 'tbdata' + mapid, title: i18n.getDict('%toolbardata-name'), content: '<div class="gcviz-tbdata-content gcviz-tbcontent-nobkg"></div>', open: config.expand });
+			$mapElem.find('.gcviz-tbholder').append('<div class="gcviz-tbwidth gcviz-tbspacer"></div>');
+			tp = new dojotitle({ id: 'tbdata' + mapid, title: i18n.getDict('%toolbardata-name'), content: '<div class="gcviz-tbwidth gcviz-tbdata-content gcviz-tbcontent-nobkg"></div>', open: config.expand });
 			$mapElem.find('.gcviz-tbholder').append(tp.domNode);
 			tp.startup();
+			$viz('#tbdata' + mapid).addClass('gcviz-tbwidth');
 
 			// add tabinndex
 			tp.domNode.getElementsByClassName('dijitTitlePaneTitleFocus')[0].setAttribute('tabindex', '0');
