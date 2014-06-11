@@ -34,15 +34,7 @@
 
 					// set initial visibility state
 					setTimeout(function() {
-						var lenBases = _self.basesArray().length,
-							lenLayers = _self.layersArray().length;
-
-						while (lenBases--) {
-							_self.changeItemsVisibility(_self.basesArray()[lenBases]);
-						}
-						while (lenLayers--) {
-							_self.changeItemsVisibility(_self.layersArray()[lenLayers]);
-						}
+						_self.changeItemsVisibility();
 					}, 1000);
 					return { controlsDescendantBindings: true };
 				};
@@ -63,18 +55,33 @@
 				};
 
 				_self.changeItemsVisibility = function(selectedItem) {
+					var item,
+						lenBases = _self.basesArray().length,
+						lenLayers = _self.layersArray().length;
+
 					// loop trought items (we use event when the check box is clicked) event is
 					// undefined at initialization
 					if (typeof event !== 'undefined') {
 						selectedItem.visibility.initstate = event.target.checked;
 					}
-                    loopChildrenVisibility(_self.mymap, selectedItem, selectedItem.visibility.initstate, loopChildrenVisibility);
+
+					// always loop trought all the layers. If we just do child of event trigger,
+					// it could show a layer even if parent visibility is false
+					while (lenBases--) {
+						item = _self.basesArray()[lenBases];
+						loopChildrenVisibility(_self.mymap, item, item.visibility.initstate, loopChildrenVisibility);
+					}
+					while (lenLayers--) {
+						item = _self.layersArray()[lenLayers];
+						loopChildrenVisibility(_self.mymap, item, item.visibility.initstate, loopChildrenVisibility);
+					}
 
 					return true;
 				};
 
-				_self.switchRadioButtonVisibility = function(map, id, value) {
-					gisLegend.setLayerVisibility(map, id, value);
+				_self.switchRadioButtonVisibility = function(map, selectedItem, value) {
+					selectedItem.visibility.initstate = value;
+					gisLegend.setLayerVisibility(map, selectedItem.id, value);
 				};
 
 				_self.changeServiceOpacity = function(layerid, opacityValue) {
@@ -95,7 +102,12 @@
 
 			loopChildrenVisibility = function(map, itemMaster, isCheck) {
 				var items = itemMaster.items;
-
+				
+				// if value is false, set isCheck to false for all children
+				if (!itemMaster.visibility.initstate) {
+					isCheck = false;
+				}
+				
 				if (items.length > 0) {
 					Object.keys(items).forEach(function(key) {
 						loopChildrenVisibility(map, items[key], isCheck, loopChildrenVisibility);
