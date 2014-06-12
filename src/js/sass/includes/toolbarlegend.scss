@@ -1,30 +1,32 @@
 @import "includes/gcviz-mixin";
 
 .gcviz-tbleg-content {
-	overflow-x: scroll;
+  width: 1000px;
 }
 
-.gcviz-tbcontent-nobkg {
-  background-image: none!important;
-  margin-top: 0px!important;
-}
-
-.gcviz-legendULLayer
-{
+.gcviz-legendULLayer {
 	list-style-type: none;
 	margin: 0;
-	padding-left: 0;
+  padding-left: 0;
 }
 
-.gcviz-legendLiLayer
-{
-	padding-left: 15px;
-	background-image: url(images/arrowbullet.png);
-	background-repeat: no-repeat;
+.gcviz-legendLiLayer {
+  margin-top: 5px;
+  padding-left: 15px;
+  background-image: url(images/arrowbullet.png);
+  background-repeat: no-repeat;
+  width: 1000px;
 }
 
-.gcviz-legendImg
-{
+.gcviz-legendLiLayerOpen {
+  margin-top: 5px;
+  padding-left: 15px;
+  background-image: url(images/arrowbulletopen.png);
+  background-repeat: no-repeat;
+  width: 1000px;
+}
+
+.gcviz-legendImg {
 	margin: 0px;
 	width: 45px;
 	height: 40px;
@@ -32,45 +34,38 @@
 	padding-left: 25px;
 }  
 
-.gcviz-legendHolderDiv  
-{
+.gcviz-legendHolderDiv {
 	display: inline-block;
 	padding-right: 5px;
 }
 
-.gcviz-legendHolderImgDiv
-{
+.gcviz-legendHolderImgDiv {
 	display: block;
 	padding-right: 5px;
 }
 
-.gcviz-legendCheck
-{
+.gcviz-legendCheck {
 	display: inline-block;
 }
 
-.gcviz-legendSlider
-{
+.gcviz-legendSlider {
 	display: inline-block;
 	width: 50px;
 	padding-left: 0;
 }
 
-.gcviz-legendSpan
-{
+.gcviz-legendSpan {
 	display: inline-block;
 	padding-left: 0;
 }
 
-.gcviz-legendSymbolDiv
-{
+.gcviz-legendSymbolDiv {
 	vertical-align: middle;
 	padding-left: 15px;
 	border: 1px;
 }
 
-.gcviz-legendSymbolUniqueValueDiv
-{
+.gcviz-legendSymbolUniqueValueDiv {
 	display: inline-block;
 	vertical-align: middle;
 	padding-top: 0px;
@@ -79,19 +74,25 @@
 	font-weight: normal;
 }
 
-.gcviz-legendUniqueValueSpan
-{
+.gcviz-legendUniqueValueSpan {
 	display: inline-block;
 	font-size: 10px;
 	padding-left: 5px;
 }
 
-.gcviz-legendUnqiueFieldHolderDiv
-{
+.gcviz-legendUnqiueFieldHolderDiv {
 	display: inline-block;
 	padding-right: 5px;
 	vertical-align: middle;
 	height: 100%;
-	text-align: center;
-	width: 100%;
+  text-align: left;
+  width: 1000px;
+}
+
+.gcviz-verticalAlignTop {
+  vertical-align: top;
+}
+
+.gcviz-verticalAlignMiddle {
+  vertical-align: middle;
 }

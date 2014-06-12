@@ -47,6 +47,32 @@
 					return { controlsDescendantBindings: true };
 				};
 
+				// determine which CSS class to use on an item
+				_self.determineCSS = function(parentItem, liItem) {
+					// Determine if we have a top level item
+					if (parentItem.mymap !== undefined) {
+							if (liItem.expand) {
+								return 'gcviz-legendLiLayerOpen';
+							} else {
+								return 'gcviz-legendLiLayer';
+							}
+					// Determine if this is the last child
+					} else if (liItem.last === true) {
+						if (liItem.displaychild.enable) {
+							return 'gcviz-legendLiLayerOpen';
+						} else {
+							return 'gcviz-legendLiLayer';
+						}
+					// Else, we have something in the middle
+					} else {
+						if (liItem.expand) {
+							return 'gcviz-legendLiLayerOpen';
+						} else {
+							return 'gcviz-legendLiLayer';
+						}
+					}
+				};
+
 				// needs this function because the a tag inside li tag doesn't work.
 				_self.openMetadata = function(node) {
 					var href = node.href;
@@ -83,7 +109,13 @@
 
 				_self.toggleViewService = function(selectedLayer, event) {
 					var evtTarget = $viz(event.target);
-
+					if (evtTarget[0].className === 'gcviz-legendLiLayer') {
+						evtTarget.removeClass('gcviz-legendLiLayer');
+						evtTarget.addClass('gcviz-legendLiLayerOpen');
+					} else {
+						evtTarget.removeClass('gcviz-legendLiLayerOpen');
+						evtTarget.addClass('gcviz-legendLiLayer');
+					}
 					evtTarget.children('div#childItems.gcviz-legendHolderDiv').toggle();
 					evtTarget.children('.gcviz-legendSymbolDiv').toggle();
 					evtTarget.children('div#customImage.gcviz-legendHolderImgDiv').toggle();

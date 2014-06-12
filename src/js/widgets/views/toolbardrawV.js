@@ -24,9 +24,11 @@
 			// add the url for dowload page to config
 			config.urldownload = $mapElem.mapframe.map.urldownload;
 
-			tp = new dojotitle({id: 'tbanno' + mapid, title: '' + i18n.getDict('%toolbardraw-name') + '', content: '<div class="gcviz-tbdraw-content gcviz-tbcontent"></div>', open: config.expand});
+			$mapElem.find('.gcviz-tbholder').append('<div class="gcviz-tbwidth gcviz-tbspacer"></div>');
+			tp = new dojotitle({ id: 'tbdraw' + mapid, title: '' + i18n.getDict('%toolbardraw-name') + '', content: '<div class="gcviz-tbdraw-content gcviz-tbcontent"></div>', open: config.expand });
 			$mapElem.find('.gcviz-tbholder').append(tp.domNode);
 			tp.startup();
+			$viz('#tbdraw' + mapid).addClass('gcviz-tbwidth');
 
 			// change tabinndex
 			tp.domNode.getElementsByClassName('dijitTitlePaneTitleFocus')[0].setAttribute('tabindex', '0');
@@ -65,6 +67,8 @@
 						'<button class="gcviz-button-picker" tabindex="0" data-bind="click: function() { selectColorClick(\'white\') }, tooltip: { content: tpWhite }"><img class="gcviz-picker-colour" data-bind="attr: { src: imgDrawWhite }"></img></button>' +
 					'</div>';
 
+			// Change line
+			node += '<br/>';
 			// set erase buttons and undo erase
 			node += '<div class="row gcviz-inlineblock">' +
 						'<button class="gcviz-button" tabindex="0" data-bind="click: eraseClick, tooltip: { content: tpErase }"><img class="gcviz-img-button" data-bind="attr: { src: imgErase }"></img></button>' +

@@ -1,7 +1,12 @@
 @import "gcviz-mixin";
 
+// Modify the font of the toolbar title
+div[class*='tbdraw'] {
+  @include app-text(1.0);
+}
+
 .gcviz-text-cursor {
-  cursor: url(#{$img-root}drawTextCursor.cur), text;
+  cursor: url(#{ $img-root }drawTextCursor.cur), text;
 }
 
 .gcviz-select-cursor {
@@ -9,25 +14,33 @@
 }
 
 .gcviz-draw-cursor-black {
-  cursor: url(#{$img-root}drawpencilblack.cur), crosshair;
+  cursor: url(#{ $img-root }drawpencilblack.cur), crosshair;
 }
 
 .gcviz-draw-cursor-blue {
-  cursor: url(#{$img-root}drawpencilblue.cur), crosshair;
+  cursor: url(#{ $img-root }drawpencilblue.cur), crosshair;
 }
 
 .gcviz-draw-cursor-green {
-  cursor: url(#{$img-root}drawpencilgreen.cur), crosshair;
+  cursor: url(#{ $img-root }drawpencilgreen.cur), crosshair;
 }
 
 .gcviz-draw-cursor-red {
-  cursor: url(#{$img-root}drawpencilred.cur), crosshair;
+  cursor: url(#{ $img-root }drawpencilred.cur), crosshair;
 }
 
 .gcviz-draw-cursor-yellow {
-  cursor: url(#{$img-root}drawpencilyellow.cur), crosshair;
+  cursor: url(#{ $img-root }drawpencilyellow.cur), crosshair;
 }
 
 .gcviz-draw-cursor-white {
-  cursor: url(#{$img-root}drawpencilwhite.cur), crosshair;
+  cursor: url(#{ $img-root }drawpencilwhite.cur), crosshair;
+}
+
+.gcviz-draw-cursor-measure {
+  cursor: url(#{ $img-root }drawmeasure.cur), crosshair;
+}
+
+.gcviz-draw-cursor-erase {
+  cursor: url(#{ $img-root }drawerase.cur), crosshair;
 }
