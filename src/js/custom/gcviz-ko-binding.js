@@ -178,7 +178,7 @@
             }).placeAt(element);
 
 			widget.on('Change', function(e) {
-				bindingContext.$root.switchRadioButtonVisibility(bindingContext.$root.mymap, viewModel.id, e);
+				bindingContext.$root.switchRadioButtonVisibility(bindingContext.$root.mymap, bindingContext.$data, e);
 			});
 		}
 	};

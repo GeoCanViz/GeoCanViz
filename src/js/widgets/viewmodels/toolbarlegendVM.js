@@ -34,17 +34,35 @@
 
 					// set initial visibility state
 					setTimeout(function() {
-						var lenBases = _self.basesArray().length,
-							lenLayers = _self.layersArray().length;
-
-						while (lenBases--) {
-							_self.changeItemsVisibility(_self.basesArray()[lenBases]);
-						}
-						while (lenLayers--) {
-							_self.changeItemsVisibility(_self.layersArray()[lenLayers]);
-						}
+						_self.changeItemsVisibility();
 					}, 1000);
 					return { controlsDescendantBindings: true };
+				};
+
+				// determine which CSS class to use on an item
+				_self.determineCSS = function(parentItem, liItem) {
+					// Determine if we have a top level item
+					if (parentItem.mymap !== undefined) {
+							if (liItem.expand) {
+								return 'gcviz-legendLiLayerOpen';
+							} else {
+								return 'gcviz-legendLiLayer';
+							}
+					// Determine if this is the last child
+					} else if (liItem.last === true) {
+						if (liItem.displaychild.enable) {
+							return 'gcviz-legendLiLayerOpen';
+						} else {
+							return 'gcviz-legendLiLayer';
+						}
+					// Else, we have something in the middle
+					} else {
+						if (liItem.expand) {
+							return 'gcviz-legendLiLayerOpen';
+						} else {
+							return 'gcviz-legendLiLayer';
+						}
+					}
 				};
 
 				// needs this function because the a tag inside li tag doesn't work.
@@ -63,18 +81,33 @@
 				};
 
 				_self.changeItemsVisibility = function(selectedItem) {
+					var item,
+						lenBases = _self.basesArray().length,
+						lenLayers = _self.layersArray().length;
+
 					// loop trought items (we use event when the check box is clicked) event is
 					// undefined at initialization
 					if (typeof event !== 'undefined') {
 						selectedItem.visibility.initstate = event.target.checked;
 					}
-                    loopChildrenVisibility(_self.mymap, selectedItem, selectedItem.visibility.initstate, loopChildrenVisibility);
+
+					// always loop trought all the layers. If we just do child of event trigger,
+					// it could show a layer even if parent visibility is false
+					while (lenBases--) {
+						item = _self.basesArray()[lenBases];
+						loopChildrenVisibility(_self.mymap, item, item.visibility.initstate, loopChildrenVisibility);
+					}
+					while (lenLayers--) {
+						item = _self.layersArray()[lenLayers];
+						loopChildrenVisibility(_self.mymap, item, item.visibility.initstate, loopChildrenVisibility);
+					}
 
 					return true;
 				};
 
-				_self.switchRadioButtonVisibility = function(map, id, value) {
-					gisLegend.setLayerVisibility(map, id, value);
+				_self.switchRadioButtonVisibility = function(map, selectedItem, value) {
+					selectedItem.visibility.initstate = value;
+					gisLegend.setLayerVisibility(map, selectedItem.id, value);
 				};
 
 				_self.changeServiceOpacity = function(layerid, opacityValue) {
@@ -83,7 +116,13 @@
 
 				_self.toggleViewService = function(selectedLayer, event) {
 					var evtTarget = $viz(event.target);
-
+					if (evtTarget[0].className === 'gcviz-legendLiLayer') {
+						evtTarget.removeClass('gcviz-legendLiLayer');
+						evtTarget.addClass('gcviz-legendLiLayerOpen');
+					} else {
+						evtTarget.removeClass('gcviz-legendLiLayerOpen');
+						evtTarget.addClass('gcviz-legendLiLayer');
+					}
 					evtTarget.children('div#childItems.gcviz-legendHolderDiv').toggle();
 					evtTarget.children('.gcviz-legendSymbolDiv').toggle();
 					evtTarget.children('div#customImage.gcviz-legendHolderImgDiv').toggle();
@@ -95,7 +134,12 @@
 
 			loopChildrenVisibility = function(map, itemMaster, isCheck) {
 				var items = itemMaster.items;
-
+				
+				// if value is false, set isCheck to false for all children
+				if (!itemMaster.visibility.initstate) {
+					isCheck = false;
+				}
+				
 				if (items.length > 0) {
 					Object.keys(items).forEach(function(key) {
 						loopChildrenVisibility(map, items[key], isCheck, loopChildrenVisibility);

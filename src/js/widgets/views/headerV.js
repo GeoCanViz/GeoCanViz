@@ -56,6 +56,7 @@
 					// add fullscreen button
 					if (config.fullscreen) {
 						node += '  <li id="full" tabindex="0" data-bind="click: fullscreenClick, tooltip: { content: tpFullScreen }, attr: { style: xpositionFull }"></li>';
+						node += '  <li id="regview" tabindex="0" class="gcviz-hidden" data-bind="click: fullscreenClick, tooltip: { content: tpFullScreen }, attr: { style: xpositionFull }"></li>';
 					}
 				node += '</ul>';
 			node += '</div>';

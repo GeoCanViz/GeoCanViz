@@ -119,10 +119,14 @@
 				_self.measureType = '';
 
 				_self.init = function() {
+
 					// set event for the toolbar
 					var $tb = $viz('#tbTools' + mapid + '_titleBarNode');
 					$tb.on('click', _self.endDraw);
-					
+
+					// select black by default
+					_self.selectColorClick('black');
+
 					return { controlsDescendantBindings: true };
 				};
 
@@ -215,8 +219,9 @@
 				_self.textClick = function() {
 					openTools();
 
-					// set cursor (remove default cursor first)
+					// set cursor (remove default cursor first and all other cursors)
 					$container.css('cursor', '');
+					_self.removeCursors();
 					$container.addClass('gcviz-text-cursor');
 
 					// show dialog
@@ -232,9 +237,10 @@
 				_self.eraseSelClick = function() {
 					openTools();
 
-					// set cursor (remove default cursor first)
+					// set cursor (remove default cursor first and all other cursors)
 					$container.css('cursor', '');
-					$container.addClass('gcviz-text-cursor'); // TODO set right cursor
+					_self.removeCursors();
+					$container.addClass('gcviz-draw-cursor-erase');
 					_self.graphic.drawExtent();
 				};
 
@@ -259,9 +265,10 @@
 					openTools();
 					_self.measureType = 'length';
 
-					// set cursor (remove default cursor first)
+					// set cursor (remove default cursor first and all other cursors)
 					$container.css('cursor', '');
-					$container.addClass('gcviz-text-cursor'); // TODO set right cursor
+					_self.removeCursors();
+					$container.addClass('gcviz-draw-cursor-measure');
 
 					clickMeasureLength = mymap.on('click', function(event) {
 										_self.graphic.addMeasure(_self.measureHolder, globalKey, 0, 'km', _self.selectedColor(), event);
@@ -276,12 +283,16 @@
 
 				_self.endMeasureLength = function() {
 					var len = _self.measureHolder().length;
-						if (len >= 2) {
-							_self.graphic.addMeasureSumLength(_self.measureHolder, globalKey, 'km');
-						} else if (len > 0) {
-							_self.graphic.eraseUnfinish();
-						}
-						_self.measureHolder([]);
+					
+					if (len >= 2) {
+						_self.graphic.addMeasureSumLength(_self.measureHolder, globalKey, 'km');
+					} else if (len > 0) {
+						_self.graphic.eraseUnfinish();
+					}
+					_self.measureHolder([]);
+
+					// Remove cursor class and reopen panel
+					$container.removeClass('gcviz-draw-cursor-measure');
 				};
 				
 				_self.measureAreaClick = function() {
@@ -289,9 +300,10 @@
 					openTools();
 					_self.measureType = 'area';
 
-					// set cursor (remove default cursor first)
+					// set cursor (remove default cursor first and all other cursors)
 					$container.css('cursor', '');
-					$container.addClass('gcviz-text-cursor'); // TODO set right cursor
+					_self.removeCursors();
+					$container.addClass('gcviz-draw-cursor-measure');
 
 					clickMeasureArea = mymap.on('click', function(event) {
 										_self.graphic.addMeasure(_self.measureHolder, globalKey, 1, 'km', _self.selectedColor(), event);
@@ -305,14 +317,30 @@
 
 				_self.endMeasureArea = function() {
 					var len = _self.measureHolder().length;
-						if (len >= 3) {
-							_self.graphic.addMeasureSumArea(_self.measureHolder, globalKey, 'km');
-						} else if (len > 0) {
-							_self.graphic.eraseUnfinish();
-						}
-						_self.measureHolder([]);
+						
+					if (len >= 3) {
+						_self.graphic.addMeasureSumArea(_self.measureHolder, globalKey, 'km');
+					} else if (len > 0) {
+						_self.graphic.eraseUnfinish();
+					}
+					_self.measureHolder([]);
+
+					// Remove cursor class and reopen panel
+					$container.removeClass('gcviz-draw-cursor-measure');
 				};
-				
+
+				_self.removeCursors = function() {
+					$container.removeClass('gcviz-draw-cursor-black');
+					$container.removeClass('gcviz-draw-cursor-blue');
+					$container.removeClass('gcviz-draw-cursor-green');
+					$container.removeClass('gcviz-draw-cursor-red');
+					$container.removeClass('gcviz-draw-cursor-yellow');
+					$container.removeClass('gcviz-draw-cursor-white');
+					$container.removeClass('gcviz-text-cursor');
+					$container.removeClass('gcviz-draw-cursor-measure');
+					$container.removeClass('gcviz-draw-cursor-erase');
+				};
+
 				_self.launchDialog = function() {
 					// launch the dialog. We cant put the dialog in the button because
 					// Firefox will not launch the window. To be able to open the window,

@@ -183,7 +183,7 @@
 
 		projectPoints = function(points, outwkid, success) {
 			var geomServ = esriConfig.defaults.io.geometryService;
-			
+
 			params.geometries = points;
 			params.outSR = new esriSR({ 'wkid': outwkid });
 

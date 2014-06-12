@@ -28,7 +28,7 @@
 
 			// set the html page to open
 			htmlPage = printInfo.template;
-			
+
 			// set the print template and print parameters then call the task
 			template.exportOptions = { dpi: 96 };
 			template.format = 'PNG8';
@@ -39,7 +39,7 @@
 				'legendLayer': []
 			};
 			template.preserveScale = true;
-  
+
 			params.template = template;
 			params.map = map;
 			printTask.execute(params, printResult, printError);
@@ -47,7 +47,7 @@
 
 		printResult = function(response) {
 			var win;
-			
+
 			win = window.open(htmlPage + 'defaultPrint.html');
 			win.onload = function() {
 				// instead of adding '<img src="' + response.url + '"></img>' from print task
@@ -57,9 +57,9 @@
 				win.print();
 			};
 		};
-		
+
 		printError = function(err) {
-			console.log("Printing broken: ", err);
+			console.log('Printing broken: ', err);
 		};
 
 

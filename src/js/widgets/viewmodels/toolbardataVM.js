@@ -38,7 +38,7 @@
 
 				// array of user layer
 				_self.userArray = ko.observableArray([]);
-				
+
 				_self.init = function() {
 					return { controlsDescendantBindings: true };
 				};
@@ -62,7 +62,7 @@
 
 						// keep track of file name
 						reader.fileName = file.name;
-						
+
 						// closure to capture the file information and launch the process
 						reader.onload = function() {
 							var uuid = gcvizFunc.getUUID();
@@ -75,7 +75,7 @@
 					// clear the selected file
 					document.getElementById('fileDialogData').value = '';
 				};
-				
+
 				_self.removeClick = function(selectedItem) {
 					// remove the layer from the map then from the array
 					// In the view we use click: function($data) { $root.removeClick($data) } to avoid
@@ -83,7 +83,7 @@
 					mymap.removeLayer(mymap.getLayer(selectedItem.id));
 					_self.userArray.remove(selectedItem);
 				};
-				
+
 				_self.changeItemsVisibility = function(selectedItem) {
 					gisLegend.setLayerVisibility(mymap, selectedItem.id, event.target.checked);
 				};

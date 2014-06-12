@@ -32,8 +32,8 @@
                 hide: {effect: 'fade', speed: 1000},
                 title: i18n.getDict('%header-help'),
                 resizable: false,
-                height: 400,
-                width: 950
+                height: 250,
+                width: 300
             });
 
 			//TODO: Look at custum bindings
@@ -45,8 +45,8 @@
                 hide: {effect: 'fade', speed: 1000},
                 title: i18n.getDict('%header-tpabout'),
                 resizable: false,
-                height: 400,
-                width: 950
+                height: 250,
+                width: 300
             });
 
 			// data model				
@@ -73,7 +73,7 @@
 				_self.xpositionFull = ko.observable();
 				_self.xheightToolsOuter = ko.observable('max-height:100px!important');
 				_self.xheightToolsInner = ko.observable('max-height:100px!important');
-				_self.widthheightTBholder =  ko.observable('max-height:390px!important;max-width:290px!important');
+				_self.widthheightTBholder =  ko.observable('max-height:390px!important;max-width:340px!important');
 				_self.positionHelp = 0,
 				_self.positionAbout = 0,
 				_self.positionInset = 0,
@@ -95,7 +95,7 @@
 					_self.positionInset += 35;
 					_self.positionLink += 35;
 				}
-				if (config.link.enable) {
+				if (config.link) {
 					_self.positionHelp += 34;
 					_self.positionAbout += 35;
 					_self.positionInset += 35;
@@ -164,8 +164,12 @@
 					gcvizFunc.debounceClick(function() {
 						if (_self.fullscreenState) {
 							_self.cancelFullScreen();
+							$viz('#full').removeClass('gcviz-hidden');
+							$viz('#regview').addClass('gcviz-hidden');
 						} else {
 							_self.requestFullScreen();
+							$viz('#full').addClass('gcviz-hidden');
+							$viz('#regview').removeClass('gcviz-hidden');
 						}
 
 						// remove tooltip if there (the tooltip is position before the fullscreen)
@@ -178,7 +182,7 @@
 					// TODO this sample doent work because text, csv and cluster does not work.
 					//_self.printInfo.url = 'http://geoappext.nrcan.gc.ca/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task';
 					//gisPrint.printMap(vmArray[mapid].map.map, _self.printInfo);
-					
+
 					// This is the simple print. It doesn't use esri print task
 					printSimple(map, _self.printInfo.template);
 				};
@@ -214,20 +218,20 @@
                     var html = '';
 					// Open the Help dialog box
                     $viz('#divHelp').dialog('open');
-                    //Open PDF in media player
-                    html = '<a class="media" href="'+i18n.getDict('%header-urlhelp')+'" tabindex="0" title="'+i18n.getDict('%header-helptitle')+'F"></a>';
+                    html += '<br/> '+i18n.getDict('%header-helpdownload')+ ' ';
+                    html += '<a href="'+i18n.getDict('%header-urlhelp')+'" tabindex="0" target="new">'+i18n.getDict('%header-helpmanual')+'</a>.';
+                    html += ' '+i18n.getDict('%linkopens');
                     $viz('#divHelpContent').html(html);
-                    $viz('.media').media({ width:900,height:300 });
                 };
 
                 _self.aboutClick = function() {
                     var html = '';
                     // Open the About dialog box
                     $viz('#divAbout').dialog('open');
-                    //Open PDF in media player
-                    html = '<a class="media" href="'+i18n.getDict('%header-urlabout')+'" tabindex="0" title="'+i18n.getDict('%header-abouttitle')+'F"></a>';
+                    html += '<br/> '+i18n.getDict('%header-aboutread')+ ' ';
+                    html += '<a href="'+i18n.getDict('%header-urlabout')+'" tabindex="0" target="new">'+i18n.getDict('%header-abouttitle')+'</a>.';
+                    html += ' '+i18n.getDict('%linkopens');
                     $viz('#divAboutContent').html(html);
-                    $viz('.media').media({ width:900,height:300 });
                 };
 
 				_self.cancelFullScreen = function() {
@@ -295,7 +299,7 @@
 					_self.xheightToolsOuter('max-height:' + toolbarheight + 'px!important');
 					_self.xheightToolsInner('max-height:' + toolbarheight + 'px!important');
 					toolbarheight = toolbarheight - 25;
-					_self.widthheightTBholder('max-height:' + toolbarheight + 'px!important;max-width:290px!important');
+					_self.widthheightTBholder('max-height:' + toolbarheight + 'px!important;max-width:340px!important');
                 };
 
 				_self.manageTabbingOrder = function(evt) {

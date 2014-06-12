@@ -27,9 +27,11 @@
 					map;
 
 				_self.init = function() {
-					var layers = config.layers,
+					var layer, base,
+						layers = config.layers,
+						bases = config.bases,
 						lenLayers = layers.length,
-						base = config.bases[0],
+						lenBases = bases.length,
 						$map = $viz('#' + mapid + '_holder'),
 						$root,
 						$container;
@@ -47,12 +49,16 @@
 					map = gisM.createMap(mapid + '_holder', config);
 
 					// add basemap
-					gisM.addLayer(map, base);
+					bases = bases.reverse();
+					while (lenBases--) {
+						base = bases[lenBases];
+						gisM.addLayer(map, base);
+					}
 
 					// add layers
 					layers = layers.reverse();
 					while (lenLayers--) {
-						var layer = layers[lenLayers];
+						layer = layers[lenLayers];
 						gisM.addLayer(map, layer);
 					}
 

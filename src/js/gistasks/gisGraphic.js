@@ -58,7 +58,7 @@
 					// add the graphic layers tot he map
 					mymap.addLayer(new esriGraphLayer({ id: 'gcviz-symbol' }));
 					symbLayer = map.getLayer('gcviz-symbol');
-					
+
 					// create esri toolbar
 					toolbar = new esriTools(map, { showTooltips: false });
 					dojoOn(toolbar, 'DrawEnd', addToMap);
