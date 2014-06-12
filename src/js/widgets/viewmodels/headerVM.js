@@ -5,7 +5,7 @@
  *
  * Header view model widget
  */
-/* global vmArray: false, locationPath: false */
+/* global locationPath: false */
 (function() {
 	'use strict';
 	define(['jquery-private',
@@ -17,7 +17,7 @@
 			'gcviz-func',
 			'gcviz-gismap',
 			'dijit/registry'
-	], function($viz, ko, media, gisPrint, i18n, binding, func, gisM, dijit) {
+	], function($viz, ko, media, gisPrint, i18n, binding, gcvizFunc, gisM, dijit) {
 		var initialize,
 			printSimple,
 			vm;
@@ -62,7 +62,7 @@
 					$mapholder = $viz('#' + mapid),
 					$map = $viz('#' + mapid + '_holder'),
 					$maproot = $viz('#' + mapid + '_holder_root'),
-					map = vmArray[mapid].map.map;
+					map = gcvizFunc.getElemValueVM(mapid, ['map', 'map'], 'js');
 
 				_self.xpositionHelp = ko.observable();
 				_self.xpositionAbout = ko.observable();
@@ -161,7 +161,7 @@
 
 				_self.fullscreenClick = function() {
 					// debounce the click to avoid resize problems
-					func.debounceClick(function() {
+					gcvizFunc.debounceClick(function() {
 						if (_self.fullscreenState) {
 							_self.cancelFullScreen();
 							$viz('#full').removeClass('gcviz-hidden');
@@ -189,7 +189,7 @@
 
 				_self.insetClick = function() {
 					// trigger the insetVisibility custom binding (debounce the click to avoid resize problems)
-					func.debounceClick(function() {
+					gcvizFunc.debounceClick(function() {
 						var array;
 
 						_self.insetState = !_self.insetState;
@@ -212,7 +212,6 @@
 					// Toggle the tools container
 					var tc = dijit.byId('tbTools' + mapid);
 					tc.toggle();
-
 				};
 
 				_self.helpClick = function() {
@@ -237,10 +236,10 @@
 
 				_self.cancelFullScreen = function() {
 					// set style back for the map
-					func.setStyle($section[0], { 'width': _self.widthSection + 'px', 'height': _self.heightSection + 'px' });
-					func.setStyle($mapholder[0], { 'width': _self.widthSection + 'px', 'height': _self.heightSection + 'px' });
-					func.setStyle($map[0], { 'width': _self.widthMap + 'px', 'height': _self.heightMap + 'px' });
-					func.setStyle($maproot[0], { 'width': _self.widthMap + 'px', 'height': _self.heightMap + 'px' });
+					gcvizFunc.setStyle($section[0], { 'width': _self.widthSection + 'px', 'height': _self.heightSection + 'px' });
+					gcvizFunc.setStyle($mapholder[0], { 'width': _self.widthSection + 'px', 'height': _self.heightSection + 'px' });
+					gcvizFunc.setStyle($map[0], { 'width': _self.widthMap + 'px', 'height': _self.heightMap + 'px' });
+					gcvizFunc.setStyle($maproot[0], { 'width': _self.widthMap + 'px', 'height': _self.heightMap + 'px' });
 					$section.removeClass('gcviz-sectionfs');
 
 					// trigger the fullscreen custom binding and set state and image
@@ -262,16 +261,16 @@
 
 				_self.requestFullScreen = function() {
 					// get maximal height and width from browser window and original height and width for the map
-					var param = func.getFullscreenParam(_self.widthSection, _self.heightSection),
+					var param = gcvizFunc.getFullscreenParam(_self.widthSection, _self.heightSection),
 						w = param.width,
 						h = param.height,
 						array = $section.find('[tabindex = 0]');
 
 					// set style for the map
-					func.setStyle($section[0], {'width': screen.width + 'px', 'height': screen.height + 'px'});
-					func.setStyle($mapholder[0], {'width': w + 'px', 'height': h + 'px'});
-					func.setStyle($map[0], {'width': w + 'px', 'height': (h - (2 * _self.headerHeight)) + 'px'});
-					func.setStyle($maproot[0], {'width': w + 'px', 'height': (h - (2 * _self.headerHeight)) + 'px'});
+					gcvizFunc.setStyle($section[0], {'width': screen.width + 'px', 'height': screen.height + 'px'});
+					gcvizFunc.setStyle($mapholder[0], {'width': w + 'px', 'height': h + 'px'});
+					gcvizFunc.setStyle($map[0], {'width': w + 'px', 'height': (h - (2 * _self.headerHeight)) + 'px'});
+					gcvizFunc.setStyle($maproot[0], {'width': w + 'px', 'height': (h - (2 * _self.headerHeight)) + 'px'});
 					$section.addClass('gcviz-sectionfs');
 
 					// trigger the fullscreen custom binding and set state and image

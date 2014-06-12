@@ -33,7 +33,7 @@
 
 			// set mouse coordinates
 			if (config.mousecoords.enable) {
-				node += '<div id="mousecoord_' + mapid + '" class="gcviz-foot-coords"></div>';
+				node += '<div id="mousecoord_' + mapid + '" class="gcviz-foot-coords unselectable"></div>';
 			}
 
 			$footer.append(node);

@@ -5,15 +5,16 @@
  *
  * Toolbar navigation view model widget
  */
-/* global vmArray: false, locationPath: false */
+/* global locationPath: false */
 (function() {
 	'use strict';
 	define(['jquery-private',
             'knockout',
 			'gcviz-i18n',
+			'gcviz-func',
             'gcviz-gisgeo',
             'gcviz-gisnav'
-	], function($viz, ko, i18n, gisgeo, gisnav) {
+	], function($viz, ko, i18n, gcvizFunc, gisgeo, gisnav) {
 		var initialize,
 			calcDDtoDMS,
 			getDMS,
@@ -31,7 +32,7 @@
                     inMapField = $viz('#inGeoLocation' + mapid),
                     infoWindow = $viz('#divGetLocResults' + mapid),
                     btnClickMap = $viz('#btnClickMap' + mapid),
-					mymap = vmArray[mapid].map.map,
+					mymap = gcvizFunc.getElemValueVM(mapid, ['map', 'map'], 'js'),
                     pathExtent = locationPath + 'gcviz/images/navFullExtentGrey.png',
                     pathMagnify = locationPath + 'gcviz/images/navMagnify.png',
                     pathPosition = locationPath + 'gcviz/images/getInfoGrey.png',
@@ -208,7 +209,7 @@
 				};
 
                 _self.getMapClick = function() {
-                    vmArray[mapid].header.toolsClick();
+                    gcvizFunc.getElemValueVM(mymap.vIdName, ['header', 'toolsClick'], 'js')();
 
                     // Set the cursor
                     mymap.setMapCursor(_self.cursorTarget);
@@ -219,7 +220,7 @@
 							mymap.setMapCursor('default');
 
 							// Open the toolbars
-							vmArray[mapid].header.toolsClick();
+							gcvizFunc.getElemValueVM(mymap.vIdName, ['header', 'toolsClick'], 'js')();
 							btnClickMap.focus();
 
 							// remove click and esc event
@@ -265,7 +266,7 @@
                         },
 						close: function() {
                                     // Reopen the toolbars
-									vmArray[mapid].header.toolsClick();
+									gcvizFunc.getElemValueVM(mymap.vIdName, ['header', 'toolsClick'], 'js')();
 									setTimeout(function() {
 										btnClickMap.focus();
 									}, 1000);

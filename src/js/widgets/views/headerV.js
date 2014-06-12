@@ -30,7 +30,7 @@
 			node += '<div class="gcviz-head-left">';
 			// set title
 			if (typeof title !== 'undefined') {
-				node += '<label class="gcviz-head-titlelabel">' + title + '</label>';
+				node += '<label class="gcviz-head-titlelabel unselectable">' + title + '</label>';
 			}
 			node += '</div>';
 
@@ -65,7 +65,7 @@
 			if (config.tools === true) {
 				// Add a collapsible container for tools to hold all the toolbars instead of having a tools icon
 				$mapElem.find('.gcviz-head').append('<div id="divToolsOuter' + mapid + '" class="gcviz-tbcontainer" data-bind="attr: { style: xheightToolsOuter }"><div id="divToolsInner' + mapid + '" class="gcviz-toolsholder" data-bind="attr: { style: xheightToolsInner }"></div></div>');
-				tp = new dojotitle({ id: 'tbTools' + mapid, title: '' + i18n.getDict('%header-tools') + '', content: '<div class="gcviz-tbholder" data-bind="attr: { style: widthheightTBholder }"></div>', open: false });
+				tp = new dojotitle({ id: 'tbTools' + mapid, title: '' + i18n.getDict('%header-tools') + '', content: '<div class="gcviz-tbholder unselectable" data-bind="attr: { style: widthheightTBholder }"></div>', open: false });
 				$mapElem.find('.gcviz-toolsholder').append(tp.domNode);
 				tp.startup();
 			}

@@ -5,15 +5,15 @@
  *
  * Legend view model widget
  */
-/* global vmArray: false */
 (function() {
 	'use strict';
 	define(['jquery-private',
 			'knockout',
 			'gcviz-i18n',
+			'gcviz-func',
 			'gcviz-gislegend',
 			'gcviz-ko'
-	], function($viz, ko, i18n, gisLegend) {
+	], function($viz, ko, i18n, gcvizFunc, gisLegend) {
 		var initialize,
 			loopChildrenVisibility,
 			vm;
@@ -23,7 +23,7 @@
 			// data model
 			var toolbarlegendViewModel = function($mapElem, mapid, config) {
 				var _self = this;
-				_self.mymap = vmArray[mapid].map.map;
+				_self.mymap = gcvizFunc.getElemValueVM(mapid, ['map', 'map'], 'js');
 
 				// tooltips
 				_self.tpVisible = i18n.getDict('%toolbarlegend-tgvis');

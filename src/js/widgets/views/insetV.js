@@ -5,11 +5,11 @@
  *
  * Inset view widget
  */
-/* global vmArray: false */
 (function() {
 	'use strict';
-	define(['gcviz-vm-inset'
-	], function(insetVM) {
+	define(['gcviz-vm-inset',
+			'gcviz-func'
+	], function(insetVM, gcvizFunc) {
 		var initialize;
 
 		initialize = function($mapElem) {
@@ -27,7 +27,7 @@
 				sizetype,
 				insideHeight,
 				insetsArray = [],
-				headerHeight = vmArray[mapid].header.headerHeight,
+				headerHeight = gcvizFunc.getElemValueVM(mapid, ['header', 'headerHeight'], 'js'),
 				perctHeight,
 				id;
 

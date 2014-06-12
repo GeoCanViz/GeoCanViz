@@ -5,15 +5,16 @@
  *
  * hold custom Knockout binding
  */
-/* global vmArray: false, dojo: false */
+/* global dojo: false */
 (function() {
 	'use strict';
 	define(['jquery-private',
 			'knockout',
+			'gcviz-func',
 			'dijit/form/HorizontalSlider',
 			'dijit/form/RadioButton',
 			'jqueryui'
-	], function($viz, ko, slider, radio) {
+	], function($viz, ko, gcvizFunc, slider, radio) {
 
     ko.bindingHandlers.tooltip = {
 		init: function(element, valueAccessor) {
@@ -52,7 +53,7 @@
 		init: function(element, valueAccessor, allBindings, viewModel) {
 			var manageFullscreen,
 				mapid = viewModel.mapid,
-				vm = vmArray[mapid].header;
+				vm = gcvizFunc.getElemValueVM(mapid, ['header'], 'js');
 			vm.isFullscreen.subscribe(manageFullscreen);
 
 			manageFullscreen = function(fullscreen) {
@@ -69,7 +70,7 @@
 		init: function(element, valueAccessor, allBindings, viewModel) {
 			var manageInsetVisibility,
 				mapid = viewModel.mapid,
-				vm = vmArray[mapid].header;
+				vm = gcvizFunc.getElemValueVM(mapid, ['header'], 'js');
 			vm.isInsetVisible.subscribe(manageInsetVisibility);
 
 			manageInsetVisibility = function(visible) {

@@ -19,7 +19,11 @@
 			destroyProgressBar,
 			checkMatch,
 			getRandomColor,
-			timer;
+			getElemValueVM,
+			setVM,
+			getTextWidth,
+			timer,
+			vmObject = { };
 
 		debounce = function(func, threshold, execAsap) {
 			var timeout;
@@ -141,6 +145,40 @@
 			return [c(), c(), c() ,255];
 		};
 
+		getElemValueVM = function(name, elements, type) {
+			var val,
+				len = elements.length;
+			
+			if (len === 1) {
+				val = vmObject[name][elements[0]];
+			} else if (len === 2) {
+				val = vmObject[name][elements[0]][elements[1]];
+			} else if (len === 3) {
+				val = vmObject[name][elements[0]][elements[1]][elements[2]];
+			}
+			
+			if (type === 'ko') {
+				val = val();
+			}
+			return val;
+		};
+
+		setVM = function(name, vm) {
+			vmObject[name] = vm;
+		};
+
+		// Uses canvas.measureText to compute and return the width of the given text of given font in pixels.
+		// http://stackoverflow.com/questions/118241/calculate-text-width-with-javascript/21015393#21015393
+		getTextWidth = function(text, font) {
+			var metric,
+				canvas = document.createElement('canvas'),
+				context = canvas.getContext('2d');
+
+			context.font = font;
+			metric = context.measureText(text);
+			return metric.width;
+		};
+
 		return {
 			debounce: debounce,
 			debounceClick: debounceClick,
@@ -151,7 +189,10 @@
 			setProgressBar: setProgressBar,
 			destroyProgressBar: destroyProgressBar,
 			checkMatch: checkMatch,
-			getRandomColor: getRandomColor
+			getRandomColor: getRandomColor,
+			getElemValueVM: getElemValueVM,
+			setVM: setVM,
+			getTextWidth: getTextWidth
 		};
 	});
 }());
