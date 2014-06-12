@@ -12,7 +12,7 @@
   position: absolute;
   float: left;
   height: 40px;
-  width: calc(100% - 290px);
+  width: calc(100% - 340px);
   background-image: url('images/head_blackbar.png');
   background-position: right;
   z-index: 99!important;
@@ -29,7 +29,7 @@
   position: relative;
   float: right;
   height: 40px;
-  width: 290px;
+  width: 340px;
   background-image: url('images/head_blackbar.png');
   z-index: 99!important;
 }
@@ -46,32 +46,44 @@
 
 #headbuttons { position: relative; top: -3px; cursor: url(#{ $img-root }hand.cur), default; }
 #headbuttons li { margin: 0; padding: 0; list-style: none; position: absolute; top: 0; }
-#headbuttons li { height: 22px; display: block; }
+#headbuttons li { height: 23px; display: block; }
 
-#inset { width: 22px; }
-#inset { background: url('images/spriteheader.png') -25px -1px; }
-#inset:hover { background: url('images/spriteheader.png') -25px -24px; }
+#inset { width: 23px; }
+#inset { background: url('images/spriteheader.png') -24px -1px; }
+#inset:hover { background: url('images/spriteheader.png') -24px -24px; }
+#inset:focus { background: url('images/spriteheader.png') -24px -24px; }
 
 #link { width: 22px; }
 #link { background: url('images/spriteheader.png') -49px -1px; }
 #link:hover { background: url('images/spriteheader.png') -49px -24px; }
+#link:focus { background: url('images/spriteheader.png') -49px -24px; }
 
 #help { width: 22px; }
 #help { background: url('images/spriteheader.png') -73px -1px; }
 #help:hover { background: url('images/spriteheader.png') -73px -24px; }
+#help:focus { background: url('images/spriteheader.png') -73px -24px; }
 
 #about { width: 20px; }
 #about { background: url('images/spriteheader.png') -98px -1px; }
 #about:hover { background: url('images/spriteheader.png') -98px -24px; }
+#about:focus { background: url('images/spriteheader.png') -98px -24px; }
 
 #tools { width: 22px; }
 #tools { background: url('images/spriteheader.png') -120px -1px; }
 #tools:hover { background: url('images/spriteheader.png') -120px -24px; }
+#tools:focus { background: url('images/spriteheader.png') -120px -24px; }
 
-#full { width: 22px; }
-#full { background: url('images/spriteheader.png') -144px -1px; }
-#full:hover { background: url('images/spriteheader.png') -144px -24px; }       
+#full { width: 25px; }
+#full { background: url('images/spriteheader.png') -143px -1px; }
+#full:hover { background: url('images/spriteheader.png') -143px -24px; }       
+#full:focus { background: url('images/spriteheader.png') -143px -24px; }       
 
-#print { width: 25px; }
-#print { background: url('images/spriteheader.png') 0px -1px; }
-#print:hover { background: url('images/spriteheader.png') 0px -24px; }       
+#regview { width: 25px; }
+#regview { background: url('images/spriteheader.png') -166px -1px; }
+#regview:hover { background: url('images/spriteheader.png') -166px -24px; }       
+#regview:focus { background: url('images/spriteheader.png') -166px -24px; }       
+
+#print { width: 24px; }
+#print { background: url('images/spriteheader.png') 0px 0px; }
+#print:hover { background: url('images/spriteheader.png') 0px -23px; }       
+#print:focus { background: url('images/spriteheader.png') 0px -23px; }       

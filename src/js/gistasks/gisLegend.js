@@ -77,7 +77,7 @@
 				aFields = field1 + (normField ? '/' + normField : '');
 				aFields += (field2 ? '/' + field2 : '') + (field3 ? '/' + field3 : '');
 				anode = '<div id="featureLayerSymbol' + layerid +
-						'" class="gcviz-legendUnqiueFieldHolderDiv">';
+						'" class="gcviz-legendUnqiueFieldHolderDiv row">';
 				anode += aFields + '</div>';
 
 				// need a spot in div for each renderer
@@ -85,8 +85,8 @@
 				domConstruct.place(domConstruct.create('br'), symbolLocation);
 
 				$viz.each(legs, function(key, value) {
-					nodeImage = domConstruct.create('div', { 'class': 'gcviz-legendSymbolUniqueValueDiv' });
-					nodeLabel = domConstruct.create('span');
+					nodeImage = domConstruct.create('div', { 'id': 'imgSymbol', 'class': 'gcviz-legendSymbolUniqueValueDiv gcviz-inline gcviz-verticalAlignMiddle span2' });
+					nodeLabel = domConstruct.create('div', { 'class': 'gcviz-inline gcviz-verticalAlignMiddle span8' });
 					dojoClass.add(nodeLabel, 'gcviz-legendUniqueValueSpan');
 					descriptors = esriJsonUtilS.getShapeDescriptors(value.symbol);
 					mySurface = createSVGSurface(value, nodeImage);
@@ -116,7 +116,7 @@
 			if (symWidth && symHeight) {
 				mySurface = gfx.createSurface(node, symWidth, symHeight);
 			} else {
-				mySurface = gfx.createSurface(node, 30, 30);
+				mySurface = gfx.createSurface(node, 30, 15);
 			}
 
 			return mySurface;

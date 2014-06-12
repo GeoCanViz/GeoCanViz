@@ -52,7 +52,7 @@
 					featCollection = getFeatCollectionTemplateCSV(csvStore, items);
 					guuid = uuid;
 					mymap = map;
-					
+
 					// get lat long field name
 					while (lenNames--) {
 						field = fieldNames[lenNames];
@@ -121,11 +121,11 @@
 
 			featureLayer = new esriFeatLayer(featCollection, { 'id': guuid });
 			mymap.addLayer(featureLayer);
-			
+
 			// set legend symbol
 			gisLegend.getFeatureLayerSymbol(JSON.stringify(featureLayer.renderer.toJson()), $viz('#symbol' + guuid)[0], guuid);
 		};
-		
+
 		getSeparator = function(string) {
 			var length, separator,
 				separators = [',', '      ', ';', '|'],
