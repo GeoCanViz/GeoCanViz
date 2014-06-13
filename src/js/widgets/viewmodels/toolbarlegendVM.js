@@ -108,6 +108,11 @@
 				_self.switchRadioButtonVisibility = function(map, selectedItem, value) {
 					selectedItem.visibility.initstate = value;
 					gisLegend.setLayerVisibility(map, selectedItem.id, value);
+					
+					// call changeItemsVisibility that will loop trought the legend
+					// because if we change radio button layer and parent layer is of,
+					// the radio layer appears.
+					_self.changeItemsVisibility();
 				};
 
 				_self.changeServiceOpacity = function(layerid, opacityValue) {

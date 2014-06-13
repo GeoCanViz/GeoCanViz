@@ -37,7 +37,7 @@
 					mouseMeasureLength, nextMeasureLength, showNextMeasureLength,
 					addBackgroundText, addToMap,
 					setColor,
-					getSymbLine, getSymbPoly, getSymbPoint, getSymbText,
+					getSymbLine, getSymbPoly, getSymbPoint, getSymbText, getSymbErase,
 					toolbar,
 					gText, gColor, gKey, gBackColor, gColorName,
 					stackUndo = undo,
@@ -85,6 +85,7 @@
 				};
 
 				_self.drawExtent = function() {
+					toolbar.setFillSymbol(getSymbErase());
 					toolbar.activate(esriTools.EXTENT);
 				};
 
@@ -102,8 +103,10 @@
 						stackUndo.push({ task: 'delete', geom: grp });
 					}
 
-					// clear graphics and set isGraphics
+					// clear graphics (symbol layer and global graphic layer where we have dynamic measure)
+					// and set isGraphics
 					symbLayer.clear();
+					map.graphics.clear();
 					isGraphics(false);
 				};
 
@@ -667,6 +670,21 @@
 											'decoration': 'none'
 										}
 									});
+				};
+				
+				getSymbErase = function() {
+					return new esriFill({
+									'type': 'esriSFS',
+									'style': 'esriSFSSolid',
+									'color': polyFill,
+									'outline':
+									{
+										'type': 'esriSLS',
+										'style': 'esriSLSSolid',
+										'color': [205,197,197,255],
+										'width': 2
+									}
+								});
 				};
 
 				_self.init();

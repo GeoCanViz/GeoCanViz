@@ -22,7 +22,7 @@
 			$div.css({'width': width, 'height': height});
 
 			// add a wrapper around the map
-			$div.prepend('<div id="' + mapid + '_holder' + '" name="map" data-bind="event: { mouseover: enterMouse, mouseout: leaveMouse }, hasfocus: mapfocus.focused, enterkey: { func: \'applyKey\', keyType: \'keydown\' }" tabindex="0"><div class="gcviz-loading"><div class="gcviz-loadingLabel"></div></div></div>');
+			$div.prepend('<div id="' + mapid + '_holder' + '" name="map" data-bind="event: { mouseover: enterMouse, mouseout: leaveMouse }, hasfocus: mapfocus.focused, enterkey: { func: \'applyKey\', keyType: \'keyup\' }" tabindex="0"><div class="gcviz-loading"><div class="gcviz-loadingLabel"></div></div></div>');
 
 			// set height and width for the map. Substract the header height
 			$mapElem.find('#' + mapid + '_holder').css({'height': (height - 80), 'width': width});
