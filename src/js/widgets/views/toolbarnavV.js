@@ -46,7 +46,7 @@
 			}
 
 			$mapElem.find('.gcviz-tbholder').append('<div class="gcviz-tbwidth gcviz-tbspacer"></div>');
-			tp = new dojotitle({ id: 'tbnav' + mapid, title: 'Navigation', content: '<div class="gcviz-tbnav-content gcviz-tbcontent" style="height:' + navheight + 'px;"></div>', open: config.expand });
+			tp = new dojotitle({ id: 'tbnav' + mapid, title: 'Navigation', content: '<div class="gcviz-tbnav-content gcviz-tbcontent" style="height:' + navheight + 'px;"></div>', open: true }); // true because of a bug, see init function in VM
 			$mapElem.find('.gcviz-tbholder').append(tp.domNode);
 			tp.startup();
 			$viz('#tbnav' + mapid).addClass('gcviz-tbwidth');

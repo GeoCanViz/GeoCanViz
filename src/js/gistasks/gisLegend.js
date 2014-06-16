@@ -116,7 +116,7 @@
 			if (symWidth && symHeight) {
 				mySurface = gfx.createSurface(node, symWidth, symHeight);
 			} else {
-				mySurface = gfx.createSurface(node, 30, 15);
+				mySurface = gfx.createSurface(node, 30, 30);
 			}
 
 			return mySurface;

@@ -80,7 +80,7 @@
 					}
 				};
 
-				_self.changeItemsVisibility = function(selectedItem) {
+				_self.changeItemsVisibility = function(selectedItem, event) {
 					var item,
 						lenBases = _self.basesArray().length,
 						lenLayers = _self.layersArray().length;
@@ -102,6 +102,7 @@
 						loopChildrenVisibility(_self.mymap, item, item.visibility.initstate, loopChildrenVisibility);
 					}
 
+					// Knockout doesn't prevent the default click action.
 					return true;
 				};
 

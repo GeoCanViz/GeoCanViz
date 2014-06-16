@@ -52,11 +52,6 @@
 			// data model				
 			var headerViewModel = function($mapElem, mapid) {
 				var _self = this,
-                    pathAbout = locationPath + 'gcviz/images/headAbout.png',
-					pathFullscreen = locationPath + 'gcviz/images/headFullscreen.png',
-					pathShowInset = locationPath + 'gcviz/images/headShowInset2.png',
-					pathSmallscreen = locationPath + 'gcviz/images/headSmallscreen.png',
-					pathHelp = locationPath + 'gcviz/images/headHelp.png',
 					pathPrint = locationPath + 'gcviz/print/',
 					$section = $viz('#section' + mapid),
 					$mapholder = $viz('#' + mapid),
@@ -64,62 +59,10 @@
 					$maproot = $viz('#' + mapid + '_holder_root'),
 					map = gcvizFunc.getElemValueVM(mapid, ['map', 'map'], 'js');
 
-				_self.xpositionHelp = ko.observable();
-				_self.xpositionAbout = ko.observable();
-				_self.xpositionInset = ko.observable();
-				_self.xpositionLink = ko.observable();
-				_self.xpositionTools = ko.observable();
-				_self.xpositionPrint = ko.observable();
-				_self.xpositionFull = ko.observable();
+				// tools panel settings
 				_self.xheightToolsOuter = ko.observable('max-height:100px!important');
 				_self.xheightToolsInner = ko.observable('max-height:100px!important');
 				_self.widthheightTBholder =  ko.observable('max-height:390px!important;max-width:340px!important');
-				_self.positionHelp = 0,
-				_self.positionAbout = 0,
-				_self.positionInset = 0,
-				_self.positionLink = 0,
-				_self.positionPrint = 0,
-				_self.positionFull = 0;
-
-				// Determine the position of the icons
-				if (config.fullscreen) {
-					_self.positionHelp += 34;
-					_self.positionAbout += 35;
-					_self.positionInset += 35;
-					_self.positionLink += 35;
-					_self.positionPrint += 36;
-				}
-				if (config.print.enable) {
-					_self.positionHelp += 34;
-					_self.positionAbout += 35;
-					_self.positionInset += 35;
-					_self.positionLink += 35;
-				}
-				if (config.link) {
-					_self.positionHelp += 34;
-					_self.positionAbout += 35;
-					_self.positionInset += 35;
-				}
-				if (config.inset) {
-					_self.positionHelp += 34;
-					_self.positionAbout += 35;
-				}
-				if (config.about.enable) {
-					_self.positionHelp += 34;
-				}
-
-				_self.xpositionHelp('right:' + _self.positionHelp.toString() + 'px!important');
-				_self.xpositionAbout('right:' + _self.positionAbout.toString() + 'px!important');
-				_self.xpositionInset('right:' + _self.positionInset.toString() + 'px!important');
-				_self.xpositionLink('right:' + _self.positionLink.toString() + 'px!important');
-				_self.xpositionPrint('right:' + _self.positionPrint.toString() + 'px!important');
-				_self.xpositionFull('right:' + _self.positionFull.toString() + 'px!important');
-
-				// images path
-                _self.imgAbout = ko.observable(pathAbout);
-				_self.imgFullscreen = ko.observable(pathFullscreen);
-				_self.imgShowInset = pathShowInset;
-				_self.imgHelp = pathHelp;
 
 				// tooltip, text strings
 				_self.tpHelp = i18n.getDict('%header-tphelp');
@@ -164,12 +107,8 @@
 					gcvizFunc.debounceClick(function() {
 						if (_self.fullscreenState) {
 							_self.cancelFullScreen();
-							$viz('#full').removeClass('gcviz-hidden');
-							$viz('#regview').addClass('gcviz-hidden');
 						} else {
 							_self.requestFullScreen();
-							$viz('#full').addClass('gcviz-hidden');
-							$viz('#regview').removeClass('gcviz-hidden');
 						}
 
 						// remove tooltip if there (the tooltip is position before the fullscreen)
@@ -242,9 +181,8 @@
 					gcvizFunc.setStyle($maproot[0], { 'width': _self.widthMap + 'px', 'height': _self.heightMap + 'px' });
 					$section.removeClass('gcviz-sectionfs');
 
-					// trigger the fullscreen custom binding and set state and image
+					// trigger the fullscreen custom binding and set state
 					_self.isFullscreen(false);
-					_self.imgFullscreen(pathFullscreen);
 					_self.fullscreenState = 0;
 
 					// resize map and keep the extent
@@ -273,9 +211,8 @@
 					gcvizFunc.setStyle($maproot[0], {'width': w + 'px', 'height': (h - (2 * _self.headerHeight)) + 'px'});
 					$section.addClass('gcviz-sectionfs');
 
-					// trigger the fullscreen custom binding and set state and image
+					// trigger the fullscreen custom binding and set state
 					_self.isFullscreen(true);
-					_self.imgFullscreen(pathSmallscreen);
 					_self.fullscreenState = 1;
 
 					// resize map ans keep the extent
@@ -298,7 +235,7 @@
 					var toolbarheight = parseInt(map.height, 10) - 15;
 					_self.xheightToolsOuter('max-height:' + toolbarheight + 'px!important');
 					_self.xheightToolsInner('max-height:' + toolbarheight + 'px!important');
-					toolbarheight = toolbarheight - 25;
+					toolbarheight -= 25;
 					_self.widthheightTBholder('max-height:' + toolbarheight + 'px!important;max-width:340px!important');
                 };
 

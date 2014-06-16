@@ -84,8 +84,13 @@
 					_self.userArray.remove(selectedItem);
 				};
 
-				_self.changeItemsVisibility = function(selectedItem) {
+				_self.changeItemsVisibility = function(selectedItem, event) {
+					// in the view we use event: {click: myfunction } instead of just click
+					// to be able to pass the event 
 					gisLegend.setLayerVisibility(mymap, selectedItem.id, event.target.checked);
+					
+					// Knockout doesn't prevent the default click action.
+					return true;
 				};
 
 				_self.init();

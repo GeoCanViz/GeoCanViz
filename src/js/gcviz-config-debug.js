@@ -140,10 +140,10 @@
 	// if browser not supported, redirect
 	if (window.browser !== 'Explorer' && window.browser !== 'Firefox' && window.browser !== 'Chrome' && window.browser !== 'Safari') {
 		alert('Browser not suported: needs to be Chrome, Firefox, Safari or Explorer');
-		//window.location = 'http://www.google.com/';
+		window.location = 'https://github.com/GeoCanViz/GeoCanViz/';
 	} else if (window.browser === 'Explorer' && window.browserversion <= 8) {
-		alert('Browser not suported: Explorer needs to b version 9 and higher');
-		//window.location = 'http://www.google.com/';
+		alert('Browser not suported: Explorer needs to be version 9 and higher');
+		window.location = 'https://github.com/GeoCanViz/GeoCanViz/';
 	}
 
 	// load the require libraries

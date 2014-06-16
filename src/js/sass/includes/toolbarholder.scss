@@ -2,6 +2,7 @@
 
 .gcviz-tbcontainer {
   @include app-text();
+  @include unselectable;
   padding-top: 0rem;
   padding-right: (1 * $rembase) + rem;
   padding-left: (1 * $rembase) + rem;
@@ -23,7 +24,8 @@
 
 .gcviz-tbholder {
   overflow-y: scroll;
-  
+  @include unselectable;
+
   .gcviz-tbcontent {
     padding: (0.2 * $rembase) + rem;
     margin: (0.3 * $rembase) + rem;

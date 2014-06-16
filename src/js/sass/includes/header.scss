@@ -1,90 +1,78 @@
 @import "gcviz-mixin";
 
+%sprite {
+	background: url('images/headSprite.png');
+	background-repeat: no-repeat;
+	display: inline-block;
+	cursor: pointer;
+	border: none;
+	margin: (0.3 * $rembase) + rem;
+	height: (3 * $rembase) + rem;
+  position: relative;
+  right: 7px!important;
+}
+
 .gcviz-head {
   margin: 0;
   padding: 0;
   background-position: right;
   background-repeat: repeat-x;
-  height:  (2.5 * $rembase) + rem;
-}
-
-.gcviz-head-left {
-  display: inline-block;
-  position: absolute;
-  float: left;
-  height: 40px;
-  width: calc(100% - 340px);
-  background-image: url('images/head_blackbar.png');
-  background-position: right;
   z-index: 99!important;
-}
-  
-.gcviz-head-titlelabel {
-    @include app-text-white(1.6, bold);
-    position: relative;
-    top: 10px;
-    left: 5px;
-}
-
-.gcviz-head-right {
-  position: relative;
-  float: right;
+  background-image: url('images/headBlackbar.png');
   height: 40px;
-  width: 340px;
-  background-image: url('images/head_blackbar.png');
-  z-index: 99!important;
 }
 
-.gcviz-head-buttons {
-  position: relative;
-  right: 5px!important;
-  float: right;
+.gcviz-head-btn {
+		float: right;
 }
 
-.gcviz-print {
-	@include app-border(0.1);
+.gcviz-head-title {
+	@include app-text-white(1.6, bold);
+	position: relative;
+	top: 10px;
+	left: 5px;
+	display: inline-block;
 }
 
-#headbuttons { position: relative; top: -3px; cursor: url(#{ $img-root }hand.cur), default; }
-#headbuttons li { margin: 0; padding: 0; list-style: none; position: absolute; top: 0; }
-#headbuttons li { height: 23px; display: block; }
+// the header button sprite (need to use background-position because FF is not able to set x and y)
+.gcviz-head-help {
+	@extend %sprite;
+	@include sprite('images/headSprite.png', -73, 6);
+	width: 22px;
+}
 
-#inset { width: 23px; }
-#inset { background: url('images/spriteheader.png') -24px -1px; }
-#inset:hover { background: url('images/spriteheader.png') -24px -24px; }
-#inset:focus { background: url('images/spriteheader.png') -24px -24px; }
+.gcviz-head-about {
+	@extend %sprite;
+	@include sprite('images/headSprite.png', -98, 6);
+	width: 20px;
+}
 
-#link { width: 22px; }
-#link { background: url('images/spriteheader.png') -49px -1px; }
-#link:hover { background: url('images/spriteheader.png') -49px -24px; }
-#link:focus { background: url('images/spriteheader.png') -49px -24px; }
+.gcviz-head-inset {
+	@extend %sprite;
+	@include sprite('images/headSprite.png', -24, 6);
+	width: 23px;
+}
 
-#help { width: 22px; }
-#help { background: url('images/spriteheader.png') -73px -1px; }
-#help:hover { background: url('images/spriteheader.png') -73px -24px; }
-#help:focus { background: url('images/spriteheader.png') -73px -24px; }
+.gcviz-head-link {
+	@extend %sprite;
+	@include sprite('images/headSprite.png', -49, 6);
+	width: 22px;
+}
 
-#about { width: 20px; }
-#about { background: url('images/spriteheader.png') -98px -1px; }
-#about:hover { background: url('images/spriteheader.png') -98px -24px; }
-#about:focus { background: url('images/spriteheader.png') -98px -24px; }
+.gcviz-head-print {
+	@extend %sprite;
+	@include sprite('images/headSprite.png', 0, 6);
+	width: 24px;
+}
 
-#tools { width: 22px; }
-#tools { background: url('images/spriteheader.png') -120px -1px; }
-#tools:hover { background: url('images/spriteheader.png') -120px -24px; }
-#tools:focus { background: url('images/spriteheader.png') -120px -24px; }
+.gcviz-head-fs {
+	@extend %sprite;
+	@include sprite('images/headSprite.png', -143, 6);
+	width: 25px;
+}
 
-#full { width: 25px; }
-#full { background: url('images/spriteheader.png') -143px -1px; }
-#full:hover { background: url('images/spriteheader.png') -143px -24px; }       
-#full:focus { background: url('images/spriteheader.png') -143px -24px; }       
-
-#regview { width: 25px; }
-#regview { background: url('images/spriteheader.png') -166px -1px; }
-#regview:hover { background: url('images/spriteheader.png') -166px -24px; }       
-#regview:focus { background: url('images/spriteheader.png') -166px -24px; }       
-
-#print { width: 24px; }
-#print { background: url('images/spriteheader.png') 0px 0px; }
-#print:hover { background: url('images/spriteheader.png') 0px -23px; }       
-#print:focus { background: url('images/spriteheader.png') 0px -23px; }       
+.gcviz-head-reg {
+	@extend %sprite;
+	@include sprite('images/headSprite.png', -166, 6);
+	width: 25px;
+}

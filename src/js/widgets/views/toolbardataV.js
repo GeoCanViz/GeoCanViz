@@ -22,7 +22,7 @@
 				node = '';
 
 			$mapElem.find('.gcviz-tbholder').append('<div class="gcviz-tbwidth gcviz-tbspacer"></div>');
-			tp = new dojotitle({ id: 'tbdata' + mapid, title: i18n.getDict('%toolbardata-name'), content: '<div class="gcviz-tbdata-content gcviz-tbcontent-nobkg"></div>', open: config.expand });
+			tp = new dojotitle({ id: 'tbdata' + mapid, title: i18n.getDict('%toolbardata-name'), content: '<div class="gcviz-tbdata-content gcviz-tbcontent"></div>', open: config.expand });
 			$mapElem.find('.gcviz-tbholder').append(tp.domNode);
 			tp.startup();
 			$viz('#tbdata' + mapid).addClass('gcviz-tbwidth');
@@ -43,7 +43,7 @@
             node += '<div><ul class="gcviz-userLayersUL" data-bind="template: { name: \'userTmpl\', foreach: $root.userArray }"></ul></div>';
 			node += '<script id="userTmpl" type="text/html">';
 				node += '<li class="gcviz-userLayer">';
-					node += '<div class="gcviz-userLegendDiv"><input class="gcviz-legendCheck" type="checkbox" data-bind="click: $root.changeItemsVisibility($data), clickBubble: false, attr: { title: $root.tpVisible, id: \'checkbox\' + id }, checked: true"/></div>';
+					node += '<div class="gcviz-userLegendDiv"><input class="gcviz-legendCheck" type="checkbox" data-bind="event: { click: $root.changeItemsVisibility }, attr: { title: $root.tpVisible, id: \'checkbox\' + id }, checked: true"/></div>';
 					node += '<div class="gcviz-userLegendDiv"><span data-bind="text: label, attr: { id: \'span\' + id }"></span></div>';
 					node += '<div class="gcviz-userLegendDiv" data-bind="attr: { id: \'symbol\' + id }"></div>';
 					node += '<button class="gcviz-button" tabindex="0" data-bind="click: function($data) { $root.removeClick($data) }, tooltip: { content: $root.tpDelete }"><img class="gcviz-img-button" data-bind="attr: { src: $root.imgDel }"></img></button>';
