@@ -93,6 +93,11 @@ General (i18n)#%all#All#Tous
 #%toolbardata-name#Data#Données
 #%toolbardata-tpadd#Add Data#Ajouter des données
 #%toolbardata-tpdelete#Remove Data#Enlever des données
+#%toolbardata-errtitle#Add Data Error#Erreur dans l'ajout des données
+#%toolbardata-err1#There must be a field (latitude, lat, y or ycenter) for y coordinnates and a field (longitude, long, x or xcenter) for x coordinnates.#Il doit y avoir un champ (latitude, lat, y ou ycenter) pour les coordonnées y et un champ (longitude, longue, x ou xcenter) pour les coordonnées x.
+#%toolbardata-err2#Unable to determine the separator.#Incapable de déterminer le separateur.
+#%toolbardata-err3#Error fetching items from CSV store: #Erreur de récupération des items du fichier CSV: 
+#%toolbardata-ie9#This tool is not available in Internet Explorer 9. You need version 10 or another browser (Chrome, FireFox or Safari).#Cet outil n'est pas disponible dans Internet Explorer 9. Vous devez avoir la version 10 ou un autre navigateur (Chrome, Firefox ou Safari).
 #%inset-tplight#Open the content in a lightbox#Ouvrir le contenu dans un lightbox
 #%inset-tpplayvideo#Play video#Jouer la vidéo
 #%mp-close#Close (Esc)#Fermer (Esc)

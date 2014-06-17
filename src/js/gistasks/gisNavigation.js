@@ -21,7 +21,7 @@
 			zoomFullExtent;
 
 		setOverview = function(mymap, overview) {
-			var overviewMapDijit,
+			var overviewMapDijit, divOV,
 				bLayer = null,
 				mapid = mymap.vIdName,
 				ovDiv = dojoDom.byId('divOverviewMap' + mapid),
@@ -47,11 +47,9 @@
 
 				// work around to resize the overview div because it wont work only
 				// with the option from the dijit.
-				setTimeout(function() {
-					var divOV = $viz('#divOverviewMap' + mapid + '-map');
-					divOV.width(237).height(100);
-					overviewMapDijit.resize();
-				}, 2000);
+				divOV = $viz('#divOverviewMap' + mapid + '-map');
+				divOV.width(237).height(100);
+				overviewMapDijit.resize();
 		};
 
 		setScaleBar = function(mymap, scalebar) {

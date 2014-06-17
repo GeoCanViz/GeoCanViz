@@ -139,10 +139,20 @@
 
 	// if browser not supported, redirect
 	if (window.browser !== 'Explorer' && window.browser !== 'Firefox' && window.browser !== 'Chrome' && window.browser !== 'Safari') {
-		alert('Browser not suported: needs to be Chrome, Firefox, Safari or Explorer');
+		if (language === 'en-min') {
+			alert('Browser not supported: needs to be Chrome, Firefox, Safari or Explorer. You will be redirected to project page.');
+		} else {
+			alert('Navigateur non pris en charge: doit être Chrome, Firefox, Safari ou Explorer. Vous serez redirigé vers la page de projet');
+		}
+		
 		window.location = 'https://github.com/GeoCanViz/GeoCanViz/';
 	} else if (window.browser === 'Explorer' && window.browserversion <= 8) {
-		alert('Browser not suported: Explorer needs to be version 9 and higher');
+		if (language === 'en-min') {
+			alert('Browser not supported: Explorer needs to be version 9 or higher. You will be redirected to project page.' +  ' ' + window.browserversion);
+		} else {
+			alert('Navigateur non pris en charge: Explorer doit être version 9 ou supérieur. Vous serez redirigé vers la page de projet.');
+		}
+		
 		window.location = 'https://github.com/GeoCanViz/GeoCanViz/';
 	}
 

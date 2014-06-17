@@ -34,8 +34,9 @@
 				csvStore = new esriCSVStore({
 					data: data,
 					separator: separator
-				});
-
+				}),
+				def = $viz.Deferred();
+			
 			csvStore.fetch({
 				onComplete: function (items) {
 					var latField, longField, field,
@@ -65,6 +66,13 @@
 						}
 					}
 
+					// check if file is valid
+					if (typeof latField === 'undefined' || typeof longField === 'undefined') {
+						def.resolve(1);
+					} else if (typeof csvStore.separator === 'undefined') {
+						def.resolve(2);
+					}
+					
 					// add feature
 					while (lenItems--) {
 						item = items[lenItems];
@@ -96,12 +104,19 @@
 					}
 
 					// project the points and add to feature layer
-					gisGeo.projectPoints(ptArr, outWkid, createLayer);
+					// WORKAROUND: we need to use a timeout here because if not, __OBJECTID field is not define
+					// and sometimes layer will not be created.
+					setTimeout(function() {
+						gisGeo.projectPoints(ptArr, outWkid, createLayer);
+						def.resolve(0);
+					}, 0);
 				},
 				onError: function (error) {
-					console.error('Error fetching items from CSV store: ', error);
+					def.resolve(error.message);
 				}
 			});
+			
+			return def;
         };
 
 		createLayer = function(features) {
@@ -121,6 +136,11 @@
 
 			featureLayer = new esriFeatLayer(featCollection, { 'id': guuid });
 			mymap.addLayer(featureLayer);
+
+			// add to user array so knockout will generate legend
+			// we cant add it from the VM because the projection can take few second and the symbole is not define before.
+			// to avoid this, we add the layer only when it is done.
+			//gArray.push({ label: gReader.fileName, id: guuid });
 
 			// set legend symbol
 			gisLegend.getFeatureLayerSymbol(JSON.stringify(featureLayer.renderer.toJson()), $viz('#symbol' + guuid)[0], guuid);
