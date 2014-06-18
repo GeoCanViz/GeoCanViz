@@ -101,29 +101,13 @@ svg {
 	}
 }
 
-.gcviz-button-picker {
-  cursor: pointer;
-  background: transparent;
-  border: none;
-  padding: 0px!important;
-  margin: 0px!important;
-  position: relative;
-  top: 3px!important;
-  right: 0px!important;
-  
-  .gcviz-picker-colour {
-    margin-left: 0px!important;
-    margin-right: 0px!important;
-  }
-}
-
 .gcviz {
 	position: relative;
 }
 
 .gcviz-tooltip {
 	.ui-tooltip-content {
-		@include app-text-white(1.2);
+		@include app-text(1.2, normal, $white);
 	}
 }
 
@@ -171,9 +155,16 @@ input[type="file"] {
 	border-width: (0.1 * $rembase) + rem;
 	border-style: solid;
 	border-color: $grey;
-	height: (3 * $rembase) + rem;
-	margin-bottom: (-1 * $rembase) + rem;
-	margin-right: 15px;
+	height: (2 * $rembase) + rem;
+	margin-right: (1.5 * $rembase) + rem;
+	margin-left: (1.5 * $rembase) + rem;
+}
+
+// for FireFox
+@-moz-document url-prefix() {
+	.gcviz-tbseparator {
+		margin-bottom: (-1.25 * $rembase) + rem;
+	}
 }
 
 .gcviz-loading {
@@ -190,7 +181,7 @@ input[type="file"] {
     position: absolute;
     left: 50%;
     top:  (0.7 * $rembase) + rem;
-    @include app-text-white(1.2);
+    @include app-text(1.2, normal, $white);
     text-align: middle;
   }
 
@@ -203,7 +194,7 @@ input[type="file"] {
 }
 
 .gcviz-insinputbox {
-  @include app-text-grey;
+  @include app-text(1.2, normal, $grey);;
   width: 130px;
 }
 

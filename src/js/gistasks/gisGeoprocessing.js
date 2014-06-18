@@ -16,11 +16,9 @@
 			'esri/SpatialReference',
 			'esri/geometry/Point',
 			'esri/geometry/Extent',
-			'dojo/dom'
-	], function($viz, esriConfig, esriProj, esriDist, esriArea, esriGeom, esriSR, esriPoint, esriExtent, dojoDom) {
+	], function($viz, esriConfig, esriProj, esriDist, esriArea, esriGeom, esriSR, esriPoint, esriExtent) {
 		var setGeomServ,
 			getOutSR,
-			getCoord,
 			getNorthAngle,
 			measureLength,
 			measureArea,
@@ -40,34 +38,7 @@
 			return new esriSR({ 'wkid': wkid });
 		};
 
-		getCoord = function(point, div, outSR, lblWest) {
-			var strPointX,
-				strPointY,
-				geomServ = esriConfig.defaults.io.geometryService;
-
-			params.geometries = [point];
-			params.outSR = outSR;
-
-			geomServ.project(params, function(projectedPoints) {
-				point = projectedPoints[0];
-				if (point.x < 0) {
-					strPointX = (-1 * point.x.toFixed(3)).toString() + lblWest;
-				} else {
-					strPointX = point.x.toFixed(3).toString() + 'E';
-				}
-				if (point.y < 0) {
-					strPointY = (-1 * point.y.toFixed(3)).toString() + 'S';
-				} else {
-					strPointY = point.y.toFixed(3).toString() + 'N';
-				}
-				dojoDom.byId(div).innerHTML = '<span class="gcviz-foot-coords-values">' +
-					' Lat: ' + strPointY +
-					' Long: ' + strPointX +
-					'</span>';
-			});
-		};
-
-		getNorthAngle = function(extent, div, inwkid) {
+		getNorthAngle = function(extent, inwkid, success) {
 			var outSR = new esriSR({ 'wkid': 4326 }),
 				pointB = new esriPoint((extent.xmin + extent.xmax) / 2,
 										extent.ymin, new esriSR({ 'wkid': inwkid })),
@@ -77,28 +48,7 @@
 			params.outSR = outSR;
 
 			geomServ.project(params, function(projectedPoints) {
-				var pointA = { x: -100, y: 90 },
-					dLon,
-					lat1,
-					lat2,
-					x,
-					y,
-					bearing;
-
-				pointB = projectedPoints[0];
-				dLon = (pointB.x - pointA.x) * Math.PI / 180;
-				lat1 = pointA.y * Math.PI / 180;
-				lat2 = pointB.y * Math.PI / 180;
-				y = Math.sin(dLon) * Math.cos(lat2);
-				x = Math.cos(lat1) * Math.sin(lat2) - Math.sin(lat1) * Math.cos(lat2) * Math.cos(dLon);
-				bearing = Math.atan2(y, x)  * 180 / Math.PI;
-				bearing = ((bearing + 360) % 360).toFixed(1) - 90; //Converting -ve to +ve (0-360)
-
-				dojoDom.byId(div).style.webkitTransform = 'rotate(' + bearing + 'deg)';
-				dojoDom.byId(div).style.MozTransform = 'rotate(' + bearing + 'deg)';
-				dojoDom.byId(div).style.msTransform = 'rotate(' + bearing + 'deg)';
-				dojoDom.byId(div).style.OTransform = 'rotate(' + bearing + 'deg)';
-				dojoDom.byId(div).style.transform = 'rotate(' + bearing + 'deg)';
+				success(projectedPoints);
 			});
 		};
 
@@ -221,7 +171,6 @@
 		return {
 			setGeomServ: setGeomServ,
 			getOutSR: getOutSR,
-			getCoord: getCoord,
 			getNorthAngle: getNorthAngle,
 			measureLength: measureLength,
 			measureArea: measureArea,

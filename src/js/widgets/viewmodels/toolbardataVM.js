@@ -5,7 +5,6 @@
  *
  * Toolbar data view model widget
  */
-/* global locationPath: false */
 (function() {
 	'use strict';
 	define(['jquery-private',
@@ -23,13 +22,7 @@
 			// data model				
 			var toolbardataViewModel = function($mapElem, mapid) {
 				var _self = this,
-					mymap = gcvizFunc.getElemValueVM(mapid, ['map', 'map'], 'js'),
-					pathAdd = locationPath + 'gcviz/images/dataAdd.png',
-					pathDel = locationPath + 'gcviz/images/dataDelete.png';
-
-				// images path
-				_self.imgAdd = ko.observable(pathAdd);
-				_self.imgDel = ko.observable(pathDel);
+					mymap = gcvizFunc.getElemValueVM(mapid, ['map', 'map'], 'js');
 
 				// tooltip
 				_self.tpAdd = i18n.getDict('%toolbardata-tpadd');

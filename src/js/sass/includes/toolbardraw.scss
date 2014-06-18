@@ -1,16 +1,81 @@
 @import "gcviz-mixin";
 
-// Modify the font of the toolbar title
-div[class*='tbdraw'] {
-  @include app-text(1.0);
+.gcviz-draw-picker {
+	margin: 0rem!important;
+}
+
+// buttons
+.gcviz-draw-black {
+	@include sprite($img-spritebtn, -291, -2);
+}
+
+.gcviz-draw-blue {
+	@include sprite($img-spritebtn, -327, -2);
+}
+
+.gcviz-draw-red {
+	@include sprite($img-spritebtn, -399, -2);
+}
+
+.gcviz-draw-green {
+	@include sprite($img-spritebtn, -363, -2);
+}
+
+.gcviz-draw-yellow {
+	@include sprite($img-spritebtn, -435, -2);
+}
+
+.gcviz-draw-white {
+	@include sprite($img-spritebtn, -471, -2);
+}
+
+.gcviz-draw-line {
+	@include sprite($img-spritebtn, -507, -2);
+}
+
+.gcviz-draw-text {
+	@include sprite($img-spritebtn, -1086, -2);
+}
+
+.gcviz-draw-length {
+	@include sprite($img-spritebtn, -723, -2);
+}
+
+.gcviz-draw-area {
+	@include sprite($img-spritebtn, -759, -2);
+}
+
+.gcviz-draw-del {
+	@include sprite($img-spritebtn, -795, -2);
+}
+
+.gcviz-draw-delsel {
+	@include sprite($img-spritebtn, -831, -2);
+}
+
+.gcviz-draw-undo {
+	@include sprite($img-spritebtn, -867, -2);
+}
+
+.gcviz-draw-redo {
+	@include sprite($img-spritebtn, -903, -2);
+}
+
+.gcviz-draw-imp {
+	@include sprite($img-spritebtn, -939, -2);
+}
+
+.gcviz-draw-exp {
+	@include sprite($img-spritebtn, -976, -2);
+}
+
+// cursors
+.gcviz-select-cursor {
+  cursor: crosshair;
 }
 
 .gcviz-text-cursor {
   cursor: url(#{ $img-root }drawTextCursor.cur), text;
-}
-
-.gcviz-select-cursor {
-  cursor: crosshair;
 }
 
 .gcviz-draw-cursor-black {

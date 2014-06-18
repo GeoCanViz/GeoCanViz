@@ -1,5 +1,14 @@
 @import "includes/gcviz-mixin";
 
+// buttons
+.gcviz-nav-max {
+	@include sprite($img-spritebtn, -1012, -2);
+}
+
+.gcviz-nav-pos {
+	@include sprite($img-spritebtn, -1049, -2);
+}
+
 .gcviz-geoloclabel {
   width: 65px;
 }

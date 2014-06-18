@@ -1,6 +1,7 @@
 @import "compass/css3/images";
 
 $img-root: "images/";
+$img-spritebtn: "images/spriteButton.png";
 
 $font: Verdana, Arial, Helvetica, sans-serif;
 $orange: #EFA23E;
@@ -8,11 +9,12 @@ $orange-dark: #E54F06;
 $orange-light: #FADFBB;
 $yellow: #FAFA0A;
 $red: #EF300A;
-$grey: #000000;
+$grey: #666;
 $lightgrey: #333333;
 $logogrey: #D1D3D4;
 $logogreydark: #636466;
-$white: #FFFFFF;
+$white: #FFF;
+$black: #000;
 $lightyellow: #FAFAF5;
 $app-strong: #98B8CC;
 $app-light: #D2EDFF;
@@ -53,8 +55,16 @@ $one_col: (100% - ($gutter * ($cols - 1))) / $cols;
    user-select: none;
 }
 
+// buttons sprite
 @mixin sprite($url, $x, $y, $repeat: no-repeat) {
 	background: url($url) $x + px $y + px $repeat;
+	display: inline;
+	cursor: pointer;
+	border: none;
+	margin: (0.5 * $rembase) + rem;
+	height: (3 * $rembase) + rem;
+	width: (3 * $rembase) + rem;
+  position: relative;
 	
 	&:hover {
 		background-position: $x + px $y - 36 + px;
@@ -63,28 +73,11 @@ $one_col: (100% - ($gutter * ($cols - 1))) / $cols;
 	&:focus {
 		background-position: $x + px $y - 36 + px;
 	}
-}
-
-@mixin app-gradiant {
-  background-color: $app-strong; // old browsers
-  @include background-image(linear-gradient(top,  $app-strong 0%, $app-light 100%));
-}
-
-@mixin app-gradiant-reverse {
-  background-color: $app-strong; // old browsers
-  @include background-image(linear-gradient(top,  $app-light 0%, $app-strong 100%));
-}
-
-@mixin app-gradiant-reverse-semiopaque {
-  background-color: $app-strong; // old browsers
-  background-color: rgba(100,100,100,0.5);
-  @include background-image(linear-gradient(top,  $app-light 0%, $app-strong 100%));
-}
-
-@mixin app-gradiant-reverse-opaque {
-  background-color: $app-strong; // old browsers
-  backgrond-color: rgba(100,100,100,1);
-  @include background-image(linear-gradient(top,  $app-light 0%, $app-strong 100%));
+	
+	&:disabled {
+		background-position: $x + px $y - 72 + px;
+		cursor: none;
+	}
 }
 
 @mixin button-gradiant-hover {
@@ -143,45 +136,10 @@ $one_col: (100% - ($gutter * ($cols - 1))) / $cols;
   color: $color;
 }
 
-@mixin app-text-grey($size: 1.2, $weight: normal, $color: $grey) {
-  font: {
-    family: $font;
-    weight: $weight;
-    size: ($size * 10) + px; // old browsers
-    size: ($size * $rembase) + rem;
-  }
-  color: $color;
-}
-
-@mixin app-text-white($size: 1.2, $weight: normal, $color: $white) {
-  font: {
-    family: $font;
-    weight: $weight;
-    size: ($size * 10) + px; // old browsers
-    size: ($size * $rembase) + rem;
-  }
-  color: $color;
-}
-
 @mixin app-border($width: 1, $style: solid, $color: #000) {
   border: {
     width: ($width * $rembase) + rem;
     style: $style;
     color: $color;
   } 
-}
-
-@mixin toolbar-background {
-  background-color: $tb-light; // old browsers
-  @include background-image(linear-gradient(bottom, $tb-strong 0%, $tb-light 100%));
-}
-
-@mixin toolbar-background-opaque {
-  background-color: $tb-light; // old browsers
-  background-color: rgba(100,100,100,1);
-}
-
-@mixin toolbar-background-semiopaque {
-  background-color: $tb-light; // old browsers
-  background-color: rgba(100,100,100,0.6);
 }

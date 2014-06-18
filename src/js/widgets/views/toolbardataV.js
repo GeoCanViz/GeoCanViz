@@ -36,17 +36,17 @@
 			// set add data button
 			if (config.add.enable) {
 				node += '<input id="fileDialogData" type="file" accept=".csv" data-bind="event: { change: addClick }"></input>' +
-						'<button class="gcviz-button" tabindex="0" data-bind="click: launchDialog, tooltip: { content: tpAdd }"><img class="gcviz-img-button" data-bind="attr: { src: imgAdd }"></img></button>';
+						'<button class="gcviz-data-add" tabindex="0" data-bind="click: launchDialog, tooltip: { content: tpAdd }"></button>';
 			}
 
 			// set legend and template for recursive item loading
             node += '<div><ul class="gcviz-userLayersUL" data-bind="template: { name: \'userTmpl\', foreach: $root.userArray }"></ul></div>';
 			node += '<script id="userTmpl" type="text/html">';
 				node += '<li class="gcviz-userLayer">';
-					node += '<div class="gcviz-userLegendDiv"><input class="gcviz-legendCheck" type="checkbox" data-bind="event: { click: $root.changeItemsVisibility }, attr: { title: $root.tpVisible, id: \'checkbox\' + id }, checked: true"/></div>';
+					node += '<div class="gcviz-userLegendDiv"><input type="checkbox" data-bind="event: { click: $root.changeItemsVisibility }, attr: { title: $root.tpVisible, id: \'checkbox\' + id }, checked: true"/></div>';
 					node += '<div class="gcviz-userLegendDiv"><span data-bind="text: label, attr: { id: \'span\' + id }"></span></div>';
 					node += '<div class="gcviz-userLegendDiv" data-bind="attr: { id: \'symbol\' + id }"></div>';
-					node += '<button class="gcviz-button" tabindex="0" data-bind="click: function($data) { $root.removeClick($data) }, tooltip: { content: $root.tpDelete }"><img class="gcviz-img-button" data-bind="attr: { src: $root.imgDel }"></img></button>';
+					node += '<button class="gcviz-data-del" tabindex="0" data-bind="click: function($data) { $root.removeClick($data) }, tooltip: { content: $root.tpDelete }"></button>';
 				node += '</li>';
 			node += '</script>';
 

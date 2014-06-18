@@ -5,7 +5,6 @@
  *
  * Toolbar draw view model widget
  */
-/* global locationPath: false */
 (function() {
 	'use strict';
 	define(['jquery-private',
@@ -26,52 +25,10 @@
 					globalKey,
 					clickMeasureLength, clickMeasureArea,
 					dblclickMeasure,
-					pathColor = locationPath + 'gcviz/images/drawPicColourBlack.png',
-					pathColorBlack = locationPath + 'gcviz/images/drawPicColourBlack.png',
-					pathColorBlue = locationPath + 'gcviz/images/drawPicColourBlue.png',
-					pathColorGreen = locationPath + 'gcviz/images/drawPicColourGreen.png',
-					pathColorRed = locationPath + 'gcviz/images/drawPicColourRed.png',
-					pathColorYellow = locationPath + 'gcviz/images/drawPicColourYellow.png',
-					pathColorWhite = locationPath + 'gcviz/images/drawPicColourWhite.png',
-					pathDraw = locationPath + 'gcviz/images/drawpencilblack.png',
-					pathDrawBlack = locationPath + 'gcviz/images/drawBlack.png',
-					pathDrawBlue = locationPath + 'gcviz/images/drawBlue.png',
-					pathDrawGreen = locationPath + 'gcviz/images/drawGreen.png',
-					pathDrawRed = locationPath + 'gcviz/images/drawRed.png',
-					pathDrawYellow = locationPath + 'gcviz/images/drawYellow.png',
-					pathDrawWhite = locationPath + 'gcviz/images/drawWhite.png',
-					pathText = locationPath + 'gcviz/images/drawText.png',
-					pathErase = locationPath + 'gcviz/images/drawErase.png',
-					pathEraseSel = locationPath + 'gcviz/images/drawEraseSel.png',
-					pathUndo = locationPath + 'gcviz/images/drawUndo.png',
-					pathRedo = locationPath + 'gcviz/images/drawRedo.png',
-					pathMeasureArea = locationPath + 'gcviz/images/drawMeasureArea.png',
-					pathMeasureLength = locationPath + 'gcviz/images/drawMeasureLength.png',
-					pathImport = locationPath + 'gcviz/images/drawImport.png',
-					pathExport = locationPath + 'gcviz/images/drawExport.png',
 					lblDist = i18n.getDict('%toolbardraw-dist'),
 					lblArea = i18n.getDict('%toolbardraw-area'),
 					mymap = gcvizFunc.getElemValueVM(mapid, ['map', 'map'], 'js'),
 					$container = $viz('#' + mapid + '_holder_container');
-
-				// images path
-				_self.imgColor = ko.observable(pathColor);
-				_self.imgDraw = ko.observable(pathDraw);
-				_self.imgDrawWhite = ko.observable(pathDrawWhite);
-				_self.imgDrawYellow = ko.observable(pathDrawYellow);
-				_self.imgDrawRed = ko.observable(pathDrawRed);
-				_self.imgDrawGreen = ko.observable(pathDrawGreen);
-				_self.imgDrawBlue = ko.observable(pathDrawBlue);
-				_self.imgDrawBlack = ko.observable(pathDrawBlack);
-				_self.imgText = ko.observable(pathText);
-				_self.imgErase = ko.observable(pathErase);
-				_self.imgEraseSel = ko.observable(pathEraseSel);
-				_self.imgUndo = ko.observable(pathUndo);
-				_self.imgRedo = ko.observable(pathRedo);
-				_self.imgMeasureArea = ko.observable(pathMeasureArea);
-				_self.imgMeasureLength = ko.observable(pathMeasureLength);
-				_self.imgImport = ko.observable(pathImport);
-				_self.imgExport = ko.observable(pathExport);
 
 				// tooltip
 				_self.tpColor = i18n.getDict('%toolbardraw-tpcolor');
@@ -102,6 +59,7 @@
 
 				// keep color setting
 				_self.selectedColor = ko.observable();
+				_self.cssColor = ko.observable();
 
 				// enable buttons (undo, export)
 				_self.isColor = ko.observable(false);
@@ -194,17 +152,17 @@
 					_self.isColor(false);
 					// set colour picker to selected colour
 					if (color === 'black') {
-						_self.imgColor(pathColorBlack);
+						_self.cssColor('gcviz-draw-black');
 					} else if (color === 'blue') {
-						_self.imgColor(pathColorBlue);
+						_self.cssColor('gcviz-draw-blue');
 					} else if (color === 'green') {
-						_self.imgColor(pathColorGreen);
+						_self.cssColor('gcviz-draw-green');
 					} else if (color === 'red') {
-						_self.imgColor(pathColorRed);
+						_self.cssColor('gcviz-draw-red');
 					} else if (color === 'yellow') {
-						_self.imgColor(pathColorYellow);
+						_self.cssColor('gcviz-draw-yellow');
 					} else if (color === 'white') {
-						_self.imgColor(pathColorWhite);
+						_self.cssColor('gcviz-draw-white');
 					}
 				};
 

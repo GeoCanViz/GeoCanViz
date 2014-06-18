@@ -16,7 +16,6 @@
 	margin: 0 auto;
 	overflow: hidden;
 	@include app-border($width: 0.15, $color: #D8D8D8);
-	@include toolbar-background;
 	@include content-border-radius(0.2);
 	
 	button {
@@ -33,7 +32,7 @@
 	}
 	
 	.gcviz-title {
-		@include app-gradiant;
+		//@include app-gradiant;
 	}
 	
 	.gcviz-img-inset {

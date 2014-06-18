@@ -1,22 +1,20 @@
+@import "gcviz-mixin";
 
-.gcviz-tbdata-content {
-  width: 1000px;
+.gcviz-data-add {
+	@include sprite($img-spritebtn, -939, -2);
 }
 
-.gcviz-userLegendDiv  
-{
+.gcviz-data-del {
+	@include sprite($img-spritebtn, -1158, -2);
+}
+
+.gcviz-userLegendDiv {
 	display: inline-block;
-	padding-right: 5px;
+	padding-right: (0.5 * $rembase) + rem;
 }
 
-.gcviz-userLayersUL
-{
+.gcviz-userLayersUL {
 	list-style-type: none;
 	margin: 0;
 	padding-left: 0;
-}
-
-.gcviz-legendCheck
-{
-	display: inline-block;
 }

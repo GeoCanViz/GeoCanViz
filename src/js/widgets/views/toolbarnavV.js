@@ -66,7 +66,7 @@
 				node += '<div class="gcviz-w247">';
 				// Item 1 of group - set full extent button
 				if (config.zoom) {
-					node += '<button id="btnFullExtent' + mapid + '" class="gcviz-button gcviz-img-button gcviz-inline" tabindex="0" data-bind="click: extentClick, tooltip: { content: tpZoomFull }"><img class="gcviz-img-button" data-bind="attr:{ src: imgExtent }"></img></button>';
+					node += '<button class="gcviz-nav-max gcviz-inline" tabindex="0" data-bind="click: extentClick, tooltip: { content: tpZoomFull }"></button>';
 				}
 
 				// Item 2 of group - use geolocation
@@ -80,7 +80,7 @@
 
                 // See if overview map desired
                 if (configoverview.enable) {
-                    node += '<div class="gcviz-w240 gcviz-border gcviz-margin-left5 toolbar-background-opaque gcviz-ovtoolcontainer">';
+                    node += '<div class="gcviz-w240 gcviz-border gcviz-margin-left5 gcviz-ovtoolcontainer">';
                         node += '<div id="divOverviewMapContainer' + mapid + '" class="gcviz-overviewMap" data-bind="tooltip: { content: tpOverview }" tabindex="-1">';
                             node += '<div id="divOverviewMap' + mapid + '" class="gcviz-overviewMapContent" tabindex="-1"></div>';
                         node += '</div>';
@@ -112,7 +112,7 @@
                         if (configposition.enable) {
                             node += '<div class="row">';
                             node += '   <div class="span2">';
-                            node += '       <button id="btnClickMap' + mapid + '" class="gcviz-button gcviz-img-button gcviz-inline" tabindex="0" data-bind="click: getMapClick, tooltip: { content: tpGetLocInfo }"><img class="gcviz-img-button" data-bind="attr:{ src: imgPosition }"></img></button>';
+                            node += '       <button id="btnClickMap' + mapid + '" class="gcviz-nav-pos gcviz-inline" tabindex="0" data-bind="click: getMapClick, tooltip: { content: tpGetLocInfo }"></button>';
                             node += '   </div>';
                             node += '</div>';
                         }

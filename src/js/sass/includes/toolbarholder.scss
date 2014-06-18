@@ -27,14 +27,12 @@
   @include unselectable;
 
   .gcviz-tbcontent {
-    padding: (0.2 * $rembase) + rem;
-    margin: (0.3 * $rembase) + rem;
-    margin-left: 10px;
-    margin-top: 0px!important;
+    padding-left: (1 * $rembase) + rem;
+    padding-bottom: (1 * $rembase) + rem;
+    margin-top: 0rem!important;
     z-index: 101;
     background-color: $lightyellow;
-    @include content-border-radius;
-    
+
     .dijitTitlePane {
       margin: ( 0.5 * $rembase) + rem;
     }
