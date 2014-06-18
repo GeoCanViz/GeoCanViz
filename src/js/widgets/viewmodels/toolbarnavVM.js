@@ -13,8 +13,9 @@
 			'gcviz-i18n',
 			'gcviz-func',
             'gcviz-gisgeo',
-            'gcviz-gisnav'
-	], function($viz, ko, i18n, gcvizFunc, gisgeo, gisnav) {
+            'gcviz-gisnav',
+            'dijit/registry'
+	], function($viz, ko, i18n, gcvizFunc, gisgeo, gisnav, dijit) {
 		var initialize,
 			calcDDtoDMS,
 			getDMS,
@@ -118,6 +119,15 @@
 							_self.lblScale(_self.ScaleLabel + currentScale);
 						});
 					}
+
+					// check if we need to close the toolbar. We do this here instead of view because of a bug with
+					// overview widget. If the widget is not visible at load, it is not properly set.
+					setTimeout(function() {
+						if (!config.expand) {
+							dijit.byId('tbnav' + mapid).toggle();
+						}
+						dijit.byId('tbTools' + mapid).toggle();
+					}, 50);
 
 					return { controlsDescendantBindings: true };
 				};

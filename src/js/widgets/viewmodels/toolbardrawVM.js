@@ -16,9 +16,7 @@
 			'gcviz-gisgraphic'
 	], function($viz, ko, generateFile, i18n, gcvizFunc, gisGraphic) {
 		var initialize,
-			vm,
-			addDrawCursor,
-			openTools;
+			vm;
 
 		initialize = function($mapElem, mapid, config) {
 
@@ -133,6 +131,10 @@
 				// end draw action on tools toolbar click
 				_self.endDraw = function() {
 					
+					// remove cursor and set default
+					_self.removeCursors();
+					$container.css('cursor', 'default');
+					
 					// measure length or area
 					if (_self.measureType === 'length') {
 						clickMeasureLength.remove();
@@ -168,7 +170,7 @@
 				_self.dialogTextCancel = function() {
 					_self.isTextDialogOpen(false);
 					_self.endDraw();
-					openTools();
+					_self.openTools();
 				};
 
 				_self.dialogTextClose = function() {
@@ -176,8 +178,7 @@
 					if (_self.isTextDialogOpen()) {
 						// open menu and reset cursor
 						_self.endDraw();
-						openTools();
-						$container.removeClass('gcviz-text-cursor');
+						_self.openTools();
 
 						_self.isTextDialogOpen(false);
 					}
@@ -208,20 +209,19 @@
 				};
 
 				_self.drawClick = function() {
-					openTools();
+					_self.openTools();
 
 					// set cursor to selected colour (remove default cursor first)
 					$container.css('cursor', '');
-					addDrawCursor($container, _self.selectedColor());
+					_self.addDrawCursor(_self.selectedColor());
 					_self.graphic.drawLine(_self.selectedColor());
 				};
 
 				_self.textClick = function() {
-					openTools();
+					_self.openTools();
 
 					// set cursor (remove default cursor first and all other cursors)
 					$container.css('cursor', '');
-					_self.removeCursors();
 					$container.addClass('gcviz-text-cursor');
 
 					// show dialog
@@ -235,11 +235,10 @@
 				};
 
 				_self.eraseSelClick = function() {
-					openTools();
+					_self.openTools();
 
 					// set cursor (remove default cursor first and all other cursors)
 					$container.css('cursor', '');
-					_self.removeCursors();
 					$container.addClass('gcviz-draw-cursor-erase');
 					_self.graphic.drawExtent();
 				};
@@ -262,12 +261,11 @@
 
 				_self.measureLengthClick = function() {
 					globalKey = gcvizFunc.getUUID();
-					openTools();
+					_self.openTools();
 					_self.measureType = 'length';
 
 					// set cursor (remove default cursor first and all other cursors)
 					$container.css('cursor', '');
-					_self.removeCursors();
 					$container.addClass('gcviz-draw-cursor-measure');
 
 					clickMeasureLength = mymap.on('click', function(event) {
@@ -275,9 +273,15 @@
 									});
 
 					// on double click, close line and show total length
-					dblclickMeasure = mymap.on('dbl-click', function() {
-						_self.endMeasureLength();
-						globalKey = gcvizFunc.getUUID();
+					dblclickMeasure = mymap.on('dbl-click', function(event) {
+						// add last point then close
+						_self.graphic.addMeasure(_self.measureHolder, globalKey, 0, 'km', _self.selectedColor(), event);
+
+						// add a small time out to let the last point to go in. If not,
+						// the last point is not in the sum length
+						setTimeout(function() {
+							_self.endMeasureLength();
+						}, 250);
 					});
 				};
 
@@ -289,29 +293,30 @@
 					} else if (len > 0) {
 						_self.graphic.eraseUnfinish();
 					}
+					
+					// reset variables
 					_self.measureHolder([]);
-
-					// Remove cursor class and reopen panel
-					$container.removeClass('gcviz-draw-cursor-measure');
+					globalKey = gcvizFunc.getUUID();
 				};
 				
 				_self.measureAreaClick = function() {
 					globalKey = gcvizFunc.getUUID();
-					openTools();
+					_self.openTools();
 					_self.measureType = 'area';
 
 					// set cursor (remove default cursor first and all other cursors)
 					$container.css('cursor', '');
-					_self.removeCursors();
 					$container.addClass('gcviz-draw-cursor-measure');
 
 					clickMeasureArea = mymap.on('click', function(event) {
 										_self.graphic.addMeasure(_self.measureHolder, globalKey, 1, 'km', _self.selectedColor(), event);
 									});
 					// on double click, close polygon and show total length and area
-					dblclickMeasure = mymap.on('dbl-click', function() {
+					dblclickMeasure = mymap.on('dbl-click', function(event) {
+						// add last point then close
+						_self.graphic.addMeasure(_self.measureHolder, globalKey, 1, 'km', _self.selectedColor(), event);
+						
 						_self.endMeasureArea();
-						globalKey = gcvizFunc.getUUID();
 					});
 				};
 
@@ -323,22 +328,10 @@
 					} else if (len > 0) {
 						_self.graphic.eraseUnfinish();
 					}
+					
+					// reset variables
 					_self.measureHolder([]);
-
-					// Remove cursor class and reopen panel
-					$container.removeClass('gcviz-draw-cursor-measure');
-				};
-
-				_self.removeCursors = function() {
-					$container.removeClass('gcviz-draw-cursor-black');
-					$container.removeClass('gcviz-draw-cursor-blue');
-					$container.removeClass('gcviz-draw-cursor-green');
-					$container.removeClass('gcviz-draw-cursor-red');
-					$container.removeClass('gcviz-draw-cursor-yellow');
-					$container.removeClass('gcviz-draw-cursor-white');
-					$container.removeClass('gcviz-text-cursor');
-					$container.removeClass('gcviz-draw-cursor-measure');
-					$container.removeClass('gcviz-draw-cursor-erase');
+					globalKey = gcvizFunc.getUUID();
 				};
 
 				_self.launchDialog = function() {
@@ -388,29 +381,36 @@
 						script		: config.urldownload
 					});
 				};
+				
+				_self.openTools = function() {
+					gcvizFunc.getElemValueVM(mapid, ['header', 'toolsClick'], 'js')();
+				};
+			
+				_self.removeCursors = function() {
+					$container.removeClass('gcviz-draw-cursor-black gcviz-draw-cursor-blue ' +
+											'gcviz-draw-cursor-green gcviz-draw-cursor-red ' +
+											'gcviz-draw-cursor-yellow gcviz-draw-cursor-white ' +
+											'gcviz-text-cursor gcviz-draw-cursor-measure gcviz-draw-cursor-erase');
+				};
+
+				_self.addDrawCursor = function(colour) {
+					// Add cursor class
+					if (colour === 'black') {
+						$container.addClass('gcviz-draw-cursor-black');
+					} else if (colour === 'blue') {
+						$container.addClass('gcviz-draw-cursor-blue');
+					} else if (colour === 'green') {
+						$container.addClass('gcviz-draw-cursor-green');
+					} else if (colour === 'red') {
+						$container.addClass('gcviz-draw-cursor-red');
+					} else if (colour === 'yellow') {
+						$container.addClass('gcviz-draw-cursor-yellow');
+					} else if (colour === 'white') {
+						$container.addClass('gcviz-draw-cursor-white');
+					}
+				};
 
 				_self.init();
-			};
-
-			openTools = function() {
-				gcvizFunc.getElemValueVM(mapid, ['header', 'toolsClick'], 'js')();
-			};
-			
-			addDrawCursor = function(container, colour) {
-				// Add cursor class
-				if (colour === 'black') {
-					container.addClass('gcviz-draw-cursor-black');
-				} else if (colour === 'blue') {
-					container.addClass('gcviz-draw-cursor-blue');
-				} else if (colour === 'green') {
-					container.addClass('gcviz-draw-cursor-green');
-				} else if (colour === 'red') {
-					container.addClass('gcviz-draw-cursor-red');
-				} else if (colour === 'yellow') {
-					container.addClass('gcviz-draw-cursor-yellow');
-				} else if (colour === 'white') {
-					container.addClass('gcviz-draw-cursor-white');
-				}
 			};
 
 			vm = new toolbardrawViewModel($mapElem, mapid);

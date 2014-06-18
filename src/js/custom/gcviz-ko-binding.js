@@ -35,7 +35,7 @@
 			options: {
 				show: {
 					effect: 'slideDown',
-					delay: 2000
+					delay: 1000
 				},
 				hide: {
 					effect: 'slideUp',

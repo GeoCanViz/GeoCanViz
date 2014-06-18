@@ -36,6 +36,15 @@
 				_self.tpDelete = i18n.getDict('%toolbardata-tpdelete');
 				_self.tpVisible = i18n.getDict('%toolbarlegend-tgvis');
 
+				// dialog window for text
+				_self.lblErrTitle = i18n.getDict('%toolbardata-errtitle');
+				_self.errMsg1 = i18n.getDict('%toolbardata-err1');
+				_self.errMsg2 = i18n.getDict('%toolbardata-err2');
+				_self.errMsg3 = i18n.getDict('%toolbardata-err3');
+				_self.msgIE9 = i18n.getDict('%toolbardata-ie9');
+				_self.errMsg = ko.observable();
+				_self.isErrDataOpen = ko.observable();
+				
 				// array of user layer
 				_self.userArray = ko.observableArray([]);
 
@@ -50,7 +59,22 @@
 					$viz(document.getElementById('fileDialogData'))[0].click();
 				};
 
+				_self.dialogDataClose = function() {
+					_self.isErrDataOpen(false);
+				};
+				
 				_self.addClick = function(vm, event) {
+					// we need to have different load file function because IE version 9 doesnt use
+					// fileReader object
+					if (window.browser === 'Explorer' && window.browserversion === 9) {
+						_self.errMsg(_self.msgIE9);
+						_self.isErrDataOpen(true);
+					} else {
+						_self.add(vm, event);
+					}
+				};
+
+				_self.add = function(vm, event) {
 					var file, reader,
 						files = event.target.files,
 						len = files.length;
@@ -66,8 +90,24 @@
 						// closure to capture the file information and launch the process
 						reader.onload = function() {
 							var uuid = gcvizFunc.getUUID();
-							_self.userArray.push({ label: reader.fileName, id: uuid });
-							gisData.addCSV(mymap, reader.result, uuid);
+							
+							// use deffed object to wait for the result	
+							gisData.addCSV(mymap, reader.result, uuid)
+								.done(function(data) {
+									if (data === 0) {
+										// add to user array so knockout will generate legend
+										_self.userArray.push({ label: reader.fileName, id: uuid });		
+									} else {
+										_self.isErrDataOpen(true);
+										if (data === 1) {
+											_self.errMsg(_self.errMsg1);
+										} else if (data === 2) {
+											_self.errMsg(_self.errMsg2);
+										} else {
+											_self.errMsg(_self.errMsg3 + data);
+										}
+									}
+								});
 						};
 						reader.readAsText(file);
 					}
@@ -75,7 +115,7 @@
 					// clear the selected file
 					document.getElementById('fileDialogData').value = '';
 				};
-
+				
 				_self.removeClick = function(selectedItem) {
 					// remove the layer from the map then from the array
 					// In the view we use click: function($data) { $root.removeClick($data) } to avoid
@@ -84,8 +124,13 @@
 					_self.userArray.remove(selectedItem);
 				};
 
-				_self.changeItemsVisibility = function(selectedItem) {
+				_self.changeItemsVisibility = function(selectedItem, event) {
+					// in the view we use event: {click: myfunction } instead of just click
+					// to be able to pass the event 
 					gisLegend.setLayerVisibility(mymap, selectedItem.id, event.target.checked);
+					
+					// Knockout doesn't prevent the default click action.
+					return true;
 				};
 
 				_self.init();

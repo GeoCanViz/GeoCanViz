@@ -44,6 +44,27 @@ $one_col: (100% - ($gutter * ($cols - 1))) / $cols;
   width: ($child_size / $parent_size) * 100%;
 }
 
+// set text unselectable (solve problem that select graphic text when drawing)
+@mixin unselectable {
+   -moz-user-select: -moz-none;
+   -khtml-user-select: none;
+   -webkit-user-select: none;
+   -ms-user-select: none;
+   user-select: none;
+}
+
+@mixin sprite($url, $x, $y, $repeat: no-repeat) {
+	background: url($url) $x + px $y + px $repeat;
+	
+	&:hover {
+		background-position: $x + px $y - 36 + px;
+	}
+	
+	&:focus {
+		background-position: $x + px $y - 36 + px;
+	}
+}
+
 @mixin app-gradiant {
   background-color: $app-strong; // old browsers
   @include background-image(linear-gradient(top,  $app-strong 0%, $app-light 100%));

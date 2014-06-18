@@ -80,7 +80,7 @@
 					}
 				};
 
-				_self.changeItemsVisibility = function(selectedItem) {
+				_self.changeItemsVisibility = function(selectedItem, event) {
 					var item,
 						lenBases = _self.basesArray().length,
 						lenLayers = _self.layersArray().length;
@@ -102,12 +102,18 @@
 						loopChildrenVisibility(_self.mymap, item, item.visibility.initstate, loopChildrenVisibility);
 					}
 
+					// Knockout doesn't prevent the default click action.
 					return true;
 				};
 
 				_self.switchRadioButtonVisibility = function(map, selectedItem, value) {
 					selectedItem.visibility.initstate = value;
 					gisLegend.setLayerVisibility(map, selectedItem.id, value);
+					
+					// call changeItemsVisibility that will loop trought the legend
+					// because if we change radio button layer and parent layer is of,
+					// the radio layer appears.
+					_self.changeItemsVisibility();
 				};
 
 				_self.changeServiceOpacity = function(layerid, opacityValue) {
