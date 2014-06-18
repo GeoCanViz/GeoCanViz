@@ -28,7 +28,6 @@
 			tp = new dojotitle({ id: 'tbdraw' + mapid, title: '' + i18n.getDict('%toolbardraw-name') + '', content: '<div class="gcviz-tbdraw-content gcviz-tbcontent"></div>', open: config.expand });
 			$mapElem.find('.gcviz-tbholder').append(tp.domNode);
 			tp.startup();
-			$viz('#tbdraw' + mapid).addClass('gcviz-tbwidth');
 
 			// change tabinndex
 			tp.domNode.getElementsByClassName('dijitTitlePaneTitleFocus')[0].setAttribute('tabindex', '0');

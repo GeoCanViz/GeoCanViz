@@ -23,30 +23,12 @@
 				configscalebar = config.scalebar,
 				configscaledisplay = config.scaledisplay,
 				configzoom = config.zoom,
-				navheight = 0,
 				mapid = $mapElem.mapframe.id,
 				tp,
 				node = '';
 
-			// Calculate height required based on selected options
-			if (configzoom || configgeolocation.enable) {
-				navheight += 60;
-			}
-			if (configoverview.enable) {
-				navheight += 105;
-			}
-			if (configscalebar.enable) {
-				navheight += 45;
-			}
-			if (configscalebar.enable) {
-				navheight += 20;
-			}
-			if (configposition.enable) {
-				navheight += 25;
-			}
-
 			$mapElem.find('.gcviz-tbholder').append('<div class="gcviz-tbwidth gcviz-tbspacer"></div>');
-			tp = new dojotitle({ id: 'tbnav' + mapid, title: 'Navigation', content: '<div class="gcviz-tbnav-content gcviz-tbcontent" style="height:' + navheight + 'px;"></div>', open: true }); // true because of a bug, see init function in VM
+			tp = new dojotitle({ id: 'tbnav' + mapid, title: 'Navigation', content: '<div class="gcviz-tbnav-content gcviz-tbcontent row"></div>', open: true }); // true because of a bug, see init function in VM
 			$mapElem.find('.gcviz-tbholder').append(tp.domNode);
 			tp.startup();
 			$viz('#tbnav' + mapid).addClass('gcviz-tbwidth');
@@ -58,62 +40,58 @@
 			$toolbar = $mapElem.find('.gcviz-tbnav-content');
 
 			// Put everything inside a DIV
-			node += '<div>';
+			//node += '<div class="row">';
 
 //TODO: Try using the dynamic grid instead of the gcviz-w*** classes
 
 				// if present, group the 2 items (fullextent and geolocation) on the same line
-				node += '<div class="gcviz-w247">';
+				node += '<div class="row" style="height: 40px; margin-top: 10px;">';
 				// Item 1 of group - set full extent button
 				if (config.zoom) {
-					node += '<button class="gcviz-nav-max gcviz-inline" tabindex="0" data-bind="click: extentClick, tooltip: { content: tpZoomFull }"></button>';
+					node += '<div class="span2"><button class="gcviz-nav-max" tabindex="0" data-bind="click: extentClick, tooltip: { content: tpZoomFull }"></button></div>';
 				}
 
 				// Item 2 of group - use geolocation
 				if (configgeolocation.enable) {
-					node += '<span id="divAutoCompleteInstructions' + mapid + '" class="ui-helper-hidden-accessible gcviz-inline" data-bind="text: insKeyboard"></span>';
+					node += '<div class="span10"><span id="divAutoCompleteInstructions' + mapid + '" class="ui-helper-hidden-accessible gcviz-inline" data-bind="text: insKeyboard"></span>';
 					node += '<label class="gcviz-geoloclabel gcviz-inline" for="inGeoLocation" data-bind="text: geoLocLabel"></label>';
-					node += '<input id="inGeoLocation' + mapid + '" class="gcviz-greyTextGeoLoc gcviz-inline gcviz-w140" data-bind="value: geoLocSample, tooltip: { content: geoLocSample }" />';
+					node += '<input id="inGeoLocation' + mapid + '" class="gcviz-greyTextGeoLoc gcviz-inline gcviz-w140" data-bind="value: geoLocSample, tooltip: { content: geoLocSample }" /></div>';
 				}
 				node += '</div>';
-				node += '<br/>';
 
                 // See if overview map desired
                 if (configoverview.enable) {
-                    node += '<div class="gcviz-w240 gcviz-border gcviz-margin-left5 gcviz-ovtoolcontainer">';
+                    node += '<div class="row" style="height: 130px;"><div class="span9 gcviz-border gcviz-ovtoolcontainer">';
                         node += '<div id="divOverviewMapContainer' + mapid + '" class="gcviz-overviewMap" data-bind="tooltip: { content: tpOverview }" tabindex="-1">';
                             node += '<div id="divOverviewMap' + mapid + '" class="gcviz-overviewMapContent" tabindex="-1"></div>';
                         node += '</div>';
-                    node += '</div>';
+                    node += '</div></div>';
                 }
 
+				// if present, group the 2 items (scale and scla display)
+				node += '<div class="row" style="height: 50px;">';
                 // See if scalebar desired
                 if (configscalebar.enable) {
-                    node += '<div class="gcviz-scaleBar gcviz-scaleBarToolbar">';
-                        node += '<div id="divScalebar' + mapid + '" class="gcviz-scaleBarToolbarContainer" tabindex="-1"></div>';
-                        node += '<div id="divScalebarLabel' + mapid + '" class="gcviz-scaleBarToolbarContainer gcviz-scaleBarLabel" tabindex="-1">(approx.)</div>';
-                    node += '</div>';
+					node += '<div class="span6"><div id="divScalebar' + mapid + '" class="gcviz-scaleBarToolbarContainer" tabindex="-1"></div>';
+					node += '<div class="gcviz-scaleBarToolbarContainer gcviz-scaleBarLabel" tabindex="-1">(approx.)</div></div>';
                 }
 
                 // See if scale display is desired
-                if (configscaledisplay.enable) {
-                    node += '<div class="gcviz-w247 gcviz-scaleDisplay">';
-                        node += '<div id="divScale' + mapid + '" class="row"><span class="span6 gcviz-scaleDisplayLabel" data-bind="text: lblScale"></span><a class="span4 gcviz-scale">(approx.)</a></div>';
-                    node += '</div>';
-                }
+               // if (configscaledisplay.enable) {
+					node += '<div class="span4"><span class="gcviz-scaleDisplayLabel" data-bind="text: lblScale"></span><a class="span1gcviz-scale">(approx.)</a></div>';
+               //}
+                node += '</div>';
 
                 // See if position information or magnifier desired
                 //TODO - Implement magnifier later
                 //if (config.position.enable || config.magnify.enable) {
                 if (configposition.enable) {
-                    node += '<div id="divPosition' + mapid + '" class="gcviz-positionToolbar gcviz-margin-left5">';
+                    node += '<div class="row" style="height: 30px">';
 						//TODO - Implement magnifier later
                         //if (configposition.enable || configmagnify.enable) {
                         if (configposition.enable) {
-                            node += '<div class="row">';
-                            node += '   <div class="span2">';
-                            node += '       <button id="btnClickMap' + mapid + '" class="gcviz-nav-pos gcviz-inline" tabindex="0" data-bind="click: getMapClick, tooltip: { content: tpGetLocInfo }"></button>';
-                            node += '   </div>';
+                            node += '<div class="span1">';
+                            node += '<button id="btnClickMap' + mapid + '" class="gcviz-nav-pos" tabindex="0" data-bind="click: getMapClick, tooltip: { content: tpGetLocInfo }"></button>';
                             node += '</div>';
                         }
 						//TODO - Implement magnifier later
@@ -175,7 +153,7 @@
                 }
 
             // End of DIV to include everything
-            node += '</div>';
+            //node += '</div>';
             // For debugging
             //node += '<div data-bind="text: ko.toJSON($root)"></div>';
 			$toolbar.append(node);
