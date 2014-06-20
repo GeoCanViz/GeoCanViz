@@ -148,7 +148,7 @@
 		getElemValueVM = function(name, elements, type) {
 			var val,
 				len = elements.length;
-			
+
 			if (len === 1) {
 				val = vmObject[name][elements[0]];
 			} else if (len === 2) {
@@ -156,7 +156,7 @@
 			} else if (len === 3) {
 				val = vmObject[name][elements[0]][elements[1]][elements[2]];
 			}
-			
+
 			if (type === 'ko') {
 				val = val();
 			}

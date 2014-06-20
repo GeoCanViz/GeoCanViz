@@ -1,5 +1,9 @@
 @import "gcviz-mixin";
 
+%transparency {
+	background-color: rgba(100,100,100, 0.6);
+}
+
 .gcviz-tbcontainer {
   @include app-text();
   @include unselectable;
@@ -9,17 +13,15 @@
   padding-bottom: (1 * $rembase) + rem;
   position: absolute;
   z-index: 100;
-  width: 340px;
+  width: (34 * $rembase) + rem;
   right: 0rem;
-  top: 40px;
-  background-color: rgba(100,100,100, 0.6);
-  cursor: pointer;
+  top: (4 * $rembase) + rem;
+  @extend %transparency;
 }
 
 .gcviz-tbcontent-nobkg {
   background-image: none!important;
   margin-top: 0px!important;
-  width: 1000px;
 }
 
 .gcviz-tbholder {
@@ -27,25 +29,35 @@
   @include unselectable;
 
   .gcviz-tbcontent {
-    padding: (0.2 * $rembase) + rem;
-    margin: (0.3 * $rembase) + rem;
-    margin-left: 10px;
-    margin-top: 0px!important;
+    padding-left: (1 * $rembase) + rem;
+    padding-bottom: (1 * $rembase) + rem;
+    margin-top: 0rem!important;
     z-index: 101;
     background-color: $lightyellow;
-    @include content-border-radius;
-    
+		overflow-x:	auto;
+
     .dijitTitlePane {
-      margin: ( 0.5 * $rembase) + rem;
+      margin: (0.5 * $rembase) + rem;
     }
   }
 }
 
-.gcviz-tbwidth {
-  width: 1000px!important;
+.gcviz-tbspacer {
+  @extend %transparency;
+  height: (0.3 * $rembase) + rem;
 }
 
-.gcviz-tbspacer {
-  background-color: rgba(100,100,100,0.6)!important;
-  height: 3px;
+.gcviz-tbseparator {
+	display: inline-block;
+	@include app-border(0.1, solid, $grey);
+	height: (2 * $rembase) + rem;
+	margin-right: (1.5 * $rembase) + rem;
+	margin-left: (1.5 * $rembase) + rem;
+}
+
+// for FireFox
+@-moz-document url-prefix() {
+	.gcviz-tbseparator {
+		margin-bottom: (-1.25 * $rembase) + rem;
+	}
 }

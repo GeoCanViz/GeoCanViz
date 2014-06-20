@@ -1,78 +1,49 @@
 @import "gcviz-mixin";
 
-%sprite {
-	background: url('images/headSprite.png');
-	background-repeat: no-repeat;
-	display: inline-block;
-	cursor: pointer;
-	border: none;
-	margin: (0.3 * $rembase) + rem;
-	height: (3 * $rembase) + rem;
-  position: relative;
-  right: 7px!important;
-}
-
 .gcviz-head {
-  margin: 0;
-  padding: 0;
-  background-position: right;
+	@include app-head-foot;
   background-repeat: repeat-x;
-  z-index: 99!important;
-  background-image: url('images/headBlackbar.png');
-  height: 40px;
+  background-image: url($img-root + "headBlackbar.png");
 }
 
 .gcviz-head-btn {
-		float: right;
+	float: right;
+	margin-right:	(1 * $rembase) + rem;
 }
 
 .gcviz-head-title {
-	@include app-text-white(1.6, bold);
+	@include app-text(1.6, bold, $white);
 	position: relative;
-	top: 10px;
-	left: 5px;
+	top: 	(1 * $rembase) + rem;
+	left: 	(0.5 * $rembase) + rem;
 	display: inline-block;
 }
 
 // the header button sprite (need to use background-position because FF is not able to set x and y)
 .gcviz-head-help {
-	@extend %sprite;
-	@include sprite('images/headSprite.png', -73, 6);
-	width: 22px;
+	@include sprite($img-spritebtn, -110, -4);
 }
 
 .gcviz-head-about {
-	@extend %sprite;
-	@include sprite('images/headSprite.png', -98, 6);
-	width: 20px;
+	@include sprite($img-spritebtn, -145, -4);
 }
 
 .gcviz-head-inset {
-	@extend %sprite;
-	@include sprite('images/headSprite.png', -24, 6);
-	width: 23px;
+	@include sprite($img-spritebtn, -40, -4);
 }
 
 .gcviz-head-link {
-	@extend %sprite;
-	@include sprite('images/headSprite.png', -49, 6);
-	width: 22px;
+	@include sprite($img-spritebtn, -75, -4);
 }
 
 .gcviz-head-print {
-	@extend %sprite;
-	@include sprite('images/headSprite.png', 0, 6);
-	width: 24px;
+	@include sprite($img-spritebtn, -3, -4);
 }
 
 .gcviz-head-fs {
-	@extend %sprite;
-	@include sprite('images/headSprite.png', -143, 6);
-	width: 25px;
+	@include sprite($img-spritebtn, -219, -4);
 }
 
 .gcviz-head-reg {
-	@extend %sprite;
-	@include sprite('images/headSprite.png', -166, 6);
-	width: 25px;
+	@include sprite($img-spritebtn, -255, -4);
 }

@@ -16,7 +16,6 @@
 	margin: 0 auto;
 	overflow: hidden;
 	@include app-border($width: 0.15, $color: #D8D8D8);
-	@include toolbar-background;
 	@include content-border-radius(0.2);
 	
 	button {
@@ -33,7 +32,7 @@
 	}
 	
 	.gcviz-title {
-		@include app-gradiant;
+		//@include app-gradiant;
 	}
 	
 	.gcviz-img-inset {
@@ -77,18 +76,18 @@
 	}
 	
 	&:hover {
-		@include button-gradiant-hover;
-		@include content-border-radius;
+		//@include button-gradiant-hover;
+		//@include content-border-radius;
 	}
   
 	&:focus {
-		@include button-gradiant-hover;
-		@include content-border-radius;
+		//@include button-gradiant-hover;
+		//@include content-border-radius;
 	}
   
 	&:active {
-		@include button-gradiant-active;
-		@include content-border-radius;
+		//@include button-gradiant-active;
+		//@include content-border-radius;
 	}
 }
 

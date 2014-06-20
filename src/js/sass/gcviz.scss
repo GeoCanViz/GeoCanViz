@@ -53,77 +53,13 @@ svg {
 	background: #FFF;
 }
 
-.gcviz-h3-dialog {
-  color: #FFFFFF!important;
-}
-
-.gcviz-button {
-	cursor: pointer;
-	background: transparent;
-	border: none;
-	padding: (0.4 * $rembase) + rem;
-	margin: (0.3 * $rembase) + rem;
-	height: (3 * $rembase) + rem;
-	width: (3 * $rembase) + rem;
-  position: relative;
-  top: 3px!important;
-  right: 7px!important;
-  
-	.gcviz-img-button {
-		margin: 0 !important;
-		height: (2.2 * $rembase) + rem;
-		width: (2.2 * $rembase) + rem;
-	}
-  
-  .gcviz-button200 {
-    width: (20 * $rembase);
-  }
-	
-	&:disabled {
-		@include button-gradiant-disable;
-		@include content-border-radius;
-		cursor: none;
-	}
-	
-	&:hover:enabled {
-		@include button-gradiant-hover;
-		@include content-border-radius;
-	}
-  
-	&:focus {
-		@include button-gradiant-hover;
-		@include content-border-radius;
-	}
-  
-	&:active:enabled {
-		@include button-gradiant-active;
-		@include content-border-radius;
-	}
-}
-
-.gcviz-button-picker {
-  cursor: pointer;
-  background: transparent;
-  border: none;
-  padding: 0px!important;
-  margin: 0px!important;
-  position: relative;
-  top: 3px!important;
-  right: 0px!important;
-  
-  .gcviz-picker-colour {
-    margin-left: 0px!important;
-    margin-right: 0px!important;
-  }
-}
-
 .gcviz {
 	position: relative;
 }
 
 .gcviz-tooltip {
 	.ui-tooltip-content {
-		@include app-text-white(1.2);
+		@include app-text(1.1, normal, $white);
 	}
 }
 
@@ -166,16 +102,6 @@ input[type="file"] {
   display: inline-block!important;
 }
 
-.gcviz-tbseparator {
-	display: inline-block;
-	border-width: (0.1 * $rembase) + rem;
-	border-style: solid;
-	border-color: $grey;
-	height: (3 * $rembase) + rem;
-	margin-bottom: (-1 * $rembase) + rem;
-	margin-right: 15px;
-}
-
 .gcviz-loading {
 	position: absolute;
 	right: 10%;
@@ -187,95 +113,13 @@ input[type="file"] {
 }
 
 .gcviz-loadingLabel {
-    position: absolute;
-    left: 50%;
-    top:  (0.7 * $rembase) + rem;
-    @include app-text-white(1.2);
-    text-align: middle;
-  }
+	position: absolute;
+	left: 50%;
+	top:  (0.7 * $rembase) + rem;
+	@include app-text(1.2, normal, $white);
+	text-align: middle;
+}
 
 .gcviz-appText {
   @include app-text;
-}
-
-.gcviz-label {
-  color: red;
-}
-
-.gcviz-insinputbox {
-  @include app-text-grey;
-  width: 130px;
-}
-
-.gcviz-h50 {
-  height: 50px;
-}
-
-.gcviz-h200 {
-  height: 200px;
-}
-
-.gcviz-h250 {
-  height: 250px;
-}
-
-.gcviz-h300 {
-  height: 300px;
-}
-
-.gcviz-h320 {
-  height: 320px;
-}
-
-.gcviz-hidden {
-  display: none;
-}
-
-.gcviz-w90 {
-  width: 90px;
-}
-
-.gcviz-w100 {
-  width: 100px;
-}
-
-.gcviz-w140 {
-  width: 140px;
-}
-
-.gcviz-w210 {
-  width: 210px;
-}
-
-.gcviz-w231 {
-  width: 231px;
-}
-
-.gcviz-w240 {
-  width: 240px;
-}
-
-.gcviz-w241 {
-  width: 241px;
-}
-
-.gcviz-w247 {
-  width: 247px;
-}
-
-.gcviz-w250 {
-  width: 250px;
-}
-
-.gcviz-up5 {
-  position: relative;
-  top: -5px!important;
-}
-
-.gcviz-margin-left5 {
-  margin-left: 5px;
-}
-
-.gcviz-border {
-  border: solid 1px #369!important;
 }

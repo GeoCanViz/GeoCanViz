@@ -21,52 +21,91 @@
 			// data model				
 			var footerViewModel = function($mapElem, mapid, config) {
 				var _self = this,
-					pathNorth = locationPath + 'gcviz/images/footNorthArrowGrey.png',
                     pathGCVizPNG = locationPath + 'gcviz/images/GCVizLogo.png',
 					configMouse = config.mousecoords,
-					configNorth = config.northarrow.inwkid;
+					inwkid = config.northarrow.inwkid,
+					outwkid = configMouse.outwkid;
 
 				// images path
-				_self.imgNorth = pathNorth;
                 _self.imgLogoPNG = pathGCVizPNG;
+
+                // text
                 _self.urlLogo = i18n.getDict('%footer-urlgcvizrepo');
                 _self.urlLogoAlt = i18n.getDict('%footer-tpgithub');
                 _self.lblWest = i18n.getDict('%west');
 
-				// Tooltips
-				_self.tpNorth = i18n.getDict('%footer-tpNorth');
-
-				// projection objects
-				_self.outSR = gisGeo.getOutSR(configMouse.outwkid);
+				// coords and arrow
+				_self.coords = ko.observable('');
+				_self.rotateArrow = ko.observable('');
 
 				_self.init = function() {
 					var mymap = gcvizFunc.getElemValueVM(mapid, ['map', 'map'], 'js');
 
 					if (config.mousecoords) {
 						mymap.on('mouse-move', function(evt) {
-							_self.showCoordinates(evt, 'mousecoord_' + mapid);
+							_self.showCoordinates(evt);
 						});
 					}
 
 					if (config.northarrow) {
+						// set init state
+						gisGeo.getNorthAngle(mymap.extent, inwkid, _self.updateArrow);
+
 						mymap.on('pan-end', function(evt) {
-                            _self.showNorthArrow(evt, 'imgarrow_' + mapid, configNorth);
+                            _self.showNorthArrow(evt);
 						});
 
 						mymap.on('zoom-end', function(evt) {
-                            _self.showNorthArrow(evt, 'imgarrow_' + mapid, configNorth);
+                            _self.showNorthArrow(evt);
 						});
 					}
 
 					return { controlsDescendantBindings: true };
 				};
 
-				_self.showCoordinates = function(evt, div) {
-					gisGeo.getCoord(evt.mapPoint, div, _self.outSR, _self.lblWest);
+				_self.showCoordinates = function(evt) {
+					gisGeo.projectPoints([evt.mapPoint], outwkid, _self.updateCoordinates);
 				};
 
-				_self.showNorthArrow = function(evt, div, inwkid) {
-					gisGeo.getNorthAngle(evt.extent, div, inwkid);
+				_self.updateCoordinates = function(projectedPoints) {
+					var strPointX, strPointY,
+						point = projectedPoints[0];
+
+					if (point.x < 0) {
+						strPointX = (-1 * point.x.toFixed(3)).toString() + _self.lblWest;
+					} else {
+						strPointX = point.x.toFixed(3).toString() + 'E';
+					}
+
+					if (point.y < 0) {
+						strPointY = (-1 * point.y.toFixed(3)).toString() + 'S';
+					} else {
+						strPointY = point.y.toFixed(3).toString() + 'N';
+					}
+
+					_self.coords(' Lat: ' + strPointY + ' Long: ' + strPointX);
+				};
+
+				_self.showNorthArrow = function(evt) {
+					gisGeo.getNorthAngle(evt.extent, inwkid, _self.updateArrow);
+				};
+
+				_self.updateArrow = function(projectedPoints) {
+					var dLon, lat1, lat2,
+						x, y, pointB,
+						bearing,
+						pointA = { x: -100, y: 90 };
+
+					pointB = projectedPoints[0];
+					dLon = (pointB.x - pointA.x) * Math.PI / 180;
+					lat1 = pointA.y * Math.PI / 180;
+					lat2 = pointB.y * Math.PI / 180;
+					y = Math.sin(dLon) * Math.cos(lat2);
+					x = Math.cos(lat1) * Math.sin(lat2) - Math.sin(lat1) * Math.cos(lat2) * Math.cos(dLon);
+					bearing = Math.atan2(y, x)  * 180 / Math.PI;
+					bearing = ((bearing + 360) % 360).toFixed(1) - 90; //Converting -ve to +ve (0-360)
+
+					_self.rotateArrow('rotate(' + bearing + 'deg)');
 				};
 
 				_self.init();

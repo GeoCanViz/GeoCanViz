@@ -14,13 +14,10 @@
 		var initialize;
 
 		initialize = function($mapElem) {
-			var $header,
-				//$mapContainer,
+			var $header, tp,
 				config = $mapElem.header,
 				mapid = $mapElem.mapframe.id,
 				title = config.title.value,
-                //toolbarSize = 0,
-                tp,
 				node = '';
 
 			$mapElem.find('#' + mapid).prepend('<div id="head' + mapid + '" class="gcviz-head"></div>');
@@ -34,7 +31,7 @@
 
 			// add buttons
 			node += '<div class="gcviz-head-btn">';
-			
+
 			// set help button (help is always visible)
 			node += '<button class="gcviz-head-help" tabindex="0" data-bind="click: helpClick, tooltip: { content: tpHelp }"></button>';
 
@@ -61,10 +58,10 @@
 
 			// add fullscreen button
 			if (config.fullscreen) {
-				node += '<button tabindex="0" data-bind="click: fullscreenClick, tooltip: { content: tpFullScreen }, css: { \'gcviz-head-fs\': isFullscreen() === false, \'gcviz-head-reg\': isFullscreen() === true }"></button>';
+				node += '<button class="gcviz-head-fs" tabindex="0" data-bind="click: fullscreenClick, tooltip: { content: tpFullScreen }, css: { \'gcviz-head-fs\': isFullscreen() === false, \'gcviz-head-reg\': isFullscreen() === true }"></button>';
 			}
 			node += '</div>';
-			
+
 			$header.append(node);
 			if (config.tools === true) {
 				// Add a collapsible container for tools to hold all the toolbars instead of having a tools icon
@@ -73,7 +70,7 @@
 				$mapElem.find('.gcviz-toolsholder').append(tp.domNode);
 				tp.startup();
 			}
-			return (headerVM.initialize($header, mapid, config));
+			return (headerVM.initialize($header, mapid));
 		};
 
 		return {

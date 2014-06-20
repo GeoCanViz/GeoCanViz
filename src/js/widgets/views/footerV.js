@@ -27,12 +27,16 @@
 
 			// set north arrow
 			if (config.northarrow.enable) {
-				node += '<div id="north_' + mapid + '" class="gcviz-foot-north"><img id="imgarrow_' + mapid + '" class="gcviz-foot-imgarrow" data-bind="attr: { src: imgNorth }, tooltip: { content: tpNorth }"></img></div>';
+				node += '<div id="arrow_' + mapid + '" class="gcviz-foot-arrow unselectable" data-bind="style: { \'webkitTransform\': rotateArrow(), ' +
+																												'\'MozTransform\': rotateArrow(), ' +
+																												'\'msTransform\': rotateArrow(), ' +
+																												'\'OTransform\': rotateArrow(), ' +
+																												'\'transform\': rotateArrow() }"></div>';
 			}
 
 			// set mouse coordinates
 			if (config.mousecoords.enable) {
-				node += '<div id="mousecoord_' + mapid + '" class="gcviz-foot-coords unselectable"></div>';
+				node += '<span id="mousecoord_' + mapid + '" class="gcviz-foot-coords-values unselectable" data-bind="text: coords"></span>';
 			}
 
 			$footer.append(node);

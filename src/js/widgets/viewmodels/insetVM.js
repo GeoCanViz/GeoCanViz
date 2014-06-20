@@ -29,7 +29,8 @@
 
 			// data model				
 			var insetViewModel = function($mapElem, mapid, inset) {
-				var _self = this,
+				var header,
+					_self = this,
 					paths = [locationPath + 'gcviz/images/insetPrevious.png',
 							locationPath + 'gcviz/images/insetNext.png',
 							locationPath + 'gcviz/images/insetPlay.png',

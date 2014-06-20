@@ -1,67 +1,35 @@
 @import "gcviz-mixin";
 
-%gcviz-foot-display {
-  display: inline;
-  float: right;
-}
-
 .gcviz-foot {
-  @include app-head-foot;
-  background-color: #636466;
-  background-repeat: repeat-x;
-  background-image: url('images/foot_grey_bg.png');
-  position: relative;
-  left: -0.5px;
-  
-  .gcviz-foot-coords {
-    @extend %gcviz-foot-display;
-    color: #000!important;
-    height: 40px;
-    z-index:1!important;
-    width: 280px;
-    position: relative;
-    right: -10px;
-  }
+	@include app-head-foot;
+	background-repeat: repeat-x;
+	background-image: url($img-root + "footGreybar.png");
   
   .gcviz-foot-coords-values {
+  	@include app-text(1.2, normal, $black);
     margin-top: (1.5 * $rembase) + rem;
-    color: #000!important;
-    @include app-text;
     position: relative;
-    right: -70px;
-    top: -5px;
+    right: -(7 * $rembase) + rem;
+    top: -(0.5 * $rembase) + rem;
     float: right;
-    width: 278px;
+    width: (28 * $rembase) + rem;
   }
   
-  .gcviz-foot-north {
-    @extend %gcviz-foot-display;
-    height: 40px;
-    z-index: 2!important;
-    position: relative;
-    right: 0px;
-    
-    .gcviz-foot-imgarrow {
-      margin-top: (0.75 * $rembase) + rem;
-      margin-right: (1.5 * $rembase);
-      height: (2.2 * $rembase) + rem;
-      width: (2.2 * $rembase) + rem;
-      -webkit-transform: rotate(90deg); /* Safari & Chrome */
-      -moz-transform: rotate(90deg); /* Firefox */
-      -ms-transform: rotate(90deg); /* Internet Explorer */
-      -o-transform: rotate(90deg); /* Opera */
-    }
+	.gcviz-foot-arrow {
+		@include sprite($img-spritebtn, -1122, -3);
+		float: right;
+		margin-right:	(1 * $rembase) + rem;
+		-webkit-transform: rotate(90deg); /* Safari & Chrome */
+		-moz-transform: rotate(90deg); /* Firefox */
+		-ms-transform: rotate(90deg); /* Internet Explorer */
+		-o-transform: rotate(90deg); /* Opera */
   }
 }
 
 .gcviz-foot-logo {
   float: left;
-  margin-left: 5px;
-  position: relative;
-  top: 3px;
-  left: 3px;
-  width: 34px;
-  height: 35px;
+  margin-left: (0.5 * $rembase) + rem;
+	margin-top: (0.25 * $rembase) + rem;
 }
 
 

@@ -144,7 +144,7 @@
 		} else {
 			alert('Navigateur non pris en charge: doit être Chrome, Firefox, Safari ou Explorer. Vous serez redirigé vers la page de projet');
 		}
-		
+
 		window.location = 'https://github.com/GeoCanViz/GeoCanViz/';
 	} else if (window.browser === 'Explorer' && window.browserversion <= 8) {
 		if (language === 'en-min') {
@@ -152,7 +152,7 @@
 		} else {
 			alert('Navigateur non pris en charge: Explorer doit être version 9 ou supérieur. Vous serez redirigé vers la page de projet.');
 		}
-		
+
 		window.location = 'https://github.com/GeoCanViz/GeoCanViz/';
 	}
 

@@ -5,7 +5,6 @@
  *
  * Toolbar navigation view model widget
  */
-/* global locationPath: false */
 (function() {
 	'use strict';
 	define(['jquery-private',
@@ -34,15 +33,7 @@
                     infoWindow = $viz('#divGetLocResults' + mapid),
                     btnClickMap = $viz('#btnClickMap' + mapid),
 					mymap = gcvizFunc.getElemValueVM(mapid, ['map', 'map'], 'js'),
-                    pathExtent = locationPath + 'gcviz/images/navFullExtentGrey.png',
-                    pathMagnify = locationPath + 'gcviz/images/navMagnify.png',
-                    pathPosition = locationPath + 'gcviz/images/getInfoGrey.png',
                     autoCompleteArray = [ { minx: 0 , miny: 0, maxx: 0, maxy: 0, title: 'ddd' } ];
-
-				// images path
-				_self.imgExtent = ko.observable(pathExtent);
-                _self.imgMagnify = ko.observable(pathMagnify);
-				_self.imgPosition = ko.observable(pathPosition);
 
                 // tooltips, text strings and other things from dictionary
                 _self.cancel = i18n.getDict('%cancel');
@@ -127,7 +118,7 @@
 							dijit.byId('tbnav' + mapid).toggle();
 						}
 						dijit.byId('tbTools' + mapid).toggle();
-					}, 50);
+					}, 100);
 
 					return { controlsDescendantBindings: true };
 				};
@@ -291,8 +282,10 @@
                             }
                         ]
                     });
+
                     // Show results
                     infoWindow.dialog('open');
+                    infoWindow.removeClass('gcviz-hidden');
 
                     // Get lat/long in DD
                     _self.infoLatDD(' ' + lati);
@@ -319,7 +312,6 @@
                         });
 
                     // Get the altitude
-
                     $viz.getJSON(urlAlti,
                         function(data) {
                            alti = '0';
@@ -360,7 +352,6 @@
             } else {
                 nswe = 'E';
             }
-
 			DMS.longitude = getDMS(longReal, nswe);
 
             return DMS;

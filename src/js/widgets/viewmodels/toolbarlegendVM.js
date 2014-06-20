@@ -109,7 +109,7 @@
 				_self.switchRadioButtonVisibility = function(map, selectedItem, value) {
 					selectedItem.visibility.initstate = value;
 					gisLegend.setLayerVisibility(map, selectedItem.id, value);
-					
+
 					// call changeItemsVisibility that will loop trought the legend
 					// because if we change radio button layer and parent layer is of,
 					// the radio layer appears.
@@ -140,12 +140,12 @@
 
 			loopChildrenVisibility = function(map, itemMaster, isCheck) {
 				var items = itemMaster.items;
-				
+
 				// if value is false, set isCheck to false for all children
 				if (!itemMaster.visibility.initstate) {
 					isCheck = false;
 				}
-				
+
 				if (items.length > 0) {
 					Object.keys(items).forEach(function(key) {
 						loopChildrenVisibility(map, items[key], isCheck, loopChildrenVisibility);
