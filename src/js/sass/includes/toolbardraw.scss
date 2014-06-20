@@ -4,9 +4,17 @@
 	margin: 0rem!important;
 }
 
-.gcviz-draw-cholder {
-	background: rgb(156, 147, 147);
+// the color picker holder
+.gcviz-draw-cholderl {
+	background: $lightgrey;
 	display: inline-block;
+	@include content-border-radius(0.5, 'left');
+}
+
+.gcviz-draw-cholderr {
+	background: $grey;
+	display: inline-block;
+	@include content-border-radius(0.5, 'right');
 }
 
 // buttons
@@ -32,6 +40,30 @@
 
 .gcviz-draw-white {
 	@include sprite($img-spritebtn, -471, -2);
+}
+
+.gcviz-draw-pickblack {
+	@include sprite($img-spritebtn, -541, -2);
+}
+
+.gcviz-draw-pickblue {
+	@include sprite($img-spritebtn, -577, -2);
+}
+
+.gcviz-draw-pickred {
+	@include sprite($img-spritebtn, -649, -2);
+}
+
+.gcviz-draw-pickgreen {
+	@include sprite($img-spritebtn, -613, -2);
+}
+
+.gcviz-draw-pickyellow {
+	@include sprite($img-spritebtn, -685, -2);
+}
+
+.gcviz-draw-pickwhite {
+	@include sprite($img-spritebtn, -1194, -2);
 }
 
 .gcviz-draw-line {

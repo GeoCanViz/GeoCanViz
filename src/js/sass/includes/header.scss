@@ -21,29 +21,29 @@
 
 // the header button sprite (need to use background-position because FF is not able to set x and y)
 .gcviz-head-help {
-	@include sprite($img-spritebtn, -110, -4);
+	@include sprite($img-spritebtn, -110, -2);
 }
 
 .gcviz-head-about {
-	@include sprite($img-spritebtn, -145, -4);
+	@include sprite($img-spritebtn, -145, -2);
 }
 
 .gcviz-head-inset {
-	@include sprite($img-spritebtn, -40, -4);
+	@include sprite($img-spritebtn, -40, -2);
 }
 
 .gcviz-head-link {
-	@include sprite($img-spritebtn, -75, -4);
+	@include sprite($img-spritebtn, -75, -2);
 }
 
 .gcviz-head-print {
-	@include sprite($img-spritebtn, -3, -4);
+	@include sprite($img-spritebtn, -3, -2);
 }
 
 .gcviz-head-fs {
-	@include sprite($img-spritebtn, -219, -4);
+	@include sprite($img-spritebtn, -219, -2);
 }
 
 .gcviz-head-reg {
-	@include sprite($img-spritebtn, -255, -4);
+	@include sprite($img-spritebtn, -255, -2);
 }

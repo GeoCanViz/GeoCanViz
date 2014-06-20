@@ -218,9 +218,10 @@
 			var customFunc,
 				local = ko.utils.unwrapObservable(valueAccessor()),
 				options = {},
-				$element = $viz(element);
+				$element = $viz(element),
+				optsDefault = ko.bindingHandlers.uiDialog.options;
 
-			ko.utils.extend(options, ko.bindingHandlers.uiDialog.options);
+			$viz.extend(true, options, optsDefault);
 			ko.utils.extend(options, local);
 
 			// if function are provided for ok and/or cancel, update
@@ -229,6 +230,8 @@
 			}
 			if (typeof options.cancel !== 'undefined') {
 				options.buttons[1].click = options.cancel;
+			} else {
+				options.buttons.pop();
 			}
 			if (typeof options.close !== 'undefined') {
 				options.close = options.close;

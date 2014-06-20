@@ -22,36 +22,11 @@
 			printSimple,
 			vm;
 
-		initialize = function($mapElem, mapid) {
-
-            // Setup the help dialog box
-            $viz('#divHelp').dialog({
-                autoOpen: false,
-                closeText: i18n.getDict('%close'),
-                show: {effect: 'fade', speed: 1000},
-                hide: {effect: 'fade', speed: 1000},
-                title: i18n.getDict('%header-help'),
-                resizable: false,
-                height: 250,
-                width: 300
-            });
-
-			//TODO: Look at custum bindings
-            // Setup the about dialog box
-            $viz('#divAbout').dialog({
-                autoOpen: false,
-                closeText: i18n.getDict('%close'),
-                show: {effect: 'fade', speed: 1000},
-                hide: {effect: 'fade', speed: 1000},
-                title: i18n.getDict('%header-tpabout'),
-                resizable: false,
-                height: 250,
-                width: 300
-            });
-
+		initialize = function($mapElem, mapid, config) {
 			// data model				
-			var headerViewModel = function($mapElem, mapid) {
+			var headerViewModel = function($mapElem, mapid, config) {
 				var _self = this,
+					configAbout = config.about,
 					pathPrint = locationPath + 'gcviz/print/',
 					$section = $viz('#section' + mapid),
 					$mapholder = $viz('#' + mapid),
@@ -71,6 +46,28 @@
 				_self.tpInset = i18n.getDict('%header-tpinset');
                 _self.tpAbout = i18n.getDict('%header-tpabout');
 				_self.tpFullScreen = i18n.getDict('%header-tpfullscreen');
+				
+				// help dialog box
+				_self.lblHelpTitle = i18n.getDict('%header-help');
+				_self.helpInfo1 = i18n.getDict('%header-helpdownload');
+				_self.helpInfo2 = i18n.getDict('%linkopens');
+				_self.helpURL = i18n.getDict('%header-urlhelp');
+				_self.helpURLText = i18n.getDict('%header-helpmanual');
+				_self.isHelpDialogOpen = ko.observable(false);
+				
+				// about dialog box
+				_self.lblAboutTitle = i18n.getDict('%header-tpabout');
+				_self.isAboutDialogOpen = ko.observable(false);
+				_self.aboutType = configAbout.type;
+				
+				if (_self.aboutType === 1) {
+					_self.aboutInfo1 = configAbout.value;
+				} else if (_self.aboutType === 2) {
+					_self.aboutInfo1 = i18n.getDict('%header-aboutread');
+					_self.aboutInfo2 = i18n.getDict('%linkopens');
+					_self.aboutURL = configAbout.value;
+					_self.aboutURLText = i18n.getDict('%header-abouttitle');
+				}
 
 				// print info
 				_self.printInfo = {
@@ -154,24 +151,20 @@
 				};
 
 				_self.helpClick = function() {
-                    var html = '';
-					// Open the Help dialog box
-                    $viz('#divHelp').dialog('open');
-                    html += '<br/> '+i18n.getDict('%header-helpdownload')+ ' ';
-                    html += '<a href="'+i18n.getDict('%header-urlhelp')+'" tabindex="0" target="new">'+i18n.getDict('%header-helpmanual')+'</a>.';
-                    html += ' '+i18n.getDict('%linkopens');
-                    $viz('#divHelpContent').html(html);
+                    _self.isHelpDialogOpen(true);
                 };
 
+				_self.dialogHelpOk = function() {
+					_self.isHelpDialogOpen(false);
+				};
+				
                 _self.aboutClick = function() {
-                    var html = '';
-                    // Open the About dialog box
-                    $viz('#divAbout').dialog('open');
-                    html += '<br/> '+i18n.getDict('%header-aboutread')+ ' ';
-                    html += '<a href="'+i18n.getDict('%header-urlabout')+'" tabindex="0" target="new">'+i18n.getDict('%header-abouttitle')+'</a>.';
-                    html += ' '+i18n.getDict('%linkopens');
-                    $viz('#divAboutContent').html(html);
+                    _self.isAboutDialogOpen(true);
                 };
+                
+                _self.dialogAboutOk = function() {
+					_self.isAboutDialogOpen(false);
+				};
 
 				_self.cancelFullScreen = function() {
 					// set style back for the map
@@ -262,7 +255,7 @@
 				_self.init();
 			};
 
-			vm = new headerViewModel($mapElem, mapid);
+			vm = new headerViewModel($mapElem, mapid, config);
 			ko.applyBindings(vm, $mapElem[0]); // This makes Knockout get to work
 			return vm;
 		};

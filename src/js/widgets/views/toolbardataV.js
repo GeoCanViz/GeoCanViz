@@ -50,7 +50,7 @@
 			node += '</script>';
 
 			// add dialog error message
-			node += '<div id="data_err" data-bind="uiDialog: { title: $root.lblErrTitle, width: 300, height: 200, ok: dialogDataClose, cancel: $root.dialogDataClose, close: $root.dialogDataClose, openDialog: \'isErrDataOpen\' }">' +
+			node += '<div data-bind="uiDialog: { title: $root.lblErrTitle, width: 300, height: 200, ok: dialogDataClose, close: $root.dialogDataClose, openDialog: \'isErrDataOpen\' }">' +
 						'<span data-bind="text: errMsg"></span>' +
 					'</div>';
 

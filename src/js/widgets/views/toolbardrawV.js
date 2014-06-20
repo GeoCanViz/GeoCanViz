@@ -57,21 +57,24 @@
 			}
 
 			// color selection panel (wrap function setColorClick because there is parameter. If we dont do this, it will fire at init)
-			node += '<div class="row gcviz-draw-cholder" data-bind="visible: isColor">' +
-						'<button class="gcviz-draw-picker gcviz-draw-black" tabindex="0" data-bind="click: function() { selectColorClick(\'black\') }, tooltip: { content: tpBlack }"></button>' +
-						'<button class="gcviz-draw-picker gcviz-draw-blue" tabindex="0" data-bind="click: function() { selectColorClick(\'blue\') }, tooltip: { content: tpBlue }"></button>' +
-						'<button class="gcviz-draw-picker gcviz-draw-green" tabindex="0" data-bind="click: function() { selectColorClick(\'green\') }, tooltip: { content: tpGreen }"></button>' +
-						'<button class="gcviz-draw-picker gcviz-draw-red" tabindex="0" data-bind="click: function() { selectColorClick(\'red\') }, tooltip: { content: tpRed }"></button>' +
-						'<button class="gcviz-draw-picker gcviz-draw-yellow" tabindex="0" data-bind="click: function() { selectColorClick(\'yellow\') }, tooltip: { content: tpYellow }"></button>' +
-						'<button class="gcviz-draw-picker gcviz-draw-white" tabindex="0" data-bind="click: function() { selectColorClick(\'white\') }, tooltip: { content: tpWhite }"></button>' +
+			node += '<div data-bind="visible: isColor">' +
+						'<div class="row gcviz-draw-cholderl">' +
+							'<button class="gcviz-draw-picker gcviz-draw-pickblack" tabindex="0" data-bind="click: function() { selectColorClick(\'black\') }, tooltip: { content: tpBlack }"></button>' +
+							'<button class="gcviz-draw-picker gcviz-draw-pickblue" tabindex="0" data-bind="click: function() { selectColorClick(\'blue\') }, tooltip: { content: tpBlue }"></button>' +
+							'<button class="gcviz-draw-picker gcviz-draw-pickgreen" tabindex="0" data-bind="click: function() { selectColorClick(\'green\') }, tooltip: { content: tpGreen }"></button>' +
+							'<button class="gcviz-draw-picker gcviz-draw-pickred" tabindex="0" data-bind="click: function() { selectColorClick(\'red\') }, tooltip: { content: tpRed }"></button>' +
+						'</div><div class="row gcviz-draw-cholderr">' +
+							'<button class="gcviz-draw-picker gcviz-draw-pickyellow" tabindex="0" data-bind="click: function() { selectColorClick(\'yellow\') }, tooltip: { content: tpYellow }"></button>' +
+							'<button class="gcviz-draw-picker gcviz-draw-pickwhite" tabindex="0" data-bind="click: function() { selectColorClick(\'white\') }, tooltip: { content: tpWhite }"></button>' +
+						'</div>' +
 					'</div>';
 
 			// Change line
 			node += '<br/>';
 			// set erase buttons and undo erase
 			node += '<div class="row gcviz-inlineblock">' +
-						'<button class="gcviz-draw-del" tabindex="0" data-bind="click: eraseClick, tooltip: { content: tpErase }"></button>' +
-						'<button class="gcviz-draw-delsel" tabindex="0" data-bind="click: eraseSelClick, tooltip: { content: tpEraseSel }"></button>' +
+						'<button class="gcviz-draw-del" tabindex="0" data-bind="click: eraseClick, tooltip: { content: tpErase }, enable: isGraphics"></button>' +
+						'<button class="gcviz-draw-delsel" tabindex="0" data-bind="click: eraseSelClick, tooltip: { content: tpEraseSel }, enable: isGraphics"></button>' +
 					'</div>';
 
 			node += '<div class="gcviz-tbseparator"></div>';
@@ -94,7 +97,7 @@
 			}
 
 			// dialog text to add annotation
-			node += '<div id="text_add" data-bind="uiDialog: { title: $root.lblTextTitle, width: 450, height: 220, ok: $root.dialogTextOk, cancel: $root.dialogTextCancel, close: $root.dialogTextClose, openDialog: \'isTextDialogOpen\' }">' +
+			node += '<div data-bind="uiDialog: { title: $root.lblTextTitle, width: 450, height: 220, ok: $root.dialogTextOk, cancel: $root.dialogTextCancel, close: $root.dialogTextClose, openDialog: \'isTextDialogOpen\' }">' +
 						'<div id="gcviz-draw-inputbox">' +
 							'<form><fieldset>' +
 								'<label for="gcviz-textvalue" data-bind="value: lblTextDesc"></label>' +
