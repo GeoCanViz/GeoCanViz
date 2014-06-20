@@ -1,20 +1,31 @@
 @import "gcviz-mixin";
 
+// buttons
 .gcviz-data-add {
 	@include sprite($img-spritebtn, -939, -2);
 }
 
 .gcviz-data-del {
-	@include sprite($img-spritebtn, -1158, -2);
+	@include sprite($img-spritebtn, -795, -2);
 }
 
-.gcviz-userLegendDiv {
+// list legend
+.gcviz-data-li {
 	display: inline-block;
 	padding-right: (0.5 * $rembase) + rem;
 }
 
-.gcviz-userLayersUL {
+.gcviz-data-ul {
 	list-style-type: none;
 	margin: 0;
 	padding-left: 0;
+}
+
+.gcviz-data-item {
+	display: table;
+}
+
+.gcviz-data-itemchild {
+	display: table-cell;
+	padding-left: (0.5 * $rembase) + rem;
 }

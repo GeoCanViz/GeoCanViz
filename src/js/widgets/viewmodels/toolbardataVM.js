@@ -17,7 +17,7 @@
 		var initialize,
 			vm;
 
-		initialize = function($mapElem, mapid, config) {
+		initialize = function($mapElem, mapid) {
 
 			// data model				
 			var toolbardataViewModel = function($mapElem, mapid) {
@@ -37,7 +37,7 @@
 				_self.msgIE9 = i18n.getDict('%toolbardata-ie9');
 				_self.errMsg = ko.observable();
 				_self.isErrDataOpen = ko.observable();
-				
+
 				// array of user layer
 				_self.userArray = ko.observableArray([]);
 
@@ -55,7 +55,7 @@
 				_self.dialogDataClose = function() {
 					_self.isErrDataOpen(false);
 				};
-				
+
 				_self.addClick = function(vm, event) {
 					// we need to have different load file function because IE version 9 doesnt use
 					// fileReader object
@@ -83,13 +83,13 @@
 						// closure to capture the file information and launch the process
 						reader.onload = function() {
 							var uuid = gcvizFunc.getUUID();
-							
+
 							// use deffed object to wait for the result	
 							gisData.addCSV(mymap, reader.result, uuid)
 								.done(function(data) {
 									if (data === 0) {
 										// add to user array so knockout will generate legend
-										_self.userArray.push({ label: reader.fileName, id: uuid });		
+										_self.userArray.push({ label: reader.fileName, id: uuid });
 									} else {
 										_self.isErrDataOpen(true);
 										if (data === 1) {
@@ -108,7 +108,7 @@
 					// clear the selected file
 					document.getElementById('fileDialogData').value = '';
 				};
-				
+
 				_self.removeClick = function(selectedItem) {
 					// remove the layer from the map then from the array
 					// In the view we use click: function($data) { $root.removeClick($data) } to avoid
@@ -121,7 +121,7 @@
 					// in the view we use event: {click: myfunction } instead of just click
 					// to be able to pass the event 
 					gisLegend.setLayerVisibility(mymap, selectedItem.id, event.target.checked);
-					
+
 					// Knockout doesn't prevent the default click action.
 					return true;
 				};

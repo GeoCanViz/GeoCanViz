@@ -98,7 +98,6 @@ var locationPath;
 				mapframe = config.mapframe,
 				mapid = mapframe.id,
 				size = mapframe.size,
-				customLen = config.customwidgets.length,
 				vmArray = {};
 
 			// create section around map. This way we can bind Knockout to the section
@@ -113,7 +112,7 @@ var locationPath;
 			vmArray.map = map.initialize($mapSection);
 			// set the global vm to retreive link vm together
 			gcvizFunc.setVM(mapid, vmArray);
-			
+
 			// add header and footer
 			vmArray.header = header.initialize($mapSection);
 			vmArray.footer = footer.initialize($mapSection);
@@ -145,11 +144,6 @@ var locationPath;
 
 			// set the global vm to retreive link vm together
 			gcvizFunc.setVM(mapid, vmArray);
-			
-			// add custom widgets
-			//while (customLen--) {
-			//	
-			//}
 
 			mapsNum += 1;
 

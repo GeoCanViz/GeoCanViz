@@ -3,7 +3,7 @@
 .gcviz-foot {
 	@include app-head-foot;
 	background-repeat: repeat-x;
-	background-image: url($img-root + "headGreybar.png");
+	background-image: url($img-root + "footGreybar.png");
   
   .gcviz-foot-coords-values {
   	@include app-text(1.2, normal, $black);

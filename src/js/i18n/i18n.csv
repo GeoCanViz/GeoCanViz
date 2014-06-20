@@ -66,7 +66,7 @@ General (i18n)#%all#All#Tous
 #%toolbarlegend-tgvis#Toggle Visibility#Basculer la visibilité
 #%toolbarnav-geoloclabel#Zoom to:#Zoom à:
 #%toolbarnav-geolocsample#Prov./City name/...#Prov./Nom de ville/...
-#%toolbarnav-info#Click on the map to get location information#Cliquez sur la carte et obtenez de l'information de localisation
+#%toolbarnav-info#Map location information#Information de localisation sur la carte
 #%toolbarnav-infoaltitude#ALTITUDE#ALTITUDE
 #%toolbarnav-infoaltitudeurl#http://geogratis.gc.ca/services/elevation/cdem/altitude?#http://geogratis.gc.ca/services/elevation/cdem/altitude?
 #%toolbarnav-infoclickmap#Click on map#Cliquez sur la carte
@@ -91,7 +91,7 @@ General (i18n)#%all#All#Tous
 #%toolbarnav-scale#Scale: #Échelle : 
 #%toolbarnav-zoomfull#Zoom to full extent#Zoom à l`étendue maximum
 #%toolbardata-name#Data#Données
-#%toolbardata-tpadd#Add Data#Ajouter des données
+#%toolbardata-tpadd#Import Data#Importer des données
 #%toolbardata-tpdelete#Remove Data#Enlever des données
 #%toolbardata-errtitle#Add Data Error#Erreur dans l'ajout des données
 #%toolbardata-err1#There must be a field (latitude, lat, y or ycenter) for y coordinnates and a field (longitude, long, x or xcenter) for x coordinnates.#Il doit y avoir un champ (latitude, lat, y ou ycenter) pour les coordonnées y et un champ (longitude, longue, x ou xcenter) pour les coordonnées x.

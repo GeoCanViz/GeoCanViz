@@ -70,7 +70,7 @@
 				$mapElem.find('.gcviz-toolsholder').append(tp.domNode);
 				tp.startup();
 			}
-			return (headerVM.initialize($header, mapid, config));
+			return (headerVM.initialize($header, mapid));
 		};
 
 		return {

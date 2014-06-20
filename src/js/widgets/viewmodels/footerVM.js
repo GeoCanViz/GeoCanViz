@@ -28,7 +28,7 @@
 
 				// images path
                 _self.imgLogoPNG = pathGCVizPNG;
-                
+
                 // text
                 _self.urlLogo = i18n.getDict('%footer-urlgcvizrepo');
                 _self.urlLogoAlt = i18n.getDict('%footer-tpgithub');
@@ -37,10 +37,10 @@
 				// coords and arrow
 				_self.coords = ko.observable('');
 				_self.rotateArrow = ko.observable('');
-				
+
 				_self.init = function() {
 					var mymap = gcvizFunc.getElemValueVM(mapid, ['map', 'map'], 'js');
-					
+
 					if (config.mousecoords) {
 						mymap.on('mouse-move', function(evt) {
 							_self.showCoordinates(evt);
@@ -82,10 +82,10 @@
 					} else {
 						strPointY = point.y.toFixed(3).toString() + 'N';
 					}
-					
+
 					_self.coords(' Lat: ' + strPointY + ' Long: ' + strPointX);
 				};
-				
+
 				_self.showNorthArrow = function(evt) {
 					gisGeo.getNorthAngle(evt.extent, inwkid, _self.updateArrow);
 				};

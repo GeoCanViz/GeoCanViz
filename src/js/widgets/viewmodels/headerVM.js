@@ -22,7 +22,7 @@
 			printSimple,
 			vm;
 
-		initialize = function($mapElem, mapid, config) {
+		initialize = function($mapElem, mapid) {
 
             // Setup the help dialog box
             $viz('#divHelp').dialog({

@@ -53,61 +53,13 @@ svg {
 	background: #FFF;
 }
 
-.gcviz-h3-dialog {
-  color: #FFFFFF!important;
-}
-
-.gcviz-button {
-	cursor: pointer;
-	background: transparent;
-	border: none;
-	padding: (0.4 * $rembase) + rem;
-	margin: (0.3 * $rembase) + rem;
-	height: (3 * $rembase) + rem;
-	width: (3 * $rembase) + rem;
-  position: relative;
-  top: 3px!important;
-  right: 7px!important;
-  
-	.gcviz-img-button {
-		margin: 0 !important;
-		height: (2.2 * $rembase) + rem;
-		width: (2.2 * $rembase) + rem;
-	}
-  
-  .gcviz-button200 {
-    width: (20 * $rembase);
-  }
-	
-	&:disabled {
-		@include button-gradiant-disable;
-		@include content-border-radius;
-		cursor: none;
-	}
-	
-	&:hover:enabled {
-		@include button-gradiant-hover;
-		@include content-border-radius;
-	}
-  
-	&:focus {
-		@include button-gradiant-hover;
-		@include content-border-radius;
-	}
-  
-	&:active:enabled {
-		@include button-gradiant-active;
-		@include content-border-radius;
-	}
-}
-
 .gcviz {
 	position: relative;
 }
 
 .gcviz-tooltip {
 	.ui-tooltip-content {
-		@include app-text(1.2, normal, $white);
+		@include app-text(1.1, normal, $white);
 	}
 }
 
@@ -150,23 +102,6 @@ input[type="file"] {
   display: inline-block!important;
 }
 
-.gcviz-tbseparator {
-	display: inline-block;
-	border-width: (0.1 * $rembase) + rem;
-	border-style: solid;
-	border-color: $grey;
-	height: (2 * $rembase) + rem;
-	margin-right: (1.5 * $rembase) + rem;
-	margin-left: (1.5 * $rembase) + rem;
-}
-
-// for FireFox
-@-moz-document url-prefix() {
-	.gcviz-tbseparator {
-		margin-bottom: (-1.25 * $rembase) + rem;
-	}
-}
-
 .gcviz-loading {
 	position: absolute;
 	right: 10%;
@@ -178,30 +113,13 @@ input[type="file"] {
 }
 
 .gcviz-loadingLabel {
-    position: absolute;
-    left: 50%;
-    top:  (0.7 * $rembase) + rem;
-    @include app-text(1.2, normal, $white);
-    text-align: middle;
-  }
+	position: absolute;
+	left: 50%;
+	top:  (0.7 * $rembase) + rem;
+	@include app-text(1.2, normal, $white);
+	text-align: middle;
+}
 
 .gcviz-appText {
   @include app-text;
-}
-
-.gcviz-label {
-  color: red;
-}
-
-.gcviz-insinputbox {
-  @include app-text(1.2, normal, $grey);;
-  width: 130px;
-}
-
-.gcviz-hidden {
-  display: none;
-}
-
-.gcviz-border {
-  border: solid 1px #369!important;
 }

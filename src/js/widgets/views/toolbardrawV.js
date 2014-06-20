@@ -24,7 +24,7 @@
 			// add the url for dowload page to config
 			config.urldownload = $mapElem.mapframe.map.urldownload;
 
-			$mapElem.find('.gcviz-tbholder').append('<div class="gcviz-tbwidth gcviz-tbspacer"></div>');
+			$mapElem.find('.gcviz-tbholder').append('<div class="gcviz-tbspacer"></div>');
 			tp = new dojotitle({ id: 'tbdraw' + mapid, title: '' + i18n.getDict('%toolbardraw-name') + '', content: '<div class="gcviz-tbdraw-content gcviz-tbcontent"></div>', open: config.expand });
 			$mapElem.find('.gcviz-tbholder').append(tp.domNode);
 			tp.startup();
@@ -57,7 +57,7 @@
 			}
 
 			// color selection panel (wrap function setColorClick because there is parameter. If we dont do this, it will fire at init)
-			node += '<div class="row" data-bind="visible: isColor">' +
+			node += '<div class="row gcviz-draw-cholder" data-bind="visible: isColor">' +
 						'<button class="gcviz-draw-picker gcviz-draw-black" tabindex="0" data-bind="click: function() { selectColorClick(\'black\') }, tooltip: { content: tpBlack }"></button>' +
 						'<button class="gcviz-draw-picker gcviz-draw-blue" tabindex="0" data-bind="click: function() { selectColorClick(\'blue\') }, tooltip: { content: tpBlue }"></button>' +
 						'<button class="gcviz-draw-picker gcviz-draw-green" tabindex="0" data-bind="click: function() { selectColorClick(\'green\') }, tooltip: { content: tpGreen }"></button>' +

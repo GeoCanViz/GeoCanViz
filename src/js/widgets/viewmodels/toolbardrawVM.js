@@ -88,11 +88,11 @@
 
 				// end draw action on tools toolbar click
 				_self.endDraw = function() {
-					
+
 					// remove cursor and set default
 					_self.removeCursors();
 					$container.css('cursor', 'default');
-					
+
 					// measure length or area
 					if (_self.measureType === 'length') {
 						clickMeasureLength.remove();
@@ -103,11 +103,11 @@
 						dblclickMeasure.remove();
 						_self.endMeasureArea();
 					}
-					
+
 					_self.graphic.deactivate();
 					_self.measureType = '';
 				};
-				
+
 				// add text dialog buttons functions (ok and cancel)
 				_self.dialogTextOk = function() {
 					var value = _self.drawTextValue();
@@ -245,18 +245,18 @@
 
 				_self.endMeasureLength = function() {
 					var len = _self.measureHolder().length;
-					
+
 					if (len >= 2) {
 						_self.graphic.addMeasureSumLength(_self.measureHolder, globalKey, 'km');
 					} else if (len > 0) {
 						_self.graphic.eraseUnfinish();
 					}
-					
+
 					// reset variables
 					_self.measureHolder([]);
 					globalKey = gcvizFunc.getUUID();
 				};
-				
+
 				_self.measureAreaClick = function() {
 					globalKey = gcvizFunc.getUUID();
 					_self.openTools();
@@ -273,20 +273,20 @@
 					dblclickMeasure = mymap.on('dbl-click', function(event) {
 						// add last point then close
 						_self.graphic.addMeasure(_self.measureHolder, globalKey, 1, 'km', _self.selectedColor(), event);
-						
+
 						_self.endMeasureArea();
 					});
 				};
 
 				_self.endMeasureArea = function() {
 					var len = _self.measureHolder().length;
-						
+
 					if (len >= 3) {
 						_self.graphic.addMeasureSumArea(_self.measureHolder, globalKey, 'km');
 					} else if (len > 0) {
 						_self.graphic.eraseUnfinish();
 					}
-					
+
 					// reset variables
 					_self.measureHolder([]);
 					globalKey = gcvizFunc.getUUID();
@@ -339,11 +339,11 @@
 						script		: config.urldownload
 					});
 				};
-				
+
 				_self.openTools = function() {
 					gcvizFunc.getElemValueVM(mapid, ['header', 'toolsClick'], 'js')();
 				};
-			
+
 				_self.removeCursors = function() {
 					$container.removeClass('gcviz-draw-cursor-black gcviz-draw-cursor-blue ' +
 											'gcviz-draw-cursor-green gcviz-draw-cursor-red ' +

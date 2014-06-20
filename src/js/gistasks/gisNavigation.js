@@ -30,7 +30,7 @@
 				options = { map: mymap,
 							expandFactor: 2,
 							height: 100,
-							width: 237 };
+							width: 230 };
 
 				// If no layer specified, use the main map
 				// layer must be ArcGIS tiled, dynamic or imagery. It can also be OpenStreet map
@@ -40,15 +40,15 @@
 				}
 				overviewMapDijit = new esriOV(options, ovDiv);
 
-				// TODO:
 				// we need to startup only when we see the div.
 				// open the tools and panels, startup then put back the original state
+				// iot is done in navVM
 				overviewMapDijit.startup();
 
 				// work around to resize the overview div because it wont work only
 				// with the option from the dijit.
 				divOV = $viz('#divOverviewMap' + mapid + '-map');
-				divOV.width(237).height(100);
+				divOV.width(230).height(100);
 				overviewMapDijit.resize();
 		};
 

@@ -21,11 +21,10 @@
 				tp,
 				node = '';
 
-			$mapElem.find('.gcviz-tbholder').append('<div class="gcviz-tbwidth gcviz-tbspacer"></div>');
+			$mapElem.find('.gcviz-tbholder').append('<div class="gcviz-tbspacer"></div>');
 			tp = new dojotitle({ id: 'tbdata' + mapid, title: i18n.getDict('%toolbardata-name'), content: '<div class="gcviz-tbdata-content gcviz-tbcontent"></div>', open: config.expand });
 			$mapElem.find('.gcviz-tbholder').append(tp.domNode);
 			tp.startup();
-			$viz('#tbdata' + mapid).addClass('gcviz-tbwidth');
 
 			// add tabinndex
 			tp.domNode.getElementsByClassName('dijitTitlePaneTitleFocus')[0].setAttribute('tabindex', '0');
@@ -40,14 +39,14 @@
 			}
 
 			// set legend and template for recursive item loading
-            node += '<div><ul class="gcviz-userLayersUL" data-bind="template: { name: \'userTmpl\', foreach: $root.userArray }"></ul></div>';
+            node += '<div><ul class="gcviz-data-ul" data-bind="template: { name: \'userTmpl\', foreach: $root.userArray }"></ul></div>';
 			node += '<script id="userTmpl" type="text/html">';
-				node += '<li class="gcviz-userLayer">';
-					node += '<div class="gcviz-userLegendDiv"><input type="checkbox" data-bind="event: { click: $root.changeItemsVisibility }, attr: { title: $root.tpVisible, id: \'checkbox\' + id }, checked: true"/></div>';
-					node += '<div class="gcviz-userLegendDiv"><span data-bind="text: label, attr: { id: \'span\' + id }"></span></div>';
-					node += '<div class="gcviz-userLegendDiv" data-bind="attr: { id: \'symbol\' + id }"></div>';
-					node += '<button class="gcviz-data-del" tabindex="0" data-bind="click: function($data) { $root.removeClick($data) }, tooltip: { content: $root.tpDelete }"></button>';
-				node += '</li>';
+				node += '<li class="gcviz-data-li"><div class="gcviz-data-item">';
+					node += '<input class="gcviz-data-itemchild" type="checkbox" data-bind="event: { click: $root.changeItemsVisibility }, attr: { title: $root.tpVisible, id: \'checkbox\' + id }, checked: true"/>';
+					node += '<span class="gcviz-data-itemchild" data-bind="text: label, attr: { id: \'span\' + id }"></span>';
+					node += '<div class="gcviz-data-itemchild" data-bind="attr: { id: \'symbol\' + id }"></div>';
+					node += '<button class="gcviz-data-itemchild gcviz-data-del" tabindex="0" data-bind="click: function($data) { $root.removeClick($data) }, tooltip: { content: $root.tpDelete }"></button>';
+				node += '</div></li>';
 			node += '</script>';
 
 			// add dialog error message
@@ -57,7 +56,7 @@
 
             //$toolbar.append(itemsTemplate);
             $toolbar.append(node);
-            return (tbdataVM.initialize($toolbar, mapid, config));
+            return (tbdataVM.initialize($toolbar, mapid));
         };
 
         return {

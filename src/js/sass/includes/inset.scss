@@ -76,18 +76,18 @@
 	}
 	
 	&:hover {
-		@include button-gradiant-hover;
-		@include content-border-radius;
+		//@include button-gradiant-hover;
+		//@include content-border-radius;
 	}
   
 	&:focus {
-		@include button-gradiant-hover;
-		@include content-border-radius;
+		//@include button-gradiant-hover;
+		//@include content-border-radius;
 	}
   
 	&:active {
-		@include button-gradiant-active;
-		@include content-border-radius;
+		//@include button-gradiant-active;
+		//@include content-border-radius;
 	}
 }
 

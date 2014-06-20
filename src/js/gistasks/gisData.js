@@ -36,7 +36,7 @@
 					separator: separator
 				}),
 				def = $viz.Deferred();
-			
+
 			csvStore.fetch({
 				onComplete: function (items) {
 					var latField, longField, field,
@@ -72,7 +72,7 @@
 					} else if (typeof csvStore.separator === 'undefined') {
 						def.resolve(2);
 					}
-					
+
 					// add feature
 					while (lenItems--) {
 						item = items[lenItems];
@@ -115,7 +115,7 @@
 					def.resolve(error.message);
 				}
 			});
-			
+
 			return def;
         };
 

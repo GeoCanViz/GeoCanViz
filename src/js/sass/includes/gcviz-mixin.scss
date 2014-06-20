@@ -80,38 +80,6 @@ $one_col: (100% - ($gutter * ($cols - 1))) / $cols;
 	}
 }
 
-@mixin button-gradiant-hover {
-  @include background-image(-ms-radial-gradient(center, circle closest-corner, $orange-light 0%, $orange-dark 100%)); /* IE10 Consumer Preview */
-  @include background-image(-moz-radial-gradient(center, circle closest-corner, $orange-light 0%, $orange-dark 100%)); /* Mozilla Firefox */
-  @include background-image(-o-radial-gradient(center, circle closest-corner, $orange-light 0%, $orange-dark 100%)); /* Opera */ 
-  @include background-image(-webkit-gradient(radial, center center, 0, center center, 497, color-stop(0, $orange-light), color-stop(1, $orange-dark))); /* Webkit (Safari/Chrome 10) */ 
-  @include background-image(-webkit-radial-gradient(center, circle closest-corner, $orange-light 0%, $orange-dark 100%)); /* Webkit (Chrome 11+) */
-  @include background-image(radial-gradient(circle closest-corner at center, $orange-light 0%, $orange-dark 100%)); /* W3C Markup, IE10 Release Preview */
-  background-color: $tb-light; // old browsers
-}
-
-@mixin button-gradiant-active {
-  @include background-image(-ms-radial-gradient(center, circle closest-corner, $orange 0%, $orange-dark 100%)); /* IE10 Consumer Preview */
-  @include background-image(-moz-radial-gradient(center, circle closest-corner, $orange 0%, $orange-dark 100%)); /* Mozilla Firefox */
-  @include background-image(-o-radial-gradient(center, circle closest-corner, $orange 0%, $orange-dark 100%)); /* Opera */ 
-  @include background-image(-webkit-gradient(radial, center center, 0, center center, 497, color-stop(0, $orange), color-stop(1, $orange-dark))); /* Webkit (Safari/Chrome 10) */ 
-  @include background-image(-webkit-radial-gradient(center, circle closest-corner, $orange 0%, $orange-dark 100%)); /* Webkit (Chrome 11+) */
-  @include background-image(radial-gradient(circle closest-corner at center, $orange 0%, $orange-dark 100%)); /* W3C Markup, IE10 Release Preview */
-  background-color: $tb-light; // old browsers
-}
-
-@mixin button-gradiant-disable {
-  @include background-image(-ms-radial-gradient(center, circle closest-corner, $disabled-light 0%, $disabled-strong 100%)); /* IE10 Consumer Preview */
-  @include background-image(-moz-radial-gradient(center, circle closest-corner, $disabled-light 0%, $disabled-strong 100%)); /* Mozilla Firefox */
-  @include background-image(-o-radial-gradient(center, circle closest-corner, $disabled-light 0%, $disabled-strong 100%)); /* Opera */ 
-  @include background-image(-webkit-gradient(radial, center center, 0, center center, 497, color-stop(0, $disabled-light), color-stop(1, $disabled-strong))); /* Webkit (Safari/Chrome 10) */ 
-  @include background-image(-webkit-radial-gradient(center, circle closest-corner, $disabled-light 0%, $disabled-strong 100%)); /* Webkit (Chrome 11+) */
-  @include background-image(radial-gradient(circle closest-corner at center, $disabled-light 0%, $disabled-strong 100%)); /* W3C Markup, IE10 Release Preview */
-  background-color: $tb-light; // old browsers
-  cursor: not-allowed!important;
-  opacity: 0.65;
-}
-
 @mixin content-border-radius($radius: 0.5, $moz: true, $webkit: true, $ms: true, $o: true) {
   @if $moz    { -moz-border-radius: ($radius * $rembase) + rem; }
   @if $webkit { -webkit-border-radius: ($radius * $rembase) + rem; }

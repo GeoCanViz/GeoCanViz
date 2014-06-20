@@ -4,6 +4,11 @@
 	margin: 0rem!important;
 }
 
+.gcviz-draw-cholder {
+	background: rgb(156, 147, 147);
+	display: inline-block;
+}
+
 // buttons
 .gcviz-draw-black {
 	@include sprite($img-spritebtn, -291, -2);

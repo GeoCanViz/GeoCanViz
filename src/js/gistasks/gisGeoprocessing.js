@@ -15,7 +15,7 @@
 			'esri/tasks/GeometryService',
 			'esri/SpatialReference',
 			'esri/geometry/Point',
-			'esri/geometry/Extent',
+			'esri/geometry/Extent'
 	], function($viz, esriConfig, esriProj, esriDist, esriArea, esriGeom, esriSR, esriPoint, esriExtent) {
 		var setGeomServ,
 			getOutSR,
