@@ -612,7 +612,7 @@
 						gBackColor = white;
 					} else if  (color === 'green') {
 						gColor = green;
-						gBackColor = black;
+						gBackColor = white;
 					} else if (color === 'blue') {
 						gColor = blue;
 						gBackColor = white;

@@ -30,7 +30,8 @@ var locationPath;
 			readConfig,
 			execConfig,
 			setLocationPath,
-			setLocalMP;
+			setLocalMP,
+			setScrollTo;
 
 		/*
 		 *  initialize the GCViz application
@@ -53,6 +54,9 @@ var locationPath;
 
 			// set local for magnificpopup plugin
 			setLocalMP();
+			
+			// set scrollTo function
+			setScrollTo();
 
 			// loop trought maps
 			while (len--) {
@@ -193,6 +197,37 @@ var locationPath;
 					tError: i18n.getDict('%mp-error') // Error message when image could not be loaded
 				}
 			});
+		};
+		
+		// add scrollTo function to $viz to be able to scroll to open panel
+		// http://lions-mark.com/jquery/scrollTo/
+		setScrollTo = function() {
+			$viz.fn.scrollTo = function(target, options, callback) {
+				var settings;
+
+				if (typeof options === 'function' && arguments.length === 2) {
+					callback = options;
+					options = target;
+				}
+					settings = $.extend({
+						scrollTarget: target,
+						offsetTop: 20,
+						duration: 500,
+						easing: 'swing'
+					}, options);
+
+				return this.each(function() {
+					var scrollPane = $(this),
+						scrollTarget = (typeof settings.scrollTarget === 'number') ? settings.scrollTarget : $(settings.scrollTarget),
+						scrollY = (typeof scrollTarget === 'number') ? scrollTarget : (scrollTarget.offset().top - scrollPane.offset().top) + scrollPane.scrollTop() - parseInt(settings.offsetTop);
+	
+					scrollPane.animate({ scrollTop : scrollY }, parseInt(settings.duration), settings.easing, function() {
+						if (typeof callback === 'function') {
+							callback.call(this);
+						}
+					});
+				});
+			};
 		};
 
 		return {

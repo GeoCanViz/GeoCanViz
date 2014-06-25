@@ -49,10 +49,10 @@
 
 .gcviz-tbseparator {
 	display: inline-block;
-	@include app-border(0.1, solid, $grey);
+	@include app-border(0.1, solid, $palegrey);
 	height: (2 * $rembase) + rem;
-	margin-right: (1.5 * $rembase) + rem;
-	margin-left: (1.5 * $rembase) + rem;
+	margin-right: (1 * $rembase) + rem;
+	margin-left: (1 * $rembase) + rem;
 }
 
 // for FireFox

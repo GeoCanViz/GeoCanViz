@@ -132,7 +132,10 @@
 						// open tools if esc is press
 						} else if (key === 27) {
 							gcvizFunc.getElemValueVM(mapid, ['draw', 'endDraw'], 'js')();
-							gcvizFunc.getElemValueVM(mapid, ['header', 'toolsClick'], 'js')();
+							
+							if (!gcvizFunc.getElemValueVM(mapid, ['draw', 'isText'], 'ko')) {
+								gcvizFunc.getElemValueVM(mapid, ['header', 'toolsClick'], 'js')();
+							}
 						}
 					}
 					return prevent;

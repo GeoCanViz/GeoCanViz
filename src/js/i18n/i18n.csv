@@ -42,13 +42,12 @@ General (i18n)#%all#All#Tous
 #%toolbardraw-insinputbox#Click OK to place the text on the map or click Cancel to abort.#Cliquez sur OK pour placer le texte sur la carte ou cliquez sur Annuler pour abandonner.
 #%toolbardraw-inputbox-name#Add text#Ajouter du texte
 #%toolbardraw-inputbox-label#Enter a value: #Entrez une valeur: 
-#%toolbardraw-tpcolor#Select color#sélectionner la couleur
-#%toolbardraw-tpcolorblack#Black#Noir
-#%toolbardraw-tpcolorred#Red#Rouge
-#%toolbardraw-tpcolorgreen#Green#Vert
-#%toolbardraw-tpcolorblue#Blue#Bleu
-#%toolbardraw-tpcoloryellow#Yellow#Jaune
-#%toolbardraw-tpcolorwhite#White#Blanc
+#%toolbardraw-tpcolorblack#Select black color#Sélectionner la couleur noire
+#%toolbardraw-tpcolorred#Select red color#Sélectionner la couleur rouge
+#%toolbardraw-tpcolorgreen#Select green color#Sélectionner la couleur vert
+#%toolbardraw-tpcolorblue#Select blue color#Sélectionner la couleur bleu
+#%toolbardraw-tpcoloryellow#Select yellow color#Sélectionner la couleur jaune
+#%toolbardraw-tpcolorwhite#Select white color#Sélectionner la couleur blanche
 #%toolbardraw-tpdraw#Draw on the map#Dessiner sur la carte
 #%toolbardraw-tptext#Add text on the map#Ajouter du texte sur la carte
 #%toolbardraw-tpmeasurearea#Measure an area on the map#Mesurer une surface sur la carte
