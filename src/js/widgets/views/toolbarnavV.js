@@ -30,9 +30,11 @@
 			tp = new dojotitle({ id: 'tbnav' + mapid, title: 'Navigation', content: '<div class="gcviz-tbnav-content gcviz-tbcontent"></div>', open: true }); // true because of a bug, see init function in VM
 			$mapElem.find('.gcviz-tbholder').append(tp.domNode);
 			tp.startup();
-
-			// add tabindex
-			tp.domNode.getElementsByClassName('dijitTitlePaneTitleFocus')[0].setAttribute('tabindex', '0');
+			
+			// set focus on open
+			tp.on('click', function() { 
+				$viz('.gcviz-tbholder').scrollTo($viz('.gcviz-tbnav-content'));
+			});
 
 			// find toolbar and start to add items
 			$toolbar = $mapElem.find('.gcviz-tbnav-content');

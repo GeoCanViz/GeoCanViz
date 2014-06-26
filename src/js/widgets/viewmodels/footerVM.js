@@ -108,6 +108,12 @@
 					_self.rotateArrow('rotate(' + bearing + 'deg)');
 				};
 
+				_self.goGitHub = function(data, event) {
+					if (event.keyCode === 13) {
+						window.open(_self.urlLogo, '_blank');
+					}
+				};
+				
 				_self.init();
 			};
 

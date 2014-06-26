@@ -20,12 +20,11 @@ General (i18n)#%all#All#Tous
 #%gisurlnts#http://geogratis.gc.ca/services/delimitation/en/nts?bbox=#http://geogratis.gc.ca/services/delimitation/fr/nts?bbox=
 #%gisurlutm#http://geogratis.gc.ca/services/delimitation/en/utmzone?bbox=#http://geogratis.gc.ca/services/delimitation/fr/utmzone?bbox=
 #%footer-tpNorth#North arrow#Flèche du nord
-#%header-abouttitle#about this map#à-propos de cette carte
-#%header-aboutread#Read#Lire
-#%header-urlabout#../../AboutThisMap.pdf#../../AproposDeCetteCarte.pdf
+#%header-abouttitle#about this map #à-propos de cette carte 
+#%header-aboutread#Read #Lire 
 #%header-help#GeoCanViz Help#Aide pour GéoCanViz
-#%header-helpdownload#Download the#Téléchargé le
-#%header-helpmanual#GeoCanViz Help Manual#Manuel d'aide pour GéoCanViz
+#%header-helpdownload#Download the #Téléchargé le 
+#%header-helpmanual#GeoCanViz Help Manual #Manuel d'aide pour GéoCanViz 
 #%header-helptitle#Open the help manual#Ouvrir le manuel d'aide
 #%header-urlhelp#../../HelpManual.pdf#../../ManuelAide.pdf
 #%header-tpabout#About this map#À propos de cette carte
@@ -43,13 +42,12 @@ General (i18n)#%all#All#Tous
 #%toolbardraw-insinputbox#Click OK to place the text on the map or click Cancel to abort.#Cliquez sur OK pour placer le texte sur la carte ou cliquez sur Annuler pour abandonner.
 #%toolbardraw-inputbox-name#Add text#Ajouter du texte
 #%toolbardraw-inputbox-label#Enter a value: #Entrez une valeur: 
-#%toolbardraw-tpcolor#Select color#sélectionner la couleur
-#%toolbardraw-tpcolorblack#Black#Noir
-#%toolbardraw-tpcolorred#Red#Rouge
-#%toolbardraw-tpcolorgreen#Green#Vert
-#%toolbardraw-tpcolorblue#Blue#Bleu
-#%toolbardraw-tpcoloryellow#Yellow#Jaune
-#%toolbardraw-tpcolorwhite#White#Blanc
+#%toolbardraw-tpcolorblack#Select black color#Sélectionner la couleur noire
+#%toolbardraw-tpcolorred#Select red color#Sélectionner la couleur rouge
+#%toolbardraw-tpcolorgreen#Select green color#Sélectionner la couleur vert
+#%toolbardraw-tpcolorblue#Select blue color#Sélectionner la couleur bleu
+#%toolbardraw-tpcoloryellow#Select yellow color#Sélectionner la couleur jaune
+#%toolbardraw-tpcolorwhite#Select white color#Sélectionner la couleur blanche
 #%toolbardraw-tpdraw#Draw on the map#Dessiner sur la carte
 #%toolbardraw-tptext#Add text on the map#Ajouter du texte sur la carte
 #%toolbardraw-tpmeasurearea#Measure an area on the map#Mesurer une surface sur la carte

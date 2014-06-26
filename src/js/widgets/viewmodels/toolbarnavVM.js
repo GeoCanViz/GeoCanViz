@@ -32,6 +32,7 @@
                     inMapField = $viz('#inGeoLocation' + mapid),
                     infoWindow = $viz('#divGetLocResults' + mapid),
                     btnClickMap = $viz('#btnClickMap' + mapid),
+                    $container = $viz('#' + mapid + '_holder_container'),
 					mymap = gcvizFunc.getElemValueVM(mapid, ['map', 'map'], 'js'),
                     autoCompleteArray = [ { minx: 0 , miny: 0, maxx: 0, maxy: 0, title: 'ddd' } ];
 
@@ -213,7 +214,8 @@
                     gcvizFunc.getElemValueVM(mymap.vIdName, ['header', 'toolsClick'], 'js')();
 
                     // Set the cursor
-                    mymap.setMapCursor(_self.cursorTarget);
+                    $container.css('cursor', '');
+                    $container.addClass('gcviz-nav-cursor-pos');
 
 					escPosition = mymap.on('key-down', function(keyargs) {
 						// Capture an escape while on the map
@@ -244,7 +246,7 @@
 						urlAlti = _self.infoAltitudeUrl + 'lat=' + lati + '&lon=' +  longi;
 
 					// Reset cursor
-                    mymap.setMapCursor('default');
+                    $container.removeClass('gcviz-nav-cursor-pos');
 
 					// remove click and esc event
                     clickPosition.remove();

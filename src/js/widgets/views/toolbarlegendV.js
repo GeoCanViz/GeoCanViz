@@ -26,10 +26,11 @@
 			tp = new dojotitle({ id: 'tbleg' + mapid, title: i18n.getDict('%toolbarlegend-name'), content: '<div class="gcviz-tbleg-content gcviz-tbcontent-nobkg"></div>', open: config.expand });
 			$mapElem.find('.gcviz-tbholder').append(tp.domNode);
 			tp.startup();
-			$viz('#tbleg' + mapid).addClass('gcviz-tbwidth');
 
-			// add tabinndex
-			tp.domNode.getElementsByClassName('dijitTitlePaneTitleFocus')[0].setAttribute('tabindex', '0');
+			// set focus on open
+			tp.on('click', function() { 
+				$viz('.gcviz-tbholder').scrollTo($viz('.gcviz-tbleg-content'));
+			});
 
 			// find toolbar and start to add items
 			$legend = $mapElem.find('.gcviz-tbleg-content');

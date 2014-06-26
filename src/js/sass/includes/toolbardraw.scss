@@ -1,37 +1,62 @@
 @import "gcviz-mixin";
 
-.gcviz-draw-picker {
-	margin: 0rem!important;
+.gcviz-draw-row1 {
+	display: table;
 }
 
+// the color picker holder
 .gcviz-draw-cholder {
-	background: rgb(156, 147, 147);
-	display: inline-block;
+	display: table-cell;
+	vertical-align: middle;
 }
 
 // buttons
 .gcviz-draw-black {
-	@include sprite($img-spritebtn, -291, -2);
+	@include sprite($img-spritebtn, -541, -2, 2);
 }
 
 .gcviz-draw-blue {
-	@include sprite($img-spritebtn, -327, -2);
+	@include sprite($img-spritebtn, -577, -2, 2);
 }
 
 .gcviz-draw-red {
-	@include sprite($img-spritebtn, -399, -2);
+	@include sprite($img-spritebtn, -649, -2, 2);
 }
 
 .gcviz-draw-green {
-	@include sprite($img-spritebtn, -363, -2);
+	@include sprite($img-spritebtn, -613, -2, 2);
 }
 
 .gcviz-draw-yellow {
-	@include sprite($img-spritebtn, -435, -2);
+	@include sprite($img-spritebtn, -685, -2, 2);
 }
 
 .gcviz-draw-white {
-	@include sprite($img-spritebtn, -471, -2);
+	@include sprite($img-spritebtn, -1194, -2, 2);
+}
+
+.gcviz-draw-pickblack {
+	background: $orange;
+}
+
+.gcviz-draw-pickblue {
+	background: $orange;
+}
+
+.gcviz-draw-pickred {
+	background: $orange;
+}
+
+.gcviz-draw-pickgreen {
+	background: $orange;
+}
+
+.gcviz-draw-pickyellow {
+	background: $orange;
+}
+
+.gcviz-draw-pickwhite {
+	background: $orange;
 }
 
 .gcviz-draw-line {

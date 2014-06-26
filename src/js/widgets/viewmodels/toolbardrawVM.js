@@ -31,7 +31,6 @@
 					$container = $viz('#' + mapid + '_holder_container');
 
 				// tooltip
-				_self.tpColor = i18n.getDict('%toolbardraw-tpcolor');
 				_self.tpBlack = i18n.getDict('%toolbardraw-tpcolorblack');
 				_self.tpRed = i18n.getDict('%toolbardraw-tpcolorred');
 				_self.tpGreen = i18n.getDict('%toolbardraw-tpcolorgreen');
@@ -59,10 +58,8 @@
 
 				// keep color setting
 				_self.selectedColor = ko.observable();
-				_self.cssColor = ko.observable();
 
 				// enable buttons (undo, export)
-				_self.isColor = ko.observable(false);
 				_self.stackUndo = ko.observableArray([]);
 				_self.stackRedo = ko.observableArray([]);
 				_self.isGraphics = ko.observable(false);
@@ -127,6 +124,7 @@
 
 				_self.dialogTextCancel = function() {
 					_self.isTextDialogOpen(false);
+					_self.isText(false);
 					_self.endDraw();
 					_self.openTools();
 				};
@@ -139,31 +137,12 @@
 						_self.openTools();
 
 						_self.isTextDialogOpen(false);
+						_self.isText(false);
 					}
-				};
-
-				_self.colorClick = function() {
-					// show panel
-					_self.isColor(!_self.isColor());
 				};
 
 				_self.selectColorClick = function(color) {
 					_self.selectedColor(color);
-					_self.isColor(false);
-					// set colour picker to selected colour
-					if (color === 'black') {
-						_self.cssColor('gcviz-draw-black');
-					} else if (color === 'blue') {
-						_self.cssColor('gcviz-draw-blue');
-					} else if (color === 'green') {
-						_self.cssColor('gcviz-draw-green');
-					} else if (color === 'red') {
-						_self.cssColor('gcviz-draw-red');
-					} else if (color === 'yellow') {
-						_self.cssColor('gcviz-draw-yellow');
-					} else if (color === 'white') {
-						_self.cssColor('gcviz-draw-white');
-					}
 				};
 
 				_self.drawClick = function() {
@@ -207,6 +186,9 @@
 					// workaround to remove tooltip on undo. The tooltip appears
 					// even if the button is disable
 					$viz('.ui-tooltip').remove();
+					
+					// workaround to unset the focus because the focus hang on the button
+					$viz('.gcviz-draw-undo').blur();
 				};
 
 				_self.redoClick = function() {
@@ -215,6 +197,9 @@
 					// workaround to remove tooltip on undo. The tooltip appears
 					// even if the button is disable
 					$viz('.ui-tooltip').remove();
+					
+					// workaround to unset the focus because the focus hang on the button
+					$viz('.gcviz-draw-redo').blur();
 				};
 
 				_self.measureLengthClick = function() {

@@ -10,7 +10,8 @@ $orange-light: #FADFBB;
 $yellow: #FAFA0A;
 $red: #EF300A;
 $grey: #666;
-$lightgrey: #333333;
+$lightgrey: #BFBFBF;
+$palegrey: #E8E8E8;
 $logogrey: #D1D3D4;
 $logogreydark: #636466;
 $white: #FFF;
@@ -56,14 +57,15 @@ $one_col: (100% - ($gutter * ($cols - 1))) / $cols;
 }
 
 // buttons sprite
-@mixin sprite($url, $x, $y, $repeat: no-repeat) {
+@mixin sprite($url, $x, $y, $size: 3.2, $repeat: no-repeat) {
 	background: url($url) $x + px $y + px $repeat;
 	display: inline;
 	cursor: pointer;
 	border: none;
-	margin: (0.5 * $rembase) + rem;
-	height: (3 * $rembase) + rem;
-	width: (3 * $rembase) + rem;
+	margin-top: (0.5 * $rembase) + rem;
+	margin-bottom: (0.5 * $rembase) + rem;
+	height: ($size * $rembase) + rem;
+	width: ($size * $rembase) + rem;
   position: relative;
 	
 	&:hover {
@@ -80,12 +82,16 @@ $one_col: (100% - ($gutter * ($cols - 1))) / $cols;
 	}
 }
 
-@mixin content-border-radius($radius: 0.5, $moz: true, $webkit: true, $ms: true, $o: true) {
-  @if $moz    { -moz-border-radius: ($radius * $rembase) + rem; }
-  @if $webkit { -webkit-border-radius: ($radius * $rembase) + rem; }
-  @if $ms     { -ms-border-radius: ($radius * $rembase) + rem; }
-  @if $ms     { -o-border-radius: ($radius * $rembase) + rem; }
-  border-radius: ($radius * $rembase) + rem;
+@mixin content-border-radius($radius: 0.5, $type: full) {
+	@if $type == 'full' { border-radius: ($radius * $rembase) + rem; }
+  @if $type == 'left' {
+  	border-top-left-radius: ($radius * $rembase) + rem;
+  	border-bottom-left-radius: ($radius * $rembase) + rem;
+  }
+  @if $type == 'right' {
+  	border-top-right-radius: ($radius * $rembase) + rem;
+  	border-bottom-right-radius: ($radius * $rembase) + rem;
+  }
 }
 
 @mixin app-head-foot() {

@@ -153,7 +153,7 @@
 			alert('Navigateur non pris en charge: Explorer doit être version 9 ou supérieur. Vous serez redirigé vers la page de projet.');
 		}
 
-		window.location = 'https://github.com/GeoCanViz/GeoCanViz/';
+		//TODO: find why IE useragent is wrong... window.location = 'https://github.com/GeoCanViz/GeoCanViz/';
 	}
 
 	// load the require libraries

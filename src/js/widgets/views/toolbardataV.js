@@ -10,8 +10,9 @@
 	define(['jquery-private',
 			'gcviz-vm-tbdata',
 			'dijit/TitlePane',
-			'gcviz-i18n'
-	], function($viz, tbdataVM, dojotitle, i18n) {
+			'gcviz-i18n',
+			'gcviz-func'
+	], function($viz, tbdataVM, dojotitle, i18n, gcvizFunc) {
 		var initialize;
 
 		initialize = function($mapElem) {
@@ -26,15 +27,17 @@
 			$mapElem.find('.gcviz-tbholder').append(tp.domNode);
 			tp.startup();
 
-			// add tabinndex
-			tp.domNode.getElementsByClassName('dijitTitlePaneTitleFocus')[0].setAttribute('tabindex', '0');
+			// set focus on open
+			tp.on('click', function() { 
+				$viz('.gcviz-tbholder').scrollTo($viz('.gcviz-tbdata-content'));
+			});
 
 			// find toolbar and start to add items
 			$toolbar = $mapElem.find('.gcviz-tbdata-content');
 
 			// set add data button
 			if (config.add.enable) {
-				node += '<input id="fileDialogData" type="file" accept=".csv" data-bind="event: { change: addClick }"></input>' +
+				node += '<input id="fileDialogData" type="file" accept=".csv" data-bind="event: { change: addClick }" tabindex="-1"></input>' +
 						'<button class="gcviz-data-add" tabindex="0" data-bind="click: launchDialog, tooltip: { content: tpAdd }"></button>';
 			}
 
@@ -50,11 +53,10 @@
 			node += '</script>';
 
 			// add dialog error message
-			node += '<div id="data_err" data-bind="uiDialog: { title: $root.lblErrTitle, width: 300, height: 200, ok: dialogDataClose, cancel: $root.dialogDataClose, close: $root.dialogDataClose, openDialog: \'isErrDataOpen\' }">' +
+			node += '<div data-bind="uiDialog: { title: $root.lblErrTitle, width: 300, height: 200, ok: dialogDataClose, close: $root.dialogDataClose, openDialog: \'isErrDataOpen\' }">' +
 						'<span data-bind="text: errMsg"></span>' +
 					'</div>';
 
-            //$toolbar.append(itemsTemplate);
             $toolbar.append(node);
             return (tbdataVM.initialize($toolbar, mapid));
         };

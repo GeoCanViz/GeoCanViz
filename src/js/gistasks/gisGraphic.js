@@ -47,10 +47,10 @@
 					txtDist = lblDist,
 					txtArea = lblArea,
 					black = [0,0,0,255],
-					red = [255,0,0,255],
-					green = [0,255,0,255],
-					blue = [0,0,255,255],
-					yellow = [255,255,0,255],
+					red = [229,0,51,255],
+					green = [0,140,0,255],
+					blue = [0,77,255,255],
+					yellow = [255,217,51,255],
 					white = [255,255,255,255],
 					polyFill = [205,197,197,100];
 
@@ -190,7 +190,15 @@
 					// add redo
 					stackRedo.push(graphics);
 
-					isGraphics(true);
+					// check if there is graphics. Check if the only one is a point at x:0;y:0
+					// this point is created by the API sometimes
+					if (symbLayer.graphics.length === 0) {
+						isGraphics(false);
+					} else if (symbLayer.graphics.length === 1 && symbLayer.graphics[0]._extent.xmax === 0) {
+						isGraphics(false);
+					} else {
+						isGraphics(true);
+					}
 				};
 
 				_self.redo = function() {
@@ -211,7 +219,15 @@
 					// add undo
 					stackUndo.push(graphics);
 
-					isGraphics(true);
+					// check if there is graphics. Check if the only one is a point at x:0;y:0
+					// this point is created by the API sometimes
+					if (symbLayer.graphics.length === 0) {
+						isGraphics(false);
+					} else if (symbLayer.graphics.length === 1 && symbLayer.graphics[0]._extent.xmax === 0) {
+						isGraphics(false);
+					} else {
+						isGraphics(true);
+					}
 				};
 
 				_self.addMeasure = function(array, key, type, unit, color, point) {
@@ -430,15 +446,18 @@
 
 				showNextMeasureLength = function(array, unit) {
 					// add text
-					var symbol,
+					var symbol, graphic,
 						pt = array[1],
+						distance = pt.distance;
+					
+					if (distance > 0) {
 						graphic = new esriGraph(pt, symbol);
 						graphic.symbol = getSymbText(black, pt.distance + ' ' + unit, 10, 0, 0, 10, 'normal', 'center');
-
-					// add background then text
-					addBackgroundText(graphic, white, 'center', 14, 0, -2, 9, mymap.graphics);
-					mymap.graphics.add(graphic);
-
+						
+						// add background then text
+						addBackgroundText(graphic, white, 'center', 14, 0, -2, 9, mymap.graphics);
+						mymap.graphics.add(graphic);
+					}
 				};
 
 				measureArea = function(array) {
@@ -593,7 +612,7 @@
 						gBackColor = white;
 					} else if  (color === 'green') {
 						gColor = green;
-						gBackColor = black;
+						gBackColor = white;
 					} else if (color === 'blue') {
 						gColor = blue;
 						gBackColor = white;

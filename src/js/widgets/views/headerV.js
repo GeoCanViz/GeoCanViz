@@ -16,6 +16,7 @@
 		initialize = function($mapElem) {
 			var $header, tp,
 				config = $mapElem.header,
+				configAbout = config.about,
 				mapid = $mapElem.mapframe.id,
 				title = config.title.value,
 				node = '';
@@ -34,10 +35,24 @@
 
 			// set help button (help is always visible)
 			node += '<button class="gcviz-head-help" tabindex="0" data-bind="click: helpClick, tooltip: { content: tpHelp }"></button>';
+			
+			// dialog text to show help
+			node += '<div data-bind="uiDialog: { title: $root.lblHelpTitle, width: 350, height: 220, ok: $root.dialogHelpOk, close: $root.dialogHelpOk, openDialog: \'isHelpDialogOpen\' }">' +
+						'<span data-bind="text: $root.helpInfo1"></span>' +
+						'<a data-bind="attr: { href: $root.helpURL, title: $root.helpURLText }, text: $root.helpURLText" tabindex="0" target="new"></a></br>' +
+						'<span data-bind="text: $root.helpInfo2"></span>' +
+					'</div>';
 
 			// set about button
-			if (config.about.enable) {
+			if (configAbout.enable) {
 				node += '<button class="gcviz-head-about" tabindex="0" data-bind="click: aboutClick, tooltip: { content: tpAbout }"></button>';
+				
+				// dialog text to show about
+				node += '<div data-bind="uiDialog: { title: $root.lblAboutTitle, width: 350, height: 220, ok: $root.dialogAboutOk, close: $root.dialogAboutOk, openDialog: \'isAboutDialogOpen\' }">' +
+						'<span data-bind="text: $root.aboutInfo1"></span>' +
+						'<div data-bind="if: aboutType === 2"><a data-bind="attr: { href: $root.aboutURL, title: $root.aboutURLText }, text: $root.aboutURLText" tabindex="0" target="new"></a>' +
+						'<span data-bind="text: $root.aboutInfo2"></span></div>' +
+					'</div>';
 			}
 
 			//TODO: add this functionnality
@@ -70,7 +85,7 @@
 				$mapElem.find('.gcviz-toolsholder').append(tp.domNode);
 				tp.startup();
 			}
-			return (headerVM.initialize($header, mapid));
+			return (headerVM.initialize($header, mapid, config));
 		};
 
 		return {

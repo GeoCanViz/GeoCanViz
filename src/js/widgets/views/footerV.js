@@ -21,8 +21,8 @@
 			$footer = $mapElem.find('.gcviz-foot');
 
             // Add DIV with logo and link to GitHub
-            node += '<div><a target="_blank" data-bind="attr: { href: urlLogo }, tooltip: { content: urlLogoAlt }">';
-				node += '<img class="gcviz-foot-logo" data-bind="attr: { src: imgLogoPNG }"></img>';
+            node += '<div><a target="_blank" data-bind="attr: { href: urlLogo }, tooltip: { content: urlLogoAlt }" tabindex="-1">';
+				node += '<img class="gcviz-foot-logo" data-bind="event: { keyup: goGitHub }, attr: { src: imgLogoPNG }" tabindex="0"></img>';
             node += '</a></div>';
 
 			// set north arrow
