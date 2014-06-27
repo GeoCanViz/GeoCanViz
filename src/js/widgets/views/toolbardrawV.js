@@ -19,14 +19,15 @@
 				config = $mapElem.toolbardraw,
 				mapid = $mapElem.mapframe.id,
 				tp,
-				node = '';
+				node = '',
+				$holder = $mapElem.find('.gcviz-tbholder');
 
 			// add the url for dowload page to config
 			config.urldownload = $mapElem.mapframe.map.urldownload;
 
-			$mapElem.find('.gcviz-tbholder').append('<div class="gcviz-tbspacer"></div>');
+			$holder.append('<div class="gcviz-tbspacer"></div>');
 			tp = new dojotitle({ id: 'tbdraw' + mapid, title: '' + i18n.getDict('%toolbardraw-name') + '', content: '<div class="gcviz-tbdraw-content gcviz-tbcontent"></div>', open: config.expand });
-			$mapElem.find('.gcviz-tbholder').append(tp.domNode);
+			$holder.append(tp.domNode);
 			tp.startup();
 
 			// set focus on open
@@ -48,6 +49,7 @@
 						'<button class="gcviz-draw-red" tabindex="0" data-bind="click: function() { selectColorClick(\'red\') }, tooltip: { content: tpRed }, css: {\'gcviz-draw-pickred\': selectedColor() === \'red\' }"></button>' +
 						'<button class="gcviz-draw-yellow" tabindex="0" data-bind="click: function() { selectColorClick(\'yellow\') }, tooltip: { content: tpYellow }, css: {\'gcviz-draw-pickyellow\': selectedColor() === \'yellow\' }"></button>' +
 						'<button class="gcviz-draw-white" tabindex="0" data-bind="click: function() { selectColorClick(\'white\') }, tooltip: { content: tpWhite }, css: {\'gcviz-draw-pickwhite\': selectedColor() === \'white\' }"></button>' +
+						'<button class="gcviz-draw-arrow" tabindex="-1"></button>' +
 					'</div>';
 	
 			node += '<div class="gcviz-tbseparator"></div>';

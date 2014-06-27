@@ -24,11 +24,12 @@
 				configscaledisplay = config.scaledisplay,
 				mapid = $mapElem.mapframe.id,
 				tp,
-				node = '';
+				node = '',
+				$holder = $mapElem.find('.gcviz-tbholder');
 
-			$mapElem.find('.gcviz-tbholder').append('<div class="gcviz-tbspacer"></div>');
+			$holder.append('<div class="gcviz-tbspacer"></div>');
 			tp = new dojotitle({ id: 'tbnav' + mapid, title: 'Navigation', content: '<div class="gcviz-tbnav-content gcviz-tbcontent"></div>', open: true }); // true because of a bug, see init function in VM
-			$mapElem.find('.gcviz-tbholder').append(tp.domNode);
+			$holder.append(tp.domNode);
 			tp.startup();
 			
 			// set focus on open

@@ -20,11 +20,12 @@
 				config = $mapElem.toolbardata,
 				mapid = $mapElem.mapframe.id,
 				tp,
-				node = '';
+				node = '',
+				$holder = $mapElem.find('.gcviz-tbholder');
 
-			$mapElem.find('.gcviz-tbholder').append('<div class="gcviz-tbspacer"></div>');
+			$holder.append('<div class="gcviz-tbspacer"></div>');
 			tp = new dojotitle({ id: 'tbdata' + mapid, title: i18n.getDict('%toolbardata-name'), content: '<div class="gcviz-tbdata-content gcviz-tbcontent"></div>', open: config.expand });
-			$mapElem.find('.gcviz-tbholder').append(tp.domNode);
+			$holder.append(tp.domNode);
 			tp.startup();
 
 			// set focus on open

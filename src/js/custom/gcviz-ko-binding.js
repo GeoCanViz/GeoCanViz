@@ -130,7 +130,7 @@
 					loopChildren(viewModel, options.value, loopChildren);
 				}
 
-				dojo.addClass(widget.domNode, 'gcviz-legendSlider');
+				dojo.addClass(widget.domNode, 'gcviz-leg-slider');
 
 				widget.on('Change', function(e) {
 
@@ -176,7 +176,7 @@
                 value: options.value,
                 checked: options.value
             }).placeAt(element);
-
+			
 			widget.on('Change', function(e) {
 				bindingContext.$root.switchRadioButtonVisibility(bindingContext.$root.mymap, bindingContext.$data, e);
 			});

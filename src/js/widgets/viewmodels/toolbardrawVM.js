@@ -28,7 +28,9 @@
 					lblDist = i18n.getDict('%toolbardraw-dist'),
 					lblArea = i18n.getDict('%toolbardraw-area'),
 					mymap = gcvizFunc.getElemValueVM(mapid, ['map', 'map'], 'js'),
-					$container = $viz('#' + mapid + '_holder_container');
+					$container = $viz('#' + mapid + '_holder_container'),
+					$btnRedo = $viz('.gcviz-draw-redo'),
+					$btnUndo = $viz('.gcviz-draw-undo');
 
 				// tooltip
 				_self.tpBlack = i18n.getDict('%toolbardraw-tpcolorblack');
@@ -188,7 +190,7 @@
 					$viz('.ui-tooltip').remove();
 					
 					// workaround to unset the focus because the focus hang on the button
-					$viz('.gcviz-draw-undo').blur();
+					$btnUndo.blur();
 				};
 
 				_self.redoClick = function() {
@@ -199,7 +201,7 @@
 					$viz('.ui-tooltip').remove();
 					
 					// workaround to unset the focus because the focus hang on the button
-					$viz('.gcviz-draw-redo').blur();
+					$btnRedo.blur();
 				};
 
 				_self.measureLengthClick = function() {

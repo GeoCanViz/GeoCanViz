@@ -1,0 +1,426 @@
+/*
+ *
+ * GeoCanViz viewer / Visionneuse GéoCanViz
+ * gcviz.github.io/gcviz/License-eng.txt / gcviz.github.io/gcviz/Licence-fra.txt
+ *
+ * Version: @gcviz.version@
+ *
+ */
+div.gcviz-container img {
+  margin-left: 0px !important;
+}
+
+.row .span1, .row .span2, .row .span3, .row .span4, .row .span5, .row .span6, .row .span7, .row .span8, .row .span9, .row .span10, .row .span11, .row .span12 {
+  float: left;
+  margin-left: 2%;
+}
+.row .span1 {
+  width: 6.5%;
+}
+.row .span2 {
+  width: 15%;
+}
+.row .span2 .span1 {
+  margin-left: 13.33333%;
+  width: 43.33333%;
+}
+.row .span3 {
+  width: 23.5%;
+}
+.row .span3 .span1 {
+  margin-left: 8.51064%;
+  width: 27.65957%;
+}
+.row .span3 .span2 {
+  margin-left: 8.51064%;
+  width: 63.82979%;
+}
+.row .span4 {
+  width: 32%;
+}
+.row .span4 .span1 {
+  margin-left: 6.25%;
+  width: 20.3125%;
+}
+.row .span4 .span2 {
+  margin-left: 6.25%;
+  width: 46.875%;
+}
+.row .span4 .span3 {
+  margin-left: 6.25%;
+  width: 73.4375%;
+}
+.row .span5 {
+  width: 40.5%;
+}
+.row .span5 .span1 {
+  margin-left: 4.93827%;
+  width: 16.04938%;
+}
+.row .span5 .span2 {
+  margin-left: 4.93827%;
+  width: 37.03704%;
+}
+.row .span5 .span3 {
+  margin-left: 4.93827%;
+  width: 58.02469%;
+}
+.row .span5 .span4 {
+  margin-left: 4.93827%;
+  width: 79.01235%;
+}
+.row .span6 {
+  width: 49%;
+}
+.row .span6 .span1 {
+  margin-left: 4.08163%;
+  width: 13.26531%;
+}
+.row .span6 .span2 {
+  margin-left: 4.08163%;
+  width: 30.61224%;
+}
+.row .span6 .span3 {
+  margin-left: 4.08163%;
+  width: 47.95918%;
+}
+.row .span6 .span4 {
+  margin-left: 4.08163%;
+  width: 65.30612%;
+}
+.row .span6 .span5 {
+  margin-left: 4.08163%;
+  width: 82.65306%;
+}
+.row .span7 {
+  width: 57.5%;
+}
+.row .span7 .span1 {
+  margin-left: 3.47826%;
+  width: 11.30435%;
+}
+.row .span7 .span2 {
+  margin-left: 3.47826%;
+  width: 26.08696%;
+}
+.row .span7 .span3 {
+  margin-left: 3.47826%;
+  width: 40.86957%;
+}
+.row .span7 .span4 {
+  margin-left: 3.47826%;
+  width: 55.65217%;
+}
+.row .span7 .span5 {
+  margin-left: 3.47826%;
+  width: 70.43478%;
+}
+.row .span7 .span6 {
+  margin-left: 3.47826%;
+  width: 85.21739%;
+}
+.row .span8 {
+  width: 66%;
+}
+.row .span8 .span1 {
+  margin-left: 3.0303%;
+  width: 9.84848%;
+}
+.row .span8 .span2 {
+  margin-left: 3.0303%;
+  width: 22.72727%;
+}
+.row .span8 .span3 {
+  margin-left: 3.0303%;
+  width: 35.60606%;
+}
+.row .span8 .span4 {
+  margin-left: 3.0303%;
+  width: 48.48485%;
+}
+.row .span8 .span5 {
+  margin-left: 3.0303%;
+  width: 61.36364%;
+}
+.row .span8 .span6 {
+  margin-left: 3.0303%;
+  width: 74.24242%;
+}
+.row .span8 .span7 {
+  margin-left: 3.0303%;
+  width: 87.12121%;
+}
+.row .span9 {
+  width: 74.5%;
+}
+.row .span9 .span1 {
+  margin-left: 2.68456%;
+  width: 8.72483%;
+}
+.row .span9 .span2 {
+  margin-left: 2.68456%;
+  width: 20.13423%;
+}
+.row .span9 .span3 {
+  margin-left: 2.68456%;
+  width: 31.54362%;
+}
+.row .span9 .span4 {
+  margin-left: 2.68456%;
+  width: 42.95302%;
+}
+.row .span9 .span5 {
+  margin-left: 2.68456%;
+  width: 54.36242%;
+}
+.row .span9 .span6 {
+  margin-left: 2.68456%;
+  width: 65.77181%;
+}
+.row .span9 .span7 {
+  margin-left: 2.68456%;
+  width: 77.18121%;
+}
+.row .span9 .span8 {
+  margin-left: 2.68456%;
+  width: 88.5906%;
+}
+.row .span10 {
+  width: 83%;
+}
+.row .span10 .span1 {
+  margin-left: 2.40964%;
+  width: 7.83133%;
+}
+.row .span10 .span2 {
+  margin-left: 2.40964%;
+  width: 18.07229%;
+}
+.row .span10 .span3 {
+  margin-left: 2.40964%;
+  width: 28.31325%;
+}
+.row .span10 .span4 {
+  margin-left: 2.40964%;
+  width: 38.55422%;
+}
+.row .span10 .span5 {
+  margin-left: 2.40964%;
+  width: 48.79518%;
+}
+.row .span10 .span6 {
+  margin-left: 2.40964%;
+  width: 59.03614%;
+}
+.row .span10 .span7 {
+  margin-left: 2.40964%;
+  width: 69.27711%;
+}
+.row .span10 .span8 {
+  margin-left: 2.40964%;
+  width: 79.51807%;
+}
+.row .span10 .span9 {
+  margin-left: 2.40964%;
+  width: 89.75904%;
+}
+.row .span11 {
+  width: 91.5%;
+}
+.row .span11 .span1 {
+  margin-left: 2.18579%;
+  width: 7.10383%;
+}
+.row .span11 .span2 {
+  margin-left: 2.18579%;
+  width: 16.39344%;
+}
+.row .span11 .span3 {
+  margin-left: 2.18579%;
+  width: 25.68306%;
+}
+.row .span11 .span4 {
+  margin-left: 2.18579%;
+  width: 34.97268%;
+}
+.row .span11 .span5 {
+  margin-left: 2.18579%;
+  width: 44.2623%;
+}
+.row .span11 .span6 {
+  margin-left: 2.18579%;
+  width: 53.55191%;
+}
+.row .span11 .span7 {
+  margin-left: 2.18579%;
+  width: 62.84153%;
+}
+.row .span11 .span8 {
+  margin-left: 2.18579%;
+  width: 72.13115%;
+}
+.row .span11 .span9 {
+  margin-left: 2.18579%;
+  width: 81.42077%;
+}
+.row .span11 .span10 {
+  margin-left: 2.18579%;
+  width: 90.71038%;
+}
+.row .span12 {
+  width: 100%;
+}
+.row .span12 .span1 {
+  margin-left: 2%;
+  width: 6.5%;
+}
+.row .span12 .span2 {
+  margin-left: 2%;
+  width: 15%;
+}
+.row .span12 .span3 {
+  margin-left: 2%;
+  width: 23.5%;
+}
+.row .span12 .span4 {
+  margin-left: 2%;
+  width: 32%;
+}
+.row .span12 .span5 {
+  margin-left: 2%;
+  width: 40.5%;
+}
+.row .span12 .span6 {
+  margin-left: 2%;
+  width: 49%;
+}
+.row .span12 .span7 {
+  margin-left: 2%;
+  width: 57.5%;
+}
+.row .span12 .span8 {
+  margin-left: 2%;
+  width: 66%;
+}
+.row .span12 .span9 {
+  margin-left: 2%;
+  width: 74.5%;
+}
+.row .span12 .span10 {
+  margin-left: 2%;
+  width: 83%;
+}
+.row .span12 .span11 {
+  margin-left: 2%;
+  width: 91.5%;
+}
+.row > :first-child,
+.row .row > :first-child {
+  margin-left: 0;
+}
+
+text, .unselectable {
+  -moz-user-select: -moz-none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+svg {
+  margin-bottom: -10px;
+}
+
+.gcviz-section {
+  padding: 0.9375rem;
+  background: #FFF;
+}
+
+.gcviz {
+  position: relative;
+}
+
+.gcviz-tooltip .ui-tooltip-content {
+  font-family: Verdana, Arial, Helvetica, sans-serif !important;
+  font-weight: normal !important;
+  font-size: 11px !important;
+  font-size: 0.6875rem !important;
+  color: white;
+}
+
+.gcviz-hidden {
+  display: none !important;
+}
+
+/* hide the input type */
+input[type="file"] {
+  opacity: 0;
+  position: absolute;
+  top: -1000rem;
+  left: -1000rem;
+  margin: 0 !important;
+  height: 0rem;
+  width: 0rem;
+  padding: 0rem;
+  border-width: 0rem;
+  min-width: 0rem;
+  min-height: 0rem;
+}
+
+/* full screen */
+.gcviz-sectionfs {
+  position: fixed;
+  z-index: 1200;
+  top: 0;
+  left: 0;
+}
+
+.gcviz-float-left {
+  float: left;
+}
+
+.gcviz-inline {
+  display: inline !important;
+}
+
+.gcviz-inlineblock {
+  display: inline-block !important;
+}
+
+.gcviz-loading {
+  position: absolute;
+  right: 10%;
+  top: 45%;
+  padding: 0 !important;
+  z-index: -1;
+  width: 80%;
+  height: 1.875rem;
+}
+
+.gcviz-loadingLabel {
+  position: absolute;
+  left: 50%;
+  top: 0.4375rem;
+  font-family: Verdana, Arial, Helvetica, sans-serif !important;
+  font-weight: normal !important;
+  font-size: 12px !important;
+  font-size: 0.75rem !important;
+  color: white;
+  text-align: middle;
+}
+
+.gcviz-appText {
+  font-family: Verdana, Arial, Helvetica, sans-serif !important;
+  font-weight: normal !important;
+  font-size: 12px !important;
+  font-size: 0.75rem !important;
+  color: black;
+}
+
+.gcviz-verticalAlignTop {
+  vertical-align: top;
+}
+
+.gcviz-verticalAlignMiddle {
+  vertical-align: middle;
+}

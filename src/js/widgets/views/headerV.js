@@ -50,7 +50,7 @@
 				// dialog text to show about
 				node += '<div data-bind="uiDialog: { title: $root.lblAboutTitle, width: 350, height: 220, ok: $root.dialogAboutOk, close: $root.dialogAboutOk, openDialog: \'isAboutDialogOpen\' }">' +
 						'<span data-bind="text: $root.aboutInfo1"></span>' +
-						'<div data-bind="if: aboutType === 2"><a data-bind="attr: { href: $root.aboutURL, title: $root.aboutURLText }, text: $root.aboutURLText" tabindex="0" target="new"></a>' +
+						'<div data-bind="if: aboutType === 2"><a data-bind="attr: { href: $root.aboutURL, title: $root.aboutURLText }, text: $root.aboutURLText" tabindex="0" target="_blank"></a>' +
 						'<span data-bind="text: $root.aboutInfo2"></span></div>' +
 					'</div>';
 			}

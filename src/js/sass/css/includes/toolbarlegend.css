@@ -1,0 +1,100 @@
+.gcviz-leg-li, .gcviz-leg-liopen {
+  margin-top: 0.3125rem;
+  padding-left: 0.9375rem;
+  background-repeat: no-repeat;
+}
+
+.gcviz-leg-ul {
+  list-style-type: none;
+  margin: 0;
+  padding-left: 0;
+}
+
+.gcviz-leg-li {
+  background-image: url("images/arrowbullet.png");
+}
+
+.gcviz-leg-liopen {
+  background-image: url("images/arrowbulletopen.png");
+}
+
+.gcviz-leg-baseb {
+  border-width: 0.0625rem;
+  border-style: solid;
+  border-color: #bfbfbf;
+  border-radius: 0.3125rem;
+  margin-top: 0.625rem;
+  margin-right: 0.625rem;
+  margin-bottom: 0.625rem;
+}
+
+.gcviz-leg-baset {
+  position: relative;
+  top: -0.46875rem;
+  left: 0.9375rem;
+  background-color: #fafaf5;
+}
+
+.gcviz-legendImg {
+  margin: 0px;
+  width: 45px;
+  height: 40px;
+  padding-top: 5px;
+  padding-left: 25px;
+}
+
+.gcviz-legendHolderDiv {
+  display: inline-block;
+  padding-right: 5px;
+}
+
+.gcviz-legendHolderImgDiv {
+  display: block;
+  padding-right: 5px;
+}
+
+.gcviz-leg-check {
+  display: inline-block;
+  margin-left: 0.3125rem !important;
+}
+
+.gcviz-leg-slider {
+  display: inline-block;
+  width: 3.125rem;
+  padding-left: 0;
+}
+
+.gcviz-leg-span {
+  display: inline-block;
+  padding-left: 0;
+  white-space: nowrap;
+}
+
+.gcviz-legendSymbolDiv {
+  vertical-align: middle;
+  padding-left: 15px;
+  border: 1px;
+}
+
+.gcviz-legendSymbolUniqueValueDiv {
+  display: inline-block;
+  vertical-align: middle;
+  padding-top: 0px;
+  padding-left: 15px;
+  font-size: 8px;
+  font-weight: normal;
+}
+
+.gcviz-legendUniqueValueSpan {
+  display: inline-block;
+  font-size: 10px;
+  padding-left: 5px;
+}
+
+.gcviz-legendUnqiueFieldHolderDiv {
+  display: inline-block;
+  padding-right: 5px;
+  vertical-align: middle;
+  height: 100%;
+  text-align: left;
+}

@@ -28,6 +28,9 @@
 				// tooltips
 				_self.tpVisible = i18n.getDict('%toolbarlegend-tgvis');
 
+				// basemap group title
+				_self.baseMap = i18n.getDict('%toolbarlegend-base');
+
 				_self.init = function() {
 					_self.layersArray = ko.observableArray(config.items);
 					_self.basesArray = ko.observableArray(config.basemaps);
@@ -44,23 +47,23 @@
 					// Determine if we have a top level item
 					if (parentItem.mymap !== undefined) {
 							if (liItem.expand) {
-								return 'gcviz-legendLiLayerOpen';
+								return 'gcviz-leg-liopen';
 							} else {
-								return 'gcviz-legendLiLayer';
+								return 'gcviz-leg-li';
 							}
 					// Determine if this is the last child
 					} else if (liItem.last === true) {
 						if (liItem.displaychild.enable) {
-							return 'gcviz-legendLiLayerOpen';
+							return 'gcviz-leg-liopen';
 						} else {
-							return 'gcviz-legendLiLayer';
+							return 'gcviz-leg-li';
 						}
 					// Else, we have something in the middle
 					} else {
 						if (liItem.expand) {
-							return 'gcviz-legendLiLayerOpen';
+							return 'gcviz-leg-liopen';
 						} else {
-							return 'gcviz-legendLiLayer';
+							return 'gcviz-leg-li';
 						}
 					}
 				};
@@ -120,19 +123,23 @@
 					gisLegend.setLayerOpacity(_self.mymap, layerid, opacityValue);
 				};
 
-				_self.toggleViewService = function(selectedLayer, event) {
-					var evtTarget = $viz(event.target);
-					if (evtTarget[0].className === 'gcviz-legendLiLayer') {
-						evtTarget.removeClass('gcviz-legendLiLayer');
-						evtTarget.addClass('gcviz-legendLiLayerOpen');
-					} else {
-						evtTarget.removeClass('gcviz-legendLiLayerOpen');
-						evtTarget.addClass('gcviz-legendLiLayer');
+				_self.toggleViewService = function(displaychild, selectedLayer, event) {
+					var evtTarget = $viz(event.target),
+						className = evtTarget[0].className;
+					
+					if (displaychild) {
+						if (className === 'gcviz-leg-li') {
+							evtTarget.removeClass('gcviz-leg-li');
+							evtTarget.addClass('gcviz-leg-liopen');
+						} else if (className === 'gcviz-leg-liopen') {
+							evtTarget.removeClass('gcviz-leg-liopen');
+							evtTarget.addClass('gcviz-leg-li');
+						}
+						evtTarget.children('div#childItems.gcviz-legendHolderDiv').toggle();
+						evtTarget.children('.gcviz-legendSymbolDiv').toggle();
+						evtTarget.children('div#customImage.gcviz-legendHolderImgDiv').toggle();
+						event.stopPropagation(); // prevent toggling of inner nested lists
 					}
-					evtTarget.children('div#childItems.gcviz-legendHolderDiv').toggle();
-					evtTarget.children('.gcviz-legendSymbolDiv').toggle();
-					evtTarget.children('div#customImage.gcviz-legendHolderImgDiv').toggle();
-					event.stopPropagation(); // prevent toggling of inner nested lists
 				};
 
 				_self.init();
