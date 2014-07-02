@@ -13,10 +13,8 @@
 			'dojo/dom-construct',
 			'esri/symbols/jsonUtils',
 			'esri/renderers/jsonUtils',
-			'dojox/gfx',
-			'dojo/dom',
-			'dojo/dom-class'
-	], function($viz, Request, Renderer, domConstruct, esriJsonUtilS, esriJsonUtilR, gfx, dom, dojoClass) {
+			'dojox/gfx'
+	], function($viz, Request, Renderer, domConstruct, esriJsonUtilS, esriJsonUtilR, gfx) {
 		var setLayerVisibility,
 			setLayerOpacity,
 			getFeatureLayerSymbol,
@@ -77,7 +75,7 @@
 				aFields = field1 + (normField ? '/' + normField : '');
 				aFields += (field2 ? '/' + field2 : '') + (field3 ? '/' + field3 : '');
 				anode = '<div id="featureLayerSymbol' + layerid +
-						'" class="gcviz-legendUnqiueFieldHolderDiv row">';
+						'" class="gcviz-leg-uniqueFieldHolder">';
 				anode += aFields + '</div>';
 
 				// need a spot in div for each renderer
@@ -85,9 +83,8 @@
 				domConstruct.place(domConstruct.create('br'), symbolLocation);
 
 				$viz.each(legs, function(key, value) {
-					nodeImage = domConstruct.create('div', { 'id': 'imgSymbol', 'class': 'gcviz-legendSymbolUniqueValueDiv gcviz-inline gcviz-verticalAlignMiddle span2' });
-					nodeLabel = domConstruct.create('div', { 'class': 'gcviz-inline gcviz-verticalAlignMiddle span8' });
-					dojoClass.add(nodeLabel, 'gcviz-legendUniqueValueSpan');
+					nodeImage = domConstruct.create('div', { 'class': 'gcviz-leg-uniqueSymbolHolder' });
+					nodeLabel = domConstruct.create('div', { 'class': 'gcviz-leg-uniqueSpan' });
 					descriptors = esriJsonUtilS.getShapeDescriptors(value.symbol);
 					mySurface = createSVGSurface(value, nodeImage);
 					shape = mySurface.createShape(descriptors.defaultShape);

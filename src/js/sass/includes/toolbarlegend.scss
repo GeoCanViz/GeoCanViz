@@ -6,6 +6,11 @@
   background-repeat: no-repeat;
 }
 
+%imgsize {
+	height: (1.6 * $rembase) + rem;
+	width: (1.6 * $rembase) + rem;
+}
+
 // ul and li
 .gcviz-leg-ul {
 	list-style-type: none;
@@ -15,14 +20,21 @@
 
 .gcviz-leg-li {
 	@extend %listate;
-  background-image: url("images/arrowbullet.png");
-  //width: 1000px;
+  width: 1000px;
 }
 
-.gcviz-leg-liopen {
-	@extend %listate;
+.gcviz-leg-imgli {
+	background-image: url("images/arrowbullet.png");
+	@extend %imgsize;
+}
+
+.gcviz-leg-imgliopen {
   background-image: url("images/arrowbulletopen.png");
-  //width: 1000px;
+  @extend %imgsize;
+}
+
+.gcviz-leg-imgholder {
+  @extend %imgsize;
 }
 
 // base maps group
@@ -83,8 +95,8 @@
 	border: 1px;
 }
 
-.gcviz-legendSymbolUniqueValueDiv {
-	display: inline-block;
+.gcviz-leg-uniqueSymbolHolder {
+	display: inline;
 	vertical-align: middle;
 	padding-top: 0px;
 	padding-left: 15px;
@@ -92,17 +104,18 @@
 	font-weight: normal;
 }
 
-.gcviz-legendUniqueValueSpan {
-	display: inline-block;
+.gcviz-leg-uniqueSpan {
+	display: inline;
 	font-size: 10px;
 	padding-left: 5px;
+	white-space: nowrap;
 }
 
-.gcviz-legendUnqiueFieldHolderDiv {
+.gcviz-leg-uniqueFieldHolder {
 	display: inline-block;
 	padding-right: 5px;
 	vertical-align: middle;
 	height: 100%;
   text-align: left;
- //width: 1000px;
+	width: 1000px;
 }

@@ -47,23 +47,23 @@
 					// Determine if we have a top level item
 					if (parentItem.mymap !== undefined) {
 							if (liItem.expand) {
-								return 'gcviz-leg-liopen';
+								return 'gcviz-leg-imgliopen';
 							} else {
-								return 'gcviz-leg-li';
+								return 'gcviz-leg-imgli';
 							}
 					// Determine if this is the last child
 					} else if (liItem.last === true) {
 						if (liItem.displaychild.enable) {
-							return 'gcviz-leg-liopen';
+							return 'gcviz-leg-imgliopen';
 						} else {
-							return 'gcviz-leg-li';
+							return 'gcviz-leg-imgli';
 						}
 					// Else, we have something in the middle
 					} else {
 						if (liItem.expand) {
-							return 'gcviz-leg-liopen';
+							return 'gcviz-leg-imgliopen';
 						} else {
-							return 'gcviz-leg-li';
+							return 'gcviz-leg-imgli';
 						}
 					}
 				};
@@ -124,22 +124,31 @@
 				};
 
 				_self.toggleViewService = function(displaychild, selectedLayer, event) {
-					var evtTarget = $viz(event.target),
+					var keyCode = 32,
+						evtTarget = $viz(event.target),
+						evtTargetLi = evtTarget.parent().parent(),
 						className = evtTarget[0].className;
-					
-					if (displaychild) {
-						if (className === 'gcviz-leg-li') {
-							evtTarget.removeClass('gcviz-leg-li');
-							evtTarget.addClass('gcviz-leg-liopen');
-						} else if (className === 'gcviz-leg-liopen') {
-							evtTarget.removeClass('gcviz-leg-liopen');
-							evtTarget.addClass('gcviz-leg-li');
-						}
-						evtTarget.children('div#childItems.gcviz-legendHolderDiv').toggle();
-						evtTarget.children('.gcviz-legendSymbolDiv').toggle();
-						evtTarget.children('div#customImage.gcviz-legendHolderImgDiv').toggle();
-						event.stopPropagation(); // prevent toggling of inner nested lists
+
+					// set keycode because it is different in FireFox
+					if (window.browser === 'Firefox') {
+						keyCode = 0;
 					}
+
+					if (event.type !== 'keypress' || (event.type === 'keypress' && event.keyCode === keyCode)) {
+						if (displaychild) {
+							if (className === 'gcviz-leg-imgli') {
+								evtTarget.removeClass('gcviz-leg-imgli');
+								evtTarget.addClass('gcviz-leg-imgliopen');
+							} else if (className === 'gcviz-leg-imgliopen') {
+								evtTarget.removeClass('gcviz-leg-imgliopen');
+								evtTarget.addClass('gcviz-leg-imgli');
+							}
+							evtTargetLi.children('div#childItems.gcviz-legendHolderDiv').toggle();
+							evtTargetLi.children('.gcviz-legendSymbolDiv').toggle();
+							evtTargetLi.children('div#customImage.gcviz-legendHolderImgDiv').toggle();
+							event.stopPropagation(); // prevent toggling of inner nested lists
+						}
+					}	
 				};
 
 				_self.init();

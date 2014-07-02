@@ -29,8 +29,11 @@
 					lblArea = i18n.getDict('%toolbardraw-area'),
 					mymap = gcvizFunc.getElemValueVM(mapid, ['map', 'map'], 'js'),
 					$container = $viz('#' + mapid + '_holder_container'),
-					$btnRedo = $viz('.gcviz-draw-redo'),
-					$btnUndo = $viz('.gcviz-draw-undo');
+					$btnDraw = $mapElem.find('.gcviz-draw-line'),
+					$btnText = $mapElem.find('.gcviz-draw-text'),
+					$btnLength = $mapElem.find('.gcviz-draw-length'),
+					$btnArea = $mapElem.find('.gcviz-draw-area'),
+					$btnDelsel = $mapElem.find('.gcviz-draw-delsel');
 
 				// tooltip
 				_self.tpBlack = i18n.getDict('%toolbardraw-tpcolorblack');
@@ -73,6 +76,9 @@
 				_self.measureHolder = ko.observableArray([]);
 				_self.measureType = '';
 
+				// set active tool
+				_self.activeTool = '';
+
 				_self.init = function() {
 
 					// set event for the toolbar
@@ -105,6 +111,9 @@
 
 					_self.graphic.deactivate();
 					_self.measureType = '';
+
+					// set the focus back to the right tool
+					_self.setFocus();
 				};
 
 				// add text dialog buttons functions (ok and cancel)
@@ -128,7 +137,7 @@
 					_self.isTextDialogOpen(false);
 					_self.isText(false);
 					_self.endDraw();
-					_self.openTools();
+					_self.openTools('text');
 				};
 
 				_self.dialogTextClose = function() {
@@ -136,7 +145,7 @@
 					if (_self.isTextDialogOpen()) {
 						// open menu and reset cursor
 						_self.endDraw();
-						_self.openTools();
+						_self.openTools('text');
 
 						_self.isTextDialogOpen(false);
 						_self.isText(false);
@@ -148,7 +157,7 @@
 				};
 
 				_self.drawClick = function() {
-					_self.openTools();
+					_self.openTools('draw');
 
 					// set cursor to selected colour (remove default cursor first)
 					$container.css('cursor', '');
@@ -157,7 +166,7 @@
 				};
 
 				_self.textClick = function() {
-					_self.openTools();
+					_self.openTools('text');
 
 					// set cursor (remove default cursor first and all other cursors)
 					$container.css('cursor', '');
@@ -174,7 +183,7 @@
 				};
 
 				_self.eraseSelClick = function() {
-					_self.openTools();
+					_self.openTools('erase');
 
 					// set cursor (remove default cursor first and all other cursors)
 					$container.css('cursor', '');
@@ -188,9 +197,6 @@
 					// workaround to remove tooltip on undo. The tooltip appears
 					// even if the button is disable
 					$viz('.ui-tooltip').remove();
-					
-					// workaround to unset the focus because the focus hang on the button
-					$btnUndo.blur();
 				};
 
 				_self.redoClick = function() {
@@ -199,14 +205,11 @@
 					// workaround to remove tooltip on undo. The tooltip appears
 					// even if the button is disable
 					$viz('.ui-tooltip').remove();
-					
-					// workaround to unset the focus because the focus hang on the button
-					$btnRedo.blur();
 				};
 
 				_self.measureLengthClick = function() {
 					globalKey = gcvizFunc.getUUID();
-					_self.openTools();
+					_self.openTools('length');
 					_self.measureType = 'length';
 
 					// set cursor (remove default cursor first and all other cursors)
@@ -246,7 +249,7 @@
 
 				_self.measureAreaClick = function() {
 					globalKey = gcvizFunc.getUUID();
-					_self.openTools();
+					_self.openTools('area');
 					_self.measureType = 'area';
 
 					// set cursor (remove default cursor first and all other cursors)
@@ -327,8 +330,9 @@
 					});
 				};
 
-				_self.openTools = function() {
+				_self.openTools = function(tool) {
 					gcvizFunc.getElemValueVM(mapid, ['header', 'toolsClick'], 'js')();
+					_self.activeTool = tool;
 				};
 
 				_self.removeCursors = function() {
@@ -353,6 +357,23 @@
 					} else if (colour === 'white') {
 						$container.addClass('gcviz-draw-cursor-white');
 					}
+				};
+
+				_self.setFocus = function() {
+					setTimeout(function() {
+						if (_self.activeTool === 'draw') {
+							$btnDraw.focus();
+						} else if (_self.activeTool === 'text') {
+							$btnText.focus();
+						} else if (_self.activeTool === 'length') {
+							$btnLength.focus();
+						} else if (_self.activeTool === 'area') {
+							$btnArea.focus();
+						} else if (_self.activeTool === 'erase') {
+							$btnDelsel.focus();
+						}
+						_self.activeTool = '';
+					}, 500);
 				};
 
 				_self.init();

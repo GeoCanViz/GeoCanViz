@@ -54,7 +54,7 @@ var locationPath;
 
 			// set local for magnificpopup plugin
 			setLocalMP();
-			
+
 			// set scrollTo function
 			setScrollTo();
 
@@ -156,7 +156,7 @@ var locationPath;
 				$viz.event.trigger('gcviz-ready');
 
 				// set the resize event
-				window.onresize = gcvizFunc.debounce(function (evt) {
+				window.onresize = gcvizFunc.debounce(function () {
 
 				}, 500, false);
 			}
@@ -198,7 +198,7 @@ var locationPath;
 				}
 			});
 		};
-		
+
 		// add scrollTo function to $viz to be able to scroll to open panel
 		// http://lions-mark.com/jquery/scrollTo/
 		setScrollTo = function() {
@@ -219,9 +219,9 @@ var locationPath;
 				return this.each(function() {
 					var scrollPane = $(this),
 						scrollTarget = (typeof settings.scrollTarget === 'number') ? settings.scrollTarget : $(settings.scrollTarget),
-						scrollY = (typeof scrollTarget === 'number') ? scrollTarget : (scrollTarget.offset().top - scrollPane.offset().top) + scrollPane.scrollTop() - parseInt(settings.offsetTop);
-	
-					scrollPane.animate({ scrollTop : scrollY }, parseInt(settings.duration), settings.easing, function() {
+						scrollY = (typeof scrollTarget === 'number') ? scrollTarget : (scrollTarget.offset().top - scrollPane.offset().top) + scrollPane.scrollTop() - parseInt(settings.offsetTop, 10);
+
+					scrollPane.animate({ scrollTop : scrollY }, parseInt(settings.duration, 10), settings.easing, function() {
 						if (typeof callback === 'function') {
 							callback.call(this);
 						}

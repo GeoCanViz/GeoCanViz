@@ -178,7 +178,7 @@
 			metric = context.measureText(text);
 			return metric.width;
 		};
-		
+
 		return {
 			debounce: debounce,
 			debounceClick: debounceClick,

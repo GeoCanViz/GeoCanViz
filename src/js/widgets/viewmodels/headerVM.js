@@ -32,6 +32,9 @@
 					$mapholder = $viz('#' + mapid),
 					$map = $viz('#' + mapid + '_holder'),
 					$maproot = $viz('#' + mapid + '_holder_root'),
+					$btnHelp = $mapElem.find('.gcviz-head-help'),
+					$btnAbout = $mapElem.find('.gcviz-head-about'),
+					$btnFull = $mapElem.find('.gcviz-head-fs'),
 					map = gcvizFunc.getElemValueVM(mapid, ['map', 'map'], 'js');
 
 				// tools panel settings
@@ -46,7 +49,7 @@
 				_self.tpInset = i18n.getDict('%header-tpinset');
                 _self.tpAbout = i18n.getDict('%header-tpabout');
 				_self.tpFullScreen = i18n.getDict('%header-tpfullscreen');
-				
+
 				// help dialog box
 				_self.lblHelpTitle = i18n.getDict('%header-help');
 				_self.helpInfo1 = i18n.getDict('%header-helpdownload');
@@ -54,12 +57,12 @@
 				_self.helpURL = i18n.getDict('%header-urlhelp');
 				_self.helpURLText = i18n.getDict('%header-helpmanual');
 				_self.isHelpDialogOpen = ko.observable(false);
-				
+
 				// about dialog box
 				_self.lblAboutTitle = i18n.getDict('%header-tpabout');
 				_self.isAboutDialogOpen = ko.observable(false);
 				_self.aboutType = configAbout.type;
-				
+
 				if (_self.aboutType === 1) {
 					_self.aboutInfo1 = configAbout.value;
 				} else if (_self.aboutType === 2) {
@@ -94,7 +97,7 @@
 					// Set the toolbar container height
                     setTimeout(function() {
 						_self.adjustContainerHeight();
-					}, 2000);
+					}, 500);
 
 					return { controlsDescendantBindings: true };
 				};
@@ -104,6 +107,7 @@
 					gcvizFunc.debounceClick(function() {
 						if (_self.fullscreenState) {
 							_self.cancelFullScreen();
+
 						} else {
 							_self.requestFullScreen();
 						}
@@ -156,14 +160,16 @@
 
 				_self.dialogHelpOk = function() {
 					_self.isHelpDialogOpen(false);
+					$btnHelp.focus();
 				};
-				
+
                 _self.aboutClick = function() {
                     _self.isAboutDialogOpen(true);
                 };
-                
+
                 _self.dialogAboutOk = function() {
 					_self.isAboutDialogOpen(false);
+					$btnAbout.focus();
 				};
 
 				_self.cancelFullScreen = function() {
@@ -184,7 +190,10 @@
 					// Set the toolbar container height
                     setTimeout(function() {
 						_self.adjustContainerHeight();
-					}, 2000);
+					}, 500);
+
+					// set focus
+					$btnFull.focus();
 
 					// remove the event that keeps tab in map section
 					$section.off('keydown.fs');
@@ -198,10 +207,10 @@
 						array = $section.find('[tabindex = 0]');
 
 					// set style for the map
-					gcvizFunc.setStyle($section[0], {'width': screen.width + 'px', 'height': screen.height + 'px'});
-					gcvizFunc.setStyle($mapholder[0], {'width': w + 'px', 'height': h + 'px'});
-					gcvizFunc.setStyle($map[0], {'width': w + 'px', 'height': (h - (2 * _self.headerHeight)) + 'px'});
-					gcvizFunc.setStyle($maproot[0], {'width': w + 'px', 'height': (h - (2 * _self.headerHeight)) + 'px'});
+					gcvizFunc.setStyle($section[0], { 'width': screen.width + 'px', 'height': screen.height + 'px' });
+					gcvizFunc.setStyle($mapholder[0], { 'width': w + 'px', 'height': h + 'px' });
+					gcvizFunc.setStyle($map[0], { 'width': w + 'px', 'height': (h - (2 * _self.headerHeight)) + 'px' });
+					gcvizFunc.setStyle($maproot[0], { 'width': w + 'px', 'height': (h - (2 * _self.headerHeight)) + 'px' });
 					$section.addClass('gcviz-sectionfs');
 
 					// trigger the fullscreen custom binding and set state
@@ -214,7 +223,11 @@
 					// Set the toolbar container height
                     setTimeout(function() {
 						_self.adjustContainerHeight();
-					}, 2000);
+
+						// set focus (cant cache because the class doesn't exist at init)
+						// put in a timeout because FireFox wont focus if not.
+						$mapElem.find('.gcviz-head-reg').focus();
+					}, 500);
 
 					// create keydown event to keep tab in the map section
 					_self.first = array[0];
@@ -235,17 +248,19 @@
 				_self.manageTabbingOrder = function(evt) {
 					var key = evt.which,
 						shift = evt.shiftKey,
-						node = evt.target,
+						node = evt.target.className,
+						firstClass = _self.first.className,
+						lastClass = _self.last.className,
 						firstItem = _self.first,
 						lastItem = _self.last;
 
 					if (key === 9 && !shift) {
-						if (node === lastItem) {
+						if (node === lastClass) {
 							// workaround to avoid focus shifting to the next element
 							setTimeout(function() { firstItem.focus(); }, 0);
 						}
 					} else if (key === 9 && shift) {
-						if (node === firstItem) {
+						if (node === firstClass) {
 							// workaround to avoid focus shifting to the previous element
 							setTimeout(function() { lastItem.focus(); }, 0);
 						}

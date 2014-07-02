@@ -15,6 +15,7 @@
 			'dijit/form/RadioButton',
 			'jqueryui'
 	], function($viz, ko, gcvizFunc, slider, radio) {
+	var btnArray = [];
 
     ko.bindingHandlers.tooltip = {
 		init: function(element, valueAccessor) {
@@ -91,6 +92,23 @@
 					return false;
 				}
 				return true;
+			});
+		}
+	};
+
+	ko.bindingHandlers.buttonBlur = {
+		init: function(element) {
+			// add the element to the array to have an array of all problematic buttons
+			btnArray.push(element);
+
+			ko.utils.registerEventHandler(element, 'mouseover', function() {
+				// loop trought buttons to blur them when we mouse over another button.
+				// This is a workaround for button that keep focus once push. Even if
+				// use mouve over on another button the button doesn't loose focus.
+				var len = btnArray.length;
+				while (len--) {
+					$viz(btnArray[len]).blur();
+				}
 			});
 		}
 	};
@@ -176,7 +194,7 @@
                 value: options.value,
                 checked: options.value
             }).placeAt(element);
-			
+
 			widget.on('Change', function(e) {
 				bindingContext.$root.switchRadioButtonVisibility(bindingContext.$root.mymap, bindingContext.$data, e);
 			});

@@ -131,10 +131,14 @@
 							prevent = true;
 						// open tools if esc is press
 						} else if (key === 27) {
-							gcvizFunc.getElemValueVM(mapid, ['draw', 'endDraw'], 'js')();
-							
-							if (!gcvizFunc.getElemValueVM(mapid, ['draw', 'isText'], 'ko')) {
-								gcvizFunc.getElemValueVM(mapid, ['header', 'toolsClick'], 'js')();
+
+							// check if draw is active. If so apply event
+							if (gcvizFunc.getElemValueVM(mapid, ['draw', 'activeTool'], 'js') !== '') {
+								gcvizFunc.getElemValueVM(mapid, ['draw', 'endDraw'], 'js')();
+
+								if (!gcvizFunc.getElemValueVM(mapid, ['draw', 'isText'], 'ko')) {
+									gcvizFunc.getElemValueVM(mapid, ['header', 'toolsClick'], 'js')();
+								}
 							}
 						}
 					}
