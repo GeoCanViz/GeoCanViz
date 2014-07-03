@@ -42,23 +42,16 @@
 					return { controlsDescendantBindings: true };
 				};
 
-				// determine which CSS class to use on an item
+				// determine which CSS class to use on an item on load
 				_self.determineCSS = function(parentItem, liItem) {
-					// Determine if we have a top level item
-					if (parentItem.mymap !== undefined) {
-							if (liItem.expand) {
-								return 'gcviz-leg-imgliopen';
-							} else {
-								return 'gcviz-leg-imgli';
-							}
 					// Determine if this is the last child
-					} else if (liItem.last === true) {
-						if (liItem.displaychild.enable) {
+					if (liItem.last === true) {
+						if ((liItem.displaychild.enable || liItem.customimage.enable) && liItem.expand) {
 							return 'gcviz-leg-imgliopen';
 						} else {
 							return 'gcviz-leg-imgli';
 						}
-					// Else, we have something in the middle
+					// else, we have something in the middle or at the top
 					} else {
 						if (liItem.expand) {
 							return 'gcviz-leg-imgliopen';
@@ -78,8 +71,15 @@
 				};
 
 				_self.createSymbol = function(data, node) {
-					if (data.displaychild.enable && typeof data.displaychild.symbol !== 'undefined') {
-						gisLegend.getFeatureLayerSymbol(data.displaychild.symbol, node, data.graphid);
+					var child = data.displaychild;
+
+					if (child.enable && typeof child.symbol !== 'undefined') {
+						gisLegend.getFeatureLayerSymbol(child.symbol, node, data.graphid);
+					}
+
+					// to close the symbol if not expanded
+					if (!data.expand) {
+						$viz(node).toggle();
 					}
 				};
 
@@ -123,32 +123,26 @@
 					gisLegend.setLayerOpacity(_self.mymap, layerid, opacityValue);
 				};
 
-				_self.toggleViewService = function(displaychild, selectedLayer, event) {
+				_self.toggleViewService = function(selectedLayer, event) {
 					var keyCode = 32,
 						evtTarget = $viz(event.target),
 						evtTargetLi = evtTarget.parent().parent(),
 						className = evtTarget[0].className;
 
-					// set keycode because it is different in FireFox
-					if (window.browser === 'Firefox') {
-						keyCode = 0;
-					}
-
-					if (event.type !== 'keypress' || (event.type === 'keypress' && event.keyCode === keyCode)) {
-						if (displaychild) {
-							if (className === 'gcviz-leg-imgli') {
-								evtTarget.removeClass('gcviz-leg-imgli');
-								evtTarget.addClass('gcviz-leg-imgliopen');
-							} else if (className === 'gcviz-leg-imgliopen') {
-								evtTarget.removeClass('gcviz-leg-imgliopen');
-								evtTarget.addClass('gcviz-leg-imgli');
-							}
-							evtTargetLi.children('div#childItems.gcviz-legendHolderDiv').toggle();
-							evtTargetLi.children('.gcviz-legendSymbolDiv').toggle();
-							evtTargetLi.children('div#customImage.gcviz-legendHolderImgDiv').toggle();
-							event.stopPropagation(); // prevent toggling of inner nested lists
+					// we use keyup instead of keypress because FireFox wont work with keypress
+					if (event.type !== 'keyup' || (event.type === 'keyup' && event.keyCode === keyCode)) {
+						if (className === 'gcviz-leg-imgli') {
+							evtTarget.removeClass('gcviz-leg-imgli');
+							evtTarget.addClass('gcviz-leg-imgliopen');
+						} else if (className === 'gcviz-leg-imgliopen') {
+							evtTarget.removeClass('gcviz-leg-imgliopen');
+							evtTarget.addClass('gcviz-leg-imgli');
 						}
-					}	
+						evtTargetLi.children('div#childItems.gcviz-legendHolderDiv').toggle();
+						evtTargetLi.children('.gcviz-legendSymbolDiv').toggle();
+						evtTargetLi.children('div#customImage.gcviz-legendHolderImgDiv').toggle();
+						event.stopPropagation(); // prevent toggling of inner nested lists
+					}
 				};
 
 				_self.init();

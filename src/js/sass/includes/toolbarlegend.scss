@@ -8,19 +8,19 @@
 
 %imgsize {
 	height: (1.6 * $rembase) + rem;
-	width: (1.6 * $rembase) + rem;
+	width: (1.4 * $rembase) + rem;
 }
 
 // ul and li
 .gcviz-leg-ul {
 	list-style-type: none;
-	margin: 0;
-  padding-left: 0;
+	margin: 0rem;
+  padding-left: 0rem;
 }
 
 .gcviz-leg-li {
 	@extend %listate;
-  width: 1000px;
+  width: (100 * $rembase) + rem;
 }
 
 .gcviz-leg-imgli {
@@ -44,6 +44,7 @@
   margin-top: (1 * $rembase) + rem;
   margin-right: (1 * $rembase) + rem;
   margin-bottom: (1 * $rembase) + rem;
+  padding-bottom: (1 * $rembase) + rem;
 }
 
 .gcviz-leg-baset {
@@ -55,9 +56,8 @@
 
 // item
 .gcviz-legendImg {
-	margin: 0px;
-	width: 45px;
-	height: 40px;
+	@extend %imgsize;
+	margin: 0rem;
 	padding-top: 5px;
 	padding-left: 25px;
 }  
@@ -80,33 +80,30 @@
 .gcviz-leg-slider {
 	display: inline-block;
 	width: (5 * $rembase) + rem;
-	padding-left: 0;
+	padding-left: 0rem;
 }
 
 .gcviz-leg-span {
 	display: inline-block;
-	padding-left: 0;
+	padding-left: 0rem;
 	white-space: nowrap;
 }
 
 .gcviz-legendSymbolDiv {
 	vertical-align: middle;
 	padding-left: 15px;
-	border: 1px;
+	border: 10px;
 }
 
 .gcviz-leg-uniqueSymbolHolder {
 	display: inline;
 	vertical-align: middle;
-	padding-top: 0px;
+	padding-top: 0rem;
 	padding-left: 15px;
-	font-size: 8px;
-	font-weight: normal;
 }
 
 .gcviz-leg-uniqueSpan {
 	display: inline;
-	font-size: 10px;
 	padding-left: 5px;
 	white-space: nowrap;
 }
@@ -115,7 +112,6 @@
 	display: inline-block;
 	padding-right: 5px;
 	vertical-align: middle;
-	height: 100%;
   text-align: left;
-	width: 1000px;
+	width: (100 * $rembase) + rem;
 }

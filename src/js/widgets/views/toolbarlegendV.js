@@ -38,8 +38,8 @@
 
 			//template for recursive item loading
 			itemsTemplate = '<script id="itemsTmpl" type="text/html">';
-					itemsTemplate += '<li class="gcviz-leg-li" data-bind="legendItemList: { expanded: expand }">';
-					itemsTemplate += '<div class="gcviz-legendHolderDiv gcviz-leg-imgholder" data-bind="if: displaychild.enable"><div tabindex="0" data-bind="event: { keypress: function(data, event) { $root.toggleViewService(displaychild.enable, data, event) } }, click: function(data, event) { $root.toggleViewService(displaychild.enable, data, event) }, css: $root.determineCSS($parent, $data)"></div></div>';
+					itemsTemplate += '<li class="gcviz-leg-li" data-bind="legendItemList: { expanded: expand }, attr { \'id\': id }">';
+					itemsTemplate += '<div class="gcviz-legendHolderDiv gcviz-leg-imgholder" data-bind="if: displaychild.enable || customimage.enable"><div tabindex="0" data-bind="event: { keyup: function(data, event) { $root.toggleViewService(data, event) } }, click: function(data, event) { $root.toggleViewService(data, event) }, css: $root.determineCSS($parent, $data)"></div></div>';
 					itemsTemplate += '<div class="gcviz-legendHolderDiv" data-bind="if: visibility.enable && visibility.type === 1"><input class="gcviz-leg-check" type="checkbox" data-bind="event: { click: $root.changeItemsVisibility }, clickBubble: false, attr: { title: $root.tpVisible, id: \'checkbox\' + id }, checked: visibility.initstate"/></div>';
 					itemsTemplate += '<div class="gcviz-legendHolderDiv" data-bind="if: visibility.enable && visibility.type === 2"><div data-bind="LegendRadioButtons: { value: visibility.initstate, group: \'radio\' + visibility.radioid }"></div></div>';
 					itemsTemplate += '<div class="gcviz-legendHolderDiv" data-bind="HorizontalSliderDijit: { widget: $root.HorizontalSlider, extent: [opacity.min, opacity.max], value: opacity.initstate, enable: opacity.enable}, if: opacity.enable"></div>';
