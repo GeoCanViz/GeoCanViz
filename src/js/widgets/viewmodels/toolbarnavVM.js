@@ -28,7 +28,7 @@
 					overview = config.overview,
 					scalebar = config.scalebar,
 					scaledisplay = config.scaledisplay,
-                    clickPosition, escPosition,
+                    clickPosition,
                     inMapField = $viz('#inGeoLocation' + mapid),
                     infoWindow = $viz('#divGetLocResults' + mapid),
                     btnClickMap = $viz('#btnClickMap' + mapid),
@@ -119,7 +119,7 @@
 							dijit.byId('tbnav' + mapid).toggle();
 						}
 						dijit.byId('tbTools' + mapid).toggle();
-					}, 100);
+					}, 250);
 
 					return { controlsDescendantBindings: true };
 				};
@@ -217,21 +217,6 @@
                     $container.css('cursor', '');
                     $container.addClass('gcviz-nav-cursor-pos');
 
-					escPosition = mymap.on('key-down', function(keyargs) {
-						// Capture an escape while on the map
-						if (keyargs.keyCode === 27) {
-							mymap.setMapCursor('default');
-
-							// Open the toolbars
-							gcvizFunc.getElemValueVM(mymap.vIdName, ['header', 'toolsClick'], 'js')();
-							btnClickMap.focus();
-
-							// remove click and esc event
-							clickPosition.remove();
-							escPosition.remove();
-						}
-					});
-
                     // Get user to click on map and capture event
                     clickPosition = mymap.on('click', function(event) {
 						gisgeo.projectPoints([event.mapPoint], 4326, _self.displayInfo);
@@ -250,7 +235,6 @@
 
 					// remove click and esc event
                     clickPosition.remove();
-                    escPosition.remove();
 
                     // Define the results dialog
                     infoWindow.dialog({
@@ -272,7 +256,7 @@
 									gcvizFunc.getElemValueVM(mymap.vIdName, ['header', 'toolsClick'], 'js')();
 									setTimeout(function() {
 										btnClickMap.focus();
-									}, 1000);
+									}, 500);
                                 },
                         buttons: [
                             {
@@ -298,13 +282,13 @@
                     _self.infoLatDMS(' ' + DMS.latitude.format);
                     _self.infoLongDMS(' ' + DMS.longitude.format);
 
-                    // Get the NTS location using a deferred objec and listen for completion
+                    // Get the NTS location using a deferred object and listen for completion
                     gisnav.getNTS(lati, longi, _self.urlNTS)
                         .done(function(data) {
                             _self.spnNTS(data.nts);
 					});
 
-                    // Get the UTM zone information using a deferred objec and listen for completion
+                    // Get the UTM zone information using a deferred object and listen for completion
                     gisnav.getUTMzone(lati, longi, _self.urlUTM)
                         .done(function(data) {
                             utmZone = data.zone;

@@ -4,6 +4,19 @@
 	background-color: rgba(100,100,100, 0.6);
 }
 
+%tbcontent {
+	padding-left: (1 * $rembase) + rem;
+	padding-bottom: (1 * $rembase) + rem;
+	margin-top: 0rem!important;
+	z-index: 101;
+	background-color: $lightyellow;
+	overflow-x:	auto;
+
+	.dijitTitlePane {
+		margin: (0.5 * $rembase) + rem;
+	}
+}
+
 .gcviz-tbcontainer {
   @include app-text();
   @include unselectable;
@@ -19,26 +32,17 @@
   @extend %transparency;
 }
 
-.gcviz-tbcontent-nobkg {
-  background-image: none!important;
-  margin-top: 0px!important;
-}
-
 .gcviz-tbholder {
   overflow-y: scroll;
   @include unselectable;
 
   .gcviz-tbcontent {
-    padding-left: (1 * $rembase) + rem;
-    padding-bottom: (1 * $rembase) + rem;
-    margin-top: 0rem!important;
-    z-index: 101;
-    background-color: $lightyellow;
-		overflow-x:	auto;
-
-    .dijitTitlePane {
-      margin: (0.5 * $rembase) + rem;
-    }
+		@extend %tbcontent;
+  }
+  
+  .gcviz-tbcontent-leg {
+    @extend %tbcontent;
+		max-height: (20 * $rembase) + rem;
   }
 }
 
@@ -51,8 +55,8 @@
 	display: inline-block;
 	@include app-border(0.1, solid, $palegrey);
 	height: (2 * $rembase) + rem;
-	margin-right: (1 * $rembase) + rem;
-	margin-left: (1 * $rembase) + rem;
+	margin-right: (0.75 * $rembase) + rem;
+	margin-left: (0.75 * $rembase) + rem;
 }
 
 // for FireFox

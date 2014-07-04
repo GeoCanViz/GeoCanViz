@@ -449,11 +449,11 @@
 					var symbol, graphic,
 						pt = array[1],
 						distance = pt.distance;
-					
+
 					if (distance > 0) {
 						graphic = new esriGraph(pt, symbol);
 						graphic.symbol = getSymbText(black, pt.distance + ' ' + unit, 10, 0, 0, 10, 'normal', 'center');
-						
+
 						// add background then text
 						addBackgroundText(graphic, white, 'center', 14, 0, -2, 9, mymap.graphics);
 						mymap.graphics.add(graphic);

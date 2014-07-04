@@ -24,15 +24,16 @@
 				configscaledisplay = config.scaledisplay,
 				mapid = $mapElem.mapframe.id,
 				tp,
-				node = '';
+				node = '',
+				$holder = $mapElem.find('.gcviz-tbholder');
 
-			$mapElem.find('.gcviz-tbholder').append('<div class="gcviz-tbspacer"></div>');
+			$holder.append('<div class="gcviz-tbspacer"></div>');
 			tp = new dojotitle({ id: 'tbnav' + mapid, title: 'Navigation', content: '<div class="gcviz-tbnav-content gcviz-tbcontent"></div>', open: true }); // true because of a bug, see init function in VM
-			$mapElem.find('.gcviz-tbholder').append(tp.domNode);
+			$holder.append(tp.domNode);
 			tp.startup();
-			
+
 			// set focus on open
-			tp.on('click', function() { 
+			tp.on('click', function() {
 				$viz('.gcviz-tbholder').scrollTo($viz('.gcviz-tbnav-content'));
 			});
 
@@ -43,7 +44,7 @@
 			node += '<div class="row gcviz-nav-zoom">';
 			// set full extent button
 			if (config.zoom) {
-				node += '<div class="span2"><button class="gcviz-nav-max" tabindex="0" data-bind="click: extentClick, tooltip: { content: tpZoomFull }"></button></div>';
+				node += '<div class="span2"><button class="gcviz-nav-max" tabindex="0" data-bind="buttonBlur, click: extentClick, tooltip: { content: tpZoomFull }"></button></div>';
 			}
 
 			// set geolocation
@@ -57,7 +58,7 @@
 			// set position information
 			if (configposition.enable) {
 				node += '<div class="row gcviz-nav-tools"><div class="span1">';
-				node += '<button id="btnClickMap' + mapid + '" class="gcviz-nav-pos" tabindex="0" data-bind="click: getMapClick, tooltip: { content: tpGetLocInfo }"></button>';
+				node += '<button id="btnClickMap' + mapid + '" class="gcviz-nav-pos" tabindex="0" data-bind="buttonBlur, click: getMapClick, tooltip: { content: tpGetLocInfo }"></button>';
 				node += '</div></div>';
 			}
 

@@ -1,5 +1,9 @@
 @import "gcviz-mixin";
 
+@mixin activeColor($x) {
+  background: url($img-spritebtn) $x + px -85 + px no-repeat;
+}
+
 .gcviz-draw-row1 {
 	display: table;
 }
@@ -12,67 +16,73 @@
 
 // buttons
 .gcviz-draw-black {
-	@include sprite($img-spritebtn, -541, -2, 2);
+	@include sprite($img-spritebtn, -289, -14, 2);
 }
 
 .gcviz-draw-blue {
-	@include sprite($img-spritebtn, -577, -2, 2);
+	@include sprite($img-spritebtn, -325, -14, 2);
 }
 
 .gcviz-draw-red {
-	@include sprite($img-spritebtn, -649, -2, 2);
+	@include sprite($img-spritebtn, -398, -14, 2);
 }
 
 .gcviz-draw-green {
-	@include sprite($img-spritebtn, -613, -2, 2);
+	@include sprite($img-spritebtn, -362, -14, 2);
 }
 
 .gcviz-draw-yellow {
-	@include sprite($img-spritebtn, -685, -2, 2);
+	@include sprite($img-spritebtn, -433, -14, 2);
 }
 
 .gcviz-draw-white {
-	@include sprite($img-spritebtn, -1194, -2, 2);
+	@include sprite($img-spritebtn, -469, -14, 2);
+}
+
+.gcviz-draw-arrow {
+	cursor: default!important;
+	width: (1.5 * $rembase) + rem!important;
+	@include sprite($img-spritebtn, -505, -14, 2);
 }
 
 .gcviz-draw-pickblack {
-	background: $orange;
+	@include activeColor(-289);
 }
 
 .gcviz-draw-pickblue {
-	background: $orange;
+	@include activeColor(-325);
 }
 
 .gcviz-draw-pickred {
-	background: $orange;
+	@include activeColor(-398);
 }
 
 .gcviz-draw-pickgreen {
-	background: $orange;
+	@include activeColor(-362);
 }
 
 .gcviz-draw-pickyellow {
-	background: $orange;
+	@include activeColor(-433);
 }
 
 .gcviz-draw-pickwhite {
-	background: $orange;
+	@include activeColor(-469);
 }
 
 .gcviz-draw-line {
-	@include sprite($img-spritebtn, -507, -2);
+	@include sprite($img-spritebtn, -542, -2);
 }
 
 .gcviz-draw-text {
-	@include sprite($img-spritebtn, -1086, -2);
+	@include sprite($img-spritebtn, -578, -2);
 }
 
 .gcviz-draw-length {
-	@include sprite($img-spritebtn, -723, -2);
+	@include sprite($img-spritebtn, -614, -2);
 }
 
 .gcviz-draw-area {
-	@include sprite($img-spritebtn, -759, -2);
+	@include sprite($img-spritebtn, -650, -2);
 }
 
 .gcviz-draw-del {

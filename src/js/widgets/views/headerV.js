@@ -34,8 +34,8 @@
 			node += '<div class="gcviz-head-btn">';
 
 			// set help button (help is always visible)
-			node += '<button class="gcviz-head-help" tabindex="0" data-bind="click: helpClick, tooltip: { content: tpHelp }"></button>';
-			
+			node += '<button class="gcviz-head-help" tabindex="0" data-bind="buttonBlur, click: helpClick, tooltip: { content: tpHelp }"></button>';
+
 			// dialog text to show help
 			node += '<div data-bind="uiDialog: { title: $root.lblHelpTitle, width: 350, height: 220, ok: $root.dialogHelpOk, close: $root.dialogHelpOk, openDialog: \'isHelpDialogOpen\' }">' +
 						'<span data-bind="text: $root.helpInfo1"></span>' +
@@ -45,12 +45,12 @@
 
 			// set about button
 			if (configAbout.enable) {
-				node += '<button class="gcviz-head-about" tabindex="0" data-bind="click: aboutClick, tooltip: { content: tpAbout }"></button>';
-				
+				node += '<button class="gcviz-head-about" tabindex="0" data-bind="buttonBlur, click: aboutClick, tooltip: { content: tpAbout }"></button>';
+
 				// dialog text to show about
 				node += '<div data-bind="uiDialog: { title: $root.lblAboutTitle, width: 350, height: 220, ok: $root.dialogAboutOk, close: $root.dialogAboutOk, openDialog: \'isAboutDialogOpen\' }">' +
 						'<span data-bind="text: $root.aboutInfo1"></span>' +
-						'<div data-bind="if: aboutType === 2"><a data-bind="attr: { href: $root.aboutURL, title: $root.aboutURLText }, text: $root.aboutURLText" tabindex="0" target="new"></a>' +
+						'<div data-bind="if: aboutType === 2"><a data-bind="attr: { href: $root.aboutURL, title: $root.aboutURLText }, text: $root.aboutURLText" tabindex="0" target="_blank"></a>' +
 						'<span data-bind="text: $root.aboutInfo2"></span></div>' +
 					'</div>';
 			}
@@ -63,17 +63,17 @@
 
 			// add inset button if inset are present
 			if (config.inset) {
-				node += '<button class="gcviz-head-inset" tabindex="0" data-bind="click: insetClick, tooltip: { content: tpInset }"></button>';
+				node += '<button class="gcviz-head-inset" tabindex="0" data-bind="buttonBlur, click: insetClick, tooltip: { content: tpInset }"></button>';
 			}
 
 			// add print button
 			if (config.print.enable) {
-				node += '<button class="gcviz-head-print" tabindex="0" data-bind="click: printClick, tooltip: { content: tpPrint }"></button>';
+				node += '<button class="gcviz-head-print" tabindex="0" data-bind="buttonBlur, click: printClick, tooltip: { content: tpPrint }"></button>';
 			}
 
 			// add fullscreen button
 			if (config.fullscreen) {
-				node += '<button class="gcviz-head-fs" tabindex="0" data-bind="click: fullscreenClick, tooltip: { content: tpFullScreen }, css: { \'gcviz-head-fs\': isFullscreen() === false, \'gcviz-head-reg\': isFullscreen() === true }"></button>';
+				node += '<button class="gcviz-head-fs" tabindex="0" data-bind="buttonBlur, click: fullscreenClick, tooltip: { content: tpFullScreen }, css: { \'gcviz-head-fs\': isFullscreen() === false, \'gcviz-head-reg\': isFullscreen() === true }"></button>';
 			}
 			node += '</div>';
 

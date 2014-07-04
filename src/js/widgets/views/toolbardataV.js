@@ -10,9 +10,8 @@
 	define(['jquery-private',
 			'gcviz-vm-tbdata',
 			'dijit/TitlePane',
-			'gcviz-i18n',
-			'gcviz-func'
-	], function($viz, tbdataVM, dojotitle, i18n, gcvizFunc) {
+			'gcviz-i18n'
+	], function($viz, tbdataVM, dojotitle, i18n) {
 		var initialize;
 
 		initialize = function($mapElem) {
@@ -20,15 +19,16 @@
 				config = $mapElem.toolbardata,
 				mapid = $mapElem.mapframe.id,
 				tp,
-				node = '';
+				node = '',
+				$holder = $mapElem.find('.gcviz-tbholder');
 
-			$mapElem.find('.gcviz-tbholder').append('<div class="gcviz-tbspacer"></div>');
+			$holder.append('<div class="gcviz-tbspacer"></div>');
 			tp = new dojotitle({ id: 'tbdata' + mapid, title: i18n.getDict('%toolbardata-name'), content: '<div class="gcviz-tbdata-content gcviz-tbcontent"></div>', open: config.expand });
-			$mapElem.find('.gcviz-tbholder').append(tp.domNode);
+			$holder.append(tp.domNode);
 			tp.startup();
 
 			// set focus on open
-			tp.on('click', function() { 
+			tp.on('click', function() {
 				$viz('.gcviz-tbholder').scrollTo($viz('.gcviz-tbdata-content'));
 			});
 
@@ -38,7 +38,7 @@
 			// set add data button
 			if (config.add.enable) {
 				node += '<input id="fileDialogData" type="file" accept=".csv" data-bind="event: { change: addClick }" tabindex="-1"></input>' +
-						'<button class="gcviz-data-add" tabindex="0" data-bind="click: launchDialog, tooltip: { content: tpAdd }"></button>';
+						'<button class="gcviz-data-add" tabindex="0" data-bind="buttonBlur, click: launchDialog, tooltip: { content: tpAdd }"></button>';
 			}
 
 			// set legend and template for recursive item loading

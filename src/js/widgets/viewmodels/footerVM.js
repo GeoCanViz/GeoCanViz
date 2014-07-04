@@ -113,7 +113,7 @@
 						window.open(_self.urlLogo, '_blank');
 					}
 				};
-				
+
 				_self.init();
 			};
 

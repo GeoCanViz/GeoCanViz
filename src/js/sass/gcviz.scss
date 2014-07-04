@@ -123,3 +123,11 @@ input[type="file"] {
 .gcviz-appText {
   @include app-text;
 }
+
+.gcviz-verticalAlignTop {
+  vertical-align: top;
+}
+
+.gcviz-verticalAlignMiddle {
+  vertical-align: middle;
+}
