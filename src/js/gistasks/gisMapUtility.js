@@ -301,7 +301,8 @@
 
 				layer = new wms(layerInfo.url, {
 					resourceInfo: resourceInfo,
-					visibleLayers: options.visiblelayers
+					visibleLayers: options.visiblelayers,
+					'id': layerInfo.id
 				});
 			} else if (type === 4) {
 				layer = new esriDyna(layerInfo.url, { 'id': layerInfo.id });

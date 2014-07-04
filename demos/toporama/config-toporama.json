@@ -119,6 +119,7 @@
                 "enable": true
             }
         },
+        "toolbardata": {"enable": false,"expand": false, "add": {"enable": true}},
         "toolbarnav": {
         	"enable": true,
         	"expand": true,
