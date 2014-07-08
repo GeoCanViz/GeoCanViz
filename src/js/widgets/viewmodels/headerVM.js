@@ -48,7 +48,8 @@
 				_self.tpPrint = i18n.getDict('%header-tpprint');
 				_self.tpInset = i18n.getDict('%header-tpinset');
                 _self.tpAbout = i18n.getDict('%header-tpabout');
-				_self.tpFullScreen = i18n.getDict('%header-tpfullscreen');
+                _self.tpFullScreen = i18n.getDict('%header-tpfullscreen');
+				_self.tpRegScreen = i18n.getDict('%header-tpfullscreen');
 
 				// help dialog box
 				_self.lblHelpTitle = i18n.getDict('%header-help');
@@ -107,7 +108,6 @@
 					gcvizFunc.debounceClick(function() {
 						if (_self.fullscreenState) {
 							_self.cancelFullScreen();
-
 						} else {
 							_self.requestFullScreen();
 						}
@@ -276,19 +276,13 @@
 		};
 
 		printSimple = function(map, template) {
-			var win,
-				node = $viz('#' + map.vIdName + '_holder').clone();
+			var node = $viz('#' + map.vIdName + '_holder').clone();
 
-			win = window.open(template + 'defaultPrint.html');
-			win.onload = function() {
-				// we clone the map and add it to our print page
-				var print = win.document.getElementsByClassName('gcviz-print');
-				print[0].style.width = node.width();
-				$viz(print).append(node);
-				win.print();
-			};
+			// set the local storage then open page
+			localStorage.setItem('gcvizPrintNode', node[0].outerHTML);
+			window.open(template + 'defaultPrint.html');
 		};
-
+		
 		return {
 			initialize: initialize
 		};

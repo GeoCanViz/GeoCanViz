@@ -28,7 +28,7 @@
 					lblDist = i18n.getDict('%toolbardraw-dist'),
 					lblArea = i18n.getDict('%toolbardraw-area'),
 					mymap = gcvizFunc.getElemValueVM(mapid, ['map', 'map'], 'js'),
-					$container = $viz('#' + mapid + '_holder_container'),
+					$container = $viz('#' + mapid + '_holder_layers'),
 					$btnDraw = $mapElem.find('.gcviz-draw-line'),
 					$btnText = $mapElem.find('.gcviz-draw-text'),
 					$btnLength = $mapElem.find('.gcviz-draw-length'),

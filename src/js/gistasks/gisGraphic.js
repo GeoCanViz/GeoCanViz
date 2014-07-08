@@ -452,10 +452,10 @@
 
 					if (distance > 0) {
 						graphic = new esriGraph(pt, symbol);
-						graphic.symbol = getSymbText(black, pt.distance + ' ' + unit, 10, 0, 0, 10, 'normal', 'center');
+						graphic.symbol = getSymbText(gColor, pt.distance + ' ' + unit, 8, 0, 0, -10, 'normal', 'center');
 
 						// add background then text
-						addBackgroundText(graphic, white, 'center', 14, 0, -2, 9, mymap.graphics);
+						addBackgroundText(graphic, gBackColor, 'center', 12, 0, -2, -11, mymap.graphics);
 						mymap.graphics.add(graphic);
 					}
 				};
@@ -502,11 +502,11 @@
 					var graphic, symbol;
 
 					graphic = new esriGraph(pt, symbol);
-					graphic.symbol = getSymbText(black, pt.text, 8, angle, offX, offY, 'normal', 'center');
+					graphic.symbol = getSymbText(gColor, pt.text, 8, angle, offX, offY, 'normal', 'center');
 					graphic.key = gKey;
 
 					// add background then text
-					addBackgroundText(graphic, white, 'center', 14, angle, offX, offY - 2, symbLayer);
+					addBackgroundText(graphic, gBackColor, 'center', 12, angle, offX, offY - 2, symbLayer);
 					symbLayer.add(graphic);
 					isGraphics(true);
 				};
@@ -514,11 +514,8 @@
 				addBackgroundText = function(item, backColor, align, size, angle, offX, offY, graphLayer) {
 					var graphic, point, textWidth, len,
 						text = '',
-						offsetX = -1 + offX,
-						offsetY = -1 + offY,
 						symbol = item.symbol,
-						geom = item.geometry,
-						loop = 1;
+						geom = item.geometry;
 
 					// create the geometry array
 					point = { 'geometry': {
@@ -528,26 +525,23 @@
 					// get text width from canvas because symbol.getWidth give same result between I and M
 					// we need this to calculate background length
 					textWidth = gcvizFunc.getTextWidth(symbol.text, symbol.font);
-					len = Math.ceil(textWidth / 4);
+					len = Math.ceil(textWidth / 9);
 					if (len < 5) {
 						len += 1;
 					}
 
 					// there is no background color for text symbol. To solve this, we create
-					// 3 text symbol with offset to mimic a text background. If we use line or
+					// text symbol (with a block) to mimic a text background. If we use line or
 					// polygon, we have problem when user zooms in or out because the geometry
 					// does not follow the text because it is scale dependent.
 					while (len--) {
-						text += 'I';
+						text += '\u2588';
 					}
 
-					while (loop <= 3) {
-						graphic = new esriGraph(point);
-						graphic.symbol =  getSymbText(backColor, text, size, angle, offsetX + loop, offsetY, 'bold', align);
-						graphic.key = gKey;
-						graphLayer.add(graphic);
-						loop++;
-					}
+					graphic = new esriGraph(point);
+					graphic.symbol =  getSymbText(backColor, text, size, angle, offX, offY, 'bold', align);
+					graphic.key = gKey;
+					graphLayer.add(graphic);
 				},
 
 				addToMap = function(geometry) {
@@ -566,7 +560,7 @@
 						} else if (geomType === 'point') {
 							symbol = getSymbText(gColor, gText, 8, 0, 0, 0, 'normal', 'left');
 							graphic = new esriGraph(geometry, symbol);
-							addBackgroundText(graphic, gBackColor, 'left', 14, 0, -4, -2, symbLayer);
+							addBackgroundText(graphic, gBackColor, 'left', 12, 0, -4, -1, symbLayer);
 
 							// deactivate toolbar
 							_self.deactivate();
