@@ -56,20 +56,19 @@
 
 // item
 .gcviz-legendImg {
-	@extend %imgsize;
 	margin: 0rem;
-	padding-top: 5px;
-	padding-left: 25px;
+	padding-top: (0.5 * $rembase) + rem;
+	padding-left: (2.5 * $rembase) + rem;
 }  
 
 .gcviz-legendHolderDiv {
 	display: inline-block;
-	padding-right: 5px;
+	padding-right: (0.5 * $rembase) + rem;
 }
 
 .gcviz-legendHolderImgDiv {
 	display: block;
-	padding-right: 5px;
+	padding-right: (0.5 * $rembase) + rem;
 }
 
 .gcviz-leg-check {
@@ -91,26 +90,26 @@
 
 .gcviz-legendSymbolDiv {
 	vertical-align: middle;
-	padding-left: 15px;
-	border: 10px;
+	padding-left: (1.5 * $rembase) + rem;
+	border: (1 * $rembase) + rem;
 }
 
 .gcviz-leg-uniqueSymbolHolder {
 	display: inline;
 	vertical-align: middle;
 	padding-top: 0rem;
-	padding-left: 15px;
+	padding-left: (1.5 * $rembase) + rem;
 }
 
 .gcviz-leg-uniqueSpan {
 	display: inline;
-	padding-left: 5px;
+	padding-left: (0.5 * $rembase) + rem;
 	white-space: nowrap;
 }
 
 .gcviz-leg-uniqueFieldHolder {
 	display: inline-block;
-	padding-right: 5px;
+	padding-right: (0.5 * $rembase) + rem;
 	vertical-align: middle;
   text-align: left;
 	width: (100 * $rembase) + rem;

@@ -85,7 +85,7 @@
                 _self.spnUTMnorth = ko.observable();
                 _self.lblScale = ko.observable(i18n.getDict('%toolbarnav-scale'));
 				_self.isLocDialogOpen = ko.observable(false);
-				
+
 				// url for position info box
 				_self.urlNTS = i18n.getDict('%gisurlnts');
 				_self.urlUTM = i18n.getDict('%gisurlutm');
@@ -274,10 +274,10 @@
                      // open the results dialog
                     _self.isLocDialogOpen(true);
                 };
-                
+
                 _self.dialogLocOk = function() {
-                	_self.isLocDialogOpen(false);
-                	gcvizFunc.getElemValueVM(mymap.vIdName, ['header', 'toolsClick'], 'js')();
+					_self.isLocDialogOpen(false);
+					gcvizFunc.getElemValueVM(mymap.vIdName, ['header', 'toolsClick'], 'js')();
 					btnClickMap.focus();
                 };
 

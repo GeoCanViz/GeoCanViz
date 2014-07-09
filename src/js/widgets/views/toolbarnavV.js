@@ -88,7 +88,7 @@
 			// DIVs for position information
 			if (configposition.enable) {
 				// Setup a dialog box to show results
-				node += '<div data-bind="uiDialog: { title: $root.lblLocTitle, width: 400, height: 625, close: $root.dialogLocOk, openDialog: \'isLocDialogOpen\' }">'; 
+				node += '<div data-bind="uiDialog: { title: $root.lblLocTitle, width: 400, height: 625, close: $root.dialogLocOk, openDialog: \'isLocDialogOpen\' }">';
 					node += '<div class="ui-widget-content">';
 						node += '<strong><span data-bind="text: $root.infoTopoCoord"></span></strong>';
 						node += '<p><strong data-bind="text: $root.infoDecDeg"></strong></p>';

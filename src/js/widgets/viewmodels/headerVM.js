@@ -49,7 +49,6 @@
 				_self.tpInset = i18n.getDict('%header-tpinset');
                 _self.tpAbout = i18n.getDict('%header-tpabout');
                 _self.tpFullScreen = i18n.getDict('%header-tpfullscreen');
-				_self.tpRegScreen = i18n.getDict('%header-tpfullscreen');
 
 				// help dialog box
 				_self.lblHelpTitle = i18n.getDict('%header-help');
@@ -282,7 +281,7 @@
 			localStorage.setItem('gcvizPrintNode', node[0].outerHTML);
 			window.open(template + 'defaultPrint.html');
 		};
-		
+
 		return {
 			initialize: initialize
 		};
