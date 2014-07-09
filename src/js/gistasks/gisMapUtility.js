@@ -24,7 +24,8 @@
 			'esri/layers/WMSLayer',
 			'esri/layers/WMSLayerInfo',
 			'esri/geometry/Extent',
-            'esri/geometry/Point'
+            'esri/geometry/Point',
+            'esri/IdentityManager'
 	], function(kpan, func, menu, menuItem, menupopup, gisLegend, gisCluster, esriConfig, esriMap, esriFL, esriTiled, esriDyna, esriImage, webTiled, wms, wmsInfo, esriExt, esriPoint) {
 		var mapArray = {},
 			setProxy,
