@@ -30,9 +30,8 @@
 					scaledisplay = config.scaledisplay,
                     clickPosition,
                     inMapField = $viz('#inGeoLocation' + mapid),
-                    infoWindow = $viz('#divGetLocResults' + mapid),
                     btnClickMap = $viz('#btnClickMap' + mapid),
-                    $container = $viz('#' + mapid + '_holder_container'),
+                    $container = $viz('#' + mapid + '_holder_layers'),
 					mymap = gcvizFunc.getElemValueVM(mapid, ['map', 'map'], 'js'),
                     autoCompleteArray = [ { minx: 0 , miny: 0, maxx: 0, maxy: 0, title: 'ddd' } ];
 
@@ -67,6 +66,7 @@
                 _self.tpZoomFull = i18n.getDict('%toolbarnav-zoomfull');
                 _self.lblWest = i18n.getDict('%west');
                 _self.ScaleLabel = i18n.getDict('%toolbarnav-scale');
+                _self.lblLocTitle = i18n.getDict('%toolbarnav-info');
 
 				// autocomplete default
 				_self.defaultAutoComplText = i18n.getDict('%toolbarnav-geolocsample');
@@ -84,6 +84,7 @@
                 _self.spnUTMeast = ko.observable();
                 _self.spnUTMnorth = ko.observable();
                 _self.lblScale = ko.observable(i18n.getDict('%toolbarnav-scale'));
+				_self.isLocDialogOpen = ko.observable(false);
 
 				// url for position info box
 				_self.urlNTS = i18n.getDict('%gisurlnts');
@@ -233,45 +234,8 @@
 					// Reset cursor
                     $container.removeClass('gcviz-nav-cursor-pos');
 
-					// remove click and esc event
+					// remove click event
                     clickPosition.remove();
-
-                    // Define the results dialog
-                    infoWindow.dialog({
-                        autoOpen: false,
-                        closeText: _self.close,
-                        modal: true,
-                        title: _self.info,
-                        width: 400,
-                        show: {
-                            effect: 'fade',
-                            duration: 700
-                        },
-                        hide: {
-                            effect: 'fade',
-                            duration: 500
-                        },
-						close: function() {
-                                    // Reopen the toolbars
-									gcvizFunc.getElemValueVM(mymap.vIdName, ['header', 'toolsClick'], 'js')();
-									setTimeout(function() {
-										btnClickMap.focus();
-									}, 500);
-                                },
-                        buttons: [
-                            {
-                                text: _self.close,
-                                title: _self.close,
-                                click: function() {
-                                    $viz(this).dialog('close');
-                                }
-                            }
-                        ]
-                    });
-
-                    // Show results
-                    infoWindow.dialog('open');
-                    infoWindow.removeClass('gcviz-hidden');
 
                     // Get lat/long in DD
                     _self.infoLatDD(' ' + lati);
@@ -306,6 +270,15 @@
                             }
                             _self.spnAltitude(alti + ' m');
                         });
+
+                     // open the results dialog
+                    _self.isLocDialogOpen(true);
+                };
+
+                _self.dialogLocOk = function() {
+					_self.isLocDialogOpen(false);
+					gcvizFunc.getElemValueVM(mymap.vIdName, ['header', 'toolsClick'], 'js')();
+					btnClickMap.focus();
                 };
 
 				_self.init();

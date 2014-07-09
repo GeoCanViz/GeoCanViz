@@ -105,7 +105,7 @@ var locationPath;
 				vmArray = {};
 
 			// create section around map. This way we can bind Knockout to the section
-			$mapElem.wrap('<section id=section' + mapid + ' class="gcviz-section" role="map" style="width:' + size.width + 'px; height:' + size.height + 'px;">');
+			$mapElem.wrap('<section id=section' + mapid + ' class="gcviz-section" role="map" style="width:' + size.width + 'px; height:' + (size.height + 80) + 'px;">');
 			$mapSection = $viz(document).find('#section' + mapid);
 
 			// extend the section with configuration file info

@@ -6,6 +6,7 @@
 <!--<![endif]-->
 <head>
 <meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 <!-- Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW)
 wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html -->
 <title>GéoCanViz</title>
@@ -85,7 +86,7 @@ wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licenc
 <ol>
 <li><a href="../index-fra.html">Accueil</a></li>
 <li><a href="../index-fra.html">Exemples pratiques</a></li>
-<li>Cartes avec légende</li>
+<li>Carte démonstration</li>
 </ol>
 </div></div>
 </nav>
@@ -96,8 +97,8 @@ wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licenc
 <div id="wb-main" role="main"><div id="wb-main-in">
 <!-- MainContentStart -->
 <div id="gcviz-header">
-	<img class="gcviz-head-logo" src="../images/geocanviz.gif"></img>
-	<h1 class="gcviz-head-h1">Cartes avec légende</h1>
+	<object data="../images/GCViz.svg" style="margin-left:10px;" width="200"height="45" role="img" aria-label="GCViz logo" type="image/svg+xml"><img class="gcviz-head-logo" src="../images/geocanviz.png"></img></object>
+	<h1 class="gcviz-head-h1">Carte démonstration</h1>
 	<div style="background-color: black; height: 10px;"></div>
 </div>
 	<script>
@@ -105,11 +106,76 @@ wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licenc
         parseOnLoad: true
      };
 </script>
-<div style="overflow: visible; margin: 10px; padding: 30px; width: 100%; height:1200px">
-		<div id="map1" class="gcviz" data-gcviz="configGCAut.json"></div>
+<div style="overflow: visible; margin: 10px; padding: 30px; width: 100%;">
+		<div id="map1" class="gcviz" data-gcviz="configGCAut_fra.json"></div>
+		 <div style="padding-top: 20px; width: 80%;">
+        	<strong><span>Fonctionnalités</span></strong>
+        	<li>
+        			<span>Supporte les formats WMS, WMTS, REST Cache, REST dynamic et ESRI feature layer</span>
+        			<p>A l'aide de GCAut (un outil de création de fichiers de configuration pour GCViz), on peut ajouter des données ArcGIS (REST cache, REST dynamic et Feature layer), WMS et WMTS.</p>
+        		</li>
+        		<li>
+        			<span>Navigation (déplacer/zoomer)</span>
+        			<p>Vous pouvez effectuer un déplacement et zoomer avec la souris et le clavier (lorsque la carte a le focus).</p>
+        		</li>
+        		<li>
+        			<span>Légende</span>
+        			<p>La légende GCViz permet la visibilité (case à cocher ou un bouton radio) ainsi que l'opacité des couvertues. L'auteur peut utiliser GCAut peut réorganiser les couches (couche "feature layer" seulement), créer des groupes et modifier les étiquettes. 
+        				Il ou elle peut également outrepasser la symbologie par défaut avec une image (ex: Toporama). Les couches peuvent également avoir un lien pour ouvrir une page de métadonnées (ex: Transport).</p>
+        		</li>
+        		<li>
+        			<span>Métadonnées des couvertures</span>
+        			<p>Chaque couverture ou service de la légende peut avoir un lien pour ouvrir une page de métadonnées.</p>
+        		</li>
+        		<li>
+        			<span>Signet géographique</span>
+        			<p>Le service "Géoname" est intégré à la barre d'outils "Navigation". Il permet de zoomer à un nom de lieu, un code postal (RTA uniquement) ou un feuillet SNRC. Nous prévoyons ajouter une fonction "créer un signet" et
+        				"exporter les signets".</p>
+        		</li>
+        		<li>
+        			<span>Imprimer la carte</span>
+        			<p>Il existe un modèle d'impression simple pour le moment. D'autres modèles peuvent être développés et configurés avec GCAut.</p>
+        		</li>
+        		<li>
+        			<span>Ajouter des données de l'utilisateur</span>
+        			<p>L'utilisateur peut ajouter ses propres données sur ​​le dessus de la carte créée à l'aide de GCAut. Pour le moment, seul le format CSV est pris en charge.</p>
+        		</li>
+        		<li>
+        			<span>Sélectionner des couvertures de base</span>
+        			<p>GCViz prend en charge plusieurs cartes de base (ils doivent être dans la même référence spatiale). Ils sont regroupés au sommet de la légende et l'utilisateur peut basculer en utilisant les boutons radio.</p>
+        		</li>
+        		<li>
+        			<span>Outil de dessin</span>
+        			<p>L'utilisateur peut tracer des lignes et ajouter du texte sur la carte. Il ou elle peut également exporter ses annotations ou importater ceux de quelqu'un d'autre.
+        				L'utilisateur peut effacer des annotations sélectionnés et refaire \ annuler les opérations.</p>
+        		</li>
+        		<li>
+        			<span>Outil de mesure</span>
+        			<p>L'utilisateur peut mesurer des longueurs et des surfaces. Ces annotations peuvent être exportés et importés également.</p>
+        		</li>
+        		<li>
+        			<span>Outil de localisation</span>
+        			<p>L'outil de localisation dans la barre d'outil "Navigation" permet à l'utilisateur d'obtenir les informations suivantes sur un emplacement: position, zone UTM, SNRC et élévation.</p>
+        		</li>
+        		<li>
+        			<span>Couverture grappe</span>
+        			<p>Des couvertures contenant beaucoup de points peuvent être mise en grappe pour améliorer les performances. ESRI précise que des couvertures contenant plus de 1000 éléments,
+        				réduisent les performances. Pour y remédier, l'auteur, en utilisant GCAut, peut configurer des grappes. Vous pouvez le voir en action avec la couverture de grappes géochronologie.
+        				Cette couverture a plus de 25 000 points avant le regroupement.</p>
+        		</li>
+        		<li>
+        			<span>Conforme à la norme "WCAG"</span>
+        			<p>Suit les normes "WCAG" pour la navigation. Nous travaillons actuellement sur ​​un mode "WCAG" pour permettre à l'utilisateur, avec une invalidité, d'utiliser les outils qui nécessite normalement
+        				des l'utilisation de la souris comme les mesures ou les outils de dessin.</p>
+        		</li>
+        		<li>
+        			<span>Peut-être intégré à WET</span>
+        			<p>Comme vous pouvez le voir, GCViz peut être facilment intégré dans une page qui utilise "la boîte à outils de l'expérience Web". Nous soutenons la version 3.1 WET. Nous prévoyons supporter la version 4.0 sous peu.</p>
+        		</li>
+        </div>
 </div>
 <dl id="gcwu-date-mod" role="contentinfo">
-<dt>Date de modification&#160;:</dt><dd><span><time>2013-10-30</time></span></dd>
+<dt>Date de modification&#160;:</dt><dd><span><time>2014-07-17</time></span></dd>
 </dl>
 <div class="clear"></div>
 <!-- MainContentEnd -->
