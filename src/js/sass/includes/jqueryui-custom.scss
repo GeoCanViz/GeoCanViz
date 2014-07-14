@@ -11,7 +11,6 @@
 	position: absolute;
 	top: 0;
 	left: 0;
-	//padding: .5em;
 	outline: 0;
 	background: #CCCCCC!important;
 	z-index: 2000!important;
@@ -170,6 +169,13 @@ button.ui-button-icons-only {
 /* no icon support for input elements, provide padding by default */
 input.ui-button {
 	padding: .4em 1em;
+}
+
+/* Overwrite WET class */
+.ui-icon .ui-icon-searchfield:after {
+  background: rgba(0,0,0,1)!important;
+  -webkit-border-radius: 0px!important;
+  border-radius: 0px!important;
 }
 
 /* button icon element(s) */
@@ -1173,7 +1179,6 @@ body .ui-tooltip {
 .ui-icon-grip-solid-horizontal { background-position: -48px -224px; }
 .ui-icon-gripsmall-diagonal-se { background-position: -64px -224px; }
 .ui-icon-grip-diagonal-se { background-position: -80px -224px; }
-
 
 /* Misc visuals
 ----------------------------------*/

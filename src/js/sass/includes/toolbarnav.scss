@@ -126,10 +126,7 @@
 }
 
 .gcviz-navinfo-content {
-  margin-top: 5px;
+  margin-top: (0.5 * $rembase) + rem!important;
   border: 1px solid #000000;
-  border-top-right-radius: 6px!important;
-  border-top-left-radius: 6px!important;
-  border-bottom-right-radius: 6px!important;
-  border-bottom-left-radius: 6px!important;
+  @include content-border-radius(0.6);
 }
