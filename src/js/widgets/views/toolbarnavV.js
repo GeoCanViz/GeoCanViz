@@ -89,8 +89,8 @@
 			if (configposition.enable) {
 				// Setup a dialog box to show results
 				node += '<div data-bind="uiDialog: { title: $root.lblLocTitle, width: 400, height: 625, close: $root.dialogLocOk, openDialog: \'isLocDialogOpen\' }">';
-					node += '<div class="ui-widget-content">';
-						node += '<strong><span data-bind="text: $root.infoTopoCoord"></span></strong>';
+					node += '<div class="gcviz-navinfo-content">';
+						node += '<strong>&nbsp;<span data-bind="text: $root.infoTopoCoord"></span></strong>';
 						node += '<p><strong data-bind="text: $root.infoDecDeg"></strong></p>';
 						node += '<p><span data-bind="text: $root.infoLat"></span><span data-bind="text: $root.infoLatDD"></span></p>';
 						node += '<p><span data-bind="text: $root.infoLong"></span><span data-bind="text: $root.infoLongDD"></span></p>';
@@ -98,18 +98,18 @@
 						node += '<p><span data-bind="text: $root.infoLat"></span><span data-bind="text: $root.infoLatDMS"></span></p>';
 						node += '<p><span data-bind="text: $root.infoLong"></span><span data-bind="text: $root.infoLongDMS"></span></p>';
 					node += '</div>';
-					node += '<div class="ui-widget-content">';
-						node += '<strong><span data-bind="text: $root.infoUTM"></span></strong>';
+					node += '<div class="gcviz-navinfo-content">';
+						node += '<strong>&nbsp;<span data-bind="text: $root.infoUTM"></span></strong>';
 						node += '<p><span data-bind="text: $root.infoUTMz"></span><span data-bind="text: $root.spnUTMzone"></span></p>';
 						node += '<p><span data-bind="text: $root.infoUTMeast"></span><span data-bind="text: $root.spnUTMeast"></span></p>';
 						node += '<p><span data-bind="text: $root.infoUTMnorth"></span><span data-bind="text: $root.spnUTMnorth"></span></p>';
 					node += '</div>';
-					node += '<div class="ui-widget-content">';
-						node += '<strong><span data-bind="text: $root.infoNTS"></span></strong>';
+					node += '<div class="gcviz-navinfo-content">';
+						node += '<strong>&nbsp;<span data-bind="text: $root.infoNTS"></span></strong>';
 						node += '<p></span><span data-bind="text: $root.spnNTS"></span></p>';
 					node += '</div>';
-					node += '<div class="ui-widget-content">';
-						node += '<strong><span data-bind="text: $root.infoAltitude"></span></strong>';
+					node += '<div class="gcviz-navinfo-content">';
+						node += '<strong>&nbsp;<span data-bind="text: $root.infoAltitude"></span></strong>';
 						node += '<p></span><span data-bind="text: $root.spnAltitude"></span></p>';
 					node += '</div>';
 				node += '</div>';

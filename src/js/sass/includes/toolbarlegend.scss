@@ -7,8 +7,13 @@
 }
 
 %imgsize {
-	height: (1.6 * $rembase) + rem;
-	width: (1.4 * $rembase) + rem;
+  height: (1.6 * $rembase) + rem;
+  width: (1.4 * $rembase) + rem;
+}
+
+%imgsize_leg_icons {
+  height: (0.9 * $rembase) + rem;
+  width: (0.9 * $rembase) + rem;
 }
 
 // ul and li
@@ -25,12 +30,12 @@
 
 .gcviz-leg-imgli {
 	background-image: url("images/arrowbullet.png");
-	@extend %imgsize;
+	@extend %imgsize_leg_icons;
 }
 
 .gcviz-leg-imgliopen {
   background-image: url("images/arrowbulletopen.png");
-  @extend %imgsize;
+  @extend %imgsize_leg_icons;
 }
 
 .gcviz-leg-imgholder {

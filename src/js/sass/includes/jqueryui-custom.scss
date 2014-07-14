@@ -4,14 +4,13 @@
 * To view and modify this theme, visit http://jqueryui.com/themeroller/?ffDefault=Segoe%20UI%2CArial%2Csans-serif&fwDefault=bold&fsDefault=1.1em&cornerRadius=6px&bgColorHeader=333333&bgTextureHeader=gloss_wave&bgImgOpacityHeader=25&borderColorHeader=333333&fcHeader=ffffff&iconColorHeader=ffffff&bgColorContent=000000&bgTextureContent=inset_soft&bgImgOpacityContent=25&borderColorContent=666666&fcContent=ffffff&iconColorContent=cccccc&bgColorDefault=555555&bgTextureDefault=glass&bgImgOpacityDefault=20&borderColorDefault=666666&fcDefault=eeeeee&iconColorDefault=cccccc&bgColorHover=0078a3&bgTextureHover=glass&bgImgOpacityHover=40&borderColorHover=59b4d4&fcHover=ffffff&iconColorHover=ffffff&bgColorActive=f58400&bgTextureActive=inset_soft&bgImgOpacityActive=30&borderColorActive=ffaf0f&fcActive=ffffff&iconColorActive=222222&bgColorHighlight=eeeeee&bgTextureHighlight=highlight_soft&bgImgOpacityHighlight=80&borderColorHighlight=cccccc&fcHighlight=2e7db2&iconColorHighlight=4b8e0b&bgColorError=ffc73d&bgTextureError=glass&bgImgOpacityError=40&borderColorError=ffb73d&fcError=111111&iconColorError=a83300&bgColorOverlay=5c5c5c&bgTextureOverlay=flat&bgImgOpacityOverlay=50&opacityOverlay=80&bgColorShadow=cccccc&bgTextureShadow=flat&bgImgOpacityShadow=30&opacityShadow=60&thicknessShadow=7px&offsetTopShadow=-7px&offsetLeftShadow=-7px&cornerRadiusShadow=8px
 * Copyright 2014 jQuery Foundation and other contributors; Licensed MIT */
 
+@import "includes/gcviz-mixin";
 
-/* Stuff modified by PH */
 .ui-dialog {
 	overflow: hidden;
 	position: absolute;
 	top: 0;
 	left: 0;
-	padding: .5em;
 	outline: 0;
 	background: #CCCCCC!important;
 	z-index: 2000!important;
@@ -19,13 +18,25 @@
 .ui-dialog .ui-dialog-titlebar {
   padding: .4em 1em;
   position: relative;
+  background-repeat: repeat-x;
+  background-image: url($img-root + "headBlackbar.png");
+}
+.ui-dialog .ui-dialog-titlebar, .ui-widget-header .ui-corner-all {
+  border-bottom-left-radius: 0px!important;
+}
+.ui-dialog .ui-dialog-titlebar, .ui-widget-header .ui-corner-all {
+  border-bottom-right-radius: 0px!important;
+}
+.ui-dialog .ui-dialog-titlebar, .ui-widget-header {
+  border: none!important;
 }
 .ui-dialog .ui-widget-header {
   color: #ffffff!important;
+  height: 30px!important;
 }
 .ui-dialog .ui-dialog-title {
 	float: left;
-	margin: .1em 0;
+	margin: .5em 0;
 	white-space: nowrap;
 	width: 90%;
 	overflow: hidden;
@@ -44,23 +55,37 @@
 	position: relative;
 	border: 0;
 	padding: 0em 1em .5em 1em;
-	background: #333333!important;
 	overflow: auto;
-	margin-top: .5em;
+  margin-top: 0px!important;
+  margin-bottom: 0px!important;
+	color: #000000!important;
+	background: #ffffff!important;
+}
+.ui-dialog .ui-dialog-content a {
+  color: #000000!important;
+}
+.ui-dialog .ui-dialog-buttonpane .ui-widget-content {
+  border: none!important;
+  color: #ffffff;
+  margin-top: 0px!important;
+  padding-top: 0px!important;
 }
 .ui-dialog .ui-dialog-buttonpane {
 	text-align: left;
-	border-width: 1px 0 0 0;
-	background-image: none;
-	margin-top: .5em;
-	padding: .3em 1em .5em .4em;
+	border: none!important;
+	margin-top: 0px!important;
+  padding: 0px 0px 0px 0px!important;
+  background-repeat: repeat-x;
+  background-image: url($img-root + "footGreybar.png");
+  height: 40px!important;
 }
 .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset {
 	float: right;
 }
 .ui-dialog .ui-dialog-buttonpane button {
-	margin: .5em .4em .5em 0;
 	cursor: pointer;
+	margin-top: 7px!important;
+	margin-right: 5px!important;
 }
 .ui-dialog .ui-resizable-se {
 	width: 12px;
@@ -86,7 +111,6 @@
 .ui-button {
 	display: inline-block;
 	position: relative;
-	/*padding: 0;*/
 	line-height: normal;
 	margin-right: .1em;
 	cursor: pointer;
@@ -120,9 +144,10 @@ button.ui-button-icons-only {
 .ui-button .ui-button-text {
 	display: block;
 	line-height: normal;
+	color: #ffffff!important;
 }
 .ui-button-text-only .ui-button-text {
-	padding: .4em 1em;
+	padding: 0em 0em;
 }
 .ui-button-icon-only .ui-button-text,
 .ui-button-icons-only .ui-button-text {
@@ -144,6 +169,13 @@ button.ui-button-icons-only {
 /* no icon support for input elements, provide padding by default */
 input.ui-button {
 	padding: .4em 1em;
+}
+
+/* Overwrite WET class */
+.ui-icon .ui-icon-searchfield:after {
+  background: rgba(0,0,0,1)!important;
+  -webkit-border-radius: 0px!important;
+  border-radius: 0px!important;
 }
 
 /* button icon element(s) */
@@ -210,8 +242,6 @@ button.ui-button::-moz-focus-inner {
 	background: #000000 url(images/ui-bg_inset-soft_25_000000_1x100.png) 50% bottom repeat-x;
 	color: #ffffff;
 	margin-top: .5em;
-	padding-top: .5em;
-	padding-left: .5em;
 }
 .ui-widget-content a {
 	color: #ffffff;
@@ -231,9 +261,8 @@ button.ui-button::-moz-focus-inner {
 .ui-state-default,
 .ui-widget-content .ui-state-default,
 .ui-widget-header .ui-state-default {
-	border: 1px solid #666666;
+	border: 2px solid #666666;
 	background: #555555 url(images/ui-bg_glass_20_555555_1x400.png) 50% 50% repeat-x;
-	font-weight: bold;
 	color: #eeeeee;
 }
 .ui-state-default a,
@@ -248,10 +277,9 @@ button.ui-button::-moz-focus-inner {
 .ui-state-focus,
 .ui-widget-content .ui-state-focus,
 .ui-widget-header .ui-state-focus {
-	border: 1px solid #59b4d4;
-	background: #0078a3 url(images/ui-bg_glass_40_ffc73d_1x400.png) 50% 50% repeat-x;
-	font-weight: bold;
-	color: #000000;
+  border: 2px solid #ff6600;
+  background: #000000;
+  color: #ffffff;
 }
 .ui-state-hover a,
 .ui-state-hover a:hover,
@@ -269,7 +297,6 @@ button.ui-button::-moz-focus-inner {
 .ui-widget-header .ui-state-active {
 	border: 1px solid #ffaf0f;
 	background: #f58400 url(images/ui-bg_inset-soft_30_f58400_1x100.png) 50% 50% repeat-x;
-	font-weight: bold;
 	color: #ffffff;
 }
 .ui-state-active a,
@@ -337,9 +364,6 @@ button.ui-button::-moz-focus-inner {
 .ui-autocomplete-loading {
   background: white url('images/ui-anim_basic_16x16.gif') right center no-repeat;
 }
-
-/* End stuff modified by PH */
-
 
 /* Layout helpers
 ----------------------------------*/
@@ -1155,7 +1179,6 @@ body .ui-tooltip {
 .ui-icon-grip-solid-horizontal { background-position: -48px -224px; }
 .ui-icon-gripsmall-diagonal-se { background-position: -64px -224px; }
 .ui-icon-grip-diagonal-se { background-position: -80px -224px; }
-
 
 /* Misc visuals
 ----------------------------------*/

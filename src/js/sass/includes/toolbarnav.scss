@@ -124,3 +124,9 @@
   @include app-text(0.75);
   margin-top: (0.5 * $rembase) + rem;
 }
+
+.gcviz-navinfo-content {
+  margin-top: (0.5 * $rembase) + rem!important;
+  @include app-border(0.1, solid, #000000);
+  @include content-border-radius(0.6);
+}
