@@ -25,7 +25,8 @@ var locationPath;
 			'gcviz-v-tbdraw',
 			'gcviz-v-tbnav',
 			'gcviz-v-tblegend',
-			'gcviz-v-tbdata'], function($viz, mp, jqui, i18n, gcvizFunc, map, inset, header, footer, tbdraw, tbnav, tblegend, tbdata) {
+			'gcviz-v-tbdata'
+	], function($viz, mp, jqui, i18n, gcvizFunc, map, inset, header, footer, tbdraw, tbnav, tblegend, tbdata) {
 		var initialize,
 			readConfig,
 			execConfig,

@@ -28,7 +28,7 @@
 			addUndoStack;
 
 		initialize = function(mymap, isGraphics, stackUndo, stackRedo, lblDist, lblArea) {
-
+			
 			// data model				
 			var graphic = function(mymap, isGraphics, undo, redo, lblDist, lblArea) {
 				var _self = this,
@@ -702,12 +702,17 @@
 			return new graphic(mymap, isGraphics, stackUndo, stackRedo, lblDist, lblArea);
 		};
 
-		importGraphics = function(map, graphics) {
+		importGraphics = function(map, graphics, isGraphics) {
 			var item,
 				graphic,
 				key = gcvizFunc.getUUID(),
 				layer = map.getLayer('gcviz-symbol'),
 				len = graphics.length;
+
+			// enable delete
+			if (len > 0) {
+				isGraphics(true);
+			}
 
 			while (len--) {
 				item = graphics[len];
