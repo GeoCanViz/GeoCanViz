@@ -313,7 +313,7 @@
 
 						try {
 							jsonGraphics = JSON.parse(e.target.result);
-							gisGraphic.importGraphics(mymap, jsonGraphics);
+							gisGraphic.importGraphics(mymap, jsonGraphics, _self.isGraphics);
 						} catch(error) {
 							console.log('Not able to load graphics' + ': ' + error);
 						}

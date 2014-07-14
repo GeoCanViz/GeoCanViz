@@ -71,16 +71,21 @@
 					var strPointX, strPointY,
 						point = projectedPoints[0];
 
-					if (point.x < 0) {
-						strPointX = (-1 * point.x.toFixed(3)).toString() + _self.lblWest;
+					if (outwkid === 4326) {
+						if (point.x < 0) {
+							strPointX = (-1 * point.x.toFixed(3)).toString() + _self.lblWest;
+						} else {
+							strPointX = point.x.toFixed(3).toString() + 'E';
+						}
+	
+						if (point.y < 0) {
+							strPointY = (-1 * point.y.toFixed(3)).toString() + 'S';
+						} else {
+							strPointY = point.y.toFixed(3).toString() + 'N';
+						}
 					} else {
-						strPointX = point.x.toFixed(3).toString() + 'E';
-					}
-
-					if (point.y < 0) {
-						strPointY = (-1 * point.y.toFixed(3)).toString() + 'S';
-					} else {
-						strPointY = point.y.toFixed(3).toString() + 'N';
+						strPointX = point.x.toFixed(0).toString();
+						strPointY = point.y.toFixed(0).toString();
 					}
 
 					_self.coords(' Lat: ' + strPointY + ' Long: ' + strPointX);
