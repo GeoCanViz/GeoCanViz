@@ -50,12 +50,24 @@
 			}
 	};
 
+	ko.bindingHandlers.wcag = {
+		init: function(element, valueAccessor, allBindings, viewModel) {
+			var manageWCAG,
+				mapid = viewModel.mapid,
+				vm = gcvizFunc.getElemValueVM(mapid, ['header'], 'js');
+
+			manageWCAG = function() {
+				viewModel.isWCAG(!viewModel.isWCAG());
+			};
+			vm.isWCAG.subscribe(manageWCAG);
+		}
+	};
+
 	ko.bindingHandlers.fullscreen = {
 		init: function(element, valueAccessor, allBindings, viewModel) {
 			var manageFullscreen,
 				mapid = viewModel.mapid,
 				vm = gcvizFunc.getElemValueVM(mapid, ['header'], 'js');
-			vm.isFullscreen.subscribe(manageFullscreen);
 
 			manageFullscreen = function(fullscreen) {
 				if (fullscreen) {
@@ -64,6 +76,7 @@
 					viewModel.exitFullscreen();
 				}
 			};
+			vm.isFullscreen.subscribe(manageFullscreen);
 		}
 	};
 
@@ -303,6 +316,59 @@
 				}
 			});
 		}
+	};
+
+	// http://knockoutjs.com/documentation/extenders.html
+	ko.extenders.numeric = function(target, options) {
+		// create a writeable computed observable to intercept writes to our observable
+		var result = ko.computed({
+			read: target,  // always return the original observables value
+			write: function(newValue) {
+				var min, max,
+					current = target(),
+					precision = options.precision,
+					validation = options.validation,
+					roundingMultiplier = Math.pow(10, precision),
+					newValueAsNum = isNaN(newValue) ? validation.min : parseFloat(+newValue),
+					valueToWrite = Math.round(newValueAsNum * roundingMultiplier) / roundingMultiplier;
+
+				// if it is a float, let add '.'
+				if (typeof newValue === 'string' && precision > 0) {
+					if (newValue.indexOf('.') === newValue.length - 1) {
+						valueToWrite = newValue;
+					}
+				}
+
+				if (typeof validation !== 'undefined') {
+					// check if validation are observable, if so get value
+					min = (typeof validation.min === 'function') ? validation.min() : validation.min;
+					max = (typeof validation.max === 'function') ? validation.max() : validation.max;
+
+					if (valueToWrite < min || valueToWrite > max) {
+						$viz('#' + validation.id).text(validation.msg);
+						valueToWrite = min;
+					} else {
+						$viz('#' + validation.id).text('');
+					}
+				}
+
+				// only write if it changed
+				if (valueToWrite !== current) {
+					target(valueToWrite);
+				} else {
+					// if the rounded value is the same, but a different value was written, force a notification for the current field
+					if (newValue !== current) {
+						target.notifySubscribers(valueToWrite);
+					}
+				}
+			}
+		}).extend({ notify: 'always' });
+
+		// initialize with current value to make sure it is rounded appropriately
+		result(target());
+
+		// return the new computed observable
+		return result;
 	};
 
 	});

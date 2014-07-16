@@ -109,6 +109,10 @@
 	@include sprite($img-spritebtn, -976, -2);
 }
 
+.gcviz-draw-wcagadd {
+	@include sprite($img-spritebtn, -722, -2);
+}
+
 // cursors
 .gcviz-select-cursor {
   cursor: crosshair;

@@ -77,7 +77,7 @@
 						} else {
 							strPointX = point.x.toFixed(3).toString() + 'E';
 						}
-	
+
 						if (point.y < 0) {
 							strPointY = (-1 * point.y.toFixed(3)).toString() + 'S';
 						} else {

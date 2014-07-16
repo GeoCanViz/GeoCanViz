@@ -11,6 +11,12 @@ General (i18n)#%all#All#Tous
 #%linkopens#This link opens in a new browser window, browser tab or is downloaded, depending on your setting.#Ce lien s'ouvre dans une nouvelle fenêtre, onglet du navigateur ou est téléchargé, selon vos réglages.
 #%of#of#de
 #%west#W#O
+#%wcag-xlong#Longitude West (x): #Longitude ouest (x): 
+#%wcag-ylat#Latitude North (y): #Latitude nord (y): 
+#%wcag-title#WCAG coordinates input#Entré des corrdonnées RACW
+#%wcag-msgx#Value need to be between 50 and 130#la valeur doit être entre 50 et 130
+#%wcag-msgy#Value need to be between 40 and 80#la valeur doit être entre 40 et 80
+#%wcag-addcoords#Add a new coordinnate to the array#Ajouter une coordonnée à la liste
 #%cursor-target#url(/GeoCanViz/gcviz/images/navCursor.cur), auto#url(/GeoCanViz/gcviz/images/navCursor.cur), auto
 #%github-urlgcvizrepo#https://github.com/GeoCanViz/GeoCanViz#https://github.com/GeoCanViz/GeoCanViz
 #%msg-configread#Configuration file read#Fichier de configuration lu
@@ -29,6 +35,7 @@ General (i18n)#%all#All#Tous
 #%header-urlhelp#../../HelpManual.pdf#../../ManuelAide.pdf
 #%header-tpabout#About this map#À propos de cette carte
 #%header-tphelp#Open help page#Ouvrir la page d'aide
+#%header-tpwcag#Enable or disable WCAG mode#Activer ou désactiver le mode RACW
 #%header-tools#Tools#Outils
 #%header-tptools#Open/Close tools panel#Ouvrir/Fermer le panneau d'outils
 #%header-tpprint#Print the map#Imprimer la carte

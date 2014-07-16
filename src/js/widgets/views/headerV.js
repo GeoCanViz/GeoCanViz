@@ -43,6 +43,9 @@
 						'<span data-bind="text: $root.helpInfo2"></span>' +
 					'</div>';
 
+			// set WCAG button
+			node += '<button class="gcviz-head-wcag" tabindex="0" data-bind="buttonBlur, click: WCAGClick, tooltip: { content: tpWCAG }, css: { \'gcviz-head-wcag\': isWCAG() === false, \'gcviz-head-wcagon\': isWCAG() === true }"></button>';
+
 			// set about button
 			if (configAbout.enable) {
 				node += '<button class="gcviz-head-about" tabindex="0" data-bind="buttonBlur, click: aboutClick, tooltip: { content: tpAbout }"></button>';
