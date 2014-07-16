@@ -85,6 +85,20 @@
 			}
 			node += '</div>';
 
+			// WCAG dialog window
+			node += '<div data-bind="wcag: { }, uiDialog: { title: $root.WCAGTitle, width: 490, height: 210, ok: $root.dialogWCAGOk, cancel: $root.dialogWCAGCancel, close: $root.dialogWCAGClose, openDialog: \'isDialogWCAG\' }">' +
+						'<div>' +
+							'<label for="gcviz-xvalue" class="gcviz-label gcviz-label-wcag" data-bind="text: lblWCAGx"></label>' +
+							'<input id="gcviz-xvalue" class="text ui-widget-content ui-corner-all gcviz-input-wcag" data-bind="value: xValue"/>' +
+							'<span class="gcviz-message-wcag" data-bind="text: lblWCAGmsgx"></span>' +
+						'</div>' +
+						'<div>' +
+							'<label for="gcviz-yvalue" class="gcviz-label gcviz-label-wcag" data-bind="text: lblWCAGy"></label>' +
+							'<input id="gcviz-yvalue" class="text ui-widget-content ui-corner-all gcviz-input-wcag" data-bind="value: yValue"/>' +
+							'<span class="gcviz-message-wcag" data-bind="text: lblWCAGmsgy"></span>' +
+						'</div>' +
+					'</div>';
+
 			// DIVs for position information
 			if (configposition.enable) {
 				// Setup a dialog box to show results

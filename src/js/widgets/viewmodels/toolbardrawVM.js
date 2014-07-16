@@ -77,7 +77,22 @@
 				_self.measureType = '';
 
 				// set active tool
-				_self.activeTool = '';
+				_self.activeTool = ko.observable('');
+
+				// WCAG
+				_self.mapid = mapid;
+				_self.WCAGTitle = i18n.getDict('%wcag-title');
+				_self.lblWCAGx = i18n.getDict('%wcag-xlong');
+				_self.lblWCAGy = i18n.getDict('%wcag-ylat');
+				_self.lblWCAGmsgx = i18n.getDict('%wcag-msgx');
+				_self.lblWCAGmsgy = i18n.getDict('%wcag-msgy');
+				_self.tpWCAGadd = i18n.getDict('%wcag-addcoords');
+				_self.xValue = ko.observable().extend({ numeric: { precision: 3, validation: { min: 50, max: 130 } } });
+				_self.yValue = ko.observable().extend({ numeric: { precision: 3, validation: { min: 40, max: 80 } } });
+				_self.WCAGcoords = ko.observableArray([]);
+				_self.isWCAG = ko.observable(false);
+				_self.isDialogWCAG = ko.observable(false);
+				_self.wcagok = false;
 
 				_self.init = function() {
 
@@ -121,7 +136,12 @@
 					var value = _self.drawTextValue();
 
 					if (value !== '') {
-						_self.graphic.drawText(value, _self.selectedColor());
+						// check if WCAG mode is enable, if so use dialog box instead)
+						if (!_self.isWCAG()) {
+							_self.graphic.drawText(value, _self.selectedColor());
+						} else {
+							_self.isDialogWCAG(true);
+						}
 						_self.isText(true);
 						_self.isTextDialogOpen(false);
 					} else {
@@ -159,10 +179,15 @@
 				_self.drawClick = function() {
 					_self.openTools('draw');
 
-					// set cursor to selected colour (remove default cursor first)
-					$container.css('cursor', '');
-					_self.addDrawCursor(_self.selectedColor());
-					_self.graphic.drawLine(_self.selectedColor());
+					// check if WCAG mode is enable, if so use dialog box instead)
+					if (!_self.isWCAG()) {
+						// set cursor to selected colour (remove default cursor first)
+						$container.css('cursor', '');
+						_self.addDrawCursor(_self.selectedColor());
+						_self.graphic.drawLine(_self.selectedColor());
+					} else {
+						_self.isDialogWCAG(true);
+					}
 				};
 
 				_self.textClick = function() {
@@ -332,7 +357,7 @@
 
 				_self.openTools = function(tool) {
 					gcvizFunc.getElemValueVM(mapid, ['header', 'toolsClick'], 'js')();
-					_self.activeTool = tool;
+					_self.activeTool(tool);
 				};
 
 				_self.removeCursors = function() {
@@ -361,19 +386,68 @@
 
 				_self.setFocus = function() {
 					setTimeout(function() {
-						if (_self.activeTool === 'draw') {
+						if (_self.activeTool() === 'draw') {
 							$btnDraw.focus();
-						} else if (_self.activeTool === 'text') {
+						} else if (_self.activeTool() === 'text') {
 							$btnText.focus();
-						} else if (_self.activeTool === 'length') {
+						} else if (_self.activeTool() === 'length') {
 							$btnLength.focus();
-						} else if (_self.activeTool === 'area') {
+						} else if (_self.activeTool() === 'area') {
 							$btnArea.focus();
-						} else if (_self.activeTool === 'erase') {
+						} else if (_self.activeTool() === 'erase') {
 							$btnDelsel.focus();
 						}
-						_self.activeTool = '';
+						_self.activeTool('');
 					}, 500);
+				};
+
+				_self.dialogWCAGOk = function() {
+					var flag = false;
+
+					// select the active tool
+					if (_self.activeTool() === 'draw' && _self.WCAGcoords().length > 1) {
+						_self.graphic.drawLineWCAG(_self.WCAGcoords(), _self.selectedColor());
+						flag = true;
+					} else if (_self.activeTool() === 'text') {
+						_self.graphic.drawTextWCAG([_self.xValue() * -1, _self.yValue()], _self.drawTextValue(), _self.selectedColor());
+						flag = true;
+					}
+
+					// if operation occurs, close the window
+					if (flag) {
+						_self.isDialogWCAG(false);
+						_self.wcagok = true;
+					}
+				};
+
+				_self.dialogWCAGCancel = function() {
+					_self.isDialogWCAG(false);
+				};
+
+				_self.dialogWCAGClose = function() {
+					_self.isDialogWCAG(false);
+
+					// if not ok press, open tools
+					if (!_self.wcagok) {
+						// set the focus back to the right tool
+						_self.openTools(_self.activeTool());
+						_self.setFocus();
+					}
+					_self.wcagok = false;
+					_self.WCAGcoords([]);
+				};
+
+				_self.addCoords = function() {
+					var x = _self.xValue() * -1,
+						y = _self.yValue(),
+						last = _self.WCAGcoords()[_self.WCAGcoords().length - 1];
+
+					// add the point only of the value is different
+					if (typeof last === 'undefined') {
+						_self.WCAGcoords.push([x, y]);
+					} else if (x !== last[0] || y !== last[1]) {
+						_self.WCAGcoords.push([x, y]);
+					}
 				};
 
 				_self.init();

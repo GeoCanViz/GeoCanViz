@@ -63,6 +63,21 @@ svg {
 	}
 }
 
+.gcviz-message-wcag {
+	@include app-text(1.1, normal, black);
+	display: inline-block;
+	margin-left: (1 * $rembase) + rem;
+}
+
+.gcviz-input-wcag {
+	width: (5.5 * $rembase) + rem!important;
+	margin-left: 0rem!important;
+}
+
+.gcviz-label-wcag {
+	margin-top: (1 * $rembase) + rem!important;
+}
+
 .gcviz-hidden {
 	display: none!important;
 }
@@ -100,6 +115,12 @@ input[type="file"] {
 
 .gcviz-inlineblock {
   display: inline-block!important;
+}
+
+.gcviz-label {
+	display: inline-block;
+	margin-left: (1 * $rembase) + rem;
+	margin-right: (0.5 * $rembase) + rem;
 }
 
 .gcviz-loading {

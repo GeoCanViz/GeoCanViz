@@ -105,10 +105,33 @@
 			node += '<div data-bind="uiDialog: { title: $root.lblTextTitle, width: 450, height: 220, ok: $root.dialogTextOk, cancel: $root.dialogTextCancel, close: $root.dialogTextClose, openDialog: \'isTextDialogOpen\' }">' +
 						'<div id="gcviz-draw-inputbox">' +
 							'<form><fieldset>' +
-								'<label for="gcviz-textvalue" data-bind="value: lblTextDesc"></label>' +
+								'<label for="gcviz-textvalue" class="gcviz-label" data-bind="text: lblTextDesc"></label>' +
 								'<input id="gcviz-textvalue" class="text ui-widget-content ui-corner-all" data-bind="value: drawTextValue, valueUpdate: \'afterkeydown\', returnKey: dialogTextOkEnter"/>' +
 								'<div style="clear: both"></div><span data-bind="text: lblTextInfo"></span>' +
 							'</fieldset></form>' +
+						'</div>' +
+					'</div>';
+
+			// WCAG dialog window
+			node += '<div data-bind="wcag: { }, uiDialog: { title: $root.WCAGTitle, width: 490, height: 250, ok: $root.dialogWCAGOk, cancel: $root.dialogWCAGCancel, close: $root.dialogWCAGClose, openDialog: \'isDialogWCAG\' }">' +
+						'<div>' +
+							'<label for="gcviz-xvalue" class="gcviz-label gcviz-label-wcag" data-bind="text: lblWCAGx"></label>' +
+							'<input id="gcviz-xvalue" class="text ui-widget-content ui-corner-all gcviz-input-wcag" data-bind="value: xValue"/>' +
+							'<span class="gcviz-message-wcag" data-bind="text: lblWCAGmsgx"></span>' +
+						'</div>' +
+						'<div>' +
+							'<label for="gcviz-yvalue" class="gcviz-label gcviz-label-wcag" data-bind="text: lblWCAGy"></label>' +
+							'<input id="gcviz-yvalue" class="text ui-widget-content ui-corner-all gcviz-input-wcag" data-bind="value: yValue"/>' +
+							'<span class="gcviz-message-wcag" data-bind="text: lblWCAGmsgy"></span>' +
+						'</div>' +
+						'<div class="row" data-bind="visible: activeTool() !== \'text\'">' +
+							'<button class="gcviz-draw-wcagadd" tabindex="0" data-bind="click: addCoords, tooltip: { content: tpWCAGadd }"></button>' +
+							'<ul data-bind="template: { name: \'coordsWCAG\', foreach: WCAGcoords }"></ul>' +
+							'<script type="text/html" id="coordsWCAG">' +
+								'<li style="white-space: nowrap;">' +
+									'<span data-bind="text: \'x: \' + $data[0] + \', y: \' + $data[1]"></span>' +
+								'</li>' +
+							'</script>' +
 						'</div>' +
 					'</div>';
 

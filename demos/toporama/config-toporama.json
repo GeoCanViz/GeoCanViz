@@ -11,6 +11,7 @@
             "map": {
                 "urlgeomserv": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/Utilities/Geometry/GeometryServer",
                 "urlproxy": "http://localhost:8888/php/proxy.php",
+                "urldownload": "http://localhost:8888/php/download.php",
                 "sr": {
                     "wkid": 3978
                 },

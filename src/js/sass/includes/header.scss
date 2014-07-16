@@ -24,6 +24,14 @@
 	@include sprite($img-spritebtn, -110, -2);
 }
 
+.gcviz-head-wcag {
+	@include sprite($img-spritebtn, -182, -2);
+}
+
+.gcviz-head-wcagon {
+	@include sprite($img-spritebtn, -686, -2);
+}
+
 .gcviz-head-about {
 	@include sprite($img-spritebtn, -145, -2);
 }

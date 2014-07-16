@@ -68,6 +68,19 @@
                 _self.ScaleLabel = i18n.getDict('%toolbarnav-scale');
                 _self.lblLocTitle = i18n.getDict('%toolbarnav-info');
 
+				// WCAG
+				_self.mapid = mapid;
+				_self.WCAGTitle = i18n.getDict('%wcag-title');
+				_self.lblWCAGx = i18n.getDict('%wcag-xlong');
+				_self.lblWCAGy = i18n.getDict('%wcag-ylat');
+				_self.lblWCAGmsgx = i18n.getDict('%wcag-msgx');
+				_self.lblWCAGmsgy = i18n.getDict('%wcag-msgy');
+				_self.xValue = ko.observable().extend({ numeric: { precision: 3, validation: { min: 50, max: 130 } } });
+				_self.yValue = ko.observable().extend({ numeric: { precision: 3, validation: { min: 40, max: 80 } } });
+				_self.isWCAG = ko.observable(false);
+				_self.isDialogWCAG = ko.observable(false);
+				_self.wcagok = false;
+
 				// autocomplete default
 				_self.defaultAutoComplText = i18n.getDict('%toolbarnav-geolocsample');
 				_self.geoLocSample = i18n.getDict('%toolbarnav-geolocsample');
@@ -214,15 +227,43 @@
                 _self.getMapClick = function() {
                     gcvizFunc.getElemValueVM(mymap.vIdName, ['header', 'toolsClick'], 'js')();
 
-                    // Set the cursor
-                    $container.css('cursor', '');
-                    $container.addClass('gcviz-nav-cursor-pos');
+					// check if WCAG mode is enable, if so use dialog box instead)
+					if (!_self.isWCAG()) {
+						// Set the cursor
+						$container.css('cursor', '');
+						$container.addClass('gcviz-nav-cursor-pos');
 
-                    // Get user to click on map and capture event
-                    clickPosition = mymap.on('click', function(event) {
-						gisgeo.projectPoints([event.mapPoint], 4326, _self.displayInfo);
-                    });
+						// Get user to click on map and capture event
+						clickPosition = mymap.on('click', function(event) {
+							gisgeo.projectPoints([event.mapPoint], 4326, _self.displayInfo);
+						});
+					} else {
+						_self.isDialogWCAG(true);
+					}
                 };
+
+				_self.dialogWCAGOk = function() {
+					var x = _self.xValue() * -1,
+						y = _self.yValue();
+
+					gisgeo.projectCoords([[x, y]], 4326, _self.displayInfo);
+					_self.isDialogWCAG(false);
+					_self.wcagok = true;
+                };
+
+				_self.dialogWCAGCancel = function() {
+					_self.isDialogWCAG(false);
+				};
+
+				_self.dialogWCAGClose = function() {
+					_self.isDialogWCAG(false);
+
+					// if not ok press, open tools
+					if (!_self.wcagok) {
+						_self.dialogLocOk();
+					}
+					_self.wcagok = false;
+				};
 
                 _self.displayInfo = function(outPoint) {
                     var DMS, alti,
@@ -234,8 +275,10 @@
 					// Reset cursor
                     $container.removeClass('gcviz-nav-cursor-pos');
 
-					// remove click event
-                    clickPosition.remove();
+					// remove click event (if not WCAG)
+                    if (!_self.isWCAG()) {
+						clickPosition.remove();
+                    }
 
                     // Get lat/long in DD
                     _self.infoLatDD(' ' + lati);
@@ -278,7 +321,9 @@
                 _self.dialogLocOk = function() {
 					_self.isLocDialogOpen(false);
 					gcvizFunc.getElemValueVM(mymap.vIdName, ['header', 'toolsClick'], 'js')();
-					btnClickMap.focus();
+					setTimeout(function() {
+						btnClickMap.focus();
+					}, 100);
                 };
 
 				_self.init();

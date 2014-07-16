@@ -25,6 +25,7 @@
 			labelPoints,
 			zoomLocation,
 			projectPoints,
+			projectCoords,
 			getUTMEastNorth,
 			params = new esriProj();
 
@@ -149,6 +150,21 @@
 			});
 		};
 
+		projectCoords = function(coords, outwkid, success) {
+			var point,
+				points = [],
+				len = coords.length,
+				inSR = new esriSR({ 'wkid': 4326 });
+
+			while (len--) {
+				point = coords[len];
+				points.push(new esriPoint(point[0], point[1], inSR));
+			}
+
+			// call projection function
+			projectPoints(points, outwkid, success);
+		};
+
 		getUTMEastNorth = function(lati, longi, utmZone, spnUTMeast, spnUTMnorth) {
 			// Get the UTM easting/northing information using a geometry service
 			var geomServ = esriConfig.defaults.io.geometryService,
@@ -177,6 +193,7 @@
 			labelPoints: labelPoints,
             zoomLocation: zoomLocation,
 			projectPoints: projectPoints,
+			projectCoords: projectCoords,
 			getUTMEastNorth: getUTMEastNorth
 		};
 	});

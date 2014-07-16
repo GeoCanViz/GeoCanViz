@@ -44,6 +44,7 @@
 
 				// tooltip, text strings
 				_self.tpHelp = i18n.getDict('%header-tphelp');
+				_self.tpWCAG = i18n.getDict('%header-tpwcag');
 				_self.tpTools = i18n.getDict('%header-tptools');
 				_self.tpPrint = i18n.getDict('%header-tpprint');
 				_self.tpInset = i18n.getDict('%header-tpinset');
@@ -85,6 +86,9 @@
 				_self.insetState = true;
 				_self.fullscreenState = 0;
                 _self.opencloseToolsState = 0;
+
+				// WCAG
+				_self.isWCAG = ko.observable(false);
 
 				_self.init = function() {
 					// keep map size
@@ -156,6 +160,10 @@
 				_self.helpClick = function() {
                     _self.isHelpDialogOpen(true);
                 };
+
+				_self.WCAGClick = function() {
+					_self.isWCAG(!_self.isWCAG());
+				};
 
 				_self.dialogHelpOk = function() {
 					_self.isHelpDialogOpen(false);

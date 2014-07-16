@@ -19,16 +19,17 @@
 			'esri/geometry/ScreenPoint',
 			'esri/geometry/Point',
 			'esri/geometry/Polygon',
+			'esri/geometry/Polyline',
 			'esri/graphic',
 			'dojo/on'
-	], function($viz, gcvizFunc, gisgeo, esriGraphLayer, esriTools, esriLine, esriFill, esriMarker, esriText, esriScreenPt, esriPt, esriPoly, esriGraph, dojoOn) {
+	], function($viz, gcvizFunc, gisgeo, esriGraphLayer, esriTools, esriLine, esriFill, esriMarker, esriText, esriScreenPt, esriPt, esriPoly, esriPolyline, esriGraph, dojoOn) {
 		var initialize,
 			importGraphics,
 			exportGraphics,
 			addUndoStack;
 
 		initialize = function(mymap, isGraphics, stackUndo, stackRedo, lblDist, lblArea) {
-			
+
 			// data model				
 			var graphic = function(mymap, isGraphics, undo, redo, lblDist, lblArea) {
 				var _self = this,
@@ -76,12 +77,29 @@
 					toolbar.activate(esriTools.FREEHAND_POLYLINE);
 				};
 
+				_self.drawLineWCAG = function(points, color) {
+					// set global then call the tool
+					setColor(color);
+
+					// project point then call addToMap
+					gisgeo.projectCoords(points, map.spatialReference.wkid, addToMap);
+				};
+
 				_self.drawText = function(text, color) {
 					// set global then call the tool
 					gText = text;
 					setColor(color);
 
 					toolbar.activate(esriTools.POINT);
+				};
+
+				_self.drawTextWCAG = function(point, text, color) {
+					// set global then call the tool
+					gText = text;
+					setColor(color);
+
+					// project point then call addToMap
+					gisgeo.projectCoords([[point[0], point[1]]], map.spatialReference.wkid, addToMap);
 				};
 
 				_self.drawExtent = function() {
@@ -544,11 +562,21 @@
 					graphLayer.add(graphic);
 				},
 
-				addToMap = function(geometry) {
-					var graphic,
-						symbol = new esriLine(),
-						geomType = geometry.type;
+				addToMap = function(geometries) {
+					var graphic, geometry, geomType,
+						symbol = new esriLine();
 
+					// if wcag mode enable, the geometries will be an array
+					if (geometries.length === undefined) {
+						geometry = geometries;
+					} else if (geometries.length === 1) {
+						geometry = geometries[0];
+					} else {
+						geometry = new esriPolyline(geometries[0].spatialReference);
+						geometry.addPath(geometries);
+					}
+
+					geomType = geometry.type;
 					gKey = gcvizFunc.getUUID();
 
 					if (geomType === 'extent') {
