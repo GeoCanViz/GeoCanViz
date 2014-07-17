@@ -205,6 +205,10 @@
 
 				_self.eraseClick = function() {
 					_self.graphic.erase();
+					
+					// workaround to remove tooltip on undo. The tooltip appears
+					// even if the button is disable
+					$viz('.ui-tooltip').remove();
 				};
 
 				_self.eraseSelClick = function() {
