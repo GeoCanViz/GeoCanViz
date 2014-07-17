@@ -1,7 +1,6 @@
 nbproject/*
 .sass-cache/
 .DS_Store
-gcviz/*
 jruby*.jar
 build/lib/vendors*
 build/lib/jruby-compiled
