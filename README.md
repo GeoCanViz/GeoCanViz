@@ -34,9 +34,9 @@ This project has taken some inspiration from:
 
 ## Version history
 
-### v0.0.0
+### v0.8.0
 
-* Sample with link map concept and some bindings with Knockout.
+* Example with up to date functionalities (beta).
 
 -------------------------------------------------------------------
 
@@ -75,6 +75,6 @@ Ce projet est inspiré des liens suivant:
 
 ## Historique des versions
 
-### Version 0.0.1
+### Version 0.8.0
 
-* Exemple avec des cartes liées et quelques liens avec la librairie Knockout.
+* Exemple de fonctionnalités à jour (beta).
