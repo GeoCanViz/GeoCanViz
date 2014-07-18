@@ -113,7 +113,7 @@
 					'</div>';
 
 			// WCAG dialog window
-			node += '<div data-bind="wcag: { }, uiDialog: { title: $root.WCAGTitle, width: 490, height: 250, ok: $root.dialogWCAGOk, cancel: $root.dialogWCAGCancel, close: $root.dialogWCAGClose, openDialog: \'isDialogWCAG\' }">' +
+			node += '<div data-bind="wcag: { }, uiDialog: { title: $root.WCAGTitle, width: 490, height: 350, ok: $root.dialogWCAGOk, cancel: $root.dialogWCAGCancel, close: $root.dialogWCAGClose, openDialog: \'isDialogWCAG\' }">' +
 						'<div>' +
 							'<label for="gcviz-xvalue" class="gcviz-label gcviz-label-wcag" data-bind="text: lblWCAGx"></label>' +
 							'<input id="gcviz-xvalue" class="text ui-widget-content ui-corner-all gcviz-input-wcag" data-bind="value: xValue"/>' +
@@ -124,8 +124,10 @@
 							'<input id="gcviz-yvalue" class="text ui-widget-content ui-corner-all gcviz-input-wcag" data-bind="value: yValue"/>' +
 							'<span class="gcviz-message-wcag" data-bind="text: lblWCAGmsgy"></span>' +
 						'</div>' +
-						'<div class="row" data-bind="visible: activeTool() !== \'text\'">' +
-							'<button class="gcviz-draw-wcagadd" tabindex="0" data-bind="click: addCoords, tooltip: { content: tpWCAGadd }"></button>' +
+						'<div data-bind="visible: activeTool() !== \'text\'">' +
+							'<span class="gcviz-image-button" data-bind="click: addCoords, tooltip: { content: tpWCAGadd }"><button class="gcviz-draw-wcagadd" tabindex="0"></button><span class="gcviz-button-text" data-bind="text: lblWCAGAddPoint"></span></span>' +
+						'</div>' +
+						'<div data-bind="visible: activeTool() !== \'text\'" style="clear: both;">' +
 							'<ul data-bind="template: { name: \'coordsWCAG\', foreach: WCAGcoords }"></ul>' +
 							'<script type="text/html" id="coordsWCAG">' +
 								'<li style="white-space: nowrap;">' +

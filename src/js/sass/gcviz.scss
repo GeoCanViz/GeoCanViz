@@ -57,6 +57,38 @@ svg {
 	position: relative;
 }
 
+.gcviz-image-button {
+  background: #666666!important;
+  border: 2px solid #666666!important;
+  border-radius: 6px!important;
+  -webkit-border-radius: 6px!important;
+  -moz-border-radius: 6px!important;
+  padding: 0px 5px!important;
+  float: left!important;
+  width: auto!important;
+  height:30px!important;
+  @include app-text(1.1, normal, $white);
+  display:block!important;
+  cursor: pointer;
+  
+  &:hover {
+    border: 2px solid #ff6600!important;
+    background: #000000!important;
+  }
+}
+  
+.gcviz-button-icon {
+  padding-left: 0px!important;
+  width:30px!important;
+  height:30px!important;
+}
+
+.gcviz-button-text {
+  padding-left: 10px!important;
+  position: relative;
+  top: -8px;
+}
+
 .gcviz-tooltip {
 	.ui-tooltip-content {
 		@include app-text(1.1, normal, $white);

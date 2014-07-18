@@ -82,6 +82,23 @@ $one_col: (100% - ($gutter * ($cols - 1))) / $cols;
 	}
 }
 
+@mixin spritenohover($url, $x, $y, $size: 3.2, $repeat: no-repeat) {
+  @include sprite($url, $x, $y, $size: 3.2, $repeat: no-repeat);
+  
+  &:hover {
+    background-position: $x + px $y + px;
+  }
+  
+  &:focus {
+    background-position: $x + px $y + px;
+  }
+  
+  &:disabled {
+    background-position: $x + px $y + px;
+    cursor: none;
+  }
+}
+
 @mixin content-border-radius($radius: 0.5, $type: full) {
 	@if $type == 'full' { border-radius: ($radius * $rembase) + rem; }
   @if $type == 'left' {
