@@ -107,69 +107,7 @@ wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licenc
      };
 </script>
 <div style="overflow: visible; margin: 10px; padding: 30px; width: 100%;">
-        <div id="map2" class="gcviz" data-gcviz="configGCAut_eng.json"></div>
-        <div style="padding-top: 20px; width: 80%;">
-        	<strong><span>Functionalities</span></strong>
-        	<li>
-        			<span>Support WMS, WMTS, REST Cache, REST dynamic and ESRI feature layer</span>
-        			<p>With GCAut (an authoring tool for GCViz), we can add ArcGIS data (REST cache, REST dynamic and Feature layer), WMS and WMTS.</p>
-        		</li>
-        		<li>
-        			<span>Navigate (pan/zoom)</span>
-        			<p>You can pan and zoom with the mouse and with the keyboard (when the map has focus).</p>
-        		</li>
-        		<li>
-        			<span>Legend</span>
-        			<p>The GCViz legend supports layer visibility (checkbox or radio button) and opacity. The author can use GCAut can reorder layers (feature layer only), create groups and modify labels.
-        				He/she can also overide the default symbology with an image (i.e. Toporama). Layers can have a link to open a metadata page (i.e. CBM Transportation).</p>
-        		</li>
-        		<li>
-        			<span>Layer "metadata"</span>
-        			<p>Every layer or service in the legend can have a link to open a metadata page.</p>
-        		</li>
-        		<li>
-        			<span>Geo bookmark</span>
-        			<p>The Geoname service is integrated in the navigation toolbar. It lets you zoom to a place name, a postal code (FSA only) or an NTS sheet. We plan to add a "create bookmark" and "share
-        				bookmars" capability.</p>
-        		</li>
-        		<li>
-        			<span>Print map</span>
-        			<p>There is a simple print template for the moment. Other templates can be developed and configured With GCAut.</p>
-        		</li>
-        		<li>
-        			<span>Add user data</span>
-        			<p>The user can add is own data on top of the map created with GCAut. For the moment, only CSV format is supported.</p>
-        		</li>
-        		<li>
-        			<span>BaseMap switcher</span>
-        			<p>GCViz supports multiple basemaps (they need to be in the same spatial reference). They are grouped together at the top of the legend and the user can switch using radio button.</p>
-        		</li>
-        		<li>
-        			<span>Draw tool</span>
-        			<p>The user can draw lines and add text on the map. He/she can also export his/her graphics or import graphics from someone else <strong>(export doesn't work on GitHub because it can't run PHP code)</strong>. The user can erase selected graphics and redo\undo operations.</p>
-        		</li>
-        		<li>
-        			<span>Measure tool</span>
-        			<p>The user can measure lengths and areas. Those graphics can be exported and imported as well.</p>
-        		</li>
-        		<li>
-        			<span>Location tool</span>
-        			<p>The Location tool in the navigation toolbar gives the user the following information about a location: position, UTM zone, NTS sheet and elevation.</p>
-        		</li>
-        		<li>
-        			<span>Cluster layer</span>
-        			<p>Huge points feature layers can be clustered to improve performance. ESRI specifies that with layers containing over 1000 features, performance can be affected. To overcome this, the author, using GCAut, can configure
-        				clustering. You can see it in action with the Geochronology Cluster layer. This layer has over 25 000 points before the clustering.</p>
-        		</li>
-        		<li>
-        			<span>WCAG compliant</span>
-        			<p>Follows the WCAG standards for navigation. We are currently working on a WCAG mode to let the user with a disability use tools that normally requires mouse inputs like the measure or the draw tools.</p>
-        		</li>
-        		<li>
-        			<span>WET compliant</span>
-        			<p>As you can see, GCViz can be easily integrated inside a page using the Web Experience Toolkit. We support WET version 3.1. We plan to support version 4.0 soon.</p>
-        		</li>
-        </div>
+        <div id="map2" class="gcviz" data-gcviz="configFGP.json"></div>
 </div>
 <dl id="gcwu-date-mod" role="contentinfo">
 <dt>Date modified:</dt><dd><span><time>2014-07-17</time></span></dd>
@@ -254,10 +192,9 @@ wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licenc
         async: true
      };
 </script> 
-<!--<script src="http://js.arcgis.com/3.9/"></script>-->
-<script src="http://geoappext.nrcan.gc.ca/arcgis_js_api/library/3.9/3.9compact/init.js"></script>
-<script src="../../gcviz/gcviz-config-min.js"></script>
-<!-- <script src="../../src/js/gcviz-config-debug.js"></script>  -->
+<script src="http://js.arcgis.com/3.9/"></script>
+<!-- <script src="../../gcviz/gcviz-config-min.js"></script> -->
+<script src="../../src/js/gcviz-config-debug.js"></script> 
 <link rel="stylesheet" href="../../gcviz/gcviz-min.css">
 <!-- bootstrapper script end -->
 <!-- CustomScriptsEnd -->

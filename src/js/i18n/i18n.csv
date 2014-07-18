@@ -14,11 +14,9 @@ General (i18n)#%all#All#Tous
 #%wcag-xlong#Longitude West (x): #Longitude ouest (x): 
 #%wcag-ylat#Latitude North (y): #Latitude nord (y): 
 #%wcag-title#WCAG coordinates input#Entré des corrdonnées RACW
-#%wcag-msgx#Value need to be between 50 and 130#la valeur doit être entre 50 et 130
-#%wcag-msgy#Value need to be between 40 and 80#la valeur doit être entre 40 et 80
-#%wcag-addcoords#Add a new coordinnate to the array#Ajouter une coordonnée à la liste
-#%wcag-addpoint#Add point#Ajouter
-#%wcag-removepoint#Remove point#Enlever
+#%wcag-msgx#Value needs to be between 50 and 130#la valeur doit être entre 50 et 130
+#%wcag-msgy#Value needs to be between 40 and 80#la valeur doit être entre 40 et 80
+#%wcag-addcoords#Add a new coordinate to the list#Ajouter une coordonnée à la liste
 #%cursor-target#url(/GeoCanViz/gcviz/images/navCursor.cur), auto#url(/GeoCanViz/gcviz/images/navCursor.cur), auto
 #%github-urlgcvizrepo#https://github.com/GeoCanViz/GeoCanViz#https://github.com/GeoCanViz/GeoCanViz
 #%msg-configread#Configuration file read#Fichier de configuration lu
