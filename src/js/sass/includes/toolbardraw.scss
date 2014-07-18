@@ -110,7 +110,8 @@
 }
 
 .gcviz-draw-wcagadd {
-	@include sprite($img-spritebtn, -722, -2);
+	@include spritenohover($img-spritebtn, -722, -2);
+	margin-top: 0px!important;
 }
 
 // cursors
