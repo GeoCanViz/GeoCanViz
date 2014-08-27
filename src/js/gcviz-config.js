@@ -175,6 +175,10 @@
 				location: locationPath + 'gcviz/dependencies',
 				main: 'jqueryui.min'
 			}, {
+                name: 'datatable',
+                location: locationPath + 'gcviz/dependencies',
+                main: 'jquery.dataTables.min'
+			}, {
 				name: 'genfile',
 				location: locationPath + 'gcviz/dependencies',
 				main: 'generatefile.min'
@@ -310,6 +314,14 @@
 				name: 'gcviz-vm-inset',
 				location: locationPath + 'gcviz/js/viewmodels',
 				main: 'insetVM-min'
+			}, {
+				name: 'gcviz-v-datagrid',
+				location: locationPath + 'gcviz/js/views',
+				main: 'datagridV-min'
+			}, {
+				name: 'gcviz-vm-datagrid',
+				location: locationPath + 'gcviz/js/viewmodels',
+				main: 'datagridVM-min'
 			}
 		]
 	});

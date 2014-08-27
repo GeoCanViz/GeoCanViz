@@ -20,13 +20,14 @@ var locationPath;
 			'gcviz-func',
 			'gcviz-v-map',
 			'gcviz-v-inset',
+			'gcviz-v-datagrid',
 			'gcviz-v-header',
 			'gcviz-v-footer',
 			'gcviz-v-tbdraw',
 			'gcviz-v-tbnav',
 			'gcviz-v-tblegend',
 			'gcviz-v-tbdata'
-	], function($viz, mp, jqui, i18n, gcvizFunc, map, inset, header, footer, tbdraw, tbnav, tblegend, tbdata) {
+	], function($viz, mp, jqui, i18n, gcvizFunc, map, inset, datagrid, header, footer, tbdraw, tbnav, tblegend, tbdata) {
 		var initialize,
 			readConfig,
 			execConfig,
@@ -146,6 +147,9 @@ var locationPath;
 			if (config.insetframe.enable) {
 				vmArray.insets = inset.initialize($mapSection);
 			}
+			
+			// add datatable grid
+			vmArray.datagrid = datagrid.initialize($mapSection);
 
 			// set the global vm to retreive link vm together
 			gcvizFunc.setVM(mapid, vmArray);
