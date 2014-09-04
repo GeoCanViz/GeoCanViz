@@ -33,10 +33,12 @@
 	margin-top: (0.25 * $rembase) + rem;
 }
 
+.gcviz-foot-btn {
+	float: left;
+	margin-right: (10 * $rembase) + rem;
+}
 
-  
-
-
-
-
-
+// the header button sprite (need to use background-position because FF is not able to set x and y)
+.gcviz-foot-data {
+	@include sprite($img-spritebtn, -976, -2);
+}

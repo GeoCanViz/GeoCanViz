@@ -174,13 +174,7 @@
 				name: 'jqueryui',
 				location: locationPath + 'src/js/dependencies',
 				main: 'jqueryui.min'
-			},
-			{
-                name: 'datatable',
-                location: locationPath + 'src/js/dependencies',
-                main: 'jquery.dataTables'
-			},
-			 {
+			}, {
 				name: 'genfile',
 				location: locationPath + 'src/js/dependencies',
 				main: 'generatefile.min'
@@ -338,7 +332,7 @@
 
         return noConflict;
 	});
-
+	
 	require(['jquery-private', 'gcviz'], function($viz, gcviz) {
 		return $viz(document).ready(function() {
 			return gcviz.initialize();

@@ -8,11 +8,12 @@
 /* global locationPath: false */
 (function() {
 	'use strict';
-	define(['knockout',
+	define(['jquery-private',
+			'knockout',
 			'gcviz-i18n',
 			'gcviz-func',
 			'gcviz-gisgeo'
-	], function(ko, i18n, gcvizFunc, gisGeo) {
+	], function($viz, ko, i18n, gcvizFunc, gisGeo) {
 		var initialize,
 			vm;
 
@@ -33,11 +34,16 @@
                 _self.urlLogo = i18n.getDict('%footer-urlgcvizrepo');
                 _self.urlLogoAlt = i18n.getDict('%footer-tpgithub');
                 _self.lblWest = i18n.getDict('%west');
+                _self.tpDatagrid = i18n.getDict('%footer-tpdatagrid');
 
 				// coords and arrow
 				_self.coords = ko.observable('');
 				_self.rotateArrow = ko.observable('');
 
+				// enable button table (will be set true by datagridVM when
+				// datatable is ready)
+				_self.isTableReady = ko.observable(false);
+				
 				_self.init = function() {
 					var mymap = gcvizFunc.getElemValueVM(mapid, ['map', 'map'], 'js');
 
@@ -117,6 +123,17 @@
 					if (event.keyCode === 13) {
 						window.open(_self.urlLogo, '_blank');
 					}
+				};
+
+				_self.datagridClick = function() {
+					var $datagrid = $viz('#gcviz-datagrid' + mapid);
+
+					if ($datagrid.accordion('option', 'active') === 0) {
+						$datagrid.accordion({ active: false }).click();
+					} else {
+						$datagrid.accordion({ active: 0 }).click();
+					}
+					 return false;
 				};
 
 				_self.init();

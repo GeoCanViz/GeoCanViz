@@ -20,6 +20,7 @@
 			checkMatch,
 			getRandomColor,
 			getElemValueVM,
+			setElemValueVM,
 			setVM,
 			getTextWidth,
 			timer,
@@ -163,6 +164,10 @@
 			return val;
 		};
 
+		setElemValueVM = function(vm, name, element, val) {
+			return vmObject[vm][name][element](val);
+		};
+
 		setVM = function(name, vm) {
 			vmObject[name] = vm;
 		};
@@ -191,6 +196,7 @@
 			checkMatch: checkMatch,
 			getRandomColor: getRandomColor,
 			getElemValueVM: getElemValueVM,
+			setElemValueVM: setElemValueVM,
 			setVM: setVM,
 			getTextWidth: getTextWidth
 		};

@@ -175,10 +175,6 @@
 				location: locationPath + 'gcviz/dependencies',
 				main: 'jqueryui.min'
 			}, {
-                name: 'datatable',
-                location: locationPath + 'gcviz/dependencies',
-                main: 'jquery.dataTables.min'
-			}, {
 				name: 'genfile',
 				location: locationPath + 'gcviz/dependencies',
 				main: 'generatefile.min'

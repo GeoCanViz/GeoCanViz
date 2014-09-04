@@ -28,7 +28,7 @@
   border-bottom-right-radius: 0px!important;
 }
 .ui-dialog .ui-dialog-titlebar, .ui-widget-header {
-  border: none!important;
+  //border: none!important;
 }
 .ui-dialog .ui-widget-header {
   color: #ffffff!important;
@@ -66,7 +66,7 @@
 }
 .ui-dialog .ui-dialog-buttonpane .ui-widget-content {
   border: none!important;
-  color: #ffffff;
+  color: #000000;
   margin-top: 0px!important;
   padding-top: 0px!important;
 }
@@ -244,7 +244,7 @@ button.ui-button::-moz-focus-inner {
 	margin-top: .5em;
 }
 .ui-widget-content a {
-	color: #ffffff;
+	color: #000000;
 }
 .ui-widget-header {
 	border: 1px solid #333333;
@@ -261,8 +261,8 @@ button.ui-button::-moz-focus-inner {
 .ui-state-default,
 .ui-widget-content .ui-state-default,
 .ui-widget-header .ui-state-default {
-	border: 2px solid #666666;
-	background: #555555 url(images/ui-bg_glass_20_555555_1x400.png) 50% 50% repeat-x;
+	border: 1px solid #787878;
+	background: #8d8d8d;
 	color: #eeeeee;
 }
 .ui-state-default a,
@@ -277,9 +277,9 @@ button.ui-button::-moz-focus-inner {
 .ui-state-focus,
 .ui-widget-content .ui-state-focus,
 .ui-widget-header .ui-state-focus {
-  border: 2px solid #ff6600;
-  background: #000000;
-  color: #ffffff;
+  border: 1px solid #585858;
+  background: #ffffff;
+  color: #000000;
 }
 .ui-state-hover a,
 .ui-state-hover a:hover,
@@ -295,9 +295,9 @@ button.ui-button::-moz-focus-inner {
 .ui-state-active,
 .ui-widget-content .ui-state-active,
 .ui-widget-header .ui-state-active {
-	border: 1px solid #ffaf0f;
-	background: #f58400 url(images/ui-bg_inset-soft_30_f58400_1x100.png) 50% 50% repeat-x;
-	color: #ffffff;
+	border: 1px solid #3f3f3f;
+	background: #dddddd;
+	color: #000000;
 }
 .ui-state-active a,
 .ui-state-active a:link,
@@ -537,7 +537,7 @@ button.ui-button::-moz-focus-inner {
 .ui-accordion .ui-accordion-content {
 	padding: 1em 2.2em;
 	border-top: 0;
-	overflow: auto;
+	overflow: visible;
 }
 .ui-autocomplete {
 	position: absolute;

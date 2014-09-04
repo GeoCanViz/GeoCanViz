@@ -1,0 +1,24 @@
+@import "gcviz-mixin";
+
+.gcviz-datagrid {
+	float: left;
+	width: 100%;
+	margin-top: (-0.8 * $rembase) + rem!important;
+}
+
+.gcviz-datagrid-hold {
+	background: url($img-root + "footGreybar.png") no-repeat!important;
+	background-size: 100% 100%!important;
+	color: #000000!important;
+	border-radius: 0rem!important;
+	padding: (0.5 * $rembase) + rem!important;
+}
+
+.gcviz-datagrid-tab {
+	color: #000000!important;
+}
+
+.gcviz-datagrid-ul {
+	background: #929292!important;
+	border: 1px solid #585858!important;
+}

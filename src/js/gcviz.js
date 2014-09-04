@@ -123,6 +123,11 @@ var locationPath;
 			vmArray.header = header.initialize($mapSection);
 			vmArray.footer = footer.initialize($mapSection);
 
+			// add datatable, popup and hover
+			if (config.datagrid.enable) {
+				vmArray.datagrid = datagrid.initialize($mapSection);
+			}
+
 			// add draw toolbar
 			if (config.toolbardraw.enable) {
 				vmArray.draw = tbdraw.initialize($mapSection);
@@ -147,9 +152,6 @@ var locationPath;
 			if (config.insetframe.enable) {
 				vmArray.insets = inset.initialize($mapSection);
 			}
-			
-			// add datatable grid
-			vmArray.datagrid = datagrid.initialize($mapSection);
 
 			// set the global vm to retreive link vm together
 			gcvizFunc.setVM(mapid, vmArray);

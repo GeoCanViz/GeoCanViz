@@ -27,7 +27,8 @@ General (i18n)#%all#All#Tous
 #%gisurllocate#http://geogratis.gc.ca/services/geolocation/en/locate?#http://geogratis.gc.ca/services/geolocation/fr/locate?
 #%gisurlnts#http://geogratis.gc.ca/services/delimitation/en/nts?bbox=#http://geogratis.gc.ca/services/delimitation/fr/nts?bbox=
 #%gisurlutm#http://geogratis.gc.ca/services/delimitation/en/utmzone?bbox=#http://geogratis.gc.ca/services/delimitation/fr/utmzone?bbox=
-#%footer-tpNorth#North arrow#Flèche du nord
+#%footer-tpnorth#North arrow#Flèche du nord
+#%footer-tpdatagrid#Open/Close datagrid#Ouvrir ou fermer le tableau des données
 #%header-abouttitle#about this map #à-propos de cette carte 
 #%header-aboutread#Read #Lire 
 #%header-help#GeoCanViz Help#Aide pour GéoCanViz

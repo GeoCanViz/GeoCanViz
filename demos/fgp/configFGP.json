@@ -3,7 +3,7 @@
 "layers": [{"label":"Geochronology***Geochronology Géochronologie","id":"6f798c6b-f369-4e24-78dd-9bfa5a9bc59e","type":4,"url":"http://geoappext.nrcan.gc.ca/arcgis/rest/services/GSCC/Geochronology/MapServer/","scale":{"min":0,"max":0},"cluster":{"enable":true,"distance":50,"label":false,"symbol":true,"maxsizeprop":50,"maxdataprop":1000}}]}},
 "header": {"title": {"value": "","alttext": ""},
 "tools": true,"link": false,"inset": false,"about": {"enable": false,"type": 1,"value": ""},"print": {"enable": false,"type": 1},"fullscreen": true},
-"footer": {"northarrow": {"enable": true,"inwkid": 3978},"mousecoords": {"enable": true,"outwkid": 4326},"datatable": {"direction": "in"}},
+"footer": {"northarrow": {"enable": true,"inwkid": 3978},"mousecoords": {"enable": true,"outwkid": 4326},"datagrid": {"enable": true}},
 "toolbarlegend": {"enable": true,"expand": false,
 "basemaps": [
 	{"expand":false,"last":true,"type":2,"id":"380a923d-466f-4e97-88af-7e6d66f2570a","graphid":"93fa722d-8208-95c3-a64a-5d63ac4b5216","displayfields":false,
@@ -19,4 +19,66 @@
 	]},
 "toolbardraw": {"enable": true,"expand": false,"drawline": {"enable": true},"drawtext": {"enable": true},"measureline": {"enable": true,"unit": 1},"measurearea": {"enable": true,"unit": 1},"importexport": {"enable": true}},
 "toolbarnav": {"enable": true,"expand": false,"mapwkid": 3978,"zoom": true,"geolocation": {"enable": true,"type": -1},"scalebar": {"enable": true,"unit": 1},"scaledisplay": {"enable": true,"format": 1},"overview": {"enable": true,"url": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/BaseMaps/CBCT3978/MapServer","type": "4"},"position": {"enable": true}},
-"toolbardata": {"enable": false,"expand": false,"csv": {"enable": false}},"insetframe": {"enable": false},"customwidgets": []}}
+"toolbardata": {"enable": false,"expand": false,"csv": {"enable": false}},"insetframe": {"enable": false},
+"datagrid": {
+	"enable": true,
+	"layers": [
+		{"layerid": "6f798c6b-f369-4e24-78dd-9bfa5a9bc59e",
+			"title": "Geochron 1",
+			"fields": [
+					{"title": "Sample nb", "data": "SAMPLENO"},
+					{"title": "Age", "data": "AGE"},
+					{"title": "Error plus", "data": "ERR_PLUS"},
+					{"title": "Error minus", "data": "ERR_MINUS"}
+			],
+			"popups": {
+					"enable": "true|false",
+					"title": {
+						"usefield": "true|false",
+						"titlefield": "field name containing text",
+						"titletext": "title text"
+					},
+					"fields": [
+						{"name": "SAMPLENO", "label": "Sample nb"},
+						{"name": "AGE", "label": "Age"}
+					]
+				},
+				"hover": { 
+						"enable":  "true|false",
+						"hoverfield": "field name"
+				}			
+		},
+		{"layerid": "6f798c6b-f369-4e24-78dd-9bfa5a9bc59e",
+			"title": "Geochron 2",
+			"fields": [
+					{"title": "Sample nb", "data": "SAMPLENO"},
+					{"title": "Age", "data": "AGE"},
+					{"title": "Error plus", "data": "ERR_PLUS"},
+					{"title": "Error minus", "data": "ERR_MINUS"},
+					{"title": "Age method", "data": "AGE_METHOD"},
+					{"title": "Age inter", "data": "AGE_INTERP"},
+					{"title": "Age note", "data": "AGE_NOTE"},
+					{"title": "Province", "data": "PROV"},
+					{"title": "Latitude", "data": "LATITUDE"},
+					{"title": "Longitude", "data": "LONGITUDE"},
+					{"title": "Location", "data": "LOCATION"}
+			],
+			"popups": {
+					"enable": "true|false",
+					"title": {
+						"usefield": "true|false",
+						"titlefield": "field name containing text",
+						"titletext": "title text"
+					},
+					"fields": [
+						{"name": "SAMPLENO", "label": "Sample nb"},
+						{"name": "AGE", "label": "Age"}
+					]
+				},
+				"hover": { 
+						"enable":  "true|false",
+						"hoverfield": "field name"
+				}			
+		}]
+},
+"customwidgets": []}}
