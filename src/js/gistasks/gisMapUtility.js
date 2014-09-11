@@ -65,7 +65,8 @@
 		};
 
         createMap = function(id, config) {
-            var iExtent = config.extentinit,
+            var lod,
+            	iExtent = config.extentinit,
                 fExtent = config.extentmax,
                 wkid = config.sr.wkid,
                 initExtent = new esriExt({ 'xmin': iExtent.xmin, 'ymin': iExtent.ymin,
@@ -74,20 +75,30 @@
                 fullExtent = new esriExt({ 'xmin': fExtent.xmin, 'ymin': fExtent.ymin,
 										'xmax': fExtent.xmax, 'ymax': fExtent.ymax,
 										'spatialReference': { 'wkid': wkid } }),
-				lod = config.lods,
+				initLods = config.lods.values.reverse(),
+				lenLods = initLods.length,
+				lods = [],
 				options,
 				map,
 				mapid = id.split('_')[0],
 				panning;
 
+			// generate level of details
+			while (lenLods--) {
+				lod = initLods[lenLods];
+				if (lod.check) {
+					lods.push(lod);
+				}
+			}
+
 			// set options
-			if (lod.length) {
+			if (lods.length) {
 				options = {
 					extent: initExtent,
 					spatialReference: { 'wkid': wkid },
 					logo: false,
 					showAttribution: false,
-					lods: lod,
+					lods: lods,
 					wrapAround180: true,
 					smartNavigation: false
 				};
