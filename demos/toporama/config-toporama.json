@@ -1,12 +1,9 @@
 {
-    "gcaut": {
-        "name": "Carte 1.json"
-    },
     "gcviz": {
         "mapframe": {
             "size": {
-                "height": 600,
-                "width": 1000
+                "height": 400,
+                "width": 900
             },
             "map": {
                 "urlgeomserv": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/Utilities/Geometry/GeometryServer",
@@ -16,70 +13,195 @@
                     "wkid": 3978
                 },
                 "extentmax": {
-                    "xmin": -1190708.2353,
-                    "ymin": -754183.31142,
-                    "xmax": 2513465.83971,
-                    "ymax": 1097903.72609
+                    "xmin": -7936845.6498,
+                    "ymin": -3215446.48946,
+                    "xmax": 12303819.83153,
+                    "ymax": 5780404.83558
                 },
                 "extentinit": {
-                  "xmin": 1141929.97845,
-                  "ymin": -341044.61435,
-                  "xmax": 1882764.79346,
-                  "ymax": 29372.79315
+                    "xmin": -4718493.02169,
+                    "ymin": -606194.85168,
+                    "xmax": 7187780.79086,
+                    "ymax": 4685482.39834
                 },
                 "lods": {
                     "enable": false,
-                    "values": []
+                    "values": [{
+                        "level": 0,
+                        "resolution": 38364.660062653464,
+                        "scale": 145000000,
+                        "check": true
+                    }, {
+                        "level": 1,
+                        "resolution": 22489.62831258996,
+                        "scale": 85000000,
+                        "check": true
+                    }, {
+                        "level": 2,
+                        "resolution": 13229.193125052918,
+                        "scale": 50000000,
+                        "check": true
+                    }, {
+                        "level": 3,
+                        "resolution": 7937.5158750317505,
+                        "scale": 30000000,
+                        "check": true
+                    }, {
+                        "level": 4,
+                        "resolution": 4630.2175937685215,
+                        "scale": 17500000,
+                        "check": true
+                    }, {
+                        "level": 5,
+                        "resolution": 2645.8386250105837,
+                        "scale": 10000000,
+                        "check": true
+                    }, {
+                        "level": 6,
+                        "resolution": 1587.5031750063501,
+                        "scale": 6000000,
+                        "check": true
+                    }, {
+                        "level": 7,
+                        "resolution": 926.0435187537042,
+                        "scale": 3500000,
+                        "check": true
+                    }, {
+                        "level": 8,
+                        "resolution": 529.1677250021168,
+                        "scale": 2000000,
+                        "check": true
+                    }, {
+                        "level": 9,
+                        "resolution": 317.50063500127004,
+                        "scale": 1200000,
+                        "check": true
+                    }, {
+                        "level": 10,
+                        "resolution": 185.20870375074085,
+                        "scale": 700000,
+                        "check": true
+                    }, {
+                        "level": 11,
+                        "resolution": 111.12522225044451,
+                        "scale": 420000,
+                        "check": true
+                    }, {
+                        "level": 12,
+                        "resolution": 66.1459656252646,
+                        "scale": 250000,
+                        "check": true
+                    }, {
+                        "level": 13,
+                        "resolution": 38.36466006265346,
+                        "scale": 145000,
+                        "check": true
+                    }, {
+                        "level": 14,
+                        "resolution": 22.48962831258996,
+                        "scale": 85000,
+                        "check": true
+                    }, {
+                        "level": 15,
+                        "resolution": 13.229193125052918,
+                        "scale": 50000,
+                        "check": true
+                    }, {
+                        "level": 16,
+                        "resolution": 7.9375158750317505,
+                        "scale": 30000,
+                        "check": true
+                    }, {
+                        "level": 17,
+                        "resolution": 4.6302175937685215,
+                        "scale": 17500,
+                        "check": true
+                    }]
                 },
                 "link": false,
                 "bases": [{
-                    "label": "toporama",
-                    "id":"5cb4469d-4363-c8f5-175c-645270a6b6fe",
-                    "type": 3,
-                    "url": "http://wms.ess-ws.nrcan.gc.ca/wms/toporama_en",
-                    "options": {
-	                    "layerinfos": [{
-	                    	"name": "WMS-Toporama",
-												"title": "WMS-Toporama"
-	          			}],
-	          			"visiblelayers": ["WMS-Toporama"]
-          			}
+                    "label": "CBMT3978",
+                    "id": "62e7429b-b08a-9325-45dd-4fbff4f67858",
+                    "type": 2,
+                    "url": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/BaseMaps/CBMT3978/MapServer"
+                }, {
+                    "label": "CBME_CBCE_HS_RO_3978",
+                    "id": "34ad6a2c-2bcf-bd20-111f-ce0421f62a53",
+                    "type": 2,
+                    "url": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/BaseMaps/CBME_CBCE_HS_RO_3978/MapServer"
+                }, {
+                	"label": "toporama",
+                	"id":"bbbb469d-aaaa-c8f5-175c-645270a6b6fe",
+                	"type": 3,
+                	"url": "http://wms.ess-ws.nrcan.gc.ca/wms/toporama_en",
+                	"options": {
+                		"layerinfos": [{
+                			"name": "WMS-Toporama",
+                			"title": "WMS-Toporama"
+                		}],
+                		"visiblelayers": ["WMS-Toporama"]}
                 }],
                 "layers": [{
-                    "label": "us_cities",
-                    "id":"99999999-4363-c8f5-175c-645270a6b6fe",
+                	"label": "Geobase Road Network",
+                    "id":"99999999-0001-c8f5-175c-645270a6b6fe",
                     "type": 3,
-                    "url": "http://sampleserver1.arcgisonline.com/ArcGIS/services/Specialty/ESRI_StatesCitiesRivers_USA/MapServer/WMSServer",
+                    "url": "http://ows.geobase.ca/wms/geobase_en",
                     "options": {
 	                    "layerinfos": [{
-	                    	"name": "2",
-												"title": "![CDATA[ Cities ]]"
+	                    	"name": "nrn:roadnetwork",
+							"title": "NRN Road Network"
 	          			}],
-	          			"visiblelayers": ["2"],
+	          			"visiblelayers": ["nrn:roadnetwork"],
 	          			"scale":{"min":0,"max":0},"cluster":{"enable":false,"distance":50,"label":false,"symbol":false,"maxsizeprop":50,"maxdataprop":1000}
           			}
-                }]
+          		}, {
+                	"label": "Geobase Hydro",
+                    "id":"99999999-0002-c8f5-175c-645270a6b6fe",
+                    "type": 3,
+                    "url": "http://ows.geobase.ca/wms/geobase_en",
+                    "options": {
+	                    "layerinfos": [{
+	                    	"name": "nhn:hydrography",
+							"title": "NHN Hydrography"
+	          			}],
+	          			"visiblelayers": ["nhn:hydrography"],
+	          			"scale":{"min":0,"max":0},"cluster":{"enable":false,"distance":50,"label":false,"symbol":false,"maxsizeprop":50,"maxdataprop":1000}
+          			}
+          		}, {
+                	"label": "Geobase Hydro",
+                    "id":"99999999-0003-c8f5-175c-645270a6b6fe",
+                    "type": 3,
+                    "url": "http://ows.geobase.ca/wms/geobase_en",
+                    "options": {
+	                    "layerinfos": [{
+	                    	"name": "imagery:landsat7",
+							"title": "Imagery lansat7"
+	          			}],
+	          			"visiblelayers": ["imagery:landsat7"],
+	          			"scale":{"min":0,"max":0},"cluster":{"enable":false,"distance":50,"label":false,"symbol":false,"maxsizeprop":50,"maxdataprop":1000}
+          			}
+          		}]
             }
         },
-        "insetframe": {
-        	"enable": false
+        "header": {
+            "title": {
+                "value": "Toporama",
+                "alttext": "Toporama"
+            },
+            "tools": true,
+            "link": false,
+            "inset": false,
+            "about": {
+                "enable": true,
+                "type": 1,
+                "value": "Continuous map coverage for all of Canada is available from national to regional and local topographic scales. The dynamic map viewer offers features for searching place names, zooming and panning, measuring distances, getting coordinates and more."
+            },
+            "print": {
+                "enable": true,
+                "type": 1
+            },
+            "fullscreen": true
         },
-				"header": {
-					"title": {
-						"value": "My new map",
-						"alttext": "My new map alt text"},
-					"tools": true,
-					"link": false,
-					"inset": false,
-					"about": {
-						"enable": true,
-						"type": 1,"value": "My about"},
-					"print": {
-						"enable": true,
-						"type": 1
-					},
-					"fullscreen": true
-				},
         "footer": {
             "northarrow": {
                 "enable": true,
@@ -94,15 +216,272 @@
             }
         },
         "toolbarlegend": {
-            "enable": false,
+            "enable": true,
             "expand": false,
-            "basemaps": [],
-            "items": []
+            "basemaps": [{
+                "expand": false,
+                "last": true,
+                "type": 2,
+                "id": "62e7429b-b08a-9325-45dd-4fbff4f67858",
+                "graphid": "cc7fde4c-eed4-1cf2-8358-7ca86eefb13c",
+                "displayfields": false,
+                "label": {
+                    "value": "CBMT3978",
+                    "alttext": "CBMT3978"
+                },
+                "metadata": {
+                    "enable": false
+                },
+                "opacity": {
+                    "enable": true,
+                    "min": 0,
+                    "max": 1,
+                    "initstate": 1
+                },
+                "visibility": {
+                    "enable": true,
+                    "initstate": true,
+                    "type": 2,
+                    "radioid": 5
+                },
+                "displaychild": {
+                    "enable": false,
+                    "symbol": "{\"type\":\"simple\",\"symbol\":{\"type\":\"esriSFS\",\"style\":\"esriSFSSolid\",\"color\":[0,0,0,0],\"outline\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[0,0,0,0],\"width\":0.4}},\"label\":\"\",\"description\":\"\"}"
+                },
+                "customimage": {
+                    "enable": true,
+                    "url": "http://s-bsc-geoappint.nrn.nrcan.gc.ca/GeoCanViz/CCMEO/images/CBMT.png",
+                    "alttext": "Canada base map image icon"
+                },
+                "items": []
+            }, {
+                "expand": false,
+                "last": true,
+                "type": 2,
+                "id": "34ad6a2c-2bcf-bd20-111f-ce0421f62a53",
+                "graphid": "762eb7ed-a85c-242f-6fcf-af08f5605eb1",
+                "displayfields": false,
+                "label": {
+                    "value": "Hillshade",
+                    "alttext": "CBME_CBCE_HS_RO_3978"
+                },
+                "metadata": {
+                    "enable": false
+                },
+                "opacity": {
+                    "enable": true,
+                    "min": 0,
+                    "max": 1,
+                    "initstate": 1
+                },
+                "visibility": {
+                    "enable": true,
+                    "initstate": false,
+                    "type": 2,
+                    "radioid": 5
+                },
+                "displaychild": {
+                    "enable": false,
+                    "symbol": "{\"type\":\"simple\",\"symbol\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[0,0,0,0],\"width\":2},\"label\":\"\",\"description\":\"\"}"
+                },
+                "customimage": {
+                    "enable": true,
+                    "url": "http://s-bsc-geoappint.nrn.nrcan.gc.ca/GeoCanViz/CCMEO/images/hillshade.png",
+                    "alttext": "Hillshade picture"
+                },
+                "items": []
+            }, {
+            	"expand":false,
+            	"last":true,
+            	"type":3,
+            	"id":"bbbb469d-aaaa-c8f5-175c-645270a6b6fe",
+            	"graphid":"e5511402-9999-5cbe-0d3c-f537c612b7df",
+            	"displayfields":false,
+            	"label":{
+            		"value":"Toporama",
+            		"alttext":"Toporama"
+            	},
+            	"metadata":
+            		{"enable":false,
+            		"value":"",
+            		"alttext":""
+            	},
+            	"opacity":{
+            		"enable":true,
+            		"min":0.5,
+            		"max":1,
+            		"initstate":0.5
+            	},
+            	"visibility":{
+            		"enable":true,
+            		"initstate":false,
+            		"type":2,"radioid":5
+            	},
+            	"displaychild":{
+            		"enable":false,
+            		"symbol":"{\"type\":\"simple\",\"symbol\":{\"type\":\"esriSFS\",\"style\":\"esriSFSSolid\",\"color\":[0,0,0,0],\"outline\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[0,0,0,0],\"width\":0.4}},\"label\":\"\",\"description\":\"\"}"
+            	},
+            	"customimage":{
+            		"enable":true,
+            		"url":"canvec_en.jpg",
+            		"alttext":"Toporama legend"
+            	},
+            	"items":[]
+            }],
+            "items": [{
+            	"expand":false,
+            	"last":false,
+            	"type":3,
+            	"id":"99999999-0000-c8f5-175c-645270a6b6fe",
+            	"graphid":"e5511402-0000-5cbe-0d3c-f537c612b7df",
+            	"displayfields":false,
+            	"label":{
+            		"value":"Geobase",
+            		"alttext":"Geobase"
+            	},
+            	"metadata":
+            		{"enable":false,
+            		"value":"",
+            		"alttext":""
+            	},
+            	"opacity":{
+            		"enable":false,
+            		"min":0,
+            		"max":1,
+            		"initstate":0
+            	},
+            	"visibility":{
+            		"enable":true,
+            		"initstate":false,
+            		"type":1,"radioid":0
+            	},
+            	"displaychild":{
+            		"enable":true,
+            		"symbol":"{\"type\":\"simple\",\"symbol\":{\"type\":\"esriSFS\",\"style\":\"esriSFSSolid\",\"color\":[0,0,0,0],\"outline\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[0,0,0,0],\"width\":0.4}},\"label\":\"\",\"description\":\"\"}"
+            	},
+            	"customimage":{
+            		"enable":false,
+            		"url":"",
+            		"alttext":""
+            	},
+            	"items":[{
+            	"expand":false,
+            	"last":true,
+            	"type":3,
+            	"id":"99999999-0001-c8f5-175c-645270a6b6fe",
+            	"graphid":"e5511402-0001-5cbe-0d3c-f537c612b7df",
+            	"displayfields":false,
+            	"label":{
+            		"value":"Geobase Road Network",
+            		"alttext":"Geobase Road Network"
+            	},
+            	"metadata":
+            		{"enable":false,
+            		"value":"",
+            		"alttext":""
+            	},
+            	"opacity":{
+            		"enable":true,
+            		"min":0.5,
+            		"max":1,
+            		"initstate":0.5
+            	},
+            	"visibility":{
+            		"enable":true,
+            		"initstate":true,
+            		"type":1,"radioid":0
+            	},
+            	"displaychild":{
+            		"enable":false,
+            		"symbol":"{\"type\":\"simple\",\"symbol\":{\"type\":\"esriSFS\",\"style\":\"esriSFSSolid\",\"color\":[0,0,0,0],\"outline\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[0,0,0,0],\"width\":0.4}},\"label\":\"\",\"description\":\"\"}"
+            	},
+            	"customimage":{
+            		"enable":true,
+            		"url":"canvec_en.jpg",
+            		"alttext":"Geobase road network legend"
+            	},
+            	"items":[]
+            }, {
+            	"expand":false,
+            	"last":true,
+            	"type":3,
+            	"id":"99999999-0002-c8f5-175c-645270a6b6fe",
+            	"graphid":"e5511402-0002-5cbe-0d3c-f537c612b7df",
+            	"displayfields":false,
+            	"label":{
+            		"value":"Geobase Hydro Network",
+            		"alttext":"Geobase Hydro Network"
+            	},
+            	"metadata":
+            		{"enable":false,
+            		"value":"",
+            		"alttext":""
+            	},
+            	"opacity":{
+            		"enable":true,
+            		"min":0.5,
+            		"max":1,
+            		"initstate":0.5
+            	},
+            	"visibility":{
+            		"enable":true,
+            		"initstate":true,
+            		"type":1,"radioid":0
+            	},
+            	"displaychild":{
+            		"enable":false,
+            		"symbol":"{\"type\":\"simple\",\"symbol\":{\"type\":\"esriSFS\",\"style\":\"esriSFSSolid\",\"color\":[0,0,0,0],\"outline\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[0,0,0,0],\"width\":0.4}},\"label\":\"\",\"description\":\"\"}"
+            	},
+            	"customimage":{
+            		"enable":true,
+            		"url":"canvec_en.jpg",
+            		"alttext":"Geobase hydro network legend"
+            	},
+            	"items":[]
+            }, {
+            	"expand":false,
+            	"last":true,
+            	"type":3,
+            	"id":"99999999-0003-c8f5-175c-645270a6b6fe",
+            	"graphid":"e5511402-0003-5cbe-0d3c-f537c612b7df",
+            	"displayfields":false,
+            	"label":{
+            		"value":"Geobase Landsat Imagery",
+            		"alttext":"Geobase Landsat Imagery"
+            	},
+            	"metadata":
+            		{"enable":false,
+            		"value":"",
+            		"alttext":""
+            	},
+            	"opacity":{
+            		"enable":true,
+            		"min":0.5,
+            		"max":1,
+            		"initstate":0.5
+            	},
+            	"visibility":{
+            		"enable":true,
+            		"initstate":false,
+            		"type":1,"radioid":0
+            	},
+            	"displaychild":{
+            		"enable":false,
+            		"symbol":"{\"type\":\"simple\",\"symbol\":{\"type\":\"esriSFS\",\"style\":\"esriSFSSolid\",\"color\":[0,0,0,0],\"outline\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[0,0,0,0],\"width\":0.4}},\"label\":\"\",\"description\":\"\"}"
+            	},
+            	"customimage":{
+            		"enable":true,
+            		"url":"canvec_en.jpg",
+            		"alttext":"Geobase landsat imagery legend"
+            	},
+            	"items":[]
+            }]
+            }]
         },
         "toolbardraw": {
             "enable": true,
-            "drawline": {
             "expand": false,
+            "drawline": {
                 "enable": true
             },
             "drawtext": {
@@ -120,32 +499,41 @@
                 "enable": true
             }
         },
-        "toolbardata": {"enable": false,"expand": false, "add": {"enable": true}},
         "toolbarnav": {
-        	"enable": true,
-        	"expand": true,
-        	"mapwkid": 3978,
-        	"zoom": true,
-        	"geolocation": {
-        		"enable": true,
-        		"type": -1
-        		},
-        	"scalebar": {
-        		"enable": true,
-        		"unit": 1
-        		},
-        	"scaledisplay": {
-        		"enable": false,
-        		"format": 1
-        		},
-        	"overview": {
-        		"enable": true,
-        		"url": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/BaseMaps/CBMT3978/MapServer",
-        		"type": 2
-        		},
-        	"position": {
-        		"enable": true
-        		}
+            "enable": true,
+            "expand": false,
+            "mapwkid": 3978,
+            "zoom": true,
+            "geolocation": {
+                "enable": true,
+                "type": -1
+            },
+            "scalebar": {
+                "enable": true,
+                "unit": 1
+            },
+            "scaledisplay": {
+                "enable": true,
+                "format": 1
+            },
+            "overview": {
+                "enable": true,
+                "url": "",
+                "type": "4"
+            },
+            "position": {
+                "enable": true
+            }
+        },
+        "toolbardata": {
+            "enable": true,
+            "expand": false,
+            "add": {
+                "enable": true
+            }
+        },
+        "insetframe": {
+            "enable": false
         },
         "customwidgets": []
     }

@@ -7,8 +7,7 @@
  */
 (function () {
 	'use strict';
-	define(['jquery-private',
-            'esri/config',
+	define(['esri/config',
             'esri/tasks/ProjectParameters',
             'esri/tasks/DistanceParameters',
 			'esri/tasks/AreasAndLengthsParameters',
@@ -16,7 +15,7 @@
 			'esri/SpatialReference',
 			'esri/geometry/Point',
 			'esri/geometry/Extent'
-	], function($viz, esriConfig, esriProj, esriDist, esriArea, esriGeom, esriSR, esriPoint, esriExtent) {
+	], function(esriConfig, esriProj, esriDist, esriArea, esriGeom, esriSR, esriPoint, esriExtent) {
 		var setGeomServ,
 			getOutSR,
 			getNorthAngle,

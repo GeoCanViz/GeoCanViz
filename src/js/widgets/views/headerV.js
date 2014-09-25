@@ -16,6 +16,7 @@
 		initialize = function($mapElem) {
 			var $header, tp,
 				config = $mapElem.header,
+				configTools = config.tools,
 				configAbout = config.about,
 				mapid = $mapElem.mapframe.id,
 				title = config.title.value,
@@ -81,12 +82,20 @@
 			node += '</div>';
 
 			$header.append(node);
-			if (config.tools === true) {
+			if (configTools.enable === true) {
 				// Add a collapsible container for tools to hold all the toolbars instead of having a tools icon
 				$mapElem.find('.gcviz-head').append('<div id="divToolsOuter' + mapid + '" class="gcviz-tbcontainer" data-bind="attr: { style: xheightToolsOuter }"><div id="divToolsInner' + mapid + '" class="gcviz-toolsholder" data-bind="attr: { style: xheightToolsInner }"></div></div>');
 				tp = new dojotitle({ id: 'tbTools' + mapid, title: '' + i18n.getDict('%header-tools') + '', content: '<div class="gcviz-tbholder" data-bind="attr: { style: widthheightTBholder }"></div>', open: true });
 				$mapElem.find('.gcviz-toolsholder').append(tp.domNode);
 				tp.startup();
+				
+				// if expand is true, toggle tools
+				// wait until the navigation toolbar overview widget is set (250 milliseconds)
+				setTimeout(function() {			
+					if (!configTools.expand) {
+						tp.toggle();
+					}
+				}, 300);
 			}
 			return (headerVM.initialize($header, mapid, config));
 		};

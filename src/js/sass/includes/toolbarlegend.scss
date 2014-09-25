@@ -14,6 +14,12 @@
 %imgsize_leg_icons {
   height: (0.9 * $rembase) + rem;
   width: (0.9 * $rembase) + rem;
+  background-repeat: no-repeat;
+}
+
+// set disable the layer li tag when layer is out of scale
+.gcviz-leg-dis {
+	opacity: 0.25;
 }
 
 // ul and li

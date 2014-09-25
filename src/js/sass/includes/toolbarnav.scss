@@ -47,6 +47,7 @@
 .esriOverviewMap .ovwContainer .map .container .layersDiv {position: relative; left: 0px; top: 0px; width: 100%; height: 100%;}
 .esriOverviewMap .ovwContainer .map .container .layersDiv .layerTile {position: absolute; border: none; margin: 0px; padding: 0px;}
 .esriOverviewMap .ovwContainer .map .container .container {-webkit-tap-highlight-color: rgba(0, 0, 0, 0);}
+.esriOverviewMap .ovwContainer .map .container .container .layersDiv img {margin: 0px!important;}
 
 /* Change overview highlight of ESRI element */
 .ovwHighlight {
@@ -59,16 +60,12 @@
 
 .gcviz-ovtoolcontainer {
   opacity: 1.0!important;
+  width: 230px!important;
   @include app-border(0.1, solid, $black);
 }
 
 .gcviz-overviewMap {
   position: relative!important;
-}
-
-.gcviz-overviewMapContent {
-  width: 247px!important;
-  height: 100px!important;
 }
 
 /* Classes from esri.css for scalebar */
@@ -129,4 +126,5 @@
   margin-top: (0.5 * $rembase) + rem!important;
   @include app-border(0.1, solid, #000000);
   @include content-border-radius(0.6);
+  width: 93%;
 }

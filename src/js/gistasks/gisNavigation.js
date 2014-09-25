@@ -34,15 +34,18 @@
 
 				// If no layer specified, use the main map
 				// layer must be ArcGIS tiled, dynamic or imagery. It can also be OpenStreet map
-				bLayer = gisMap.getOverviewLayer(type, url);
+				if (url !== "") {
+					bLayer = gisMap.getOverviewLayer(type, url);
+				}
+
 				if (bLayer !== null) {
-						options.baseLayer = bLayer;
+					options.baseLayer = bLayer;
 				}
 				overviewMapDijit = new esriOV(options, ovDiv);
 
 				// we need to startup only when we see the div.
 				// open the tools and panels, startup then put back the original state
-				// iot is done in navVM
+				// it is done in navVM
 				overviewMapDijit.startup();
 
 				// work around to resize the overview div because it wont work only

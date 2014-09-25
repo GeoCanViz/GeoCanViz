@@ -40,7 +40,7 @@
 				// tools panel settings
 				_self.xheightToolsOuter = ko.observable('max-height:100px!important');
 				_self.xheightToolsInner = ko.observable('max-height:100px!important');
-				_self.widthheightTBholder =  ko.observable('max-height:390px!important;max-width:340px!important');
+				_self.widthheightTBholder =  ko.observable('max-height:390px!important; max-width:340px!important');
 
 				// tooltip, text strings
 				_self.tpHelp = i18n.getDict('%header-tphelp');
@@ -89,6 +89,9 @@
 
 				// WCAG
 				_self.isWCAG = ko.observable(false);
+
+				// tools initial setting
+				_self.toolsInit = config.tools;
 
 				_self.init = function() {
 					// keep map size
@@ -249,7 +252,7 @@
 					_self.xheightToolsOuter('max-height:' + toolbarheight + 'px!important');
 					_self.xheightToolsInner('max-height:' + toolbarheight + 'px!important');
 					toolbarheight -= 25;
-					_self.widthheightTBholder('max-height:' + toolbarheight + 'px!important;max-width:340px!important');
+					_self.widthheightTBholder('max-height:' + toolbarheight + 'px!important; max-width:' + (34 * 0.625) + 'rem!important');
                 };
 
 				_self.manageTabbingOrder = function(evt) {

@@ -7,7 +7,8 @@
  */
 (function () {
 	'use strict';
-	define(['kineticpanning',
+	define(['jquery-private',
+			'kineticpanning',
 			'gcviz-func',
 			'dijit/Menu',
 			'dijit/MenuItem',
@@ -26,7 +27,7 @@
 			'esri/geometry/Extent',
             'esri/geometry/Point',
             'esri/IdentityManager'
-	], function(kpan, func, menu, menuItem, menupopup, gisLegend, gisCluster, esriConfig, esriMap, esriFL, esriTiled, esriDyna, esriImage, webTiled, wms, wmsInfo, esriExt, esriPoint) {
+	], function($viz, kpan, func, menu, menuItem, menupopup, gisLegend, gisCluster, esriConfig, esriMap, esriFL, esriTiled, esriDyna, esriImage, webTiled, wms, wmsInfo, esriExt, esriPoint) {
 		var mapArray = {},
 			setProxy,
 			createMap,
@@ -36,6 +37,7 @@
 			connectLinkEvent,
 			connectEvent,
 			addLayer,
+			setScaleInfo,
 			resizeMap,
 			resizeCenterMap,
 			zoomPoint,
@@ -332,7 +334,33 @@
 			// cluster layer is added in gisCluster class
 			if (type !== 6) {
 				map.addLayer(layer);
+				
+				// set scale info
+				setScaleInfo(map, layerInfo);
 			}
+		};
+
+		setScaleInfo = function(map, layerInfo) {
+			var layerScale,
+				scale = layerInfo.scale;
+
+			// set scale 
+			layerScale = map.getLayer(layerInfo.id);
+			layerScale.on('load', function() {
+				layerScale.minScale = scale.min;
+				layerScale.maxScale = scale.max;
+			});
+
+			// set event to know when layer is outside scale
+			layerScale.on('scale-visibility-change', function() {
+				var $leg = $viz('#' + layerInfo.id);
+
+				if (layerScale.visibleAtMapScale) {
+					$leg.removeClass('gcviz-leg-dis');
+				} else {
+					$leg.addClass('gcviz-leg-dis');
+				}
+			});
 		};
 
 		getOverviewLayer = function(configoverviewtype, configoverviewurl) {
@@ -499,6 +527,7 @@
 			createMap: createMap,
 			createInset: createInset,
 			addLayer: addLayer,
+			setScaleInfo: setScaleInfo,
 			resizeMap: resizeMap,
 			resizeCenterMap: resizeCenterMap,
 			zoomPoint: zoomPoint,

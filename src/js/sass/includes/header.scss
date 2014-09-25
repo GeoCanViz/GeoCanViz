@@ -3,19 +3,20 @@
 .gcviz-head {
 	@include app-head-foot;
   background-repeat: repeat-x;
-  background-image: url($img-root + "headBlackbar.png");
+  background-image: url($img-root + "headGreybar.png");
 }
 
 .gcviz-head-btn {
 	float: right;
 	margin-right:	(1 * $rembase) + rem;
+	height: 40px!important;
 }
 
 .gcviz-head-title {
-	@include app-text(1.6, bold, $white);
+	@include app-text(1.6, bold, $black);
 	position: relative;
-	top: 	(1 * $rembase) + rem;
-	left: 	(0.5 * $rembase) + rem;
+	top: (1 * $rembase) + rem;
+	left: (2 * $rembase) + rem;
 	display: inline-block;
 }
 
@@ -37,7 +38,7 @@
 }
 
 .gcviz-head-inset {
-	@include sprite($img-spritebtn, -40, -2);
+	@include sprite($img-spritebtn, -37, -2);
 }
 
 .gcviz-head-link {

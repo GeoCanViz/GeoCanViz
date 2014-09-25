@@ -54,7 +54,7 @@
             $legend.append(itemsTemplate);
 
             $legend.append(itemsTemplate);
-            node += '<div class="gcviz-leg-baseb"><span class="gcviz-leg-baset" data-bind="text: baseMap"></span><ul class="gcviz-leg-ul" data-bind="template: { name: \'itemsTmpl\', foreach: $data.basesArray }"></ul></div>';
+            node += '<div data-bind="if: basesArray().length > 0"><div class="gcviz-leg-baseb"><span class="gcviz-leg-baset" data-bind="text: baseMap"></span><ul class="gcviz-leg-ul" data-bind="template: { name: \'itemsTmpl\', foreach: $data.basesArray }"></ul></div></div>';
             node += '<div><ul class="gcviz-leg-ul" data-bind="template: { name: \'itemsTmpl\', foreach: $data.layersArray }"></ul></div>';
             $legend.append(node);
             return (tblegendVM.initialize($legend, mapid, config));

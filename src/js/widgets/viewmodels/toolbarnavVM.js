@@ -132,7 +132,6 @@
 						if (!config.expand) {
 							dijit.byId('tbnav' + mapid).toggle();
 						}
-						dijit.byId('tbTools' + mapid).toggle();
 					}, 250);
 
 					return { controlsDescendantBindings: true };
