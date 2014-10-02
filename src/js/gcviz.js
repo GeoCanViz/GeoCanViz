@@ -157,8 +157,35 @@ var locationPath;
 				$viz.event.trigger('gcviz-ready');
 
 				// set the resize event
-				window.onresize = gcvizFunc.debounce(function () {
-
+				window.onresize = gcvizFunc.debounce(function (event) {
+					var applyW,
+						$section = $(event.target.document.getElementsByClassName('gcviz-section')),
+						$mapholder = $section.find('.gcviz'),
+						$map = $section.find('.gcviz-map'),
+						$maproot = $section.find('.gcviz-root'),
+						actualW = parseInt($mapSection.css('width'), 10), // actual map width
+						oriW = parseInt($map.attr('gcviz-size').split(';')[1], 10), // original from config map width
+						leftMarg = $section.position().left, //containter left margin
+						maxWidth = parseInt($section.parent().css('width'), 10) - (2 * leftMarg); // get container width
+					
+					// map cant be smaller then 360px
+					if (maxWidth < 360) {
+						maxWidth = 360;
+					}
+					
+					// check if we should apply the original width or the maximum possible width
+					if (oriW > maxWidth) {
+						applyW = maxWidth;
+					} else if (actualW < oriW && maxWidth > oriW) {
+						applyW = oriW;
+					}
+					
+					// set size
+					gcvizFunc.setStyle($section[0], { 'width': applyW + 'px' });
+					gcvizFunc.setStyle($mapholder[0], { 'width': applyW + 'px' });
+					gcvizFunc.setStyle($map[0], { 'width': applyW + 'px' });
+					gcvizFunc.setStyle($maproot[0], { 'width': applyW + 'px' });
+					
 				}, 500, false);
 			}
 		};

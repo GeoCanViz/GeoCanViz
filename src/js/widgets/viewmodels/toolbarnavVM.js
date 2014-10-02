@@ -28,6 +28,7 @@
 					overview = config.overview,
 					scalebar = config.scalebar,
 					scaledisplay = config.scaledisplay,
+					position = config.position,
                     clickPosition,
                     inMapField = $viz('#inGeoLocation' + mapid),
                     btnClickMap = $viz('#btnClickMap' + mapid),
@@ -107,8 +108,22 @@
 				_self.outSR = gisgeo.getOutSR(config.mapwkid);
 
 				_self.init = function() {
+					var $tb, currentScale;
+
                     _self.theAutoCompleteArray = ko.observableArray(autoCompleteArray);
 
+					if (position.enable) {
+						// set event for the toolbar
+						$tb = $viz('#tbTools' + mapid + '_titleBarNode');
+						$tb.on('click', function() {
+							// Reset cursor
+                   			 $container.removeClass('gcviz-nav-cursor-pos');
+
+							// remove click event
+							clickPosition.remove();
+						});
+					}				
+					
                     // See if user wanted an overview map. If so, initialize it here
                     if (overview.enable) {
 						gisnav.setOverview(mymap, overview);
@@ -121,7 +136,7 @@
 
                     if (scaledisplay.enable) {
 						mymap.on('extent-change', function() {
-							var currentScale = Math.round(mymap.getScale()).toString();
+							currentScale = Math.round(mymap.getScale()).toString();
 							_self.lblScale(_self.ScaleLabel + currentScale);
 						});
 					}

@@ -60,6 +60,47 @@
 						}
 					}
 				};
+				
+				_self.determineTextCSS = function(item) {
+					var layer,
+						className = 'gcviz-leg-span',
+						len = _self.layersArray().length,
+						count = 1;
+					
+					while (len--) {
+						layer = _self.layersArray()[len];
+						
+						if (item.id === layer.id) {
+							
+							if (layer.items.length > 0 && item.graphid !== layer.graphid) {
+								count =	_self.getIndex(layer.items, item.graphid, count);
+							}
+							
+							className += count;
+							count = 1;
+							return className;
+						}
+					}
+				};
+				
+				_self.getIndex = function(items, graphid, count) {
+					var layer,
+						len = items.length;
+					
+					// increment count
+					count += 1;
+					
+					while (len--) {
+						layer = items[len];
+						
+						if (graphid === layer.graphid) {
+							if (layer.items.length > 0) {
+								count =	getIndex(layer.items, graphid, count);
+							}
+						}
+					}
+					return count;
+				};
 
 				// needs this function because the a tag inside li tag doesn't work.
 				_self.openMetadata = function(node) {

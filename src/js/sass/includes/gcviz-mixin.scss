@@ -118,13 +118,14 @@ $one_col: (100% - ($gutter * ($cols - 1))) / $cols;
   background-size: 100% 100%;
 }
 
-@mixin app-text($size: 1.2, $weight: normal, $color: $text-color) {
+@mixin app-text($size: 1.2, $weight: normal, $color: $text-color, $style: normal) {
   font: {
     family: $font!important;
     weight: $weight!important;
     size: ($size * 10) + px!important; // old browsers
     size: ($size * $rembase) + rem!important;
   }
+  font-style: $style!important;
   color: $color;
 }
 

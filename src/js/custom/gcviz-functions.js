@@ -70,22 +70,13 @@
 			// get maximal height and width from browser window and original height and width for the map
 			var minWW = window.innerWidth,
 				minWH = window.innerHeight,
-				w, h, ratio;
+				w, h;
 
-			// calculate the width, height and ratio with the window
-			w = minWW - 50;
-			ratio = (w / width);
-			h = height * ratio;
+			// calculate the width and height with the window. Remove 15px to keep all the right and bottom section
+			w = minWW - 15;
+			h = minWH - 15;
 
-			// if the minimum window width is smaller then map height,
-			// use height as starting point to calculate dimension
-			if (minWH < h) {
-				h = minWH - 50;
-				ratio = (h / height);
-				w = width * ratio;
-			}
-
-			return { 'width': w, 'height': h, 'ratio': ratio };
+			return { 'width': w, 'height': h };
 		};
 
 		checkObjectValue = function(obj, key, value) {

@@ -14,7 +14,7 @@
 		var initialize;
 
 		initialize = function($mapElem) {
-			var $header, tp,
+			var $header, tp, ext,
 				config = $mapElem.header,
 				configTools = config.tools,
 				configAbout = config.about,
@@ -26,13 +26,16 @@
 			// Find the header element to insert things in
 			$header = $mapElem.find('.gcviz-head');
 
+			// set the side class extension to know where to put tools and buttons
+			ext = config.side ? '-r' : '-l';
+
 			// set title
 			if (typeof title !== 'undefined') {
-				node += '<label class="gcviz-head-title unselectable">' + title + '</label>';
+				node += '<label class="gcviz-head-title' + ext + ' unselectable">' + title + '</label>';
 			}
 
 			// add buttons
-			node += '<div class="gcviz-head-btn">';
+			node += '<div class="gcviz-head-btn' + ext + '">';
 
 			// set help button (help is always visible)
 			node += '<button class="gcviz-head-help" tabindex="0" data-bind="buttonBlur, click: helpClick, tooltip: { content: tpHelp }"></button>';
@@ -84,7 +87,7 @@
 			$header.append(node);
 			if (configTools.enable === true) {
 				// Add a collapsible container for tools to hold all the toolbars instead of having a tools icon
-				$mapElem.find('.gcviz-head').append('<div id="divToolsOuter' + mapid + '" class="gcviz-tbcontainer" data-bind="attr: { style: xheightToolsOuter }"><div id="divToolsInner' + mapid + '" class="gcviz-toolsholder" data-bind="attr: { style: xheightToolsInner }"></div></div>');
+				$mapElem.find('.gcviz-head').append('<div id="divToolsOuter' + mapid + '" class="gcviz-tbcontainer' + ext + '" data-bind="attr: { style: xheightToolsOuter }"><div id="divToolsInner' + mapid + '" class="gcviz-toolsholder" data-bind="attr: { style: xheightToolsInner }"></div></div>');
 				tp = new dojotitle({ id: 'tbTools' + mapid, title: '' + i18n.getDict('%header-tools') + '', content: '<div class="gcviz-tbholder" data-bind="attr: { style: widthheightTBholder }"></div>', open: true });
 				$mapElem.find('.gcviz-toolsholder').append(tp.domNode);
 				tp.startup();

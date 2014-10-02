@@ -1,23 +1,42 @@
 @import "gcviz-mixin";
 
+%head-title {
+	@include app-text(1.6, bold, $black);
+	position: relative;
+	top: (1 * $rembase) + rem;
+	display: inline-block;
+}
+
+%head-button {
+	margin-right:	(1 * $rembase) + rem;
+	height: 40px!important;
+}
+
 .gcviz-head {
 	@include app-head-foot;
   background-repeat: repeat-x;
   background-image: url($img-root + "headGreybar.png");
 }
 
-.gcviz-head-btn {
-	float: right;
-	margin-right:	(1 * $rembase) + rem;
-	height: 40px!important;
+.gcviz-head-btn-l {
+	@extend %head-button;
+	float: left;
 }
 
-.gcviz-head-title {
-	@include app-text(1.6, bold, $black);
-	position: relative;
-	top: (1 * $rembase) + rem;
+.gcviz-head-btn-r {
+	@extend %head-button;
+	float: right;
+}
+
+.gcviz-head-title-l {
+	@extend %head-title;
+	float: right;
+	right: (2 * $rembase) + rem;
+}
+
+.gcviz-head-title-r {
+	@extend %head-title;
 	left: (2 * $rembase) + rem;
-	display: inline-block;
 }
 
 // the header button sprite (need to use background-position because FF is not able to set x and y)

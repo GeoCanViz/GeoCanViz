@@ -50,6 +50,48 @@
 			}
 	};
 
+	//custom binding handler to add image to a label
+	ko.bindingHandlers.contextMenu = {
+		init: function(element, valueAccessor) {
+			var array,
+				len,
+				options = valueAccessor() || {};
+				
+				// ajax call to get the config file info
+			$viz.support.cors = true; // force cross-site scripting for IE9
+			$viz.ajax({
+				url: "http://127.0.0.1:8020/GeoCanViz/gcviz/print/defaultPrint.html",
+				crossDomain: true,
+				dataType: 'html',
+				async: false,
+				success: function(config) {
+					alert('ok');
+				},
+				error: function(e) {
+					console.log('error');
+				}
+			}); // end ajax
+
+						// '<a href="JavaScript:showMsgBox("<strong>Types de produit :</strong><br/>) title="Type de produit - Aide">' +
+						// '<img src="images/help_16px.png" style="width: 16px; height:16px;" alt="Type de produit - Aide"></a>' +
+			// add text
+			$viz(element).text(options.text);
+
+			// add a simgle image if img is provided
+			// add multiple images if imgs is provided
+			if (options.img) {
+				$aut(element).prepend('<img class="gcaut-img-lbl" src="' + options.img + '"></img>');
+			} else if (options.imgs) {
+				array = options.imgs.split(';');
+				len = array.length;
+
+				while (len--) {
+					$aut(element).prepend('<img class="gcaut-img-lbl" src="' + array[len] + '"></img>');
+				}
+			}
+		}
+	};
+
 	ko.bindingHandlers.wcag = {
 		init: function(element, valueAccessor, allBindings, viewModel) {
 			var manageWCAG,

@@ -17,6 +17,12 @@
   background-repeat: no-repeat;
 }
 
+%legspan {
+	display: inline-block;
+	padding-left: 0rem;
+	white-space: nowrap;
+}
+
 // set disable the layer li tag when layer is out of scale
 .gcviz-leg-dis {
 	opacity: 0.25;
@@ -93,10 +99,20 @@
 	padding-left: 0rem;
 }
 
-.gcviz-leg-span {
-	display: inline-block;
-	padding-left: 0rem;
-	white-space: nowrap;
+// layer title define by level of deepness
+.gcviz-leg-span1 {
+	@extend %legspan;
+	@include app-text(1.2, bold);
+}
+
+.gcviz-leg-span2 {
+	@extend %legspan;
+	@include app-text(1.2, normal, $black, italic);
+}
+
+.gcviz-leg-span3 {
+	@extend %legspan;
+	@include app-text(1.2, normal, $black);
 }
 
 .gcviz-legendSymbolDiv {

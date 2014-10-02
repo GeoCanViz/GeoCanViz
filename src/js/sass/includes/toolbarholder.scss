@@ -17,8 +17,8 @@
 	}
 }
 
-.gcviz-tbcontainer {
-  @include app-text();
+%tbcontainer {
+	@include app-text();
   @include unselectable;
   padding-top: 0rem;
   padding-right: (1 * $rembase) + rem;
@@ -27,9 +27,18 @@
   position: absolute;
   z-index: 100;
   width: (34 * $rembase) + rem;
-  right: 0rem;
   top: (4 * $rembase) + rem;
   @extend %transparency;
+}
+
+.gcviz-tbcontainer-l {
+  @extend %tbcontainer;
+  left: 0rem;
+}
+
+.gcviz-tbcontainer-r {
+  @extend %tbcontainer;
+  right: 0rem;
 }
 
 .gcviz-tbholder {
