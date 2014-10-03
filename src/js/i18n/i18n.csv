@@ -30,11 +30,6 @@ General (i18n)#%all#All#Tous
 #%footer-tpNorth#North arrow#Flèche du nord
 #%header-abouttitle#about this map #à-propos de cette carte 
 #%header-aboutread#Read #Lire 
-#%header-help#GeoCanViz Help#Aide pour GéoCanViz
-#%header-helpdownload#Download the #Téléchargé le 
-#%header-helpmanual#GeoCanViz Help Manual #Manuel d'aide pour GéoCanViz 
-#%header-helptitle#Open the help manual#Ouvrir le manuel d'aide
-#%header-urlhelp#../../HelpManual.pdf#../../ManuelAide.pdf
 #%header-tpabout#About this map#À propos de cette carte
 #%header-tphelp#Open help page#Ouvrir la page d'aide
 #%header-tpwcag#Enable or disable WCAG mode#Activer ou désactiver le mode RACW
@@ -47,6 +42,8 @@ General (i18n)#%all#All#Tous
 #%header-printurl#http://geoappext.nrcan.gc.ca/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task#http://geoappext.nrcan.gc.ca/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task
 #%help-instr#Keyboard user: setup your keyboard to control the mouse to access the following PDF document.#Utilisateur du clavier: configurez votre clavier pour contrôler la souris et accéder au document PDF ci-dessous.
 #%toolbarholder-caption#Toolbars#Barre d'outils
+#%toolbardraw-alt#ToolbarDraw - Help#Barre d'outil dessiner - Aide
+#%toolbardraw-desc#ToolbarDraw is use to add drawing (line, text or measure) to the map#La barre d'outil dessiner est utilisé pour ajouter des (lignes, texte ou mesures) à la carte- Aide
 #%toolbardraw-name#Draw#Dessiner
 #%toolbardraw-insinputbox#Click OK to place the text on the map or click Cancel to abort.#Cliquez sur OK pour placer le texte sur la carte ou cliquez sur Annuler pour abandonner.
 #%toolbardraw-inputbox-name#Add text#Ajouter du texte
@@ -114,3 +111,6 @@ General (i18n)#%all#All#Tous
 #%mp-prev#Next (Right arrow key)#Suivant (touche flèche droite)
 #%mp-count#%curr% of %total%#%curr% de %total%
 #%mp-error#<a href='%url%'>The image</a> could not be loaded.#<a href='%url%'>L'image</a> ne peut être chargée.
+
+#%help-dialogtitle#GeoCanViz Help#Aide pour GéoCanViz
+#%help-dialogbubbletitle#GeoCanViz Contextual Help#Aide contextuelle pour GéoCanViz

@@ -43,7 +43,7 @@
 					itemsTemplate += '<div class="gcviz-legendHolderDiv" data-bind="if: visibility.enable && visibility.type === 1"><input class="gcviz-leg-check" type="checkbox" data-bind="event: { click: $root.changeItemsVisibility }, clickBubble: false, attr: { title: $root.tpVisible, id: \'checkbox\' + id }, checked: visibility.initstate"/></div>';
 					itemsTemplate += '<div class="gcviz-legendHolderDiv" data-bind="if: visibility.enable && visibility.type === 2"><div data-bind="LegendRadioButtons: { value: visibility.initstate, group: \'radio\' + visibility.radioid }"></div></div>';
 					itemsTemplate += '<div class="gcviz-legendHolderDiv" data-bind="HorizontalSliderDijit: { widget: $root.HorizontalSlider, extent: [opacity.min, opacity.max], value: opacity.initstate, enable: opacity.enable}, if: opacity.enable"></div>';
-					itemsTemplate += '<div class="gcviz-legendHolderDiv" data-bind="if: metadata.enable"><span class="gcviz-leg-span" data-bind=" attr: { id: \'span\' + id }"><a class="gcviz-legendLink" target="_blank" data-bind="click: $root.openMetadata($element), attr: { href: metadata.value, title: metadata.alttext, alt: metadata.alttext }, text: label.value"></a></span></div>';
+					itemsTemplate += '<div class="gcviz-legendHolderDiv" data-bind="if: metadata.enable"><span data-bind="attr: { id: \'span\' + id }, css: $root.determineTextCSS($data)"><a class="gcviz-legendLink" target="_blank" data-bind="click: $root.openMetadata($element), attr: { href: metadata.value, title: metadata.alttext, alt: metadata.alttext }, text: label.value"></a></span></div>';
 					itemsTemplate += '<div class="gcviz-legendHolderDiv" data-bind="ifnot: metadata.enable"><span data-bind="text: label.value, attr: { id: \'span\' + id }, css: $root.determineTextCSS($data)"></span></div>';
 					itemsTemplate += '<div class="gcviz-legendHolderImgDiv" id="customImage" data-bind="if: customimage.enable"><img class="gcviz-legendImg" data-bind="attr: { src: customimage.url, title: customimage.alttext, alt: customimage.alttext }"></img></div>';
 					itemsTemplate += '<div class="gcviz-legendHolderDiv" data-bind="visible: displayfields"><div class="gcviz-legendSymbolDiv" data-bind="attr: { id: \'featureLayerSymbolFieldName\' + id }"/></div>';
@@ -54,8 +54,9 @@
             $legend.append(itemsTemplate);
 
             $legend.append(itemsTemplate);
-            node += '<div data-bind="if: basesArray().length > 0"><div class="gcviz-leg-baseb"><span class="gcviz-leg-baset" data-bind="text: baseMap"></span><ul class="gcviz-leg-ul" data-bind="template: { name: \'itemsTmpl\', foreach: $data.basesArray }"></ul></div></div>';
             node += '<div><ul class="gcviz-leg-ul" data-bind="template: { name: \'itemsTmpl\', foreach: $data.layersArray }"></ul></div>';
+            node += '<div data-bind="if: basesArray().length > 0"><div class="gcviz-leg-baseb"><span class="gcviz-leg-baset" data-bind="text: baseMap"></span><ul class="gcviz-leg-ul" data-bind="template: { name: \'itemsTmpl\', foreach: $data.basesArray }"></ul></div></div>';
+            
             $legend.append(node);
             return (tblegendVM.initialize($legend, mapid, config));
         };

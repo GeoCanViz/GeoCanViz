@@ -64,14 +64,19 @@
 				_self.determineTextCSS = function(item) {
 					var layer,
 						className = 'gcviz-leg-span',
-						len = _self.layersArray().length,
+						layers = _self.layersArray().concat(_self.basesArray()),
+						len = layers.length,
 						count = 1;
-					
+
+					// loop trought layers to find a match
 					while (len--) {
-						layer = _self.layersArray()[len];
+						layer = layers[len];
 						
+						// if the layer is the same as the one for the grapic item,
+						// find the level of deepness
 						if (item.id === layer.id) {
 							
+							// if it is not on this level, call getIndex
 							if (layer.items.length > 0 && item.graphid !== layer.graphid) {
 								count =	_self.getIndex(layer.items, item.graphid, count);
 							}
@@ -82,23 +87,31 @@
 						}
 					}
 				};
-				
+
 				_self.getIndex = function(items, graphid, count) {
 					var layer,
 						len = items.length;
-					
+
 					// increment count
 					count += 1;
-					
+
+					// check if there is a match at this level. If so, return the count
 					while (len--) {
 						layer = items[len];
-						
+
 						if (graphid === layer.graphid) {
-							if (layer.items.length > 0) {
-								count =	getIndex(layer.items, graphid, count);
-							}
-						}
+							return count;
+						} 
 					}
+
+					// if there is no match, loop trought childs items and recall the
+					// function
+					len = items.length;
+					while (len--) {	
+						layer = items[len].items;	
+						return count = _self.getIndex(layer, graphid, count);
+					}
+
 					return count;
 				};
 

@@ -247,6 +247,14 @@
 				location: locationPath + 'src/js/gistasks',
 				main: 'gisData'
 			}, {
+				name: 'gcviz-v-help',
+				location: locationPath + 'src/js/widgets/views',
+				main: 'helpV'
+			}, {
+				name: 'gcviz-vm-help',
+				location: locationPath + 'src/js/widgets/viewmodels',
+				main: 'helpVM'
+			}, {
 				name: 'gcviz-v-header',
 				location: locationPath + 'src/js/widgets/views',
 				main: 'headerV'

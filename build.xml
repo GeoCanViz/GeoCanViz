@@ -201,6 +201,7 @@
 			<fileset dir="${src.dir}/js/images/lightbox"/>
 			<fileset dir="${src.dir}/js/images/sprite"/>
 			<fileset dir="${src.dir}/js/images/head"/>
+			<fileset dir="${src.dir}/js/images/help"/>
 			<fileset dir="${src.dir}/js/images/draw"/>
 			<fileset dir="${src.dir}/js/images/nav"/>
 			<fileset dir="${src.dir}/js/images/foot"/>

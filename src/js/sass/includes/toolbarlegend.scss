@@ -14,6 +14,7 @@
 %imgsize_leg_icons {
   height: (0.9 * $rembase) + rem;
   width: (0.9 * $rembase) + rem;
+  margin-top: (0.7 * $rembase) + rem;
   background-repeat: no-repeat;
 }
 
@@ -58,7 +59,7 @@
 .gcviz-leg-baseb {
 	@include app-border(0.1, solid, $lightgrey);
   @include content-border-radius();
-  margin-top: (1 * $rembase) + rem;
+  margin-top: (1.5 * $rembase) + rem;
   margin-right: (1 * $rembase) + rem;
   margin-bottom: (1 * $rembase) + rem;
   padding-bottom: (1 * $rembase) + rem;
@@ -113,6 +114,11 @@
 .gcviz-leg-span3 {
 	@extend %legspan;
 	@include app-text(1.2, normal, $black);
+}
+
+.gcviz-leg-span4 {
+	@extend %legspan;
+	@include app-text(1.2, normal, $grey);
 }
 
 .gcviz-legendSymbolDiv {

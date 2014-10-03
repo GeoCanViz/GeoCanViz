@@ -20,13 +20,14 @@ var locationPath;
 			'gcviz-func',
 			'gcviz-v-map',
 			'gcviz-v-inset',
+			'gcviz-v-help',
 			'gcviz-v-header',
 			'gcviz-v-footer',
 			'gcviz-v-tbdraw',
 			'gcviz-v-tbnav',
 			'gcviz-v-tblegend',
 			'gcviz-v-tbdata'
-	], function($viz, mp, jqui, i18n, gcvizFunc, map, inset, header, footer, tbdraw, tbnav, tblegend, tbdata) {
+	], function($viz, mp, jqui, i18n, gcvizFunc, map, inset, help, header, footer, tbdraw, tbnav, tblegend, tbdata) {
 		var initialize,
 			readConfig,
 			execConfig,
@@ -115,7 +116,9 @@ var locationPath;
 			// create map and add layers
 			// save the result of every view model in an array of view models
 			vmArray.map = map.initialize($mapSection);
+			
 			// set the global vm to retreive link vm together
+			// we do it here first because we need a value from mapVM inside headerVM
 			gcvizFunc.setVM(mapid, vmArray);
 
 			// add header and footer
@@ -147,6 +150,9 @@ var locationPath;
 				vmArray.insets = inset.initialize($mapSection);
 			}
 
+			// create the help for the map instance
+			vmArray.help = help.initialize($mapSection);
+
 			// set the global vm to retreive link vm together
 			gcvizFunc.setVM(mapid, vmArray);
 
@@ -168,7 +174,7 @@ var locationPath;
 						leftMarg = $section.position().left, //containter left margin
 						maxWidth = parseInt($section.parent().css('width'), 10) - (2 * leftMarg); // get container width
 					
-					// map cant be smaller then 360px
+					// map cant be smaller then 360px (tools panel width)
 					if (maxWidth < 360) {
 						maxWidth = 360;
 					}

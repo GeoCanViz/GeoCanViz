@@ -12,8 +12,9 @@
 			'genfile',
 			'gcviz-i18n',
 			'gcviz-func',
-			'gcviz-gisgraphic'
-	], function($viz, ko, generateFile, i18n, gcvizFunc, gisGraphic) {
+			'gcviz-gisgraphic',
+			'gcviz-vm-help',
+	], function($viz, ko, generateFile, i18n, gcvizFunc, gisGraphic, helpVM) {
 		var initialize,
 			vm;
 
@@ -25,6 +26,7 @@
 					globalKey,
 					clickMeasureLength, clickMeasureArea,
 					dblclickMeasure,
+					pathHelpBubble = locationPath + 'gcviz/images/helpBubble.png',
 					lblDist = i18n.getDict('%toolbardraw-dist'),
 					lblArea = i18n.getDict('%toolbardraw-area'),
 					mymap = gcvizFunc.getElemValueVM(mapid, ['map', 'map'], 'js'),
@@ -34,6 +36,11 @@
 					$btnLength = $mapElem.find('.gcviz-draw-length'),
 					$btnArea = $mapElem.find('.gcviz-draw-area'),
 					$btnDelsel = $mapElem.find('.gcviz-draw-delsel');
+
+				// help and bubble
+                _self.imgHelpBubble = pathHelpBubble;
+                _self.helpDesc = i18n.getDict('%toolbardraw-desc');
+                _self.helpAlt = i18n.getDict('%toolbardraw-alt');
 
 				// tooltip
 				_self.tpBlack = i18n.getDict('%toolbardraw-tpcolorblack');
@@ -105,6 +112,10 @@
 					_self.selectColorClick('black');
 
 					return { controlsDescendantBindings: true };
+				};
+
+				_self.showBubble = function(key) {
+					helpVM.toggleHelpBubble(key, 'gcviz-help-tbdraw');
 				};
 
 				// end draw action on tools toolbar click

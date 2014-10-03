@@ -38,8 +38,8 @@
 			// find toolbar and start to add items
 			$toolbar = $mapElem.find('.gcviz-tbdraw-content');
 
-			// contextual menu
-			node += '<label for="tbdraw' + mapid + '" data-bind="contextMenu: { text: $root.lblTextDesc, menu: $root.lblTextDesc, title: $root.lblTextDesc }""></label>';
+			// contextual help
+			node += '<label for="tbdraw' + mapid + '" data-bind="contextHelp: { text: helpDesc, alt: helpAlt, img: imgHelpBubble, id: \'tbdraw' + mapid + '\' }"></label>';
 			
 			// first row
 			node += '<div class="gcviz-draw-row1">';

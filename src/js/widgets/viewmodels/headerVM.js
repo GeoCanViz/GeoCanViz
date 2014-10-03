@@ -16,8 +16,9 @@
 			'gcviz-ko',
 			'gcviz-func',
 			'gcviz-gismap',
+			'gcviz-vm-help',
 			'dijit/registry'
-	], function($viz, ko, media, gisPrint, i18n, binding, gcvizFunc, gisM, dijit) {
+	], function($viz, ko, media, gisPrint, i18n, binding, gcvizFunc, gisM, helpVM, dijit) {
 		var initialize,
 			printSimple,
 			vm;
@@ -32,7 +33,6 @@
 					$mapholder = $viz('#' + mapid),
 					$map = $viz('#' + mapid + '_holder'),
 					$maproot = $viz('#' + mapid + '_holder_root'),
-					$btnHelp = $mapElem.find('.gcviz-head-help'),
 					$btnAbout = $mapElem.find('.gcviz-head-about'),
 					$btnFull = $mapElem.find('.gcviz-head-fs'),
 					map = gcvizFunc.getElemValueVM(mapid, ['map', 'map'], 'js');
@@ -50,14 +50,6 @@
 				_self.tpInset = i18n.getDict('%header-tpinset');
                 _self.tpAbout = i18n.getDict('%header-tpabout');
                 _self.tpFullScreen = i18n.getDict('%header-tpfullscreen');
-
-				// help dialog box
-				_self.lblHelpTitle = i18n.getDict('%header-help');
-				_self.helpInfo1 = i18n.getDict('%header-helpdownload');
-				_self.helpInfo2 = i18n.getDict('%linkopens');
-				_self.helpURL = i18n.getDict('%header-urlhelp');
-				_self.helpURLText = i18n.getDict('%header-helpmanual');
-				_self.isHelpDialogOpen = ko.observable(false);
 
 				// about dialog box
 				_self.lblAboutTitle = i18n.getDict('%header-tpabout');
@@ -161,16 +153,11 @@
 				};
 
 				_self.helpClick = function() {
-                    _self.isHelpDialogOpen(true);
+                    helpVM.toggleHelp();
                 };
 
 				_self.WCAGClick = function() {
 					_self.isWCAG(!_self.isWCAG());
-				};
-
-				_self.dialogHelpOk = function() {
-					_self.isHelpDialogOpen(false);
-					$btnHelp.focus();
 				};
 
                 _self.aboutClick = function() {

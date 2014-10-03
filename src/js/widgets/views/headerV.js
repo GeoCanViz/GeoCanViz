@@ -40,13 +40,6 @@
 			// set help button (help is always visible)
 			node += '<button class="gcviz-head-help" tabindex="0" data-bind="buttonBlur, click: helpClick, tooltip: { content: tpHelp }"></button>';
 
-			// dialog text to show help
-			node += '<div data-bind="uiDialog: { title: $root.lblHelpTitle, width: 350, height: 220, ok: $root.dialogHelpOk, close: $root.dialogHelpOk, openDialog: \'isHelpDialogOpen\' }">' +
-						'<span data-bind="text: $root.helpInfo1"></span>' +
-						'<a data-bind="attr: { href: $root.helpURL, title: $root.helpURLText }, text: $root.helpURLText" tabindex="0" target="new"></a></br>' +
-						'<span data-bind="text: $root.helpInfo2"></span>' +
-					'</div>';
-
 			// set WCAG button
 			node += '<button class="gcviz-head-wcag" tabindex="0" data-bind="buttonBlur, click: WCAGClick, tooltip: { content: tpWCAG }, css: { \'gcviz-head-wcag\': isWCAG() === false, \'gcviz-head-wcagon\': isWCAG() === true }"></button>';
 

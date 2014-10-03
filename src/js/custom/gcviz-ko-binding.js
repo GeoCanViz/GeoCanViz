@@ -50,45 +50,19 @@
 			}
 	};
 
-	//custom binding handler to add image to a label
-	ko.bindingHandlers.contextMenu = {
+	//custom binding handler to create a contextual menu
+	ko.bindingHandlers.contextHelp = {
 		init: function(element, valueAccessor) {
 			var array,
 				len,
-				options = valueAccessor() || {};
-				
-				// ajax call to get the config file info
-			$viz.support.cors = true; // force cross-site scripting for IE9
-			$viz.ajax({
-				url: "http://127.0.0.1:8020/GeoCanViz/gcviz/print/defaultPrint.html",
-				crossDomain: true,
-				dataType: 'html',
-				async: false,
-				success: function(config) {
-					alert('ok');
-				},
-				error: function(e) {
-					console.log('error');
-				}
-			}); // end ajax
+				options = valueAccessor() || {},
+				$element = $viz(element);
 
-						// '<a href="JavaScript:showMsgBox("<strong>Types de produit :</strong><br/>) title="Type de produit - Aide">' +
-						// '<img src="images/help_16px.png" style="width: 16px; height:16px;" alt="Type de produit - Aide"></a>' +
 			// add text
-			$viz(element).text(options.text);
+			$element.text(options.text);
 
-			// add a simgle image if img is provided
-			// add multiple images if imgs is provided
-			if (options.img) {
-				$aut(element).prepend('<img class="gcaut-img-lbl" src="' + options.img + '"></img>');
-			} else if (options.imgs) {
-				array = options.imgs.split(';');
-				len = array.length;
-
-				while (len--) {
-					$aut(element).prepend('<img class="gcaut-img-lbl" src="' + array[len] + '"></img>');
-				}
-			}
+			// add bubble (set the alt text, id to match the label, click function and keyboard input)
+			$element.append('<img id="' + options.id + '" tabindex="0" data-bind="click: function() { showBubble(32) }, enterkey: { func: \'showBubble\', keyType: \'keydown\' }" class="gcviz-help-bubble" src="' + options.img + '" alt="' + options.alt + '"></img>');
 		}
 	};
 
