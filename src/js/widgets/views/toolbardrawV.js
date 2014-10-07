@@ -39,7 +39,7 @@
 			$toolbar = $mapElem.find('.gcviz-tbdraw-content');
 
 			// contextual help
-			node += '<label for="tbdraw' + mapid + '" data-bind="contextHelp: { text: helpDesc, alt: helpAlt, img: imgHelpBubble, id: \'tbdraw' + mapid + '\' }"></label>';
+			node += '<label class="gcviz-help-bubbledesc" for="tbdraw' + mapid + '" data-bind="contextHelp: { text: helpDesc, alt: helpAlt, img: imgHelpBubble, id: \'tbdraw' + mapid + '\' }"></label>';
 			
 			// first row
 			node += '<div class="gcviz-draw-row1">';

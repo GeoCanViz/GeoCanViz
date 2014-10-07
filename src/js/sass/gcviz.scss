@@ -39,6 +39,19 @@ div.gcviz-container img {
 	}
 }
 
+.row > [class*="span"] {
+  min-height: (2 * $rembase) + rem;
+  padding-top: (1 * $rembase) + rem;
+}
+
+.row:after {
+  clear: both;
+  content: ".";
+  display: block;
+  height: 0;
+  visibility: hidden;
+}
+
 // set text unselectable (solve problem that select graphic text when drawing)
 text, .unselectable {
    @include unselectable;

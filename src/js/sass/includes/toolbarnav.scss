@@ -3,6 +3,8 @@
 // buttons
 .gcviz-nav-max {
 	@include sprite($img-spritebtn, -1012, -2);
+	position: absolute!important;
+	top: 30px!important;
 }
 
 .gcviz-nav-pos {

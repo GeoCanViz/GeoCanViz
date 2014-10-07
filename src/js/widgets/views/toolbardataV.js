@@ -23,7 +23,7 @@
 				$holder = $mapElem.find('.gcviz-tbholder');
 
 			$holder.append('<div class="gcviz-tbspacer"></div>');
-			tp = new dojotitle({ id: 'tbdata' + mapid, title: i18n.getDict('%toolbardata-name'), content: '<div class="gcviz-tbdata-content gcviz-tbcontent"></div>', open: config.expand });
+			tp = new dojotitle({ id: 'tbdata' + mapid, title: i18n.getDict('%toolbardata-name'), content: '<div class="gcviz-tb-scroll gcviz-tbdata-content gcviz-tbcontent"></div>', open: config.expand });
 			$holder.append(tp.domNode);
 			tp.startup();
 

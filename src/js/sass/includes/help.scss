@@ -4,3 +4,19 @@
 	margin-bottom: 0!important;
 	margin-left: (0.5 * $rembase) + rem;
 }
+
+.gcviz-help-bubbledesc {
+	margin-top: (0.5 * $rembase) + rem;
+}
+
+.gcviz-help {
+	padding-top: (3 * $rembase) + rem;
+}
+
+.gcviz-help-tbtitle {
+	@include app-text(1.4, bold, $black);
+}
+
+.gcviz-help-textbtn {
+	margin-top: (1 * $rembase) + rem!important;
+}

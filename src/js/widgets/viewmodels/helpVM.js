@@ -35,8 +35,26 @@
 
                 // text
                 _self.urlLogo = i18n.getDict('%footer-urlgcvizrepo');
-                _self.urlLogoAlt = i18n.getDict('%footer-tpgithub');
-                _self.lblWest = i18n.getDict('%west');
+
+				// overview
+				_self.overTitle = i18n.getDict('%help-overview-title');
+				_self.overDesc1 = i18n.getDict('%help-overview-desc1');
+				_self.overDesc2 = i18n.getDict('%help-overview-desc2');
+				_self.overDesc3 = i18n.getDict('%help-overview-desc2');
+
+				// draw text
+				_self.drawTitle = i18n.getDict('%help-draw-title');
+				_self.drawColorSelect = i18n.getDict('%help-draw-colorselect');
+				_self.drawLine = i18n.getDict('%help-draw-line');
+				_self.drawText = i18n.getDict('%help-draw-text');
+				_self.drawLength = i18n.getDict('%help-draw-length');
+				_self.drawArea = i18n.getDict('%help-draw-area');
+				_self.drawEraseAll = i18n.getDict('%help-draw-eraseall');
+				_self.drawEraseSel = i18n.getDict('%help-draw-eraseselect');
+				_self.drawUndo = i18n.getDict('%help-draw-undo');
+				_self.drawRedo = i18n.getDict('%help-draw-redo');
+				_self.drawImport = i18n.getDict('%help-draw-import');
+				_self.drawExport = i18n.getDict('%help-draw-export');
 
 				// help dialog box
 				_self.lblHelpTitle = i18n.getDict('%help-dialogtitle');

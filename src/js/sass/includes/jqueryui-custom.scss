@@ -12,14 +12,14 @@
 	top: 0;
 	left: 0;
 	outline: 0;
-	background: #CCCCCC!important;
+	background: #fafaf5!important;
 	z-index: 2000!important;
 }
 .ui-dialog .ui-dialog-titlebar {
   padding: .4em 1em;
   position: relative;
   background-repeat: repeat-x;
-  background-image: url($img-root + "headBlackbar.png");
+  background-image: url($img-root + "headGreybar.png");
 }
 .ui-dialog .ui-dialog-titlebar, .ui-widget-header .ui-corner-all {
   border-bottom-left-radius: 0px!important;
@@ -31,10 +31,11 @@
   border: none!important;
 }
 .ui-dialog .ui-widget-header {
-  color: #ffffff!important;
+  color: #000000!important;
   height: 30px!important;
 }
 .ui-dialog .ui-dialog-title {
+	font-size: 16px;
 	float: left;
 	margin: .5em 0;
 	white-space: nowrap;
@@ -59,9 +60,8 @@
   margin-top: 0px!important;
   margin-bottom: 0px!important;
 	color: #000000!important;
-	background: #ffffff!important;
+	background: #fafaf5!important;
 	height: 100%!important;
-	width: 100%!important;
 }
 .ui-dialog .ui-dialog-content a {
   color: #000000!important;

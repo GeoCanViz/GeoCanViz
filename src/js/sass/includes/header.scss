@@ -1,7 +1,7 @@
 @import "gcviz-mixin";
 
 %head-title {
-	@include app-text(1.6, bold, $black);
+	@include app-text(1.8, bold, $black);
 	position: relative;
 	top: (1 * $rembase) + rem;
 	display: inline-block;

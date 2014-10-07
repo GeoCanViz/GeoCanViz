@@ -23,7 +23,8 @@
 				var _self = this,
                     pathGCVizPNG = locationPath + 'gcviz/images/GCVizLogo.png',
 					configMouse = config.mousecoords,
-					inwkid = config.northarrow.inwkid,
+					configNorth = config.northarrow,
+					inwkid = configNorth.inwkid,
 					outwkid = configMouse.outwkid;
 
 				// images path
@@ -33,6 +34,8 @@
                 _self.urlLogo = i18n.getDict('%footer-urlgcvizrepo');
                 _self.urlLogoAlt = i18n.getDict('%footer-tpgithub');
                 _self.lblWest = i18n.getDict('%west');
+                _self.lblLong = i18n.getDict('%footer-long');
+                _self.lblLat = i18n.getDict('%footer-lat');
 
 				// coords and arrow
 				_self.coords = ko.observable('');
@@ -41,13 +44,13 @@
 				_self.init = function() {
 					var mymap = gcvizFunc.getElemValueVM(mapid, ['map', 'map'], 'js');
 
-					if (config.mousecoords) {
+					if (configMouse.enable) {
 						mymap.on('mouse-move', function(evt) {
 							_self.showCoordinates(evt);
 						});
 					}
 
-					if (config.northarrow) {
+					if (configNorth.enable) {
 						// set init state
 						gisGeo.getNorthAngle(mymap.extent, inwkid, _self.updateArrow);
 
@@ -88,7 +91,7 @@
 						strPointY = point.y.toFixed(0).toString();
 					}
 
-					_self.coords(' Lat: ' + strPointY + ' Long: ' + strPointX);
+					_self.coords(_self.lblLat + strPointY + '   ' + _self.lblLong + strPointX);
 				};
 
 				_self.showNorthArrow = function(evt) {

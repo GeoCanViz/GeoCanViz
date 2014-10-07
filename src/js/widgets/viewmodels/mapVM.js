@@ -104,7 +104,7 @@
 					var map = _self.map,
 						prevent = false;
 
-					if (_self.mapfocus) {
+					if (_self.mapfocus()) {
 						if (key === 37) {
 							gisM.panLeft(map);
 							prevent = true;

@@ -26,8 +26,9 @@
 			'esri/layers/WMSLayerInfo',
 			'esri/geometry/Extent',
             'esri/geometry/Point',
-            'esri/IdentityManager'
-	], function($viz, kpan, func, menu, menuItem, menupopup, gisLegend, gisCluster, esriConfig, esriMap, esriFL, esriTiled, esriDyna, esriImage, webTiled, wms, wmsInfo, esriExt, esriPoint) {
+            'esri/IdentityManager',
+            'esri/dijit/HomeButton'
+	], function($viz, kpan, func, menu, menuItem, menupopup, gisLegend, gisCluster, esriConfig, esriMap, esriFL, esriTiled, esriDyna, esriImage, webTiled, wms, wmsInfo, esriExt, esriPoint, esriHome) {
 		var mapArray = {},
 			setProxy,
 			createMap,
@@ -96,14 +97,20 @@
 			// set options
 			if (lods.length) {
 				options = {
-					extent: initExtent,
-					spatialReference: { 'wkid': wkid },
+					center: [-68.906, 28.922],
+					//extent: initExtent,
+					//spatialReference: { 'wkid': wkid },
 					logo: false,
 					showAttribution: false,
-					lods: lods,
+					//lods: lods,
 					wrapAround180: true,
 					smartNavigation: false
 				};
+				
+				if (config.zoombar.enable) {
+					options.slider = true;
+					options.sliderStyle = 'large';
+				}
 			} else {
 				options = {
 					extent: initExtent,
@@ -115,9 +122,16 @@
 				};
 			}
 
-			map = new esriMap(id, options);
+			//map = new esriMap(id, options);
+			var map = new esri.Map(id, options);
+				
+				// {
+          // center: [-68.906, 28.922],
+          // zoom: 3,
+          // sliderStyle: "large"
+        // });
 			mapArray[mapid] = map;
-
+map.addLayer(new esri.layers.ArcGISTiledMapServiceLayer("http://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer"));
 			// add kinetic panning
 			panning = new kpan(map);
 			panning.enableMouse();
@@ -137,7 +151,6 @@
 				// enable navigation (do not enable keyboard navigation,
 				// this is made with custom events)
 				map.enableScrollWheelZoom();
-				map.isZoomSlider = false;
 				map.disableDoubleClickZoom();
 
 				// connect event map

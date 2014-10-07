@@ -245,7 +245,7 @@ var locationPath;
 				}
 					settings = $.extend({
 						scrollTarget: target,
-						offsetTop: 20,
+						offsetTop: 26,
 						duration: 500,
 						easing: 'swing'
 					}, options);

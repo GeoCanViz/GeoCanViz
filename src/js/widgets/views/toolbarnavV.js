@@ -28,7 +28,7 @@
 				$holder = $mapElem.find('.gcviz-tbholder');
 
 			$holder.append('<div class="gcviz-tbspacer"></div>');
-			tp = new dojotitle({ id: 'tbnav' + mapid, title: 'Navigation', content: '<div class="gcviz-tbnav-content gcviz-tbcontent"></div>', open: true }); // true because of a bug, see init function in VM
+			tp = new dojotitle({ id: 'tbnav' + mapid, title: '' + i18n.getDict('%toolbarnav-name') + '', content: '<div class="gcviz-tbnav-content gcviz-tbcontent"></div>', open: true }); // true because of a bug, see init function in VM
 			$holder.append(tp.domNode);
 			tp.startup();
 

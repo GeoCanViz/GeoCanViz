@@ -1,7 +1,5 @@
 @import "includes/gcviz-mixin";
 
-@import "includes/gcviz-mixin";
-
 .dijitReset {
     margin: 0;
     border: 0;
@@ -10,6 +8,21 @@
     line-height: normal;
     color: inherit;
 }
+
+// zoom slider
+.esriLargeSliderVertical {
+	height: 200px;
+}
+
+.esriLargeSliderTL {
+	top: 15px;
+	left: 15px;
+}
+
+.esriLargeSlider {
+	position: absolute;
+}
+
 .dj_a11y .dijitReset { -moz-appearance: none }
 .dijitInline {
     display: inline-block;
@@ -1111,6 +1124,7 @@ div.dijitTabDisabled,
 .dijitSliderButtonContainer {
     text-align: center;
     height: 0;
+    visibility: hidden;
 }
 .dijitSliderButtonContainer * {
     cursor: pointer;
@@ -3985,8 +3999,8 @@ div.dijitNumberTextBoxRtl { text-align: right }
  _background-image: none;
  }
 .claro .dijitTitlePaneTitleFocus {
- margin-top: 1px!important;
- padding-bottom: 1px!important;
+ margin-top: 4px!important;
+ padding-bottom: 4px!important;
  padding-left: 3px!important;
  }
 .claro .dijitTitlePane .dijitArrowNode, .claro .dijitFieldset .dijitArrowNode {
@@ -4238,11 +4252,11 @@ div.dijitNumberTextBoxRtl { text-align: right }
 }
 .dijitSliderBumperV {
  width: 4px;
- height: 8px;
+ height: 3px;
  border-width: 0 1px;
 }
 .dijitSliderBumperH {
- width: 8px;
+ width: 3px;
  height: 4px;
  border-width: 1px 0;
 }

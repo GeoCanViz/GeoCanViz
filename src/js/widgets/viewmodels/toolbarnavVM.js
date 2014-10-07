@@ -120,7 +120,9 @@
                    			 $container.removeClass('gcviz-nav-cursor-pos');
 
 							// remove click event
-							clickPosition.remove();
+							if (typeof clickPosition !== 'undefined') {
+								clickPosition.remove();
+							}
 						});
 					}				
 					
