@@ -24,6 +24,9 @@
 				var _self = this,
 					mymap = gcvizFunc.getElemValueVM(mapid, ['map', 'map'], 'js');
 
+				// viewmodel mapid to be access in tooltip custom binding
+				_self.mapid = mapid;
+
 				// tooltip
 				_self.tpAdd = i18n.getDict('%toolbardata-tpadd');
 				_self.tpDelete = i18n.getDict('%toolbardata-tpdelete');

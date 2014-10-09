@@ -11,9 +11,8 @@
 			'gcviz-gismap',
 			'esri/geometry/Point',
 			'esri/dijit/OverviewMap',
-			'esri/dijit/Scalebar',
-            'dojo/dom'
-	], function($viz, gisMap, esriPoint, esriOV, esriSB, dojoDom) {
+			'esri/dijit/Scalebar'
+	], function($viz, gisMap, esriPoint, esriOV, esriSB) {
 		var setOverview,
 			setScaleBar,
             getNTS,
@@ -21,10 +20,10 @@
 			zoomFullExtent;
 
 		setOverview = function(mymap, overview) {
-			var overviewMapDijit, divOV,
+			var ovTool, divOV,
 				bLayer = null,
 				mapid = mymap.vIdName,
-				ovDiv = dojoDom.byId('divOverviewMap' + mapid),
+				ovDiv = document.getElementById('divOverviewMap' + mapid),
 				type = overview.type,
 				url = overview.url,
 				options = { map: mymap,
@@ -41,23 +40,34 @@
 				if (bLayer !== null) {
 					options.baseLayer = bLayer;
 				}
-				overviewMapDijit = new esriOV(options, ovDiv);
+				ovTool = new esriOV(options, ovDiv);
 
+
+var ovMap = new esriOV(options, document.getElementById('ovmap' + mapid));
+ovMap.startup();
+
+
+var dd = $viz('ovmap' + mapid + '-map');
+dd.width(230).height(100);
+ovMap.resize();
+setTimeout(function() { ovMap.hide(); }, 500);
 				// we need to startup only when we see the div.
 				// open the tools and panels, startup then put back the original state
 				// it is done in navVM
-				overviewMapDijit.startup();
+				ovTool.startup();
 
 				// work around to resize the overview div because it wont work only
 				// with the option from the dijit.
 				divOV = $viz('#divOverviewMap' + mapid + '-map');
 				divOV.width(230).height(100);
-				overviewMapDijit.resize();
+				ovTool.resize();
+				
+				return [ovTool, ovMap];
 		};
 
 		setScaleBar = function(mymap, scalebar) {
 			var sbMapDijit,
-				ovSB = dojoDom.byId('divScalebar' + mymap.vIdName),
+				ovSB = document.getElementById('divScalebar' + mymap.vIdName),
 				options = { map: mymap,
 							scalebarStyle: 'line',
 							scalebarUnit: 'metric',

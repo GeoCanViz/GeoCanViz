@@ -40,35 +40,38 @@
 			// find toolbar and start to add items
 			$toolbar = $mapElem.find('.gcviz-tbnav-content');
 
-			// if present, group the 2 items (fullextent and geolocation) on the same line
-			node += '<div class="row gcviz-nav-zoom">';
-			// set full extent button
-			if (config.zoom) {
-				node += '<div class="span2"><button class="gcviz-nav-max" tabindex="0" data-bind="buttonBlur, click: extentClick, tooltip: { content: tpZoomFull }"></button></div>';
-			}
-
-			// set geolocation
+			// geolocation zoom
 			if (configgeolocation.enable) {
-				node += '<div class="span10"><span id="divAutoCompleteInstructions' + mapid + '" class="ui-helper-hidden-accessible" data-bind="text: insKeyboard"></span>';
-				node += '<label class="gcviz-inline" for="inGeoLocation" data-bind="text: geoLocLabel"></label>';
-				node += '<input id="inGeoLocation' + mapid + '" data-bind="value: geoLocSample, tooltip: { content: geoLocSample }" /></div>';
+				node += '<div class="gcviz-nav-zoom">' +
+							'<span id="divAutoCompleteInstructions' + mapid + '" class="ui-helper-hidden-accessible" data-bind="text: insKeyboard"></span>' +
+							'<label class="gcviz-inline gcviz-label" for="inGeoLocation' + mapid + '" data-bind="text: geoLocLabel"></label>' +
+							'<input id="inGeoLocation' + mapid + '" class="gcviz-nav-auto" data-bind="value: \'\'"></input>' +
+						'</div>';
 			}
-			node += '</div>';
 
 			// set position information
 			if (configposition.enable) {
-				node += '<div class="row gcviz-nav-tools"><div class="span1">';
-				node += '<button id="btnClickMap' + mapid + '" class="gcviz-nav-pos" tabindex="0" data-bind="buttonBlur, click: getMapClick, tooltip: { content: tpGetLocInfo }"></button>';
-				node += '</div></div>';
+				node += '<div class="row">' +
+							'<div class="span1"><button id="btnClickMap' + mapid + '" class="gcviz-nav-pos" tabindex="0" data-bind="buttonBlur, click: getMapClick, tooltip: { content: tpGetLocInfo }"></button></div>' +
+							'<div class="span11"><label class="gcviz-label gcviz-nav-lblpos" for="btnClickMap' + mapid + '" data-bind="text: infoLabel"></label></div>' +
+						'</div>';
 			}
 
 			// set overview map
 			if (configoverview.enable) {
-				node += '<div class="row gcviz-nav-overview"><div class="span1"></div><div class="span9 gcviz-ovtoolcontainer">';
-					node += '<div id="divOverviewMapContainer' + mapid + '" class="gcviz-overviewMap" data-bind="tooltip: { content: tpOverview }">';
-						node += '<div id="divOverviewMap' + mapid + '"></div>';
-					node += '</div>';
-				node += '</div></div>';
+				node += '<div class="row gcviz-nav-overview">' +
+							'<div class="span1"></div>' +
+							'<div class="span10">' +
+								'<label class="gcviz-label" for="ovMapContainer' + mapid + '" data-bind="text: OVLabel"></label>' +
+								'<div id="ovtoolcontainer' + mapid + '" class="gcviz-ovtoolcontainer">' +
+									'<div id="ovMapContainer' + mapid + '" class="gcviz-overviewMap" data-bind="tooltip: { content: tpOverview }">' +
+										'<div id="divOverviewMap' + mapid + '"></div>' +
+									'</div>' +
+								'</div>' +
+								'<input class="gcviz-leg-check" type="checkbox" data-bind="event: { click: showOVMap }, clickBubble: false, attr: { title: $root.tpVisible, id: \'chk-ov-display\' }, checked: isShowMap"/>' +
+								'<label class="gcviz-label gcviz-nav-lblovdisp" for="chk-ov-display" data-bind="text: OVDisplayLabel"></label>' +
+							'</div>' +
+						'</div>';
 			}
 
 			// if present, group the 2 items (scale and scale display)

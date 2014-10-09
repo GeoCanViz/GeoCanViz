@@ -25,6 +25,7 @@ General (i18n)#%all#All#Tous
 #%gisurllocate#http://geogratis.gc.ca/services/geolocation/en/locate?#http://geogratis.gc.ca/services/geolocation/fr/locate?
 #%gisurlnts#http://geogratis.gc.ca/services/delimitation/en/nts?bbox=#http://geogratis.gc.ca/services/delimitation/fr/nts?bbox=
 #%gisurlutm#http://geogratis.gc.ca/services/delimitation/en/utmzone?bbox=#http://geogratis.gc.ca/services/delimitation/fr/utmzone?bbox=
+#%map-tpzoomfull#Zoom to full extent#Zoom à l`étendue maximum
 #%header-abouttitle#about this map #à-propos de cette carte 
 #%header-aboutread#Read #Lire 
 #%header-tpabout#About this map#À propos de cette carte
@@ -66,15 +67,15 @@ General (i18n)#%all#All#Tous
 #%toolbardraw-tpredo#Redo last operation#Refaire la dèrniere opération
 #%toolbardraw-tpimport#Import annotations#Importer des annotations
 #%toolbardraw-tpexport#Export annotations#Exporter des annotations
-#%toolbardraw-dist#Length: #Longueur: 
+#%toolbardraw-dist#Total Length: #Longueur totale: 
 #%toolbardraw-area#Area: #Aire: 
-#%toolbarlegend-name#Map Layers and Legend(s) #Couvertures de lacarte et légende(s)
+#%toolbarlegend-name#Map Layers and Legend(s) #Couvertures de la carte et légende(s)
 #%toolbarlegend-base# Base Map(s) # Couverture(s) de base 
 #%toolbarlegend-tgvis#Toggle Visibility#Basculer la visibilité
 #%toolbarnav-name#Search and Map Information#Recherche et information sur la carte
-#%toolbarnav-geoloclabel#Zoom to:#Zoom à:
-#%toolbarnav-geolocsample#Prov./City name/...#Prov./Nom de ville/...
-#%toolbarnav-info#Map location information#Information de localisation sur la carte
+#%toolbarnav-lblgeoloc#Enter and select a geographical name, topographic map number or postal code:#Entrez et sélectionnez un nom géographique ou topographique, un numéro de carte ou un code postal :
+#%toolbarnav-lblinfo#Get Location Information#Obtenir de l'information de localisation
+#%toolbarnav-info#Map location information#Information de localisation
 #%toolbarnav-infoaltitude#Elevation#Élévation
 #%toolbarnav-infoaltitudeurl#http://geogratis.gc.ca/services/elevation/cdem/altitude?#http://geogratis.gc.ca/services/elevation/cdem/altitude?
 #%toolbarnav-infoclickmap#Click on map#Cliquez sur la carte
@@ -93,11 +94,12 @@ General (i18n)#%all#All#Tous
 #%toolbarnav-infoutmeast#Easting:#Abscisse :
 #%toolbarnav-infoutmnorth#Northing:#Ordonnée :
 #%toolbarnav-infoutmz#Zone: #Zone : 
-#%toolbarnav-inskeyboard#When entering a geographic location	suggested names will appear in the auto-fill list below the text entry box.  Suggestions will start appearing after you type 3 characters.#Lorsque vous spécifiez un lieu géographique	des suggestions apparaissent dans la liste d'auto-remplissage en dessous de la zone de texte. Les suggestions commenceront à apparaître après avoir tapé 3 caractères.
+#%toolbarnav-inskeyboard#When entering a geographic location suggested names will appear in the auto-fill list below the text entry box. Suggestions will start appearing after you type 3 characters.#Lorsque vous spécifiez un lieu géographique des suggestions apparaissent dans la liste d'auto-remplissage en dessous de la zone de texte. Les suggestions commenceront à apparaître après avoir tapé 3 caractères.
 #%toolbarnav-magnify#Magnify part of the map#Agrandir une partie de la carte
+#%toolbarnav-lblov#Overview Map#Carte aperçu
+#%toolbarnav-lblovdisplay#Show overview map on map#Afficher la carte aperçu sur la carte
 #%toolbarnav-ovdrag#Drag To Change The Map Extent#Faites glisser pour changer l'étendue de la carte
 #%toolbarnav-scale#Scale: #Échelle : 
-#%toolbarnav-zoomfull#Zoom to full extent#Zoom à l`étendue maximum
 #%toolbardata-name#Import Data#Importer des données
 #%toolbardata-tpadd#Import Data#Importer des données
 #%toolbardata-tpdelete#Remove Data#Enlever des données

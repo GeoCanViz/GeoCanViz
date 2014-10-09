@@ -122,7 +122,7 @@ $one_col: (100% - ($gutter * ($cols - 1))) / $cols;
   font: {
     family: $font!important;
     weight: $weight!important;
-    size: ($size * 10) + px!important; // old browsers
+    size: ($size * 12) + px!important; // old browsers
     size: ($size * $rembase) + rem!important;
   }
   font-style: $style!important;

@@ -25,6 +25,7 @@
 			// data model				
 			var toolbarnavViewModel = function($mapElem, mapid) {
 				var _self = this,
+					ovMapWidget,
 					overview = config.overview,
 					scalebar = config.scalebar,
 					scaledisplay = config.scaledisplay,
@@ -36,12 +37,18 @@
 					mymap = gcvizFunc.getElemValueVM(mapid, ['map', 'map'], 'js'),
                     autoCompleteArray = [ { minx: 0 , miny: 0, maxx: 0, maxy: 0, title: 'ddd' } ];
 
+				// viewmodel mapid to be access in tooltip custom binding
+				_self.mapid = mapid;
+
                 // tooltips, text strings and other things from dictionary
                 _self.cancel = i18n.getDict('%cancel');
                 _self.close = i18n.getDict('%close');
                 _self.cursorTarget = i18n.getDict('%cursor-target');
-                _self.geoLocLabel = i18n.getDict('%toolbarnav-geoloclabel');
+                _self.geoLocLabel = i18n.getDict('%toolbarnav-lblgeoloc');
                 _self.geoLocUrl = i18n.getDict('%gisurllocate');
+                _self.OVLabel = i18n.getDict('%toolbarnav-lblov');
+                _self.OVDisplayLabel = i18n.getDict('%toolbarnav-lblovdisplay');
+                _self.infoLabel = i18n.getDict('%toolbarnav-lblinfo');
                 _self.info = i18n.getDict('%toolbarnav-info');
                 _self.infoAltitude = i18n.getDict('%toolbarnav-infoaltitude');
                 _self.infoAltitudeUrl = i18n.getDict('%toolbarnav-infoaltitudeurl');
@@ -64,7 +71,6 @@
                 _self.tpGetLocInfo = i18n.getDict('%toolbarnav-info');
                 _self.tpMagnify = i18n.getDict('%toolbarnav-magnify');
                 _self.tpOverview = i18n.getDict('%toolbarnav-ovdrag');
-                _self.tpZoomFull = i18n.getDict('%toolbarnav-zoomfull');
                 _self.lblWest = i18n.getDict('%west');
                 _self.ScaleLabel = i18n.getDict('%toolbarnav-scale');
                 _self.lblLocTitle = i18n.getDict('%toolbarnav-info');
@@ -86,7 +92,10 @@
 				_self.defaultAutoComplText = i18n.getDict('%toolbarnav-geolocsample');
 				_self.geoLocSample = i18n.getDict('%toolbarnav-geolocsample');
 
-                // Observables
+				// overviewmap checked to see if usesr wants it on map
+				_self.isShowMap = ko.observable(false);
+
+                // observables for localisation info window
                 _self.infoLatDD = ko.observable();
                 _self.infoLatDMS = ko.observable();
                 _self.infoLongDD = ko.observable();
@@ -128,7 +137,7 @@
 					
                     // See if user wanted an overview map. If so, initialize it here
                     if (overview.enable) {
-						gisnav.setOverview(mymap, overview);
+						ovMapWidget = gisnav.setOverview(mymap, overview);
                     }
 
                     // See if user wanted a scalebar. If so, initialize it here
@@ -233,12 +242,12 @@
 					close:
 						function() {
 							$viz(this).removeClass('ui-corner-top').addClass('ui-corner-all');
-						}
+						},
+					position: {
+						collision: 'fit',
+						within: '#' + mapid
+					}
 				});
-
-				_self.extentClick = function() {
-					gisnav.zoomFullExtent(mymap);
-				};
 
                 _self.getMapClick = function() {
                     gcvizFunc.getElemValueVM(mymap.vIdName, ['header', 'toolsClick'], 'js')();
@@ -340,6 +349,18 @@
 					setTimeout(function() {
 						btnClickMap.focus();
 					}, 100);
+                };
+                
+                _self.showOVMap = function() {
+                	if (_self.isShowMap()) {
+                		ovMapWidget[0].show();
+                		ovMapWidget[1].hide();
+                	} else {
+                		ovMapWidget[1].show();
+                		ovMapWidget[0].hide();
+                	}
+
+                	return true;
                 };
 
 				_self.init();

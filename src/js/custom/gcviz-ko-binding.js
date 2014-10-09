@@ -18,7 +18,7 @@
 	var btnArray = [];
 
     ko.bindingHandlers.tooltip = {
-		init: function(element, valueAccessor) {
+		init: function(element, valueAccessor, allBindings, viewModel) {
 			var local = ko.utils.unwrapObservable(valueAccessor()),
 				options = {},
 				$element = $viz(element);
@@ -27,6 +27,10 @@
 			ko.utils.extend(options, local);
 
 			$element.attr('title', options.content);
+			
+			// add the within id for position here because we dont have access to the value
+			// inside function. Then assign options
+			options.position.within = '#' + viewModel.mapid;
 			$element.tooltip(options);
 
 			ko.utils.domNodeDisposal.addDisposeCallback(element, function() {
@@ -43,7 +47,8 @@
 					delay: 100
 				},
 				position: {
-					my: 'right+30 top+5'
+					my: 'right+30 top+5',
+					collision: 'fit'
 				},
 				tooltipClass: 'gcviz-tooltip',
 				trigger: 'hover, focus'

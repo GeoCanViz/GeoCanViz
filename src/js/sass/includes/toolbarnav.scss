@@ -1,12 +1,12 @@
 @import "includes/gcviz-mixin";
 
-// buttons
-.gcviz-nav-max {
-	@include sprite($img-spritebtn, -1012, -2);
-	position: absolute!important;
-	top: 30px!important;
+// autocomplete
+.gcviz-nav-auto {
+	width: 93%;
+	margin-top: (0.5 * $rembase) + rem;
 }
 
+// map localisation buttons
 .gcviz-nav-pos {
 	@include sprite($img-spritebtn, -1049, -2);
 }
@@ -15,26 +15,28 @@
   cursor: url(#{ $img-root }navCursor.cur), crosshair;
 }
 
-// position items in responsive grid
+.gcviz-nav-lblpos {
+	margin-top: (1.4 * $rembase) + rem;
+	margin-left: (1 * $rembase) + rem;
+}
+
 .gcviz-nav-zoom {
-	height: (4 * $rembase) + rem;
 	margin-top: (1 * $rembase) + rem;
-	
-	.span10 {
-		line-height: (4 * $rembase) + rem;
-	}
 }
 
-.gcviz-nav-tools {
-	height: (5 * $rembase) + rem;
-}
-
+// overview map
 .gcviz-nav-overview {
-	height: (11 * $rembase) + rem;
+	margin-top: (0.5 * $rembase) + rem;
 	
+	// if no height specified, span is ignore
 	.span1 {
 		height: (4 * $rembase) + rem;
 	}
+}
+
+.gcviz-nav-lblovdisp {
+	margin-top: (0.5 * $rembase) + rem;
+	margin-left: (0.5 * $rembase) + rem;
 }
 
 .gcviz-nav-scale {
@@ -60,10 +62,22 @@
 }
 /* End of Reset some ESRI classes that are being modified by the Map classes */
 
-.gcviz-ovtoolcontainer {
-  opacity: 1.0!important;
+%ovmap {
+	opacity: 1.0!important;
   width: 230px!important;
-  @include app-border(0.1, solid, $black);
+}
+
+.gcviz-ovtoolcontainer {
+	@extend %ovmap;
+	@include app-border(0.1, solid, $black);
+}
+
+.gcviz-ovmapcontainer {
+  @extend %ovmap;
+  position: absolute;
+  bottom: (-4 * $rembase) + rem;
+  z-index: 30;
+  background: #fafaf5;
 }
 
 .gcviz-overviewMap {

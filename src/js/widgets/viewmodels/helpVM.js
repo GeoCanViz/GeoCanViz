@@ -30,6 +30,9 @@
 					$dialog = $mapElem.find('#help-' + mapid),
 					$dialogBubble = $mapElem.find('#helpbubble-' + mapid);
 
+				// viewmodel mapid to be access in tooltip custom binding
+				_self.mapid = mapid;
+
 				// images path
                 _self.imgHelpBubble = pathHelpBubble;
 

@@ -27,6 +27,9 @@
 					inwkid = configNorth.inwkid,
 					outwkid = configMouse.outwkid;
 
+				// viewmodel mapid to be access in tooltip custom binding
+				_self.mapid = mapid;
+
 				// images path
                 _self.imgLogoPNG = pathGCVizPNG;
 

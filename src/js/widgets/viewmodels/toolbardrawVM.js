@@ -37,6 +37,9 @@
 					$btnArea = $mapElem.find('.gcviz-draw-area'),
 					$btnDelsel = $mapElem.find('.gcviz-draw-delsel');
 
+				// viewmodel mapid to be access in tooltip custom binding
+				_self.mapid = mapid;
+
 				// help and bubble
                 _self.imgHelpBubble = pathHelpBubble;
                 _self.helpDesc = i18n.getDict('%toolbardraw-desc');
@@ -159,6 +162,9 @@
 					} else {
 						_self.dialogTextCancel();
 					}
+					
+					// set the holder empty
+					_self.drawTextValue('');
 				};
 
 				_self.dialogTextOkEnter = function() {

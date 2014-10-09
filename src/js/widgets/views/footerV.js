@@ -20,10 +20,12 @@
 			$mapElem.find('#' + mapid).append('<div id="foot' + mapid + '" class="gcviz-foot"></div>');
 			$footer = $mapElem.find('.gcviz-foot');
 
-            // Add DIV with logo and link to GitHub
-            node += '<div><a target="_blank" data-bind="attr: { href: urlLogo }" tabindex="-1">';
-				node += '<img class="gcviz-foot-logo" data-bind="event: { keyup: goGitHub }, attr: { src: imgLogoPNG }, tooltip: { content: urlLogoAlt }" tabindex="0"></img>';
-            node += '</a></div>';
+            // logo and link to GitHub
+            if (config.logo) {
+            	node += '<div><a target="_blank" data-bind="attr: { href: urlLogo }" tabindex="-1">' +
+							'<img class="gcviz-foot-logo" data-bind="event: { keyup: goGitHub }, attr: { src: imgLogoPNG }, tooltip: { content: urlLogoAlt }" tabindex="0"></img>' +
+            			'</a></div>';
+            }
 
 			// set north arrow
 			if (config.northarrow.enable) {

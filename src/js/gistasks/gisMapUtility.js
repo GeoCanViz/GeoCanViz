@@ -26,9 +26,8 @@
 			'esri/layers/WMSLayerInfo',
 			'esri/geometry/Extent',
             'esri/geometry/Point',
-            'esri/IdentityManager',
-            'esri/dijit/HomeButton'
-	], function($viz, kpan, func, menu, menuItem, menupopup, gisLegend, gisCluster, esriConfig, esriMap, esriFL, esriTiled, esriDyna, esriImage, webTiled, wms, wmsInfo, esriExt, esriPoint, esriHome) {
+            'esri/IdentityManager'
+	], function($viz, kpan, func, menu, menuItem, menupopup, gisLegend, gisCluster, esriConfig, esriMap, esriFL, esriTiled, esriDyna, esriImage, webTiled, wms, wmsInfo, esriExt, esriPoint) {
 		var mapArray = {},
 			setProxy,
 			createMap,
@@ -67,7 +66,7 @@
 			esriConfig.defaults.io.alwaysUseProxy = false;
 		};
 
-        createMap = function(id, config) {
+        createMap = function(id, config, side) {
             var lod,
             	iExtent = config.extentinit,
                 fExtent = config.extentmax,
@@ -97,18 +96,18 @@
 			// set options
 			if (lods.length) {
 				options = {
-					center: [-68.906, 28.922],
-					//extent: initExtent,
-					//spatialReference: { 'wkid': wkid },
+					extent: initExtent,
+					spatialReference: { 'wkid': wkid },
 					logo: false,
 					showAttribution: false,
-					//lods: lods,
+					lods: lods,
 					wrapAround180: true,
 					smartNavigation: false
 				};
 				
-				if (config.zoombar.enable) {
+				if (config.zoombar.bar) {
 					options.slider = true;
+					options.sliderPosition = side ? 'top-left' : 'top-right';
 					options.sliderStyle = 'large';
 				}
 			} else {
@@ -122,16 +121,9 @@
 				};
 			}
 
-			//map = new esriMap(id, options);
-			var map = new esri.Map(id, options);
-				
-				// {
-          // center: [-68.906, 28.922],
-          // zoom: 3,
-          // sliderStyle: "large"
-        // });
+			map = new esriMap(id, options);
 			mapArray[mapid] = map;
-map.addLayer(new esri.layers.ArcGISTiledMapServiceLayer("http://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer"));
+
 			// add kinetic panning
 			panning = new kpan(map);
 			panning.enableMouse();

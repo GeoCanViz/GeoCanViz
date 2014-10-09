@@ -54,6 +54,43 @@
 	display: none;
 }
 
+// zoom bar (override some esri class)
 .gcviz-map table {
 	background-color:	transparent!important;
+}
+
+.esriLargeSliderVertical {
+	height: (15 * $rembase) + rem!important;
+}
+
+%zoombar {
+	top: (3 * $rembase) + rem!important;
+}
+
+.esriLargeSliderTL {
+	@extend %zoombar;
+	left: (1.5 * $rembase) + rem!important;
+}
+
+.esriLargeSliderTR {
+	@extend %zoombar;
+	right: (1.05 * $rembase) + rem!important;
+}
+
+// zoom full extent
+%zoommax {
+	@include sprite($img-spritebtn, -1012, -2);
+	position: absolute!important;
+	top: (4 * $rembase) + rem!important;
+	z-index: 30;
+}
+
+.gcviz-map-zoommaxl {
+	@extend %zoommax;
+	left: (0.75 * $rembase) + rem!important;
+}
+
+.gcviz-map-zoommaxr {
+	@extend %zoommax;
+	right: (0.75 * $rembase) + rem!important;
 }

@@ -37,6 +37,9 @@
 					$btnFull = $mapElem.find('.gcviz-head-fs'),
 					map = gcvizFunc.getElemValueVM(mapid, ['map', 'map'], 'js');
 
+				// viewmodel mapid to be access in tooltip custom binding
+				_self.mapid = mapid;
+
 				// tools panel settings
 				_self.xheightToolsOuter = ko.observable('max-height:100px!important');
 				_self.xheightToolsInner = ko.observable('max-height:100px!important');
@@ -233,6 +236,12 @@
 					$section.on('keydown.fs', function(event) {
 						_self.manageTabbingOrder(event);
                     });
+                    
+                    // this is a workaround. The div for the overview map change when
+                    // we first got to full screen. To correct this we reset the bottom value.
+                    // after the first time it is ok. In the future we can trap the first full
+                    // screen and then do not do this. Or we can try to find the problem.
+                    gcvizFunc.setStyle($viz('#ovmapcont' + mapid)[0], { 'bottom': '40px' });
                 };
 
                 _self.adjustContainerHeight = function() {

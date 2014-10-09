@@ -9,22 +9,30 @@
 	'use strict';
 	define(['jquery-private',
 			'knockout',
+			'gcviz-i18n',
 			'gcviz-func',
 			'gcviz-gismap',
-			'gcviz-gisgeo'
-	], function($viz, ko, gcvizFunc, gisM, gisGeo) {
+			'gcviz-gisgeo',
+			'gcviz-gisnav'
+	], function($viz, ko, i18n, gcvizFunc, gisM, gisGeo, gisNav) {
 		var initialize,
 			vm;
 
-		initialize = function($mapElem) {
+		initialize = function($mapElem, side) {
 
 			// data model				
-			var mapViewModel = function($mapElem) {
+			var mapViewModel = function($mapElem, side) {
 				var _self = this,
 					mapframe = $mapElem.mapframe,
 					mapid = mapframe.id,
 					config = mapframe.map,
 					map;
+
+				// text
+				_self.tpZoomFull = i18n.getDict('%map-tpzoomfull');
+
+				// viewmodel mapid to be access in tooltip custom binding
+				_self.mapid = mapid;
 
 				_self.init = function() {
 					var layer, base,
@@ -46,7 +54,7 @@
 					_self.mapholder = $map;
 
 					// create map	
-					map = gisM.createMap(mapid + '_holder', config);
+					map = gisM.createMap(mapid + '_holder', config, side);
 
 					// add basemap
 					bases = bases.reverse();
@@ -69,12 +77,17 @@
 					$root.addClass('gcviz-root');
 					$container.addClass('gcviz-container');
 
+					// focus the map to let cluster be able to link to it
 					_self.focus($map);
 
 					// keep map reference in the viewmodel to be accessible from other view model
 					_self.map = map;
 
 					return { controlsDescendantBindings: true };
+				};
+
+				_self.extentClick = function() {
+					gisNav.zoomFullExtent(map);
 				};
 
 				_self.enterMouse = function() {
@@ -148,7 +161,7 @@
 				_self.init();
 			};
 
-			vm = new mapViewModel($mapElem);
+			vm = new mapViewModel($mapElem, side);
 			ko.applyBindings(vm, $mapElem[0]); // This makes Knockout get to work
 			return vm;
 		};

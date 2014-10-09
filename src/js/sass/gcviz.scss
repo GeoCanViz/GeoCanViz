@@ -39,11 +39,6 @@ div.gcviz-container img {
 	}
 }
 
-.row > [class*="span"] {
-  min-height: (2 * $rembase) + rem;
-  padding-top: (1 * $rembase) + rem;
-}
-
 .row:after {
   clear: both;
   content: ".";
@@ -103,7 +98,7 @@ svg {
 
 .gcviz-tooltip {
 	.ui-tooltip-content {
-		@include app-text(1.1, normal, $white);
+		@include app-text(1.2, normal, $black);
 	}
 }
 
@@ -119,7 +114,14 @@ svg {
 }
 
 .gcviz-label-wcag {
+	display: inline-block;
+	margin-left: (1 * $rembase) + rem;
+	margin-right: (0.5 * $rembase) + rem;
 	margin-top: (1 * $rembase) + rem!important;
+}
+
+.gcviz-label {
+	@include app-text();
 }
 
 .gcviz-hidden {
@@ -159,12 +161,6 @@ input[type="file"] {
 
 .gcviz-inlineblock {
   display: inline-block!important;
-}
-
-.gcviz-label {
-	display: inline-block;
-	margin-left: (1 * $rembase) + rem;
-	margin-right: (0.5 * $rembase) + rem;
 }
 
 .gcviz-loading {

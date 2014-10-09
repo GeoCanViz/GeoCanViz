@@ -1,5 +1,10 @@
 @import "gcviz-mixin";
 
+.gcviz-help .row > [class*="span"] {
+  min-height: (2 * $rembase) + rem;
+  padding-top: (1 * $rembase) + rem;
+}
+
 .gcviz-help-bubble {
 	margin-bottom: 0!important;
 	margin-left: (0.5 * $rembase) + rem;
