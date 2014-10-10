@@ -42,11 +42,11 @@ General (i18n)#%all#All#Tous
 #%footer-tpgithub#Get GeoCanViz on GitHub#Obtenir GéoCanViz de GitHub
 #%footer-urlgcvizrepo#https://github.com/GeoCanViz/GeoCanViz#https://github.com/GeoCanViz/GeoCanViz
 #%footer-tpNorth#North arrow#Flèche du nord
-#%footer-lat#Latitude:#Latitude :
-#%footer-long#Longitude:#Longitude :
+#%footer-lat#Latitude: #Latitude : 
+#%footer-long#Longitude: #Longitude : 
 #%toolbarholder-caption#Toolbars#Barre d'outils
-#%toolbardraw-alt#ToolbarDraw - Help#Barre d'outil dessiner - Aide
-#%toolbardraw-desc#ToolbarDraw is use to add drawing (line, text or measure) to the map#La barre d'outil dessiner est utilisé pour ajouter des (lignes, texte ou mesures) à la carte- Aide
+#%toolbardraw-alt#Toolbar Map and Drawing Tools- Help#Barre d'outil carte et outils de dessin - Aide
+#%toolbardraw-desc#Toolbar Map and Drawing Tools- Help#Barre d'outil carte et outils de dessin - Aide
 #%toolbardraw-name#Map and Drawing Tools#Carte et outils de dessin
 #%toolbardraw-insinputbox#Click OK to place the text on the map or click Cancel to abort.#Cliquez sur OK pour placer le texte sur la carte ou cliquez sur Annuler pour abandonner.
 #%toolbardraw-inputbox-name#Add text#Ajouter du texte
@@ -69,6 +69,16 @@ General (i18n)#%all#All#Tous
 #%toolbardraw-tpexport#Export annotations#Exporter des annotations
 #%toolbardraw-dist#Total Length: #Longueur totale: 
 #%toolbardraw-area#Area: #Aire: 
+#%toolbardraw-lblselcolor#Select a Colour#Selectionnez une couleur
+#%toolbardraw-lblmeasfull#Measure a Path/Area#Mesurer ligne/surface
+#%toolbardraw-lblmeasline#Measure a Path#Mesurer ligne
+#%toolbardraw-lblmeasarea#Measure an Area#Mesurer surface
+#%toolbardraw-lbldrawfull#Draw Lines/Add Text#Dessiner ligne/Ajouter texte
+#%toolbardraw-lbldrawline#Draw Lines#Dessiner ligne
+#%toolbardraw-lbldrawtexta#Add Text#Ajouter texte
+#%toolbardraw-lblerase#Erase All/Erase Selected#Effacer tout/Effacer sélection
+#%toolbardraw-lblundoredo#Undo/Redo#Annuler/Refaire
+#%toolbardraw-lblimpexp#Import/Export drawing#Importer/Exporter dessin 
 #%toolbarlegend-name#Map Layers and Legend(s) #Couvertures de la carte et légende(s)
 #%toolbarlegend-base# Base Map(s) # Couverture(s) de base 
 #%toolbarlegend-tgvis#Toggle Visibility#Basculer la visibilité
@@ -83,8 +93,8 @@ General (i18n)#%all#All#Tous
 #%toolbarnav-infodms#Degrees Minutes Seconds (DMS)#Degrés minutes secondes (DMS)
 #%toolbarnav-infogetinfo#Get information#Obtenez de l'information
 #%toolbarnav-infogetlocinfo#Location:#Emplacement :
-#%toolbarnav-infolat#Latitude:#Latitude :
-#%toolbarnav-infolong#Longitude:#Longitude :
+#%toolbarnav-infolat#Latitude: #Latitude : 
+#%toolbarnav-infolong#Longitude: #Longitude : 
 #%toolbarnav-infonts#NTS Mapsheet#Carte du SNRC
 #%toolbarnav-infopption1#Option 1 - Select a point on the map#Option 1 - Sélectionnez un point sur ​​la carte
 #%toolbarnav-infopption2#Option 2 - Get information using coordinates#Option 2 - Obtenir des informations en utilisant des coordonnées
@@ -99,7 +109,8 @@ General (i18n)#%all#All#Tous
 #%toolbarnav-lblov#Overview Map#Carte aperçu
 #%toolbarnav-lblovdisplay#Show overview map on map#Afficher la carte aperçu sur la carte
 #%toolbarnav-ovdrag#Drag To Change The Map Extent#Faites glisser pour changer l'étendue de la carte
-#%toolbarnav-scale#Scale: #Échelle : 
+#%toolbarnav-scale#Scale #Échelle 
+#%toolbarnav-lblscaledisplay#Show scale on map#Afficher l'échelle sur la carte 
 #%toolbardata-name#Import Data#Importer des données
 #%toolbardata-tpadd#Import Data#Importer des données
 #%toolbardata-tpdelete#Remove Data#Enlever des données
@@ -123,7 +134,7 @@ General (i18n)#%all#All#Tous
 #%help-overview-desc1#The GeoCanViz Viewer is a tool to help you find, explore and understand spatial data using a graphical user interface.#
 #%help-overview-desc2#The GeoCanViz Viewer can be configured to use some or all of the tools and toolbars depending on the needs of the content of the map.  For this reason, some of the tools described in this help document may not be available for the map you are currently viewing.#
 #%help-overview-desc3#When selecting certain tools, other tools may become disabled until you are done using that tool. Please note, to zoom in/out or pan, the focus must be on the map.#
-#%help-draw-title#The Draw Toolbar#
+#%help-draw-title##Map and Drawing Tools#Carte et outils de dessin
 #%help-draw-colorselect#This is the color selector. Click on a circle to choose the drawing color. The color apply to draw, text and measure.#
 #%help-draw-line#Clicking on the pencil icon enables the line drawing function. To close this tool, press “Esc” key or click on the tools toolbar.#
 #%help-draw-text#Allow to write text on the map. To close this tool, press cancel on the text box.#

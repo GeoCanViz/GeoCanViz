@@ -40,6 +40,10 @@
 				// viewmodel mapid to be access in tooltip custom binding
 				_self.mapid = mapid;
 
+				// get language code for scale formating
+				_self.langCode = i18n.getDict('%lang-code');
+				_self.langSep = _self.langCode === 'en' ? ',' : ' ';
+
                 // tooltips, text strings and other things from dictionary
                 _self.cancel = i18n.getDict('%cancel');
                 _self.close = i18n.getDict('%close');
@@ -73,6 +77,7 @@
                 _self.tpOverview = i18n.getDict('%toolbarnav-ovdrag');
                 _self.lblWest = i18n.getDict('%west');
                 _self.ScaleLabel = i18n.getDict('%toolbarnav-scale');
+                _self.ScaleDisplayLabel = i18n.getDict('%toolbarnav-lblscaledisplay');
                 _self.lblLocTitle = i18n.getDict('%toolbarnav-info');
 
 				// WCAG
@@ -92,8 +97,11 @@
 				_self.defaultAutoComplText = i18n.getDict('%toolbarnav-geolocsample');
 				_self.geoLocSample = i18n.getDict('%toolbarnav-geolocsample');
 
-				// overviewmap checked to see if usesr wants it on map
-				_self.isShowMap = ko.observable(false);
+				// overviewmap checked to see if user wants it on map
+				_self.isOVShowMap = ko.observable(false);
+				
+				// scalebar and scale checked to see if user wants it on map
+				_self.isScaleShowMap = ko.observable(false);
 
                 // observables for localisation info window
                 _self.infoLatDD = ko.observable();
@@ -147,8 +155,18 @@
 
                     if (scaledisplay.enable) {
 						mymap.on('extent-change', function() {
+							var formatScale;
+							
+							// get scale
 							currentScale = Math.round(mymap.getScale()).toString();
-							_self.lblScale(_self.ScaleLabel + currentScale);
+
+							// set formating
+							formatScale = currentScale.split('').reverse().join('');
+							formatScale = formatScale.replace(/(\d{3})(?=\d)/g, '$1' + _self.langSep);
+							formatScale = formatScale.split('').reverse().join('');
+
+							// update scale
+							_self.lblScale(_self.ScaleLabel + '1:' + formatScale);
 						});
 					}
 
@@ -165,9 +183,7 @@
 
 				// Clear the input field on focus if it contains the default text
 				inMapField.focus(function() {
-					if (inMapField.val() === _self.geoLocSample) {
-						inMapField.val('');
-					}
+					inMapField.val('');
 				});
 
 				// Set the input field has an autocomplete field and define the source and events for it
@@ -352,12 +368,25 @@
                 };
                 
                 _self.showOVMap = function() {
-                	if (_self.isShowMap()) {
+                	if (_self.isOVShowMap()) {
                 		ovMapWidget[0].show();
                 		ovMapWidget[1].hide();
                 	} else {
                 		ovMapWidget[1].show();
                 		ovMapWidget[0].hide();
+                	}
+
+                	return true;
+                };
+                
+                _self.showScaleMap = function() {
+                	// move content from tools to footer
+                	if (_self.isScaleShowMap()) {
+                		$viz('#scalemap' + mapid).children().detach().appendTo('#scaletool' + mapid);
+                		$viz('#scalebarmap' + mapid).children().detach().appendTo('#scalebartool' + mapid);
+                	} else {
+                		$viz('#scaletool' + mapid).children().detach().appendTo('#scalemap' + mapid);
+                		$viz('#scalebartool' + mapid).children().detach().appendTo('#scalebarmap' + mapid);
                 	}
 
                 	return true;

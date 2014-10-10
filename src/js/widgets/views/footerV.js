@@ -27,6 +27,10 @@
             			'</a></div>';
             }
 
+			// add div to hold scale if user decide to show it on the map instead of toolbar
+			node += '<div class="gcviz-scalebarmapcontainer unselectable"><div id="scalebarmap' + mapid + '"></div></div>' +
+					'<div class="gcviz-scalemapcontainer unselectable"><div id="scalemap' + mapid +'"></div></div>';
+			
 			// set north arrow
 			if (config.northarrow.enable) {
 				node += '<div id="arrow_' + mapid + '" class="gcviz-foot-arrow unselectable" data-bind="style: { \'webkitTransform\': rotateArrow(), ' +

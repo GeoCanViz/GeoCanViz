@@ -32,12 +32,12 @@
 			holder = $mapElem.find('#' + mapid + '_holder');
 			if (config.zoombar.zoom) {
 				// set the side class extension to know where to put zoom max
-				ext = side ? 'l' : 'r';
+				ext = side === 1 ? 'l' : 'r';
 				holder.prepend('<button class="gcviz-map-zoommax' + ext + '" tabindex="0" data-bind="buttonBlur, click: extentClick, tooltip: { content: tpZoomFull }"></button>');
 			}
 			
 			// add div to hold overview map if user decide to show it on the map instead of toolbar
-			$div.append('<div id="ovmapcont' + mapid +'" class="gcviz-ovmapcontainer"><div id="ovmap' + mapid +'"></div></div>');
+			$div.append('<div id="ovmapcont' + mapid +'" class="gcviz-ovmapcontainer' + ext + '"><div id="ovmap' + mapid +'"></div></div>');
 			
 			// set height and width for the map. Substract the header height
 			holder.css({ 'height': height, 'width': width });

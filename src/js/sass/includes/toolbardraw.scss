@@ -4,8 +4,14 @@
   background: url($img-spritebtn) $x + px -85 + px no-repeat;
 }
 
-.gcviz-draw-row1 {
-	display: table;
+.gcviz-colorspanlabel {
+	@include app-text();
+	line-height: 2.5;
+}
+
+.gcviz-drawspanlabel {
+	@include app-text();
+	line-height: 3.5;
 }
 
 // the color picker holder
@@ -37,12 +43,6 @@
 
 .gcviz-draw-white {
 	@include sprite($img-spritebtn, -469, -14, 2);
-}
-
-.gcviz-draw-arrow {
-	cursor: default!important;
-	width: (1.5 * $rembase) + rem!important;
-	@include sprite($img-spritebtn, -505, -14, 2);
 }
 
 .gcviz-draw-pickblack {

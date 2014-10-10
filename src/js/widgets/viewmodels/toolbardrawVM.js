@@ -63,6 +63,18 @@
 				_self.tpImport = i18n.getDict('%toolbardraw-tpimport');
 				_self.tpExport = i18n.getDict('%toolbardraw-tpexport');
 
+				// buttons label
+				_self.lblColor = i18n.getDict('%toolbardraw-lblselcolor');
+				_self.lblMeasFull = i18n.getDict('%toolbardraw-lblmeasfull');
+				_self.lblMeasLine = i18n.getDict('%toolbardraw-lblmeasline');
+				_self.lblMeasArea = i18n.getDict('%toolbardraw-lblmeasarea');
+				_self.lblDrawFull = i18n.getDict('%toolbardraw-lbldrawfull');
+				_self.lblDrawLine = i18n.getDict('%toolbardraw-lbldrawline');
+				_self.lblDrawText = i18n.getDict('%toolbardraw-lbldrawtext');
+				_self.lblErase = i18n.getDict('%toolbardraw-lblerase');
+				_self.lblUndoRedo = i18n.getDict('%toolbardraw-lblundoredo');
+				_self.lblImpExp = i18n.getDict('%toolbardraw-lblimpexp');
+				
 				// dialog window for text
 				_self.lblTextTitle = i18n.getDict('%toolbardraw-inputbox-name');
 				_self.lblTextDesc = i18n.getDict('%toolbardraw-inputbox-label');

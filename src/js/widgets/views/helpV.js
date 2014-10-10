@@ -68,7 +68,6 @@
 								'<button class="gcviz-draw-red" tabindex="-1"></button>' +
 								'<button class="gcviz-draw-yellow" tabindex="-1"></button>' +
 								'<button class="gcviz-draw-white" tabindex="-1"></button>' +
-								'<button class="gcviz-draw-arrow" tabindex="-1"></button>' +
 							'</div>' +
 							'<span class="span8 gcviz-help-textbtn" data-bind="text: drawColorSelect"></span>' +
 						'</div>' +		

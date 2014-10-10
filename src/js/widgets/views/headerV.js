@@ -27,7 +27,7 @@
 			$header = $mapElem.find('.gcviz-head');
 
 			// set the side class extension to know where to put tools and buttons
-			ext = config.side ? '-r' : '-l';
+			ext = config.side === 1 ? '-r' : '-l';
 
 			// set title
 			if (typeof title !== 'undefined') {

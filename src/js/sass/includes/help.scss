@@ -12,6 +12,7 @@
 
 .gcviz-help-bubbledesc {
 	margin-top: (0.5 * $rembase) + rem;
+	@include app-text(1.2);
 }
 
 .gcviz-help {

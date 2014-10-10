@@ -1,5 +1,17 @@
 @import "includes/gcviz-mixin";
 
+%ovmap {
+	opacity: 1.0!important;
+  width: 230px!important;
+  background: #fafaf5;
+}
+
+%ovscalemap {
+	position: absolute;
+  bottom: (-4 * $rembase) + rem;
+  z-index: 30;
+}
+
 // autocomplete
 .gcviz-nav-auto {
 	width: 93%;
@@ -39,19 +51,61 @@
 	margin-left: (0.5 * $rembase) + rem;
 }
 
+.gcviz-ovtoolcontainer {
+	@extend %ovmap;
+	@include app-border(0.1, solid, $black);
+}
+
+.gcviz-ovmapcontainerl {
+  @extend %ovmap;
+  @extend %ovscalemap;
+}
+
+.gcviz-ovmapcontainerr {
+  @extend %ovmap;
+  @extend %ovscalemap;
+  right: 0rem;
+}
+
+.gcviz-overviewMap {
+  position: relative!important;
+}
+
+// scale bar and scale display
 .gcviz-nav-scale {
-	.span1 {
-		height: (4 * $rembase) + rem;
-	}
+	margin-top: (1.5 * $rembase) + rem;
+}
+
+// scale display
+.gcviz-scaleDisplayLabel {
+  @include app-text(1.1);
+  display: block;
+  line-height: 1;
+}
+
+.gcviz-scaleApprox {
+  @include app-text(0.75);
+  margin-top: (0.3 * $rembase) + rem;
+}
+
+.gcviz-scalebarmapcontainer {
+  width: (14 * $rembase) + rem;
+  display: inline-block;
+  margin-left: 35%;
+}
+
+.gcviz-scalemapcontainer {
+  margin-left: 10px;
+  display: inline-block;
 }
 
 /* Reset some ESRI classes that are being modified by the Map classes */
-.esriOverviewMap .ovwContainer .map {overflow: hidden;}
-.esriOverviewMap .ovwContainer .map .container {position: absolute; border: none; padding: 0px; margin: 0px; left: 0px; top: 0px; overflow: hidden; width: 100%; height: 100%;}
-.esriOverviewMap .ovwContainer .map .container .layersDiv {position: relative; left: 0px; top: 0px; width: 100%; height: 100%;}
-.esriOverviewMap .ovwContainer .map .container .layersDiv .layerTile {position: absolute; border: none; margin: 0px; padding: 0px;}
-.esriOverviewMap .ovwContainer .map .container .container {-webkit-tap-highlight-color: rgba(0, 0, 0, 0);}
-.esriOverviewMap .ovwContainer .map .container .container .layersDiv img {margin: 0px!important;}
+.esriOverviewMap .ovwContainer .map { overflow: hidden; }
+.esriOverviewMap .ovwContainer .map .container { position: absolute; border: none; padding: 0px; margin: 0px; left: 0px; top: 0px; overflow: hidden; width: 100%; height: 100%; }
+.esriOverviewMap .ovwContainer .map .container .layersDiv { position: relative; left: 0px; top: 0px; width: 100%; height: 100%; }
+.esriOverviewMap .ovwContainer .map .container .layersDiv .layerTile { position: absolute; border: none; margin: 0px; padding: 0px; }
+.esriOverviewMap .ovwContainer .map .container .container { -webkit-tap-highlight-color: rgba(0, 0, 0, 0); }
+.esriOverviewMap .ovwContainer .map .container .container .layersDiv img { margin: 0px!important; }
 
 /* Change overview highlight of ESRI element */
 .ovwHighlight {
@@ -62,28 +116,6 @@
 }
 /* End of Reset some ESRI classes that are being modified by the Map classes */
 
-%ovmap {
-	opacity: 1.0!important;
-  width: 230px!important;
-}
-
-.gcviz-ovtoolcontainer {
-	@extend %ovmap;
-	@include app-border(0.1, solid, $black);
-}
-
-.gcviz-ovmapcontainer {
-  @extend %ovmap;
-  position: absolute;
-  bottom: (-4 * $rembase) + rem;
-  z-index: 30;
-  background: #fafaf5;
-}
-
-.gcviz-overviewMap {
-  position: relative!important;
-}
-
 /* Classes from esri.css for scalebar */
 .esriScalebar {
   z-index:30;
@@ -93,9 +125,7 @@
 
 .esriScaleLabelDiv {
   position: relative;
-  top: -5px;
   width: 100%;
-  padding: 2px;
 }
 
 .esriScalebarLabel {
@@ -111,7 +141,7 @@
 }
 
 .esriScalebarSecondNumber {
-  left: 95%;
+  left: 85%;
 }
 
 .esriScalebarLine {
@@ -126,17 +156,6 @@
   border-top-style: none;
 }
 /* End of classes from esri.css for scalebar */
-
-// scale display
-.gcviz-scaleDisplayLabel {
-  @include app-text(1.1);
-  display: block;
-}
-
-.gcviz-scaleApprox {
-  @include app-text(0.75);
-  margin-top: (0.5 * $rembase) + rem;
-}
 
 .gcviz-navinfo-content {
   margin-top: (0.5 * $rembase) + rem!important;

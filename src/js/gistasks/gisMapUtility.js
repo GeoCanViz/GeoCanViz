@@ -107,7 +107,7 @@
 				
 				if (config.zoombar.bar) {
 					options.slider = true;
-					options.sliderPosition = side ? 'top-left' : 'top-right';
+					options.sliderPosition = side === 1 ? 'top-left' : 'top-right';
 					options.sliderStyle = 'large';
 				}
 			} else {
