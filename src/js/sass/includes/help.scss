@@ -1,5 +1,9 @@
 @import "gcviz-mixin";
 
+.gcviz-help-sect {
+  max-height: (50 * $rembase) + rem!important;
+}
+
 .gcviz-help .row > [class*="span"] {
   min-height: (2 * $rembase) + rem;
   padding-top: (1 * $rembase) + rem;
@@ -25,4 +29,8 @@
 
 .gcviz-help-textbtn {
 	margin-top: (1 * $rembase) + rem!important;
+}
+
+.gcviz-help-textsub {
+	@include app-text(1.2, bold, $black);
 }

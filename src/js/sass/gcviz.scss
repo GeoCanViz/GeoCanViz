@@ -192,3 +192,8 @@ input[type="file"] {
 .gcviz-verticalAlignMiddle {
   vertical-align: middle;
 }
+
+// keyboard user instruction (overwrite WET)
+h3:not(.ui-title) {
+	color: #000!important;
+}

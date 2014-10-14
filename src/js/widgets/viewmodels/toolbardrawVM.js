@@ -236,6 +236,10 @@
 				_self.eraseClick = function() {
 					_self.graphic.erase();
 					
+					// set focus on draw because when button is disable the focus goes
+					// automatically to the top of the page if not
+					$btnDraw.focus();
+					
 					// workaround to remove tooltip on undo. The tooltip appears
 					// even if the button is disable
 					$viz('.ui-tooltip').remove();
@@ -253,6 +257,12 @@
 				_self.undoClick = function() {
 					_self.graphic.undo();
 
+					// set focus on draw because when button is disable the focus goes
+					// automatically to the top of the page if not
+					if (_self.stackUndo().length === 0) {
+						$btnDraw.focus();
+					}
+
 					// workaround to remove tooltip on undo. The tooltip appears
 					// even if the button is disable
 					$viz('.ui-tooltip').remove();
@@ -260,6 +270,12 @@
 
 				_self.redoClick = function() {
 					_self.graphic.redo();
+
+					// set focus on draw because when button is disable the focus goes
+					// automatically to the top of the page if not
+					if (_self.stackRedo().length === 0) {
+						$btnDraw.focus();
+					}
 
 					// workaround to remove tooltip on undo. The tooltip appears
 					// even if the button is disable
@@ -429,7 +445,14 @@
 						} else if (_self.activeTool() === 'area') {
 							$btnArea.focus();
 						} else if (_self.activeTool() === 'erase') {
-							$btnDelsel.focus();
+							
+							if (_self.isGraphics()) {
+								$btnDelsel.focus();
+							} else {
+								// set focus on draw because when button is disable the focus goes
+								// automatically to the top of the page if not
+								$btnDraw.focus();
+							}
 						}
 						_self.activeTool('');
 					}, 500);

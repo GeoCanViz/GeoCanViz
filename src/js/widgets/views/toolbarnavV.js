@@ -115,7 +115,7 @@
 						'</div>' +
 					'</div>';
 
-			// DIVs for position information
+			// position information
 			if (configPosition) {
 				// Setup a dialog box to show results
 				node += '<div data-bind="uiDialog: { title: $root.lblLocTitle, width: 400, height: 625, close: $root.dialogLocOk, openDialog: \'isLocDialogOpen\' }">' +

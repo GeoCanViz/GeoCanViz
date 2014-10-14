@@ -75,7 +75,7 @@
 		init: function(element, valueAccessor, allBindings, viewModel) {
 			var manageWCAG,
 				mapid = viewModel.mapid,
-				vm = gcvizFunc.getElemValueVM(mapid, ['header'], 'js');
+				vm = gcvizFunc.getElemValueVM(mapid, ['wcag'], 'js');
 
 			manageWCAG = function() {
 				viewModel.isWCAG(!viewModel.isWCAG());
@@ -269,7 +269,7 @@
 		init: function(element, valueAccessor, allBindings, viewModel) {
 			var customFunc,
 				local = ko.utils.unwrapObservable(valueAccessor()),
-				options = {},
+				options = { },
 				$element = $viz(element),
 				optsDefault = ko.bindingHandlers.uiDialog.options;
 
@@ -287,6 +287,21 @@
 			}
 			if (typeof options.close !== 'undefined') {
 				options.close = options.close;
+			}
+
+			// there is a bug with Firefox so we need to set the width
+			// the widh auto set by jQuery is misinterpreted by Firefox
+			if (window.browser === 'Firefox') {
+				options.open = function() {
+					var start, end, width,
+                		bind;
+                		
+                    	bind = $element.attr('data-bind');
+                    	start = bind.indexOf('width:') + 7;
+                    	end = bind.indexOf(', height:');
+                    	width = parseInt(bind.substring(start, end), 10) - 25;
+                    	$element.css('width', width);
+				};
 			}
 
 			$element.dialog(options);
@@ -322,6 +337,45 @@
 					$viz(this).dialog('close');
 				}
 			}]
+		}
+	};
+
+	ko.bindingHandlers.uiAccordion = {
+		init: function(element, valueAccessor) {
+			var options = valueAccessor() || {},
+				$refresh = $viz('#' + options.refresh),
+				$element = $viz(element);
+
+			if (typeof options.sortable !== 'undefined') {
+				$element.accordion(options).sortable(options.sortable);
+			} else {
+				$element.accordion(options);
+			}
+
+			if (typeof $refresh !== '#undefined') {
+				$refresh.focus(function() {
+					if (typeof $element !== 'undefined') {
+						if ($element.hasClass('ui-accordion')) {
+							$element.accordion('refresh');
+						}
+					}
+				});
+			}
+
+			//handle disposal (if KO removes by the template binding)
+			ko.utils.domNodeDisposal.addDisposeCallback(element, function() {
+				$element.accordion('destroy');
+			});
+		},
+		update: function(element, valueAccessor) {
+			var options = valueAccessor() || {},
+				$element = $viz(element);
+
+			if (typeof options.sortable !== 'undefined') {
+				$element.accordion('destroy').accordion(options).sortable(options.sortable);
+			} else {
+				$element.accordion('destroy').accordion(options);
+			}
 		}
 	};
 

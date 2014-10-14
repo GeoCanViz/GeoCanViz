@@ -9,6 +9,9 @@ General (i18n)#%all#All#Tous
 #%linkopens#This link opens in a new browser window, browser tab or is downloaded, depending on your setting.#Ce lien s'ouvre dans une nouvelle fenêtre, onglet du navigateur ou est téléchargé, selon vos réglages.
 #%of#of#de
 #%west#W#O
+#%wcag-instrtitle#Instructions: Map Navigation#Instruction: Comment naviguer dans la carte
+#%wcag-instr#Keyboard user:  When the map is in focus, use the arrow keys to pan the map and the plus and minus keys to zoom. Setup your keyboard to control the mouse or enable the wcag mode to have coordinates input box.#Utilisateur du clavier :  Lorsque la carte a l'attention, utiliser les touches flèches pour déplacer la carte et utiliser les touches plus et négatif pour faire un zoom. Configurer votre clavier pour contrôler la souris ou activer le mode de wcag afin d'avoir les boîte d'entrée pour les coordonnées.
+#%wcag-lblenable#Enable WCAG mode#Activer le mode RACW
 #%wcag-xlong#Longitude West (x): #Longitude ouest (x): 
 #%wcag-ylat#Latitude North (y): #Latitude nord (y): 
 #%wcag-title#WCAG coordinates input#Entré des corrdonnées RACW
@@ -30,7 +33,6 @@ General (i18n)#%all#All#Tous
 #%header-aboutread#Read #Lire 
 #%header-tpabout#About this map#À propos de cette carte
 #%header-tphelp#Open help page#Ouvrir la page d'aide
-#%header-tpwcag#Enable or disable WCAG mode#Activer ou désactiver le mode RACW
 #%header-tools#Menu#Menu
 #%header-tptools#Open/Close tools panel#Ouvrir/Fermer le panneau d'outils
 #%header-tpprint#Print the map#Imprimer la carte
@@ -38,7 +40,6 @@ General (i18n)#%all#All#Tous
 #%header-tpfullscreen#Go full or regular screen#Basculer entre mode plein écran et régulier
 #%header-printcopyright#© Her Majesty the Queen in Right of Canada / © Sa Majesté la Reine du chef du Canada# © Sa Majesté la Reine du chef du Canada / © Her Majesty the Queen in Right of Canada
 #%header-printurl#http://geoappext.nrcan.gc.ca/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task#http://geoappext.nrcan.gc.ca/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task
-#%help-instr#Keyboard user: setup your keyboard to control the mouse to access the following PDF document.#Utilisateur du clavier: configurez votre clavier pour contrôler la souris et accéder au document PDF ci-dessous.
 #%footer-tpgithub#Get GeoCanViz on GitHub#Obtenir GéoCanViz de GitHub
 #%footer-urlgcvizrepo#https://github.com/GeoCanViz/GeoCanViz#https://github.com/GeoCanViz/GeoCanViz
 #%footer-tpNorth#North arrow#Flèche du nord
@@ -134,7 +135,29 @@ General (i18n)#%all#All#Tous
 #%help-overview-desc1#The GeoCanViz Viewer is a tool to help you find, explore and understand spatial data using a graphical user interface.#
 #%help-overview-desc2#The GeoCanViz Viewer can be configured to use some or all of the tools and toolbars depending on the needs of the content of the map.  For this reason, some of the tools described in this help document may not be available for the map you are currently viewing.#
 #%help-overview-desc3#When selecting certain tools, other tools may become disabled until you are done using that tool. Please note, to zoom in/out or pan, the focus must be on the map.#
-#%help-draw-title##Map and Drawing Tools#Carte et outils de dessin
+#%help-key-title#Navigation using the keyboard#
+#%help-key-fntitle#Advance focus:#
+#%help-key-fn#TAB key will advances the focus to the next element.#
+#%help-key-fptitle#Return focus:#
+#%help-key-fp#SHIFT+TAB keys will return the focus to the previous element.#
+#%help-key-zoomtitle#Zoom the map:#
+#%help-key-zoom#+/- or CTRL+/CTRL- keys will zoom in/out on the map. The focus must be on the map.#
+#%help-key-pantitle#Panning the map:#
+#%help-key-pan#LEFT ARROW, RIGHT ARROW, UP ARROW, DOWN ARROW keys will pan around the map (moves the map sideways or up/down). The focus must be on the map.#
+#%help-key-entertitle#Execute a tool:#
+#%help-key-enter#ENTER key will selects the element which currently has the focus.#
+#%help-key-spacetitle#Expand menu:#
+#%help-key-space#When the focus is on an expander icon, the SPACE BAR key will expand the toolbar and SPACE BAR key again will close it.#
+#%help-key-wcagtitle#WCAG mode:#
+#%help-key-wcag#You can enable a WCAG mode by checking the enable WCAG mode check box in the -Instructions: Map navigation- drop down section at the top of the map.#
+#%help-head-title#Header#En-tête
+#%help-head-help#Open this help window.#
+#%help-head-about#Open a description about this map.#
+#%help-head-print#Print this view of the map.#
+#%help-head-fs#Toggle between maximum screen and embedded-window mode.#
+#%help-head-menutitle#Menu#Menu
+#%help-head-menu#Toggle to open and close all the available toolbars#
+#%help-draw-title#Map and Drawing Tools#Carte et outils de dessin
 #%help-draw-colorselect#This is the color selector. Click on a circle to choose the drawing color. The color apply to draw, text and measure.#
 #%help-draw-line#Clicking on the pencil icon enables the line drawing function. To close this tool, press “Esc” key or click on the tools toolbar.#
 #%help-draw-text#Allow to write text on the map. To close this tool, press cancel on the text box.#

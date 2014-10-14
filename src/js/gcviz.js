@@ -21,13 +21,14 @@ var locationPath;
 			'gcviz-v-map',
 			'gcviz-v-inset',
 			'gcviz-v-help',
+			'gcviz-v-wcag',
 			'gcviz-v-header',
 			'gcviz-v-footer',
 			'gcviz-v-tbdraw',
 			'gcviz-v-tbnav',
 			'gcviz-v-tblegend',
 			'gcviz-v-tbdata'
-	], function($viz, mp, jqui, i18n, gcvizFunc, map, inset, help, header, footer, tbdraw, tbnav, tblegend, tbdata) {
+	], function($viz, mp, jqui, i18n, gcvizFunc, map, inset, help, wcag, header, footer, tbdraw, tbnav, tblegend, tbdata) {
 		var initialize,
 			readConfig,
 			execConfig,
@@ -120,6 +121,9 @@ var locationPath;
 			// set the global vm to retreive link vm together
 			// we do it here first because we need a value from mapVM inside headerVM
 			gcvizFunc.setVM(mapid, vmArray);
+
+			// add the WCAG section for keyboard user
+			vmArray.wcag = wcag.initialize($mapSection);
 
 			// add header and footer
 			vmArray.header = header.initialize($mapSection);

@@ -255,6 +255,14 @@
 				location: locationPath + 'gcviz/js/viewmodels',
 				main: 'helpVM'
 			}, {
+				name: 'gcviz-v-wcag',
+				location: locationPath + 'gcviz/js/views',
+				main: 'wcagV'
+			}, {
+				name: 'gcviz-vm-wcag',
+				location: locationPath + 'gcviz/js/viewmodels',
+				main: 'wcagVM'
+			}, {
 				name: 'gcviz-v-header',
 				location: locationPath + 'gcviz/js/views',
 				main: 'headerV-min'

@@ -81,7 +81,6 @@
                 _self.lblLocTitle = i18n.getDict('%toolbarnav-info');
 
 				// WCAG
-				_self.mapid = mapid;
 				_self.WCAGTitle = i18n.getDict('%wcag-title');
 				_self.lblWCAGx = i18n.getDict('%wcag-xlong');
 				_self.lblWCAGy = i18n.getDict('%wcag-ylat');

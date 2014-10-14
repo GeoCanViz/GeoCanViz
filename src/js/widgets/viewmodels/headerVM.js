@@ -47,7 +47,6 @@
 
 				// tooltip, text strings
 				_self.tpHelp = i18n.getDict('%header-tphelp');
-				_self.tpWCAG = i18n.getDict('%header-tpwcag');
 				_self.tpTools = i18n.getDict('%header-tptools');
 				_self.tpPrint = i18n.getDict('%header-tpprint');
 				_self.tpInset = i18n.getDict('%header-tpinset');
@@ -81,9 +80,6 @@
 				_self.insetState = true;
 				_self.fullscreenState = 0;
                 _self.opencloseToolsState = 0;
-
-				// WCAG
-				_self.isWCAG = ko.observable(false);
 
 				// tools initial setting
 				_self.toolsInit = config.tools;
@@ -159,10 +155,6 @@
                     helpVM.toggleHelp();
                 };
 
-				_self.WCAGClick = function() {
-					_self.isWCAG(!_self.isWCAG());
-				};
-
                 _self.aboutClick = function() {
                     _self.isAboutDialogOpen(true);
                 };
@@ -197,6 +189,10 @@
 
 					// remove the event that keeps tab in map section
 					$section.off('keydown.fs');
+					
+					// need to set it to 40px. Link to the bug where we have a workaround in the request
+					// full screen function.
+					gcvizFunc.setStyle($viz('#ovmapcont' + mapid)[0], { 'bottom': '40px' });
 				};
 
 				_self.requestFullScreen = function() {
@@ -205,7 +201,7 @@
 						w = param.width,
 						h = param.height,
 						array = $section.find('[tabindex = 0]'),
-						height =  (h - (2 * _self.headerHeight));
+						height =  (h - (2 * _self.headerHeight) - 32); // 32 is the keyboard instruction height
 
 					// set style for the map
 					gcvizFunc.setStyle($section[0], { 'width': screen.width + 'px', 'height': screen.height + 'px' });
@@ -241,7 +237,7 @@
                     // we first got to full screen. To correct this we reset the bottom value.
                     // after the first time it is ok. In the future we can trap the first full
                     // screen and then do not do this. Or we can try to find the problem.
-                    gcvizFunc.setStyle($viz('#ovmapcont' + mapid)[0], { 'bottom': '40px' });
+                    gcvizFunc.setStyle($viz('#ovmapcont' + mapid)[0], { 'bottom': '72px' });
                 };
 
                 _self.adjustContainerHeight = function() {

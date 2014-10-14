@@ -10,6 +10,8 @@
 	define(['gcviz-vm-help'
 	], function(helpVM) {
 		var initialize,
+			getKeyHelp,
+			getHeaderHelp,
 			getDrawHelp;
 
 		initialize = function($mapElem) {
@@ -23,23 +25,31 @@
 			$help = $mapElem.find('.gcviz-help');
 			
 			// the full help dialog window
-			node += '<div id="help-' + mapid + '" data-bind="uiDialog: { title: $root.lblHelpTitle, width: 600, height: 350, ok: $root.dialogHelpOk, close: $root.dialogHelpOk, openDialog: \'isHelpDialogOpen\' }">' +
+			node += '<div id="help-' + mapid + '" class="gcviz-help-sect" data-bind="uiDialog: { title: $root.lblHelpTitle, width: 600, height: 350, ok: $root.dialogHelpOk, close: $root.dialogHelpOk, openDialog: \'isHelpDialogOpen\' }">' +
 						// menu
 						'<section id="gcviz-help-menu" class="gcviz-help">' +
 							'<ul>' +
-								'<li><a href="#gcviz-help-over" data-bind="text: overTitle"></a></li>' +
-								'<li><a href="#gcviz-help-draw" data-bind="text: drawTitle"></a></li>' +
+								'<li><a href="#gcviz-help-over" data-bind="text: overTitle, click: function() { scrollTo(\'over\') }"></a></li>' +
+								'<li><a href="#gcviz-help-key" data-bind="text: keyTitle, click: function() { scrollTo(\'key\') }"></a></li>' +
+								'<li><a href="#gcviz-help-head" data-bind="text: headTitle, click: function() { scrollTo(\'head\') }"></a></li>' +
+								'<li><a href="#gcviz-help-draw" data-bind="text: drawTitle, click: function() { scrollTo(\'draw\') }"></a></li>' +
 							'</ul>' +
 						'</section>';
 
 			// application overview
-			node += '<section id="gcviz-help-over" class="gcviz-help">' +
+			node += '<section id="gcviz-help-over" class="gcviz-help gcviz-help-over">' +
 						'<span class="gcviz-help-tbtitle" data-bind="text: overTitle"></span>' +
 						'<div class="row"><span class="span12" data-bind="text: overDesc1"></span></div>' +
 						'<div class="row"><span class="span12" data-bind="text: overDesc2"></span></div>' +
 						'<div class="row"><span class="span12" data-bind="text: overDesc2"></span></div>' +
 					'</section>';
-						
+
+			// get keyboard navigation help
+			node += getKeyHelp();
+
+			// header
+			node += getHeaderHelp();
+
             // toolbar draw
 			node += getDrawHelp();
 			
@@ -55,10 +65,86 @@
 			return(helpVM.initialize($help, mapid));
 		};
 		
+		getKeyHelp = function() {
+			var node = '';
+ 			
+ 			node = '<section id="gcviz-help-key" class="gcviz-help gcviz-help-key">' +
+ 						'<span class="gcviz-help-tbtitle" data-bind="text: keyTitle"></span>' +
+ 						'<div class="row"><div class="row span12">' +
+ 							'<span class="span3 gcviz-help-textsub" data-bind="text: keyFocusNextTitle"></span>' +
+							'<span class="span9" data-bind="text: keyFocusNext"></span>' +
+						'</div>' +
+						'<div class="row"><div class="row span12">' +
+							'<span class="span3 gcviz-help-textsub" data-bind="text: keyFocusPrevTitle"></span>' +
+							'<span class="span9" data-bind="text: keyFocusPrev"></span>' +
+						'</div>' +
+						'<div class="row"><div class="row span12">' +
+							'<span class="span3 gcviz-help-textsub" data-bind="text: keyZoomTitle"></span>' +
+							'<span class="span9" data-bind="text: keyZoom"></span>' +
+						'</div>' +
+						'<div class="row"><div class="row span12">' +
+							'<span class="span3 gcviz-help-textsub" data-bind="text: keyPanTitle"></span>' +
+							'<span class="span9" data-bind="text: keyPan"></span>' +
+						'</div>' +
+						'<div class="row"><div class="row span12">' +
+							'<span class="span3 gcviz-help-textsub" data-bind="text: keyEnterTitle"></span>' +
+							'<span class="span9" data-bind="text: keyEnter"></span>' +
+						'</div>' +
+						'<div class="row"><div class="row span12">' +
+							'<span class="span3 gcviz-help-textsub" data-bind="text: keySpaceTitle"></span>' +
+							'<span class="span9" data-bind="text: keySpace"></span>' +
+						'</div>' +
+						'<div class="row"><div class="row span12">' +
+							'<span class="span3 gcviz-help-textsub" data-bind="text: keyWCAGTitle"></span>' +
+							'<span class="span9" data-bind="text: keyWCAG"></span>' +
+						'</div>' +
+					'</section>';
+			
+			return node;
+		};
+
+		getHeaderHelp = function() {
+ 			var node = '';
+ 			
+ 			node = '<section id="gcviz-help-head" class="gcviz-help gcviz-help-head">' +
+ 						'<span class="gcviz-help-tbtitle" data-bind="text: headTitle"></span>' +
+ 						'<div class="row"><div class="row span12">' +
+	            			'<div class="span1">' +
+								'<button class="gcviz-head-help" tabindex="-1"</button>' +
+							'</div>' +
+							'<span class="span11 gcviz-help-textbtn" data-bind="text: headHelp"></span>' +
+						'</div>' +
+						'<div class="row"><div class="row span12">' +
+	            			'<div class="span1">' +
+								'<button class="gcviz-head-about" tabindex="-1"</button>' +
+							'</div>' +
+							'<span class="span11 gcviz-help-textbtn" data-bind="text: headAbout"></span>' +
+						'</div>' +
+						'<div class="row"><div class="row span12">' +
+	            			'<div class="span1">' +
+								'<button class="gcviz-head-print" tabindex="-1"</button>' +
+							'</div>' +
+							'<span class="span11 gcviz-help-textbtn" data-bind="text: headPrint"></span>' +
+						'</div>' +
+						'<div class="row"><div class="row span12">' +
+	            			'<div class="span1">' +
+								'<button class="gcviz-head-fs" tabindex="-1"</button>' +
+							'</div>' +
+							'<span class="span11 gcviz-help-textbtn" data-bind="text: headFS"></span>' +
+						'</div>' +
+						'<div class="row"><div class="row span12">' +
+							'<span class="span1 gcviz-help-textsub" data-bind="text: headMenuTitle"></span>' +
+							'<span class="span11" data-bind="text: headMenu"></span>' +
+						'</div>' +
+ 					'</section>';
+			
+			return node;
+		};
+
 		getDrawHelp = function() {
  			var node = '';
  			
- 			node = '<section id="gcviz-help-tbdraw" class="gcviz-help">' +
+ 			node = '<section id="gcviz-help-tbdraw" class="gcviz-help gcviz-help-tbdraw">' +
 						'<span class="gcviz-help-tbtitle" data-bind="text: drawTitle"></span>' +
 						'<div class="row">' +
 							'<div class="span4 gcviz-draw-cholder">' +
