@@ -37,9 +37,6 @@
 			// add buttons
 			node += '<div class="gcviz-head-btn' + ext + '">';
 
-			// set help button (help is always visible)
-			node += '<button class="gcviz-head-help" tabindex="0" data-bind="buttonBlur, click: helpClick, tooltip: { content: tpHelp }"></button>';
-
 			// set about button
 			if (configAbout.enable) {
 				node += '<button class="gcviz-head-about" tabindex="0" data-bind="buttonBlur, click: aboutClick, tooltip: { content: tpAbout }"></button>';
@@ -51,7 +48,7 @@
 						'<span data-bind="text: $root.aboutInfo2"></span></div>' +
 					'</div>';
 			}
-
+			
 			//TODO: add this functionnality
 			// add link if link map is enable
 			//if (config.link) {
@@ -72,6 +69,10 @@
 			if (config.fullscreen) {
 				node += '<button class="gcviz-head-fs" tabindex="0" data-bind="buttonBlur, click: fullscreenClick, tooltip: { content: tpFullScreen }, css: { \'gcviz-head-fs\': isFullscreen() === false, \'gcviz-head-reg\': isFullscreen() === true }"></button>';
 			}
+			
+			// set help button (help is always visible)
+			node += '<button class="gcviz-head-help" tabindex="0" data-bind="buttonBlur, click: helpClick, tooltip: { content: tpHelp }"></button>';
+
 			node += '</div>';
 
 			$header.append(node);

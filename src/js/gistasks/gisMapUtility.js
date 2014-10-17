@@ -41,6 +41,7 @@
 			resizeMap,
 			resizeCenterMap,
 			zoomPoint,
+			zoomFeature,
 			getMapCenter,
 			createMapMenu,
 			zoomIn,
@@ -407,6 +408,33 @@
 			map.centerAt(point);
 		};
 
+		zoomFeature = function(map, feature) {
+			var pt, lods, len,
+				geom = feature.geometry,
+				type = geom.type,
+				factor = 0.25;
+
+			if (type === 'point') {
+				
+				// if lods is define, do not use level
+				lods = map._params.lods,
+				len = lods.length;
+				if (len > 0) {
+					factor = lods[len - 1].level;
+				}
+
+				pt = new esriPoint(geom.x, geom.y, map.vWkid);
+
+				// in version 3.10 we can't do centerAndZoom because the second time we use it
+				// we have "undefined is not a function" error.
+				// For this reason we stay at 3.9
+				// TODO: test often to see if it is solve...
+				map.centerAndZoom(pt, factor);
+			} else {
+				map.setExtent(feature._extent.expand(1.5));
+			}
+		};
+
 		getMapCenter = function(map) {
 			var extent,
 				point;
@@ -536,6 +564,7 @@
 			resizeMap: resizeMap,
 			resizeCenterMap: resizeCenterMap,
 			zoomPoint: zoomPoint,
+			zoomFeature: zoomFeature,
 			getOverviewLayer: getOverviewLayer,
 			getMapCenter: getMapCenter,
 			manageScreenState: manageScreenState,

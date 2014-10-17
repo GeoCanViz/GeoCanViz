@@ -105,10 +105,19 @@ var locationPath;
 				mapframe = config.mapframe,
 				mapid = mapframe.id,
 				size = mapframe.size,
-				vmArray = {};
+				width = size.width,
+				vmArray = {},
+				maxWidth = parseInt($mapElem.parent().css('width'), 10) - (2 * $mapElem.position().left); // get container width;
+			
+			// check if the container width is smaller then gcviz. If so, set width to container width
+			// if user resize his window to a larger size later, the map will grow to the width
+			// specify in the config file.
+			if (maxWidth < size.width) {
+				width = maxWidth;
+			}
 
 			// create section around map. This way we can bind Knockout to the section
-			$mapElem.wrap('<section id=section' + mapid + ' class="gcviz-section" role="map" style="width:' + size.width + 'px; height:' + (size.height + 80) + 'px;">');
+			$mapElem.wrap('<section id=section' + mapid + ' class="gcviz-section" role="map" style="width:' + width + 'px; height:' + (size.height + 80) + 'px;">');
 			$mapSection = $viz(document).find('#section' + mapid);
 
 			// extend the section with configuration file info
@@ -116,7 +125,7 @@ var locationPath;
 
 			// create map and add layers
 			// save the result of every view model in an array of view models
-			vmArray.map = map.initialize($mapSection);
+			vmArray.map = map.initialize($mapSection, width);
 			
 			// set the global vm to retreive link vm together
 			// we do it here first because we need a value from mapVM inside headerVM
@@ -167,7 +176,7 @@ var locationPath;
 				$viz.event.trigger('gcviz-ready');
 
 				// set the resize event
-				window.onresize = gcvizFunc.debounce(function (event) {
+				window.onresize = gcvizFunc.debounce(function(event) {
 					var applyW,
 						$section = $(event.target.document.getElementsByClassName('gcviz-section')),
 						$mapholder = $section.find('.gcviz'),
@@ -196,7 +205,7 @@ var locationPath;
 					gcvizFunc.setStyle($map[0], { 'width': applyW + 'px' });
 					gcvizFunc.setStyle($maproot[0], { 'width': applyW + 'px' });
 					
-				}, 500, false);
+				}, 200, false);
 			}
 		};
 

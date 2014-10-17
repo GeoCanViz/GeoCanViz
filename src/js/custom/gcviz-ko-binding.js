@@ -39,11 +39,11 @@
 			},
 			options: {
 				show: {
-					effect: 'slideDown',
+					effect: 'fadeIn',
 					delay: 1000
 				},
 				hide: {
-					effect: 'slideUp',
+					effect: 'fadeOut',
 					delay: 100
 				},
 				position: {
@@ -327,11 +327,13 @@
 			closeOnEscape: true,
 			close: function() { },
 			buttons: [{
+				id: 'btnOk',
 				text: 'Ok',
 				click: function() {
 					$viz(this).dialog('close');
 				}
 				}, {
+				id: 'btnCancel',
 				text: 'Cancel',
 				click: function() {
 					$viz(this).dialog('close');

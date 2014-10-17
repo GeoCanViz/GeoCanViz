@@ -88,9 +88,9 @@
             var def = $viz.Deferred(); // Use a deferred object to call the service
 
             urlNTS += longi + ',' + lati + ',' + longi + ',' + lati;
-            $viz.getJSON(urlNTS).done(function(data){
+            $viz.getJSON(urlNTS).done(function(data) {
                 def.resolve({
-                    nts:data.features[0].properties.identifier + ' - ' + data.features[0].properties.name
+                	nts: data.features[0].properties.identifier + ' - ' + data.features[0].properties.name
                 });
             });
             // return the deferred object for listening
@@ -101,9 +101,9 @@
             var def = $viz.Deferred(); // Use a deferred object to call the service
 
             urlUTM += longi + ',' + lati + ',' + longi + ',' + lati;
-            $viz.getJSON(urlUTM).done(function(data){
+            $viz.getJSON(urlUTM).done(function(data) {
                 def.resolve({
-                    zone:data.features[0].properties.identifier
+                    zone: data.features[0].properties.identifier
                 });
             });
             // return the deferred object for listening

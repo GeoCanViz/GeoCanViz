@@ -80,7 +80,7 @@
 			node += getImpExpBtn(config);
 
 			// WCAG dialog window
-			node += '<div data-bind="wcag: { }, uiDialog: { title: $root.WCAGTitle, width: 490, height: 350, ok: $root.dialogWCAGOk, cancel: $root.dialogWCAGCancel, close: $root.dialogWCAGClose, openDialog: \'isDialogWCAG\' }">' +
+			node += '<div id="diagDrawWCAG' + mapid + '" data-bind="wcag: { }, uiDialog: { title: $root.WCAGTitle, width: 490, height: 350, ok: $root.dialogWCAGOk, cancel: $root.dialogWCAGCancel, close: $root.dialogWCAGClose, openDialog: \'isDialogWCAG\' }">' +
 						'<div>' +
 							'<label for="gcviz-xvalue" class="gcviz-label gcviz-label-wcag" data-bind="text: lblWCAGx"></label>' +
 							'<input id="gcviz-xvalue" class="text ui-widget-content ui-corner-all gcviz-input-wcag" data-bind="value: xValue"/>' +
@@ -91,8 +91,9 @@
 							'<input id="gcviz-yvalue" class="text ui-widget-content ui-corner-all gcviz-input-wcag" data-bind="value: yValue"/>' +
 							'<span class="gcviz-message-wcag" data-bind="text: lblWCAGmsgy"></span>' +
 						'</div>' +
-						'<div data-bind="visible: activeTool() !== \'text\'">' +
-							'<span class="gcviz-image-button" data-bind="click: addCoords, tooltip: { content: tpWCAGadd }"><button class="gcviz-draw-wcagadd" tabindex="0"></button><span class="gcviz-button-text" data-bind="text: lblWCAGAddPoint"></span></span>' +
+						'<div class="row" data-bind="visible: activeTool() !== \'text\'">' +
+							'<button id="btnAddPt' + mapid + '" class="span1 gcviz-draw-wcagadd" tabindex="0" data-bind="buttonBlur, click: addCoords"></button>' +
+							'<label class="gcviz-label span11 gcviz-draw-lbladd" for="btnAddPt' + mapid + '" data-bind="text: lblWCAGadd"></label>' +
 						'</div>' +
 						'<div data-bind="visible: activeTool() !== \'text\'" style="clear: both;">' +
 							'<ul data-bind="template: { name: \'coordsWCAG\', foreach: WCAGcoords }"></ul>' +
@@ -230,7 +231,7 @@
 					// add erase all and erase selected buttons
 					'<button class="gcviz-draw-del" tabindex="0" data-bind="buttonBlur, click: eraseClick, tooltip: { content: tpErase }, enable: isGraphics"></button>' +
 					'<div class="gcviz-tbseparator"></div>' +
-					'<button class="gcviz-draw-delsel" tabindex="0" data-bind="buttonBlur, click: eraseSelClick, tooltip: { content: tpEraseSel }, enable: isGraphics"></button>' +
+					'<button class="gcviz-draw-delsel" tabindex="0" data-bind="buttonBlur, click: eraseSelClick, tooltip: { content: tpEraseSel }, enable: isGraphics() && !isWCAG()"></button>' +
 				
 				// close the span for buttons
 				'</div>' +

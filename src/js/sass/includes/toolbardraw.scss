@@ -4,6 +4,11 @@
   background: url($img-spritebtn) $x + px -85 + px no-repeat;
 }
 
+// content height is static so remove the overflow
+.gcviz-tbdraw-content {
+	overflow-x: initial!important;
+}
+
 .gcviz-colorspanlabel {
 	@include app-text();
 	line-height: 2.5;
@@ -20,6 +25,10 @@
 	vertical-align: middle;
 }
 
+// label on WCAG dialog window
+.gcviz-draw-lbladd {
+	margin-top: (0.6 * $rembase) + rem;
+}
 // buttons
 .gcviz-draw-black {
 	@include sprite($img-spritebtn, -289, -14, 2);
@@ -110,7 +119,7 @@
 }
 
 .gcviz-draw-wcagadd {
-	@include spritenohover($img-spritebtn, -722, -2);
+	@include sprite($img-spritebtn, -1086, -2);
 	margin-top: 0px!important;
 }
 

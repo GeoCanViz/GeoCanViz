@@ -12,6 +12,11 @@
   z-index: 30;
 }
 
+// content height is static so remove the overflow
+.gcviz-tbnav-content {
+	overflow-x: initial!important;
+}
+
 // autocomplete
 .gcviz-nav-auto {
 	width: 93%;
@@ -49,6 +54,7 @@
 .gcviz-nav-lblovdisp {
 	margin-top: (0.5 * $rembase) + rem;
 	margin-left: (0.5 * $rembase) + rem;
+	vertical-align: baseline!important; // to overwrite class in WET that creates a misslignement in Chrome on Windows
 }
 
 .gcviz-ovtoolcontainer {

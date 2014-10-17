@@ -108,7 +108,7 @@
 				_self.lblWCAGy = i18n.getDict('%wcag-ylat');
 				_self.lblWCAGmsgx = i18n.getDict('%wcag-msgx');
 				_self.lblWCAGmsgy = i18n.getDict('%wcag-msgy');
-				_self.tpWCAGadd = i18n.getDict('%wcag-addcoords');
+				_self.lblWCAGadd = i18n.getDict('%wcag-addcoords');
 				_self.lblWCAGAddPoint = i18n.getDict('%wcag-add');
 				_self.xValue = ko.observable().extend({ numeric: { precision: 3, validation: { min: 50, max: 130 } } });
 				_self.yValue = ko.observable().extend({ numeric: { precision: 3, validation: { min: 40, max: 80 } } });
@@ -217,6 +217,7 @@
 						_self.graphic.drawLine(_self.selectedColor());
 					} else {
 						_self.isDialogWCAG(true);
+						_self.enableOkWCAG('disable');
 					}
 				};
 
@@ -455,7 +456,7 @@
 							}
 						}
 						_self.activeTool('');
-					}, 500);
+					}, 700);
 				};
 
 				_self.dialogWCAGOk = function() {
@@ -482,16 +483,23 @@
 				};
 
 				_self.dialogWCAGClose = function() {
+					var active = _self.activeTool();
+
 					_self.isDialogWCAG(false);
 
-					// if not ok press, open tools
-					if (!_self.wcagok) {
+					// if not text, or text and not ok press, open tools
+					if (active !== 'text' || (!_self.wcagok && active === 'text')) {
 						// set the focus back to the right tool
 						_self.openTools(_self.activeTool());
 						_self.setFocus();
 					}
+
 					_self.wcagok = false;
 					_self.WCAGcoords([]);
+				};
+
+				_self.enableOkWCAG = function(state) {
+					$viz('#diagDrawWCAG' + mapid).parent().find('#btnOk').button(state);
 				};
 
 				_self.addCoords = function() {
@@ -504,6 +512,10 @@
 						_self.WCAGcoords.push([x, y]);
 					} else if (x !== last[0] || y !== last[1]) {
 						_self.WCAGcoords.push([x, y]);
+					}
+					
+					if (_self.WCAGcoords().length > 1) {
+						_self.enableOkWCAG('enable');
 					}
 				};
 

@@ -11,7 +11,7 @@
 	], function(mapVM) {
 		var initialize;
 
-		initialize = function($mapElem) {
+		initialize = function($mapElem, widthMax) {
 			var holder, ext,
 				mapframe = $mapElem.mapframe,
 				mapid = mapframe.id,
@@ -22,10 +22,10 @@
 				height = size.height,
 				side = $mapElem.header.side;
 
-			// set width
-			$div.css({ 'width': width, 'height': height });
+			// set width and height
+			$div.css({ 'width': widthMax, 'height': height });
 
-			// add a wrapper around the map (keep original height and witdh on the lement for resize event)
+			// add a wrapper around the map (keep original height and witdh on the element for resize event)
 			$div.prepend('<div id="' + mapid + '_holder' + '" name="map" gcviz-size="' + height + ';' + width + '" data-bind="event: { mouseover: enterMouse, mouseout: leaveMouse }, hasfocus: mapfocus.focused, enterkey: { func: \'applyKey\', keyType: \'keyup\' }" tabindex="0"><div class="gcviz-loading"><div class="gcviz-loadingLabel"></div></div></div>');
 
 			// add zoom full extent
@@ -40,7 +40,7 @@
 			$div.append('<div id="ovmapcont' + mapid +'" class="gcviz-ovmapcontainer' + ext + '"><div id="ovmap' + mapid +'"></div></div>');
 			
 			// set height and width for the map. Substract the header height
-			holder.css({ 'height': height, 'width': width });
+			holder.css({  'width': widthMax, 'height': height });
 
 			return mapVM.initialize($mapElem, side);
 		};

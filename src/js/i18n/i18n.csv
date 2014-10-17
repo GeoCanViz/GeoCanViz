@@ -18,7 +18,6 @@ General (i18n)#%all#All#Tous
 #%wcag-msgx#Value needs to be between 50 and 130#la valeur doit être entre 50 et 130
 #%wcag-msgy#Value needs to be between 40 and 80#la valeur doit être entre 40 et 80
 #%wcag-addcoords#Add a new coordinate to the list#Ajouter une coordonnée à la liste
-#%wcag-add#Add#Ajouter
 #%wcag-remove#Remove#enlever
 #%cursor-target#url(/GeoCanViz/gcviz/images/navCursor.cur), auto#url(/GeoCanViz/gcviz/images/navCursor.cur), auto
 #%github-urlgcvizrepo#https://github.com/GeoCanViz/GeoCanViz#https://github.com/GeoCanViz/GeoCanViz
@@ -46,9 +45,9 @@ General (i18n)#%all#All#Tous
 #%footer-lat#Latitude: #Latitude : 
 #%footer-long#Longitude: #Longitude : 
 #%toolbarholder-caption#Toolbars#Barre d'outils
-#%toolbardraw-alt#Toolbar Map and Drawing Tools- Help#Barre d'outil carte et outils de dessin - Aide
-#%toolbardraw-desc#Toolbar Map and Drawing Tools- Help#Barre d'outil carte et outils de dessin - Aide
-#%toolbardraw-name#Map and Drawing Tools#Carte et outils de dessin
+#%toolbardraw-alt#Toolbar Measuring and Drawing Tools- Help#Barre d'outil mesures et outils de dessin - Aide
+#%toolbardraw-desc#Toolbar Measuring and Drawing Tools- Help#Barre d'outil mesures et outils de dessin - Aide
+#%toolbardraw-name#Measuring and Drawing Tools#Mesures et outils de dessin
 #%toolbardraw-insinputbox#Click OK to place the text on the map or click Cancel to abort.#Cliquez sur OK pour placer le texte sur la carte ou cliquez sur Annuler pour abandonner.
 #%toolbardraw-inputbox-name#Add text#Ajouter du texte
 #%toolbardraw-inputbox-label#Enter a value: #Entrez une valeur: 

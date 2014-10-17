@@ -122,6 +122,9 @@
 
 				// projection objects
 				_self.outSR = gisgeo.getOutSR(config.mapwkid);
+				
+				// set active tool
+				_self.activeTool = ko.observable('');
 
 				_self.init = function() {
 					var $tb, currentScale;
@@ -131,15 +134,7 @@
 					if (position.enable) {
 						// set event for the toolbar
 						$tb = $viz('#tbTools' + mapid + '_titleBarNode');
-						$tb.on('click', function() {
-							// Reset cursor
-                   			 $container.removeClass('gcviz-nav-cursor-pos');
-
-							// remove click event
-							if (typeof clickPosition !== 'undefined') {
-								clickPosition.remove();
-							}
-						});
+						$tb.on('click', _self.endPosition);
 					}				
 					
                     // See if user wanted an overview map. If so, initialize it here
@@ -178,6 +173,24 @@
 					}, 250);
 
 					return { controlsDescendantBindings: true };
+				};
+
+				_self.endPosition = function() {
+					// Reset cursor
+                   	$container.removeClass('gcviz-nav-cursor-pos');
+
+					// remove click event
+					if (typeof clickPosition !== 'undefined') {
+						clickPosition.remove();
+					}
+					
+					// reset active tool
+					_self.activeTool('');
+
+					// focus last active tool
+					setTimeout(function() {
+						btnClickMap.focus();
+					}, 500);
 				};
 
 				// Clear the input field on focus if it contains the default text
@@ -280,6 +293,9 @@
 					} else {
 						_self.isDialogWCAG(true);
 					}
+					
+					// set active tool
+					_self.activeTool('position');
                 };
 
 				_self.dialogWCAGOk = function() {
@@ -300,9 +316,10 @@
 
 					// if not ok press, open tools
 					if (!_self.wcagok) {
-						_self.dialogLocOk();
+						_self.isLocDialogOpen(false);
+						gcvizFunc.getElemValueVM(mapid, ['header', 'toolsClick'], 'js')();
+						_self.endPosition();
 					}
-					_self.wcagok = false;
 				};
 
                 _self.displayInfo = function(outPoint) {
@@ -311,14 +328,6 @@
 						lati = outPoint[0].y,
 						longi = outPoint[0].x,
 						urlAlti = _self.infoAltitudeUrl + 'lat=' + lati + '&lon=' +  longi;
-
-					// Reset cursor
-                    $container.removeClass('gcviz-nav-cursor-pos');
-
-					// remove click event (if not WCAG)
-                    if (!_self.isWCAG()) {
-						clickPosition.remove();
-                    }
 
                     // Get lat/long in DD
                     _self.infoLatDD(' ' + lati);
@@ -360,13 +369,17 @@
 
                 _self.dialogLocOk = function() {
 					_self.isLocDialogOpen(false);
-					gcvizFunc.getElemValueVM(mymap.vIdName, ['header', 'toolsClick'], 'js')();
-					setTimeout(function() {
-						btnClickMap.focus();
-					}, 100);
+					
+					// if wcag mode is enable, open tools
+					if (_self.wcagok) {
+						gcvizFunc.getElemValueVM(mapid, ['header', 'toolsClick'], 'js')();
+						_self.endPosition();
+						_self.wcagok = false;
+					}
                 };
                 
                 _self.showOVMap = function() {
+                	// move content from tools to map
                 	if (_self.isOVShowMap()) {
                 		ovMapWidget[0].show();
                 		ovMapWidget[1].hide();

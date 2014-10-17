@@ -7,10 +7,7 @@
   
   .gcviz-foot-coords-values {
   	@include app-text(1.2, normal, $black);
-    margin-top: (1.5 * $rembase) + rem;
-    position: relative;
-    right: -(3 * $rembase) + rem;
-    top: -(0.5 * $rembase) + rem;
+    margin-top: (1 * $rembase) + rem;
     float: right;
     width: (28 * $rembase) + rem;
   }
@@ -32,11 +29,3 @@
   margin-left: (0.5 * $rembase) + rem;
 	margin-top: (0.25 * $rembase) + rem;
 }
-
-
-  
-
-
-
-
-
