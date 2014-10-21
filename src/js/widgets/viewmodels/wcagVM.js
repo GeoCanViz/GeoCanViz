@@ -5,7 +5,6 @@
  *
  * WCAG view model widget
  */
-/* global locationPath: false */
 (function() {
 	'use strict';
 	define(['knockout',
@@ -27,7 +26,7 @@
 
 				// text keyboard instruction
 				_self.wcagInstr = i18n.getDict('%wcag-instr');
-				
+
 				// wcag text
 				_self.WCAGTitle = i18n.getDict('%wcag-title');
 				_self.lblWCAGx = i18n.getDict('%wcag-xlong');
@@ -44,14 +43,14 @@
 				_self.init = function() {
 					return { controlsDescendantBindings: true };
 				};
-				
+
 				_self.enableWCAG = function() {
 					_self.isWCAG(!_self.isWCAG());
-					
+
 					return true;
 				};
-				
-				_self.active = function(event, ui) {
+
+				_self.active = function() {
 					// we need to resize the map every time we open/close the panel
 					// because it change the section size
 					map.resize();

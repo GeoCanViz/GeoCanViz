@@ -12,11 +12,12 @@
 .gcviz-help-bubble {
 	margin-bottom: 0!important;
 	margin-left: (0.5 * $rembase) + rem;
+	cursor: pointer;
 }
 
 .gcviz-help-bubbledesc {
 	margin-top: (0.5 * $rembase) + rem;
-	@include app-text(1.2);
+	@include app-text(1.2, normal, $black, italic);
 }
 
 .gcviz-help {
@@ -33,4 +34,8 @@
 
 .gcviz-help-textsub {
 	@include app-text(1.2, bold, $black);
+}
+
+.gcviz-help-img {
+	margin-top: (1 * $rembase) + rem!important;
 }

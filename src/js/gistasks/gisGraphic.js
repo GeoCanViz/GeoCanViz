@@ -8,6 +8,7 @@
 (function () {
 	'use strict';
 	define(['jquery-private',
+			'knockout',
 			'gcviz-func',
 			'gcviz-gisgeo',
 			'esri/layers/GraphicsLayer',
@@ -22,7 +23,7 @@
 			'esri/geometry/Polyline',
 			'esri/graphic',
 			'dojo/on'
-	], function($viz, gcvizFunc, gisgeo, esriGraphLayer, esriTools, esriLine, esriFill, esriMarker, esriText, esriScreenPt, esriPt, esriPoly, esriPolyline, esriGraph, dojoOn) {
+	], function($viz, ko, gcvizFunc, gisgeo, esriGraphLayer, esriTools, esriLine, esriFill, esriMarker, esriText, esriScreenPt, esriPt, esriPoly, esriPolyline, esriGraph, dojoOn) {
 		var initialize,
 			importGraphics,
 			exportGraphics,
@@ -34,13 +35,14 @@
 			var graphic = function(mymap, isGraphics, undo, redo, lblDist, lblArea) {
 				var _self = this,
 					symbLayer,
+					lengthWCAG, areaWCAG,
 					measureLength, measureArea, measureAreaCallback, measureLabelCallback, measureText,
 					mouseMeasureLength, nextMeasureLength, showNextMeasureLength,
 					addBackgroundText, addToMap,
 					setColor,
 					getSymbLine, getSymbPoly, getSymbPoint, getSymbText, getSymbErase,
 					toolbar,
-					gText, gColor, gKey, gBackColor, gColorName,
+					gText, gColor, gKey, gUnit, gBackColor, gColorName,
 					stackUndo = undo,
 					stackRedo = redo,
 					map = mymap,
@@ -53,7 +55,8 @@
 					blue = [0,77,255,255],
 					yellow = [255,217,51,255],
 					white = [255,255,255,255],
-					polyFill = [205,197,197,100];
+					polyFill = [205,197,197,100],
+					isWCAG = false;
 
 				_self.init = function() {
 					// add the graphic layers tot he map
@@ -248,6 +251,58 @@
 					}
 				};
 
+				_self.measureWCAG = function(points, key, type, unit, color) {
+					// set global then call the tool
+					gKey = key;
+					gUnit = unit;
+					setColor(color);
+					isWCAG = true;
+
+					if (type === 0) {
+						// project point then call lengthWCAG
+						gisgeo.projectCoords(points, map.spatialReference.wkid, lengthWCAG);
+					} else {
+						// project point then call areaWCAG
+						gisgeo.projectCoords(points, map.spatialReference.wkid, areaWCAG);
+					}
+				};
+
+				lengthWCAG = function(array) {
+					var arrayKo,
+						points = [],
+						i = 0,
+						len = array.length - 1;
+
+					// add every part of the line
+					while (i < len) {
+						points[0] = array[i];
+						points[1] = array[i + 1];
+						i += 1;
+
+						gisgeo.measureLength(points, gUnit, measureLength);
+						points = [];
+					}
+
+					// add the sum length after a timeout because path have to be created before we call the
+					// sum length. Need to convert to a ko array.
+					arrayKo = ko.observableArray(array.reverse());
+					setTimeout(function() {
+						_self.addMeasureSumLength(arrayKo, gKey, gUnit);
+					}, 2000);
+				};
+
+				areaWCAG = function(array) {
+					var arrayKo;
+
+					// add the area then sum area after a timeout because path have to be created before we call the
+					// sum length. Need to convert to a ko array.
+					arrayKo = ko.observableArray(array.reverse());
+					measureArea(arrayKo);
+					setTimeout(function() {
+						_self.addMeasureSumArea (arrayKo, gKey, gUnit);
+					}, 2000);
+				};
+
 				_self.addMeasure = function(array, key, type, unit, color, point) {
 					var len, previous,
 						flag = false,
@@ -336,7 +391,11 @@
 					addUndoStack(gKey);
 
 					// remove mouse move event and clear the dump graphics
-					mouseMeasureLength.remove();
+					if (!isWCAG) {
+						mouseMeasureLength.remove();
+					} else {
+						isWCAG = false;
+					}
 					mymap.graphics.clear();
 				};
 
@@ -364,6 +423,9 @@
 
 					// area and length from geosprocessing
 					gisgeo.measureArea(poly, unit, measureAreaCallback);
+
+					// set is WCAG false before finishing
+					isWCAG = false;
 				};
 
 				measureAreaCallback = function(poly, areas, unit) {

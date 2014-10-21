@@ -48,7 +48,7 @@
 						'<span data-bind="text: $root.aboutInfo2"></span></div>' +
 					'</div>';
 			}
-			
+
 			//TODO: add this functionnality
 			// add link if link map is enable
 			//if (config.link) {
@@ -69,7 +69,7 @@
 			if (config.fullscreen) {
 				node += '<button class="gcviz-head-fs" tabindex="0" data-bind="buttonBlur, click: fullscreenClick, tooltip: { content: tpFullScreen }, css: { \'gcviz-head-fs\': isFullscreen() === false, \'gcviz-head-reg\': isFullscreen() === true }"></button>';
 			}
-			
+
 			// set help button (help is always visible)
 			node += '<button class="gcviz-head-help" tabindex="0" data-bind="buttonBlur, click: helpClick, tooltip: { content: tpHelp }"></button>';
 
@@ -82,10 +82,10 @@
 				tp = new dojotitle({ id: 'tbTools' + mapid, title: '' + i18n.getDict('%header-tools') + '', content: '<div class="gcviz-tbholder" data-bind="attr: { style: widthheightTBholder }"></div>', open: true });
 				$mapElem.find('.gcviz-toolsholder').append(tp.domNode);
 				tp.startup();
-				
+
 				// if expand is true, toggle tools
 				// wait until the navigation toolbar overview widget is set (250 milliseconds)
-				setTimeout(function() {			
+				setTimeout(function() {
 					if (!configTools.expand) {
 						tp.toggle();
 					}

@@ -5,6 +5,7 @@
  *
  * Toolbar data view model widget
  */
+/* global locationPath: false */
 (function() {
 	'use strict';
 	define(['jquery-private',
@@ -12,8 +13,9 @@
 			'gcviz-func',
 			'gcviz-i18n',
 			'gcviz-gisdata',
-			'gcviz-gislegend'
-	], function($viz, ko, gcvizFunc, i18n, gisData, gisLegend) {
+			'gcviz-gislegend',
+			'gcviz-vm-help'
+	], function($viz, ko, gcvizFunc, i18n, gisData, gisLegend, helpVM) {
 		var initialize,
 			vm;
 
@@ -22,10 +24,16 @@
 			// data model				
 			var toolbardataViewModel = function($mapElem, mapid) {
 				var _self = this,
+					pathHelpBubble = locationPath + 'gcviz/images/helpBubble.png',
 					mymap = gcvizFunc.getElemValueVM(mapid, ['map', 'map'], 'js');
 
 				// viewmodel mapid to be access in tooltip custom binding
 				_self.mapid = mapid;
+
+				// help and bubble
+                _self.imgHelpBubble = pathHelpBubble;
+                _self.helpDesc = i18n.getDict('%toolbardata-desc');
+                _self.helpAlt = i18n.getDict('%toolbardata-alt');
 
 				// tooltip
 				_self.tpAdd = i18n.getDict('%toolbardata-tpadd');
@@ -46,6 +54,10 @@
 
 				_self.init = function() {
 					return { controlsDescendantBindings: true };
+				};
+
+				_self.showBubble = function(key) {
+					helpVM.toggleHelpBubble(key, 'gcviz-help-tbdata');
 				};
 
 				_self.launchDialog = function() {

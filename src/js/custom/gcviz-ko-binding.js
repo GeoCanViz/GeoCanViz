@@ -27,7 +27,7 @@
 			ko.utils.extend(options, local);
 
 			$element.attr('title', options.content);
-			
+
 			// add the within id for position here because we dont have access to the value
 			// inside function. Then assign options
 			options.position.within = '#' + viewModel.mapid;
@@ -58,9 +58,7 @@
 	//custom binding handler to create a contextual menu
 	ko.bindingHandlers.contextHelp = {
 		init: function(element, valueAccessor) {
-			var array,
-				len,
-				options = valueAccessor() || {},
+			var options = valueAccessor() || {},
 				$element = $viz(element);
 
 			// add text
@@ -294,13 +292,13 @@
 			if (window.browser === 'Firefox') {
 				options.open = function() {
 					var start, end, width,
-                		bind;
-                		
-                    	bind = $element.attr('data-bind');
-                    	start = bind.indexOf('width:') + 7;
-                    	end = bind.indexOf(', height:');
-                    	width = parseInt(bind.substring(start, end), 10) - 25;
-                    	$element.css('width', width);
+						bind;
+
+						bind = $element.attr('data-bind');
+						start = bind.indexOf('width:') + 7;
+						end = bind.indexOf(', height:');
+						width = parseInt(bind.substring(start, end), 10) - 25;
+						$element.css('width', width);
 				};
 			}
 

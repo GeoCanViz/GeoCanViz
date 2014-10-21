@@ -69,7 +69,7 @@
 
         createMap = function(id, config, side) {
             var lod,
-            	iExtent = config.extentinit,
+				iExtent = config.extentinit,
                 fExtent = config.extentmax,
                 wkid = config.sr.wkid,
                 initExtent = new esriExt({ 'xmin': iExtent.xmin, 'ymin': iExtent.ymin,
@@ -105,7 +105,7 @@
 					wrapAround180: true,
 					smartNavigation: false
 				};
-				
+
 				if (config.zoombar.bar) {
 					options.slider = true;
 					options.sliderPosition = side === 1 ? 'top-left' : 'top-right';
@@ -340,7 +340,7 @@
 			// cluster layer is added in gisCluster class
 			if (type !== 6) {
 				map.addLayer(layer);
-				
+
 				// set scale info
 				setScaleInfo(map, layerInfo);
 			}
@@ -415,7 +415,7 @@
 				factor = 0.25;
 
 			if (type === 'point') {
-				
+
 				// if lods is define, do not use level
 				lods = map._params.lods,
 				len = lods.length;

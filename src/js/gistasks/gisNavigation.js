@@ -33,7 +33,7 @@
 
 				// If no layer specified, use the main map
 				// layer must be ArcGIS tiled, dynamic or imagery. It can also be OpenStreet map
-				if (url !== "") {
+				if (url !== '') {
 					bLayer = gisMap.getOverviewLayer(type, url);
 				}
 
@@ -54,16 +54,16 @@
 				ovToolDiv = $viz('#divOverviewMap' + mapid + '-map');
 				ovToolDiv.width(230).height(100);
 				ovTool.resize();
-				
+
 				// *** set the overview map on the map. We need both because user can decide to see it on the map
 				ovMap.startup();
 				ovMapDiv = $viz('ovmap' + mapid + '-map');
 				ovMapDiv.width(230).height(100);
 				ovMap.resize();
-				
+
 				// overview map need to be visible by default, close it after 500 milliseconds
 				setTimeout(function() { ovMap.hide(); }, 1000);
-				
+
 				// return both object to be able to show and hide from the viewmodel
 				return [ovTool, ovMap];
 		};
@@ -85,29 +85,29 @@
 		};
 
         getNTS = function(lati, longi, urlNTS) {
-            var def = $viz.Deferred(); // Use a deferred object to call the service
+			var def = $viz.Deferred(); // Use a deferred object to call the service
 
-            urlNTS += longi + ',' + lati + ',' + longi + ',' + lati;
-            $viz.getJSON(urlNTS).done(function(data) {
-                def.resolve({
-                	nts: data.features[0].properties.identifier + ' - ' + data.features[0].properties.name
+			urlNTS += longi + ',' + lati + ',' + longi + ',' + lati;
+			$viz.getJSON(urlNTS).done(function(data) {
+				def.resolve({
+					nts: data.features[0].properties.identifier + ' - ' + data.features[0].properties.name
                 });
             });
             // return the deferred object for listening
-            return def;
+			return def;
         };
 
         getUTMzone = function(lati, longi, urlUTM) {
-            var def = $viz.Deferred(); // Use a deferred object to call the service
+			var def = $viz.Deferred(); // Use a deferred object to call the service
 
-            urlUTM += longi + ',' + lati + ',' + longi + ',' + lati;
-            $viz.getJSON(urlUTM).done(function(data) {
-                def.resolve({
-                    zone: data.features[0].properties.identifier
-                });
-            });
+			urlUTM += longi + ',' + lati + ',' + longi + ',' + lati;
+			$viz.getJSON(urlUTM).done(function(data) {
+				def.resolve({
+					zone: data.features[0].properties.identifier
+				});
+			});
             // return the deferred object for listening
-            return def;
+			return def;
         };
 
 		zoomFullExtent = function(mymap) {

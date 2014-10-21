@@ -45,8 +45,8 @@ General (i18n)#%all#All#Tous
 #%footer-lat#Latitude: #Latitude : 
 #%footer-long#Longitude: #Longitude : 
 #%toolbarholder-caption#Toolbars#Barre d'outils
-#%toolbardraw-alt#Toolbar Measuring and Drawing Tools- Help#Barre d'outil mesures et outils de dessin - Aide
-#%toolbardraw-desc#Toolbar Measuring and Drawing Tools- Help#Barre d'outil mesures et outils de dessin - Aide
+#%toolbardraw-alt#Measuring and Drawing Tools - Help#Mesures et outils de dessin - Aide
+#%toolbardraw-desc#Measuring and Drawing Tools - Help#Mesures et outils de dessin - Aide
 #%toolbardraw-name#Measuring and Drawing Tools#Mesures et outils de dessin
 #%toolbardraw-insinputbox#Click OK to place the text on the map or click Cancel to abort.#Cliquez sur OK pour placer le texte sur la carte ou cliquez sur Annuler pour abandonner.
 #%toolbardraw-inputbox-name#Add text#Ajouter du texte
@@ -82,6 +82,8 @@ General (i18n)#%all#All#Tous
 #%toolbarlegend-name#Map Layers and Legend(s) #Couvertures de la carte et légende(s)
 #%toolbarlegend-base# Base Map(s) # Couverture(s) de base 
 #%toolbarlegend-tgvis#Toggle Visibility#Basculer la visibilité
+#%toolbarnav-alt#Search and Map Information - Help#Recherche et information sur la carte - Aide
+#%toolbarnav-desc#Search and Map Information - Help#Recherche et information sur la carte - Aide
 #%toolbarnav-name#Search and Map Information#Recherche et information sur la carte
 #%toolbarnav-lblgeoloc#Enter and select a geographical name, topographic map number or postal code:#Entrez et sélectionnez un nom géographique ou topographique, un numéro de carte ou un code postal :
 #%toolbarnav-lblinfo#Get Location Information#Obtenir de l'information de localisation
@@ -111,6 +113,8 @@ General (i18n)#%all#All#Tous
 #%toolbarnav-ovdrag#Drag To Change The Map Extent#Faites glisser pour changer l'étendue de la carte
 #%toolbarnav-scale#Scale #Échelle 
 #%toolbarnav-lblscaledisplay#Show scale on map#Afficher l'échelle sur la carte 
+#%toolbardata-alt#Import Data - Help#Importer des données - Aide
+#%toolbardata-desc#Import Data - Help#Importer des données - Aide
 #%toolbardata-name#Import Data#Importer des données
 #%toolbardata-tpadd#Import Data#Importer des données
 #%toolbardata-tpdelete#Remove Data#Enlever des données
@@ -156,7 +160,7 @@ General (i18n)#%all#All#Tous
 #%help-head-fs#Toggle between maximum screen and embedded-window mode.#
 #%help-head-menutitle#Menu#Menu
 #%help-head-menu#Toggle to open and close all the available toolbars#
-#%help-draw-title#Map and Drawing Tools#Carte et outils de dessin
+#%help-draw-title#Measuring and Drawing Tools#Mesures et outils de dessin
 #%help-draw-colorselect#This is the color selector. Click on a circle to choose the drawing color. The color apply to draw, text and measure.#
 #%help-draw-line#Clicking on the pencil icon enables the line drawing function. To close this tool, press “Esc” key or click on the tools toolbar.#
 #%help-draw-text#Allow to write text on the map. To close this tool, press cancel on the text box.#
@@ -168,3 +172,18 @@ General (i18n)#%all#All#Tous
 #%help-draw-redo#Redo the last action.#
 #%help-draw-import#Import a file that contains drawings that were saved previously. This file must be in JSON format.#
 #%help-draw-export#Export the drawings on the map to a file in JSON format, ready for import.#
+#%help-nav-title#Search and Map Information#Recherche et information sur la carte
+#%help-nav-zoomtotitle#Zoom to a geolocation#
+#%help-nav-zoomto#This text entry box allows you to type the name of a place (like the name of a province, territory, town, lake, bay, river, etc.). A drop down list will then appear containing choices from which you can pick one by clicking it; the map will then zoom to the selected place.#
+#%help-nav-pos#Allow the user to get information about a specific location on the map. Will display the topographic coordinates, the UTM Coordinates, the NTS map sheet and the altitude.#
+#%help-nav-ovalt#Overview Map Image#
+#%help-nav-ov#The Overview Map Window shows you where you are on the map by displaying a red rectangle identifying your current map extent. You can click and drag this rectangle to quickly pan to a different location.#
+#%help-nav-scalebartitle#Scale Bar#
+#%help-nav-scalebar#The Scale bar indicates the relation between the screen distance and the distance on the ground. Note: the distance is approximate.#
+#%help-nav-scaletitle#Scale Display#
+#%help-nav-scale#The scale of a map is the ratio of a distance on the map to the corresponding distance on the ground. Note: the distance is approximate.#
+#%help-data-title#Import Data#Importer des données
+#%help-data-add#Import a CSV file that contains geolocation information.#
+#%help-data-sampletitle#Added Layer Information#
+#%help-data-sample#This is an example of a loaded csv file. You have a visibility checkbox and the symbology use to render the layer.
+#%help-data-remove#A button is also added to remove the loaded data layer.#

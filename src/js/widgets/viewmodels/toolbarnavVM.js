@@ -5,6 +5,7 @@
  *
  * Toolbar navigation view model widget
  */
+/* global locationPath: false */
 (function() {
 	'use strict';
 	define(['jquery-private',
@@ -13,8 +14,9 @@
 			'gcviz-func',
             'gcviz-gisgeo',
             'gcviz-gisnav',
-            'dijit/registry'
-	], function($viz, ko, i18n, gcvizFunc, gisgeo, gisnav, dijit) {
+            'dijit/registry',
+            'gcviz-vm-help'
+	], function($viz, ko, i18n, gcvizFunc, gisgeo, gisnav, dijit, helpVM) {
 		var initialize,
 			calcDDtoDMS,
 			getDMS,
@@ -26,11 +28,12 @@
 			var toolbarnavViewModel = function($mapElem, mapid) {
 				var _self = this,
 					ovMapWidget,
+					clickPosition,
 					overview = config.overview,
 					scalebar = config.scalebar,
 					scaledisplay = config.scaledisplay,
 					position = config.position,
-                    clickPosition,
+                    pathHelpBubble = locationPath + 'gcviz/images/helpBubble.png',
                     inMapField = $viz('#inGeoLocation' + mapid),
                     btnClickMap = $viz('#btnClickMap' + mapid),
                     $container = $viz('#' + mapid + '_holder_layers'),
@@ -39,6 +42,11 @@
 
 				// viewmodel mapid to be access in tooltip custom binding
 				_self.mapid = mapid;
+
+				// help and bubble
+                _self.imgHelpBubble = pathHelpBubble;
+                _self.helpDesc = i18n.getDict('%toolbarnav-desc');
+                _self.helpAlt = i18n.getDict('%toolbarnav-alt');
 
 				// get language code for scale formating
 				_self.langCode = i18n.getDict('%lang-code');
@@ -98,7 +106,7 @@
 
 				// overviewmap checked to see if user wants it on map
 				_self.isOVShowMap = ko.observable(false);
-				
+
 				// scalebar and scale checked to see if user wants it on map
 				_self.isScaleShowMap = ko.observable(false);
 
@@ -122,7 +130,7 @@
 
 				// projection objects
 				_self.outSR = gisgeo.getOutSR(config.mapwkid);
-				
+
 				// set active tool
 				_self.activeTool = ko.observable('');
 
@@ -135,8 +143,8 @@
 						// set event for the toolbar
 						$tb = $viz('#tbTools' + mapid + '_titleBarNode');
 						$tb.on('click', _self.endPosition);
-					}				
-					
+					}
+
                     // See if user wanted an overview map. If so, initialize it here
                     if (overview.enable) {
 						ovMapWidget = gisnav.setOverview(mymap, overview);
@@ -150,7 +158,7 @@
                     if (scaledisplay.enable) {
 						mymap.on('extent-change', function() {
 							var formatScale;
-							
+
 							// get scale
 							currentScale = Math.round(mymap.getScale()).toString();
 
@@ -175,15 +183,19 @@
 					return { controlsDescendantBindings: true };
 				};
 
+				_self.showBubble = function(key) {
+					helpVM.toggleHelpBubble(key, 'gcviz-help-tbnav');
+				};
+
 				_self.endPosition = function() {
 					// Reset cursor
-                   	$container.removeClass('gcviz-nav-cursor-pos');
+					$container.removeClass('gcviz-nav-cursor-pos');
 
 					// remove click event
 					if (typeof clickPosition !== 'undefined') {
 						clickPosition.remove();
 					}
-					
+
 					// reset active tool
 					_self.activeTool('');
 
@@ -293,7 +305,7 @@
 					} else {
 						_self.isDialogWCAG(true);
 					}
-					
+
 					// set active tool
 					_self.activeTool('position');
                 };
@@ -369,7 +381,7 @@
 
                 _self.dialogLocOk = function() {
 					_self.isLocDialogOpen(false);
-					
+
 					// if wcag mode is enable, open tools
 					if (_self.wcagok) {
 						gcvizFunc.getElemValueVM(mapid, ['header', 'toolsClick'], 'js')();
@@ -377,32 +389,32 @@
 						_self.wcagok = false;
 					}
                 };
-                
+
                 _self.showOVMap = function() {
-                	// move content from tools to map
-                	if (_self.isOVShowMap()) {
-                		ovMapWidget[0].show();
-                		ovMapWidget[1].hide();
-                	} else {
-                		ovMapWidget[1].show();
-                		ovMapWidget[0].hide();
-                	}
+					// move content from tools to map
+					if (_self.isOVShowMap()) {
+						ovMapWidget[0].show();
+						ovMapWidget[1].hide();
+					} else {
+						ovMapWidget[1].show();
+						ovMapWidget[0].hide();
+					}
 
-                	return true;
-                };
-                
-                _self.showScaleMap = function() {
-                	// move content from tools to footer
-                	if (_self.isScaleShowMap()) {
-                		$viz('#scalemap' + mapid).children().detach().appendTo('#scaletool' + mapid);
-                		$viz('#scalebarmap' + mapid).children().detach().appendTo('#scalebartool' + mapid);
-                	} else {
-                		$viz('#scaletool' + mapid).children().detach().appendTo('#scalemap' + mapid);
-                		$viz('#scalebartool' + mapid).children().detach().appendTo('#scalebarmap' + mapid);
-                	}
+					return true;
+				};
 
-                	return true;
-                };
+				_self.showScaleMap = function() {
+					// move content from tools to footer
+					if (_self.isScaleShowMap()) {
+						$viz('#scalemap' + mapid).children().detach().appendTo('#scaletool' + mapid);
+						$viz('#scalebarmap' + mapid).children().detach().appendTo('#scalebartool' + mapid);
+					} else {
+						$viz('#scaletool' + mapid).children().detach().appendTo('#scalemap' + mapid);
+						$viz('#scalebartool' + mapid).children().detach().appendTo('#scalebarmap' + mapid);
+					}
+
+					return true;
+				};
 
 				_self.init();
 			};

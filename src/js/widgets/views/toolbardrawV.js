@@ -45,7 +45,7 @@
 
 			// contextual help
 			node += '<label class="gcviz-help-bubbledesc" for="tbdraw' + mapid + '" data-bind="contextHelp: { text: helpDesc, alt: helpAlt, img: imgHelpBubble, id: \'tbdraw' + mapid + '\' }"></label>';
-			
+
 			// first row
 			node += '<div class="gcviz-draw-row1">';
 
@@ -66,16 +66,16 @@
 
 			// set measure buttons
 			node += getMeasureBtn(config);
-			
+
 			// set draw and add text buttons
 			node += getDrawBtn(config);
 
 			// set erase buttons
 			node += getEraseBtn();
-			
+
 			// set undo and redo buttons
 			node += getUndoRedoBtn();
-					
+
 			// set import and export buttons
 			node += getImpExpBtn(config);
 
@@ -108,14 +108,14 @@
 			$toolbar.append(node);
 			return(tbdrawVM.initialize($toolbar, mapid, config));
 		};
-		
+
 		getMeasureBtn = function(config) {
 			var measLabel,
 				classSpan = 'span2',
 				node = '',
 				measLine = config.measureline.enable,
 				measArea = config.measurearea.enable;
-			
+
 			if (measLine && measArea) {
 				classSpan = 'span4';
 				measLabel = 'lblMeasFull';
@@ -124,7 +124,7 @@
 			} else if (measArea) {
 				measLabel = 'lblMeasArea';
 			}
-			
+
 			if (measLine || measArea) {
 				// create the row
 				node += '<div class="row"><div class="' + classSpan + '">';
@@ -133,7 +133,7 @@
 				// add measure line button
 				if (measLine) {
 					node += '<button class="gcviz-draw-length" tabindex="0" data-bind="buttonBlur, click: measureLengthClick, tooltip: { content: tpMeasureLength }"></button>';
-				
+
 					// if there is second button, add a separator
 					if (measArea) {
 						node += '<div class="gcviz-tbseparator"></div>';
@@ -144,15 +144,15 @@
 				if (measArea) {
 					node += '<button class="gcviz-draw-area" tabindex="0" data-bind="buttonBlur, click: measureAreaClick, tooltip: { content: tpMeasureArea }"></button>';
 				}
-				
+
 				// close the span for buttons
 				node += '</div>';
-				
+
 				// add text
 				node += '<div class="span8">' +
 							'<span class="gcviz-drawspanlabel" data-bind="text: ' + measLabel + '"></span>' +
 						'</div>';
-				
+
 				// close row
 				node += '</div>';
 			}
@@ -166,7 +166,7 @@
 				node = '',
 				drawLine = config.drawline.enable,
 				drawText = config.drawtext.enable;
-			
+
 			if (drawLine && drawText) {
 				classSpan = 'span4';
 				drawLabel = 'lblDrawFull';
@@ -184,7 +184,7 @@
 				// add draw line button
 				if (drawLine) {
 					node += '<button class="gcviz-draw-line" tabindex="0" data-bind="buttonBlur, click: drawClick, tooltip: { content: tpDraw }"></button>';
-				
+
 					// if there is second button, add a separator
 					if (drawText) {
 						node += '<div class="gcviz-tbseparator"></div>';
@@ -195,19 +195,19 @@
 				if (drawText) {
 					node += '<button class="gcviz-draw-text" tabindex="0" data-bind="buttonBlur, click: textClick, tooltip: { content: tpText }"></button>';
 				}
-				
+
 				// close the span for buttons
 				node += '</div>';
-				
+
 				// add text
 				node += '<div class="span8">' +
 							'<span class="gcviz-drawspanlabel" data-bind="text: ' + drawLabel + '"></span>' +
 						'</div>';
-				
+
 				// close row
 				node += '</div>';
 			}
-			
+
 			// if add text on, add the dialog window for annotation
 			if (drawText) {
 				node += '<div data-bind="uiDialog: { title: $root.lblTextTitle, width: 450, height: 220, ok: $root.dialogTextOk, cancel: $root.dialogTextCancel, close: $root.dialogTextClose, openDialog: \'isTextDialogOpen\' }">' +
@@ -232,15 +232,15 @@
 					'<button class="gcviz-draw-del" tabindex="0" data-bind="buttonBlur, click: eraseClick, tooltip: { content: tpErase }, enable: isGraphics"></button>' +
 					'<div class="gcviz-tbseparator"></div>' +
 					'<button class="gcviz-draw-delsel" tabindex="0" data-bind="buttonBlur, click: eraseSelClick, tooltip: { content: tpEraseSel }, enable: isGraphics() && !isWCAG()"></button>' +
-				
+
 				// close the span for buttons
 				'</div>' +
-				
+
 				// add text
 				'<div class="span8">' +
 					'<span class="gcviz-drawspanlabel" data-bind="text: lblErase"></span>' +
 				'</div>' +
-				
+
 			// close row
 			'</div>';
 
@@ -255,15 +255,15 @@
 					'<button class="gcviz-draw-undo" tabindex="0" data-bind="buttonBlur, click: undoClick, tooltip: { content: tpUndo }, enable: stackUndo().length > 0"></button>' +
 					'<div class="gcviz-tbseparator"></div>' +
 					'<button class="gcviz-draw-redo" tabindex="0" data-bind="buttonBlur, click: redoClick, tooltip: { content: tpRedo }, enable: stackRedo().length > 0"></button>' +
-				
+
 				// close the span for buttons
 				'</div>' +
-				
+
 				// add text
 				'<div class="span8">' +
 					'<span class="gcviz-drawspanlabel" data-bind="text: lblUndoRedo"></span>' +
 				'</div>' +
-				
+
 			// close row
 			'</div>';
 
@@ -282,19 +282,19 @@
 						'<button class="gcviz-draw-imp" tabindex="0" data-bind="buttonBlur, click: launchDialog, tooltip: { content: tpImport }"></button>' +
 						'<div class="gcviz-tbseparator"></div>' +
 						'<button class="gcviz-draw-exp" tabindex="0" data-bind="buttonBlur, click: exportClick, tooltip: { content: tpExport }, enable: isGraphics"></button>' +
-				
+
 					// close the span for buttons
 					'</div>' +
-					
+
 					// add text
 					'<div class="span8">' +
 						'<span class="gcviz-drawspanlabel" data-bind="text: lblImpExp"></span>' +
 					'</div>' +
-				
+
 				// close row
-				'</div>';	
+				'</div>';
 			}
-				
+
 			return node;
 		};
 

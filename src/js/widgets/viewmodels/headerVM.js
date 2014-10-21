@@ -189,7 +189,7 @@
 
 					// remove the event that keeps tab in map section
 					$section.off('keydown.fs');
-					
+
 					// need to set it to 40px. Link to the bug where we have a workaround in the request
 					// full screen function.
 					gcvizFunc.setStyle($viz('#ovmapcont' + mapid)[0], { 'bottom': '40px' });
@@ -197,7 +197,7 @@
 
 				_self.requestFullScreen = function() {
 					// get maximal height and width from browser window and original height and width for the map
-					var param = gcvizFunc.getFullscreenParam(_self.widthSection, _self.heightSection),
+					var param = gcvizFunc.getFullscreenParam(),
 						w = param.width,
 						h = param.height,
 						array = $section.find('[tabindex = 0]'),
@@ -232,7 +232,7 @@
 					$section.on('keydown.fs', function(event) {
 						_self.manageTabbingOrder(event);
                     });
-                    
+
                     // this is a workaround. The div for the overview map change when
                     // we first got to full screen. To correct this we reset the bottom value.
                     // after the first time it is ok. In the future we can trap the first full

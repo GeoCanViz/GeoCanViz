@@ -153,7 +153,7 @@
 									gcvizFunc.getElemValueVM(mapid, ['header', 'toolsClick'], 'js')();
 								}
 							}
-							
+
 							// check if position is active. If so apply event
 							if (gcvizFunc.getElemValueVM(mapid, ['nav', 'activeTool'], 'ko') === 'position') {
 								gcvizFunc.getElemValueVM(mapid, ['nav', 'endPosition'], 'js')();

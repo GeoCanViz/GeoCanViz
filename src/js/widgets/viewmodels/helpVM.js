@@ -27,6 +27,8 @@
 			var helpViewModel = function($mapElem, mapid) {
 				var _self = this,
 					pathHelpBubble = locationPath + 'gcviz/images/helpBubble.png',
+					pathOV = locationPath + 'gcviz/images/helpOV.png',
+					pathDataSample = locationPath + 'gcviz/images/helpDataSample.png',
 					$btnHelp = $mapElem.find('.gcviz-head-help'),
 					$dialog = $mapElem.find('#help-' + mapid),
 					$dialogBubble = $mapElem.find('#helpbubble-' + mapid),
@@ -34,13 +36,17 @@
 					$helpOver = $helpSect.find('.gcviz-help-over'),
 					$helpKey = $helpSect.find('.gcviz-help-key'),
 					$helpHead = $helpSect.find('.gcviz-help-head'),
-					$helpDraw = $helpSect.find('.gcviz-help-tbdraw');
+					$helpDraw = $helpSect.find('.gcviz-help-tbdraw'),
+					$helpNav = $helpSect.find('.gcviz-help-tbnav'),
+					$helpData = $helpSect.find('.gcviz-help-tbdata');
 
 				// viewmodel mapid to be access in tooltip custom binding
 				_self.mapid = mapid;
 
 				// images path
                 _self.imgHelpBubble = pathHelpBubble;
+                _self.imgHelpOV = pathOV;
+                _self.imgHelpDataSamp = pathDataSample;
 
                 // text
                 _self.urlLogo = i18n.getDict('%footer-urlgcvizrepo');
@@ -76,7 +82,7 @@
 				_self.headFS = i18n.getDict('%help-head-fs');
 				_self.headMenuTitle = i18n.getDict('%help-head-menutitle');
 				_self.headMenu = i18n.getDict('%help-head-menu');
-				
+
 				// draw text
 				_self.drawTitle = i18n.getDict('%help-draw-title');
 				_self.drawColorSelect = i18n.getDict('%help-draw-colorselect');
@@ -91,21 +97,40 @@
 				_self.drawImport = i18n.getDict('%help-draw-import');
 				_self.drawExport = i18n.getDict('%help-draw-export');
 
+				// navigation text
+				_self.navTitle = i18n.getDict('%help-nav-title');
+				_self.navZoomtoTitle = i18n.getDict('%help-nav-zoomtotitle');
+				_self.navZoomto = i18n.getDict('%help-nav-zoomto');
+				_self.navPos = i18n.getDict('%help-nav-pos');
+				_self.navAltOV = i18n.getDict('%help-nav-ovalt');
+				_self.navOV = i18n.getDict('%help-nav-ov');
+				_self.navScalebarTitle = i18n.getDict('%help-nav-scalebartitle');
+				_self.navScalebar = i18n.getDict('%help-nav-scalebar');
+				_self.navScaleTitle = i18n.getDict('%help-nav-scaletitle');
+				_self.navScale = i18n.getDict('%help-nav-scale');
+
+				// navigation text
+				_self.dataTitle = i18n.getDict('%help-data-title');
+				_self.dataAdd = i18n.getDict('%help-data-add');
+				_self.dataSampleTitle = i18n.getDict('%help-data-sampletitle');
+				_self.dataSample = i18n.getDict('%help-data-sample');
+				_self.dataRemove = i18n.getDict('%help-data-remove');
+
 				// help dialog box
 				_self.lblHelpTitle = i18n.getDict('%help-dialogtitle');
 				_self.isHelpDialogOpen = ko.observable(false);
-				
+
 				// help bubble dialog box
 				_self.lblHelpBubbleTitle = i18n.getDict('%help-dialogbubbletitle');
 				_self.isHelpBubbleDialogOpen = ko.observable(false);
-				
+
 				_self.init = function() {
 					// set global dialog to be able to open help from
 					// outisede the view model. This way, it is easy
 					// for header VM to open help dialog
 					gblDialogOpen = _self.isHelpDialogOpen;
 					gblDialogBubbleOpen = _self.isHelpBubbleDialogOpen;
-					
+
 					// keep both dialog box in global so we can extract and add item
 					gblDialog = $dialog;
 					gblDialogBubble = $dialogBubble.find('#gcviz-bubble');
@@ -116,11 +141,12 @@
 					_self.isHelpDialogOpen(false);
 					$btnHelp.focus();
 				};
-				
+
 				_self.dialogHelpBubbleOk = function() {
 					_self.isHelpBubbleDialogOpen(false);
+					gblDialogBubble.empty();
 				};
-				
+
 				_self.scrollTo = function(section) {
 					if (section === 'over') {
 						$helpSect.scrollTo($helpOver);
@@ -130,6 +156,10 @@
 						$helpSect.scrollTo($helpHead);
 					} else if (section === 'draw') {
 						$helpSect.scrollTo($helpDraw);
+					} else if (section === 'nav') {
+						$helpSect.scrollTo($helpNav);
+					} else if (section === 'data') {
+						$helpSect.scrollTo($helpData);
 					}
 				};
 
@@ -140,22 +170,22 @@
 			ko.applyBindings(vm, $mapElem[0]); // This makes Knockout get to work
 			return vm;
 		};
-		
+
 		toggleHelp = function() {
 			gblDialogOpen(true);
 		};
-		
+
 		toggleHelpBubble = function(key, section) {
 			var prevent = false;
-			
+
 			// get part of the help to put inside the bubble
-			gblDialogBubble.append(gblDialog.find('#' + section));
-			
+			gblDialogBubble.append(gblDialog.find('#' + section).clone());
+
 			if (key === 32) {
 				gblDialogBubbleOpen(true);
 				prevent = true;
 			}
-			
+
 			return prevent;
 		};
 

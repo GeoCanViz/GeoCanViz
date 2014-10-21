@@ -110,7 +110,7 @@
 
 			map.addLayer(clusterLayer);
 			params = {};
-			
+
 			// set scale info (set scale here instead of gisMapUtility function because the onLoad event has
 			// already been raised).
 			// *** When cluster load, gcviz-gismap is empty so we use a require to make sure it is ready

@@ -5,6 +5,7 @@
  *
  * Toolbar draw view model widget
  */
+/* global locationPath: false */
 (function() {
 	'use strict';
 	define(['jquery-private',
@@ -13,7 +14,7 @@
 			'gcviz-i18n',
 			'gcviz-func',
 			'gcviz-gisgraphic',
-			'gcviz-vm-help',
+			'gcviz-vm-help'
 	], function($viz, ko, generateFile, i18n, gcvizFunc, gisGraphic, helpVM) {
 		var initialize,
 			vm;
@@ -74,7 +75,7 @@
 				_self.lblErase = i18n.getDict('%toolbardraw-lblerase');
 				_self.lblUndoRedo = i18n.getDict('%toolbardraw-lblundoredo');
 				_self.lblImpExp = i18n.getDict('%toolbardraw-lblimpexp');
-				
+
 				// dialog window for text
 				_self.lblTextTitle = i18n.getDict('%toolbardraw-inputbox-name');
 				_self.lblTextDesc = i18n.getDict('%toolbardraw-inputbox-label');
@@ -136,19 +137,22 @@
 				// end draw action on tools toolbar click
 				_self.endDraw = function() {
 
-					// remove cursor and set default
-					_self.removeCursors();
-					$container.css('cursor', 'default');
+					// remove cursor and event only if WCAG mode is not enable
+					if (!_self.isWCAG()) {
+						// remove cursor and set default
+						_self.removeCursors();
+						$container.css('cursor', 'default');
 
-					// measure length or area
-					if (_self.measureType === 'length') {
-						clickMeasureLength.remove();
-						dblclickMeasure.remove();
-						_self.endMeasureLength();
-					} else if (_self.measureType === 'area') {
-						clickMeasureArea.remove();
-						dblclickMeasure.remove();
-						_self.endMeasureArea();
+						// measure length or area
+						if (_self.measureType === 'length') {
+							clickMeasureLength.remove();
+							dblclickMeasure.remove();
+							_self.endMeasureLength();
+						} else if (_self.measureType === 'area') {
+							clickMeasureArea.remove();
+							dblclickMeasure.remove();
+							_self.endMeasureArea();
+						}
 					}
 
 					_self.graphic.deactivate();
@@ -163,7 +167,7 @@
 					var value = _self.drawTextValue();
 
 					if (value !== '') {
-						// check if WCAG mode is enable, if so use dialog box instead)
+						// check if WCAG mode is enable, if so use dialog box instead!
 						if (!_self.isWCAG()) {
 							_self.graphic.drawText(value, _self.selectedColor());
 						} else {
@@ -174,7 +178,7 @@
 					} else {
 						_self.dialogTextCancel();
 					}
-					
+
 					// set the holder empty
 					_self.drawTextValue('');
 				};
@@ -209,7 +213,7 @@
 				_self.drawClick = function() {
 					_self.openTools('draw');
 
-					// check if WCAG mode is enable, if so use dialog box instead)
+					// check if WCAG mode is enable, if so use dialog box instead!
 					if (!_self.isWCAG()) {
 						// set cursor to selected colour (remove default cursor first)
 						$container.css('cursor', '');
@@ -236,11 +240,11 @@
 
 				_self.eraseClick = function() {
 					_self.graphic.erase();
-					
+
 					// set focus on draw because when button is disable the focus goes
 					// automatically to the top of the page if not
 					$btnDraw.focus();
-					
+
 					// workaround to remove tooltip on undo. The tooltip appears
 					// even if the button is disable
 					$viz('.ui-tooltip').remove();
@@ -288,25 +292,31 @@
 					_self.openTools('length');
 					_self.measureType = 'length';
 
-					// set cursor (remove default cursor first and all other cursors)
-					$container.css('cursor', '');
-					$container.addClass('gcviz-draw-cursor-measure');
+					// check if WCAG mode is enable, if so use dialog box instead!
+					if (!_self.isWCAG()) {
+						// set cursor (remove default cursor first and all other cursors)
+						$container.css('cursor', '');
+						$container.addClass('gcviz-draw-cursor-measure');
 
-					clickMeasureLength = mymap.on('click', function(event) {
-										_self.graphic.addMeasure(_self.measureHolder, globalKey, 0, 'km', _self.selectedColor(), event);
-									});
+						clickMeasureLength = mymap.on('click', function(event) {
+											_self.graphic.addMeasure(_self.measureHolder, globalKey, 0, 'km', _self.selectedColor(), event);
+										});
 
-					// on double click, close line and show total length
-					dblclickMeasure = mymap.on('dbl-click', function(event) {
-						// add last point then close
-						_self.graphic.addMeasure(_self.measureHolder, globalKey, 0, 'km', _self.selectedColor(), event);
+						// on double click, close line and show total length
+						dblclickMeasure = mymap.on('dbl-click', function(event) {
+							// add last point then close
+							_self.graphic.addMeasure(_self.measureHolder, globalKey, 0, 'km', _self.selectedColor(), event);
 
-						// add a small time out to let the last point to go in. If not,
-						// the last point is not in the sum length
-						setTimeout(function() {
-							_self.endMeasureLength();
-						}, 250);
-					});
+							// add a small time out to let the last point to go in. If not,
+							// the last point is not in the sum length
+							setTimeout(function() {
+								_self.endMeasureLength();
+							}, 250);
+						});
+					} else {
+						_self.isDialogWCAG(true);
+						_self.enableOkWCAG('disable');
+					}
 				};
 
 				_self.endMeasureLength = function() {
@@ -328,20 +338,26 @@
 					_self.openTools('area');
 					_self.measureType = 'area';
 
-					// set cursor (remove default cursor first and all other cursors)
-					$container.css('cursor', '');
-					$container.addClass('gcviz-draw-cursor-measure');
+					// check if WCAG mode is enable, if so use dialog box instead!
+					if (!_self.isWCAG()) {
+						// set cursor (remove default cursor first and all other cursors)
+						$container.css('cursor', '');
+						$container.addClass('gcviz-draw-cursor-measure');
 
-					clickMeasureArea = mymap.on('click', function(event) {
-										_self.graphic.addMeasure(_self.measureHolder, globalKey, 1, 'km', _self.selectedColor(), event);
-									});
-					// on double click, close polygon and show total length and area
-					dblclickMeasure = mymap.on('dbl-click', function(event) {
-						// add last point then close
-						_self.graphic.addMeasure(_self.measureHolder, globalKey, 1, 'km', _self.selectedColor(), event);
+						clickMeasureArea = mymap.on('click', function(event) {
+											_self.graphic.addMeasure(_self.measureHolder, globalKey, 1, 'km', _self.selectedColor(), event);
+										});
+						// on double click, close polygon and show total length and area
+						dblclickMeasure = mymap.on('dbl-click', function(event) {
+							// add last point then close
+							_self.graphic.addMeasure(_self.measureHolder, globalKey, 1, 'km', _self.selectedColor(), event);
 
-						_self.endMeasureArea();
-					});
+							_self.endMeasureArea();
+						});
+					} else {
+						_self.isDialogWCAG(true);
+						_self.enableOkWCAG('disable');
+					}
 				};
 
 				_self.endMeasureArea = function() {
@@ -446,7 +462,7 @@
 						} else if (_self.activeTool() === 'area') {
 							$btnArea.focus();
 						} else if (_self.activeTool() === 'erase') {
-							
+
 							if (_self.isGraphics()) {
 								$btnDelsel.focus();
 							} else {
@@ -468,6 +484,12 @@
 						flag = true;
 					} else if (_self.activeTool() === 'text') {
 						_self.graphic.drawTextWCAG([_self.xValue() * -1, _self.yValue()], _self.drawTextValue(), _self.selectedColor());
+						flag = true;
+					} else if (_self.activeTool() === 'length') {
+						_self.graphic.measureWCAG(_self.WCAGcoords(), globalKey, 0, 'km', _self.selectedColor());
+						flag = true;
+					} else if (_self.activeTool() === 'area') {
+						_self.graphic.measureWCAG(_self.WCAGcoords(), globalKey, 1, 'km', _self.selectedColor());
 						flag = true;
 					}
 
@@ -513,8 +535,12 @@
 					} else if (x !== last[0] || y !== last[1]) {
 						_self.WCAGcoords.push([x, y]);
 					}
-					
-					if (_self.WCAGcoords().length > 1) {
+
+					// if not area and more then 1 points enable ok button. if it is area,
+					// wait until there is at least 3 points.
+					if (_self.activeTool() !== 'area' && _self.WCAGcoords().length > 1) {
+						_self.enableOkWCAG('enable');
+					} else if (_self.WCAGcoords().length > 2) {
 						_self.enableOkWCAG('enable');
 					}
 				};

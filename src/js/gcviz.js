@@ -108,7 +108,7 @@ var locationPath;
 				width = size.width,
 				vmArray = {},
 				maxWidth = parseInt($mapElem.parent().css('width'), 10) - (2 * $mapElem.position().left); // get container width;
-			
+
 			// check if the container width is smaller then gcviz. If so, set width to container width
 			// if user resize his window to a larger size later, the map will grow to the width
 			// specify in the config file.
@@ -126,7 +126,7 @@ var locationPath;
 			// create map and add layers
 			// save the result of every view model in an array of view models
 			vmArray.map = map.initialize($mapSection, width);
-			
+
 			// set the global vm to retreive link vm together
 			// we do it here first because we need a value from mapVM inside headerVM
 			gcvizFunc.setVM(mapid, vmArray);
@@ -186,25 +186,25 @@ var locationPath;
 						oriW = parseInt($map.attr('gcviz-size').split(';')[1], 10), // original from config map width
 						leftMarg = $section.position().left, //containter left margin
 						maxWidth = parseInt($section.parent().css('width'), 10) - (2 * leftMarg); // get container width
-					
+
 					// map cant be smaller then 360px (tools panel width)
 					if (maxWidth < 360) {
 						maxWidth = 360;
 					}
-					
+
 					// check if we should apply the original width or the maximum possible width
 					if (oriW > maxWidth) {
 						applyW = maxWidth;
 					} else if (actualW < oriW && maxWidth > oriW) {
 						applyW = oriW;
 					}
-					
+
 					// set size
 					gcvizFunc.setStyle($section[0], { 'width': applyW + 'px' });
 					gcvizFunc.setStyle($mapholder[0], { 'width': applyW + 'px' });
 					gcvizFunc.setStyle($map[0], { 'width': applyW + 'px' });
 					gcvizFunc.setStyle($maproot[0], { 'width': applyW + 'px' });
-					
+
 				}, 200, false);
 			}
 		};

@@ -40,6 +40,9 @@
 			// find toolbar and start to add items
 			$toolbar = $mapElem.find('.gcviz-tbnav-content');
 
+			// contextual help
+			node += '<label class="gcviz-help-bubbledesc" for="tbnav' + mapid + '" data-bind="contextHelp: { text: helpDesc, alt: helpAlt, img: imgHelpBubble, id: \'tbnav' + mapid + '\' }"></label>';
+
 			// geolocation zoom
 			if (configGeolocation) {
 				node += '<div class="gcviz-nav-zoom">' +
@@ -89,7 +92,7 @@
 				node += '<div id="scaletool' + mapid + '" class="span6"><span class="gcviz-scaleDisplayLabel" data-bind="text: lblScale"></span><span class="gcviz-scaleApprox">(approx.)</span></div>';
 			}
 			node += '</div>';
-			
+
 			// add the checkbox to show scale and scalebar on the map
 			if (configScaleDisplay || configScalebar) {
 				node += '<div class="row">' +
@@ -120,7 +123,7 @@
 				// Setup a dialog box to show results
 				node += '<div data-bind="uiDialog: { title: $root.lblLocTitle, width: 400, height: 625, close: $root.dialogLocOk, openDialog: \'isLocDialogOpen\' }">' +
 							'<div class="gcviz-navinfo-content">' +
-						 		'<strong>&nbsp;<span data-bind="text: $root.infoTopoCoord"></span></strong>' +
+								'<strong>&nbsp;<span data-bind="text: $root.infoTopoCoord"></span></strong>' +
 								'<p><strong data-bind="text: $root.infoDecDeg"></strong></p>' +
 								'<p><span data-bind="text: $root.infoLat"></span><span data-bind="text: $root.infoLatDD"></span></p>' +
 								'<p><span data-bind="text: $root.infoLong"></span><span data-bind="text: $root.infoLongDD"></span></p>' +

@@ -66,11 +66,11 @@
 			}
 		};
 
-		getFullscreenParam = function(width, height) {
+		getFullscreenParam = function() {
 			// get maximal height and width from browser window and original height and width for the map
-			var minWW = window.innerWidth,
-				minWH = window.innerHeight,
-				w, h;
+			var w, h,
+				minWW = window.innerWidth,
+				minWH = window.innerHeight;
 
 			// calculate the width and height with the window. Remove 15px to keep all the right and bottom section
 			w = minWW - 15;
