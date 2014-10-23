@@ -11,10 +11,12 @@
 	], function(helpVM) {
 		var initialize,
 			getKeyHelp,
+			getFooterHelp,
 			getHeaderHelp,
 			getDrawHelp,
 			getNavHelp,
-			getDataHelp;
+			getDataHelp,
+			getDevHelp;
 
 		initialize = function($mapElem) {
 			var $help,
@@ -27,16 +29,18 @@
 			$help = $mapElem.find('.gcviz-help');
 
 			// the full help dialog window
-			node += '<div id="help-' + mapid + '" class="gcviz-help-sect" data-bind="uiDialog: { title: $root.lblHelpTitle, width: 600, height: 350, ok: $root.dialogHelpOk, close: $root.dialogHelpOk, openDialog: \'isHelpDialogOpen\' }">' +
+			node += '<div id="help-' + mapid + '" class="gcviz-help-sect" data-bind="uiDialog: { title: $root.lblHelpTitle, width: 600, height: 350, ok: $root.dialogHelpOk, close: $root.dialogHelpOk, openDialog: \'isHelpDialogOpen\', modal: false, draggable: true }">' +
 						// menu
 						'<section id="gcviz-help-menu" class="gcviz-help">' +
 							'<ul>' +
 								'<li><a href="#gcviz-help-over" data-bind="text: overTitle, click: function() { scrollTo(\'over\') }"></a></li>' +
 								'<li><a href="#gcviz-help-key" data-bind="text: keyTitle, click: function() { scrollTo(\'key\') }"></a></li>' +
 								'<li><a href="#gcviz-help-head" data-bind="text: headTitle, click: function() { scrollTo(\'head\') }"></a></li>' +
+								'<li><a href="#gcviz-help-foot" data-bind="text: footTitle, click: function() { scrollTo(\'foot\') }"></a></li>' +
 								'<li><a href="#gcviz-help-tbdraw" data-bind="text: drawTitle, click: function() { scrollTo(\'draw\') }"></a></li>' +
 								'<li><a href="#gcviz-help-tbnav" data-bind="text: navTitle, click: function() { scrollTo(\'nav\') }"></a></li>' +
 								'<li><a href="#gcviz-help-tbdata" data-bind="text: dataTitle, click: function() { scrollTo(\'data\') }"></a></li>' +
+								'<li><a href="#gcviz-help-dev" data-bind="text: devTitle, click: function() { scrollTo(\'dev\') }"></a></li>' +
 							'</ul>' +
 						'</section>';
 
@@ -54,6 +58,9 @@
 			// header
 			node += getHeaderHelp();
 
+			// header
+			node += getFooterHelp();
+
             // toolbar draw
 			node += getDrawHelp();
 
@@ -63,11 +70,14 @@
 			// toolbar navigation
 			node += getDataHelp();
 
+			// developer's corner
+			node += getDevHelp();
+
 			// close div
 			node += '</div>';
 
 			// the contextual help dialog window. The content will be populated when user click on a bubble
-			node += '<div id="helpbubble-' + mapid + '" class="gcviz-help-sect" data-bind="uiDialog: { title: $root.lblHelpBubbleTitle, width: 600, height: 350, ok: $root.dialogHelpBubbleOk, close: $root.dialogHelpBubbleOk, openDialog: \'isHelpBubbleDialogOpen\' }">' +
+			node += '<div id="helpbubble-' + mapid + '" class="gcviz-help-sect" data-bind="uiDialog: { title: $root.lblHelpBubbleTitle, width: 600, height: 350, ok: $root.dialogHelpBubbleOk, close: $root.dialogHelpBubbleOk, openDialog: \'isHelpBubbleDialogOpen\', modal: false, draggable: true }">' +
 						'<section id="gcviz-bubble"></section>' +
 					'</div>';
 
@@ -145,6 +155,26 @@
 						'<div class="row">' +
 							'<span class="span1 gcviz-help-textsub" data-bind="text: headMenuTitle"></span>' +
 							'<span class="span11" data-bind="text: headMenu"></span>' +
+						'</div>' +
+					'</section>';
+
+			return node;
+		};
+
+		getFooterHelp = function() {
+			var node = '';
+
+			node = '<section id="gcviz-help-foot" class="gcviz-help gcviz-help-foot">' +
+						'<span class="gcviz-help-tbtitle" data-bind="text: footTitle"></span>' +
+						'<div class="row">' +
+							'<span class="span3 gcviz-help-textsub" data-bind="text: footCoordTitle"></span>' +
+							'<span class="span9" data-bind="text: footCoord"></span>' +
+						'</div>' +
+						'<div class="row">' +
+							'<div class="span1">' +
+								'<button class="gcviz-foot-arrow" tabindex="-1"</button>' +
+							'</div>' +
+							'<span class="span11 gcviz-help-textbtn" data-bind="text: footArrow"></span>' +
 						'</div>' +
 					'</section>';
 
@@ -293,6 +323,22 @@
 									'<span class="span8 gcviz-help-textbtn" data-bind="text: dataRemove"></span>' +
 							'</div>' +
 							'</div>' +
+						'</div>' +
+					'</section>';
+
+			return node;
+		};
+
+		getDevHelp = function() {
+			var node = '';
+
+			node = '<section id="gcviz-help-dev" class="gcviz-help gcviz-help-dev">' +
+						'<span class="gcviz-help-tbtitle" data-bind="text: devTitle"></span>' +
+						'<div class="row">' +
+							'<div class="span1">' +
+								'<button class="gcviz-head-help" tabindex="-1"</button>' +
+							'</div>' +
+							'<span class="span11 gcviz-help-textbtn" data-bind="text: headHelp"></span>' +
 						'</div>' +
 					'</section>';
 

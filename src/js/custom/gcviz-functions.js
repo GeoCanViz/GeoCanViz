@@ -22,6 +22,7 @@
 			getElemValueVM,
 			setVM,
 			getTextWidth,
+			focusMap,
 			timer,
 			vmObject = { };
 
@@ -170,6 +171,10 @@
 			return metric.width;
 		};
 
+		focusMap = function(map) {
+			document.getElementById(map.vIdName + '_holder').focus();
+		};
+
 		return {
 			debounce: debounce,
 			debounceClick: debounceClick,
@@ -183,7 +188,8 @@
 			getRandomColor: getRandomColor,
 			getElemValueVM: getElemValueVM,
 			setVM: setVM,
-			getTextWidth: getTextWidth
+			getTextWidth: getTextWidth,
+			focusMap: focusMap
 		};
 	});
 }());

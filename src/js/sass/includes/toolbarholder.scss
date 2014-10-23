@@ -21,9 +21,9 @@
 	@include app-text(1.3, bold, $black);
   @include unselectable;
   padding-top: 0rem;
-  padding-right: (1 * $rembase) + rem;
-  padding-left: (1 * $rembase) + rem;
-  padding-bottom: (1 * $rembase) + rem;
+  padding-right: (0.7 * $rembase) + rem;
+  padding-left: (0.7 * $rembase) + rem;
+  padding-bottom: (0.7 * $rembase) + rem;
   position: absolute;
   z-index: 100;
   width: (34 * $rembase) + rem;

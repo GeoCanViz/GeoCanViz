@@ -37,7 +37,7 @@ General (i18n)#%all#All#Tous
 #%header-tpprint#Print the map#Imprimer la carte
 #%header-tpinset#Show or hide insets#Afficher ou cacher les insertions
 #%header-tpfullscreen#Go full or regular screen#Basculer entre mode plein écran et régulier
-#%header-printcopyright#© Her Majesty the Queen in Right of Canada / © Sa Majesté la Reine du chef du Canada# © Sa Majesté la Reine du chef du Canada / © Her Majesty the Queen in Right of Canada
+#%header-printcopyright#&#64; Her Majesty the Queen in Right of Canada, as represented by the Minister of Natural Resources, 2014#&#64; Sa Majesté la Reine du chef du Canada, représentée par le ministre de Ressources naturelles Canada, 2014
 #%header-printurl#http://geoappext.nrcan.gc.ca/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task#http://geoappext.nrcan.gc.ca/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task
 #%footer-tpgithub#Get GeoCanViz on GitHub#Obtenir GéoCanViz de GitHub
 #%footer-urlgcvizrepo#https://github.com/GeoCanViz/GeoCanViz#https://github.com/GeoCanViz/GeoCanViz
@@ -160,6 +160,10 @@ General (i18n)#%all#All#Tous
 #%help-head-fs#Toggle between maximum screen and embedded-window mode.#
 #%help-head-menutitle#Menu#Menu
 #%help-head-menu#Toggle to open and close all the available toolbars#
+#%help-foot-title#Footer#Bas de page
+#%help-foot-coordtitle#Mouse coordinates#
+#%help-foot-coord#On the bottom right you can see the mouse coordinates as you move your mouse over the map.#
+#%help-foot-arrow#This arrow points to the cartographic north.#
 #%help-draw-title#Measuring and Drawing Tools#Mesures et outils de dessin
 #%help-draw-colorselect#This is the color selector. Click on a circle to choose the drawing color. The color apply to draw, text and measure.#
 #%help-draw-line#Clicking on the pencil icon enables the line drawing function. To close this tool, press “Esc” key or click on the tools toolbar.#
@@ -187,3 +191,4 @@ General (i18n)#%all#All#Tous
 #%help-data-sampletitle#Added Layer Information#
 #%help-data-sample#This is an example of a loaded csv file. You have a visibility checkbox and the symbology use to render the layer.
 #%help-data-remove#A button is also added to remove the loaded data layer.#
+#%help-dev-title#Developer's Corner#Le coin du développeur

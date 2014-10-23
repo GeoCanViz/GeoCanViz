@@ -36,9 +36,11 @@
 					$helpOver = $helpSect.find('.gcviz-help-over'),
 					$helpKey = $helpSect.find('.gcviz-help-key'),
 					$helpHead = $helpSect.find('.gcviz-help-head'),
+					$helpFoot = $helpSect.find('.gcviz-help-foot'),
 					$helpDraw = $helpSect.find('.gcviz-help-tbdraw'),
 					$helpNav = $helpSect.find('.gcviz-help-tbnav'),
-					$helpData = $helpSect.find('.gcviz-help-tbdata');
+					$helpData = $helpSect.find('.gcviz-help-tbdata'),
+					$helpDev = $helpSect.find('.gcviz-help-dev');
 
 				// viewmodel mapid to be access in tooltip custom binding
 				_self.mapid = mapid;
@@ -83,6 +85,12 @@
 				_self.headMenuTitle = i18n.getDict('%help-head-menutitle');
 				_self.headMenu = i18n.getDict('%help-head-menu');
 
+				// footer
+				_self.footTitle = i18n.getDict('%help-foot-title');
+				_self.footArrow = i18n.getDict('%help-foot-arrow');
+				_self.footCoordTitle = i18n.getDict('%help-foot-coordtitle');
+				_self.footCoord = i18n.getDict('%help-foot-coord');
+
 				// draw text
 				_self.drawTitle = i18n.getDict('%help-draw-title');
 				_self.drawColorSelect = i18n.getDict('%help-draw-colorselect');
@@ -109,12 +117,15 @@
 				_self.navScaleTitle = i18n.getDict('%help-nav-scaletitle');
 				_self.navScale = i18n.getDict('%help-nav-scale');
 
-				// navigation text
+				// data text
 				_self.dataTitle = i18n.getDict('%help-data-title');
 				_self.dataAdd = i18n.getDict('%help-data-add');
 				_self.dataSampleTitle = i18n.getDict('%help-data-sampletitle');
 				_self.dataSample = i18n.getDict('%help-data-sample');
 				_self.dataRemove = i18n.getDict('%help-data-remove');
+
+				// developer's corner text
+				_self.devTitle = i18n.getDict('%help-dev-title');
 
 				// help dialog box
 				_self.lblHelpTitle = i18n.getDict('%help-dialogtitle');
@@ -154,12 +165,16 @@
 						$helpSect.scrollTo($helpKey);
 					} else if (section === 'head') {
 						$helpSect.scrollTo($helpHead);
+					} else if (section === 'foot') {
+						$helpSect.scrollTo($helpFoot);
 					} else if (section === 'draw') {
 						$helpSect.scrollTo($helpDraw);
 					} else if (section === 'nav') {
 						$helpSect.scrollTo($helpNav);
 					} else if (section === 'data') {
 						$helpSect.scrollTo($helpData);
+					} else if (section === 'dev') {
+						$helpSect.scrollTo($helpDev);
 					}
 				};
 

@@ -1,5 +1,16 @@
 @import "gcviz-mixin";
 
+%arrow {
+	cursor: default!important;
+	@include sprite($img-spritebtn, -1122, -3, 3);
+	float: right;
+	margin-right:	(1 * $rembase) + rem;
+	-webkit-transform: rotate(90deg); /* Safari & Chrome */
+	-moz-transform: rotate(90deg); /* Firefox */
+	-ms-transform: rotate(90deg); /* Internet Explorer */
+	-o-transform: rotate(90deg); /* Opera */
+}
+
 .gcviz-foot {
 	@include app-head-foot;
 	background-repeat: repeat-x;
@@ -13,14 +24,7 @@
   }
   
 	.gcviz-foot-arrow {
-		cursor: default!important;
-		@include sprite($img-spritebtn, -1122, -3, 3);
-		float: right;
-		margin-right:	(1 * $rembase) + rem;
-		-webkit-transform: rotate(90deg); /* Safari & Chrome */
-		-moz-transform: rotate(90deg); /* Firefox */
-		-ms-transform: rotate(90deg); /* Internet Explorer */
-		-o-transform: rotate(90deg); /* Opera */
+		@extend %arrow
   }
 }
 
@@ -28,4 +32,8 @@
   float: left;
   margin-left: (0.5 * $rembase) + rem;
 	margin-top: (0.25 * $rembase) + rem;
+}
+
+.gcviz-foot-arrow {
+	@extend %arrow
 }

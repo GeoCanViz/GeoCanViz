@@ -94,3 +94,10 @@
 	@extend %zoommax;
 	right: (0.75 * $rembase) + rem!important;
 }
+
+// hide zoom max and zoombar when print
+@media print {
+	.gcviz-map-zoommaxl, .gcviz-map-zoommaxr, .esriLargeSlider {
+		display: none!important;
+	}
+}
