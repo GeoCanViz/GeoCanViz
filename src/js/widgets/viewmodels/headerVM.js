@@ -244,7 +244,7 @@
 					var toolbarheight = parseInt(map.height, 10) - 15;
 					_self.xheightToolsOuter('max-height:' + toolbarheight + 'px!important');
 					_self.xheightToolsInner('max-height:' + toolbarheight + 'px!important');
-					toolbarheight -= 25;
+					toolbarheight -= 35;
 					_self.widthheightTBholder('max-height:' + toolbarheight + 'px!important; max-width:' + (34 * 0.625) + 'rem!important');
                 };
 

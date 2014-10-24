@@ -39,6 +39,7 @@
 					$helpFoot = $helpSect.find('.gcviz-help-foot'),
 					$helpDraw = $helpSect.find('.gcviz-help-tbdraw'),
 					$helpNav = $helpSect.find('.gcviz-help-tbnav'),
+					$helpLeg = $helpSect.find('.gcviz-help-tbleg'),
 					$helpData = $helpSect.find('.gcviz-help-tbdata'),
 					$helpDev = $helpSect.find('.gcviz-help-dev');
 
@@ -117,6 +118,9 @@
 				_self.navScaleTitle = i18n.getDict('%help-nav-scaletitle');
 				_self.navScale = i18n.getDict('%help-nav-scale');
 
+				// legend text
+				_self.legTitle = i18n.getDict('%help-leg-title');
+
 				// data text
 				_self.dataTitle = i18n.getDict('%help-data-title');
 				_self.dataAdd = i18n.getDict('%help-data-add');
@@ -171,6 +175,8 @@
 						$helpSect.scrollTo($helpDraw);
 					} else if (section === 'nav') {
 						$helpSect.scrollTo($helpNav);
+					} else if (section === 'leg') {
+						$helpSect.scrollTo($helpLeg);	
 					} else if (section === 'data') {
 						$helpSect.scrollTo($helpData);
 					} else if (section === 'dev') {

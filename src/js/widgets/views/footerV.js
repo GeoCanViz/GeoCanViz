@@ -15,6 +15,7 @@
 			var $footer,
 				config = $mapElem.footer,
 				mapid = $mapElem.mapframe.id,
+				configScalebar = config.scalebar.enable,
 				node = '';
 
 			$mapElem.find('#' + mapid).append('<div id="foot' + mapid + '" class="gcviz-foot"></div>');
@@ -27,9 +28,13 @@
 						'</a></div>';
             }
 
-			// add div to hold scale if user decide to show it on the map instead of toolbar
-			node += '<div class="gcviz-scalebarmapcontainer unselectable"><div id="scalebarmap' + mapid + '"></div></div>' +
-					'<div class="gcviz-scalemapcontainer unselectable"><div id="scalemap' + mapid +'"></div></div>';
+			// set scalebar
+			if (configScalebar) {
+				node += '<div id="scalebartool' + mapid + '" class="gcviz-foot-scalebar unselectable">' +
+							'<div id="divScalebar' + mapid + '"></div>' +
+							'<div class="gcviz-foot-scaleApprox" data-bind="text: lblApprox">(approx.)</div>' +
+						'</div>';
+			}
 
 			// set north arrow
 			if (config.northarrow.enable) {

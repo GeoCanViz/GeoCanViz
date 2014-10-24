@@ -16,7 +16,8 @@
 }
 
 .gcviz-help-bubbledesc {
-	margin-top: (0.5 * $rembase) + rem;
+	margin-top: (0.3 * $rembase) + rem;
+	float: right;
 	@include app-text(1.2, normal, $black, italic);
 }
 

@@ -62,8 +62,6 @@ $one_col: (100% - ($gutter * ($cols - 1))) / $cols;
 	display: inline;
 	cursor: pointer;
 	border: none;
-	margin-top: (0.5 * $rembase) + rem;
-	margin-bottom: (0.5 * $rembase) + rem;
 	height: ($size * 10) + px;
 	width: ($size * 10) + px;
   position: relative;
@@ -122,7 +120,7 @@ $one_col: (100% - ($gutter * ($cols - 1))) / $cols;
   font: {
     family: $font!important;
     weight: $weight!important;
-    size: ($size * 12) + px!important; // old browsers
+    size: ($size * 10) + px!important; // old browsers
     size: ($size * $rembase) + rem!important;
   }
   font-style: $style!important;

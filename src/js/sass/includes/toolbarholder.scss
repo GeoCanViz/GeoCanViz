@@ -1,7 +1,7 @@
 @import "gcviz-mixin";
 
 %transparency {
-	background-color: rgba(100,100,100, 0.6);
+	background-color: rgba(140,140,140, 0.5);
 }
 
 %tbcontent {
@@ -18,12 +18,12 @@
 }
 
 %tbcontainer {
-	@include app-text(1.3, bold, $black);
+	@include app-text(1.2, bold, $black);
   @include unselectable;
   padding-top: 0rem;
-  padding-right: (0.7 * $rembase) + rem;
-  padding-left: (0.7 * $rembase) + rem;
-  padding-bottom: (0.7 * $rembase) + rem;
+  padding-right: (0.3 * $rembase) + rem;
+  padding-left: (0.3 * $rembase) + rem;
+  padding-bottom: (0.3 * $rembase) + rem;
   position: absolute;
   z-index: 100;
   width: (34 * $rembase) + rem;
@@ -31,14 +31,20 @@
   @extend %transparency;
 }
 
+// overwrite esri class for panel
+.claro .dijitTitlePaneTitle {
+	background-color: #d3d8d1!important;
+}
+// end overwrite
+
 .gcviz-tbcontainer-l {
   @extend %tbcontainer;
-  left: 0rem;
+  left: 0;
 }
 
 .gcviz-tbcontainer-r {
   @extend %tbcontainer;
-  right: 0rem;
+  right: 0;
 }
 
 .gcviz-tbholder {

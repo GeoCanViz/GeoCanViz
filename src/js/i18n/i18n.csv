@@ -10,11 +10,11 @@ General (i18n)#%all#All#Tous
 #%of#of#de
 #%west#W#O
 #%wcag-instrtitle#Instructions: Map Navigation#Instruction: Comment naviguer dans la carte
-#%wcag-instr#Keyboard user:  When the map is in focus, use the arrow keys to pan the map and the plus and minus keys to zoom. Setup your keyboard to control the mouse or enable the wcag mode to have coordinates input box.#Utilisateur du clavier :  Lorsque la carte a l'attention, utiliser les touches flèches pour déplacer la carte et utiliser les touches plus et négatif pour faire un zoom. Configurer votre clavier pour contrôler la souris ou activer le mode de wcag afin d'avoir les boîte d'entrée pour les coordonnées.
-#%wcag-lblenable#Enable WCAG mode#Activer le mode RACW
+#%wcag-instr#Keyboard user:  When the map is in focus, use the arrow keys to pan the map and the plus and minus keys to zoom. Setup your keyboard to control the mouse or enable the accessibility mode to have coordinates input box.#Utilisateur du clavier :  Lorsque la carte a l'attention, utiliser les touches flèches pour déplacer la carte et utiliser les touches plus et négatif pour faire un zoom. Configurer votre clavier pour contrôler la souris ou activer le mode accessibilité afin d'avoir les boîte d'entrée pour les coordonnées.
+#%wcag-lblenable#Enable accessibility mode#Activer le mode accessibilité
 #%wcag-xlong#Longitude West (x): #Longitude ouest (x): 
 #%wcag-ylat#Latitude North (y): #Latitude nord (y): 
-#%wcag-title#WCAG coordinates input#Entré des corrdonnées RACW
+#%wcag-title#Accessibility mode coordinates input#Entré des corrdonnées en mode accessibilité
 #%wcag-msgx#Value needs to be between 50 and 130#la valeur doit être entre 50 et 130
 #%wcag-msgy#Value needs to be between 40 and 80#la valeur doit être entre 40 et 80
 #%wcag-addcoords#Add a new coordinate to the list#Ajouter une coordonnée à la liste
@@ -44,13 +44,14 @@ General (i18n)#%all#All#Tous
 #%footer-tpNorth#North arrow#Flèche du nord
 #%footer-lat#Latitude: #Latitude : 
 #%footer-long#Longitude: #Longitude : 
+#%footer-approx#approximate#approximative
 #%toolbarholder-caption#Toolbars#Barre d'outils
 #%toolbardraw-alt#Measuring and Drawing Tools - Help#Mesures et outils de dessin - Aide
 #%toolbardraw-desc#Measuring and Drawing Tools - Help#Mesures et outils de dessin - Aide
 #%toolbardraw-name#Measuring and Drawing Tools#Mesures et outils de dessin
 #%toolbardraw-insinputbox#Click OK to place the text on the map or click Cancel to abort.#Cliquez sur OK pour placer le texte sur la carte ou cliquez sur Annuler pour abandonner.
 #%toolbardraw-inputbox-name#Add text#Ajouter du texte
-#%toolbardraw-inputbox-label#Enter a value: #Entrez une valeur: 
+#%toolbardraw-inputbox-label#Add Text#Ajouter texte
 #%toolbardraw-tpcolorblack#Select black color#Sélectionner la couleur noire
 #%toolbardraw-tpcolorred#Select red color#Sélectionner la couleur rouge
 #%toolbardraw-tpcolorgreen#Select green color#Sélectionner la couleur vert
@@ -70,23 +71,27 @@ General (i18n)#%all#All#Tous
 #%toolbardraw-dist#Total Length: #Longueur totale: 
 #%toolbardraw-area#Area: #Aire: 
 #%toolbardraw-lblselcolor#Select a Colour#Selectionnez une couleur
-#%toolbardraw-lblmeasfull#Measure a Path/Area#Mesurer ligne/surface
+#%toolbardraw-lblmeasfull#Measure a Path / Area#Mesurer ligne / surface
 #%toolbardraw-lblmeasline#Measure a Path#Mesurer ligne
 #%toolbardraw-lblmeasarea#Measure an Area#Mesurer surface
-#%toolbardraw-lbldrawfull#Draw Lines/Add Text#Dessiner ligne/Ajouter texte
+#%toolbardraw-lbldrawfull#Draw Lines / Add Text#Dessiner ligne / Ajouter texte
 #%toolbardraw-lbldrawline#Draw Lines#Dessiner ligne
 #%toolbardraw-lbldrawtexta#Add Text#Ajouter texte
-#%toolbardraw-lblerase#Erase All/Erase Selected#Effacer tout/Effacer sélection
-#%toolbardraw-lblundoredo#Undo/Redo#Annuler/Refaire
-#%toolbardraw-lblimpexp#Import/Export drawing#Importer/Exporter dessin 
-#%toolbarlegend-name#Map Layers and Legend(s) #Couvertures de la carte et légende(s)
-#%toolbarlegend-base# Base Map(s) # Couverture(s) de base 
-#%toolbarlegend-tgvis#Toggle Visibility#Basculer la visibilité
+#%toolbardraw-lblerase#Erase All / Erase Selected#Effacer tout / Effacer sélection
+#%toolbardraw-lblundoredo#Undo / Redo#Annuler / Refaire
+#%toolbardraw-lblimpexp#Import / Export#Importer / Exporter
+#%toolbarlegend-alt#Map Layers and Legend(s) - Help#Couvertures de la carte et légende(s) - Aide
+#%toolbarlegend-desc#Map Layers and Legend(s) - Help#Couvertures de la carte et légende(s) - Aide
+#%toolbarlegend-name#Map Layers and Legend(s)#Couvertures de la carte et légende(s)
+#%toolbarlegend-base#Base(s)#Base(s)
+#%toolbarlegend-theme#Theme(s) #Thème(s)
+#%toolbarlegend-tpvis#Toggle Visibility#Basculer la visibilité
+#%toolbarlegend-tpexpand#Click to expand#Cliquer pour agrandir
 #%toolbarnav-alt#Search and Map Information - Help#Recherche et information sur la carte - Aide
 #%toolbarnav-desc#Search and Map Information - Help#Recherche et information sur la carte - Aide
 #%toolbarnav-name#Search and Map Information#Recherche et information sur la carte
 #%toolbarnav-lblgeoloc#Enter and select a geographical name, topographic map number or postal code:#Entrez et sélectionnez un nom géographique ou topographique, un numéro de carte ou un code postal :
-#%toolbarnav-lblinfo#Get Location Information#Obtenir de l'information de localisation
+#%toolbarnav-lblinfo#Get Coordinates Information#Obtenir de l'information sur les coordonnées
 #%toolbarnav-info#Map location information#Information de localisation
 #%toolbarnav-infoaltitude#Elevation#Élévation
 #%toolbarnav-infoaltitudeurl#http://geogratis.gc.ca/services/elevation/cdem/altitude?#http://geogratis.gc.ca/services/elevation/cdem/altitude?
@@ -111,8 +116,7 @@ General (i18n)#%all#All#Tous
 #%toolbarnav-lblov#Overview Map#Carte aperçu
 #%toolbarnav-lblovdisplay#Show overview map on map#Afficher la carte aperçu sur la carte
 #%toolbarnav-ovdrag#Drag To Change The Map Extent#Faites glisser pour changer l'étendue de la carte
-#%toolbarnav-scale#Scale #Échelle 
-#%toolbarnav-lblscaledisplay#Show scale on map#Afficher l'échelle sur la carte 
+#%toolbarnav-scale#Approximate Scale #Échelle approximative 
 #%toolbardata-alt#Import Data - Help#Importer des données - Aide
 #%toolbardata-desc#Import Data - Help#Importer des données - Aide
 #%toolbardata-name#Import Data#Importer des données
@@ -151,8 +155,8 @@ General (i18n)#%all#All#Tous
 #%help-key-enter#ENTER key will selects the element which currently has the focus.#
 #%help-key-spacetitle#Expand menu:#
 #%help-key-space#When the focus is on an expander icon, the SPACE BAR key will expand the toolbar and SPACE BAR key again will close it.#
-#%help-key-wcagtitle#WCAG mode:#
-#%help-key-wcag#You can enable a WCAG mode by checking the enable WCAG mode check box in the -Instructions: Map navigation- drop down section at the top of the map.#
+#%help-key-wcagtitle#accessibilité mode:#
+#%help-key-wcag#You can enable the accessibilité mode by checking the enable accessibilité mode check box in the -Instructions: Map navigation- drop down section at the top of the map.#
 #%help-head-title#Header#En-tête
 #%help-head-help#Open this help window.#
 #%help-head-about#Open a description about this map.#
@@ -186,6 +190,7 @@ General (i18n)#%all#All#Tous
 #%help-nav-scalebar#The Scale bar indicates the relation between the screen distance and the distance on the ground. Note: the distance is approximate.#
 #%help-nav-scaletitle#Scale Display#
 #%help-nav-scale#The scale of a map is the ratio of a distance on the map to the corresponding distance on the ground. Note: the distance is approximate.#
+#%help-leg-title#Map Layers and Legend(s)#Couvertures de la carte et légende(s)
 #%help-data-title#Import Data#Importer des données
 #%help-data-add#Import a CSV file that contains geolocation information.#
 #%help-data-sampletitle#Added Layer Information#

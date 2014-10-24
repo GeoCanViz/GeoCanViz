@@ -15,6 +15,7 @@
 			getHeaderHelp,
 			getDrawHelp,
 			getNavHelp,
+			getLegHelp,
 			getDataHelp,
 			getDevHelp;
 
@@ -39,6 +40,7 @@
 								'<li><a href="#gcviz-help-foot" data-bind="text: footTitle, click: function() { scrollTo(\'foot\') }"></a></li>' +
 								'<li><a href="#gcviz-help-tbdraw" data-bind="text: drawTitle, click: function() { scrollTo(\'draw\') }"></a></li>' +
 								'<li><a href="#gcviz-help-tbnav" data-bind="text: navTitle, click: function() { scrollTo(\'nav\') }"></a></li>' +
+								'<li><a href="#gcviz-help-tbleg" data-bind="text: legTitle, click: function() { scrollTo(\'leg\') }"></a></li>' +
 								'<li><a href="#gcviz-help-tbdata" data-bind="text: dataTitle, click: function() { scrollTo(\'data\') }"></a></li>' +
 								'<li><a href="#gcviz-help-dev" data-bind="text: devTitle, click: function() { scrollTo(\'dev\') }"></a></li>' +
 							'</ul>' +
@@ -66,6 +68,9 @@
 
 			// toolbar navigation
 			node += getNavHelp();
+
+			// toolbar legend
+			node += getLegHelp();
 
 			// toolbar navigation
 			node += getDataHelp();
@@ -257,6 +262,16 @@
 							'</div>' +
 							'<span class="span11 gcviz-help-textbtn" data-bind="text: drawExport"></span>' +
 						'</div>' +
+					'</section>';
+
+			return node;
+		};
+
+		getLegHelp = function() {
+			var node = '';
+
+			node = '<section id="gcviz-help-tbleg" class="gcviz-help gcviz-help-tbleg">' +
+						'<span class="gcviz-help-tbtitle" data-bind="text: legTitle"></span>' +
 					'</section>';
 
 			return node;

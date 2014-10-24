@@ -532,7 +532,7 @@
 
 					if (distance > 0) {
 						graphic = new esriGraph(pt, symbol);
-						graphic.symbol = getSymbText(gColor, pt.distance + ' ' + unit, 8, 0, 0, -10, 'normal', 'center');
+						graphic.symbol = getSymbText(gColor, pt.distance + ' ' + unit, 10, 0, 0, -10, 'normal', 'center');
 
 						// add background then text
 						addBackgroundText(graphic, gBackColor, 'center', 12, 0, -2, -11, mymap.graphics);
@@ -582,7 +582,7 @@
 					var graphic, symbol;
 
 					graphic = new esriGraph(pt, symbol);
-					graphic.symbol = getSymbText(gColor, pt.text, 8, angle, offX, offY, 'normal', 'center');
+					graphic.symbol = getSymbText(gColor, pt.text, 10, angle, offX, offY, 'normal', 'center');
 					graphic.key = gKey;
 
 					// add background then text
@@ -605,7 +605,7 @@
 					// get text width from canvas because symbol.getWidth give same result between I and M
 					// we need this to calculate background length
 					textWidth = gcvizFunc.getTextWidth(symbol.text, symbol.font);
-					len = Math.ceil(textWidth / 9);
+					len = Math.ceil(textWidth / 8);
 					if (len < 5) {
 						len += 1;
 					}
@@ -648,7 +648,7 @@
 							symbol = getSymbLine(gColor, 2);
 							graphic = new esriGraph(geometry, symbol);
 						} else if (geomType === 'point') {
-							symbol = getSymbText(gColor, gText, 8, 0, 0, 0, 'normal', 'left');
+							symbol = getSymbText(gColor, gText, 10, 0, 0, 0, 'normal', 'left');
 							graphic = new esriGraph(geometry, symbol);
 							addBackgroundText(graphic, gBackColor, 'left', 12, 0, -4, -1, symbLayer);
 

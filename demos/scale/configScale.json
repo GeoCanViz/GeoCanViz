@@ -11,8 +11,8 @@
 
 
 
-"header": {"side": 2, "title": {"value": "My Sample Map","alttext": ""},"tools": { "enable": true, "expand": true},"link": false,"inset": false,"about": {"enable": true,"type": 1,"value": "This is a map about"},"print": {"enable": true,"type": 1},"fullscreen": true},
-"footer": {"northarrow": {"enable": true,"inwkid": 3978},"mousecoords": {"enable": true,"outwkid": 4326},"datatable": {"direction": "in"}, "logo": false},
+"header": {"side": 1, "title": {"value": "My Sample Map","alttext": ""},"tools": { "enable": true, "expand": true},"link": false,"inset": false,"about": {"enable": true,"type": 1,"value": "This is a map about"},"print": {"enable": true,"type": 1},"fullscreen": true},
+"footer": {"northarrow": {"enable": true,"inwkid": 3978},"mousecoords": {"enable": true,"outwkid": 4326},"scalebar": {"enable": true,"unit": 1},"datatable": {"direction": "in"}, "logo": false},
 "toolbarlegend": {"enable": true,"expand": false,
 "basemaps": [
 	{"expand":false,"last":true,"type":2,"id":"380a923d-466f-4e97-88af-7e6d66f2570a","graphid":"93fa722d-8208-95c3-a64a-5d63ac4b5216","displayfields":false,
@@ -29,5 +29,5 @@
 		]},
 		
 "toolbardraw": {"enable": true,"expand": true,"drawline": {"enable": true},"drawtext": {"enable": true},"measureline": {"enable": true,"unit": 1},"measurearea": {"enable": true,"unit": 1},"importexport": {"enable": true}},
-"toolbarnav": {"enable": true,"expand": false,"mapwkid": 3978,"geolocation": {"enable": true,"type": -1},"scalebar": {"enable": true,"unit": 1},"scaledisplay": {"enable": true,"format": 1},"overview": {"enable": true,"url": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/BaseMaps/Provinces/MapServer","type": 4},"position": {"enable": true}},
+"toolbarnav": {"enable": true,"expand": false,"mapwkid": 3978,"geolocation": {"enable": true,"type": -1},"scaledisplay": {"enable": true,"format": 1},"overview": {"enable": true,"url": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/BaseMaps/Provinces/MapServer","type": 4},"position": {"enable": true}},
 "toolbardata": {"enable": true,"expand": false,"data": {"enable": true}},"insetframe": {"enable": false},"customwidgets": []}}

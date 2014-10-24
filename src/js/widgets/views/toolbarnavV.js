@@ -20,7 +20,6 @@
 				configGeolocation = config.geolocation.enable,
 				configOverview = config.overview.enable,
 				configPosition = config.position.enable,
-				configScalebar = config.scalebar.enable,
 				configScaleDisplay = config.scaledisplay.enable,
 				mapid = $mapElem.mapframe.id,
 				tp,
@@ -41,11 +40,13 @@
 			$toolbar = $mapElem.find('.gcviz-tbnav-content');
 
 			// contextual help
-			node += '<label class="gcviz-help-bubbledesc" for="tbnav' + mapid + '" data-bind="contextHelp: { text: helpDesc, alt: helpAlt, img: imgHelpBubble, id: \'tbnav' + mapid + '\' }"></label>';
+			node += '<div class="row">' +
+						'<label class="gcviz-help-bubbledesc" for="tbnav' + mapid + '" data-bind="contextHelp: { text: helpDesc, alt: helpAlt, img: imgHelpBubble, id: \'tbnav' + mapid + '\' }"></label></div>' +
+					'</div>';
 
 			// geolocation zoom
 			if (configGeolocation) {
-				node += '<div class="gcviz-nav-zoom">' +
+				node += '<div>' +
 							'<span id="divAutoCompleteInstructions' + mapid + '" class="ui-helper-hidden-accessible" data-bind="text: insKeyboard"></span>' +
 							'<label class="gcviz-inline gcviz-label" for="inGeoLocation' + mapid + '" data-bind="text: geoLocLabel"></label>' +
 							'<input id="inGeoLocation' + mapid + '" class="gcviz-nav-auto" data-bind="value: \'\'"></input>' +
@@ -55,7 +56,7 @@
 			// set position information
 			if (configPosition) {
 				node += '<div class="row">' +
-							'<div class="span1"><button id="btnClickMap' + mapid + '" class="gcviz-nav-pos" tabindex="0" data-bind="buttonBlur, click: getMapClick, tooltip: { content: tpGetLocInfo }"></button></div>' +
+							'<div class="span1"><button id="btnClickMap' + mapid + '" class="gcviz-nav-pos" tabindex="0" data-bind="buttonBlur, click: getMapClick, attr: { title: tpGetLocInfo }"></button></div>' +
 							'<div class="span11"><label class="gcviz-label gcviz-nav-lblpos" for="btnClickMap' + mapid + '" data-bind="text: infoLabel"></label></div>' +
 						'</div>';
 			}
@@ -67,7 +68,7 @@
 							'<div class="span10">' +
 								'<label class="gcviz-label" for="ovMapContainer' + mapid + '" data-bind="text: OVLabel"></label>' +
 								'<div id="ovtoolcontainer' + mapid + '" class="gcviz-ovtoolcontainer">' +
-									'<div id="ovMapContainer' + mapid + '" class="gcviz-overviewMap" data-bind="tooltip: { content: tpOverview }">' +
+									'<div id="ovMapContainer' + mapid + '" class="gcviz-overviewMap" data-bind="attr: { title: tpOverview }">' +
 										'<div id="divOverviewMap' + mapid + '"></div>' +
 									'</div>' +
 								'</div>' +
@@ -77,30 +78,11 @@
 						'</div>';
 			}
 
-			// if present, group the 2 items (scale and scale display)
-			node += '<div class="row gcviz-nav-scale">';
-			// set scalebar
-			if (configScalebar) {
-				node += '<div id="scalebartool' + mapid + '" class="span6 unselectable">' +
-							'<div id="divScalebar' + mapid + '"></div>' +
-							'<div class="gcviz-scaleApprox">(approx.)</div>' +
-						'</div>';
-			}
-
 			// set scale display
 			if (configScaleDisplay) {
-				node += '<div id="scaletool' + mapid + '" class="span6"><span class="gcviz-scaleDisplayLabel" data-bind="text: lblScale"></span><span class="gcviz-scaleApprox">(approx.)</span></div>';
-			}
-			node += '</div>';
-
-			// add the checkbox to show scale and scalebar on the map
-			if (configScaleDisplay || configScalebar) {
-				node += '<div class="row">' +
-							'<div class="span1" style="height: 10px;"></div>' +
-							'<div class="span10">' +
-								'<input class="gcviz-leg-check" type="checkbox" data-bind="event: { click: showScaleMap }, clickBubble: false, attr: { title: $root.tpVisible, id: \'chk-scale-display\' }, checked: isScaleShowMap"/>' +
-								'<label class="gcviz-label gcviz-nav-lblovdisp" for="chk-scale-display" data-bind="text: ScaleDisplayLabel"></label>' +
-							'</div>' +
+				node += '<div class="row gcviz-nav-scale">' +
+							'<div class="span1"></div>' +
+							'<div id="scaletool' + mapid + '" class="span11"><span class="gcviz-scaleDisplayLabel" data-bind="text: lblScale"></div>' +
 						'</div>';
 			}
 

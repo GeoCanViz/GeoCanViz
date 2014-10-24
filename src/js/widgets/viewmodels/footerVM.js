@@ -11,8 +11,9 @@
 	define(['knockout',
 			'gcviz-i18n',
 			'gcviz-func',
-			'gcviz-gisgeo'
-	], function(ko, i18n, gcvizFunc, gisGeo) {
+			'gcviz-gisgeo',
+			'gcviz-gisnav'
+	], function(ko, i18n, gcvizFunc, gisGeo, gisNav) {
 		var initialize,
 			vm;
 
@@ -24,6 +25,7 @@
                     pathGCVizPNG = locationPath + 'gcviz/images/GCVizLogo.png',
 					configMouse = config.mousecoords,
 					configNorth = config.northarrow,
+					scalebar = config.scalebar,
 					inwkid = configNorth.inwkid,
 					outwkid = configMouse.outwkid;
 
@@ -39,6 +41,7 @@
                 _self.lblWest = i18n.getDict('%west');
                 _self.lblLong = i18n.getDict('%footer-long');
                 _self.lblLat = i18n.getDict('%footer-lat');
+                _self.lblApprox = i18n.getDict('%footer-approx');
 
 				// coords and arrow
 				_self.coords = ko.observable('');
@@ -65,6 +68,11 @@
                             _self.showNorthArrow(evt);
 						});
 					}
+					
+					// See if user wanted a scalebar. If so, initialize it here
+                    if (scalebar.enable) {
+						gisNav.setScaleBar(mymap, scalebar);
+                    }
 
 					return { controlsDescendantBindings: true };
 				};

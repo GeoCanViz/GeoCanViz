@@ -44,7 +44,9 @@
 			$toolbar = $mapElem.find('.gcviz-tbdraw-content');
 
 			// contextual help
-			node += '<label class="gcviz-help-bubbledesc" for="tbdraw' + mapid + '" data-bind="contextHelp: { text: helpDesc, alt: helpAlt, img: imgHelpBubble, id: \'tbdraw' + mapid + '\' }"></label>';
+			node += '<div class="row">' +
+						'<label class="gcviz-help-bubbledesc" for="tbdraw' + mapid + '" data-bind="contextHelp: { text: helpDesc, alt: helpAlt, img: imgHelpBubble, id: \'tbdraw' + mapid + '\' }"></label>' +
+					'</div>';
 
 			// first row
 			node += '<div class="gcviz-draw-row1">';
@@ -52,12 +54,12 @@
 			// set color picker
 			node +=	'<div class="row">' +
 						'<div class="gcviz-draw-cholder span5">' +
-							'<button class="gcviz-draw-black" tabindex="0" data-bind="click: function() { selectColorClick(\'black\') }, tooltip: { content: tpBlack }, css: {\'gcviz-draw-pickblack\': selectedColor() === \'black\' }"></button>' +
-							'<button class="gcviz-draw-blue" tabindex="0" data-bind="click: function() { selectColorClick(\'blue\') }, tooltip: { content: tpBlue }, css: {\'gcviz-draw-pickblue\': selectedColor() === \'blue\' }"></button>' +
-							'<button class="gcviz-draw-green" tabindex="0" data-bind="click: function() { selectColorClick(\'green\') }, tooltip: { content: tpGreen }, css: {\'gcviz-draw-pickgreen\': selectedColor() === \'green\' }"></button>' +
-							'<button class="gcviz-draw-red" tabindex="0" data-bind="click: function() { selectColorClick(\'red\') }, tooltip: { content: tpRed }, css: {\'gcviz-draw-pickred\': selectedColor() === \'red\' }"></button>' +
-							'<button class="gcviz-draw-yellow" tabindex="0" data-bind="click: function() { selectColorClick(\'yellow\') }, tooltip: { content: tpYellow }, css: {\'gcviz-draw-pickyellow\': selectedColor() === \'yellow\' }"></button>' +
-							'<button class="gcviz-draw-white" tabindex="0" data-bind="click: function() { selectColorClick(\'white\') }, tooltip: { content: tpWhite }, css: {\'gcviz-draw-pickwhite\': selectedColor() === \'white\' }"></button>' +
+							'<button class="gcviz-draw-black" tabindex="0" data-bind="click: function() { selectColorClick(\'black\') }, attr: { title: tpBlack }, css: {\'gcviz-draw-pickblack\': selectedColor() === \'black\' }"></button>' +
+							'<button class="gcviz-draw-blue" tabindex="0" data-bind="click: function() { selectColorClick(\'blue\') }, attr: { title: tpBlue }, css: {\'gcviz-draw-pickblue\': selectedColor() === \'blue\' }"></button>' +
+							'<button class="gcviz-draw-green" tabindex="0" data-bind="click: function() { selectColorClick(\'green\') }, attr: { title: tpGreen }, css: {\'gcviz-draw-pickgreen\': selectedColor() === \'green\' }"></button>' +
+							'<button class="gcviz-draw-red" tabindex="0" data-bind="click: function() { selectColorClick(\'red\') }, attr: { title: tpRed }, css: {\'gcviz-draw-pickred\': selectedColor() === \'red\' }"></button>' +
+							'<button class="gcviz-draw-yellow" tabindex="0" data-bind="click: function() { selectColorClick(\'yellow\') }, attr: { title: tpYellow }, css: {\'gcviz-draw-pickyellow\': selectedColor() === \'yellow\' }"></button>' +
+							'<button class="gcviz-draw-white" tabindex="0" data-bind="click: function() { selectColorClick(\'white\') }, attr: { title: tpWhite }, css: {\'gcviz-draw-pickwhite\': selectedColor() === \'white\' }"></button>' +
 						'</div>' +
 						'<div class="span7">' +
 							'<span class="gcviz-colorspanlabel" data-bind="text: lblColor"></span>' +
@@ -132,7 +134,7 @@
 				// add buttons
 				// add measure line button
 				if (measLine) {
-					node += '<button class="gcviz-draw-length" tabindex="0" data-bind="buttonBlur, click: measureLengthClick, tooltip: { content: tpMeasureLength }"></button>';
+					node += '<button class="gcviz-draw-length" tabindex="0" data-bind="buttonBlur, click: measureLengthClick, attr: { title: tpMeasureLength }"></button>';
 
 					// if there is second button, add a separator
 					if (measArea) {
@@ -142,7 +144,7 @@
 
 				// add measure area button
 				if (measArea) {
-					node += '<button class="gcviz-draw-area" tabindex="0" data-bind="buttonBlur, click: measureAreaClick, tooltip: { content: tpMeasureArea }"></button>';
+					node += '<button class="gcviz-draw-area" tabindex="0" data-bind="buttonBlur, click: measureAreaClick, attr: { title: tpMeasureArea }"></button>';
 				}
 
 				// close the span for buttons
@@ -183,7 +185,7 @@
 				// add buttons
 				// add draw line button
 				if (drawLine) {
-					node += '<button class="gcviz-draw-line" tabindex="0" data-bind="buttonBlur, click: drawClick, tooltip: { content: tpDraw }"></button>';
+					node += '<button class="gcviz-draw-line" tabindex="0" data-bind="buttonBlur, click: drawClick, attr: { title: tpDraw }"></button>';
 
 					// if there is second button, add a separator
 					if (drawText) {
@@ -193,7 +195,7 @@
 
 				// add draw text button
 				if (drawText) {
-					node += '<button class="gcviz-draw-text" tabindex="0" data-bind="buttonBlur, click: textClick, tooltip: { content: tpText }"></button>';
+					node += '<button class="gcviz-draw-text" tabindex="0" data-bind="buttonBlur, click: textClick, attr: { title: tpText }"></button>';
 				}
 
 				// close the span for buttons
@@ -213,8 +215,7 @@
 				node += '<div data-bind="uiDialog: { title: $root.lblTextTitle, width: 450, height: 220, ok: $root.dialogTextOk, cancel: $root.dialogTextCancel, close: $root.dialogTextClose, openDialog: \'isTextDialogOpen\' }">' +
 							'<div id="gcviz-draw-inputbox">' +
 								'<form><fieldset>' +
-									'<label for="gcviz-textvalue" class="gcviz-label" data-bind="text: lblTextDesc"></label>' +
-									'<input id="gcviz-textvalue" class="text ui-widget-content ui-corner-all" data-bind="value: drawTextValue, valueUpdate: \'afterkeydown\', returnKey: dialogTextOkEnter"/>' +
+									'<input id="gcviz-textvalue" class="gcviz-draw-textinput text ui-widget-content ui-corner-all" data-bind="value: drawTextValue, valueUpdate: \'afterkeydown\', returnKey: dialogTextOkEnter, attr: { title: lblTextDesc }"/>' +
 									'<div style="clear: both"></div><span data-bind="text: lblTextInfo"></span>' +
 								'</fieldset></form>' +
 							'</div>' +
@@ -229,9 +230,9 @@
 			var node = '<div class="row"><div class="span4">' +
 
 					// add erase all and erase selected buttons
-					'<button class="gcviz-draw-del" tabindex="0" data-bind="buttonBlur, click: eraseClick, tooltip: { content: tpErase }, enable: isGraphics"></button>' +
+					'<button class="gcviz-draw-del" tabindex="0" data-bind="buttonBlur, click: eraseClick, attr: { title: tpErase }, enable: isGraphics"></button>' +
 					'<div class="gcviz-tbseparator"></div>' +
-					'<button class="gcviz-draw-delsel" tabindex="0" data-bind="buttonBlur, click: eraseSelClick, tooltip: { content: tpEraseSel }, enable: isGraphics() && !isWCAG()"></button>' +
+					'<button class="gcviz-draw-delsel" tabindex="0" data-bind="buttonBlur, click: eraseSelClick, attr: { title: tpEraseSel }, enable: isGraphics() && !isWCAG()"></button>' +
 
 				// close the span for buttons
 				'</div>' +
@@ -252,9 +253,9 @@
 			var node = '<div class="row"><div class="span4">' +
 
 					// add erase all and erase selected buttons
-					'<button class="gcviz-draw-undo" tabindex="0" data-bind="buttonBlur, click: undoClick, tooltip: { content: tpUndo }, enable: stackUndo().length > 0"></button>' +
+					'<button class="gcviz-draw-undo" tabindex="0" data-bind="buttonBlur, click: undoClick, attr: { title: tpUndo }, enable: stackUndo().length > 0"></button>' +
 					'<div class="gcviz-tbseparator"></div>' +
-					'<button class="gcviz-draw-redo" tabindex="0" data-bind="buttonBlur, click: redoClick, tooltip: { content: tpRedo }, enable: stackRedo().length > 0"></button>' +
+					'<button class="gcviz-draw-redo" tabindex="0" data-bind="buttonBlur, click: redoClick, attr: { title: tpRedo }, enable: stackRedo().length > 0"></button>' +
 
 				// close the span for buttons
 				'</div>' +
@@ -279,9 +280,9 @@
 
 						// add import and export buttons
 						'<input id="fileDialogAnno" type="file" accept="application/json" data-bind="event: { change: importClick }" tabindex="-1"></input>' +
-						'<button class="gcviz-draw-imp" tabindex="0" data-bind="buttonBlur, click: launchDialog, tooltip: { content: tpImport }"></button>' +
+						'<button class="gcviz-draw-imp" tabindex="0" data-bind="buttonBlur, click: launchDialog, attr: { title: tpImport }"></button>' +
 						'<div class="gcviz-tbseparator"></div>' +
-						'<button class="gcviz-draw-exp" tabindex="0" data-bind="buttonBlur, click: exportClick, tooltip: { content: tpExport }, enable: isGraphics"></button>' +
+						'<button class="gcviz-draw-exp" tabindex="0" data-bind="buttonBlur, click: exportClick, attr: { title: tpExport }, enable: isGraphics"></button>' +
 
 					// close the span for buttons
 					'</div>' +

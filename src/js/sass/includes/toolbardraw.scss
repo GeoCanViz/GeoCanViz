@@ -4,6 +4,10 @@
   background: url($img-spritebtn) $x + px -85 + px no-repeat;
 }
 
+.gcviz-draw-textinput {
+	width: 95%;
+}
+
 // content height is static so remove the overflow
 .gcviz-tbdraw-content {
 	overflow-x: initial!important;
@@ -11,12 +15,12 @@
 
 .gcviz-colorspanlabel {
 	@include app-text();
-	line-height: 2.5;
+	line-height: 2;
 }
 
 .gcviz-drawspanlabel {
 	@include app-text();
-	line-height: 3.5;
+	line-height: 2.5;
 }
 
 // the color picker holder
@@ -29,6 +33,7 @@
 .gcviz-draw-lbladd {
 	margin-top: (0.6 * $rembase) + rem;
 }
+
 // buttons
 .gcviz-draw-black {
 	@include sprite($img-spritebtn, -289, -14, 2);

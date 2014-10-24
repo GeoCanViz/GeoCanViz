@@ -16,7 +16,7 @@
             'gcviz-gisnav',
             'dijit/registry',
             'gcviz-vm-help'
-	], function($viz, ko, i18n, gcvizFunc, gisgeo, gisnav, dijit, helpVM) {
+	], function($viz, ko, i18n, gcvizFunc, gisGeo, gisNav, dijit, helpVM) {
 		var initialize,
 			calcDDtoDMS,
 			getDMS,
@@ -30,13 +30,13 @@
 					ovMapWidget,
 					clickPosition,
 					overview = config.overview,
-					scalebar = config.scalebar,
 					scaledisplay = config.scaledisplay,
 					position = config.position,
                     pathHelpBubble = locationPath + 'gcviz/images/helpBubble.png',
                     inMapField = $viz('#inGeoLocation' + mapid),
                     btnClickMap = $viz('#btnClickMap' + mapid),
                     $container = $viz('#' + mapid + '_holder_layers'),
+                    $ovMap = $viz('#ovmapcont' + mapid),
 					mymap = gcvizFunc.getElemValueVM(mapid, ['map', 'map'], 'js'),
                     autoCompleteArray = [ { minx: 0 , miny: 0, maxx: 0, maxy: 0, title: 'ddd' } ];
 
@@ -84,9 +84,9 @@
                 _self.tpMagnify = i18n.getDict('%toolbarnav-magnify');
                 _self.tpOverview = i18n.getDict('%toolbarnav-ovdrag');
                 _self.lblWest = i18n.getDict('%west');
-                _self.ScaleLabel = i18n.getDict('%toolbarnav-scale');
-                _self.ScaleDisplayLabel = i18n.getDict('%toolbarnav-lblscaledisplay');
                 _self.lblLocTitle = i18n.getDict('%toolbarnav-info');
+				_self.lblScale = ko.observable(i18n.getDict('%toolbarnav-scale'));
+				_self.ScaleLabel = _self.lblScale();
 
 				// WCAG
 				_self.WCAGTitle = i18n.getDict('%wcag-title');
@@ -107,9 +107,6 @@
 				// overviewmap checked to see if user wants it on map
 				_self.isOVShowMap = ko.observable(false);
 
-				// scalebar and scale checked to see if user wants it on map
-				_self.isScaleShowMap = ko.observable(false);
-
                 // observables for localisation info window
                 _self.infoLatDD = ko.observable();
                 _self.infoLatDMS = ko.observable();
@@ -121,7 +118,6 @@
                 _self.spnUTMzone = ko.observable();
                 _self.spnUTMeast = ko.observable();
                 _self.spnUTMnorth = ko.observable();
-                _self.lblScale = ko.observable(i18n.getDict('%toolbarnav-scale'));
 				_self.isLocDialogOpen = ko.observable(false);
 
 				// url for position info box
@@ -129,7 +125,7 @@
 				_self.urlUTM = i18n.getDict('%gisurlutm');
 
 				// projection objects
-				_self.outSR = gisgeo.getOutSR(config.mapwkid);
+				_self.outSR = gisGeo.getOutSR(config.mapwkid);
 
 				// set active tool
 				_self.activeTool = ko.observable('');
@@ -147,12 +143,7 @@
 
                     // See if user wanted an overview map. If so, initialize it here
                     if (overview.enable) {
-						ovMapWidget = gisnav.setOverview(mymap, overview);
-                    }
-
-                    // See if user wanted a scalebar. If so, initialize it here
-                    if (scalebar.enable) {
-						gisnav.setScaleBar(mymap, scalebar);
+						ovMapWidget = gisNav.setOverview(mymap, overview);
                     }
 
                     if (scaledisplay.enable) {
@@ -267,7 +258,7 @@
 						for (var i=0; i<autoCompleteArray.length; i++) {
 							var acai = autoCompleteArray[i];
 							if (ui.item.label === acai.title) {
-								gisgeo.zoomLocation(acai.minx, acai.miny, acai.maxx, acai.maxy, mymap, _self.outSR);
+								gisGeo.zoomLocation(acai.minx, acai.miny, acai.maxx, acai.maxy, mymap, _self.outSR);
 							}
 						}
 						// Reset the array
@@ -300,7 +291,7 @@
 
 						// Get user to click on map and capture event
 						clickPosition = mymap.on('click', function(event) {
-							gisgeo.projectPoints([event.mapPoint], 4326, _self.displayInfo);
+							gisGeo.projectPoints([event.mapPoint], 4326, _self.displayInfo);
 						});
 					} else {
 						_self.isDialogWCAG(true);
@@ -318,7 +309,7 @@
 					var x = _self.xValue() * -1,
 						y = _self.yValue();
 
-					gisgeo.projectCoords([[x, y]], 4326, _self.displayInfo);
+					gisGeo.projectCoords([[x, y]], 4326, _self.displayInfo);
 					_self.isDialogWCAG(false);
 					_self.wcagok = true;
                 };
@@ -355,18 +346,18 @@
                     _self.infoLongDMS(' ' + DMS.longitude.format);
 
                     // Get the NTS location using a deferred object and listen for completion
-                    gisnav.getNTS(lati, longi, _self.urlNTS)
+                    gisNav.getNTS(lati, longi, _self.urlNTS)
                         .done(function(data) {
                             _self.spnNTS(data.nts);
 					});
 
                     // Get the UTM zone information using a deferred object and listen for completion
-                    gisnav.getUTMzone(lati, longi, _self.urlUTM)
+                    gisNav.getUTMzone(lati, longi, _self.urlUTM)
                         .done(function(data) {
                             utmZone = data.zone;
                             _self.spnUTMzone(utmZone);
 
-                           gisgeo.getUTMEastNorth(lati, longi, utmZone, _self.spnUTMeast, _self.spnUTMnorth);
+                           gisGeo.getUTMEastNorth(lati, longi, utmZone, _self.spnUTMeast, _self.spnUTMnorth);
                         });
 
                     // Get the altitude
@@ -399,22 +390,11 @@
 					if (_self.isOVShowMap()) {
 						ovMapWidget[0].show();
 						ovMapWidget[1].hide();
+						$ovMap.removeClass('gcviz-ov-border');
 					} else {
 						ovMapWidget[1].show();
 						ovMapWidget[0].hide();
-					}
-
-					return true;
-				};
-
-				_self.showScaleMap = function() {
-					// move content from tools to footer
-					if (_self.isScaleShowMap()) {
-						$viz('#scalemap' + mapid).children().detach().appendTo('#scaletool' + mapid);
-						$viz('#scalebarmap' + mapid).children().detach().appendTo('#scalebartool' + mapid);
-					} else {
-						$viz('#scaletool' + mapid).children().detach().appendTo('#scalemap' + mapid);
-						$viz('#scalebartool' + mapid).children().detach().appendTo('#scalebarmap' + mapid);
+						$ovMap.addClass('gcviz-ov-border');
 					}
 
 					return true;

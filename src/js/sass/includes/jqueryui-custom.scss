@@ -242,7 +242,7 @@ button.ui-button::-moz-focus-inner {
 	font-size: 1em;
 }
 .ui-widget-content {
-	border: 1px solid #666666;
+	border: 1px solid #BDB9B9;
 	background: #fff;
 	color: #000;
 	margin-top: .5em;
@@ -265,7 +265,7 @@ button.ui-button::-moz-focus-inner {
 .ui-state-default,
 .ui-widget-content .ui-state-default,
 .ui-widget-header .ui-state-default {
-	border: 2px solid #666666;
+	border: 2px solid #b1afab;
 	// gcviz remove
 	//background: #555555 url(images/ui-bg_glass_20_555555_1x400.png) 50% 50% repeat-x;
 	color: #000; // set black
@@ -283,7 +283,7 @@ button.ui-button::-moz-focus-inner {
 .ui-widget-content .ui-state-focus,
 .ui-widget-header .ui-state-focus {
   border: 2px solid #ff6600!important;
-  background: #fff;
+  background: #fafaf5;
   color: #000;
 }
 .ui-state-hover a,

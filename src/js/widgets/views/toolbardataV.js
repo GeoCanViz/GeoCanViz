@@ -36,12 +36,14 @@
 			$toolbar = $mapElem.find('.gcviz-tbdata-content');
 
 			// contextual help
-			node += '<label class="gcviz-help-bubbledesc" for="tbdata' + mapid + '" data-bind="contextHelp: { text: helpDesc, alt: helpAlt, img: imgHelpBubble, id: \'tbdata' + mapid + '\' }"></label>';
+			node += '<div class="row">' +
+						'<label class="gcviz-help-bubbledesc" for="tbdata' + mapid + '" data-bind="contextHelp: { text: helpDesc, alt: helpAlt, img: imgHelpBubble, id: \'tbdata' + mapid + '\' }"></label>' +
+					'</div>';
 
 			// set add data button
 			if (config.data.enable) {
 				node += '<input id="fileDialogData" type="file" accept=".csv" data-bind="event: { change: addClick }" tabindex="-1"></input>' +
-						'<button class="gcviz-data-add" tabindex="0" data-bind="buttonBlur, click: launchDialog, tooltip: { content: tpAdd }"></button>';
+						'<button class="gcviz-data-add" tabindex="0" data-bind="buttonBlur, click: launchDialog, attr: { title: tpAdd }"></button>';
 			}
 
 			// set legend and template for recursive item loading

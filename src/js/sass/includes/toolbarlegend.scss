@@ -56,21 +56,10 @@
   cursor: pointer;
 }
 
-// base maps group
-.gcviz-leg-baseb {
-	@include app-border(0.1, solid, $lightgrey);
-  @include content-border-radius();
-  margin-top: (1.5 * $rembase) + rem;
-  margin-right: (1 * $rembase) + rem;
-  margin-bottom: (1 * $rembase) + rem;
-  padding-bottom: (1 * $rembase) + rem;
-}
-
-.gcviz-leg-baset {
-  position: relative;
-  top: (-0.75 * $rembase) + rem;
-  left: (1.5 * $rembase) + rem;
-  background-color: $lightyellow;
+// base and theme maps group
+.gcviz-leg-theme {
+  margin-top: (0.75 * $rembase) + rem;
+  @include app-text(1.2, bold);
 }
 
 // item
@@ -104,28 +93,29 @@
 // layer title define by level of deepness
 .gcviz-leg-span1 {
 	@extend %legspan;
-	@include app-text(1.2, bold);
+	@include app-text(1.1, bold);
 }
 
 .gcviz-leg-span2 {
 	@extend %legspan;
-	@include app-text(1.2, normal, $black, italic);
+	@include app-text(1.1, normal);
 }
 
 .gcviz-leg-span3 {
 	@extend %legspan;
-	@include app-text(1.2, normal, $black);
+	@include app-text(1, normal);
 }
 
 .gcviz-leg-span4 {
 	@extend %legspan;
-	@include app-text(1.2, normal, $grey);
+	@include app-text(1, normal);
 }
 
 .gcviz-legendSymbolDiv {
 	vertical-align: middle;
 	padding-left: (1.5 * $rembase) + rem;
 	border: (1 * $rembase) + rem;
+	@include app-text(1, normal);
 }
 
 .gcviz-leg-uniqueSymbolHolder {
