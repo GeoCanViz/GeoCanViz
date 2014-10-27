@@ -25,7 +25,6 @@
   	@include app-text(1.2, normal, $black);
     margin-top: (1 * $rembase) + rem;
     float: right;
-    width: (28 * $rembase) + rem;
   }
   
 	.gcviz-foot-arrow {
@@ -33,24 +32,16 @@
   }
 }
 
+// the header button sprite (need to use background-position because FF is not able to set x and y)
+.gcviz-foot-data {
+	@include sprite($img-spritebtn, -976, -2);
+	margin-top: (0.4 * $rembase) + rem;
+}
+
 .gcviz-foot-logo {
   float: left;
   margin-left: (0.5 * $rembase) + rem;
 	margin-top: (0.25 * $rembase) + rem;
-}
-
-.gcviz-foot-arrow {
-	@extend %arrow
-}
-
-.gcviz-foot-scaleApprox {
-  @include app-text(0.75);
-  margin-top: (0.3 * $rembase) + rem;
-}
-
-.gcviz-foot-scalebar {
-  display: inline-block;
-  margin-left: 46.5%;
 }
 
 /* Classes from esri.css for scalebar */

@@ -97,14 +97,15 @@
 
 						// closure to capture the file information and launch the process
 						reader.onload = function() {
-							var uuid = gcvizFunc.getUUID();
+							var uuid = gcvizFunc.getUUID(),
+								fileName = reader.fileName;
 
 							// use deffed object to wait for the result	
-							gisData.addCSV(mymap, reader.result, uuid)
+							gisData.addCSV(mymap, reader.result, uuid, fileName)
 								.done(function(data) {
 									if (data === 0) {
 										// add to user array so knockout will generate legend
-										_self.userArray.push({ label: reader.fileName, id: uuid });
+										_self.userArray.push({ label: fileName, id: uuid });
 									} else {
 										_self.isErrDataOpen(true);
 										if (data === 1) {

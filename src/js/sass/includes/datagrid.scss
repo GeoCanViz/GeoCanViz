@@ -1,0 +1,59 @@
+@import "gcviz-mixin";
+
+/* Ensure that the demo table scrolls */
+//    th, td { white-space: nowrap; }
+//    div.dataTables_wrapper {
+//        width: 800px;
+//        margin: 0 auto;
+//    }
+
+
+table.display {
+ //margin: 0 auto;
+ //width: 100%;
+ //clear: both;
+ table-layout: fixed;
+ word-wrap: break-word;
+}
+
+table.dataTable.no-footer {
+	border-bottom: 0!important;
+}
+
+.gcviz-datagrid {
+	width: 100%;
+	margin-top: (0.2 * $rembase) + rem!important;
+}
+
+.gcviz-datagrid-hold {
+	background: url($img-root + "footGreybar.png") no-repeat!important;
+	background-size: 100% 100%!important;
+	color: #000000!important;
+	border-radius: 0rem!important;
+	padding-top: (0.5 * $rembase) + rem!important;
+	padding-left: (0.5 * $rembase) + rem!important;
+	padding-right: (0.5 * $rembase) + rem!important;
+	padding-bottom: (2 * $rembase) + rem!important;
+}
+
+.gcviz-datagrid-tab {
+	color: #000000!important;
+}
+
+.gcviz-datagrid-ul {
+	background: #929292!important;
+	border: 1px solid #585858!important;
+}
+
+// hide the id row
+.gcviz-dg-id {
+	display: none;
+}
+
+.gcviz-dg-zoomsel {
+	margin: (1 * $rembase) + rem!important;
+}
+
+.gcviz-dg-lblselall {
+	padding-left: (0.5 * $rembase) + rem!important;
+}

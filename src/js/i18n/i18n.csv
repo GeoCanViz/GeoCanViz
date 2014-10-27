@@ -44,7 +44,26 @@ General (i18n)#%all#All#Tous
 #%footer-tpNorth#North arrow#Flèche du nord
 #%footer-lat#Latitude: #Latitude : 
 #%footer-long#Longitude: #Longitude : 
-#%footer-approx#approximate#approximative
+#%footer-tpdatagrid#Open/Close datagrid#Ouvrir ou fermer le tableau des données
+#%datagrid-processing#Processing...#Traitement en cours...
+#%datagrid-search#Search:#Rechercher&nbsp;:
+#%datagrid-lengthMenu#Show _MENU_ entries#Afficher _MENU_ &eacute;l&eacute;ments
+#%datagrid-info#Showing _START_ to _END_ of _TOTAL_ entries#Affichage de l'&eacute;lement _START_ &agrave; _END_ sur _TOTAL_ &eacute;l&eacute;ments
+#%datagrid-infoEmpty#Showing 0 to 0 of 0 entries#Affichage de l'&eacute;lement 0 &agrave; 0 sur 0 &eacute;l&eacute;ments
+#%datagrid-infoFiltered#(filtered from _MAX_ total entries)#(filtr&eacute; de _MAX_ &eacute;l&eacute;ments au total)
+#%datagrid-infoThousands#,# 
+#%datagrid-infoPostFix# # 
+#%datagrid-loadingRecords#Loading...#Chargement en cours...
+#%datagrid-zeroRecords#No matching records found#Aucun &eacute;l&eacute;ment &agrave; afficher
+#%datagrid-emptyTable#No data available in table#Aucune donnée disponible dans le tableau
+#%datagrid-first#First#Premier
+#%datagrid-previous#Previous#Pr&eacute;c&eacute;dent
+#%datagrid-next#Next#Suivant
+#%datagrid-last#Last#Dernier
+#%datagrid-sortAscending#: activate to sort column ascending#: activer pour trier la colonne par ordre croissant
+#%datagrid-sortDescending#: activate to sort column descending#: activer pour trier la colonne par ordre décroissant
+#%datagrid-selectall#Select All#Sélectionner tout
+#%datagrid-zoomselect#Zoom Selected#Zoom sélectionnés
 #%toolbarholder-caption#Toolbars#Barre d'outils
 #%toolbardraw-alt#Measuring and Drawing Tools - Help#Mesures et outils de dessin - Aide
 #%toolbardraw-desc#Measuring and Drawing Tools - Help#Mesures et outils de dessin - Aide

@@ -8,12 +8,13 @@
 /* global locationPath: false */
 (function() {
 	'use strict';
-	define(['knockout',
+	define(['jquery-private',
+			'knockout',
 			'gcviz-i18n',
 			'gcviz-func',
 			'gcviz-gisgeo',
 			'gcviz-gisnav'
-	], function(ko, i18n, gcvizFunc, gisGeo, gisNav) {
+	], function($viz, ko, i18n, gcvizFunc, gisGeo, gisNav) {
 		var initialize,
 			vm;
 
@@ -41,11 +42,15 @@
                 _self.lblWest = i18n.getDict('%west');
                 _self.lblLong = i18n.getDict('%footer-long');
                 _self.lblLat = i18n.getDict('%footer-lat');
-                _self.lblApprox = i18n.getDict('%footer-approx');
+				_self.tpDatagrid = i18n.getDict('%footer-tpdatagrid');
 
 				// coords and arrow
 				_self.coords = ko.observable('');
 				_self.rotateArrow = ko.observable('');
+
+				// enable button table (will be set true by datagridVM when
+				// datatable is ready)
+				_self.isTableReady = ko.observable(false);
 
 				_self.init = function() {
 					var mymap = gcvizFunc.getElemValueVM(mapid, ['map', 'map'], 'js');
@@ -125,6 +130,17 @@
 					bearing = ((bearing + 360) % 360).toFixed(1) - 90; //Converting -ve to +ve (0-360)
 
 					_self.rotateArrow('rotate(' + bearing + 'deg)');
+				};
+
+				_self.datagridClick = function() {
+					var $datagrid = $viz('#gcviz-datagrid' + mapid);
+
+					if ($datagrid.accordion('option', 'active') === 0) {
+						$datagrid.accordion({ active: false }).click();
+					} else {
+						$datagrid.accordion({ active: 0 }).click();
+					}
+					 return false;
 				};
 
 				_self.goGitHub = function(data, event) {

@@ -19,7 +19,9 @@
 			destroyProgressBar,
 			checkMatch,
 			getRandomColor,
+			getArrayLen,
 			getElemValueVM,
+			setElemValueVM,
 			setVM,
 			getTextWidth,
 			focusMap,
@@ -137,6 +139,17 @@
 			return [c(), c(), c() ,255];
 		};
 
+		getArrayLen = function(len) {
+			var arr = [];
+			
+			len += 1;
+			while (len--) {
+				arr.push(len);
+			}
+			
+			return arr;
+		};
+
 		getElemValueVM = function(name, elements, type) {
 			var val,
 				len = elements.length;
@@ -153,6 +166,10 @@
 				val = val();
 			}
 			return val;
+		};
+
+		setElemValueVM = function(vm, name, element, val) {
+			return vmObject[vm][name][element](val);
 		};
 
 		setVM = function(name, vm) {
@@ -186,7 +203,9 @@
 			destroyProgressBar: destroyProgressBar,
 			checkMatch: checkMatch,
 			getRandomColor: getRandomColor,
+			getArrayLen: getArrayLen,
 			getElemValueVM: getElemValueVM,
+			setElemValueVM: setElemValueVM,
 			setVM: setVM,
 			getTextWidth: getTextWidth,
 			focusMap: focusMap

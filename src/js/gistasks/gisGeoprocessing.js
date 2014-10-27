@@ -25,7 +25,10 @@
 			zoomLocation,
 			projectPoints,
 			projectCoords,
+			projectGeoms,
 			getUTMEastNorth,
+			attributes = [,],
+
 			params = new esriProj();
 
 		setGeomServ = function(url) {
@@ -164,6 +167,39 @@
 			projectPoints(points, outwkid, success);
 		};
 
+		projectGeoms = function(geometries, outwkid, success) {
+			var geomServUnique = new esriGeom(esriConfig.defaults.io.geometryService.url),
+				paramsUnique = new esriProj();
+
+			paramsUnique.geometries = geometries;
+			paramsUnique.outSR = new esriSR({ 'wkid': outwkid });
+
+			// keep geometries in an array to be able to access them later.
+			// we need to do this because the projection remove all attributes from the item
+			geomServUnique.geom = geometries;
+			
+			// we use a unique geometryService because large dataset will overlap project method
+			// and geometryService info will be wrong. We use the project-complete instead of the
+			// callback because we have more info this way. We will be able to link back to the
+			// geometries original attributes.
+			geomServUnique.on('project-complete', function(projected) {
+				var feat, features = [],
+					geom = projected.target.geom,
+					len = geom.length;
+
+				// put back the attributes
+				while (len--) {
+					feat = {};
+					feat = geom[len].attributes;
+					feat.geometry = projected.geometries[len];
+					features.push(feat);
+				}
+				success(features.reverse());
+			});
+
+			geomServUnique.project(paramsUnique);
+		};
+
 		getUTMEastNorth = function(lati, longi, utmZone, spnUTMeast, spnUTMnorth) {
 			// Get the UTM easting/northing information using a geometry service
 			var geomServ = esriConfig.defaults.io.geometryService,
@@ -193,6 +229,7 @@
             zoomLocation: zoomLocation,
 			projectPoints: projectPoints,
 			projectCoords: projectCoords,
+			projectGeoms: projectGeoms,
 			getUTMEastNorth: getUTMEastNorth
 		};
 	});

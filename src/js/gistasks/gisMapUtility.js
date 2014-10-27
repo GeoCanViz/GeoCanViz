@@ -424,11 +424,6 @@
 				}
 
 				pt = new esriPoint(geom.x, geom.y, map.vWkid);
-
-				// in version 3.10 we can't do centerAndZoom because the second time we use it
-				// we have "undefined is not a function" error.
-				// For this reason we stay at 3.9
-				// TODO: test often to see if it is solve...
 				map.centerAndZoom(pt, factor);
 			} else {
 				map.setExtent(feature._extent.expand(1.5));

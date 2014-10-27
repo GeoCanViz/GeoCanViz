@@ -204,7 +204,7 @@
 						height =  (h - (2 * _self.headerHeight) - 32); // 32 is the keyboard instruction height
 
 					// set style for the map
-					gcvizFunc.setStyle($section[0], { 'width': screen.width + 'px', 'height': screen.height + 'px' });
+					gcvizFunc.setStyle($section[0], { 'width': screen.width + 'px', 'height': '100%' });
 					gcvizFunc.setStyle($mapholder[0], { 'width': w + 'px', 'height': h + 'px' });
 					gcvizFunc.setStyle($map[0], { 'width': w + 'px', 'height': height + 'px' });
 					gcvizFunc.setStyle($maproot[0], { 'width': w + 'px', 'height': height + 'px' });

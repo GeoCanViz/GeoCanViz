@@ -1,0 +1,64 @@
+{"gcviz": {"mapframe": {"size": {"height": 500,"width": 1000},"map": {"urlgeomserv": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/Utilities/Geometry/GeometryServer","urlproxy": "http://localhost:8888/php/proxy.php","urldownload": "http://localhost:8888/php/download.php","sr": {"wkid": 3978},"extentmax": {"xmin": 285943.61143,"ymin": -939879.94851,"xmax": 2667198.37394,"ymax": 647623.2265},"extentinit": {"xmin": 1370441.55201,"ymin": -271020.01467,"xmax": 1656192.12351,"ymax": -80519.63367},"lods": {"enable": false,"values": [{"level":0,"resolution":38364.660062653464,"scale":145000000,"check":true},{"level":1,"resolution":22489.62831258996,"scale":85000000,"check":true},{"level":2,"resolution":13229.193125052918,"scale":50000000,"check":true},{"level":3,"resolution":7937.5158750317505,"scale":30000000,"check":true},{"level":4,"resolution":4630.2175937685215,"scale":17500000,"check":true},{"level":5,"resolution":2645.8386250105837,"scale":10000000,"check":true},{"level":6,"resolution":1587.5031750063501,"scale":6000000,"check":true},{"level":7,"resolution":926.0435187537042,"scale":3500000,"check":true},{"level":8,"resolution":529.1677250021168,"scale":2000000,"check":true},{"level":9,"resolution":317.50063500127004,"scale":1200000,"check":true},{"level":10,"resolution":185.20870375074085,"scale":700000,"check":true},{"level":11,"resolution":111.12522225044451,"scale":420000,"check":true},{"level":12,"resolution":66.1459656252646,"scale":250000,"check":true},{"level":13,"resolution":38.36466006265346,"scale":145000,"check":true},{"level":14,"resolution":22.48962831258996,"scale":85000,"check":true},{"level":15,"resolution":13.229193125052918,"scale":50000,"check":true},{"level":16,"resolution":7.9375158750317505,"scale":30000,"check":true},{"level":17,"resolution":4.6302175937685215,"scale":17500,"check":true}]},
+"link": false,
+"zoombar": {"bar": true, "zoom": true},
+"bases": [{"label":"CBCT3978","id":"380a923d-466f-4e97-88af-7e6d66f2570a","type":2,"url":"http://geoappext.nrcan.gc.ca/arcgis/rest/services/BaseMaps/CBCT3978/MapServer", "scale":{"min":0,"max":0}}],
+"layers": [{"label":"GMRC","id":"6f798c6b-0001-4e24-78dd-9bfa5a9bc59e","type":4,"url":"http://geoappext.nrcan.gc.ca/arcgis/rest/services/MMS/GMRC_E/MapServer/","scale":{"min":0,"max":0},"cluster":{"enable":false,"distance":50,"label":false,"symbol":true,"maxsizeprop":50,"maxdataprop":1000}},
+{"label":"Geochronology***Geochronology Géochronologie","id":"6f798c6b-f369-4e24-78dd-9bfa5a9bc59e","type":4,"url":"http://geoappext.nrcan.gc.ca/arcgis/rest/services/GSCC/Geochronology/MapServer/","scale":{"min":0,"max":0},"cluster":{"enable":true,"distance":50,"label":false,"symbol":true,"maxsizeprop":50,"maxdataprop":1000}},
+{"label":"Line","id":"6f798c6b-aaa2-4e24-78dd-9bfa5a9bc59e","type":5,"url":"http://geoappext.nrcan.gc.ca/arcgis/rest/services/GSCA/basin_e/MapServer/11","scale":{"min":0,"max":0},"cluster":{"enable":false,"distance":50,"label":false,"symbol":true,"maxsizeprop":50,"maxdataprop":1000}},
+{"label":"dynamic","id":"6f798c6b-aaa4-4e24-78dd-9bfa5a9bc59e","type":4,"url":"http://geoappext.nrcan.gc.ca/arcgis/rest/services/MMS/PM_E/MapServer/","scale":{"min":0,"max":0},"cluster":{"enable":false,"distance":50,"label":false,"symbol":true,"maxsizeprop":50,"maxdataprop":1000}},
+{"label":"linktable","id":"6f798c6b-aaa5-4e24-78dd-9bfa5a9bc59e","type":5,"url":"http://s-bsc-geoappint.nrn.nrcan.gc.ca/arcgis/rest/services/Test/msMiningAgree/MapServer/0","scale":{"min":0,"max":0},"cluster":{"enable":false,"distance":50,"label":false,"symbol":true,"maxsizeprop":50,"maxdataprop":1000}}
+]}},
+"header": {"side": 2, "title": {"value": "My Sample Map","alttext": ""},"tools": { "enable": true, "expand": true},"link": false,"inset": false,"about": {"enable": true,"type": 1,"value": "This is a map about"},"print": {"enable": true,"type": 1},"fullscreen": true},
+"footer": {"northarrow": {"enable": true,"inwkid": 3978},"mousecoords": {"enable": true,"outwkid": 4326},"scalebar": {"enable": true,"unit": 1},"datatable": {"direction": "in"}, "logo": false},
+"toolbarlegend": {"enable": true,"expand": false,
+"basemaps": [
+	{"expand":false,"last":true,"type":2,"id":"380a923d-466f-4e97-88af-7e6d66f2570a","graphid":"93fa722d-8208-95c3-a64a-5d63ac4b5216","displayfields":false,
+	"label":{"value":"CBCT3978","alttext":"CBCT3978"},
+	"metadata":{"enable":false},
+	"opacity":{"enable":false,"min":0,"max":1,"initstate":1},
+	"visibility":{"enable":true,"initstate":true,"type":1,"val":"checkbox","radioid":0},
+	"displaychild":{"enable":true,"symbol":"{\"type\":\"simple\",\"symbol\":{\"type\":\"esriSFS\",\"style\":\"esriSFSSolid\",\"color\":[0,0,0,0],\"outline\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[0,0,0,0],\"width\":0.4}},\"label\":\"\",\"description\":\"\"}"},
+	"customimage":{"enable":false},
+	"items":[]}],
+	"items": [
+		{"expand":false,"last":false,"type":4,"id":"6f798c6b-0001-4e24-78dd-9bfa5a9bc59e","graphid":"68865be1-0001-7faf-9521-029baa08899a","displayfields":false,"label":{"value":"GMRC","alttext":"Geochronology Cluster"},"metadata":{"enable":false},"opacity":{"enable":true,"min":0,"max":1,"initstate":0.25},"visibility":{"enable":true,"initstate":false,"type":1,"radioid":0},"displaychild":{"enable":true},"customimage":{"enable":false},"items":[]},
+		{"expand":false,"last":false,"type":4,"id":"6f798c6b-f369-4e24-78dd-9bfa5a9bc59e","graphid":"68865be1-057c-7faf-9521-029baa08899a","displayfields":false,"label":{"value":"Geochronology","alttext":"Geochronology Cluster"},"metadata":{"enable":false},"opacity":{"enable":false,"min":0,"max":1,"initstate":1},"visibility":{"enable":true,"initstate":false,"type":1,"radioid":0},"displaychild":{"enable":true},"customimage":{"enable":false},"items":[]},
+		{"expand":false,"last":false,"type":5,"id":"6f798c6b-aaa1-4e24-78dd-9bfa5a9bc59e","graphid":"68865be1-aaa1-7faf-9521-029baa08899a","displayfields":false,"label":{"value":"Point","alttext":"Geochronology Cluster"},"metadata":{"enable":false},"opacity":{"enable":true,"min":0,"max":1,"initstate":1},"visibility":{"enable":true,"initstate":true,"type":1,"radioid":0},"displaychild":{"enable":true},"customimage":{"enable":false},"items":[]},
+		{"expand":false,"last":false,"type":5,"id":"6f798c6b-aaa2-4e24-78dd-9bfa5a9bc59e","graphid":"68865be1-aaa2-7faf-9521-029baa08899a","displayfields":false,"label":{"value":"Line","alttext":"Geochronology Cluster"},"metadata":{"enable":false},"opacity":{"enable":true,"min":0,"max":1,"initstate":1},"visibility":{"enable":true,"initstate":true,"type":1,"radioid":0},"displaychild":{"enable":true},"customimage":{"enable":false},"items":[]},
+		{"expand":false,"last":false,"type":5,"id":"6f798c6b-aaa3-4e24-78dd-9bfa5a9bc59e","graphid":"68865be1-aaa3-7faf-9521-029baa08899a","displayfields":false,"label":{"value":"Polygon","alttext":"Geochronology Cluster"},"metadata":{"enable":false},"opacity":{"enable":true,"min":0,"max":1,"initstate":1},"visibility":{"enable":true,"initstate":true,"type":1,"radioid":0},"displaychild":{"enable":true},"customimage":{"enable":false},"items":[]}
+]},
+"toolbardraw": {"enable": true,"expand": false,"drawline": {"enable": true},"drawtext": {"enable": true},"measureline": {"enable": true,"unit": 1},"measurearea": {"enable": true,"unit": 1},"importexport": {"enable": true}},
+"toolbarnav": {"enable": true,"expand": false,"mapwkid": 3978,"geolocation": {"enable": true,"type": -1},"scaledisplay": {"enable": true,"format": 1},"overview": {"enable": true,"url": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/BaseMaps/Provinces/MapServer","type": 4},"position": {"enable": true}},
+"toolbardata": {"enable": true,"expand": false,"data": {"enable": true}},"insetframe": {"enable": false},
+"insetframe": {"enable": false},
+"datagrid": {
+	"enable": true,
+	"layers": [
+		{"layerinfo": { "id": "6f798c6b-aaa5-4e24-78dd-9bfa5a9bc59e",
+						"type": 5,
+						"index": 0
+					},
+			"title": "Link",
+			"fields": [
+					{"title": "Prov code", "width": "60px", "data": "PROV_CODE"}
+			],
+			"linktable": {
+						"enable": true,
+						"fields": ["DATE_AGRMT_SIGNED", "AGREEMENTS_STATUS", "AGRMNT_NOTES"],
+						"relationship": 0
+					}	
+		},
+		{"layerinfo": { "id": "6f798c6b-aaa5-4e24-78dd-9bfa5a9bc59e",
+						"type": 5,
+						"index": 0
+					},
+			"title": "Not Link",
+			"fields": [
+					{"title": "Prov code", "width": "60px", "data": "PROV_CODE"}
+			],
+			"linktable": {
+						"enable": false
+					}		
+		}]
+},
+"customwidgets": []}}

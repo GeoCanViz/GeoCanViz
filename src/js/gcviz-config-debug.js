@@ -247,6 +247,10 @@
 				location: locationPath + 'src/js/gistasks',
 				main: 'gisData'
 			}, {
+				name: 'gcviz-gisdatagrid',
+				location: locationPath + 'src/js/gistasks',
+				main: 'gisDatagrid'
+			}, {
 				name: 'gcviz-v-help',
 				location: locationPath + 'src/js/widgets/views',
 				main: 'helpV'
@@ -326,6 +330,14 @@
 				name: 'gcviz-vm-inset',
 				location: locationPath + 'src/js/widgets/viewmodels',
 				main: 'insetVM'
+			}, {
+				name: 'gcviz-v-datagrid',
+				location: locationPath + 'src/js/widgets/views',
+				main: 'datagridV'
+			}, {
+				name: 'gcviz-vm-datagrid',
+				location: locationPath + 'src/js/widgets/viewmodels',
+				main: 'datagridVM'
 			}
 		]
 	});

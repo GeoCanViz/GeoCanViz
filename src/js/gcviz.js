@@ -22,13 +22,14 @@ var locationPath;
 			'gcviz-v-inset',
 			'gcviz-v-help',
 			'gcviz-v-wcag',
+			'gcviz-v-datagrid',
 			'gcviz-v-header',
 			'gcviz-v-footer',
 			'gcviz-v-tbdraw',
 			'gcviz-v-tbnav',
 			'gcviz-v-tblegend',
 			'gcviz-v-tbdata'
-	], function($viz, mp, jqui, i18n, gcvizFunc, map, inset, help, wcag, header, footer, tbdraw, tbnav, tblegend, tbdata) {
+	], function($viz, mp, jqui, i18n, gcvizFunc, map, inset, help, wcag, datagrid, header, footer, tbdraw, tbnav, tblegend, tbdata) {
 		var initialize,
 			readConfig,
 			execConfig,
@@ -116,8 +117,8 @@ var locationPath;
 				width = maxWidth;
 			}
 
-			// create section around map. This way we can bind Knockout to the section
-			$mapElem.wrap('<section id=section' + mapid + ' class="gcviz-section" role="map" style="width:' + width + 'px; height:' + (size.height + 80) + 'px;">');
+			// create section around map. This way we can bind Knockout to the section (height = map + header + footer + wcag)
+			$mapElem.wrap('<section id=section' + mapid + ' class="gcviz-section" role="map" style="width:' + width + 'px; height:' + (size.height + 116) + 'px;">');
 			$mapSection = $viz(document).find('#section' + mapid);
 
 			// extend the section with configuration file info
@@ -137,6 +138,11 @@ var locationPath;
 			// add header and footer
 			vmArray.header = header.initialize($mapSection);
 			vmArray.footer = footer.initialize($mapSection);
+
+			// add datatable, popup and hover
+			if (config.datagrid.enable) {
+				vmArray.datagrid = datagrid.initialize($mapSection);
+			}
 
 			// add draw toolbar
 			if (config.toolbardraw.enable) {

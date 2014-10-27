@@ -24,6 +24,7 @@ div.gcviz-container img {
 	@for $i from 1 through $cols {
 		.span#{$i} {
 			@include cols($i);
+			min-height: 1px; // need this so empty span are taken in consideration
 
 			@for $j from 1 through ($i - 1) {
 				.span#{$j} {
@@ -63,6 +64,7 @@ svg {
 
 .gcviz {
 	position: relative;
+	@include app-border(0.1, solid, #c1c5be);
 }
 
 .gcviz-image-button {
@@ -150,6 +152,7 @@ input[type="file"] {
 	z-index: 750;
 	top: 0;
 	left: 0;
+	overflow: scroll;
 }
 
 .gcviz-float-left {

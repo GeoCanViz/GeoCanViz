@@ -8,7 +8,7 @@
 
 %ovscalemap {
 	position: absolute;
-  bottom: (-4 * $rembase) + rem;
+  bottom: (4 * $rembase) + rem;
   z-index: 30;
 }
 
@@ -61,13 +61,13 @@
 .gcviz-ovmapcontainerl {
   @extend %ovmap;
   @extend %ovscalemap;
-  left: 0rem;
+  left: (0.1 * $rembase) + rem;
 }
 
 .gcviz-ovmapcontainerr {
   @extend %ovmap;
   @extend %ovscalemap;
-  right: 0rem;
+  right: (0.1 * $rembase) + rem;
 }
 
 .gcviz-ov-border {
