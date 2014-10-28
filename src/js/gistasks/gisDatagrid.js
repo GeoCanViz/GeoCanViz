@@ -21,8 +21,11 @@
 			'esri/SpatialReference',
 			'esri/graphic',
 			'esri/request',
-			'esri/tasks/RelationshipQuery'
-	], function($viz, gisMap, gisGeo, gcvizFunc, esriGraphLayer, esriLine, esriFill, esriMarker, esriPoint, esriPoly, esriPolyline, esriSR, esriGraph, esriRequest, esriRelRequest) {
+			'esri/tasks/RelationshipQuery',
+			'dojo/DeferredList',
+			'esri/tasks/IdentifyTask',
+			'esri/tasks/IdentifyParameters'
+	], function($viz, gisMap, gisGeo, gcvizFunc, esriGraphLayer, esriLine, esriFill, esriMarker, esriPoint, esriPoly, esriPolyline, esriSR, esriGraph, esriRequest, esriRelRequest, dojoDefList, esriIdTask, esriIdParams) {
 		var initialize,
 			getData,
 			createDataArray,
@@ -31,13 +34,24 @@
 			zoomFeature,
 			zoomFeatures,
 			selectFeature,
+			selectFeaturePop,
 			unselectFeature,
+			createIdTask,
+			executeIdTask,
+			returnIdResults,
 			wkid,
 			selectLayer,
 			symbPoint,
 			symbLine,
 			symbPoly,
 			mymap,
+			idTask,
+			idTasksArr = [],
+			idTaskIndex = 0,
+			layerIndex,
+			idParams = new esriIdParams(),
+			idFeatures,
+			idRtnFunc,
 			table = 0;
 
 		initialize = function(map) {
@@ -48,9 +62,16 @@
 						'width': 1
 				};
 
-			// add the graphic layers to the map and set global variable
 			wkid = map.vWkid;
 			mymap = map;
+
+			// event and params for identify task
+			idFeatures = mymap.on('click', executeIdTask);
+			idParams.tolerance = 3;
+			idParams.returnGeometry = true;
+			idParams.layerOption = esriIdParams.LAYER_OPTION_VISIBLE; // layer option all
+
+			// add the graphic layers to the map and set global variable
 			mymap.addLayer(new esriGraphLayer({ id: 'gcviz-datagrid' }));
 			selectLayer = map.getLayer('gcviz-datagrid');
 
@@ -248,6 +269,13 @@
 			// add graphic
 			selectLayer.add(graphic);
 		};
+		
+		selectFeaturePop = function(geometry) {
+			var graphic = createGraphic(geometry, 'popup');
+			
+			// add graphic
+			selectLayer.add(graphic);
+		};
 
 		unselectFeature = function(key) {
 			var graphic,
@@ -263,13 +291,62 @@
 			}
 		};
 
+		createIdTask = function(url, index, success) {
+			// set return function
+			idRtnFunc = success;
+
+			// set layer index for identify task parameters
+			layerIndex = index;
+			
+			// create id task
+			idTask = new esriIdTask(url);
+			idTasksArr[idTaskIndex] = idTask;
+			idTaskIndex++;
+		};
+
+		executeIdTask = function(event) {
+			var mapid,
+				i,
+				deferred = [],
+				defList = [],
+				dlTasks,
+				mapid = mymap.vIdName;
+			
+			// identify tasks setup parameters
+			idParams.geometry = event.mapPoint;
+			idParams.mapExtent = mymap.extent;
+			idParams.width = mymap.width;
+			idParams.height = mymap.height;
+			idParams.layerIds = [0]; // TODO le mettre en fonction du task!!!;
+
+			// define all deferred functions
+			for (i = 0; i < idTasksArr.length; i++) {
+				deferred[i] = new dojo.Deferred(); // bug, use the real object instead of AMD because it wont work!!!
+				defList.push(deferred[i]);
+			}
+			dlTasks = new dojoDefList(defList);
+			dlTasks.then(returnIdResults);
+
+			// returnIdentifyResults will be called after all tasks have completed
+			for (i = 0; i < idTasksArr.length; i++) {
+				idTasksArr[i].execute(idParams, deferred[i].callback);
+			}
+		};
+
+		returnIdResults = function(response) {
+			// send the resonse to the calling view model 
+			idRtnFunc(response);
+		};
+
 		return {
 			initialize: initialize,
 			getData: getData,
 			zoomFeature: zoomFeature,
 			zoomFeatures: zoomFeatures,
 			selectFeature: selectFeature,
-			unselectFeature: unselectFeature
+			selectFeaturePop: selectFeaturePop,
+			unselectFeature: unselectFeature,
+			createIdTask: createIdTask
 		};
 	});
 }());

@@ -7,7 +7,6 @@
 //        margin: 0 auto;
 //    }
 
-
 table.display {
  //margin: 0 auto;
  //width: 100%;
@@ -56,4 +55,145 @@ table.dataTable.no-footer {
 
 .gcviz-dg-lblselall {
 	padding-left: (0.5 * $rembase) + rem!important;
+}
+
+
+// Popups
+// TODO CLEAN!!!!!!
+.gcviz-prop {
+  @include app-text(0.9, bold, $black);
+}
+
+.gcviz-val {
+  @include app-text(0.9, normal, $black);
+  padding-top:2px!important;
+}
+
+.gcviz-popup {
+  width: 350px!important;
+  height: 200px!important;
+  overflow-y: none!important;
+}
+
+.gcviz-popup-counter {
+  vertical-align: 40%!important;
+}
+
+.gcviz-popup-select {
+  width: 325px;
+  margin-top:3px;
+  margin-bottom: 0px;
+}
+
+.gcviz-popup-separator {
+  margin-top: 0px!important;
+}
+
+.gcviz-popup-content {
+	max-height: 200px;
+	width: 96%;
+  overflow-y: scroll;
+}
+
+.gcviz-popup-previous {
+  @include sprite($img-spritepopupbtn, -3, -2);
+  margin-top: 2px!important;
+  margin-bottom: 0px!important;
+}
+
+.gcviz-popup-next {
+  @include sprite($img-spritepopupbtn, -39, -2);
+  margin-top: 2px!important;
+  margin-bottom: 0px!important;
+}
+
+.gcviz-popup-close {
+  @include sprite($img-spritepopupbtn, -75, -2);
+  margin-top: 2px!important;
+  margin-bottom: 0px!important;
+}
+
+.gcviz-popup-zoom {
+  @include sprite($img-spritepopupbtn, -109, -2);
+  margin-top: 2px!important;
+  margin-bottom: 0px!important;
+}
+
+
+.infowindow {
+/*  position: relative!important;
+  bottom: 0px!important;
+  left: 0px!important; */
+  width: 350px!important;
+  height: 200px!important;
+}
+
+/* Try changing the location of the popup 
+.esriPopup {
+  position: absolute!important;
+  left: -20px!important;
+  bottom: -20px!important;
+}*/
+/* Remove the pointer */
+.esriPopup .outerPointer {
+  visibility: hidden;
+}
+.esriPopup .pointer {
+  visibility: hidden;
+}
+
+/* Change color of icons in Popups */
+.esriPopup.dark div.titleButton, 
+.esriPopup.dark div.titlePane .title {
+  color: $black!important;
+}
+.esriPopup.dark .titlePane {
+  background-color: $black;
+  background-image: url("/GeoCanViz/gcviz/images/head_grey_bg.png")!important;
+  padding: 8px!important;
+}
+/*
+.esriPopup.dark div.actionsPane .actionsPane {
+  color: $white!important;
+}
+*/
+.esriPopup.dark .actionsPane {
+  color: $black!important;
+  background-color: $palegrey;
+  background-image: url("/GeoCanViz/gcviz/images/footGreybar.png")!important;
+}
+.esriPopup.dark .action {
+  color: $black!important;
+}
+.esriPopup.dark .titlePane, .dj_ie7 .esriPopup.dark .titlePane .title, .esriPopup.dark .contentPane, .esriPopup.dark .actionsPane {
+  width: 350px!important;
+}
+.esriPopup.dark .sizer {
+  width: 350px!important;
+}
+/* Additional customizations */
+.esriPopup.dark .esriPopupWrapper {
+  border: none!important;
+  width: 350px!important;
+  background-color: $black;
+}
+.esriPopup .contentPane {
+  text-align: left!important;
+  background-color: $white!important;
+  max-height: 150px!important;
+  color: $black!important;
+  @include app-text(1.0, bold, $black);
+  width: 325px!important;
+}
+.esriViewPopup .gallery {
+  margin: 0 auto!important;
+}
+.esriPopup {
+  z-index: 999999!important;
+  color: $black!important;
+  background-color: $white!important;
+  width: 350px!important;
+  bottom: 0px!important;
+  left: 15px!important;
+  position: relative!important;
 }

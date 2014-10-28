@@ -3,12 +3,9 @@
 "zoombar": {"bar": true, "zoom": true},
 "bases": [{"label":"CBCT3978","id":"380a923d-466f-4e97-88af-7e6d66f2570a","type":2,"url":"http://geoappext.nrcan.gc.ca/arcgis/rest/services/BaseMaps/CBCT3978/MapServer", "scale":{"min":0,"max":0}}],
 "layers": [{"label":"GMRC","id":"6f798c6b-0001-4e24-78dd-9bfa5a9bc59e","type":4,"url":"http://geoappext.nrcan.gc.ca/arcgis/rest/services/MMS/GMRC_E/MapServer/","scale":{"min":0,"max":0},"cluster":{"enable":false,"distance":50,"label":false,"symbol":true,"maxsizeprop":50,"maxdataprop":1000}},
-{"label":"Geochronology***Geochronology Géochronologie","id":"6f798c6b-f369-4e24-78dd-9bfa5a9bc59e","type":5,"url":"http://geoappext.nrcan.gc.ca/arcgis/rest/services/GSCC/Geochronology/MapServer/0","scale":{"min":0,"max":0},"cluster":{"enable":true,"distance":50,"label":false,"symbol":true,"maxsizeprop":50,"maxdataprop":1000}},
-{"label":"Line","id":"6f798c6b-aaa2-4e24-78dd-9bfa5a9bc59e","type":5,"url":"http://geoappext.nrcan.gc.ca/arcgis/rest/services/GSCA/basin_e/MapServer/11","scale":{"min":0,"max":0},"cluster":{"enable":false,"distance":50,"label":false,"symbol":true,"maxsizeprop":50,"maxdataprop":1000}},
-{"label":"dynamic","id":"6f798c6b-aaa4-4e24-78dd-9bfa5a9bc59e","type":4,"url":"http://geoappext.nrcan.gc.ca/arcgis/rest/services/MMS/PM_E/MapServer/","scale":{"min":0,"max":0},"cluster":{"enable":false,"distance":50,"label":false,"symbol":true,"maxsizeprop":50,"maxdataprop":1000}},
-{"label":"linktable","id":"6f798c6b-aaa5-4e24-78dd-9bfa5a9bc59e","type":5,"url":"http://s-bsc-geoappint.nrn.nrcan.gc.ca/arcgis/rest/services/Test/msMiningAgree/MapServer/0","scale":{"min":0,"max":0},"cluster":{"enable":false,"distance":50,"label":false,"symbol":true,"maxsizeprop":50,"maxdataprop":1000}}
+					 {"label":"Geochron","id":"6f798c6b-f369-4e24-78dd-9bfa5a9bc59e","type":5,"url":"http://geoappext.nrcan.gc.ca/arcgis/rest/services/GSCC/Geochronology/MapServer/0","scale":{"min":0,"max":0},"cluster":{"enable":true,"distance":50,"label":false,"symbol":true,"maxsizeprop":50,"maxdataprop":1000}}
 ]}},
-"header": {"side": 2, "title": {"value": "My Sample Map","alttext": ""},"tools": { "enable": true, "expand": true},"link": false,"inset": false,"about": {"enable": true,"type": 1,"value": "This is a map about"},"print": {"enable": true,"type": 1},"fullscreen": true},
+"header": {"side": 1, "title": {"value": "My Sample Map","alttext": ""},"tools": { "enable": true, "expand": true},"link": false,"inset": false,"about": {"enable": true,"type": 1,"value": "This is a map about"},"print": {"enable": true,"type": 1},"fullscreen": true},
 "footer": {"northarrow": {"enable": true,"inwkid": 3978},"mousecoords": {"enable": true,"outwkid": 4326},"scalebar": {"enable": true,"unit": 1},"datatable": {"direction": "in"}, "logo": false},
 "toolbarlegend": {"enable": true,"expand": false,
 "basemaps": [
@@ -21,11 +18,8 @@
 	"customimage":{"enable":false},
 	"items":[]}],
 	"items": [
-		{"expand":false,"last":false,"type":4,"id":"6f798c6b-0001-4e24-78dd-9bfa5a9bc59e","graphid":"68865be1-0001-7faf-9521-029baa08899a","displayfields":false,"label":{"value":"GMRC","alttext":"Geochronology Cluster"},"metadata":{"enable":false},"opacity":{"enable":true,"min":0,"max":1,"initstate":0.25},"visibility":{"enable":true,"initstate":false,"type":1,"radioid":0},"displaychild":{"enable":true},"customimage":{"enable":false},"items":[]},
-		{"expand":false,"last":false,"type":4,"id":"6f798c6b-f369-4e24-78dd-9bfa5a9bc59e","graphid":"68865be1-057c-7faf-9521-029baa08899a","displayfields":false,"label":{"value":"Geochronology","alttext":"Geochronology Cluster"},"metadata":{"enable":false},"opacity":{"enable":false,"min":0,"max":1,"initstate":1},"visibility":{"enable":true,"initstate":true,"type":1,"radioid":0},"displaychild":{"enable":true},"customimage":{"enable":false},"items":[]},
-		{"expand":false,"last":false,"type":5,"id":"6f798c6b-aaa1-4e24-78dd-9bfa5a9bc59e","graphid":"68865be1-aaa1-7faf-9521-029baa08899a","displayfields":false,"label":{"value":"Point","alttext":"Geochronology Cluster"},"metadata":{"enable":false},"opacity":{"enable":true,"min":0,"max":1,"initstate":1},"visibility":{"enable":true,"initstate":false,"type":1,"radioid":0},"displaychild":{"enable":true},"customimage":{"enable":false},"items":[]},
-		{"expand":false,"last":false,"type":5,"id":"6f798c6b-aaa2-4e24-78dd-9bfa5a9bc59e","graphid":"68865be1-aaa2-7faf-9521-029baa08899a","displayfields":false,"label":{"value":"Line","alttext":"Geochronology Cluster"},"metadata":{"enable":false},"opacity":{"enable":true,"min":0,"max":1,"initstate":1},"visibility":{"enable":true,"initstate":false,"type":1,"radioid":0},"displaychild":{"enable":true},"customimage":{"enable":false},"items":[]},
-		{"expand":false,"last":false,"type":5,"id":"6f798c6b-aaa3-4e24-78dd-9bfa5a9bc59e","graphid":"68865be1-aaa3-7faf-9521-029baa08899a","displayfields":false,"label":{"value":"Polygon","alttext":"Geochronology Cluster"},"metadata":{"enable":false},"opacity":{"enable":true,"min":0,"max":1,"initstate":1},"visibility":{"enable":true,"initstate":false,"type":1,"radioid":0},"displaychild":{"enable":true},"customimage":{"enable":false},"items":[]}
+		{"expand":false,"last":false,"type":4,"id":"6f798c6b-0001-4e24-78dd-9bfa5a9bc59e","graphid":"68865be1-0001-7faf-9521-029baa08899a","displayfields":false,"label":{"value":"GMRC","alttext":"Geochronology Cluster"},"metadata":{"enable":false},"opacity":{"enable":true,"min":0,"max":1,"initstate":0.25},"visibility":{"enable":true,"initstate":true,"type":1,"radioid":0},"displaychild":{"enable":true},"customimage":{"enable":false},"items":[]},
+		{"expand":false,"last":false,"type":4,"id":"6f798c6b-f369-4e24-78dd-9bfa5a9bc59e","graphid":"68865be1-057c-7faf-9521-029baa08899a","displayfields":false,"label":{"value":"Geochronology","alttext":"Geochronology Cluster"},"metadata":{"enable":false},"opacity":{"enable":false,"min":0,"max":1,"initstate":1},"visibility":{"enable":true,"initstate":true,"type":1,"radioid":0},"displaychild":{"enable":true},"customimage":{"enable":false},"items":[]}
 ]},
 "toolbardraw": {"enable": true,"expand": false,"drawline": {"enable": true},"drawtext": {"enable": true},"measureline": {"enable": true,"unit": 1},"measurearea": {"enable": true,"unit": 1},"importexport": {"enable": true}},
 "toolbarnav": {"enable": true,"expand": false,"mapwkid": 3978,"geolocation": {"enable": true,"type": -1},"scaledisplay": {"enable": true,"format": 1},"overview": {"enable": true,"url": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/BaseMaps/Provinces/MapServer","type": 4},"position": {"enable": true}},
@@ -34,25 +28,49 @@
 "datagrid": {
 	"enable": true,
 	"layers": [
-			{"layerinfo": { 
+			
+				{"layerinfo": { 
+								"id": "6f798c6b-0001-4e24-78dd-9bfa5a9bc59e",
+								"type": 4,
+								"index": 0
+               },
+               "title": "GMRC",
+               "fields": [
+                    	{"title": "Desc English", "width": "90px", "data": "GEO_EDESC", "datapop": "GEO_EDESC"},
+                    	{"title": "Desc French", "width": "60px", "data": "GEO_FDESC", "datapop": "GEO_FDESC"}
+								],
+								"linktable": {
+									"enable": false
+								},
+								"popups": {
+									"enable": true,
+									"title": "Geology - Major Rock Categories"
+								},
+								"hover": {
+									"enable": false,
+									"hoverfield": "GEO_EDESC"
+								}
+				},
+				{"layerinfo": { 
 								"id": "6f798c6b-f369-4e24-78dd-9bfa5a9bc59e",
 								"type": 5,
 								"index": 0
                },
                "title": "Geochronology Géochronologie",
                "fields": [
-                    	{"title": "Age (Million years)", "width": "90px", "data": "AGE"},
-                    	{"title": "Age Method", "width": "60px", "data": "AGE_METHOD"},
-                    	{"title": "Error Plus", "width": "60px", "data": "ERR_PLUS"},
-                    	{"title": "Error Minus", "width": "60px", "data": "ERR_MINUS"},
-                    	{"title": "Age Interpretation", "width": "90px", "data": "AGE_INTERP"},
-                    	{"title": "Age Note", "width": "60px", "data": "AGE_NOTE"}
+                    	{"title": "Age (Million years)", "width": "90px", "data": "AGE", "datapop": "AGE"},
+                    	{"title": "Age Method", "width": "60px", "data": "AGE_METHOD", "datapop": "age method"},
+                    	{"title": "Error Plus", "width": "60px", "data": "ERR_PLUS", "datapop": "Error plus"},
+                    	{"title": "Error Minus", "width": "60px", "data": "ERR_MINUS", "datapop": "Error minus"},
+                    	{"title": "Age Interpretation", "width": "90px", "data": "AGE_INTERP", "datapop": "age interp "},
+                    	{"title": "Age Note", "width": "60px", "data": "AGE_NOTE", "datapop": "Note"}
 								],
 								"linktable": {
 									"enable": false
 								},
 								"popups": {
-									"enable": true
+									"enable": true,
+									"title": "Geochronology Géochronologie"
 								},
 								"hover": {
 									"enable": false,

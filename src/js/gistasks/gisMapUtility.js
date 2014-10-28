@@ -426,7 +426,7 @@
 				pt = new esriPoint(geom.x, geom.y, map.vWkid);
 				map.centerAndZoom(pt, factor);
 			} else {
-				map.setExtent(feature._extent.expand(1.5));
+				map.setExtent(geom.getExtent().expand(1.5));
 			}
 		};
 

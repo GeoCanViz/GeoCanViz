@@ -64,6 +64,9 @@ General (i18n)#%all#All#Tous
 #%datagrid-sortDescending#: activate to sort column descending#: activer pour trier la colonne par ordre décroissant
 #%datagrid-selectall#Select All#Sélectionner tout
 #%datagrid-zoomselect#Zoom Selected#Zoom sélectionnés
+#%datagrid-poptitle#Data Window#Fenêtre données
+#%datagrid-popalllayers#All layers#Toutes les couches
+#%datagrid-popselect#Select the features from the following layer#Sélectionnez une couche dans les suivantes
 #%toolbarholder-caption#Toolbars#Barre d'outils
 #%toolbardraw-alt#Measuring and Drawing Tools - Help#Mesures et outils de dessin - Aide
 #%toolbardraw-desc#Measuring and Drawing Tools - Help#Mesures et outils de dessin - Aide

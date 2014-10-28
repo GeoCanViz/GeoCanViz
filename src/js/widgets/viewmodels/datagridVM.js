@@ -31,10 +31,15 @@
 					objData = [],
 					table = 0,
 					tables = config.layers.length,
+					identifiedFeatures = [],
+					currentFeatureIndex = 0,
+					totalFeatures = 0,
 					mymap = gcvizFunc.getElemValueVM(mapid, ['map', 'map'], 'js'),
 					$datagrid = $viz('#gcviz-datagrid' + mapid),
 					$datatab = $viz('#gcviz-datatab' + mapid),
-					$datatabUl = $datatab.find('ul');
+					$datatabUl = $datatab.find('ul'),
+					$popLayerSel = $viz('#popupSelect' + mapid),
+					$popContent = $viz('#gcviz-popup-content' + mapid);
 
 				// text for datatable
 				_self.processing = i18n.getDict('%datagrid-processing');
@@ -54,13 +59,21 @@
 				_self.last = i18n.getDict('%datagrid-last');
 				_self.sortAscending = i18n.getDict('%datagrid-sortAscending');
 				_self.sortDescending = i18n.getDict('%datagrid-sortDescending');
+				_self.lblAllLayer =  i18n.getDict('%datagrid-popalllayers');
+				_self.lblSelectLayer =  i18n.getDict('%datagrid-popselect');
+
+				// text for popup
 				_self.lblSelectAll =  i18n.getDict('%datagrid-selectall');
 				_self.lblZoomSelect =  i18n.getDict('%datagrid-zoomselect');
+				_self.popupDialogTitle = i18n.getDict('%datagrid-poptitle');
+				
+				// observable for popup
+				_self.isPopupDialogOpen = ko.observable(false);
+				_self.isEnablePrevious = ko.observable(false);
+				_self.isEnableNext = ko.observable(false);
+				_self.popupCounter = ko.observable('');
 
 				_self.init = function() {
-					var layers = config.layers,
-						lenLayers = layers.length;
-					
 					// init accordion and hide header
 					$viz('#gcviz-datagrid' + mapid).accordion({
 						collapsible: true,
@@ -72,30 +85,48 @@
 					});
 					$viz('.ui-accordion-header').hide();
 					
-					// intialize gisdatagrid. It will create the grahic layer for selection
-					gisDG.initialize(mymap);
+					// wait for the map to load
+					mymap.on('load', function() {
+						var layers = config.layers,
+							lenLayers = layers.length;
+						
+						// intialize gisdatagrid. It will create the grahic layer for selection
+						gisDG.initialize(mymap);
 
-					// loop all layers
-					while (lenLayers--) {
-						_self.getData(layers[lenLayers]);
-					}
+						// loop all layers
+						while (lenLayers--) {
+							_self.getData(layers[lenLayers]);
+						}
+					});
 				};
 
 				_self.getData = function(layer) {
-					var url,
+					var urlFull,
 						layerInfo = layer.layerinfo,
-						type = layerInfo.type;
+						layerIndex = layerInfo.index,
+						type = layerInfo.type,
+						url = mymap.getLayer(layerInfo.id).url,
+						popup = layer.popups.enable;
 
 					if (type === 4) {
-						// create url to query dynamic layer
-						// get the data and pass the next function for after completion
-						url = mymap.getLayer(layerInfo.id).url + layerInfo.index + '/query?where=OBJECTID+>+0&outFields=*&dirty=' + (new Date()).getTime();
-						gisDG.getData(url, layer, _self.createTab);
+						// datatable (dynamic layer, need layer index to select one layer in the dynamic service)
+						urlFull = url + layerIndex + '/query?where=OBJECTID+>+0&outFields=*&dirty=' + (new Date()).getTime();
+						gisDG.getData(urlFull, layer, _self.createTab);
+						
+						// popup
+						if (popup) {
+							gisDG.createIdTask(url, layerIndex, _self.returnIdTask);
+						}
 					} else if (type === 5) {
-						// get the feature layer
-						//mymap.getLayer(layer.layerid);
-						url = mymap.getLayer(layerInfo.id).url + '/query?where=OBJECTID+>+0&outFields=*&dirty=' + (new Date()).getTime();
-						gisDG.getData(url, layer, _self.createTab);
+						// datatable (feature layer)
+						urlFull = url + '/query?where=OBJECTID+>+0&outFields=*&dirty=' + (new Date()).getTime();
+						gisDG.getData(urlFull, layer, _self.createTab);
+						
+						// popup (remove layer index)
+						if (popup) {
+							url = url.substring(0, url.indexOf('MapServer/') + 10);
+							gisDG.createIdTask(url, layerIndex, _self.returnIdTask);
+						}
 					}
 				};
 				
@@ -487,6 +518,182 @@
 				// in this case we will need it to add a new tab for csv data
 				innerTab = _self.createTab;
 				innerTable = table;
+
+				// ********* popup section **********
+				_self.returnIdTask = function(array) {
+					var featName,
+						layerNamesList = [],
+						features, feature, lenFeat,
+						lenLayers = array.length,
+						i = 0;
+
+					while (lenLayers--) {
+						features = array[lenLayers][1];
+						lenFeat = features.length;
+
+						if (lenFeat > 0) {
+							// increment total feature
+							totalFeatures += features.length;
+	
+							// get the list of layers we got results from and add them to the scroll list in the popup
+							// first add the all layers label
+							$popLayerSel.empty();
+							$popLayerSel
+								.append($viz('<option></option>')
+								.attr('value', -1)
+								.text(_self.lblAllLayer));
+							
+							while (lenFeat--) {
+								feature = features[lenFeat];
+								
+								// put the features in a variable accessible by the other functions.
+								identifiedFeatures.push(feature);
+							
+								// check if layer name is already in the array
+								featName = feature.layerName;
+								if ($viz.inArray(featName, layerNamesList) === -1) {
+									layerNamesList.push(featName);
+									$popLayerSel
+										.append($viz('<option></option>')
+										.attr('value', i)
+										.text(featName));
+									i++;
+								}
+							}
+						}
+					}
+
+					// remove highlight
+					gisDG.unselectFeature('popup');
+						
+					// display the first feature
+					currentFeatureIndex = 0;
+					_self.displayFeature(identifiedFeatures[0]);
+					_self.isPopupDialogOpen(true);
+					_self.popupCounter('1/' + totalFeatures);
+					_self.isEnablePrevious(false);
+
+					// check if we enable next button
+					if (totalFeatures > 1) {
+						_self.isEnableNext(true);
+					}
+				};
+
+				_self.displayFeature = function(currentFeature) {
+					var info,
+						attrNames,
+						attrValues,
+						field, fields, lenFields,
+						layer,
+						feature = currentFeature.feature,
+						attributes = feature.attributes,
+						layers = config.layers,
+						len = layers.length;
+
+					// display the feature attributes in the popup
+					while (len--) {
+						layer = layers[len];
+						
+						if (layer.popups && currentFeature.layerName === layer.popups.title) {
+
+							// get the feature attribute names and values
+							attrNames = $viz.map(attributes, function(value, index) {
+								return [index];
+							});
+							attrValues = $viz.map(attributes, function(value, index) {
+								return [value];
+							});
+
+							//Put the desired fields in the content description
+							info = '';
+							fields = layer.fields;
+							lenFields = fields.length - 1;
+
+							// the first 3 fields are for id, select and zoom
+							while (lenFields > 2) {
+								field = fields[lenFields];
+								lenFields--;
+
+								for (var l = 0; l < attrNames.length; l++) {
+									if (field.datapop.toUpperCase() === attrNames[l].toUpperCase()) {
+										info += '<span class="gcviz-prop">' + field.title + '</span><br/>' +
+												'<span class="gcviz-val">' + attrValues[l] + '</span><br/>';
+									}
+								}
+							}
+
+							// update content
+							$popContent.html(info);
+						}
+					}
+
+					// highlight the feature
+					gisDG.selectFeaturePop(feature.geometry);
+				};
+
+				_self.dialogPopupClose = function() {
+					_self.isPopupDialogOpen(false);
+					currentFeatureIndex = -1;
+					totalFeatures = 0;
+					
+					// remove highlight
+					gisDG.unselectFeature('popup');
+				};
+
+				_self.clickZoom = function() {
+					var feature = identifiedFeatures[currentFeatureIndex].feature;
+					gisMap.zoomFeature(mymap, feature);
+				};
+
+				_self.clickPrevious = function() {
+					var currentFeature,
+						graphicFeature;
+
+					// decrement index unless already 0
+					if (currentFeatureIndex > 0) {
+						currentFeatureIndex--;
+						currentFeature = identifiedFeatures[currentFeatureIndex];
+						_self.displayFeature(currentFeature);
+
+						if (currentFeatureIndex === 0) {
+							_self.isEnablePrevious(false);
+						} else {
+							_self.isEnablePrevious(true);
+						}
+
+						_self.isEnableNext(true);
+						_self.popupCounter((currentFeatureIndex + 1) + '/' + totalFeatures);
+
+						// remove highlight on previous then highlight the current feature
+						gisDG.unselectFeature('popup');
+						gisDG.selectFeaturePop(currentFeature.feature.geometry);
+					}
+				};
+
+				_self.clickNext = function() {
+					var currentFeature,
+						graphicFeature;
+
+					// increment index unless already total feature
+					if (currentFeatureIndex <= (totalFeatures - 1)) {
+						currentFeatureIndex++;
+						currentFeature = identifiedFeatures[currentFeatureIndex];
+						_self.displayFeature(currentFeature);
+
+						if (currentFeatureIndex === (totalFeatures - 1)) {
+							_self.isEnableNext(false);
+						} else {
+							_self.isEnableNext(true);
+						}
+
+						_self.isEnablePrevious(true);
+						_self.popupCounter((currentFeatureIndex + 1) + '/' + totalFeatures);
+
+						// remove highlight on previous then highlight the current feature
+						gisDG.unselectFeature('popup');
+						gisDG.selectFeaturePop(currentFeature.feature.geometry);
+					}
+				};
 
 				_self.init();
 			};

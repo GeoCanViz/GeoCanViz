@@ -1,0 +1,53 @@
+{"layerinfo": { "id": "6f798c6b-aaa5-4e24-78dd-9bfa5a9bc59e",
+						"type": 5,
+						"index": 0
+					},
+			"title": "Link",
+			"fields": [
+					{"title": "Prov code", "width": "60px", "data": "PROV_CODE"}
+			],
+			"linktable": {
+						"enable": true,
+						"fields": ["DATE_AGRMT_SIGNED", "AGREEMENTS_STATUS", "AGRMNT_NOTES"],
+						"relationship": 0
+					}	
+		},
+		{"layerinfo": { "id": "6f798c6b-aaa5-4e24-78dd-9bfa5a9bc59e",
+						"type": 5,
+						"index": 0
+					},
+			"title": "Not Link",
+			"fields": [
+					{"title": "Prov code", "width": "60px", "data": "PROV_CODE"}
+			],
+			"linktable": {
+						"enable": false
+					}		
+		}
+		
+
+{"layerinfo": { 
+								"id": "6f798c6b-f369-4e24-78dd-9bfa5a9bc59e",
+								"type": 5,
+								"index": 0
+               },
+               "title": "Geochronology Géochronologie",
+               "fields": [
+                    	{"title": "Age (Million years)", "width": "90px", "data": "AGE"},
+                    	{"title": "Age Method", "width": "60px", "data": "AGE_METHOD"},
+                    	{"title": "Error Plus", "width": "60px", "data": "ERR_PLUS"},
+                    	{"title": "Error Minus", "width": "60px", "data": "ERR_MINUS"},
+                    	{"title": "Age Interpretation", "width": "90px", "data": "AGE_INTERP"},
+                    	{"title": "Age Note", "width": "60px", "data": "AGE_NOTE"}
+								],
+								"linktable": {
+									"enable": false
+								},
+								"popups": {
+									"enable": true
+								},
+								"hover": {
+									"enable": false,
+									"hoverfield": "AGE"
+								}
+				},
