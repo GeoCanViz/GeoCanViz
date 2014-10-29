@@ -235,8 +235,6 @@
 											maxy = geom[3];
 											minx = geom[0];
 											maxx = geom[2];
-										} else if (qualifier === 'INTERPOLATED_CENTROID') {
-											// TODO add code for this value. If not required, remove.
 										}
 									}
 
@@ -299,7 +297,7 @@
 
 					// set active tool
 					_self.activeTool('position');
-					
+
 					// focus the map. We need to specify this because when you use the keyboard to
 					// activate ta tool, the focus sometimes doesnt go to the map.
 					gcvizFunc.focusMap(mymap);

@@ -5,7 +5,6 @@
  *
  * Datagrid view model widget
  */
-/* global locationPath: false */
 (function() {
 	'use strict';
 	define(['jquery-private',
@@ -25,14 +24,15 @@
 
 			// data model				
 			var datagridViewModel = function($mapElem, mapid, config) {
-				var _self = this,	
+				var _self = this,
 					delay = 400, clicks = 0, timer = null,
 					objDataTable = [],
 					objData = [],
 					table = 0,
 					tables = config.layers.length,
-					identifiedFeatures = [],
-					currentFeatureIndex = 0,
+					selectIdFeatures = [],
+					allIdFeatures = [],
+					currFeatIndex = 0,
 					totalFeatures = 0,
 					mymap = gcvizFunc.getElemValueVM(mapid, ['map', 'map'], 'js'),
 					$datagrid = $viz('#gcviz-datagrid' + mapid),
@@ -53,7 +53,7 @@
 				_self.loadingRecords = i18n.getDict('%datagrid-loadingRecords');
 				_self.zeroRecords = i18n.getDict('%datagrid-zeroRecords');
 				_self.emptyTable = i18n.getDict('%datagrid-emptyTable');
-    			_self.first = i18n.getDict('%datagrid-first');
+				_self.first = i18n.getDict('%datagrid-first');
 				_self.previous = i18n.getDict('%datagrid-previous');
 				_self.next = i18n.getDict('%datagrid-next');
 				_self.last = i18n.getDict('%datagrid-last');
@@ -66,8 +66,12 @@
 				_self.lblSelectAll =  i18n.getDict('%datagrid-selectall');
 				_self.lblZoomSelect =  i18n.getDict('%datagrid-zoomselect');
 				_self.popupDialogTitle = i18n.getDict('%datagrid-poptitle');
-				
+
 				// observable for popup
+				_self.layerNameHolder = ko.observableArray([]);
+				_self.layerName = ko.observableArray([_self.lblAllLayer]); // create with value so the binding is not fire when we add the value
+				_self.featLayerName = ko.observable('');
+				_self.selectedLayer = ko.observable(0);
 				_self.isPopupDialogOpen = ko.observable(false);
 				_self.isEnablePrevious = ko.observable(false);
 				_self.isEnableNext = ko.observable(false);
@@ -84,12 +88,12 @@
 						}
 					});
 					$viz('.ui-accordion-header').hide();
-					
+
 					// wait for the map to load
 					mymap.on('load', function() {
 						var layers = config.layers,
 							lenLayers = layers.length;
-						
+
 						// intialize gisdatagrid. It will create the grahic layer for selection
 						gisDG.initialize(mymap);
 
@@ -112,7 +116,7 @@
 						// datatable (dynamic layer, need layer index to select one layer in the dynamic service)
 						urlFull = url + layerIndex + '/query?where=OBJECTID+>+0&outFields=*&dirty=' + (new Date()).getTime();
 						gisDG.getData(urlFull, layer, _self.createTab);
-						
+
 						// popup
 						if (popup) {
 							gisDG.createIdTask(url, layerIndex, _self.returnIdTask);
@@ -121,7 +125,7 @@
 						// datatable (feature layer)
 						urlFull = url + '/query?where=OBJECTID+>+0&outFields=*&dirty=' + (new Date()).getTime();
 						gisDG.getData(urlFull, layer, _self.createTab);
-						
+
 						// popup (remove layer index)
 						if (popup) {
 							url = url.substring(0, url.indexOf('MapServer/') + 10);
@@ -129,7 +133,7 @@
 						}
 					}
 				};
-				
+
 				_self.createTab = function(data) {
 					// get layer info from first element
 					var layer = data[0].layer,
@@ -138,9 +142,9 @@
 
 					// increment table
 					table += 1;
-					
+
 					// add the tab
-					$datatabUl.append('<li><a href="#tabs-' + id + '-' + table + '">' + layer.title + '</a></li>');					
+					$datatabUl.append('<li><a href="#tabs-' + id + '-' + table + '">' + layer.title + '</a></li>');
 					$datatab.append('<div id="tabs-' + id + '-' + table + '" class="gcviz-datagrid-tab">' +
 									'<table id="table-' + id + '-' + table + '" class="gcviz-datatable display">' +
 										'<button class="gcviz-dg-zoomsel">' + _self.lblZoomSelect + '</button>' +
@@ -151,7 +155,7 @@
 					// create datatable
 					_self.createTable(data, layer);
 				};
-				
+
 				_self.createTable = function(data, layer) {
 					var dataTB,
 						$table = $viz('#table-' + mapid + '-' + table),
@@ -165,7 +169,7 @@
 						'pagingType': 'full',
 						'processing': true,
 						'columns': fields,
-						'initComplete': function(setting) {
+						'initComplete': function() {
 							_self.finishInit(table);
 						},
 						'language': {
@@ -180,19 +184,19 @@
 							'loadingRecords': _self.loadingRecords,
 							'zeroRecords': _self.zeroRecords,
 							'emptyTable': _self.emptyTable,
-    						'paginate': {
+							'paginate': {
 								'first': _self.first,
 								'previous': _self.previous,
 								'next': _self.next,
 								'last': _self.last
-    						},
-    						'aria': {
-    							'sortAscending': _self.sortAscending,
+							},
+							'aria': {
+							'sortAscending': _self.sortAscending,
 								'sortDescending': _self.sortDescending
 							}
 						}
 					});
-					
+
 					// FIXED COLUMNS
 					// we cant use fixed column because of 2 main reasons. First it is not WCAG. When we tab, there is
 					// hidden object (the checkbox and button under the freeze columns). Second, it is really hard to make
@@ -211,22 +215,22 @@
 					// order the first row after select and zoom by default to remove the arrow on select column
 					dataTB.order([3, 'asc']).draw();
 
-    				// add the datatable and data to a global array so we can access it later
-    				// reverse the data to have then in the same order as the id. It will easier to find later.
+					// add the datatable and data to a global array so we can access it later
+					// reverse the data to have then in the same order as the id. It will easier to find later.
 					objDataTable.push(dataTB);
 					objData.push(data.reverse());
 				};
-				
+
 				_self.createFields = function(layer) {
 					var field,
 						fields = layer.fields,
 						lenFields = fields.length;
-					
+
 					// add ... to string field when length is more then 40 characters
 					while (lenFields--) {
 						field = fields[lenFields];
-						
-						field.render = function (data, type, full, meta) {
+
+						field.render = function (data, type) {
 							return type === 'display' && data.length > 40 ?
 								'<span title="'+ data +'">' + data.substr(0, 38) + '...</span>' : data;
 						};
@@ -240,8 +244,8 @@
 						width: '45px',
 						searchable: false,
 						orderable: false,
-						render: function (data, type, row) {
-								        	if (type === 'display') {
+						render: function (data, type) {
+											if (type === 'display') {
 												return '<button class="gcviz-dg-zoom">Zoom</button>';
 											}
 											return data;
@@ -255,14 +259,14 @@
 						width: '45px',
 						searchable: false,
 						orderable: false,
-						render: function (data, type, row) {
-								        	if (type === 'display') {
+						render: function (data, type) {
+											if (type === 'display') {
 												return '<input type="checkbox" class="gcviz-dg-select">';
 											}
 											return data;
 										}
 					});
-					
+
 					// add unique id column. We cant use visible false because the column is not added to the table
 					// we add a class and set display none to have the info there but invisible.
 					fields.unshift({
@@ -277,25 +281,25 @@
 				};
 
 				_self.finishInit = function() {
-					
+
 					_self.setEvents();
-    
+
 					// if all tables have been initialize
-					if (table === tables) {	
+					if (table === tables) {
 						// set tabs and refresh accordion
 						$datatab.tabs({
 							heightStyle: 'auto',
-							activate: function(event, ui) {
+							activate: function() {
 								// order the first row after select and zoom to align header and column
 								var len = objDataTable.length;
-								
+
 								while (len--) {
 									objDataTable[len].order([3, 'asc']).draw();
 								}
 							}
 						});
 						$datagrid.accordion('refresh');
-						
+
 						// enable datagrid button in footerVM
 						gcvizFunc.setElemValueVM(mapid, 'footer', 'isTableReady', true);
 					}
@@ -310,7 +314,7 @@
 				_self.setEvents = function() {
 					var $table = $viz('#table-' + mapid + '-' + table),
 						$tabs = $viz('#tabs-' + mapid + '-' + table);
-					
+
 					// set checkbox event
 					$table.on('change', 'input.gcviz-dg-select', function(e) {
 						var $checkbox = $viz(e.target.parentNode.parentNode).find('.gcviz-dg-select'),
@@ -319,9 +323,9 @@
 						// select or unselect feature on map
 						_self.select($checkbox, info);
 					});
-					
+
 					// set select/unselect all event
-					$tabs.on('change', 'input.gcviz-dg-selall', function(e) {												
+					$tabs.on('change', 'input.gcviz-dg-selall', function(e) {
 						// select or unselect all features
 						_self.selectAll(e, 'checkbox');
 					});
@@ -330,11 +334,11 @@
 					$table.on('click', 'button.gcviz-dg-zoom', function(e) {
 						// get the id from the table
 						var info = _self.getInfo(e, 'control');
-						
+
 						// zoom to feature
 						_self.zoom(info);
 					});
-					
+
 					// set zoom selected event
 					$tabs.on('click', 'button.gcviz-dg-zoomsel', function(e) {
 						// zoom to features
@@ -352,13 +356,13 @@
 						// row has been clicked
 						if (targetType !== 'checkbox' && targetType !== 'submit') {
 							// increment count clicks
-							clicks++; 
+							clicks++;
 
 							if (clicks === 1) {
 								timer = setTimeout(function() {
 									// perform single-click action
 									var $checkbox = $viz(e.target.parentNode).find('.gcviz-dg-select');
-									
+
 									// get the id from the table
 									info = _self.getInfo(e, 'row');
 
@@ -381,7 +385,7 @@
 								// perform double-click action
 								// get the id from the table
 								info = _self.getInfo(e, 'row');
-								
+
 								// zoom to feature
 								_self.zoom(info);
 
@@ -394,32 +398,32 @@
 						e.preventDefault();
 					});
 				};
-				
+
 				_self.getInfo = function(e, type) {
 					var objInfo,
 						str,
 						info;
-					
+
 					if (type === 'row') {
 						str = $viz(e.target.parentNode).find('.gcviz-dg-id').html();
 					} else {
 						str = $viz(e.target.parentNode.parentNode).find('.gcviz-dg-id').html();
 					}
-					
+
 					info = str.split('-');
-					
+
 					// set table number and feature number
 					objInfo = {
 						table: parseInt(info[0], 10),
 						feat: parseInt(info[1], 10)
 					};
-					
+
 					return objInfo;
 				};
-				
+
 				_self.zoom = function(info) {
 					var geom;
-					
+
 					// get feature geometry, then call gisDatagrid to create graphic and zoom
 					geom = objData[info.table][info.feat].geometry;
 					gisDG.zoomFeature(geom);
@@ -431,17 +435,17 @@
 						tableId = parseInt(e.target.parentElement.id.split('-')[2], 10) - 1,
 						data = objData[tableId],
 						len = data.length;
-					
+
 					// loop trought all the data for this table and keep all the features
 					// selected
 					while (len--) {
 						feat = data[len];
-						
+
 						if (feat.gcvizCheck) {
 							features.push(feat.geometry);
 						}
 					}
-					
+
 					// if there is 1 feature or more, call gisDatagrid to zoom to extent
 					// of selection.
 					if (features.length > 0) {
@@ -467,7 +471,7 @@
 				};
 
 				_self.selectAll = function(e, type) {
-					var check, tableId, table, val, lenTable,
+					var tableId, table, val, lenTable,
 						info = { },
 						target = e.target,
 						checks = target.parentElement.getElementsByClassName('gcviz-dg-select'),
@@ -481,7 +485,7 @@
 					} else {
 						val = target.checked;
 						tableId = parseInt(target.parentElement.id.split('-')[2] - 1, 10);
-						
+
 						// set table id info
 						info.table = tableId;
 					}
@@ -500,7 +504,7 @@
 					if (type === 'checkbox') {
 						table = objData[tableId],
 						lenTable = table.length;
-						
+
 						while (lenTable--) {
 							if (val) {
 								info.feat = [lenTable];
@@ -521,61 +525,41 @@
 
 				// ********* popup section **********
 				_self.returnIdTask = function(array) {
-					var featName,
+					var features, feature, lenFeat,
+						isFeatures = false,
 						layerNamesList = [],
-						features, feature, lenFeat,
-						lenLayers = array.length,
-						i = 0;
+						lenLayers = array.length;
+
+					// reset array of feature and layer selection
+					allIdFeatures = [];
+					_self.layerNameHolder([]);
+
+					// get the list of layers we got results from and add them to the scroll list in the popup
+					// first add the all layers label
+					_self.layerNameHolder.push(_self.lblAllLayer);
 
 					while (lenLayers--) {
 						features = array[lenLayers][1];
 						lenFeat = features.length;
 
 						if (lenFeat > 0) {
-							// increment total feature
-							totalFeatures += features.length;
-	
-							// get the list of layers we got results from and add them to the scroll list in the popup
-							// first add the all layers label
-							$popLayerSel.empty();
-							$popLayerSel
-								.append($viz('<option></option>')
-								.attr('value', -1)
-								.text(_self.lblAllLayer));
-							
+							isFeatures = true;
+
 							while (lenFeat--) {
 								feature = features[lenFeat];
-								
+
 								// put the features in a variable accessible by the other functions.
-								identifiedFeatures.push(feature);
-							
-								// check if layer name is already in the array
-								featName = feature.layerName;
-								if ($viz.inArray(featName, layerNamesList) === -1) {
-									layerNamesList.push(featName);
-									$popLayerSel
-										.append($viz('<option></option>')
-										.attr('value', i)
-										.text(featName));
-									i++;
-								}
+								// add the layer name
+								allIdFeatures.push(feature);
+								_self.layerNameHolder.push(feature.layerName);
 							}
 						}
 					}
 
-					// remove highlight
-					gisDG.unselectFeature('popup');
-						
-					// display the first feature
-					currentFeatureIndex = 0;
-					_self.displayFeature(identifiedFeatures[0]);
-					_self.isPopupDialogOpen(true);
-					_self.popupCounter('1/' + totalFeatures);
-					_self.isEnablePrevious(false);
-
-					// check if we enable next button
-					if (totalFeatures > 1) {
-						_self.isEnableNext(true);
+					// make sure array of layer is unique for select
+					if (isFeatures) {
+						_self.layerName(ko.utils.arrayGetDistinctValues(_self.layerNameHolder()));
+						_self.changeSelectLayer();
 					}
 				};
 
@@ -585,6 +569,7 @@
 						attrValues,
 						field, fields, lenFields,
 						layer,
+						layerName = currentFeature.layerName,
 						feature = currentFeature.feature,
 						attributes = feature.attributes,
 						layers = config.layers,
@@ -593,18 +578,21 @@
 					// display the feature attributes in the popup
 					while (len--) {
 						layer = layers[len];
-						
-						if (layer.popups && currentFeature.layerName === layer.popups.title) {
+
+						if (layer.popups && layerName === layer.popups.title) {
 
 							// get the feature attribute names and values
 							attrNames = $viz.map(attributes, function(value, index) {
 								return [index];
 							});
-							attrValues = $viz.map(attributes, function(value, index) {
+							attrValues = $viz.map(attributes, function(value) {
 								return [value];
 							});
 
-							//Put the desired fields in the content description
+							// set feature layer name
+							_self.featLayerName(layerName);
+
+							// put the desired fields in the content description
 							info = '';
 							fields = layer.fields;
 							lenFields = fields.length - 1;
@@ -633,36 +621,80 @@
 
 				_self.dialogPopupClose = function() {
 					_self.isPopupDialogOpen(false);
-					currentFeatureIndex = -1;
-					totalFeatures = 0;
-					
+
 					// remove highlight
 					gisDG.unselectFeature('popup');
 				};
 
+				_self.changeSelectLayer = function() {
+					var feat,
+						allLayer = _self.lblAllLayer,
+						selLayer = _self.selectedLayer(),
+						len = allIdFeatures.length;
+
+					// remove highlight
+					gisDG.unselectFeature('popup');
+
+					// reset selected array of features
+					selectIdFeatures = [];
+
+					// set the selectIdFeatures from the layer selected if not all layers
+					if (selLayer !== allLayer) {
+						while (len--) {
+							feat = allIdFeatures[len];
+							
+							if (feat.layerName === selLayer) {
+								selectIdFeatures.push(feat);
+							}
+						}
+					} else {
+						selectIdFeatures = allIdFeatures;
+					}
+					
+					// set total count. If it is 0, it means there is no
+					// feature on the layer selected by default. In this case, set back
+					// to all features and select the all layers value.
+					totalFeatures = selectIdFeatures.length;
+					if (totalFeatures === 0) {
+						_self.selectedLayer(allLayer);
+						selectIdFeatures = allIdFeatures;
+					}
+
+					// display the first feature
+					currFeatIndex = 0;
+					_self.displayFeature(selectIdFeatures[0]);
+					_self.isPopupDialogOpen(true);
+					_self.popupCounter('1 / ' + totalFeatures);
+					_self.isEnablePrevious(false);
+
+					// check if we enable next button
+					if (totalFeatures > 1) {
+						_self.isEnableNext(true);
+					}
+				};
+
 				_self.clickZoom = function() {
-					var feature = identifiedFeatures[currentFeatureIndex].feature;
+					var feature = selectIdFeatures[currFeatIndex].feature;
 					gisMap.zoomFeature(mymap, feature);
 				};
 
 				_self.clickPrevious = function() {
 					var currentFeature,
-						graphicFeature;
+						isEnable;
 
 					// decrement index unless already 0
-					if (currentFeatureIndex > 0) {
-						currentFeatureIndex--;
-						currentFeature = identifiedFeatures[currentFeatureIndex];
+					if (currFeatIndex > 0) {
+						currFeatIndex--;
+
+						// show feature
+						currentFeature = selectIdFeatures[currFeatIndex];
 						_self.displayFeature(currentFeature);
 
-						if (currentFeatureIndex === 0) {
-							_self.isEnablePrevious(false);
-						} else {
-							_self.isEnablePrevious(true);
-						}
-
+						// enable buttons and update count
+						isEnable = (currFeatIndex === 0) ? false : true;
+						_self.isEnablePrevious(isEnable);
 						_self.isEnableNext(true);
-						_self.popupCounter((currentFeatureIndex + 1) + '/' + totalFeatures);
+						_self.popupCounter((currFeatIndex + 1) + ' / ' + totalFeatures);
 
 						// remove highlight on previous then highlight the current feature
 						gisDG.unselectFeature('popup');
@@ -672,22 +704,21 @@
 
 				_self.clickNext = function() {
 					var currentFeature,
-						graphicFeature;
+						isEnable;
 
 					// increment index unless already total feature
-					if (currentFeatureIndex <= (totalFeatures - 1)) {
-						currentFeatureIndex++;
-						currentFeature = identifiedFeatures[currentFeatureIndex];
+					if (currFeatIndex <= (totalFeatures - 1)) {
+						currFeatIndex++;
+
+						// show feature
+						currentFeature = selectIdFeatures[currFeatIndex];
 						_self.displayFeature(currentFeature);
 
-						if (currentFeatureIndex === (totalFeatures - 1)) {
-							_self.isEnableNext(false);
-						} else {
-							_self.isEnableNext(true);
-						}
-
+						// enable buttons and update count
+						isEnable = (currFeatIndex === (totalFeatures - 1)) ? false : true;
 						_self.isEnablePrevious(true);
-						_self.popupCounter((currentFeatureIndex + 1) + '/' + totalFeatures);
+						_self.isEnableNext(isEnable);
+						_self.popupCounter((currFeatIndex + 1) + ' / ' + totalFeatures);
 
 						// remove highlight on previous then highlight the current feature
 						gisDG.unselectFeature('popup');
@@ -702,7 +733,7 @@
 			ko.applyBindings(vm, $mapElem[0]); // This makes Knockout get to work
 			return vm;
 		};
-		
+
 		addTab = function(mapid, featColl, title, layerId) {
 			var field, feat,
 				data = { },
@@ -714,7 +745,7 @@
 				feats = featColl.featureSet.features,
 				lenFeat = feats.length,
 				table = innerTable + 1;
-			
+
 			// setup fields
 			while (lenField--) {
 				field = fieldsOri[lenField];
@@ -726,7 +757,7 @@
 				delete field.alias;
 				field.data = field.name;
 				delete field.name;
-				
+
 				fields.push(field);
 			}
 
@@ -735,7 +766,7 @@
 				feat = feats[lenFeat];
 				data = feat.attributes;
 				data.geometry = feat.geometry;
-				
+
 				// add stuff for gcviz
 				data.layerid = layerId;
 				data.gcvizid = table + '-' + lenFeat;
@@ -747,10 +778,10 @@
 			layer.title = title;
 			layer.mapid = mapid;
 			layer.fields = fields;
-			
+
 			// add layer info to first element
 			datas[0].layer = layer;
-			
+
 			// call the inner create tab function
 			innerTab(datas);
 		};

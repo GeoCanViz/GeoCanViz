@@ -27,8 +27,6 @@
 			projectCoords,
 			projectGeoms,
 			getUTMEastNorth,
-			attributes = [,],
-
 			params = new esriProj();
 
 		setGeomServ = function(url) {
@@ -177,7 +175,7 @@
 			// keep geometries in an array to be able to access them later.
 			// we need to do this because the projection remove all attributes from the item
 			geomServUnique.geom = geometries;
-			
+
 			// we use a unique geometryService because large dataset will overlap project method
 			// and geometryService info will be wrong. We use the project-complete instead of the
 			// callback because we have more info this way. We will be able to link back to the

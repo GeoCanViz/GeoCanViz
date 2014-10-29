@@ -73,7 +73,7 @@
                             _self.showNorthArrow(evt);
 						});
 					}
-					
+
 					// See if user wanted a scalebar. If so, initialize it here
                     if (scalebar.enable) {
 						gisNav.setScaleBar(mymap, scalebar);
@@ -140,7 +140,7 @@
 					} else {
 						$datagrid.accordion({ active: 0 }).click();
 					}
-					 return false;
+					return false;
 				};
 
 				_self.goGitHub = function(data, event) {

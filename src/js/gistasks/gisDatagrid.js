@@ -5,6 +5,7 @@
  *
  * GIS datagrids functions
  */
+/* global esri: false, dojo: false */
 (function () {
 	'use strict';
 	define(['jquery-private',
@@ -86,7 +87,7 @@
 								'yoffset': 0,
 								'outline': outline
 							});
-							
+
 			symbLine = new esriLine({
 								'type': 'esriSLS',
 								'style': 'esriSLSSolid',
@@ -119,7 +120,7 @@
 						data = [],
 						features = response.features,
 						len = 21; //TODO: features.length;
-					
+
 					// if there is a link table to retrieve info from, set it here.
 					// it only work with feature layer who have a valid OBJECTID field
 					if (linkInfo.enable) {
@@ -128,7 +129,7 @@
 						relatedQuery.outFields = linkInfo.fields;
 						relatedQuery.relationshipId = linkInfo.relationship;
 						relatedQuery.objectIds = gcvizFunc.getArrayLen(len);
-						
+
 						featLayer.queryRelatedFeatures(relatedQuery, function(relatedRecords) {
 							data = createDataArray(features, len, sr, id, relatedRecords);
 							closeGetData(data, layer, success);
@@ -147,7 +148,7 @@
 				feat, geom, geometry,
 				data = [],
 				flag = false;
-			
+
 			if (typeof relRecords !== 'undefined') {
 				flag = true;
 			}
@@ -164,29 +165,29 @@
 				} else {
 					geometry = new esriPoly({ 'rings': geom.rings, 'spatialReference': sr });
 				}
-						
+
 				// add a unique id and wkid
 				geometry.attributes = feat.attributes;
 				geometry.attributes.gcvizid = table + '-' + len;
 				geometry.attributes.layerid = id;
-				
+
 				// if present, add the related records from a link table
 				if (flag) {
 					// we add + 1 because it is not zero index based
 					linkFeats = relRecords[len + 1].features;
 					linkLen = linkFeats.length;
-					
+
 					geometry.link = [];
 					while (linkLen--) {
 						linkFeat = linkFeats[linkLen];
 						geometry.link.push(linkFeat.attributes);
 					}
 				}
-						
+
 				// push geometry to array of data
 				data.push(geometry);
 			}
-			
+
 			return data;
 		};
 
@@ -209,7 +210,7 @@
 			var symb,
 				graphic,
 				type = geometry.type;
-			
+
 			// from geometry type, select symbol
 			if (type === 'point') {
 				symb = symbPoint;
@@ -218,7 +219,7 @@
 			} else if (type === 'polygon'){
 				symb = symbPoly;
 			}
-			
+
 			// generate graphic and asign symbol
 			graphic = new esriGraph(geometry);
 			graphic.symbol = symb;
@@ -228,7 +229,7 @@
 
 			return graphic;
 		};
-		
+
 		zoomFeature = function(geometry) {
 			var graphic = createGraphic(geometry, 'zoom');
 
@@ -237,42 +238,42 @@
 
 			// add graphic
 			selectLayer.add(graphic);
-			
+
 			// zoom graphic
 			gisMap.zoomFeature(mymap, graphic);
 		};
-		
+
 		zoomFeatures = function(geometries) {
 			var extent,
 				graphic,
 				graphics = [],
 				len = geometries.length;
-			
+
 			// create an array of graphics to get extent. Do not add them
 			// to the map because it is already there from the selection
 			while (len--) {
 				graphic = createGraphic(geometries[len], 'zoom');
 				graphics.push(graphic);
 			}
-			
+
 			// clear previous graphics
 			unselectFeature('zoom');
-			
+
 			// get the extent then zoom
-			extent = esri.graphicsExtent(graphics);
+			extent = esri.graphicsExtent(graphics); // can't load AMD
 			mymap.setExtent(extent.expand(1.75));
 		};
 
 		selectFeature = function(geometry, info) {
 			var graphic = createGraphic(geometry, 'sel' + info.table + '-' + info.feat);
-			
+
 			// add graphic
 			selectLayer.add(graphic);
 		};
-		
+
 		selectFeaturePop = function(geometry) {
 			var graphic = createGraphic(geometry, 'popup');
-			
+
 			// add graphic
 			selectLayer.add(graphic);
 		};
@@ -281,7 +282,7 @@
 			var graphic,
 				graphics = selectLayer.graphics,
 				len = graphics.length;
-				
+
 			// get key from layer to delete
 			while (len--) {
 				graphic = graphics[len];
@@ -297,44 +298,45 @@
 
 			// set layer index for identify task parameters
 			layerIndex = index;
-			
-			// create id task
+
+			// create id task (set the layer index on the task to retrieve it later)
 			idTask = new esriIdTask(url);
+			idTask.layerIndex = index;
 			idTasksArr[idTaskIndex] = idTask;
 			idTaskIndex++;
 		};
 
 		executeIdTask = function(event) {
-			var mapid,
-				i,
+			var dlTasks,
 				deferred = [],
 				defList = [],
-				dlTasks,
-				mapid = mymap.vIdName;
-			
+				lenTask = idTasksArr.length,
+				lenDef = lenTask;
+
 			// identify tasks setup parameters
 			idParams.geometry = event.mapPoint;
 			idParams.mapExtent = mymap.extent;
 			idParams.width = mymap.width;
 			idParams.height = mymap.height;
-			idParams.layerIds = [0]; // TODO le mettre en fonction du task!!!;
 
 			// define all deferred functions
-			for (i = 0; i < idTasksArr.length; i++) {
-				deferred[i] = new dojo.Deferred(); // bug, use the real object instead of AMD because it wont work!!!
-				defList.push(deferred[i]);
+			while (lenDef--) {
+				deferred[lenDef] = new dojo.Deferred(); // bug, use the real object instead of AMD because it wont work!!!
+				defList.push(deferred[lenDef]);
 			}
 			dlTasks = new dojoDefList(defList);
 			dlTasks.then(returnIdResults);
 
 			// returnIdentifyResults will be called after all tasks have completed
-			for (i = 0; i < idTasksArr.length; i++) {
-				idTasksArr[i].execute(idParams, deferred[i].callback);
+			while (lenTask--) {
+				// set layer to query then excute
+				idParams.layerIds = [idTasksArr[lenTask].layerIndex];
+				idTasksArr[lenTask].execute(idParams, deferred[lenTask].callback);
 			}
 		};
 
 		returnIdResults = function(response) {
-			// send the resonse to the calling view model 
+			// send the resonse to the calling view model
 			idRtnFunc(response);
 		};
 

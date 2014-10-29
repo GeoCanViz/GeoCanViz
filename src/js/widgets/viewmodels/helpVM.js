@@ -176,7 +176,7 @@
 					} else if (section === 'nav') {
 						$helpSect.scrollTo($helpNav);
 					} else if (section === 'leg') {
-						$helpSect.scrollTo($helpLeg);	
+						$helpSect.scrollTo($helpLeg);
 					} else if (section === 'data') {
 						$helpSect.scrollTo($helpData);
 					} else if (section === 'dev') {
@@ -198,6 +198,9 @@
 
 		toggleHelpBubble = function(key, section) {
 			var prevent = false;
+
+			// empty bubble
+			gblDialogBubble.empty();
 
 			// get part of the help to put inside the bubble
 			gblDialogBubble.append(gblDialog.find('#' + section).clone());

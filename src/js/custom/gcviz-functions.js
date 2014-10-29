@@ -141,12 +141,12 @@
 
 		getArrayLen = function(len) {
 			var arr = [];
-			
+
 			len += 1;
 			while (len--) {
 				arr.push(len);
 			}
-			
+
 			return arr;
 		};
 

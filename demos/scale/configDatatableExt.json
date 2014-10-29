@@ -3,7 +3,7 @@
 "zoombar": {"bar": true, "zoom": true},
 "bases": [{"label":"CBCT3978","id":"380a923d-466f-4e97-88af-7e6d66f2570a","type":2,"url":"http://geoappext.nrcan.gc.ca/arcgis/rest/services/BaseMaps/CBCT3978/MapServer", "scale":{"min":0,"max":0}}],
 "layers": [{"label":"GMRC","id":"6f798c6b-0001-4e24-78dd-9bfa5a9bc59e","type":4,"url":"http://geoappext.nrcan.gc.ca/arcgis/rest/services/MMS/GMRC_E/MapServer/","scale":{"min":0,"max":0},"cluster":{"enable":false,"distance":50,"label":false,"symbol":true,"maxsizeprop":50,"maxdataprop":1000}},
-					 {"label":"Geochron","id":"6f798c6b-f369-4e24-78dd-9bfa5a9bc59e","type":5,"url":"http://geoappext.nrcan.gc.ca/arcgis/rest/services/GSCC/Geochronology/MapServer/0","scale":{"min":0,"max":0},"cluster":{"enable":true,"distance":50,"label":false,"symbol":true,"maxsizeprop":50,"maxdataprop":1000}}
+			{"label":"Geochron","id":"6f798c6b-f369-4e24-78dd-9bfa5a9bc59e","type":4,"url":"http://geoappext.nrcan.gc.ca/arcgis/rest/services/GSCC/Geochronology/MapServer/","scale":{"min":0,"max":0},"cluster":{"enable":true,"distance":50,"label":false,"symbol":true,"maxsizeprop":50,"maxdataprop":1000}}
 ]}},
 "header": {"side": 1, "title": {"value": "My Sample Map","alttext": ""},"tools": { "enable": true, "expand": true},"link": false,"inset": false,"about": {"enable": true,"type": 1,"value": "This is a map about"},"print": {"enable": true,"type": 1},"fullscreen": true},
 "footer": {"northarrow": {"enable": true,"inwkid": 3978},"mousecoords": {"enable": true,"outwkid": 4326},"scalebar": {"enable": true,"unit": 1},"datatable": {"direction": "in"}, "logo": false},
@@ -53,7 +53,7 @@
 				},
 				{"layerinfo": { 
 								"id": "6f798c6b-f369-4e24-78dd-9bfa5a9bc59e",
-								"type": 5,
+								"type": 4,
 								"index": 0
                },
                "title": "Geochronology Géochronologie",
