@@ -40,7 +40,7 @@
 			options: {
 				show: {
 					effect: 'fadeIn',
-					delay: 750
+					delay: 600
 				},
 				hide: {
 					effect: 'fadeOut',

@@ -202,8 +202,7 @@ h3:not(.ui-title) {
 	color: #000!important;
 }
 
-// overwrite jqueryui ui-dialog
-.ui-dialog {
-	margin-left: (0.1 * $rembase) + rem!important;
-	margin-right: (0.1 * $rembase) + rem!important;
+// overwrite jwuery ui-tooltip
+.ui-tooltip {
+	padding: (0.3 * $rembase) + rem!important;
 }

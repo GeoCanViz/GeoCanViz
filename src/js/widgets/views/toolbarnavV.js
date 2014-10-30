@@ -56,7 +56,7 @@
 			// set position information
 			if (configPosition) {
 				node += '<div class="row">' +
-							'<div class="span1"><button id="btnClickMap' + mapid + '" class="gcviz-nav-pos" tabindex="0" data-bind="buttonBlur, click: getMapClick, attr: { title: tpGetLocInfo }"></button></div>' +
+							'<div class="span1"><button id="btnClickMap' + mapid + '" class="gcviz-nav-pos" tabindex="0" data-bind="buttonBlur, click: getMapClick, attr: { alt: tpGetLocInfo }"></button></div>' +
 							'<div class="span11"><label class="gcviz-label gcviz-nav-lblpos" for="btnClickMap' + mapid + '" data-bind="text: infoLabel"></label></div>' +
 						'</div>';
 			}
@@ -68,11 +68,11 @@
 							'<div class="span10">' +
 								'<label class="gcviz-label" for="ovMapContainer' + mapid + '" data-bind="text: OVLabel"></label>' +
 								'<div id="ovtoolcontainer' + mapid + '" class="gcviz-ovtoolcontainer">' +
-									'<div id="ovMapContainer' + mapid + '" class="gcviz-overviewMap" data-bind="attr: { title: tpOverview }">' +
+									'<div id="ovMapContainer' + mapid + '" class="gcviz-overviewMap" data-bind="tooltip: { content: tpOverview }">' +
 										'<div id="divOverviewMap' + mapid + '"></div>' +
 									'</div>' +
 								'</div>' +
-								'<input class="gcviz-leg-check" type="checkbox" data-bind="event: { click: showOVMap }, clickBubble: false, attr: { title: $root.tpVisible, id: \'chk-ov-display\' }, checked: isOVShowMap"/>' +
+								'<input class="gcviz-leg-check" type="checkbox" data-bind="event: { click: showOVMap }, clickBubble: false, attr: { alt: $root.tpVisible, id: \'chk-ov-display\' }, checked: isOVShowMap"/>' +
 								'<label class="gcviz-label gcviz-nav-lblovdisp" for="chk-ov-display" data-bind="text: OVDisplayLabel"></label>' +
 							'</div>' +
 						'</div>';

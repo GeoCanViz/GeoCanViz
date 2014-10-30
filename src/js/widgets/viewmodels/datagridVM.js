@@ -241,7 +241,7 @@
 						data: null,
 						className: 'dt-body-center',
 						title: 'Zoom',
-						width: '45px',
+						width: '35px',
 						searchable: false,
 						orderable: false,
 						render: function (data, type) {
@@ -256,7 +256,7 @@
 						data: null,
 						className: 'dt-body-center',
 						title: 'Select',
-						width: '45px',
+						width: '28px',
 						searchable: false,
 						orderable: false,
 						render: function (data, type) {
@@ -604,8 +604,8 @@
 
 								for (var l = 0; l < attrNames.length; l++) {
 									if (field.datapop.toUpperCase() === attrNames[l].toUpperCase()) {
-										info += '<span class="gcviz-prop">' + field.title + '</span><br/>' +
-												'<span class="gcviz-val">' + attrValues[l] + '</span><br/>';
+										info += '<span class="gcviz-prop">' + field.title + '</span>' +
+												'<p class="gcviz-val">' + attrValues[l] + '</p>';
 									}
 								}
 							}

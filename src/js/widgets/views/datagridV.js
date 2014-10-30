@@ -38,7 +38,7 @@
 							'<button class="gcviz-popup-next" data-bind="click: clickNext, enable: isEnableNext, attr: { title: next }" tabindex="0"></button>' +
 							'<span class="gcviz-popup-counter" data-bind="text: popupCounter"></span>' +
 							'<hr class="gcviz-popup-separator"/>' +
-							'<span class="gcviz-popup-counter" data-bind="text: featLayerName"></span>' +
+							'<span class="gcviz-popup-title" data-bind="text: featLayerName"></span>' +
 							'<div id="gcviz-popup-content' + mapid + '" class="gcviz-popup-content"></div>' +
 						'</div>' +
 					'</div>';

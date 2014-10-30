@@ -77,6 +77,10 @@
 	right: (1.05 * $rembase) + rem!important;
 }
 
+.dijitSliderProgressBarV {
+	background-color: $orange-light;
+}
+
 // zoom full extent
 %zoommax {
 	@include sprite($img-spritebtn, -1012, -2);

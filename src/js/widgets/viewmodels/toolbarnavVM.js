@@ -155,7 +155,7 @@
 
 							// set formating
 							formatScale = currentScale.split('').reverse().join('');
-							formatScale = formatScale.replace(/(\d{3})(?=\d)/g, '$1' + _self.langSep);
+							formatScale = formatScale.replace(/(\d{3})(?=\d)/g, '$1' + ' ');
 							formatScale = formatScale.split('').reverse().join('');
 
 							// update scale

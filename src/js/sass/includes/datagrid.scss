@@ -53,15 +53,6 @@ table.dataTable.no-footer {
 
 
 // Popups
-.gcviz-prop {
-  @include app-text(1, bold, $black);
-}
-
-.gcviz-val {
-  @include app-text(1, normal, $black);
-  padding-top: 2px!important;
-}
-
 .gcviz-popup {
 	overflow: hidden!important;
 }
@@ -78,6 +69,22 @@ table.dataTable.no-footer {
 
 .gcviz-popup-separator {
   margin-top: 0px!important;
+}
+
+.gcviz-popup-title {
+	@include app-text(1.2, bold);
+}
+
+.gcviz-prop {
+  @include app-text(1.1, bold);
+}
+
+.gcviz-val {
+  @include app-text(1.1, normal);
+  padding-top: 2px!important;
+  padding-left: 5px!important;
+  padding-bottom: 3px!important;
+  margin: 0!important;
 }
 
 .gcviz-popup-content {

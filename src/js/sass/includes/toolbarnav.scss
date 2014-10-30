@@ -61,13 +61,13 @@
 .gcviz-ovmapcontainerl {
   @extend %ovmap;
   @extend %ovscalemap;
-  left: (0.1 * $rembase) + rem;
+  left: 0;
 }
 
 .gcviz-ovmapcontainerr {
   @extend %ovmap;
   @extend %ovscalemap;
-  right: (0.1 * $rembase) + rem;
+  right: 0;
 }
 
 .gcviz-ov-border {
