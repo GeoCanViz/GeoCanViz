@@ -8,10 +8,10 @@
 (function() {
 	'use strict';
 	define(['gcviz-vm-header',
-			'gcviz-i18n',
-			'dijit/TitlePane'
-	], function(headerVM, i18n, dojotitle) {
-		var initialize;
+			'gcviz-i18n'
+	], function(headerVM, i18n) {
+		var initialize,
+			addToolbars;
 
 		initialize = function($mapElem) {
 			var $header, tp, ext,
@@ -20,7 +20,8 @@
 				configAbout = config.about,
 				mapid = $mapElem.mapframe.id,
 				title = config.title.value,
-				node = '';
+				node = '',
+				menu = '';
 
 			$mapElem.find('#' + mapid).prepend('<div id="head' + mapid + '" class="gcviz-head"></div>');
 			// Find the header element to insert things in
@@ -79,19 +80,46 @@
 			if (configTools.enable === true) {
 				// Add a collapsible container for tools to hold all the toolbars instead of having a tools icon
 				$mapElem.find('.gcviz-head').append('<div id="divToolsOuter' + mapid + '" class="gcviz-tbcontainer' + ext + '" data-bind="attr: { style: xheightToolsOuter }"><div id="divToolsInner' + mapid + '" class="gcviz-toolsholder" data-bind="attr: { style: xheightToolsInner }"></div></div>');
-				tp = new dojotitle({ id: 'tbTools' + mapid, title: '' + i18n.getDict('%header-tools') + '', content: '<div class="gcviz-tbholder" data-bind="attr: { style: widthheightTBholder }"></div>', open: true });
-				$mapElem.find('.gcviz-toolsholder').append(tp.domNode);
-				tp.startup();
-
-				// if expand is true, toggle tools
-				// wait until the navigation toolbar overview widget is set (250 milliseconds)
-				setTimeout(function() {
-					if (!configTools.expand) {
-						tp.toggle();
-					}
-				}, 300);
+				menu = '<div id="gcviz-menu' + mapid + '" class="gcviz-menu" data-bind="uiAccordion: { heightStyle: \'content\', collapsible: true }, attr: { style: xheightToolsOuter }">' +
+							'<h3 class="gcviz-menu-title gcviz-menu-title' + ext + '"><span data-bind="text: lblMenu"></span></h3>' +
+							'<div id="gcviz-menu-cont' + mapid + '" class="gcviz-menu-cont" data-bind="uiAccordion: { heightStyle: \'content\', collapsible: true, active: false }, attr: { style: xheightToolsOuter }">' +
+								addToolbars($mapElem, ext) +
+							'</div>' +
+						'</div>';
+						
+				$mapElem.find('.gcviz-toolsholder').append(menu);
 			}
+
 			return (headerVM.initialize($header, mapid, config));
+		};
+
+		addToolbars = function(config, ext) {
+			var cfgDraw = config.toolbardraw,
+				cfgNav = config.toolbarnav,
+				cfgLeg = config.toolbarlegend,
+				cfgData = config.toolbardata,
+				index = false,
+				tools = ['','','',''];
+			
+			// check what toolbar is enable, the order and the index of the expand one
+			if (cfgDraw.enable) {
+				tools[cfgDraw.pos] = '<h3 class="gcviz-menu-title gcviz-menu-title' + ext + '">' + i18n.getDict('%toolbardraw-name') + '</h3>' +
+										'<div class="gcviz-tbdraw-content gcviz-tbcontent" gcviz-exp="' + cfgDraw.expand + '"></div>';
+			}
+			if (cfgNav.enable) {
+				tools[cfgNav.pos] = '<h3 class="gcviz-menu-title gcviz-menu-title' + ext + ' gcviz-nav-panel">' + i18n.getDict('%toolbarnav-name') + '</h3>' +
+										'<div class="gcviz-tbnav-content gcviz-tbcontent" gcviz-exp="' + cfgNav.expand + '"></div>';
+			}
+			if (cfgLeg.enable) {
+				tools[cfgLeg.pos] = '<h3 class="gcviz-menu-title gcviz-menu-title' + ext + '">' + i18n.getDict('%toolbarlegend-name') + '</h3>' +
+										'<div class="gcviz-tbleg-content gcviz-tbcontent-leg" gcviz-exp="' + cfgLeg.expand + '"></div>';
+			}
+			if (cfgData.enable) {
+				tools[cfgData.pos] = '<h3 class="gcviz-menu-title gcviz-menu-title' + ext + '">' + i18n.getDict('%toolbardata-name') + '</h3>' +
+										'<div class="gcviz-tbdata-content gcviz-tbcontent" gcviz-exp="' + cfgData.expand + '"></div>';
+			}
+
+			return tools.toString().replace(/,/g, '');
 		};
 
 		return {

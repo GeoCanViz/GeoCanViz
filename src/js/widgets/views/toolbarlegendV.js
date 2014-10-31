@@ -9,37 +9,24 @@
 	'use strict';
 	define(['jquery-private',
 			'gcviz-vm-tblegend',
-			'dijit/TitlePane',
 			'gcviz-i18n'
-	], function($viz, tblegendVM, dojotitle, i18n) {
+	], function($viz, tblegendVM, i18n) {
 		var initialize;
 
 		initialize = function($mapElem) {
 			var $legend,
 				config = $mapElem.toolbarlegend,
 				mapid = $mapElem.mapframe.id,
-				tp,
 				node = '',
-				itemsTemplate = '',
-				$holder = $mapElem.find('.gcviz-tbholder');
+				itemsTemplate = '';
 
-			$holder.append('<div class="gcviz-tbspacer"></div>');
-			tp = new dojotitle({ id: 'tbleg' + mapid, title: i18n.getDict('%toolbarlegend-name'), content: '<div class="gcviz-tb-scroll gcviz-tbleg-content gcviz-tbcontent-leg"></div>', open: config.expand });
-			$holder.append(tp.domNode);
-			tp.startup();
-
-			// set focus on open
-			tp.on('click', function() {
-				$viz('.gcviz-tbholder').scrollTo($viz('.gcviz-tbleg-content'));
-			});
+			// find toolbar and start to add items
+			$legend = $mapElem.find('.gcviz-tbleg-content');
 
 			// contextual help
 			node += '<div class="row">' +
 						'<label class="gcviz-help-bubbledesc" for="tbleg' + mapid + '" data-bind="contextHelp: { text: helpDesc, alt: helpAlt, img: imgHelpBubble, id: \'tbleg' + mapid + '\' }"></label>' +
 					'</div>';
-
-			// find toolbar and start to add items
-			$legend = $mapElem.find('.gcviz-tbleg-content');
 
 			//template for recursive item loading (use i18 for title attribute because binding doesn't work)
 			itemsTemplate = '<script id="itemsTmpl" type="text/html">';

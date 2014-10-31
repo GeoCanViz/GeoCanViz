@@ -8,29 +8,15 @@
 (function() {
 	'use strict';
 	define(['jquery-private',
-			'gcviz-vm-tbdata',
-			'dijit/TitlePane',
-			'gcviz-i18n'
-	], function($viz, tbdataVM, dojotitle, i18n) {
+			'gcviz-vm-tbdata'
+	], function($viz, tbdataVM) {
 		var initialize;
 
 		initialize = function($mapElem) {
 			var $toolbar,
 				config = $mapElem.toolbardata,
 				mapid = $mapElem.mapframe.id,
-				tp,
-				node = '',
-				$holder = $mapElem.find('.gcviz-tbholder');
-
-			$holder.append('<div class="gcviz-tbspacer"></div>');
-			tp = new dojotitle({ id: 'tbdata' + mapid, title: i18n.getDict('%toolbardata-name'), content: '<div class="gcviz-tb-scroll gcviz-tbdata-content gcviz-tbcontent"></div>', open: config.expand });
-			$holder.append(tp.domNode);
-			tp.startup();
-
-			// set focus on open
-			tp.on('click', function() {
-				$viz('.gcviz-tbholder').scrollTo($viz('.gcviz-tbdata-content'));
-			});
+				node = '';
 
 			// find toolbar and start to add items
 			$toolbar = $mapElem.find('.gcviz-tbdata-content');

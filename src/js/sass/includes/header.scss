@@ -43,6 +43,10 @@
 	left: (2 * $rembase) + rem;
 }
 
+.gcviz-menu-title {
+	display: block!important;
+}
+
 // the header button sprite (need to use background-position because FF is not able to set x and y)
 .gcviz-head-help {
 	@include sprite($img-spritebtn, -110, -2);

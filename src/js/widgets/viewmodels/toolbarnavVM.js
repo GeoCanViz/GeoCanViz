@@ -14,12 +14,12 @@
 			'gcviz-func',
             'gcviz-gisgeo',
             'gcviz-gisnav',
-            'dijit/registry',
             'gcviz-vm-help'
-	], function($viz, ko, i18n, gcvizFunc, gisGeo, gisNav, dijit, helpVM) {
+	], function($viz, ko, i18n, gcvizFunc, gisGeo, gisNav, helpVM) {
 		var initialize,
 			calcDDtoDMS,
 			getDMS,
+			gblOVMap = false,
 			vm;
 
 		initialize = function($mapElem, mapid, config) {
@@ -37,6 +37,8 @@
                     btnClickMap = $viz('#btnClickMap' + mapid),
                     $container = $viz('#' + mapid + '_holder_layers'),
                     $ovMap = $viz('#ovmapcont' + mapid),
+                    $menu = $viz('#gcviz-menu' + mapid),
+                    $panel = $viz('#gcviz-menu-cont' + mapid),
 					mymap = gcvizFunc.getElemValueVM(mapid, ['map', 'map'], 'js'),
                     autoCompleteArray = [ { minx: 0 , miny: 0, maxx: 0, maxy: 0, title: 'ddd' } ];
 
@@ -131,15 +133,9 @@
 				_self.activeTool = ko.observable('');
 
 				_self.init = function() {
-					var $tb, currentScale;
+					var currentScale;
 
                     _self.theAutoCompleteArray = ko.observableArray(autoCompleteArray);
-
-					if (position.enable) {
-						// set event for the toolbar
-						$tb = $viz('#tbTools' + mapid + '_titleBarNode');
-						$tb.on('click', _self.endPosition);
-					}
 
                     // See if user wanted an overview map. If so, initialize it here
                     if (overview.enable) {
@@ -163,13 +159,46 @@
 						});
 					}
 
-					// check if we need to close the toolbar. We do this here instead of view because of a bug with
-					// overview widget. If the widget is not visible at load, it is not properly set.
-					setTimeout(function() {
-						if (!config.expand) {
-							dijit.byId('tbnav' + mapid).toggle();
+					// event to know when the panel is open for the first time to start
+					// the overview map
+					$panel.on('accordionactivate', function(event, ui) {
+						var menu, panel;
+
+						// start the dijiit if not already started
+						menu = $viz(event.target.parentElement.getElementsByTagName('h3')[0]).hasClass('ui-state-active'),
+						panel = ui.newPanel.hasClass('gcviz-tbnav-content');
+
+						// the menu and the panel needs to be active
+						if (panel && menu) {
+							ovMapWidget[0].startup();
+
+							// remove the events
+							$panel.off('accordionactivate');
+							$menu.off('accordionactivate');
 						}
-					}, 250);
+					});
+					
+					// if the panel is open but not the menu we need to have another way
+					// to trigger the overview startup
+					$menu.on('accordionactivate', function(event, ui) {
+						var panel,
+							menu = $viz(event.target.getElementsByTagName('h3')[0]).hasClass('ui-state-active'),
+							panels = event.target.getElementsByTagName('h3'),
+							len = panels.length;
+
+						if (menu) {
+							while (len--) {
+								panel = $viz(panels[len]);
+								if (panel.hasClass('gcviz-nav-panel') && panel.hasClass('ui-state-active')) {
+									ovMapWidget[0].startup();
+									
+									// remove the events
+									$panel.off('accordionactivate');
+									$menu.off('accordionactivate');
+								}
+							}
+						}
+					});
 
 					return { controlsDescendantBindings: true };
 				};
@@ -390,6 +419,12 @@
 						ovMapWidget[1].hide();
 						$ovMap.removeClass('gcviz-ov-border');
 					} else {
+						// start the dijiit if not already started
+						if (!gblOVMap) {
+							ovMapWidget[1].startup();
+							gblOVMap = true;
+						}
+						
 						ovMapWidget[1].show();
 						ovMapWidget[0].hide();
 						$ovMap.addClass('gcviz-ov-border');

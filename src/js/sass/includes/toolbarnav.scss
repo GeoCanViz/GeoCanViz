@@ -12,6 +12,10 @@
   z-index: 30;
 }
 
+%ovborder {
+	@include app-border(0.1, solid, $orange-darkborder);
+}
+
 // content height is static so remove the overflow
 .gcviz-tbnav-content {
 	overflow-x: initial!important;
@@ -55,7 +59,7 @@
 
 .gcviz-ovtoolcontainer {
 	@extend %ovmap;
-	@include app-border(0.1, solid, $black);
+	@extend %ovborder;
 }
 
 .gcviz-ovmapcontainerl {
@@ -71,7 +75,7 @@
 }
 
 .gcviz-ov-border {
-	@include app-border(0.1, solid, $black);
+	@extend %ovborder;
 }
 
 .gcviz-overviewMap {

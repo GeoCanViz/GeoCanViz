@@ -8,10 +8,8 @@
 (function() {
 	'use strict';
 	define(['jquery-private',
-			'gcviz-vm-tbdraw',
-			'dijit/TitlePane',
-			'gcviz-i18n'
-	], function($viz, tbdrawVM, dojotitle, i18n) {
+			'gcviz-vm-tbdraw'
+	], function($viz, tbdrawVM) {
 		var initialize,
 			getMeasureBtn,
 			getDrawBtn,
@@ -23,22 +21,10 @@
 			var $toolbar,
 				config = $mapElem.toolbardraw,
 				mapid = $mapElem.mapframe.id,
-				tp,
-				node = '',
-				$holder = $mapElem.find('.gcviz-tbholder');
+				node = '';
 
 			// add the url for dowload page to config
 			config.urldownload = $mapElem.mapframe.map.urldownload;
-
-			$holder.append('<div class="gcviz-tbspacer"></div>');
-			tp = new dojotitle({ id: 'tbdraw' + mapid, title: '' + i18n.getDict('%toolbardraw-name') + '', content: '<div class="gcviz-tbdraw-content gcviz-tbcontent"></div>', open: config.expand });
-			$holder.append(tp.domNode);
-			tp.startup();
-
-			// set focus on open
-			tp.on('click', function() {
-				$viz('.gcviz-tbholder').scrollTo($viz('.gcviz-tbdraw-content'));
-			});
 
 			// find toolbar and start to add items
 			$toolbar = $mapElem.find('.gcviz-tbdraw-content');

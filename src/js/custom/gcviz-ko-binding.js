@@ -373,8 +373,6 @@
 
 			if (typeof options.sortable !== 'undefined') {
 				$element.accordion('destroy').accordion(options).sortable(options.sortable);
-			} else {
-				$element.accordion('destroy').accordion(options);
 			}
 		}
 	};

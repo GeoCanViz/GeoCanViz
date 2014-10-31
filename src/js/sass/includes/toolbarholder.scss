@@ -1,20 +1,15 @@
 @import "gcviz-mixin";
 
 %transparency {
-	background-color: rgba(140,140,140, 0.5);
+	background-color: rgba(140,140,140,0.65);
 }
 
 %tbcontent {
 	padding-left: (1 * $rembase) + rem;
 	padding-bottom: (1 * $rembase) + rem;
-	margin-top: 0rem!important;
 	z-index: 101;
 	background-color: $lightyellow;
-	overflow-x:	auto;
-
-	.dijitTitlePane {
-		margin: (0.5 * $rembase) + rem;
-	}
+	overflow:	hidden!important;
 }
 
 %tbcontainer {
@@ -31,12 +26,6 @@
   @extend %transparency;
 }
 
-// overwrite esri class for panel
-.claro .dijitTitlePaneTitle {
-	background-color: #d3d8d1!important;
-}
-// end overwrite
-
 .gcviz-tbcontainer-l {
   @extend %tbcontainer;
   left: 0;
@@ -47,9 +36,58 @@
   right: 0;
 }
 
-.gcviz-tbholder {
-  overflow-y: scroll;
+.gcviz-toolsholder {
   @include unselectable;
+
+	.gcviz-menu {
+		width: 100%!important;
+		overflow:	hidden!important;
+	}
+
+	// flip the background image on toolbar to match header when menu is on the right
+	.gcviz-menu-title-r:before {
+		background-image: url($img-root + "footGreybar.png"); //background-color: #d3d8d1!important;
+		-moz-transform: scaleX(-1);
+		-o-transform: scaleX(-1);
+		-webkit-transform: scaleX(-1);
+		transform: scaleX(-1);
+		content: "";
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		top: 0;
+		left: 0;
+		z-index: -1;
+	}
+
+	.gcviz-menu-title-r {
+		position: relative;
+		border: none!important;
+		margin-top: 0!important;
+	}
+
+	.gcviz-menu-title-l {
+		background-image: url($img-root + "footGreybar.png");
+		border: none!important;
+		margin-top: 0!important;
+	}
+	// end background image
+
+	.gcviz-menu-title.ui-state-focus {
+		background: $lightyellow!important;
+		border: none!important;
+	}
+	
+	.gcviz-menu-title.ui-state-hover {
+		background: $lightyellow!important;
+		border: none!important;
+	}
+
+	.gcviz-menu-cont {
+		padding: 0!important;
+		background: transparent;
+		overflow:	hidden!important;
+	}
 
   .gcviz-tbcontent {
 		@extend %tbcontent;
@@ -58,14 +96,11 @@
   .gcviz-tbcontent-leg {
     @extend %tbcontent;
 		max-height: (40 * $rembase) + rem;
+		overflow:	auto!important;
   }
 }
 
-.gcviz-tbspacer {
-  @extend %transparency;
-  height: (0.3 * $rembase) + rem;
-}
-
+// separator in toolbar draw
 .gcviz-tbseparator {
 	display: inline-block;
 	@include app-border(0.1, solid, $palegrey);

@@ -16,11 +16,11 @@
 			'gcviz-ko',
 			'gcviz-func',
 			'gcviz-gismap',
-			'gcviz-vm-help',
-			'dijit/registry'
-	], function($viz, ko, media, gisPrint, i18n, binding, gcvizFunc, gisM, helpVM, dijit) {
+			'gcviz-vm-help'
+	], function($viz, ko, media, gisPrint, i18n, binding, gcvizFunc, gisM, helpVM) {
 		var initialize,
 			printSimple,
+			toggleMenu,
 			vm;
 
 		initialize = function($mapElem, mapid, config) {
@@ -35,6 +35,7 @@
 					$maproot = $viz('#' + mapid + '_holder_root'),
 					$btnAbout = $mapElem.find('.gcviz-head-about'),
 					$btnFull = $mapElem.find('.gcviz-head-fs'),
+					$menu = $mapElem.find('#gcviz-menu' + mapid),
 					map = gcvizFunc.getElemValueVM(mapid, ['map', 'map'], 'js');
 
 				// viewmodel mapid to be access in tooltip custom binding
@@ -52,6 +53,7 @@
 				_self.tpInset = i18n.getDict('%header-tpinset');
                 _self.tpAbout = i18n.getDict('%header-tpabout');
                 _self.tpFullScreen = i18n.getDict('%header-tpfullscreen');
+                _self.lblMenu = i18n.getDict('%header-tools');
 
 				// about dialog box
 				_self.lblAboutTitle = i18n.getDict('%header-tpabout');
@@ -85,6 +87,8 @@
 				_self.toolsInit = config.tools;
 
 				_self.init = function() {
+					var $menuCont = $viz('#gcviz-menu-cont' + mapid);
+
 					// keep map size
 					_self.heightSection = parseInt($section.css('height'), 10);
 					_self.heightMap = parseInt($map.css('height'), 10);
@@ -96,6 +100,30 @@
                     setTimeout(function() {
 						_self.adjustContainerHeight();
 					}, 500);
+					
+					// if expand is false toggle (open by default)
+					if (!_self.toolsInit.expand) {
+						$menu.on('accordioncreate', function(event, ui) {
+							$menu.accordion('option', 'active', false);
+							$menu.off('accordioncreate');
+						});
+					}
+
+					// set the active toolbar
+					$menuCont.on('accordioncreate', function(event, ui) {
+						var value,
+							items = event.target.getElementsByTagName('div'),
+							len = items.length;
+
+						while (len--) {
+							value = items[len].getAttribute('gcviz-exp');
+							if (value === "true") {
+								$menuCont.accordion('option', 'active', len);
+							}
+						}
+						
+						$menuCont.off('accordioncreate');
+					});
 
 					return { controlsDescendantBindings: true };
 				};
@@ -146,9 +174,14 @@
 				};
 
 				_self.toolsClick = function() {
+					var open = $menu.accordion('option', 'active');
+					
 					// Toggle the tools container
-					var tc = dijit.byId('tbTools' + mapid);
-					tc.toggle();
+					if (open === 0) {
+						$menu.accordion('option', 'active', false);
+					} else {
+						$menu.accordion('option', 'active', 0);
+					}
 				};
 
 				_self.helpClick = function() {

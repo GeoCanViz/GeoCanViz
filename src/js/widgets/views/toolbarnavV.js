@@ -8,10 +8,8 @@
 (function() {
 	'use strict';
 	define(['jquery-private',
-			'gcviz-vm-tbnav',
-			'gcviz-i18n',
-			'dijit/TitlePane'
-	], function($viz, tbnavVM, i18n, dojotitle) {
+			'gcviz-vm-tbnav'
+	], function($viz, tbnavVM) {
 		var initialize;
 
 		initialize = function($mapElem) {
@@ -22,19 +20,7 @@
 				configPosition = config.position.enable,
 				configScaleDisplay = config.scaledisplay.enable,
 				mapid = $mapElem.mapframe.id,
-				tp,
-				node = '',
-				$holder = $mapElem.find('.gcviz-tbholder');
-
-			$holder.append('<div class="gcviz-tbspacer"></div>');
-			tp = new dojotitle({ id: 'tbnav' + mapid, title: '' + i18n.getDict('%toolbarnav-name') + '', content: '<div class="gcviz-tbnav-content gcviz-tbcontent"></div>', open: true }); // true because of a bug, see init function in VM
-			$holder.append(tp.domNode);
-			tp.startup();
-
-			// set focus on open
-			tp.on('click', function() {
-				$viz('.gcviz-tbholder').scrollTo($viz('.gcviz-tbnav-content'));
-			});
+				node = '';
 
 			// find toolbar and start to add items
 			$toolbar = $mapElem.find('.gcviz-tbnav-content');

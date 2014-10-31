@@ -35,6 +35,7 @@
 				_self.lblWCAGmsgy = i18n.getDict('%wcag-msgy');
 				_self.xValue = ko.observable().extend({ numeric: { precision: 3, validation: { min: 50, max: 130 } } });
 				_self.yValue = ko.observable().extend({ numeric: { precision: 3, validation: { min: 40, max: 80 } } });
+				_self.lblWCAGTitle = i18n.getDict('%wcag-instrtitle');
 
 				// wcag mode
 				_self.isWCAG = ko.observable(false);

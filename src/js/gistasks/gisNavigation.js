@@ -43,12 +43,7 @@
 				ovTool = new esriOV(options, document.getElementById('divOverviewMap' + mapid));
 				ovMap = new esriOV(options, document.getElementById('ovmap' + mapid));
 
-				// *** set the overview map in the tools panel
-				// we need to startup only when we see the div.
-				// open the tools and panels, startup then put back the original state
-				// it is done in navVM
-				ovTool.startup();
-
+				// *** startup the overview map in the toolbarnav (we need to see the div)
 				// work around to resize the overview div because it wont work only
 				// with the option from the dijit.
 				ovToolDiv = $viz('#divOverviewMap' + mapid + '-map');
@@ -56,13 +51,10 @@
 				ovTool.resize();
 
 				// *** set the overview map on the map. We need both because user can decide to see it on the map
-				ovMap.startup();
 				ovMapDiv = $viz('ovmap' + mapid + '-map');
 				ovMapDiv.width(230).height(100);
 				ovMap.resize();
-
-				// overview map need to be visible by default, close it after 500 milliseconds
-				setTimeout(function() { ovMap.hide(); }, 1000);
+				ovMap.hide();
 
 				// return both object to be able to show and hide from the viewmodel
 				return [ovTool, ovMap];

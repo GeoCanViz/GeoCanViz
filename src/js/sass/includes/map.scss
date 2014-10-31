@@ -6,6 +6,15 @@
   margin: 0px;
 }
 
+%zoomborder {
+	border-color: $orange-darkborder!important;
+	border-width: 1px!important;
+}
+
+%zoombar {
+	top: (3 * $rembase) + rem!important;
+}
+
 .map {
   overflow: hidden;
 }
@@ -63,10 +72,6 @@
 	height: (15 * $rembase) + rem!important;
 }
 
-%zoombar {
-	top: (3 * $rembase) + rem!important;
-}
-
 .esriLargeSliderTL {
 	@extend %zoombar;
 	left: (1.5 * $rembase) + rem!important;
@@ -78,7 +83,16 @@
 }
 
 .dijitSliderProgressBarV {
-	background-color: $orange-light;
+	background-color: $orange-dark!important;
+	@extend %zoomborder
+}
+
+.dijitSliderRemainingBarV {
+	@extend %zoomborder
+}
+
+.dijitSliderBumperV {
+	display: none!important;
 }
 
 // zoom full extent

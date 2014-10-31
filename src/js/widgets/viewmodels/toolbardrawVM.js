@@ -119,11 +119,6 @@
 				_self.wcagok = false;
 
 				_self.init = function() {
-
-					// set event for the toolbar
-					var $tb = $viz('#tbTools' + mapid + '_titleBarNode');
-					$tb.on('click', _self.endDraw);
-
 					// select black by default
 					_self.selectColorClick('black');
 
