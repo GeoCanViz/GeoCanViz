@@ -14,8 +14,9 @@
 			'gcviz-func',
             'gcviz-gisgeo',
             'gcviz-gisnav',
+            'gcviz-gisdatagrid',
             'gcviz-vm-help'
-	], function($viz, ko, i18n, gcvizFunc, gisGeo, gisNav, helpVM) {
+	], function($viz, ko, i18n, gcvizFunc, gisGeo, gisNav, gisDG, helpVM) {
 		var initialize,
 			calcDDtoDMS,
 			getDMS,
@@ -211,6 +212,9 @@
 					// Reset cursor
 					$container.removeClass('gcviz-nav-cursor-pos');
 
+					// set popup event
+					gisDG.addEvtPop();
+
 					// remove click event
 					if (typeof clickPosition !== 'undefined') {
 						clickPosition.remove();
@@ -218,6 +222,9 @@
 
 					// reset active tool
 					_self.activeTool('');
+
+					// open mneu
+					$menu.accordion('option', 'active', 0);
 
 					// focus last active tool
 					setTimeout(function() {
@@ -308,7 +315,14 @@
 				});
 
                 _self.getMapClick = function() {
-                    gcvizFunc.getElemValueVM(mymap.vIdName, ['header', 'toolsClick'], 'js')();
+                    // close menu
+                    $menu.accordion('option', 'active', false);
+
+					// set event for the toolbar
+					$menu.on('accordionbeforeactivate', function() {
+						$menu.off();
+						_self.endPosition();
+					});
 
 					// check if WCAG mode is enable, if so use dialog box instead)
 					if (!_self.isWCAG()) {
@@ -316,9 +330,12 @@
 						$container.css('cursor', '');
 						$container.addClass('gcviz-nav-cursor-pos');
 
+						// remove popup event
+						gisDG.removeEvtPop();
+
 						// Get user to click on map and capture event
-						clickPosition = mymap.on('click', function(event) {
-							gisGeo.projectPoints([event.mapPoint], 4326, _self.displayInfo);
+						clickPosition = mymap.on('click', function(evt) {
+							gisGeo.projectPoints([evt.mapPoint], 4326, _self.displayInfo);
 						});
 					} else {
 						_self.isDialogWCAG(true);
@@ -328,7 +345,7 @@
 					_self.activeTool('position');
 
 					// focus the map. We need to specify this because when you use the keyboard to
-					// activate ta tool, the focus sometimes doesnt go to the map.
+					// activate the tool, the focus sometimes doesnt go to the map.
 					gcvizFunc.focusMap(mymap);
                 };
 
@@ -351,7 +368,7 @@
 					// if not ok press, open tools
 					if (!_self.wcagok) {
 						_self.isLocDialogOpen(false);
-						gcvizFunc.getElemValueVM(mapid, ['header', 'toolsClick'], 'js')();
+						$menu.accordion('option', 'active', 0);
 						_self.endPosition();
 					}
 				};
@@ -406,7 +423,7 @@
 
 					// if wcag mode is enable, open tools
 					if (_self.wcagok) {
-						gcvizFunc.getElemValueVM(mapid, ['header', 'toolsClick'], 'js')();
+						$menu.accordion('option', 'active', 0);
 						_self.endPosition();
 						_self.wcagok = false;
 					}

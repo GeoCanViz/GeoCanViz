@@ -19,7 +19,7 @@
 .gcviz-head {
 	@include app-head-foot;
   background-repeat: repeat-x;
-  background-image: url($img-root + "headGreybar.png");
+  background-image: url($img-head);
 }
 
 .gcviz-head-btn-l {
@@ -41,10 +41,6 @@
 .gcviz-head-title-r {
 	@extend %head-title;
 	left: (2 * $rembase) + rem;
-}
-
-.gcviz-menu-title {
-	display: block!important;
 }
 
 // the header button sprite (need to use background-position because FF is not able to set x and y)

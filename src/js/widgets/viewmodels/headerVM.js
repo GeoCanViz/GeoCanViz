@@ -198,11 +198,16 @@
 				};
 
 				_self.cancelFullScreen = function() {
+					var sectH = _self.heightSection,
+						sectW = _self.widthSection,
+						mapH = _self.heightMap,
+						mapW = _self.widthMap;
+
 					// set style back for the map
-					gcvizFunc.setStyle($section[0], { 'width': _self.widthSection + 'px', 'height': _self.heightSection + 'px' });
-					gcvizFunc.setStyle($mapholder[0], { 'width': _self.widthSection + 'px', 'height': _self.heightSection + 'px' });
-					gcvizFunc.setStyle($map[0], { 'width': _self.widthMap + 'px', 'height': _self.heightMap + 'px' });
-					gcvizFunc.setStyle($maproot[0], { 'width': _self.widthMap + 'px', 'height': _self.heightMap + 'px' });
+					gcvizFunc.setStyle($section[0], { 'width': sectW + 'px', 'height': sectH + 'px' });
+					gcvizFunc.setStyle($mapholder[0], { 'width': sectW + 'px', 'height': (sectH - 36) + 'px' }); // remove the instruction
+					gcvizFunc.setStyle($map[0], { 'width': mapW + 'px', 'height': mapH + 'px' });
+					gcvizFunc.setStyle($maproot[0], { 'width': mapW + 'px', 'height': mapH + 'px' });
 					$section.removeClass('gcviz-sectionfs');
 
 					// trigger the fullscreen custom binding and set state
@@ -234,7 +239,7 @@
 						w = param.width,
 						h = param.height,
 						array = $section.find('[tabindex = 0]'),
-						height =  (h - (2 * _self.headerHeight) - 32); // 32 is the keyboard instruction height
+						height =  (h - (2 * _self.headerHeight) - 36); // 36 is the keyboard instruction height
 
 					// set style for the map
 					gcvizFunc.setStyle($section[0], { 'width': screen.width + 'px', 'height': '100%' });

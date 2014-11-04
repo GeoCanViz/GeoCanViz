@@ -1,5 +1,9 @@
 @import "gcviz-mixin";
 
+%bubbleMarging {
+	margin-top: (0.3 * $rembase) + rem;
+}
+
 .gcviz-help-sect {
   max-height: (50 * $rembase) + rem!important;
 }
@@ -16,9 +20,14 @@
 }
 
 .gcviz-help-bubbledesc {
-	margin-top: (0.3 * $rembase) + rem;
-	float: right;
+	@extend %bubbleMarging;
 	@include app-text(1.2, normal, $black, italic);
+	float: right;
+}
+
+.gcviz-wcag-bubbledesc {
+	@extend %bubbleMarging;
+	display: inline;
 }
 
 .gcviz-help {

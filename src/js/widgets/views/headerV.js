@@ -103,19 +103,19 @@
 			
 			// check what toolbar is enable, the order and the index of the expand one
 			if (cfgDraw.enable) {
-				tools[cfgDraw.pos] = '<h3 class="gcviz-menu-title gcviz-menu-title' + ext + '">' + i18n.getDict('%toolbardraw-name') + '</h3>' +
+				tools[cfgDraw.pos] = '<h3 class="gcviz-panel-title">' + i18n.getDict('%toolbardraw-name') + '</h3>' +
 										'<div class="gcviz-tbdraw-content gcviz-tbcontent" gcviz-exp="' + cfgDraw.expand + '"></div>';
 			}
 			if (cfgNav.enable) {
-				tools[cfgNav.pos] = '<h3 class="gcviz-menu-title gcviz-menu-title' + ext + ' gcviz-nav-panel">' + i18n.getDict('%toolbarnav-name') + '</h3>' +
+				tools[cfgNav.pos] = '<h3 class="gcviz-panel-title gcviz-nav-panel">' + i18n.getDict('%toolbarnav-name') + '</h3>' +
 										'<div class="gcviz-tbnav-content gcviz-tbcontent" gcviz-exp="' + cfgNav.expand + '"></div>';
 			}
 			if (cfgLeg.enable) {
-				tools[cfgLeg.pos] = '<h3 class="gcviz-menu-title gcviz-menu-title' + ext + '">' + i18n.getDict('%toolbarlegend-name') + '</h3>' +
+				tools[cfgLeg.pos] = '<h3 class="gcviz-panel-title">' + i18n.getDict('%toolbarlegend-name') + '</h3>' +
 										'<div class="gcviz-tbleg-content gcviz-tbcontent-leg" gcviz-exp="' + cfgLeg.expand + '"></div>';
 			}
 			if (cfgData.enable) {
-				tools[cfgData.pos] = '<h3 class="gcviz-menu-title gcviz-menu-title' + ext + '">' + i18n.getDict('%toolbardata-name') + '</h3>' +
+				tools[cfgData.pos] = '<h3 class="gcviz-panel-title">' + i18n.getDict('%toolbardata-name') + '</h3>' +
 										'<div class="gcviz-tbdata-content gcviz-tbcontent" gcviz-exp="' + cfgData.expand + '"></div>';
 			}
 

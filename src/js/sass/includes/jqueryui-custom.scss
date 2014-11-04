@@ -12,7 +12,7 @@
 	top: 0;
 	left: 0;
 	outline: 0;
-	background: #fafaf5!important;
+	background: $lightyellow!important;
 	z-index: 2000!important;
 }
 .ui-dialog .ui-dialog-titlebar {
@@ -64,7 +64,7 @@
   margin-top: 0px!important;
   margin-bottom: 0px!important;
 	color: #000000!important;
-	background: #fafaf5!important;
+	background: $lightyellow!important;
 	height: 100%!important;
 }
 .ui-dialog .ui-dialog-content a {
@@ -82,7 +82,7 @@
 	margin-top: 0px!important;
   padding: 0px 0px 0px 0px!important;
   background-repeat: repeat-x;
-  background-image: url($img-root + "footGreybar.png");
+  background-image: url($img-head);
   height: 40px!important;
 }
 .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset {
@@ -283,7 +283,7 @@ button.ui-button::-moz-focus-inner {
 .ui-widget-content .ui-state-focus,
 .ui-widget-header .ui-state-focus {
   border: 2px solid #ff6600!important;
-  background: #fafaf5;
+  //background: #fff;
   color: #000;
 }
 .ui-state-hover a,

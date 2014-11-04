@@ -40,6 +40,8 @@
 			createIdTask,
 			executeIdTask,
 			returnIdResults,
+			removeEvtPop,
+			addEvtPop,
 			wkid,
 			selectLayer,
 			symbPoint,
@@ -340,6 +342,20 @@
 			idRtnFunc(response);
 		};
 
+		removeEvtPop = function() {
+			if (typeof idFeatures !== 'undefined') {
+				idFeatures.remove();
+			}
+		};
+
+		addEvtPop = function() {
+			if (typeof idFeatures !== 'undefined') {
+				// make sure there is no event then add it
+				idFeatures.remove();
+				idFeatures = mymap.on('click', executeIdTask);
+			}
+		};
+
 		return {
 			initialize: initialize,
 			getData: getData,
@@ -348,7 +364,9 @@
 			selectFeature: selectFeature,
 			selectFeaturePop: selectFeaturePop,
 			unselectFeature: unselectFeature,
-			createIdTask: createIdTask
+			createIdTask: createIdTask,
+			removeEvtPop: removeEvtPop,
+			addEvtPop: addEvtPop
 		};
 	});
 }());

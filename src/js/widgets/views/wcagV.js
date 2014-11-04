@@ -27,6 +27,7 @@
 							'<p class="gcviz-wcag-instr" data-bind="text: wcagInstr"></p>' +
 							'<input class="gcviz-leg-check" type="checkbox" data-bind="event: { click: enableWCAG }, clickBubble: false, attr: { title: WCAGLabel, id: \'chk-wcag\' }, checked: isWCAG"/>' +
 							'<label class="gcviz-label gcviz-nav-lblovdisp" for="chk-wcag" data-bind="text: WCAGLabel"></label>' +
+							'<label class="gcviz-wcag-bubbledesc" for="chk-wcag" data-bind="contextHelp: { text: helpDesc, alt: helpAlt, img: imgHelpBubble, id: \'key' + mapid + '\' }"></label>' +
 						'</div>' +
 					'</div>';
 

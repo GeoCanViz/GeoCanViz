@@ -14,8 +14,9 @@
 			'gcviz-i18n',
 			'gcviz-func',
 			'gcviz-gisgraphic',
+			'gcviz-gisdatagrid',
 			'gcviz-vm-help'
-	], function($viz, ko, generateFile, i18n, gcvizFunc, gisGraphic, helpVM) {
+	], function($viz, ko, generateFile, i18n, gcvizFunc, gisGraphic, gisDG, helpVM) {
 		var initialize,
 			vm;
 
@@ -36,7 +37,8 @@
 					$btnText = $mapElem.find('.gcviz-draw-text'),
 					$btnLength = $mapElem.find('.gcviz-draw-length'),
 					$btnArea = $mapElem.find('.gcviz-draw-area'),
-					$btnDelsel = $mapElem.find('.gcviz-draw-delsel');
+					$btnDelsel = $mapElem.find('.gcviz-draw-delsel'),
+					$menu = $viz('#gcviz-menu' + mapid);
 
 				// viewmodel mapid to be access in tooltip custom binding
 				_self.mapid = mapid;
@@ -131,6 +133,8 @@
 
 				// end draw action on tools toolbar click
 				_self.endDraw = function() {
+					// set popup event
+					gisDG.addEvtPop();
 
 					// remove cursor and event only if WCAG mode is not enable
 					if (!_self.isWCAG()) {
@@ -152,6 +156,9 @@
 
 					_self.graphic.deactivate();
 					_self.measureType = '';
+
+					// open mneu
+					$menu.accordion('option', 'active', 0);
 
 					// set the focus back to the right tool
 					_self.setFocus();
@@ -183,21 +190,19 @@
 				};
 
 				_self.dialogTextCancel = function() {
+					// open menu and reset cursor
 					_self.isTextDialogOpen(false);
 					_self.isText(false);
 					_self.endDraw();
-					_self.openTools('text');
 				};
 
 				_self.dialogTextClose = function() {
 					// if window is close with the close X
 					if (_self.isTextDialogOpen()) {
 						// open menu and reset cursor
-						_self.endDraw();
-						_self.openTools('text');
-
 						_self.isTextDialogOpen(false);
 						_self.isText(false);
+						_self.endDraw();
 					}
 				};
 
@@ -434,7 +439,18 @@
 				};
 
 				_self.openTools = function(tool) {
-					gcvizFunc.getElemValueVM(mapid, ['header', 'toolsClick'], 'js')();
+					// close menu
+					$menu.accordion('option', 'active', false);
+					
+					// set event for the toolbar
+					$menu.on('accordionbeforeactivate', function() {
+						$menu.off();
+						_self.endDraw();
+					});
+
+					// remove popup event
+					gisDG.removeEvtPop();
+
 					_self.activeTool(tool);
 				};
 

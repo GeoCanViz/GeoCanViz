@@ -115,7 +115,8 @@
 
 				_self.applyKey = function(key, shift) {
 					var map = _self.map,
-						prevent = false;
+						prevent = false,
+						flag = false;
 
 					if (_self.mapfocus()) {
 						if (key === 37) {
@@ -146,17 +147,24 @@
 						} else if (key === 27) {
 
 							// check if draw is active. If so apply event
-							if (gcvizFunc.getElemValueVM(mapid, ['draw', 'activeTool'], 'js') !== '') {
-								gcvizFunc.getElemValueVM(mapid, ['draw', 'endDraw'], 'js')();
-
-								if (!gcvizFunc.getElemValueVM(mapid, ['draw', 'isText'], 'ko')) {
-									gcvizFunc.getElemValueVM(mapid, ['header', 'toolsClick'], 'js')();
+							if (typeof gcvizFunc.getElemValueVM(mapid, ['draw'], 'js') !== 'undefined') {
+								if (gcvizFunc.getElemValueVM(mapid, ['draw', 'activeTool'], 'ko') !== '') {
+									gcvizFunc.getElemValueVM(mapid, ['draw', 'endDraw'], 'js')();
+									flag = true;
 								}
 							}
 
 							// check if position is active. If so apply event
-							if (gcvizFunc.getElemValueVM(mapid, ['nav', 'activeTool'], 'ko') === 'position') {
-								gcvizFunc.getElemValueVM(mapid, ['nav', 'endPosition'], 'js')();
+							if (typeof gcvizFunc.getElemValueVM(mapid, ['nav'], 'js') !== 'undefined') {
+								if (gcvizFunc.getElemValueVM(mapid, ['nav', 'activeTool'], 'ko') === 'position') {
+									gcvizFunc.getElemValueVM(mapid, ['nav', 'endPosition'], 'js')();
+									flag = true;
+								}
+							}
+							
+							// if not tools acitve, just toggle the menu
+							if (!flag) {
+								gcvizFunc.getElemValueVM(mapid, ['header', 'toolsClick'], 'js')();
 							}
 						}
 					}

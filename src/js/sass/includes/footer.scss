@@ -19,7 +19,7 @@
 .gcviz-foot {
 	@include app-head-foot;
 	background-repeat: repeat-x;
-	background-image: url($img-root + "footGreybar.png");
+	background-image: url($img-head);
   
   .gcviz-foot-coords-values {
   	@include app-text(1.2, normal, $black);

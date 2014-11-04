@@ -597,15 +597,16 @@
 							fields = layer.fields;
 							lenFields = fields.length - 1;
 
-							// the first 3 fields are for id, select and zoom
+							// the last 3 fields are for id, select and zoom
 							while (lenFields > 2) {
 								field = fields[lenFields];
 								lenFields--;
 
 								for (var l = 0; l < attrNames.length; l++) {
 									if (field.datapop.toUpperCase() === attrNames[l].toUpperCase()) {
-										info += '<span class="gcviz-prop">' + field.title + '</span>' +
-												'<p class="gcviz-val">' + attrValues[l] + '</p>';
+										info = '<span class="gcviz-prop">' + field.title + '</span>' +
+												'<p class="gcviz-val">' + attrValues[l] + '</p>' +
+												info;
 									}
 								}
 							}

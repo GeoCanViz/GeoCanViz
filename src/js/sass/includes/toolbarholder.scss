@@ -26,6 +26,11 @@
   @extend %transparency;
 }
 
+%panel {
+	display: block!important;
+	border-radius: 0!important;
+}
+
 .gcviz-tbcontainer-l {
   @extend %tbcontainer;
   left: 0;
@@ -46,7 +51,7 @@
 
 	// flip the background image on toolbar to match header when menu is on the right
 	.gcviz-menu-title-r:before {
-		background-image: url($img-root + "footGreybar.png"); //background-color: #d3d8d1!important;
+		background-image: url($img-head);
 		-moz-transform: scaleX(-1);
 		-o-transform: scaleX(-1);
 		-webkit-transform: scaleX(-1);
@@ -54,33 +59,36 @@
 		content: "";
 		position: absolute;
 		width: 100%;
-		height: 100%;
-		top: 0;
+		height: 34px;
+		top: -2px;
 		left: 0;
 		z-index: -1;
 	}
 
 	.gcviz-menu-title-r {
 		position: relative;
-		border: none!important;
 		margin-top: 0!important;
 	}
 
 	.gcviz-menu-title-l {
-		background-image: url($img-root + "footGreybar.png");
-		border: none!important;
+		background-image: url($img-head);
 		margin-top: 0!important;
 	}
 	// end background image
 
-	.gcviz-menu-title.ui-state-focus {
-		background: $lightyellow!important;
-		border: none!important;
+	.gcviz-menu-title {
+		@extend %panel;
 	}
-	
-	.gcviz-menu-title.ui-state-hover {
-		background: $lightyellow!important;
-		border: none!important;
+
+	.gcviz-panel-title {
+		@extend %panel;
+		background-color: $greyPanel;
+		@include app-border(0.2, solid, $greyPanel);
+		padding-left: (3.5 * $rembase) + rem!important;
+		
+		span {
+			left: (1.3 * $rembase) + rem!important;
+		}
 	}
 
 	.gcviz-menu-cont {
@@ -95,7 +103,7 @@
   
   .gcviz-tbcontent-leg {
     @extend %tbcontent;
-		max-height: (40 * $rembase) + rem;
+		max-height: (31 * $rembase) + rem;
 		overflow:	auto!important;
   }
 }

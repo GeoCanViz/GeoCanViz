@@ -177,8 +177,8 @@ General (i18n)#%all#All#Tous
 #%help-key-enter#ENTER key will selects the element which currently has the focus.#
 #%help-key-spacetitle#Expand menu:#
 #%help-key-space#When the focus is on an expander icon, the SPACE BAR key will expand the toolbar and SPACE BAR key again will close it.#
-#%help-key-wcagtitle#accessibilité mode:#
-#%help-key-wcag#You can enable the accessibilité mode by checking the enable accessibilité mode check box in the -Instructions: Map navigation- drop down section at the top of the map.#
+#%help-key-wcagtitle#accessibility mode:#
+#%help-key-wcag#You can enable the accessibility mode by checking the enable accessibility mode check box in the -Instructions: Map navigation- drop down section at the top of the map.#
 #%help-head-title#Header#En-tête
 #%help-head-help#Open this help window.#
 #%help-head-about#Open a description about this map.#

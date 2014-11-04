@@ -5,12 +5,14 @@
  *
  * WCAG view model widget
  */
+/* global locationPath: false */
 (function() {
 	'use strict';
 	define(['knockout',
 			'gcviz-i18n',
-			'gcviz-func'
-	], function(ko, i18n, gcvizFunc) {
+			'gcviz-func',
+			'gcviz-vm-help'
+	], function(ko, i18n, gcvizFunc, helpVM) {
 		var initialize,
 			vm;
 
@@ -19,10 +21,16 @@
 			// data model				
 			var wcagViewModel = function($mapElem, mapid) {
 				var _self = this,
+					pathHelpBubble = locationPath + 'gcviz/images/helpBubble.png',
 					map = gcvizFunc.getElemValueVM(mapid, ['map', 'map'], 'js');
 
 				// viewmodel mapid to be access in tooltip custom binding
 				_self.mapid = mapid;
+
+				// help and bubble
+                _self.imgHelpBubble = pathHelpBubble;
+                _self.helpDesc = '';
+                _self.helpAlt = i18n.getDict('%wcag-lblenable');
 
 				// text keyboard instruction
 				_self.wcagInstr = i18n.getDict('%wcag-instr');
@@ -43,6 +51,10 @@
 
 				_self.init = function() {
 					return { controlsDescendantBindings: true };
+				};
+
+				_self.showBubble = function(key) {
+					helpVM.toggleHelpBubble(key, 'gcviz-help-key');
 				};
 
 				_self.enableWCAG = function() {
