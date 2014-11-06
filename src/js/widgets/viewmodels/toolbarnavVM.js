@@ -5,7 +5,6 @@
  *
  * Toolbar navigation view model widget
  */
-/* global locationPath: false */
 (function() {
 	'use strict';
 	define(['jquery-private',
@@ -14,9 +13,8 @@
 			'gcviz-func',
             'gcviz-gisgeo',
             'gcviz-gisnav',
-            'gcviz-gisdatagrid',
-            'gcviz-vm-help'
-	], function($viz, ko, i18n, gcvizFunc, gisGeo, gisNav, gisDG, helpVM) {
+            'gcviz-gisdatagrid'
+	], function($viz, ko, i18n, gcvizFunc, gisGeo, gisNav, gisDG) {
 		var initialize,
 			calcDDtoDMS,
 			getDMS,
@@ -33,7 +31,6 @@
 					overview = config.overview,
 					scaledisplay = config.scaledisplay,
 					position = config.position,
-                    pathHelpBubble = locationPath + 'gcviz/images/helpBubble.png',
                     inMapField = $viz('#inGeoLocation' + mapid),
                     btnClickMap = $viz('#btnClickMap' + mapid),
                     $container = $viz('#' + mapid + '_holder_layers'),
@@ -45,11 +42,6 @@
 
 				// viewmodel mapid to be access in tooltip custom binding
 				_self.mapid = mapid;
-
-				// help and bubble
-                _self.imgHelpBubble = pathHelpBubble;
-                _self.helpDesc = i18n.getDict('%toolbarnav-desc');
-                _self.helpAlt = i18n.getDict('%toolbarnav-alt');
 
 				// get language code for scale formating
 				_self.langCode = i18n.getDict('%lang-code');
@@ -67,16 +59,11 @@
                 _self.info = i18n.getDict('%toolbarnav-info');
                 _self.infoAltitude = i18n.getDict('%toolbarnav-infoaltitude');
                 _self.infoAltitudeUrl = i18n.getDict('%toolbarnav-infoaltitudeurl');
-                _self.infoClickMap = i18n.getDict('%toolbarnav-infoclickmap');
                 _self.infoDecDeg = i18n.getDict('%toolbarnav-infodecdeg');
                 _self.infoDMS = i18n.getDict('%toolbarnav-infodms');
-                _self.infoGetInfo = i18n.getDict('%toolbarnav-infogetinfo');
-                _self.infoGetLocInfo = i18n.getDict('%toolbarnav-infogetlocinfo');
-                _self.infoLat = i18n.getDict('%toolbarnav-infolat');
-                _self.infoLong = i18n.getDict('%toolbarnav-infolong');
+                _self.infoLat = i18n.getDict('%lat');
+                _self.infoLong = i18n.getDict('%long');
                 _self.infoNTS = i18n.getDict('%toolbarnav-infonts');
-                _self.infoOption1 = i18n.getDict('%toolbarnav-infooption1');
-                _self.infoOption2 = i18n.getDict('%toolbarnav-infooption2');
                 _self.infoTopoCoord = i18n.getDict('%toolbarnav-infotopocoord');
                 _self.infoUTM = i18n.getDict('%toolbarnav-infoutm');
                 _self.infoUTMeast = i18n.getDict('%toolbarnav-infoutmeast');
@@ -84,12 +71,13 @@
                 _self.infoUTMz = i18n.getDict('%toolbarnav-infoutmz');
                 _self.insKeyboard = i18n.getDict('%toolbarnav-inskeyboard');
                 _self.tpGetLocInfo = i18n.getDict('%toolbarnav-info');
-                _self.tpMagnify = i18n.getDict('%toolbarnav-magnify');
                 _self.tpOverview = i18n.getDict('%toolbarnav-ovdrag');
                 _self.lblWest = i18n.getDict('%west');
                 _self.lblLocTitle = i18n.getDict('%toolbarnav-info');
 				_self.lblScale = ko.observable(i18n.getDict('%toolbarnav-scale'));
 				_self.ScaleLabel = _self.lblScale();
+				_self.zoomGrp = i18n.getDict('%toolbarnav-zoomgrp');
+				_self.mapInfoGrp = i18n.getDict('%toolbarnav-mapinfogrp');
 
 				// WCAG
 				_self.WCAGTitle = i18n.getDict('%wcag-title');
@@ -202,10 +190,6 @@
 					});
 
 					return { controlsDescendantBindings: true };
-				};
-
-				_self.showBubble = function(key) {
-					helpVM.toggleHelpBubble(key, 'gcviz-help-tbnav');
 				};
 
 				_self.endPosition = function() {

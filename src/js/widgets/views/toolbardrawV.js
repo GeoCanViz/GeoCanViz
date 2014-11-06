@@ -29,11 +29,6 @@
 			// find toolbar and start to add items
 			$toolbar = $mapElem.find('.gcviz-tbdraw-content');
 
-			// contextual help
-			node += '<div class="row">' +
-						'<label class="gcviz-help-bubbledesc" for="tbdraw' + mapid + '" data-bind="contextHelp: { text: helpDesc, alt: helpAlt, img: imgHelpBubble, id: \'tbdraw' + mapid + '\' }"></label>' +
-					'</div>';
-
 			// first row
 			node += '<div class="gcviz-draw-row1">';
 
@@ -68,7 +63,7 @@
 			node += getImpExpBtn(config);
 
 			// WCAG dialog window
-			node += '<div id="diagDrawWCAG' + mapid + '" data-bind="wcag: { }, uiDialog: { title: $root.WCAGTitle, width: 490, height: 350, ok: $root.dialogWCAGOk, cancel: $root.dialogWCAGCancel, close: $root.dialogWCAGClose, openDialog: \'isDialogWCAG\' }">' +
+			node += '<div id="diagDrawWCAG' + mapid + '" data-bind="wcag: { }, uiDialog: { title: WCAGTitle, width: 490, height: 350, ok: dialogWCAGOk, cancel: dialogWCAGCancel, close: dialogWCAGClose, openDialog: \'isDialogWCAG\' }">' +
 						'<div>' +
 							'<label for="gcviz-xvalue" class="gcviz-label gcviz-label-wcag" data-bind="text: lblWCAGx"></label>' +
 							'<input id="gcviz-xvalue" class="text ui-widget-content ui-corner-all gcviz-input-wcag" data-bind="value: xValue"/>' +
@@ -198,10 +193,10 @@
 
 			// if add text on, add the dialog window for annotation
 			if (drawText) {
-				node += '<div data-bind="uiDialog: { title: $root.lblTextTitle, width: 450, height: 220, ok: $root.dialogTextOk, cancel: $root.dialogTextCancel, close: $root.dialogTextClose, openDialog: \'isTextDialogOpen\' }">' +
+				node += '<div data-bind="uiDialog: { title: lblTextTitle, width: 450, height: 220, ok: dialogTextOk, cancel: dialogTextCancel, close: dialogTextClose, openDialog: \'isTextDialogOpen\' }">' +
 							'<div id="gcviz-draw-inputbox">' +
 								'<form><fieldset>' +
-									'<input id="gcviz-textvalue" class="gcviz-draw-textinput text ui-widget-content ui-corner-all" data-bind="value: drawTextValue, valueUpdate: \'afterkeydown\', returnKey: dialogTextOkEnter, attr: { alt: lblTextDesc }"/>' +
+									'<input id="gcviz-textvalue" class="gcviz-draw-textinput text ui-widget-content ui-corner-all" data-bind="value: drawTextValue, valueUpdate: \'afterkeydown\', returnKey: dialogTextOkEnter, attr: { alt: lblTextTitle }"/>' +
 									'<div style="clear: both"></div><span data-bind="text: lblTextInfo"></span>' +
 								'</fieldset></form>' +
 							'</div>' +

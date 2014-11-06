@@ -29,8 +29,7 @@
 
 				// help and bubble
                 _self.imgHelpBubble = pathHelpBubble;
-                _self.helpDesc = '';
-                _self.helpAlt = i18n.getDict('%wcag-lblenable');
+                _self.helpAlt = i18n.getDict('%wcag-instrtitlealt');
 
 				// text keyboard instruction
 				_self.wcagInstr = i18n.getDict('%wcag-instr');
@@ -53,8 +52,8 @@
 					return { controlsDescendantBindings: true };
 				};
 
-				_self.showBubble = function(key) {
-					helpVM.toggleHelpBubble(key, 'gcviz-help-key');
+				_self.showBubble = function(key, shift, keyType, id) {
+					return helpVM.toggleHelpBubble(key, id);
 				};
 
 				_self.enableWCAG = function() {

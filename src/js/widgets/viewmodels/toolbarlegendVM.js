@@ -5,7 +5,6 @@
  *
  * Legend view model widget
  */
-/* global locationPath: false */
 (function() {
 	'use strict';
 	define(['jquery-private',
@@ -13,9 +12,8 @@
 			'gcviz-i18n',
 			'gcviz-func',
 			'gcviz-gislegend',
-			'gcviz-ko',
-			'gcviz-vm-help'
-	], function($viz, ko, i18n, gcvizFunc, gisLegend, helpVM) {
+			'gcviz-ko'
+	], function($viz, ko, i18n, gcvizFunc, gisLegend) {
 		var initialize,
 			loopChildrenVisibility,
 			vm;
@@ -24,17 +22,12 @@
 
 			// data model
 			var toolbarlegendViewModel = function($mapElem, mapid, config) {
-				var _self = this,
-					pathHelpBubble = locationPath + 'gcviz/images/helpBubble.png';
+				var _self = this;
+
 				_self.mymap = gcvizFunc.getElemValueVM(mapid, ['map', 'map'], 'js');
 
 				// viewmodel mapid to be access in tooltip custom binding
 				_self.mapid = mapid;
-
-				// help and bubble
-                _self.imgHelpBubble = pathHelpBubble;
-                _self.helpDesc = i18n.getDict('%toolbarnav-desc');
-                _self.helpAlt = i18n.getDict('%toolbarnav-alt');
 
 				// basemap and theme group title
 				_self.base = i18n.getDict('%toolbarlegend-base');
@@ -49,13 +42,6 @@
 						_self.changeItemsVisibility();
 					}, 1000);
 					return { controlsDescendantBindings: true };
-				};
-
-				_self.showBubble = function(key) {
-					// *** When help load, gcviz-vm-help is empty so we use a require to make sure it is ready
-					require(['gcviz-vm-help'], function(helpVM) {
-						helpVM.toggleHelpBubble(key, 'gcviz-help-tbleg');
-					});
 				};
 
 				// determine which CSS class to use on an item on load

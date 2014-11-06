@@ -20,14 +20,13 @@
 			$mapElem.prepend('<div id="wcag' + mapid + '"></div>');
 			$wcag = $mapElem.find('#wcag' + mapid);
 
-			// create the keyboard instruction. Use i18 instead of data-bind text because it removes the inside of h3 tag
+			// create the keyboard instruction
 			node = '<div data-bind="uiAccordion: { heightStyle: \'content\', collapsible: true, active: false, activate: $root.active }">' +
-						'<h3 class="gcviz-wcag-head ui-accordion-header"><span data-bind="text: lblWCAGTitle"></span></h3>' +
+						'<h3 class="gcviz-wcag-head ui-accordion-header"><span data-bind="contextHelp: { text: lblWCAGTitle, alt: helpAlt, img: imgHelpBubble, id: \'key' + mapid + '\', link: \'gcviz-help-key\' }"></span></h3>' +
 						'<div>' +
 							'<p class="gcviz-wcag-instr" data-bind="text: wcagInstr"></p>' +
 							'<input class="gcviz-leg-check" type="checkbox" data-bind="event: { click: enableWCAG }, clickBubble: false, attr: { title: WCAGLabel, id: \'chk-wcag\' }, checked: isWCAG"/>' +
 							'<label class="gcviz-label gcviz-nav-lblovdisp" for="chk-wcag" data-bind="text: WCAGLabel"></label>' +
-							'<label class="gcviz-wcag-bubbledesc" for="chk-wcag" data-bind="contextHelp: { text: helpDesc, alt: helpAlt, img: imgHelpBubble, id: \'key' + mapid + '\' }"></label>' +
 						'</div>' +
 					'</div>';
 

@@ -113,6 +113,11 @@
 	right: (0.75 * $rembase) + rem!important;
 }
 
+// to be by the help
+.gcviz-map-zoommax {
+	@include sprite($img-spritebtn, -1012, -2);
+}
+
 // hide zoom max and zoombar when print
 @media print {
 	.gcviz-map-zoommaxl, .gcviz-map-zoommaxr, .esriLargeSlider {

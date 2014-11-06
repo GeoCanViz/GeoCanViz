@@ -231,8 +231,13 @@
 						field = fields[lenFields];
 
 						field.render = function (data, type) {
-							return type === 'display' && data.length > 40 ?
+							var type;
+							if (data !== null) {
+								return type === 'display' && data.length > 40 ?
 								'<span title="'+ data +'">' + data.substr(0, 38) + '...</span>' : data;
+							} else {
+								return data;
+							}
 						};
 					}
 

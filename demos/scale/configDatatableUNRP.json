@@ -1,0 +1,1275 @@
+{
+    "gcviz": {
+        "mapframe": {
+            "size": {
+                "height": 695,
+                "width": 1165
+            },
+            "map": {
+                "urlgeomserv": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/Utilities/Geometry/GeometryServer",
+                "urlproxy": "http://localhost:8888/php/proxy.php",
+                "urldownload": "http://localhost:8888/php/download.php",
+                "sr": {
+                    "wkid": 3978
+                },
+                "extentmax": {
+                    "xmin": -4282638.0615,
+                    "ymin": -5153821.09214,
+                    "xmax": 4852210.17557,
+                    "ymax": 4376714.4421
+                },
+                "extentinit": {
+                    "xmin": -2051125.95193,
+                    "ymin": 427356.53182,
+                    "xmax": 3343077.54481,
+                    "ymax": 3645357.75949
+                },
+                "lods": {
+                    "enable": false,
+                    "values": [{
+                        "level": 0,
+                        "resolution": 38364.660062653464,
+                        "scale": 145000000,
+                        "check": true
+                    }, {
+                        "level": 1,
+                        "resolution": 22489.62831258996,
+                        "scale": 85000000,
+                        "check": true
+                    }, {
+                        "level": 2,
+                        "resolution": 13229.193125052918,
+                        "scale": 50000000,
+                        "check": true
+                    }, {
+                        "level": 3,
+                        "resolution": 7937.5158750317505,
+                        "scale": 30000000,
+                        "check": true
+                    }, {
+                        "level": 4,
+                        "resolution": 4630.2175937685215,
+                        "scale": 17500000,
+                        "check": true
+                    }, {
+                        "level": 5,
+                        "resolution": 2645.8386250105837,
+                        "scale": 10000000,
+                        "check": true
+                    }, {
+                        "level": 6,
+                        "resolution": 1587.5031750063501,
+                        "scale": 6000000,
+                        "check": true
+                    }, {
+                        "level": 7,
+                        "resolution": 926.0435187537042,
+                        "scale": 3500000,
+                        "check": true
+                    }, {
+                        "level": 8,
+                        "resolution": 529.1677250021168,
+                        "scale": 2000000,
+                        "check": true
+                    }, {
+                        "level": 9,
+                        "resolution": 317.50063500127004,
+                        "scale": 1200000,
+                        "check": true
+                    }, {
+                        "level": 10,
+                        "resolution": 185.20870375074085,
+                        "scale": 700000,
+                        "check": true
+                    }, {
+                        "level": 11,
+                        "resolution": 111.12522225044451,
+                        "scale": 420000,
+                        "check": true
+                    }, {
+                        "level": 12,
+                        "resolution": 66.1459656252646,
+                        "scale": 250000,
+                        "check": true
+                    }, {
+                        "level": 13,
+                        "resolution": 38.36466006265346,
+                        "scale": 145000,
+                        "check": true
+                    }, {
+                        "level": 14,
+                        "resolution": 22.48962831258996,
+                        "scale": 85000,
+                        "check": true
+                    }, {
+                        "level": 15,
+                        "resolution": 13.229193125052918,
+                        "scale": 50000,
+                        "check": true
+                    }, {
+                        "level": 16,
+                        "resolution": 7.9375158750317505,
+                        "scale": 30000,
+                        "check": true
+                    }, {
+                        "level": 17,
+                        "resolution": 4.6302175937685215,
+                        "scale": 17500,
+                        "check": true
+                    }]
+                },
+                "link": false,
+                "zoombar": {
+                    "bar": true,
+                    "zoom": true
+                },
+                "bases": [{
+                    "label": "CBMT_CBCT_GEOM_3978",
+                    "id": "5beef015-f9a5-cc0c-7426-f85ad201f004",
+                    "type": 2,
+                    "url": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/BaseMaps/CBMT_CBCT_GEOM_3978/MapServer",
+                    "scale": {
+                        "min": 0,
+                        "max": 0
+                    }
+                }, {
+                    "label": "CBMT_TXT_3978",
+                    "id": "8fd75577-5173-868f-e9ae-d0dde3a3468c",
+                    "type": 2,
+                    "url": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/BaseMaps/CBMT_TXT_3978/MapServer",
+                    "scale": {
+                        "min": 15000000,
+                        "max": 0
+                    }
+                }],
+                "layers": [ {
+                    "label": "unrp_clusters_anno",
+                    "id": "c56ba6bd-7b1a-d7f1-11e5-7fe76d18df8f",
+                    "type": 4,
+                    "url": "http://s-bsc-geoappint.nrn.nrcan.gc.ca/arcgis/rest/services/Secure/unrp_clusters_anno/MapServer",
+                    "beforebase": false,
+                    "scale": {
+                        "min": 25000000,
+                        "max": 6000000
+                    },
+                    "cluster": {
+                        "enable": false,
+                        "distance": 50,
+                        "label": false,
+                        "symbol": false,
+                        "maxsizeprop": 50,
+                        "maxdataprop": 1000
+                    }
+                },{
+                    "label": "services***Bowhead Whale",
+                    "id": "ab448536-0520-92e2-00e1-a9d7bdafec0a",
+                    "type": 5,
+                    "url": "http://s-bsc-geoappint.nrn.nrcan.gc.ca/arcgis/rest/services/Secure/services/MapServer/11",
+                    "beforebase": false,
+                    "scale": {
+                        "min": 0,
+                        "max": 0
+                    },
+                    "cluster": {
+                        "enable": false,
+                        "distance": 50,
+                        "label": false,
+                        "symbol": false,
+                        "maxsizeprop": 50,
+                        "maxdataprop": 1000
+                    }
+                }, {
+                    "label": "services***Walrus",
+                    "id": "688dcfe8-ed50-4b4e-3876-384660e19f31",
+                    "type": 5,
+                    "url": "http://s-bsc-geoappint.nrn.nrcan.gc.ca/arcgis/rest/services/Secure/services/MapServer/10",
+                    "beforebase": false,
+                    "scale": {
+                        "min": 0,
+                        "max": 0
+                    },
+                    "cluster": {
+                        "enable": false,
+                        "distance": 50,
+                        "label": false,
+                        "symbol": false,
+                        "maxsizeprop": 50,
+                        "maxdataprop": 1000
+                    }
+                }, {
+                    "label": "services***Dolphin-Union Caribou",
+                    "id": "2bfffad7-7fa2-2bfb-56a6-c773027c96fa",
+                    "type": 5,
+                    "url": "http://s-bsc-geoappint.nrn.nrcan.gc.ca/arcgis/rest/services/Secure/services/MapServer/9",
+                    "beforebase": false,
+                    "scale": {
+                        "min": 0,
+                        "max": 0
+                    },
+                    "cluster": {
+                        "enable": false,
+                        "distance": 50,
+                        "label": false,
+                        "symbol": false,
+                        "maxsizeprop": 50,
+                        "maxdataprop": 1000
+                    }
+                }, {
+                    "label": "services***Grizzly Bear",
+                    "id": "6d25fd0c-9eb6-df16-bb64-6ec4e9242c3c",
+                    "type": 5,
+                    "url": "http://s-bsc-geoappint.nrn.nrcan.gc.ca/arcgis/rest/services/Secure/services/MapServer/8",
+                    "beforebase": false,
+                    "scale": {
+                        "min": 0,
+                        "max": 0
+                    },
+                    "cluster": {
+                        "enable": false,
+                        "distance": 50,
+                        "label": false,
+                        "symbol": false,
+                        "maxsizeprop": 50,
+                        "maxdataprop": 1000
+                    }
+                }, {
+                    "label": "services***Woodland Caribou",
+                    "id": "86e32318-5204-fdcc-5520-ec7737fe7bf9",
+                    "type": 5,
+                    "url": "http://s-bsc-geoappint.nrn.nrcan.gc.ca/arcgis/rest/services/Secure/services/MapServer/7",
+                    "beforebase": false,
+                    "scale": {
+                        "min": 0,
+                        "max": 0
+                    },
+                    "cluster": {
+                        "enable": false,
+                        "distance": 50,
+                        "label": false,
+                        "symbol": false,
+                        "maxsizeprop": 50,
+                        "maxdataprop": 1000
+                    }
+                }, {
+                    "label": "services***Completed Agreements on Self-government and Comprehensive Land Claims",
+                    "id": "56b648ed-78da-3cc3-58c7-c51ef619db94",
+                    "type": 5,
+                    "url": "http://s-bsc-geoappint.nrn.nrcan.gc.ca/arcgis/rest/services/Secure/services/MapServer/6",
+                    "beforebase": false,
+                    "scale": {
+                        "min": 0,
+                        "max": 0
+                    },
+                    "cluster": {
+                        "enable": false,
+                        "distance": 50,
+                        "label": false,
+                        "symbol": false,
+                        "maxsizeprop": 50,
+                        "maxdataprop": 1000
+                    }
+                }, {
+                    "label": "services***Land Claims",
+                    "id": "db252e00-8019-43c3-b593-94eeb56a1bd7",
+                    "type": 5,
+                    "url": "http://s-bsc-geoappint.nrn.nrcan.gc.ca/arcgis/rest/services/Secure/services/MapServer/5",
+                    "beforebase": false,
+                    "scale": {
+                        "min": 0,
+                        "max": 0
+                    },
+                    "cluster": {
+                        "enable": false,
+                        "distance": 50,
+                        "label": false,
+                        "symbol": false,
+                        "maxsizeprop": 50,
+                        "maxdataprop": 1000
+                    }
+                }, {
+                    "label": "services***Proposed Protected Area  (NU, NWT, YU)",
+                    "id": "55caaf32-ba1f-0b36-36aa-5bfa104f5fdd",
+                    "type": 5,
+                    "url": "http://s-bsc-geoappint.nrn.nrcan.gc.ca/arcgis/rest/services/Secure/services/MapServer/4",
+                    "beforebase": false,
+                    "scale": {
+                        "min": 0,
+                        "max": 0
+                    },
+                    "cluster": {
+                        "enable": false,
+                        "distance": 50,
+                        "label": false,
+                        "symbol": false,
+                        "maxsizeprop": 50,
+                        "maxdataprop": 1000
+                    }
+                }, {
+                    "label": "services***Protected Area (NU, NWT, YU)",
+                    "id": "262dd587-f699-ba72-e99d-1135543e47ea",
+                    "type": 5,
+                    "url": "http://s-bsc-geoappint.nrn.nrcan.gc.ca/arcgis/rest/services/Secure/services/MapServer/3",
+                    "beforebase": false,
+                    "scale": {
+                        "min": 0,
+                        "max": 0
+                    },
+                    "cluster": {
+                        "enable": false,
+                        "distance": 50,
+                        "label": false,
+                        "symbol": false,
+                        "maxsizeprop": 50,
+                        "maxdataprop": 1000
+                    }
+                }, {
+                    "label": "services***Community Well-Being for Northern Communities",
+                    "id": "89883991-d5de-6476-c176-b4df4357d822",
+                    "type": 5,
+                    "url": "http://s-bsc-geoappint.nrn.nrcan.gc.ca/arcgis/rest/services/Secure/services/MapServer/2",
+                    "beforebase": false,
+                    "scale": {
+                        "min": 0,
+                        "max": 0
+                    },
+                    "cluster": {
+                        "enable": false,
+                        "distance": 50,
+                        "label": false,
+                        "symbol": false,
+                        "maxsizeprop": 50,
+                        "maxdataprop": 1000
+                    }
+                }, {
+                    "label": "services***Energy Exploration Leases",
+                    "id": "d857e3e6-5927-0f51-d519-58c8c654f2ac",
+                    "type": 5,
+                    "url": "http://s-bsc-geoappint.nrn.nrcan.gc.ca/arcgis/rest/services/Secure/services/MapServer/12",
+                    "beforebase": false,
+                    "scale": {
+                        "min": 0,
+                        "max": 0
+                    },
+                    "cluster": {
+                        "enable": false,
+                        "distance": 50,
+                        "label": false,
+                        "symbol": false,
+                        "maxsizeprop": 50,
+                        "maxdataprop": 1000
+                    }
+                }, {
+                    "label": "services***Unlocking Northern Resource Potential (UNRP) Cluster",
+                    "id": "273cff73-8dfb-f031-740b-a4322cc10000",
+                    "type": 5,
+                    "url": "http://s-bsc-geoappint.nrn.nrcan.gc.ca/arcgis/rest/services/Secure/services/MapServer/1",
+                    "beforebase": false,
+                    "scale": {
+                        "min": 0,
+                        "max": 0
+                    },
+                    "cluster": {
+                        "enable": false,
+                        "distance": 50,
+                        "label": false,
+                        "symbol": false,
+                        "maxsizeprop": 50,
+                        "maxdataprop": 1000
+                    }
+                }, {
+                    "label": "services***Advanced Mineral Potential Inventory (AMPI)",
+                    "id": "9c7c5ca0-bb76-fda0-ed57-3adf433b2489",
+                    "type": 5,
+                    "url": "http://s-bsc-geoappint.nrn.nrcan.gc.ca/arcgis/rest/services/Secure/services/MapServer/0",
+                    "beforebase": false,
+                    "scale": {
+                        "min": 0,
+                        "max": 0
+                    },
+                    "cluster": {
+                        "enable": false,
+                        "distance": 50,
+                        "label": false,
+                        "symbol": false,
+                        "maxsizeprop": 50,
+                        "maxdataprop": 1000
+                    }
+                } ]
+            }
+        },
+        "header": {
+			"side": 1,
+			"title": {
+                "value": "Unlocking Northern Resource Potential – Cluster Narratives",
+                "alttext": "Unlocking Northern Resource Potential (UNRP) Cluster"
+            },
+            "tools": {
+                "enable": true,
+                "expand": true
+            },
+            "link": false,
+            "inset": false,
+            "about": {
+                "enable": true,
+                "type": 1,
+                "value": "To fill in later"
+            },
+            "print": {
+                "enable": true,
+                "type": 1
+            },
+            "fullscreen": true
+        },
+        "footer": {
+            "northarrow": {
+                "enable": true,
+                "inwkid": 3978
+            },
+            "mousecoords": {
+                "enable": true,
+                "outwkid": 4326
+            },
+            "scalebar": {
+                "enable": true,
+                "unit": 1
+            },
+            "datatable": {
+                "direction": "in"
+            },
+            "logo": false
+        },
+        "toolbarlegend": {
+            "enable": true,
+            "expand": true,
+            "pos": 0,
+            "basemaps": [{
+                "expand": false,
+                "last": true,
+                "type": 2,
+                "id": "5beef015-f9a5-cc0c-7426-f85ad201f004",
+                "graphid": "2f9ed262-1972-a09d-4f79-a712b2f100fc",
+                "displayfields": false,
+                "label": {
+                    "value": "Canada Base Map - Geography",
+                    "alttext": "Canada Base Map - Geography"
+                },
+                "metadata": {
+                    "enable": false
+                },
+                "opacity": {
+                    "enable": false,
+                    "min": 0,
+                    "max": 1,
+                    "initstate": 1
+                },
+                "visibility": {
+                    "enable": true,
+                    "initstate": true,
+                    "type": 1,
+                    "radioid": 0
+                },
+                "displaychild": {
+                    "enable": false,
+                    "symbol": "{\"type\":\"uniqueValue\",\"field1\":\"TYPE\",\"field2\":null,\"field3\":null,\"fieldDelimiter\":\", \",\"defaultSymbol\":null,\"defaultLabel\":null,\"uniqueValueInfos\":[{\"symbol\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[255,255,255,255],\"width\":1.2},\"value\":\"1\",\"label\":\"Limit\",\"description\":\"\"}]}"
+                },
+                "customimage": {
+                    "enable": false
+                },
+                "items": []
+            }, {
+                "expand": false,
+                "last": true,
+                "type": 2,
+                "id": "8fd75577-5173-868f-e9ae-d0dde3a3468c",
+                "graphid": "ba79859b-68bd-fd21-4e9b-ade6e2ef4220",
+                "displayfields": false,
+                "label": {
+                    "value": "Canada Base Map - Text",
+                    "alttext": "Canada Base Map - Text"
+                },
+                "metadata": {
+                    "enable": false
+                },
+                "opacity": {
+                    "enable": false,
+                    "min": 0,
+                    "max": 1,
+                    "initstate": 1
+                },
+                "visibility": {
+                    "enable": true,
+                    "initstate": true,
+                    "type": 1,
+                    "radioid": 0
+                },
+                "displaychild": {
+                    "enable": false,
+                    "symbol": "{\"type\":\"uniqueValue\",\"field1\":\"TYPE\",\"field2\":null,\"field3\":null,\"fieldDelimiter\":\", \",\"defaultSymbol\":null,\"defaultLabel\":null,\"uniqueValueInfos\":[{\"symbol\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[255,255,255,255],\"width\":1.2},\"value\":\"1\",\"label\":\"Limit\",\"description\":\"\"}]}"
+                },
+                "customimage": {
+                    "enable": false
+                },
+                "items": []
+            }],
+            "items": [{
+                "expand": true,
+                "last": true,
+                "type": 5,
+                "id": "9c7c5ca0-bb76-fda0-ed57-3adf433b2489",
+                "graphid": "0b3ed2fa-7eb9-5c75-563b-33002cb01f28",
+                "displayfields": false,
+                "label": {
+                    "value": "Advanced Mineral Potential Inventory (AMPI)",
+                    "alttext": "Advanced Mineral Potential Inventory (AMPI)"
+                },
+                "metadata": {
+                    "enable": false
+                },
+                "opacity": {
+                    "enable": false,
+                    "min": 0,
+                    "max": 1,
+                    "initstate": 1
+                },
+                "visibility": {
+                    "enable": true,
+                    "initstate": true,
+                    "type": 1,
+                    "radioid": 0
+                },
+                "displaychild": {
+                    "enable": true,
+                    "symbol": "{\"type\":\"uniqueValue\",\"field1\":\"AMPI Classification\",\"field2\":null,\"field3\":null,\"fieldDelimiter\":\", \",\"defaultSymbol\":null,\"defaultLabel\":null,\"uniqueValueInfos\":[{\"symbol\":{\"type\":\"esriSMS\",\"style\":\"esriSMSSquare\",\"color\":[166,44,40,255],\"size\":7,\"angle\":0,\"xoffset\":0,\"yoffset\":0,\"outline\":{\"color\":[0,0,0,255],\"width\":1}},\"value\":\"1\",\"label\":\"Tier 1\",\"description\":\"\"},{\"symbol\":{\"type\":\"esriSMS\",\"style\":\"esriSMSSquare\",\"color\":[0,92,230,255],\"size\":7,\"angle\":0,\"xoffset\":0,\"yoffset\":0,\"outline\":{\"color\":[0,0,0,255],\"width\":1}},\"value\":\"2\",\"label\":\"Tier 2\",\"description\":\"\"},{\"symbol\":{\"type\":\"esriSMS\",\"style\":\"esriSMSSquare\",\"color\":[100,166,38,255],\"size\":7,\"angle\":0,\"xoffset\":0,\"yoffset\":0,\"outline\":{\"color\":[0,0,0,255],\"width\":1}},\"value\":\"3\",\"label\":\"Tier 3\",\"description\":\"\"}]}"
+                },
+                "customimage": {
+                    "enable": false
+                },
+                "items": []
+            }, {
+                "expand": false,
+                "last": false,
+                "type": 4,
+                "id": "c56ba6bd-7b1a-d7f1-11e5-7fe76d18df8f",
+                "graphid": "6141b570-0b52-9b86-2330-904fa858f822",
+                "displayfields": false,
+                "label": {
+                    "value": "Clusters Annotation",
+                    "alttext": "Clusters Annotation"
+                },
+                "metadata": {
+                    "enable": false
+                },
+                "opacity": {
+                    "enable": false,
+                    "min": 0,
+                    "max": 1,
+                    "initstate": 1
+                },
+                "visibility": {
+                    "enable": true,
+                    "initstate": true,
+                    "type": 1,
+                    "radioid": 0
+                },
+                "displaychild": {
+                    "enable": true
+                },
+                "customimage": {
+                    "enable": false
+                },
+                "items": []
+            },{
+                "expand": true,
+                "last": true,
+                "type": 5,
+                "id": "273cff73-8dfb-f031-740b-a4322cc10000",
+                "graphid": "bc3e5dcd-c1e5-0983-2f41-cba524b15c0a",
+                "displayfields": false,
+                "label": {
+                    "value": "Unlocking Northern Resource Potential (UNRP) Cluster",
+                    "alttext": "Unlocking Northern Resource Potential (UNRP) Cluster"
+                },
+                "metadata": {
+                    "enable": false
+                },
+                "opacity": {
+                    "enable": false,
+                    "min": 0,
+                    "max": 1,
+                    "initstate": 1
+                },
+                "visibility": {
+                    "enable": true,
+                    "initstate": true,
+                    "type": 1,
+                    "radioid": 0
+                },
+                "displaychild": {
+                    "enable": true,
+                    "symbol": "{\"type\":\"uniqueValue\",\"field1\":\"\",\"field2\":null,\"field3\":null,\"fieldDelimiter\":\", \",\"defaultSymbol\":null,\"defaultLabel\":null,\"uniqueValueInfos\":[{\"symbol\":{\"type\":\"esriSFS\",\"style\":\"esriSFSSolid\",\"color\":[204,204,204,255],\"outline\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[104,104,104,255],\"width\":2}},\"value\":\"Energy\",\"label\":\"Energy\",\"description\":\"\"},{\"symbol\":{\"type\":\"esriSFS\",\"style\":\"esriSFSSolid\",\"color\":[255,235,175,255],\"outline\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[255,170,0,255],\"width\":2}},\"value\":\"Mineral\",\"label\":\"Mineral\",\"description\":\"\"}]}"
+                },
+                "customimage": {
+                    "enable": false
+                },
+                "items": []
+            }, {
+                "expand": false,
+                "last": true,
+                "type": 5,
+                "id": "d857e3e6-5927-0f51-d519-58c8c654f2ac",
+                "graphid": "d3f8fe27-33d9-9d55-0f53-e73be1e85ff3",
+                "displayfields": false,
+                "label": {
+                    "value": "Energy Exploration Leases",
+                    "alttext": "Energy Exploration Leases"
+                },
+                "metadata": {
+                    "enable": false
+                },
+                "opacity": {
+                    "enable": true,
+                    "min": 0,
+                    "max": 1,
+                    "initstate": 0.8
+                },
+                "visibility": {
+                    "enable": true,
+                    "initstate": false,
+                    "type": 1,
+                    "radioid": 0
+                },
+                "displaychild": {
+                    "enable": true,
+                    "symbol": "{\"type\":\"simple\",\"symbol\":{\"type\":\"esriSFS\",\"style\":\"esriSFSSolid\",\"color\":[204,204,204,255],\"outline\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[0,0,0,255],\"width\":0.4}},\"label\":\"Exploration lease\",\"description\":\"\"}"
+                },
+                "customimage": {
+                    "enable": false
+                },
+                "items": []
+            }, {
+                "expand": false,
+                "last": true,
+                "type": 5,
+                "id": "89883991-d5de-6476-c176-b4df4357d822",
+                "graphid": "4b0fa007-b31c-9c1e-b689-42935ad9565c",
+                "displayfields": false,
+                "label": {
+                    "value": "Community Well-Being for Northern Communities",
+                    "alttext": "Community Well-Being for Northern Communities"
+                },
+                "metadata": {
+                    "enable": false
+                },
+                "opacity": {
+                    "enable": false,
+                    "min": 0,
+                    "max": 1,
+                    "initstate": 1
+                },
+                "visibility": {
+                    "enable": true,
+                    "initstate":false,
+                    "type": 1,
+                    "radioid": 0
+                },
+                "displaychild": {
+                    "enable": true,
+                    "symbol": "{\"type\":\"uniqueValue\",\"field1\":\"CWB Index Value (  / 100)\",\"field2\":null,\"field3\":null,\"fieldDelimiter\":\", \",\"defaultSymbol\":null,\"defaultLabel\":null,\"uniqueValueInfos\":[{\"symbol\":{\"type\":\"esriSMS\",\"style\":\"esriSMSDiamond\",\"color\":[230,0,0,255],\"size\":14,\"angle\":0,\"xoffset\":0,\"yoffset\":0,\"outline\":{\"color\":[0,0,0,255],\"width\":0.5}},\"value\":\"2\",\"label\":\"50 - 79\",\"description\":\"\"},{\"symbol\":{\"type\":\"esriSMS\",\"style\":\"esriSMSDiamond\",\"color\":[0,112,255,255],\"size\":14,\"angle\":0,\"xoffset\":0,\"yoffset\":0,\"outline\":{\"color\":[0,0,0,255],\"width\":0.5}},\"value\":\"3\",\"label\":\"80 - 93\",\"description\":\"\"},{\"symbol\":{\"type\":\"esriSMS\",\"style\":\"esriSMSDiamond\",\"color\":[156,156,156,255],\"size\":14,\"angle\":0,\"xoffset\":0,\"yoffset\":0,\"outline\":{\"color\":[0,0,0,255],\"width\":0.5}},\"value\":\"1\",\"label\":\"insufficient data\",\"description\":\"\"}]}"
+                },
+                "customimage": {
+                    "enable": false
+                },
+                "items": []
+            }, {
+                "expand": false,
+                "last": false,
+                "type": 0,
+                "id": "9f66a0dd-eba7-bfff-c7b8-8a55f66cf92b",
+                "graphid": "8a9bb0ab-c670-32b1-6715-be42194945aa",
+                "displayfields": false,
+                "label": {
+                    "value": "Protected Area",
+                    "alttext": "Protected Area"
+                },
+                "metadata": {
+                    "enable": false
+                },
+                "opacity": {
+                    "enable": false,
+                    "min": 0,
+                    "max": 1,
+                    "initstate": 1
+                },
+                "visibility": {
+                    "enable": true,
+                    "initstate": false,
+                    "type": 1,
+                    "radioid": 0
+                },
+                "displaychild": {
+                    "enable": true
+                },
+                "customimage": {
+                    "enable": false
+                },
+                "items": [{
+					"expand": false,
+					"last": true,
+					"type": 5,
+					"id": "262dd587-f699-ba72-e99d-1135543e47ea",
+					"graphid": "b7c7c2a1-fe3a-a83a-9d37-0d9419b9309a",
+					"displayfields": false,
+					"label": {
+						"value": "Protected Area (NU, NWT, YU)",
+						"alttext": "Protected Area (NU, NWT, YU)"
+					},
+					"metadata": {
+						"enable": false
+					},
+					"opacity": {
+						"enable": true,
+						"min": 0,
+						"max": 1,
+						"initstate": 0.6
+					},
+					"visibility": {
+						"enable": true,
+						"initstate": true,
+						"type": 1,
+						"radioid": 0
+					},
+					"displaychild": {
+						"enable": true,
+                  		 "symbol": "{\"type\":\"uniqueValue\",\"field1\":\"\",\"field2\":null,\"field3\":null,\"fieldDelimiter\":\", \",\"defaultSymbol\":null,\"defaultLabel\":null,\"uniqueValueInfos\":[{\"symbol\":{\"type\":\"esriSFS\",\"style\":\"esriSFSSolid\",\"color\":[209,255,115,255],\"outline\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[170,255,0,255],\"width\":0.4}},\"value\":\"National Park of Canada\",\"label\":\"National Park of Canada\",\"description\":\"\"},{\"symbol\":{\"type\":\"esriSFS\",\"style\":\"esriSFSSolid\",\"color\":[76,230,0,255],\"outline\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[56,168,0,255],\"width\":0.4}},\"value\":\"National Wildlife Area\",\"label\":\"National Wildlife Area\",\"description\":\"\"},{\"symbol\":{\"type\":\"esriSFS\",\"style\":\"esriSFSSolid\",\"color\":[0,112,255,255],\"outline\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[0,77,168,255],\"width\":0.4}},\"value\":\"Marine Protected Area\",\"label\":\"Marine Protected Area\",\"description\":\"\"},{\"symbol\":{\"type\":\"esriSFS\",\"style\":\"esriSFSSolid\",\"color\":[205,205,102,255],\"outline\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[168,168,0,255],\"width\":0.4}},\"value\":\"National Historic Site\",\"label\":\"National Historic Site\",\"description\":\"\"},{\"symbol\":{\"type\":\"esriSFS\",\"style\":\"esriSFSSolid\",\"color\":[245,162,122,255],\"outline\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[245,122,122,255],\"width\":0.4}},\"value\":\"Migratory Bird Sanctuary\",\"label\":\"Migratory Bird Sanctuary\",\"description\":\"\"},{\"symbol\":{\"type\":\"esriSFS\",\"style\":\"esriSFSSolid\",\"color\":[137,205,102,255],\"outline\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[92,137,68,255],\"width\":0.4}},\"value\":\" \",\"label\":\"Other\",\"description\":\"\"}]}"
+					},
+					"customimage": {
+            		 "enable":false
+					},
+					"items": []
+				}, {
+					"expand": false,
+					"last": true,
+					"type": 5,
+					"id": "55caaf32-ba1f-0b36-36aa-5bfa104f5fdd",
+					"graphid": "3220d85f-f5bc-b1df-4e35-de85999978e3",
+					"displayfields": false,
+					"label": {
+						"value": "Proposed Protected Area  (NU, NWT, YU)",
+						"alttext": "Proposed Protected Area  (NU, NWT, YU)"
+					},
+					"metadata": {
+						"enable": false
+					},
+					"opacity": {
+						"enable": false,
+						"min": 0,
+						"max": 1,
+						"initstate": 1
+					},
+					"visibility": {
+						"enable": true,
+						"initstate": true,
+						"type": 1,
+						"radioid": 0
+					},
+					"displaychild": {
+						"enable": false,
+						"symbol": "{\"type\":\"simple\",\"symbol\":{\"type\":\"esriSFS\",\"style\":\"esriSFSSolid\",\"color\":[152,230,0,255],\"outline\":null},\"label\":\"Proposed Protected Area\",\"description\":\"\"}"
+					},
+					"customimage": {
+            		"url":"http://s-bsc-geoappint.nrn.nrcan.gc.ca/GeoCanViz/CCMEO/images/stripe_green1.png",
+            		"alttext":"Proposed Protected Area (NU, NWT, YU)",
+                    "enable": true
+						},
+					"items": []
+                }]
+            }, {
+                "expand": false,
+                "last": false,
+                "type": 0,
+                "id": "d912dcb8-72f0-398f-5976-8829bfc20949",
+                "graphid": "8f732bc0-750a-f6fd-46c9-b672b1cb8015",
+                "displayfields": false,
+                "label": {
+                    "value": "Claims and Agreements",
+                    "alttext": "Claims and Agreements"
+                },
+                "metadata": {
+                    "enable": false
+                },
+                "opacity": {
+                    "enable": false,
+                    "min": 0,
+                    "max": 1,
+                    "initstate": 1
+                },
+                "visibility": {
+                    "enable": true,
+                    "initstate": false,
+                    "type": 1,
+                    "radioid": 0
+                },
+                "displaychild": {
+                    "enable": true
+                },
+                "customimage": {
+                    "enable": false
+                },
+                "items": [{
+					"expand": false,
+					"last": true,
+					"type": 5,
+					"id": "db252e00-8019-43c3-b593-94eeb56a1bd7",
+					"graphid": "9fe5b73f-1996-e341-786b-2d0754ade811",
+					"displayfields": false,
+					"label": {
+						"value": "Land Claims",
+						"alttext": "Land Claims"
+					},
+					"metadata": {
+						"enable": false
+					},
+					"opacity": {
+						"enable": false,
+						"min": 0,
+						"max": 1,
+						"initstate": 1
+					},
+					"visibility": {
+						"enable": true,
+						"initstate": true,
+						"type": 1,
+						"radioid": 0
+					},
+					"displaychild": {
+						"enable": false,
+						"symbol": "{\"type\":\"simple\",\"symbol\":{\"type\":\"esriSFS\",\"style\":\"esriSFSSolid\",\"color\":[169,0,230,255],\"outline\":null},\"label\":\"Settled Land Claim\",\"description\":\"\"}"
+					},
+					"customimage": {
+            		"url":"http://s-bsc-geoappint.nrn.nrcan.gc.ca/GeoCanViz/CCMEO/images/stripe_burgundy.png",
+            		"alttext":"Proposed Protected Area (NU, NWT, YU)",
+                    "enable": true
+					},
+					"items": []
+				}, {
+                    "expand": false,
+                    "last": true,
+                    "type": 5,
+                    "id": "56b648ed-78da-3cc3-58c7-c51ef619db94",
+                    "graphid": "7cf91797-6d72-c9d7-390a-c67d814e2b20",
+                    "displayfields": false,
+                    "label": {
+                        "value": "Completed Agreements on Self-government and Comprehensive Land Claims",
+                        "alttext": "Completed Agreements on Self-government and Comprehensive Land Claims"
+                    },
+                    "metadata": {
+                        "enable": false
+                    },
+                    "opacity": {
+                        "enable": false,
+                        "min": 0,
+                        "max": 1,
+                        "initstate": 1
+                    },
+                    "visibility": {
+                        "enable": true,
+                        "initstate": true,
+                        "type": 1,
+                        "radioid": 0
+                    },
+                    "displaychild": {
+                        "enable": true,
+                        "symbol": "{\"type\":\"uniqueValue\",\"field1\":\"Settled Agreements and Land Claims\",\"field2\":null,\"field3\":null,\"fieldDelimiter\":\", \",\"defaultSymbol\":null,\"defaultLabel\":null,\"uniqueValueInfos\":[{\"symbol\":{\"type\":\"esriSFS\",\"style\":\"esriSFSSolid\",\"color\":[170,207,240,255],\"outline\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[255,255,255,255],\"width\":1}},\"value\":\"1\",\"label\":\"Inuit Nunangat Region\",\"description\":\"\"},{\"symbol\":{\"type\":\"esriSFS\",\"style\":\"esriSFSSolid\",\"color\":[214,154,158,255],\"outline\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[255,255,255,255],\"width\":1}},\"value\":\"2\",\"label\":\"First Nations, Dene and/or Métis\",\"description\":\"\"},{\"symbol\":{\"type\":\"esriSFS\",\"style\":\"esriSFSSolid\",\"color\":[199,174,209,255],\"outline\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[255,255,255,255],\"width\":1}},\"value\":\"4\",\"label\":\"Eeyou Marine Region\",\"description\":\"\"}]}"
+					},
+					"customimage": {
+						"enable": false
+					},
+					"items": []
+                }]
+				}, {
+                "expand": false,
+                "last": false,
+                "type": 0,
+                "id": "1192f832-332e-29c2-2b54-cc94c5194042",
+                "graphid": "a98dee79-9061-03e0-cb07-1d6606e87106",
+                "displayfields": false,
+                "label": {
+                    "value": "Species at risk",
+                    "alttext": "Species at risk"
+                },
+                "metadata": {
+                    "enable": false
+                },
+                "opacity": {
+                    "enable": false,
+                    "min": 0,
+                    "max": 1,
+                    "initstate": 1
+                },
+                "visibility": {
+                    "enable": true,
+                    "initstate": false,
+                    "type": 1,
+                    "radioid": 0
+                },
+                "displaychild": {
+                    "enable": true
+                },
+                "customimage": {
+                    "enable": false
+                },
+                "items": [{
+					"expand": false,
+					"last": true,
+					"type": 5,
+					"id": "86e32318-5204-fdcc-5520-ec7737fe7bf9",
+					"graphid": "14f2b93a-3f52-cfa5-c1e9-632929f030f3",
+					"displayfields": false,
+					"label": {
+						"value": "Woodland Caribou",
+						"alttext": "Woodland Caribou"
+					},
+					"metadata": {
+						"enable": false
+					},
+					"opacity": {
+						"enable": true,
+						"min": 0,
+						"max": 1,
+						"initstate": 0.2
+					},
+					"visibility": {
+						"enable": true,
+						"initstate": true,
+						"type": 1,
+						"radioid": 0
+					},
+					"displaychild": {
+						"enable": true,
+						"symbol": "{\"type\":\"simple\",\"symbol\":{\"type\":\"esriSFS\",\"style\":\"esriSFSSolid\",\"color\":[245,162,122,255],\"outline\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[0,0,0,0],\"width\":0.4}},\"label\":\"Habitat\",\"description\":\"\"}"
+					},
+					"customimage": {
+						"enable": false
+					},
+					"items": []
+				}, {
+					"expand": false,
+					"last": true,
+					"type": 5,
+					"id": "2bfffad7-7fa2-2bfb-56a6-c773027c96fa",
+					"graphid": "8f93714b-52f8-af0c-6000-cbd477223cb2",
+					"displayfields": false,
+					"label": {
+						"value": "Dolphin-Union Caribou",
+						"alttext": "Dolphin-Union Caribou"
+					},
+					"metadata": {
+						"enable": false
+					},
+					"opacity": {
+						"enable": true,
+						"min": 0,
+						"max": 1,
+						"initstate": 0.2
+					},
+					"visibility": {
+						"enable": true,
+						"initstate": true,
+						"type": 1,
+						"radioid": 0
+					},
+					"displaychild": {
+						"enable": true,
+						"symbol": "{\"type\":\"simple\",\"symbol\":{\"type\":\"esriSFS\",\"style\":\"esriSFSSolid\",\"color\":[0,255,197,255],\"outline\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[0,0,0,0],\"width\":0.4}},\"label\":\"Habitat\",\"description\":\"\"}"
+					},
+					"customimage": {
+						"enable": false
+					},
+					"items": []
+				}, {
+					"expand": false,
+					"last": true,
+					"type": 5,
+					"id": "6d25fd0c-9eb6-df16-bb64-6ec4e9242c3c",
+					"graphid": "aca677fd-961d-a902-1c20-b581b1fb613f",
+					"displayfields": false,
+					"label": {
+						"value": "Grizzly Bear",
+						"alttext": "Grizzly Bear"
+					},
+					"metadata": {
+						"enable": false
+					},
+					"opacity": {
+						"enable": true,
+						"min": 0,
+						"max": 1,
+						"initstate": 0.3
+					},
+					"visibility": {
+						"enable": true,
+						"initstate": true,
+						"type": 1,
+						"radioid": 0
+					},
+					"displaychild": {
+						"enable": true,
+						"symbol": "{\"type\":\"simple\",\"symbol\":{\"type\":\"esriSFS\",\"style\":\"esriSFSSolid\",\"color\":[137,112,68,255],\"outline\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[0,0,0,0],\"width\":0.4}},\"label\":\"Habitat\",\"description\":\"\"}"
+					},
+					"customimage": {
+						"enable": false
+					},
+					"items": []
+				}, {
+					"expand": false,
+					"last": true,
+					"type": 5,
+					"id": "688dcfe8-ed50-4b4e-3876-384660e19f31",
+					"graphid": "3cc68656-0adf-8a5e-0871-ec558cd90cea",
+					"displayfields": false,
+					"label": {
+						"value": "Walrus",
+						"alttext": "Walrus"
+					},
+					"metadata": {
+						"enable": false
+					},
+					"opacity": {
+						"enable": true,
+						"min": 0,
+						"max": 1,
+						"initstate": 0.3
+					},
+					"visibility": {
+						"enable": true,
+						"initstate": true,
+						"type": 1,
+						"radioid": 0
+					},
+					"displaychild": {
+						"enable": true,
+						"symbol": "{\"type\":\"simple\",\"symbol\":{\"type\":\"esriSFS\",\"style\":\"esriSFSSolid\",\"color\":[0,38,115,255],\"outline\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[0,0,0,0],\"width\":0.4}},\"label\":\"Habitat\",\"description\":\"\"}"
+					},
+					"customimage": {
+						"enable": false
+					},
+					"items": []
+				}, {
+					"expand": false,
+					"last": true,
+					"type": 5,
+					"id": "ab448536-0520-92e2-00e1-a9d7bdafec0a",
+					"graphid": "051125f6-c30a-0bb8-ae33-63e25cb41e4e",
+					"displayfields": false,
+					"label": {
+						"value": "Bowhead Whale",
+						"alttext": "Bowhead Whale"
+					},
+					"metadata": {
+						"enable": false
+					},
+					"opacity": {
+						"enable": true,
+						"min": 0,
+						"max": 1,
+						"initstate": 0.3
+					},
+					"visibility": {
+						"enable": true,
+						"initstate": true,
+						"type": 1,
+						"radioid": 0
+					},
+					"displaychild": {
+						"enable": true,
+						"symbol": "{\"type\":\"simple\",\"symbol\":{\"type\":\"esriSFS\",\"style\":\"esriSFSSolid\",\"color\":[76,0,115,255],\"outline\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[110,110,110,255],\"width\":0.4}},\"label\":\"Habitat\",\"description\":\"\"}"
+					},
+					"customimage": {
+						"enable": false
+					},
+					"items": []
+                }]
+				}]
+        },
+        "toolbardraw": {
+            "enable": true,
+            "expand": false,
+            "pos": 1,
+            "drawline": {
+                "enable": true
+            },
+            "drawtext": {
+                "enable": true
+            },
+            "measureline": {
+                "enable": true,
+                "unit": 1
+            },
+            "measurearea": {
+                "enable": true,
+                "unit": 1
+            },
+            "importexport": {
+                "enable": true
+            }
+        },
+        "toolbarnav": {
+            "enable": true,
+            "expand": false,
+            "pos": 2,
+            "mapwkid": 3978,
+            "geolocation": {
+                "enable": true,
+                "type": -1
+            },
+            "scalebar": {
+                "enable": true,
+                "unit": 1
+            },
+            "scaledisplay": {
+                "enable": true,
+                "format": 1
+            },
+            "overview": {
+                "enable": true,
+                "url": "",
+                "type": "4"
+            },
+            "position": {
+                "enable": true
+            }
+        },
+        "toolbardata": {
+            "enable": false,
+            "expand": false,
+            "pos": 3,
+            "csv": {
+                "enable": false
+            }
+        },
+        "insetframe": {
+            "enable": false
+        },
+        "datagrid": {
+            "enable": true,
+            "layers": [
+
+                {
+                    "layerinfo": {
+                        "id": "9c7c5ca0-bb76-fda0-ed57-3adf433b2489",
+                        "type": 5,
+                        "index": 0
+                    },
+                    "title": "Advanced Mineral Potential Inventory (AMPI)",
+                    "fields": [{
+                        "title": "Project Name",
+                        "width": "90px",
+                        "data": "Short_Name",
+                        "datapop": "Short_Name"
+                    }, {
+                        "title": "AMPI Classification",
+                        "width": "60px",
+                        "data": "AMPI_Classification",
+                        "datapop": "AMPI_Classification"
+                    }],
+                    "linktable": {
+                        "enable": false
+                    },
+                    "popups": {
+                        "enable": true,
+                        "title": "Advanced Mineral Potential Inventory (AMPI)"
+                    },
+                    "hover": {
+                        "enable": false,
+                        "hoverfield": "AMPI"
+                    }
+                },{
+                    "layerinfo": {
+                        "id": "273cff73-8dfb-f031-740b-a4322cc10000",
+                        "type": 5,
+                        "index": 1
+                    },
+                    "title": "Unlocking Northern Resource Potential (UNRP) Cluster",
+                    "fields": [{
+                        "title": "Total S (Scores)",
+                        "width": "90px",
+                        "data": "NAME",
+                        "datapop": "NAME"
+                    }, {
+                        "title": "Type",
+                        "width": "90px",
+                        "data": "TYPE",
+                        "datapop": "TYPE"
+                    }, {
+                        "title": "Measure: probability of construction jobs",
+                        "width": "90px",
+                        "data": "M_1",
+                        "datapop": "M_1"
+                    }, {
+                        "title": "Measure: In Ground Value (physical volume of resource) x commodity price ",
+                        "width": "60px",
+                        "data": "M_2",
+                        "datapop": "M_2"
+                    }, {
+                        "title": "Criteria: Economic Output (EO) Total S (Scores)",
+                        "width": "60px",
+                        "data": "EO_S",
+                        "datapop": "EO_S"
+                    }, {
+                        "title": "Measure: Project Diversity (new commodities added, pr-weighted for minerals)",
+                        "width": "60px",
+                        "data": "M_3",
+                        "datapop": "M_3"
+                    }, {
+                        "title": "Measure: Employment Duration (P/Y)",
+                        "width": "60px",
+                        "data": "M_4",
+                        "datapop": "M_4"
+                    }, {
+                        "title": "Measure: Anchor Projects (# existing mines with ~ 200 jobs or more)",
+                        "width": "60px",
+                        "data": "M_5",
+                        "datapop": "M_5"
+                    }, {
+                        "title": "Criteria: Cluster Resilience (CR) Total S (Scores)",
+                        "width": "60px",
+                        "data": "CR_S",
+                        "datapop": "CR_S"
+                    }, {
+                        "title": "Measure: distance from nearest transportation infrastructure (km)",
+                        "width": "60px",
+                        "data": "M_6",
+                        "datapop": "M_6"
+                    }, {
+                        "title": "Measure: total electricity generation capacity (kW)",
+                        "width": "60px",
+                        "data": "M_7",
+                        "datapop": "M_7"
+                    }, {
+                        "title": "Measure: access to broadband  (% of population unserved)",
+                        "width": "60px",
+                        "data": "M_8",
+                        "datapop": "M_8"
+                    }, {
+                        "title": "Measure: number of communities",
+                        "width": "60px",
+                        "data": "M_9",
+                        "datapop": "M_9"
+                    }],
+                    "linktable": {
+                        "enable": false
+                    },
+                    "popups": {
+                        "enable": true,
+                        "title": "Unlocking Northern Resource Potential (UNRP) Cluster"
+                    },
+                    "hover": {
+                        "enable": false,
+                        "hoverfield": "AGE"
+                    }
+                } 
+				]
+        },
+        "customwidgets": []
+    }
+}

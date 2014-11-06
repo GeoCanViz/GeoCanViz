@@ -40,9 +40,10 @@
                 _self.urlLogo = i18n.getDict('%footer-urlgcvizrepo');
                 _self.urlLogoAlt = i18n.getDict('%footer-tpgithub');
                 _self.lblWest = i18n.getDict('%west');
-                _self.lblLong = i18n.getDict('%footer-long');
-                _self.lblLat = i18n.getDict('%footer-lat');
+                _self.lblLong = i18n.getDict('%long');
+                _self.lblLat = i18n.getDict('%lat');
 				_self.tpDatagrid = i18n.getDict('%footer-tpdatagrid');
+				_self.tpArrow = i18n.getDict('%footer-tpNorth');
 
 				// coords and arrow
 				_self.coords = ko.observable('');

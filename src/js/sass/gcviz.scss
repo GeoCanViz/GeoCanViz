@@ -127,6 +127,11 @@ svg {
 	@include app-text();
 }
 
+.gcviz-subtitle {
+	line-height: 3;
+	@include app-text(1.1, bold);
+}
+
 .gcviz-hidden {
 	display: none!important;
 }

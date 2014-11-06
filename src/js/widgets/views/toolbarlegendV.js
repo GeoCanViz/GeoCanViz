@@ -23,11 +23,6 @@
 			// find toolbar and start to add items
 			$legend = $mapElem.find('.gcviz-tbleg-content');
 
-			// contextual help
-			node += '<div class="row">' +
-						'<label class="gcviz-help-bubbledesc" for="tbleg' + mapid + '" data-bind="contextHelp: { text: helpDesc, alt: helpAlt, img: imgHelpBubble, id: \'tbleg' + mapid + '\' }"></label>' +
-					'</div>';
-
 			//template for recursive item loading (use i18 for title attribute because binding doesn't work)
 			itemsTemplate = '<script id="itemsTmpl" type="text/html">';
 					itemsTemplate += '<li class="gcviz-leg-li" data-bind="legendItemList: { expanded: expand }, attr { \'id\': id }">';

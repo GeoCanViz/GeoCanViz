@@ -42,6 +42,12 @@
 	margin-top: (1 * $rembase) + rem!important;
 }
 
+.gcviz-help-textlist {
+	display: block;
+	padding-left: (1.5 * $rembase) + rem!important;
+	margin-top: (1 * $rembase) + rem!important;
+}
+
 .gcviz-help-textsub {
 	@include app-text(1.2, bold, $black);
 }

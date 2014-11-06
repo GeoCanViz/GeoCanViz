@@ -21,11 +21,6 @@
 			// find toolbar and start to add items
 			$toolbar = $mapElem.find('.gcviz-tbdata-content');
 
-			// contextual help
-			node += '<div class="row">' +
-						'<label class="gcviz-help-bubbledesc" for="tbdata' + mapid + '" data-bind="contextHelp: { text: helpDesc, alt: helpAlt, img: imgHelpBubble, id: \'tbdata' + mapid + '\' }"></label>' +
-					'</div>';
-
 			// set add data button
 			if (config.data.enable) {
 				node += '<input id="fileDialogData" type="file" accept=".csv" data-bind="event: { change: addClick }" tabindex="-1"></input>' +
@@ -44,7 +39,7 @@
 			node += '</script>';
 
 			// add dialog error message
-			node += '<div data-bind="uiDialog: { title: $root.lblErrTitle, width: 300, height: 200, ok: dialogDataClose, close: $root.dialogDataClose, openDialog: \'isErrDataOpen\' }">' +
+			node += '<div data-bind="uiDialog: { title: lblErrTitle, width: 300, height: 200, ok: dialogDataClose, close: dialogDataClose, openDialog: \'isErrDataOpen\' }">' +
 						'<span data-bind="text: errMsg"></span>' +
 					'</div>';
 

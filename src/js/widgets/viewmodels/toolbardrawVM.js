@@ -14,9 +14,8 @@
 			'gcviz-i18n',
 			'gcviz-func',
 			'gcviz-gisgraphic',
-			'gcviz-gisdatagrid',
-			'gcviz-vm-help'
-	], function($viz, ko, generateFile, i18n, gcvizFunc, gisGraphic, gisDG, helpVM) {
+			'gcviz-gisdatagrid'
+	], function($viz, ko, generateFile, i18n, gcvizFunc, gisGraphic, gisDG) {
 		var initialize,
 			vm;
 
@@ -28,7 +27,6 @@
 					globalKey,
 					clickMeasureLength, clickMeasureArea,
 					dblclickMeasure,
-					pathHelpBubble = locationPath + 'gcviz/images/helpBubble.png',
 					lblDist = i18n.getDict('%toolbardraw-dist'),
 					lblArea = i18n.getDict('%toolbardraw-area'),
 					mymap = gcvizFunc.getElemValueVM(mapid, ['map', 'map'], 'js'),
@@ -42,11 +40,6 @@
 
 				// viewmodel mapid to be access in tooltip custom binding
 				_self.mapid = mapid;
-
-				// help and bubble
-                _self.imgHelpBubble = pathHelpBubble;
-                _self.helpDesc = i18n.getDict('%toolbardraw-desc');
-                _self.helpAlt = i18n.getDict('%toolbardraw-alt');
 
 				// tooltip
 				_self.tpBlack = i18n.getDict('%toolbardraw-tpcolorblack');
@@ -80,7 +73,6 @@
 
 				// dialog window for text
 				_self.lblTextTitle = i18n.getDict('%toolbardraw-inputbox-name');
-				_self.lblTextDesc = i18n.getDict('%toolbardraw-inputbox-label');
 				_self.lblTextInfo = i18n.getDict('%toolbardraw-insinputbox');
 				_self.isTextDialogOpen = ko.observable();
 				_self.isText = ko.observable(false);
@@ -125,10 +117,6 @@
 					_self.selectColorClick('black');
 
 					return { controlsDescendantBindings: true };
-				};
-
-				_self.showBubble = function(key) {
-					helpVM.toggleHelpBubble(key, 'gcviz-help-tbdraw');
 				};
 
 				// end draw action on tools toolbar click

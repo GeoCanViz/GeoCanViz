@@ -29,6 +29,7 @@
 				var _self = this,
 					configAbout = config.about,
 					pathPrint = locationPath + 'gcviz/print/',
+					pathHelpBubble = locationPath + 'gcviz/images/helpBubble.png',
 					$section = $viz('#section' + mapid),
 					$mapholder = $viz('#' + mapid),
 					$map = $viz('#' + mapid + '_holder'),
@@ -41,20 +42,32 @@
 				// viewmodel mapid to be access in tooltip custom binding
 				_self.mapid = mapid;
 
+				// help bubble
+                _self.imgHelpBubble = pathHelpBubble;
+
 				// tools panel settings
 				_self.xheightToolsOuter = ko.observable('max-height:100px!important');
 				_self.xheightToolsInner = ko.observable('max-height:100px!important');
-				_self.widthheightTBholder =  ko.observable('max-height:390px!important; max-width:340px!important');
+				_self.widthheightTBholder = ko.observable('max-height:390px!important; max-width:340px!important');
 
 				// tooltip, text strings
 				_self.tpHelp = i18n.getDict('%header-tphelp');
-				_self.tpTools = i18n.getDict('%header-tptools');
 				_self.tpPrint = i18n.getDict('%header-tpprint');
 				_self.tpInset = i18n.getDict('%header-tpinset');
                 _self.tpAbout = i18n.getDict('%header-tpabout');
                 _self.tpFullScreen = i18n.getDict('%header-tpfullscreen');
                 _self.lblMenu = i18n.getDict('%header-tools');
 
+				// toolbars name
+				_self.legendTitle = i18n.getDict('%toolbarlegend-name');
+                _self.legendAlt = i18n.getDict('%toolbarlegend-alt');
+				_self.drawTitle = i18n.getDict('%toolbardraw-name');
+                _self.drawAlt = i18n.getDict('%toolbardraw-alt');
+				_self.navTitle = i18n.getDict('%toolbarnav-name');
+                _self.navAlt = i18n.getDict('%toolbarnav-alt');
+                _self.dataTitle = i18n.getDict('%toolbardata-name');
+                _self.dataAlt = i18n.getDict('%toolbardata-alt');
+                
 				// about dialog box
 				_self.lblAboutTitle = i18n.getDict('%header-tpabout');
 				_self.isAboutDialogOpen = ko.observable(false);
@@ -126,6 +139,10 @@
 					});
 
 					return { controlsDescendantBindings: true };
+				};
+
+				_self.showBubble = function(key, shift, keyType, id) {
+					return helpVM.toggleHelpBubble(key, id);
 				};
 
 				_self.fullscreenClick = function() {

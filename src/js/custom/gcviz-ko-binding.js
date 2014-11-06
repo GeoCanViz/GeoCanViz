@@ -15,7 +15,8 @@
 			'dijit/form/RadioButton',
 			'jqueryui'
 	], function($viz, ko, gcvizFunc, slider, radio) {
-	var btnArray = [];
+	var btnArray = [],
+		panelArray = [];
 
     ko.bindingHandlers.tooltip = {
 		init: function(element, valueAccessor, allBindings, viewModel) {
@@ -65,7 +66,7 @@
 			$element.text(options.text);
 
 			// add bubble (set the alt text, id to match the label, click function and keyboard input)
-			$element.append('<img id="' + options.id + '" tabindex="0" data-bind="click: function() { showBubble(32) }, enterkey: { func: \'showBubble\', keyType: \'keydown\' }" class="gcviz-help-bubble" src="' + options.img + '" alt="' + options.alt + '"></img>');
+			$element.append('<img id="' + options.id + '" tabindex="0" data-bind="click: function() { showBubble(32, 0, 0,  \'' + options.link + '\') }, clickBubble: false,  enterkey: { func: \'showBubble\', keyType: \'keydown\', params: \'' + options.link + '\'}" class="gcviz-help-bubble" src="' + options.img + '" alt="' + options.alt + '"></img>');
 		}
 	};
 
@@ -116,11 +117,12 @@
 		init: function(element, valueAccessor, allBindings, viewModel) {
 			// get function name to call from the binding
 			var func = valueAccessor().func,
-				keyType = valueAccessor().keyType;
+				keyType = valueAccessor().keyType,
+				params = valueAccessor().params;
 
 			ko.utils.registerEventHandler(element, keyType, function(event) {
-				if (viewModel[func](event.which, event.shiftKey, event.type)) {
-					event.preventDefault();
+				if (viewModel[func](event.which, event.shiftKey, event.type, params)) {
+					event.stopImmediatePropagation();
 					return false;
 				}
 				return true;
@@ -140,6 +142,23 @@
 				var len = btnArray.length;
 				while (len--) {
 					$viz(btnArray[len]).blur();
+				}
+			});
+		}
+	};
+	
+	ko.bindingHandlers.panelBlur = {
+		init: function(element) {
+			// add the element to the array to have an array of all problematic panels
+			panelArray.push(element);
+
+			ko.utils.registerEventHandler(element, 'mouseover', function() {
+				// loop trought panels to blur them when we mouse over another panel.
+				// This is a workaround for panel that keep focus once push. Even if
+				// use mouve over on another panel the panel doesn't loose focus.
+				var len = panelArray.length;
+				while (len--) {
+					$viz(panelArray[len]).blur();
 				}
 			});
 		}

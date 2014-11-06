@@ -62,7 +62,8 @@
 																												'\'MozTransform\': rotateArrow(), ' +
 																												'\'msTransform\': rotateArrow(), ' +
 																												'\'OTransform\': rotateArrow(), ' +
-																												'\'transform\': rotateArrow() }"></div>';
+																												'\'transform\': rotateArrow() }, ' +
+																												'attr: { alt: tpArrow }"></div>';
 			}
 			node += '</div>';
 
