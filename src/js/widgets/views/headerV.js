@@ -68,21 +68,23 @@
 
 			// add fullscreen button
 			if (config.fullscreen) {
-				node += '<button class="gcviz-head-fs" tabindex="0" data-bind="buttonBlur, click: fullscreenClick, tooltip: { content: tpFullScreen }, css: { \'gcviz-head-fs\': isFullscreen() === false, \'gcviz-head-reg\': isFullscreen() === true }"></button>';
+				node += '<button class="gcviz-head-fs gcviz-head-pop" tabindex="0" data-bind="buttonBlur, click: fullscreenClick, tooltip: { content: tpFullScreen }, css: { \'gcviz-head-fs\': isFullscreen() === false, \'gcviz-head-reg\': isFullscreen() === true }"></button>';
 			}
 
 			// set help button (help is always visible)
 			node += '<button class="gcviz-head-help" tabindex="0" data-bind="buttonBlur, click: helpClick, tooltip: { content: tpHelp }"></button>';
 
 			node += '</div>';
-
+		
 			$header.append(node);
 			if (configTools.enable === true) {
 				// Add a collapsible container for tools to hold all the toolbars instead of having a tools icon
-				$mapElem.find('.gcviz-head').append('<div id="divToolsOuter' + mapid + '" class="gcviz-tbcontainer' + ext + '" data-bind="attr: { style: xheightToolsOuter }"><div id="divToolsInner' + mapid + '" class="gcviz-toolsholder" data-bind="attr: { style: xheightToolsInner }"></div></div>');
+				$mapElem.find('.gcviz-head').append('<div id="divToolsOuter' + mapid + '" class="gcviz-tbcontainer' + ext + '" data-bind="attr: { style: xheightToolsOuter }">' +
+														'<div id="divToolsInner' + mapid + '" class="gcviz-toolsholder" data-bind="attr: { style: xheightToolsOuter }"></div>' +
+													'</div>');
 				menu = '<div id="gcviz-menu' + mapid + '" class="gcviz-menu" data-bind="uiAccordion: { heightStyle: \'content\', collapsible: true }, attr: { style: xheightToolsOuter }">' +
 							'<h3 class="gcviz-menu-title gcviz-menu-title' + ext + '"  data-bind="panelBlur"><span data-bind="text: lblMenu"></span></h3>' +
-							'<div id="gcviz-menu-cont' + mapid + '" class="gcviz-menu-cont" data-bind="uiAccordion: { heightStyle: \'content\', collapsible: true, active: false }, attr: { style: xheightToolsOuter }">' +
+							'<div id="gcviz-menu-cont' + mapid + '" class="gcviz-menu-cont" data-bind="uiAccordion: { heightStyle: \'content\', collapsible: true, active: false }, attr: { style: xheightToolsInner }">' +
 								addToolbars($mapElem, mapid) +
 							'</div>' +
 						'</div>';

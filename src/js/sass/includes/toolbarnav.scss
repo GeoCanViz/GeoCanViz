@@ -24,7 +24,8 @@
 // autocomplete
 .gcviz-nav-auto {
 	width: 93%;
-	margin-top: (0.5 * $rembase) + rem;
+	margin-top: 0!important;
+	margin-bottom: 0!important;
 }
 
 // map localisation buttons
@@ -41,9 +42,13 @@
 	margin-left: (1 * $rembase) + rem;
 }
 
+.gcviz-nav-info {
+	margin-top: (0.8 * $rembase) + rem;
+}
+
 // overview map
 .gcviz-nav-overview {
-	margin-top: (0.5 * $rembase) + rem;
+	margin-top: (0.8 * $rembase) + rem;
 	
 	// if no height specified, span is ignore
 	.span1 {

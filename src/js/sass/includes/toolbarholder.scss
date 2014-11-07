@@ -94,7 +94,7 @@
 	.gcviz-menu-cont {
 		padding: 0!important;
 		background: transparent;
-		overflow:	hidden!important;
+		overflow:	auto;
 	}
 
   .gcviz-tbcontent {
@@ -104,7 +104,7 @@
   .gcviz-tbcontent-leg {
     @extend %tbcontent;
 		max-height: (31 * $rembase) + rem;
-		overflow:	auto!important;
+		overflow:	auto;
   }
 }
 
@@ -122,4 +122,10 @@
 	.gcviz-tbseparator {
 		margin-bottom: (-1.25 * $rembase) + rem;
 	}
+}
+
+// for the gap on menu toolbar when on left side
+.ui-corner-all, .ui-btn-corner-all {
+	-webkit-background-clip: border-box!important;
+	background-clip: border-box!important;
 }

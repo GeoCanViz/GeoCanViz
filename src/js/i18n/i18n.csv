@@ -103,8 +103,8 @@ Global sys value#%gisurlutm#http://geogratis.gc.ca/services/delimitation/en/utmz
 #%toolbarlegend-tpexpand#Click to expand#Cliquer pour agrandir
 #%toolbarnav-alt#Search and Map Information - Help#Recherche et information sur la carte - Aide
 #%toolbarnav-name#Search and Map Information#Recherche et information sur la carte
-#%toolbarnav-zoomgrp#Zoom to a Location#
-#%toolbarnav-lblgeoloc#Enter and select a geographical name, topographic map number or postal code:#Entrez et sélectionnez un nom géographique ou topographique, un numéro de carte ou un code postal :
+#%toolbarnav-zoomgrp#Find a Location#
+#%toolbarnav-lblgeoloc#Enter and select a geographical name, topographic map number or postal code#Entrez et sélectionnez un nom géographique ou topographique, un numéro de carte ou un code postal
 #%toolbarnav-inskeyboard#When entering a geographic location suggested names will appear in the auto-fill list below the text entry box. Suggestions will start appearing after you type 3 characters.#Lorsque vous spécifiez un lieu géographique des suggestions apparaissent dans la liste d'auto-remplissage en dessous de la zone de texte. Les suggestions commenceront à apparaître après avoir tapé 3 caractères.
 #%toolbarnav-mapinfogrp#Map Information#
 #%toolbarnav-lblinfo#Get coordinates information#Obtenir de l'information sur les coordonnées
@@ -219,7 +219,7 @@ Global sys value#%gisurlutm#http://geogratis.gc.ca/services/delimitation/en/utmz
 #%help-draw-import#Use the Import File tool to import a file that contains drawings that were previously saved. This file must be in JavaScript Object Notation (JSON) format.#
 #%help-draw-export#Export the drawings on the map to a file in JavaScript Object Notation (JSON) format, ready for import.#
 #%help-nav-title#Search and Map Information#Recherche et information sur la carte
-#%help-nav-zoomtotitle#Zoom to a Location#
+#%help-nav-zoomtotitle#Find a Location#
 #%help-nav-zoomto#Use this tool to search, then zoom to, a geographic location:#
 #%help-nav-zoomto1#1. Enter a geographic name, such as a province, town, lake, river, National Topographic System map number or postal code, in the text box.#
 #%help-nav-zoomto2#2. A drop down list will then appear containing choices from the Canadian Geographical Names Database (http://www.nrcan.gc.ca/earth-sciences/geography/place-names/10786).#

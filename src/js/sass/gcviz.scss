@@ -128,7 +128,6 @@ svg {
 }
 
 .gcviz-subtitle {
-	line-height: 3;
 	@include app-text(1.1, bold);
 }
 
@@ -149,15 +148,6 @@ input[type="file"] {
 	border-width: 0rem;
 	min-width: 0rem;
 	min-height: 0rem;
-}
-
-/* full screen */
-.gcviz-sectionfs {
-	position: fixed;
-	z-index: 750;
-	top: 0;
-	left: 0;
-	overflow: scroll;
 }
 
 .gcviz-float-left {
@@ -207,7 +197,12 @@ h3:not(.ui-title) {
 	color: #000!important;
 }
 
-// overwrite jwuery ui-tooltip
+// overwrite jquery ui-tooltip
 .ui-tooltip {
 	padding: (0.3 * $rembase) + rem!important;
+}
+
+// ake sure ui dialog is on top of magnific popup for full screen
+.ui-dialog {
+	z-index: 15000!important;
 }

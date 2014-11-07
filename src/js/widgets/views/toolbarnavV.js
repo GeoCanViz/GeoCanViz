@@ -37,7 +37,7 @@
 
 			// set position information
 			if (configPosition) {
-				node += '<div class="row">' +
+				node += '<div class="row gcviz-nav-info">' +
 							'<span class="gcviz-subtitle" data-bind="text: mapInfoGrp"></span>' +
 							'<div class="row">' +
 								'<div class="span1"><button id="btnClickMap' + mapid + '" class="gcviz-nav-pos" tabindex="0" data-bind="buttonBlur, click: getMapClick, attr: { alt: tpGetLocInfo }"></button></div>' +

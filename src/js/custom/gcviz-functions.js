@@ -75,9 +75,9 @@
 				minWW = window.innerWidth,
 				minWH = window.innerHeight;
 
-			// calculate the width and height with the window. Remove 15px to keep all the right and bottom section
-			w = minWW - 15;
-			h = minWH - 15;
+			// calculate the width and height with the window. Remove 25px and 35px to keep all the right and bottom section
+			w = minWW - 35;
+			h = minWH - 25;
 
 			return { 'width': w, 'height': h };
 		};

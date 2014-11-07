@@ -37,7 +37,8 @@
 					$btnAbout = $mapElem.find('.gcviz-head-about'),
 					$btnFull = $mapElem.find('.gcviz-head-fs'),
 					$menu = $mapElem.find('#gcviz-menu' + mapid),
-					map = gcvizFunc.getElemValueVM(mapid, ['map', 'map'], 'js');
+					map = gcvizFunc.getElemValueVM(mapid, ['map', 'map'], 'js'),
+					instrHeight = 36;
 
 				// viewmodel mapid to be access in tooltip custom binding
 				_self.mapid = mapid;
@@ -48,7 +49,6 @@
 				// tools panel settings
 				_self.xheightToolsOuter = ko.observable('max-height:100px!important');
 				_self.xheightToolsInner = ko.observable('max-height:100px!important');
-				_self.widthheightTBholder = ko.observable('max-height:390px!important; max-width:340px!important');
 
 				// tooltip, text strings
 				_self.tpHelp = i18n.getDict('%header-tphelp');
@@ -138,6 +138,30 @@
 						$menuCont.off('accordioncreate');
 					});
 
+$('.gcviz-head-pop').magnificPopup({
+  items: {
+      src: '#' + mapid,
+      type: 'inline'
+  },
+				callbacks: {
+					beforeOpen: function() {
+						_self.requestFullScreen();		
+					},	
+					close: function() {
+						_self.cancelFullScreen();
+					},
+					afterClose: function() {
+						$('#map2').removeClass('mfp-hide');
+						gisM.resizeCenterMap(map, 0);
+					}
+				},
+				key: 'map-key',
+				showCloseBtn: false,
+				closeOnBgClick: false,
+				alignTop: true,
+				modal: false,
+				mainClass: 'mfp-with-fade'
+});
 					return { controlsDescendantBindings: true };
 				};
 
@@ -148,11 +172,18 @@
 				_self.fullscreenClick = function() {
 					// debounce the click to avoid resize problems
 					gcvizFunc.debounceClick(function() {
-						if (_self.fullscreenState) {
-							_self.cancelFullScreen();
+						if (_self.fullscreenState === 0) {
+							$('.gcviz-head-pop').magnificPopup('close');
 						} else {
-							_self.requestFullScreen();
+							_self.fullscreenState = 0;
 						}
+						// if (_self.fullscreenState) {
+							// //_self.cancelFullScreen();
+// 							
+						// } else {
+							// //_self.requestFullScreen();
+// 							
+						// }
 
 						// remove tooltip if there (the tooltip is position before the fullscreen)
 						$viz('.gcviz-tooltip').remove();
@@ -221,11 +252,9 @@
 						mapW = _self.widthMap;
 
 					// set style back for the map
-					gcvizFunc.setStyle($section[0], { 'width': sectW + 'px', 'height': sectH + 'px' });
-					gcvizFunc.setStyle($mapholder[0], { 'width': sectW + 'px', 'height': (sectH - 36) + 'px' }); // remove the instruction
+					gcvizFunc.setStyle($mapholder[0], { 'width': sectW + 'px', 'height': (sectH - instrHeight) + 'px' }); // remove the keyboard instruction height
 					gcvizFunc.setStyle($map[0], { 'width': mapW + 'px', 'height': mapH + 'px' });
 					gcvizFunc.setStyle($maproot[0], { 'width': mapW + 'px', 'height': mapH + 'px' });
-					$section.removeClass('gcviz-sectionfs');
 
 					// trigger the fullscreen custom binding and set state
 					_self.isFullscreen(false);
@@ -243,7 +272,7 @@
 					$btnFull.focus();
 
 					// remove the event that keeps tab in map section
-					$section.off('keydown.fs');
+					$mapholder.off('keydown.fs');
 
 					// need to set it to 40px. Link to the bug where we have a workaround in the request
 					// full screen function.
@@ -255,15 +284,13 @@
 					var param = gcvizFunc.getFullscreenParam(),
 						w = param.width,
 						h = param.height,
-						array = $section.find('[tabindex = 0]'),
-						height =  (h - (2 * _self.headerHeight) - 36); // 36 is the keyboard instruction height
+						array = $mapholder.find('[tabindex = 0]'),
+						height =  (h - (2 * _self.headerHeight));
 
 					// set style for the map
-					gcvizFunc.setStyle($section[0], { 'width': screen.width + 'px', 'height': '100%' });
 					gcvizFunc.setStyle($mapholder[0], { 'width': w + 'px', 'height': h + 'px' });
 					gcvizFunc.setStyle($map[0], { 'width': w + 'px', 'height': height + 'px' });
 					gcvizFunc.setStyle($maproot[0], { 'width': w + 'px', 'height': height + 'px' });
-					$section.addClass('gcviz-sectionfs');
 
 					// trigger the fullscreen custom binding and set state
 					_self.isFullscreen(true);
@@ -284,7 +311,7 @@
 					// create keydown event to keep tab in the map section
 					_self.first = array[0];
 					_self.last = array[array.length - 1];
-					$section.on('keydown.fs', function(event) {
+					$mapholder.on('keydown.fs', function(event) {
 						_self.manageTabbingOrder(event);
                     });
 
@@ -292,15 +319,13 @@
                     // we first got to full screen. To correct this we reset the bottom value.
                     // after the first time it is ok. In the future we can trap the first full
                     // screen and then do not do this. Or we can try to find the problem.
-                    gcvizFunc.setStyle($viz('#ovmapcont' + mapid)[0], { 'bottom': '72px' });
+                    gcvizFunc.setStyle($viz('#ovmapcont' + mapid)[0], { 'bottom': '40px' });
                 };
 
                 _self.adjustContainerHeight = function() {
-					var toolbarheight = parseInt(map.height, 10) - 15;
+					var toolbarheight = parseInt(map.height, 10) - 10;
 					_self.xheightToolsOuter('max-height:' + toolbarheight + 'px!important');
-					_self.xheightToolsInner('max-height:' + toolbarheight + 'px!important');
-					toolbarheight -= 35;
-					_self.widthheightTBholder('max-height:' + toolbarheight + 'px!important; max-width:' + (34 * 0.625) + 'rem!important');
+					_self.xheightToolsInner('max-height:' + (toolbarheight - instrHeight) + 'px!important'); // remove the keyboard instruction height
                 };
 
 				_self.manageTabbingOrder = function(evt) {
