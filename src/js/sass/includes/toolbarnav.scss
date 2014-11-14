@@ -57,14 +57,13 @@
 }
 
 .gcviz-nav-lblovdisp {
-	margin-top: (0.5 * $rembase) + rem;
 	margin-left: (0.5 * $rembase) + rem;
-	vertical-align: baseline!important; // to overwrite class in WET that creates a misslignement in Chrome on Windows
 }
 
 .gcviz-ovtoolcontainer {
 	@extend %ovmap;
 	@extend %ovborder;
+	margin: (0.5 * $rembase) + rem 0;
 }
 
 .gcviz-ovmapcontainerl {

@@ -67,6 +67,10 @@ svg {
 	@include app-border(0.1, solid, #c1c5be);
 }
 
+.gcviz-mapholder {
+	background: #FFF;
+}
+
 .gcviz-image-button {
   background: #666666!important;
   border: 2px solid #666666!important;
@@ -192,6 +196,7 @@ input[type="file"] {
   vertical-align: middle;
 }
 
+// OVERWRITE
 // keyboard user instruction (overwrite WET)
 h3:not(.ui-title) {
 	color: #000!important;
@@ -202,7 +207,37 @@ h3:not(.ui-title) {
 	padding: (0.3 * $rembase) + rem!important;
 }
 
-// ake sure ui dialog is on top of magnific popup for full screen
+// overwrite jqueryui autocomplete to be on top when in fullscreen
+.ui-autocomplete {
+	z-index: 15005!important;
+}
+
+// make sure ui dialog is on top of magnific popup for full screen
+// set 100% for IE
 .ui-dialog {
 	z-index: 15000!important;
+}
+
+// set 100% for IE
+.ui-dialog-content {
+	width: 100%!important;
+}
+
+// overwrite zoom slider to set a focus state
+.dijitSliderFocused .dijitSliderBar {
+	border-color: #759dc0!important;
+	border-width: 2px!important;
+}
+
+// overwite input because wet style introduce a shift in Firefox
+// there is also a problem with IE
+input[type="checkbox"], input[type="radio"]{
+    background: transparent;
+    border: 0;
+    vertical-align:	middle;
+		margin: 0!important;
+}
+
+label {
+	margin-bottom: 0!important;
 }

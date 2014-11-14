@@ -7,6 +7,7 @@
 
 .gcviz-data-del {
 	@include sprite($img-spritebtn, -795, -2);
+	vertical-align: middle;
 }
 
 // list legend
@@ -23,6 +24,7 @@
 
 .gcviz-data-item {
 	display: table;
+	height: (3.2 * $rembase) + rem;
 }
 
 .gcviz-data-itemchild {

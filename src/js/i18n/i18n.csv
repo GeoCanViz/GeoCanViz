@@ -23,7 +23,7 @@ Global sys value#%gisurlutm#http://geogratis.gc.ca/services/delimitation/en/utmz
 #%wcag-lblenable#Enable accessibility mode#Activer le mode accessibilité
 #%wcag-xlong#Longitude West (x): #Longitude ouest (x): 
 #%wcag-ylat#Latitude North (y): #Latitude nord (y): 
-#%wcag-title#Accessibility mode coordinates input#Entré des corrdonnées en mode accessibilité
+#%wcag-title#Accessibility mode coordinates input#Entré des coordonnées en mode accessibilité
 #%wcag-msgx#Value needs to be between 50 and 130#la valeur doit être entre 50 et 130
 #%wcag-msgy#Value needs to be between 40 and 80#la valeur doit être entre 40 et 80
 #%wcag-addcoords#Add a new coordinate to the list#Ajouter une coordonnée à la liste
@@ -67,12 +67,12 @@ Global sys value#%gisurlutm#http://geogratis.gc.ca/services/delimitation/en/utmz
 #%toolbardraw-name#Measuring and Drawing Tools#Mesures et outils de dessin
 #%toolbardraw-insinputbox#Enter text, click OK and then click the map location where the text should be placed.#Cliquez sur OK pour placer le texte sur la carte ou cliquez sur Annuler pour abandonner.
 #%toolbardraw-inputbox-name#Add Text#Ajouter du texte
-#%toolbardraw-tpcolorblack#Select black color#Sélectionner la couleur noire
-#%toolbardraw-tpcolorred#Select red color#Sélectionner la couleur rouge
-#%toolbardraw-tpcolorgreen#Select green color#Sélectionner la couleur vert
-#%toolbardraw-tpcolorblue#Select blue color#Sélectionner la couleur bleu
-#%toolbardraw-tpcoloryellow#Select yellow color#Sélectionner la couleur jaune
-#%toolbardraw-tpcolorwhite#Select white color#Sélectionner la couleur blanche
+#%toolbardraw-tpcolorblack#Select black colour#Sélectionner la couleur noire
+#%toolbardraw-tpcolorred#Select red colour#Sélectionner la couleur rouge
+#%toolbardraw-tpcolorgreen#Select green colour#Sélectionner la couleur vert
+#%toolbardraw-tpcolorblue#Select blue colour#Sélectionner la couleur bleu
+#%toolbardraw-tpcoloryellow#Select yellow colour#Sélectionner la couleur jaune
+#%toolbardraw-tpcolorwhite#Select white colour#Sélectionner la couleur blanche
 #%toolbardraw-tpdraw#Draw on the map#Dessiner sur la carte
 #%toolbardraw-tptext#Add text on the map#Ajouter du texte sur la carte
 #%toolbardraw-tpmeasurearea#Measure an area on the map#Mesurer une surface sur la carte
@@ -126,15 +126,17 @@ Global sys value#%gisurlutm#http://geogratis.gc.ca/services/delimitation/en/utmz
 #%toolbardata-alt#Import Data - Help#Importer des données - Aide
 #%toolbardata-name#Import Data#Importer des données
 #%toolbardata-tpadd#Import Data#Importer des données
+#%toolbardata-lbladdcsv#Import points in CSV format#Importer des points en format CSV
 #%toolbardata-tpdelete#Remove Data#Enlever des données
 #%toolbardata-errtitle#Add Data Error#Erreur dans l'ajout des données
-#%toolbardata-err1#There must be a field (latitude, lat, y or ycenter) for y coordinnates and a field (longitude, long, x or xcenter) for x coordinnates.#Il doit y avoir un champ (latitude, lat, y ou ycenter) pour les coordonnées y et un champ (longitude, longue, x ou xcenter) pour les coordonnées x.
-#%toolbardata-err2#Unable to determine the separator.#Incapable de déterminer le separateur.
-#%toolbardata-err3#Error fetching items from CSV store: #Erreur de récupération des items du fichier CSV: 
-#%toolbardata-ie9#This tool is not available in Internet Explorer 9. You need version 10 or another browser (Chrome, FireFox or Safari).#Cet outil n'est pas disponible dans Internet Explorer 9. Vous devez avoir la version 10 ou un autre navigateur (Chrome, Firefox ou Safari).
+#%toolbardata-err1#There must be a field for y coordinates (latitude, lat, y or ycenter), and a field for x coordinates (longitude, long, x or xcenter).#Il doit y avoir un champ (latitude, lat, y ou ycenter) pour les coordonnées y et un champ (longitude, longue, x ou xcenter) pour les coordonnées x.
+#%toolbardata-err2#Unable to determine the field separator. It should be one of these characters (, ; |).#Incapable de déterminer le separateur.
+#%toolbardata-err3#Presence of element(s) with invalid latitude and/or longitude.#Présence d'élément(s) dont les valeurs de latitude et/ou de longitude sont invalides.
+#%toolbardata-err4#Error fetching items from CSV file: #Erreur de récupération des items du fichier CSV: 
+#%toolbardata-ie9#This tool is not available in Internet Explorer version 9. You need Internet Explorer version 10 or another browser (Chrome, FireFox or Safari).#Cet outil n'est pas disponible dans Internet Explorer 9. Vous devez avoir la version 10 ou un autre navigateur (Chrome, Firefox ou Safari).
 #%inset-tplight#Open the content in a lightbox#Ouvrir le contenu dans un lightbox
 #%inset-tpplayvideo#Play video#Jouer la vidéo
-#%mp-close#Close (Esc)#Fermer (Esc)
+#%mp-close#Close ("Esc")#Fermer ("Esc")
 #%mp-load#Loading...#Chargement...
 #%mp-next#Previous (Left arrow key)#Precédent (touche flèche gauche)
 #%mp-prev#Next (Right arrow key)#Suivant (touche flèche droite)
@@ -145,39 +147,40 @@ Global sys value#%gisurlutm#http://geogratis.gc.ca/services/delimitation/en/utmz
 #%help-dialogbubbletitle#GeoCanViz Contextual Help#Aide contextuelle pour GéoCanViz
 #%help-overview-title#Application Overview#
 #%help-overview-desc1#The GeoCanViz Viewer is a tool to help you find, explore and understand spatial data using a graphical user interface.#
-#%help-overview-desc2#The GeoCanViz Viewer can be configured to use some or all of the tools and toolbars depending on the needs of the content of the map. For this reason, some of the tools described in this help document may not be available for the map you are currently viewing.#
+#%help-overview-desc2#The GeoCanViz Viewer can be configured to use some or all of the tools and toolbars depending on the needs and the content of the map. For this reason, some of the tools described in this help document may not be available for the map you are currently viewing.#
 #%help-key-title#Navigation Using the Keyboard#
 #%help-key-fntitle#Advance focus:#
-#%help-key-fn#TAB key will advances the focus to the next element.#
+#%help-key-fn#TAB key moves the focus foward to the next element.#
 #%help-key-fptitle#Previous focus:#
-#%help-key-fp#SHIFT+TAB keys will return the focus to the previous element.#
+#%help-key-fp#SHIFT+TAB keys moves the focus back to the previous element.#
 #%help-key-zoomtitle#Zoom the map:#
 #%help-key-zoom#+/- or CTRL+/CTRL- keys will zoom in/out on the map. The focus must be on the map.#
 #%help-key-pantitle#Panning the map:#
 #%help-key-pan#LEFT ARROW, RIGHT ARROW, UP ARROW, DOWN ARROW keys will pan around the map (moves the map sideways or up/down). The focus must be on the map.#
 #%help-key-entertitle#Execute a tool:#
-#%help-key-enter#ENTER key will selects the element which currently has the focus.#
+#%help-key-enter#ENTER key will select the element which currently has the focus.#
 #%help-key-spacetitle#Expand menu:#
-#%help-key-space#When the focus is on an expander icon, the SPACE BAR key will expand the toolbar and SPACE BAR key again will close it.#
+#%help-key-space#When the focus is on an expander icon, the SPACE BAR key will expand the toolbar. Selecting the SPACE BAR key again will close it.#
 #%help-key-wcagtitle#Accessibility mode:#
 #%help-key-wcag#You can enable the accessibility mode by checking the enable accessibility mode check box in the -Instructions: Map navigation- drop down section at the top of the map.#
+#%help-key-pref#Note: Do not forget to properly setup your keyboard preferences in your operating system and your browser. If you have forgotten to do so, you may end up with unexpected behaviours.#
 #%help-map-title#Navigation Tools on the Map#
-#%help-map-zoom#Click the Full Extent tool to zoom the map to its full (national) extent.#
-#%help-map-zoombar#Use the Zoom Bar tool to change the zoom level of the map.  The red colour indicates the zoom level of the map and to change it, click the bar above the red colour to zoom in and below the level of the red colour to zoom out.#
+#%help-map-zoom#Click the Full Extent tool to zoom the map out to its full (national) extent.#
+#%help-map-zoombar#Use the Zoom Bar tool to change the zoom level of the map.  The red coloured line indicates the zoom level of the map and to change the zoom level, click the bar above the red coloured line to zoom in, or click the bar below the red coloured line to zoom out.#
 #%help-head-title#Header#En-tête
 #%help-head-help#Click to open the help window.#
 #%help-head-about#Click to open a window containing a description of the map.#
 #%help-head-print#Click to print the current view of the map.#
-#%help-head-gofs#Click for the maximum map size.#
+#%help-head-gofs#Click to view the maximum map size.#
 #%help-head-exfs#Click to return to the default map size.#
 #%help-head-menutitle#Menu#Menu
 #%help-head-menu#Toggle to open and close all the available toolbars#
 #%help-foot-title#Footer#Bas de page
 #%help-foot-scalebartitle#Map scale bar:#
-#%help-foot-scalebar#The map scale bar shows the length of the indicated distance on the map. Note: the distance is approximate#
+#%help-foot-scalebar#The map scale bar displays the length of the corresponding distance on the map. Note: the distance is approximate#
 #%help-foot-coordtitle#Map coordinates:#
-#%help-foot-coord#The coordinates shown are the latitude and longitude of the mouse cursor location.#
-#%help-foot-arrow#This north arrow shows the direction of geographic north also known as the North Pole. This direction will change depending on the geographic area shown in the map window and the map’s projection.#
+#%help-foot-coord#The coordinates shown are the latitude and longitude of the mouse cursor location on the map.#
+#%help-foot-arrow#This north arrow shows the direction of the geographic north also known as the North Pole. This direction will change based on the geographic area shown in the map window and the map’s projection.#
 #%help-draw-title#Measuring and Drawing Tools#Mesures et outils de dessin
 #%help-draw-colorselect#The colour selector is used to select a colour for measured paths and areas, drawn lines and added text.#
 #%help-draw-line#Use the pencil tool to draw lines on the map:#
@@ -185,7 +188,7 @@ Global sys value#%gisurlutm#http://geogratis.gc.ca/services/delimitation/en/utmz
 #%help-draw-line2#2. Click on the map, keeping the left mouse button depressed#
 #%help-draw-line3#3. Draw any shape of line.#
 #%help-draw-line4#4. When finished, release the left mouse button.#
-#%help-draw-line5#5. When finished, press the “Esc” key on your keyboard or click the Menu title.#
+#%help-draw-line5#5. When finished, press the “Esc” key on your keyboard or click on the Menu title.#
 #%help-draw-line6#6. The menu will re-open.#
 #%help-draw-text#Use the text tool to add text to the map:#
 #%help-draw-text1#1. Click the text tool, the menu will then close.#
@@ -194,26 +197,26 @@ Global sys value#%gisurlutm#http://geogratis.gc.ca/services/delimitation/en/utmz
 #%help-draw-text4#4. Click on the map were the text should be placed.#
 #%help-draw-text5#5. The dialogue box will reappear, repeat steps 2 to 4 to enter more text or click “Cancel” to finish.#
 #%help-draw-text6#6. The menu will re-open.#
-#%help-draw-length#Use the Measure a Path tool to measure single or multiple connected distances on the map (it is possible to measure many separate distances).#
+#%help-draw-length#Use the Measure a Path tool to measure single or multiple connected distances on the map (it is possible to measure multiple distances).#
 #%help-draw-length1#1. Click the Measure a Path tool, the menu will then close.#
 #%help-draw-length2#2. Click the start location on the map.#
-#%help-draw-length3#3. If a single path is measured, either double click the second location on the map or single click the second location followed by pressing the “Esc” key on your keyboard and the total length will be shown.#
+#%help-draw-length3#3. If a single path is measured, either double click the second location on the map or single click the second location followed by pressing the “Esc” key on your keyboard. The total distance will be displayed.#
 #%help-draw-length4#4. If multiple connected paths are measured, click all locations on the map ensuring the last location is either a double click or a single click followed by pressing the “Esc” key on your keyboard. The total distance will be displayed.#
-#%help-draw-length5#5. When finished, press the “Escape” key on your keyboard or click the Menu title and the menu will reopen.#
-#%help-draw-lengtherase#* To erase one or all measured distances, click the Menu title and use the Erase All or Erase Selected tools.#
-#%help-draw-area#Use the Measure an Area tool to measure areas on the map (it is possible to measure many separate areas).#
+#%help-draw-length5#5. When finished, press the “Escape” key on your keyboard or click on the Menu title and the menu will reopen.#
+#%help-draw-lengtherase#* To erase one or all measured distances, click on the Menu title and use the Erase All or Erase Selected tools.#
+#%help-draw-area#Use the Measure an Area tool to measure areas on the map (it is possible to measure multiple areas).#
 #%help-draw-area1#1. Click the Measure an Area tool, the menu will then close.#
 #%help-draw-area2#2. Click the start location on the map.#
-#%help-draw-area3#3. Click three or more other locations on the map to create a polygon.#
+#%help-draw-area3#3. Click at least three or more other locations on the map to create a polygon.#
 #%help-draw-area4#4. When the polygon on the map covers the desired area, either double click the final location or single click it, followed by pressing the “Esc” key on your keyboard. The area will be shown.#
-#%help-draw-area5#5. When finished, press the “Escape” key on your keyboard or click the Menu title and the menu will reopen.#
-#%help-draw-areaerase#* To erase one or all measured areas, click the Menu title and use the Erase All or Erase Selected tools.#
+#%help-draw-area5#5. When finished, press the “Escape” key on your keyboard or click on the Menu title and the menu will reopen.#
+#%help-draw-areaerase#* To erase one or all measured areas, click on the Menu title and use the Erase All or Erase Selected tools.#
 #%help-draw-eraseall#Click the Erase All tool to erase all lines, text and distances on the map.#
 #%help-draw-eraseselect#Click the Erase Selected tool to erase selected lines, text and distances on the map.#
 #%help-draw-eraseselect1#1. Click the Erase Selected tool, the menu will then close.#
 #%help-draw-eraseselect2#2. Click on the map, keeping the left mouse button depressed and draw a polygon over the feature(s) to be erased.#
 #%help-draw-eraseselect3#3. Release the left mouse button and the feature(s) will disappear.#
-#%help-draw-eraseselect4#4. When finished, press the “Escape” key on your keyboard or click the Menu title and the menu will reopen.#
+#%help-draw-eraseselect4#4. When finished, press the “Escape” key on your keyboard or click on the Menu title and the menu will reopen.#
 #%help-draw-undo#Use the Undo tool to undo past actions such as adding lines, text and distance measurements,#
 #%help-draw-redo#Use the Redo tool to redo actions such as adding lines, text and distance measurements after they have been deleted,#
 #%help-draw-import#Use the Import File tool to import a file that contains drawings that were previously saved. This file must be in JavaScript Object Notation (JSON) format.#
@@ -222,31 +225,31 @@ Global sys value#%gisurlutm#http://geogratis.gc.ca/services/delimitation/en/utmz
 #%help-nav-zoomtotitle#Find a Location#
 #%help-nav-zoomto#Use this tool to search, then zoom to, a geographic location:#
 #%help-nav-zoomto1#1. Enter a geographic name, such as a province, town, lake, river, National Topographic System map number or postal code, in the text box.#
-#%help-nav-zoomto2#2. A drop down list will then appear containing choices from the Canadian Geographical Names Database (http://www.nrcan.gc.ca/earth-sciences/geography/place-names/10786).#
-#%help-nav-zoomto3#3. Select one of the names by clicking it.#
-#%help-nav-zoomto4#4. The map will then zoom to the selected place.#
+#%help-nav-zoomto2#2. A drop down list will then appear containing place name choices from the Canadian Geographical Names Database (http://www.nrcan.gc.ca/earth-sciences/geography/place-names/10786).#
+#%help-nav-zoomto3#3. Select one of the place names from the list by clicking on it.#
+#%help-nav-zoomto4#4. The map will then zoom to the selected place name.#
 #%help-nav-mapinfotitle#Map Information#
-#%help-nav-pos#Use the Map Information tool to get information about a specific location on the map. This includes the geographic and UTM co-ordinates, National Topographic System (NTS) map number and elevation.#
+#%help-nav-pos#Use the Map Information tool to get information about a specific location on the map. The information includes the geographic and UTM co-ordinates, the National Topographic System (NTS) map number and the elevation.#
 #%help-nav-pos1#1. Click the Get Coordinates Information tool, the menu will then close.#
-#%help-nav-pos2#2. Click the desired location on the map.#
-#%help-nav-pos3#3. A pop-up window will appear showing the map information.#
-#%help-nav-pos4#4. When finished, click “Ok” or press the “Escape” key on your keyboard it will close the window.#
-#%help-nav-pos5#5. Repeat steps 2 to 4 to have information on another location or press the “Esc” key on your keyboard or click the Menu title to finish.#
+#%help-nav-pos2#2. Click a specific location on the map.#
+#%help-nav-pos3#3. A pop-up window will appear showing the map location information.#
+#%help-nav-pos4#4. When finished, click “Ok” or press the “Escape” key on your keyboard. It will close the window.#
+#%help-nav-pos5#5. Repeat steps 2 to 4 to view information of another specific map location. Press the “Esc” key on your keyboard or click on the Menu title to finish.#
 #%help-nav-ovalt#Overview Map#
-#%help-nav-ov#The Overview Map Window shows a red rectangle identifying your current map extent in a regional context. You can click, hold and drag this rectangle to quickly pan to a different location.#
-#%help-nav-scaletitle#Map scale number:#
-#%help-nav-scale#The map scale number indicates the relationship or ratio between a distance on the map and the same distance on the ground. Note: the distance is approximate.#
+#%help-nav-ov#The Overview Map Window shows a red rectangle identifying your current map extent in a regional context. Click, hold and drag this rectangle to quickly pan the map to a different location.#
+#%help-nav-scaletitle#Approximate map scale:#
+#%help-nav-scale#The map scale number displays the relationship or ratio between a distance on the map and the same distance on the ground. Note: the distance is approximate.#
 #%help-leg-title#Map Layers and Legend(s)#Couvertures de la carte et légende(s)
-#%help-leg-desc1#This panel shows the map’s layers and offers access to the legend. The layers are grouped into Theme(s), on the top, and Bases(s) on the bottom. Themes and bases can be both individual layers and multi-layered maps. Please see the map description for more information.#
-#%help-leg-desc2#When only one layer can be viewed at a time, click the “radio button” on the left side of each layer’s row.#
-#%help-leg-desc3#When more than one layer can be viewed at a time, click a “check box” to turn it on or off.#
-#%help-leg-slider#The slider, to the left of the layer name can be used to change the opacity. All the way to the left is less opaque and all the way to the right is most opaque.#
-#%help-leg-exp#To view a legend, click the black triangle, pointing right on the left end of the layer. It will then point down and change to red. Depending how the layers are structured, it may be necessary to click more than one black triangle to view the legend.#
+#%help-leg-desc1#This panel displays the map’s layer(s) and legend(s). The layers are grouped into Theme(s), at the top of the panel, and Bases(s) at the bottom of the panel. Themes and bases can both be individual layers and multi-layered maps. Please see the map description for more information.#
+#%help-leg-desc2#To display a layer when only one layer can be viewed at a time, click the “radio button” on the left side of the layer’s row.#
+#%help-leg-desc3#To display layers when more than one layer can be viewed at a time, click the “check box” on the left side of the layer's row to turn it on or off.#
+#%help-leg-slider#The slider on the left of the layer name can be used to change the opacity. Sliding it to the left will make the layer less opaque. sliding it to the right will make the layer more opaque.#
+#%help-leg-exp#To view a legend, click on the right pointing black triangle displayed at the left end of the layer. It will point down and change colour from black to red. Depending on how the layers are structured, it might be necessary to click more than one black triangle to view the legend.#
 #%help-data-title#Import Data#Importer des données
-#%help-data-add#Use the Import a Comma Separated Values (CSV) File tool to import a file that contains geolocation information and display it on the map.#
+#%help-data-add#Use the Import Data tool to import a Comma Separated Values (CSV) file that contains geolocation information and to display it on the map. This file must contain geolocation fields that hold the geometry. The field names should be (latitude, lat, y, or ycenter) for y coordinates, and (longitude, long, x, or xcenter) for x coordinates. The field separator must be one of these characters (, ; |).#
 #%help-data-sampletitle#Added Layer Information#
-#%help-data-sample#This is an example of a loaded csv file. You have a visibility checkbox and the symbology use to render the layer.
-#%help-data-remove#Button to remove the loaded data layer.#
+#%help-data-sample#This is an example of an imported CSV file. A visibility checkbox and the symbology used to render the layer is displayed.
+#%help-data-remove#Button to remove the imported data layer from the map.#
 #%help-dev-title#Developer's Corner#Le coin du développeur
 #%help-dev-logoalt#Get GeoCanViz on GitHub#Obtenir GéoCanViz de GitHub
-#%help-dev-logo#Click to open the GeoCanViz developement page on GitHub. You will have access to the latest code version. 
+#%help-dev-logo#Click to view the latest GeoCanViz development source code on GitHub.#

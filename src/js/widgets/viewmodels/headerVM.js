@@ -35,8 +35,8 @@
 					$map = $viz('#' + mapid + '_holder'),
 					$maproot = $viz('#' + mapid + '_holder_root'),
 					$btnAbout = $mapElem.find('.gcviz-head-about'),
-					$btnFull = $mapElem.find('.gcviz-head-fs'),
 					$menu = $mapElem.find('#gcviz-menu' + mapid),
+					$btnFull = $mapElem.find('.gcviz-head-pop'),
 					map = gcvizFunc.getElemValueVM(mapid, ['map', 'map'], 'js'),
 					instrHeight = 36;
 
@@ -138,30 +138,33 @@
 						$menuCont.off('accordioncreate');
 					});
 
-$('.gcviz-head-pop').magnificPopup({
-  items: {
-      src: '#' + mapid,
-      type: 'inline'
-  },
-				callbacks: {
-					beforeOpen: function() {
-						_self.requestFullScreen();		
-					},	
-					close: function() {
-						_self.cancelFullScreen();
-					},
-					afterClose: function() {
-						$('#map2').removeClass('mfp-hide');
-						gisM.resizeCenterMap(map, 0);
-					}
-				},
-				key: 'map-key',
-				showCloseBtn: false,
-				closeOnBgClick: false,
-				alignTop: true,
-				modal: false,
-				mainClass: 'mfp-with-fade'
-});
+					// initialize full screen with magnific popup
+					$btnFull.magnificPopup({
+						items: {
+							src: '#' + mapid,
+							type: 'inline'
+						},
+						callbacks: {
+							beforeOpen: function() {
+								_self.requestFullScreen();		
+							},	
+							close: function() {
+								_self.cancelFullScreen();
+							},
+							afterClose: function() {
+								$('#' + mapid).removeClass('mfp-hide');
+								gisM.resizeCenterMap(map, 0);
+							}
+						},
+						key: 'map-key',
+						showCloseBtn: false,
+						closeOnBgClick: false,
+						enableEscapeKey: false,
+						alignTop: false,
+						modal: false,
+						mainClass: 'mfp-with-fade'
+					});
+
 					return { controlsDescendantBindings: true };
 				};
 
@@ -173,17 +176,10 @@ $('.gcviz-head-pop').magnificPopup({
 					// debounce the click to avoid resize problems
 					gcvizFunc.debounceClick(function() {
 						if (_self.fullscreenState === 0) {
-							$('.gcviz-head-pop').magnificPopup('close');
+							$btnFull.magnificPopup('close');
 						} else {
 							_self.fullscreenState = 0;
 						}
-						// if (_self.fullscreenState) {
-							// //_self.cancelFullScreen();
-// 							
-						// } else {
-							// //_self.requestFullScreen();
-// 							
-						// }
 
 						// remove tooltip if there (the tooltip is position before the fullscreen)
 						$viz('.gcviz-tooltip').remove();
@@ -263,13 +259,11 @@ $('.gcviz-head-pop').magnificPopup({
 					// resize map and keep the extent
 					gisM.manageScreenState(map, 500, false);
 
-					// Set the toolbar container height
+					// set the toolbar container height and focus
                     setTimeout(function() {
 						_self.adjustContainerHeight();
+						$btnFull.focus();
 					}, 500);
-
-					// set focus
-					$btnFull.focus();
 
 					// remove the event that keeps tab in map section
 					$mapholder.off('keydown.fs');
@@ -296,7 +290,7 @@ $('.gcviz-head-pop').magnificPopup({
 					_self.isFullscreen(true);
 					_self.fullscreenState = 1;
 
-					// resize map ans keep the extent
+					// resize map and keep the extent
 					gisM.manageScreenState(map, 1000, true);
 
 					// Set the toolbar container height
@@ -345,7 +339,14 @@ $('.gcviz-head-pop').magnificPopup({
 					} else if (key === 9 && shift) {
 						if (node === firstClass) {
 							// workaround to avoid focus shifting to the previous element
-							setTimeout(function() { lastItem.focus(); }, 0);
+							setTimeout(function() { 
+								lastItem.focus();
+							}, 0);
+							
+							// still focus on previous item. If not Chrome will freeze
+							if (window.browser === 'Chrome') {
+								lastItem.focus();
+							}
 						}
 					}
 				};
@@ -359,7 +360,15 @@ $('.gcviz-head-pop').magnificPopup({
 		};
 
 		printSimple = function(map, template) {
-			var node = $viz('#' + map.vIdName + '_holder').clone();
+			var mapid = map.vIdName,
+				node = $viz('#' + mapid + '_holder').clone();
+
+			// set map size to fit the print page
+			gcvizFunc.setStyle(node[0], { 'width': '10in', 'height': '5.5in' });
+			gcvizFunc.setStyle(node.find('#' + mapid + '_holder_root')[0], { 'width': '10in', 'height': '5.5in' });
+			
+			// resize map and keep the extent
+			gisM.manageScreenState(map, 1000, true);
 
 			// set the local storage then open page
 			localStorage.setItem('gcvizPrintNode', node[0].outerHTML);

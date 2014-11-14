@@ -50,7 +50,6 @@
 
 .gcviz-help-textsub {
 	@include app-text(1.2, bold, $black);
-	margin-top: (1 * $rembase) + rem!important;
 }
 
 .gcviz-help-img {

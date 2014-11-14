@@ -43,6 +43,7 @@
 
 .gcviz-toolsholder {
   @include unselectable;
+  background-color: rgb(140,140,140);
 
 	.gcviz-menu {
 		width: 100%!important;
@@ -104,7 +105,7 @@
   .gcviz-tbcontent-leg {
     @extend %tbcontent;
 		max-height: (31 * $rembase) + rem;
-		overflow:	auto;
+		overflow:	auto!important;
   }
 }
 

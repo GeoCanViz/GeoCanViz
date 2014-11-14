@@ -66,7 +66,7 @@
 			$element.text(options.text);
 
 			// add bubble (set the alt text, id to match the label, click function and keyboard input)
-			$element.append('<img id="' + options.id + '" tabindex="0" data-bind="click: function() { showBubble(32, 0, 0,  \'' + options.link + '\') }, clickBubble: false,  enterkey: { func: \'showBubble\', keyType: \'keydown\', params: \'' + options.link + '\'}" class="gcviz-help-bubble" src="' + options.img + '" alt="' + options.alt + '"></img>');
+			$element.append('<img id="' + options.id + '" tabindex="0" data-bind="click: function() { showBubble(32, 0, 0,  \'' + options.link + '\') }, clickBubble: false,  enterkey: { func: \'showBubble\', keyType: \'keydown\', params: \'' + options.link + '\' }" class="gcviz-help-bubble" src="' + options.img + '" alt="' + options.alt + '"></img>');
 		}
 	};
 

@@ -226,6 +226,7 @@
 					source: function(request, response) {
 						$viz.ajax({
 							url: _self.geoLocUrl,
+							cache: false,
 							dataType: 'json',
 							data: {
 								q: request.term + '*'

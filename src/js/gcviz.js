@@ -183,34 +183,38 @@ var locationPath;
 
 				// set the resize event
 				window.onresize = gcvizFunc.debounce(function(event) {
-					var applyW,
+					var applyW, actualW, oriW, leftMarg, maxWidth,
 						$section = $(event.target.document.getElementsByClassName('gcviz-section')),
 						$mapholder = $section.find('.gcviz'),
 						$map = $section.find('.gcviz-map'),
-						$maproot = $section.find('.gcviz-root'),
+						$maproot = $section.find('.gcviz-root');
+						
+					// check if the $map is there (it is not there in full screen)
+					if (typeof $map !== 'undefined') {
+						// set parameters
 						actualW = parseInt($mapSection.css('width'), 10), // actual map width
 						oriW = parseInt($map.attr('gcviz-size').split(';')[1], 10), // original from config map width
 						leftMarg = $section.position().left, //containter left margin
 						maxWidth = parseInt($section.parent().css('width'), 10) - (2 * leftMarg); // get container width
-
-					// map cant be smaller then 360px (tools panel width)
-					if (maxWidth < 360) {
-						maxWidth = 360;
+	
+						// map cant be smaller then 360px (tools panel width)
+						if (maxWidth < 360) {
+							maxWidth = 360;
+						}
+	
+						// check if we should apply the original width or the maximum possible width
+						if (oriW > maxWidth) {
+							applyW = maxWidth;
+						} else if (actualW < oriW && maxWidth > oriW) {
+							applyW = oriW;
+						}
+	
+						// set size
+						gcvizFunc.setStyle($section[0], { 'width': applyW + 'px' });
+						gcvizFunc.setStyle($mapholder[0], { 'width': applyW + 'px' });
+						gcvizFunc.setStyle($map[0], { 'width': applyW + 'px' });
+						gcvizFunc.setStyle($maproot[0], { 'width': applyW + 'px' });
 					}
-
-					// check if we should apply the original width or the maximum possible width
-					if (oriW > maxWidth) {
-						applyW = maxWidth;
-					} else if (actualW < oriW && maxWidth > oriW) {
-						applyW = oriW;
-					}
-
-					// set size
-					gcvizFunc.setStyle($section[0], { 'width': applyW + 'px' });
-					gcvizFunc.setStyle($mapholder[0], { 'width': applyW + 'px' });
-					gcvizFunc.setStyle($map[0], { 'width': applyW + 'px' });
-					gcvizFunc.setStyle($maproot[0], { 'width': applyW + 'px' });
-
 				}, 200, false);
 			}
 		};

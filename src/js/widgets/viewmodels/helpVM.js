@@ -80,6 +80,7 @@
 				_self.keySpace = i18n.getDict('%help-key-space');
 				_self.keyWCAGTitle = i18n.getDict('%help-key-wcagtitle');
 				_self.keyWCAG = i18n.getDict('%help-key-wcag');
+				_self.keyPref = i18n.getDict('%help-key-pref');
 
 				// map tools
 				_self.mapTitle = i18n.getDict('%help-map-title');

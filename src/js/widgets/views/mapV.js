@@ -26,7 +26,7 @@
 			$div.css({ 'width': widthMax, 'height': height + 80 });
 
 			// add a wrapper around the map (keep original height and witdh on the element for resize event)
-			$div.prepend('<div id="' + mapid + '_holder' + '" name="map" gcviz-size="' + height + ';' + width + '" data-bind="event: { mouseover: enterMouse, mouseout: leaveMouse }, hasfocus: mapfocus.focused, enterkey: { func: \'applyKey\', keyType: \'keyup\' }" tabindex="0"><div class="gcviz-loading"><div class="gcviz-loadingLabel"></div></div></div>');
+			$div.prepend('<div id="' + mapid + '_holder' + '" name="map" class="gcviz-mapholder" gcviz-size="' + height + ';' + width + '" data-bind="event: { mouseover: enterMouse, mouseout: leaveMouse }, hasfocus: mapfocus.focused, enterkey: { func: \'applyKey\', keyType: \'keyup\' }" tabindex="0"><div class="gcviz-loading"><div class="gcviz-loadingLabel"></div></div></div>');
 
 			// add zoom full extent
 			holder = $mapElem.find('#' + mapid + '_holder');

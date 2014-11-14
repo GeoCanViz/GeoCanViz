@@ -350,11 +350,30 @@
 			var layerScale,
 				scale = layerInfo.scale;
 
-			// set scale 
+			// set scale (we need to pass the map because the scale is not properly set at this stage)
 			layerScale = map.getLayer(layerInfo.id);
+			layerScale.myMap = map;
 			layerScale.on('load', function() {
-				layerScale.minScale = scale.min;
-				layerScale.maxScale = scale.max;
+				var $leg,
+					min = scale.min,
+					max = scale.max,
+					mapScale = layerScale.myMap.getScale();
+
+				// set scales
+				layerScale.minScale = min;
+				layerScale.maxScale = max;
+
+				// remove mymap
+				delete layerScale.myMap;
+
+				// set scale class. We need to do this because the event
+				// scale-visibility havent been fired.
+				if (min !== 0 && max !== 0) {
+					if (min > mapScale && mapScale < max) {
+						$leg = $viz('#' + layerInfo.id);
+						$leg.addClass('gcviz-leg-dis');
+					}
+				}
 			});
 
 			// set event to know when layer is outside scale

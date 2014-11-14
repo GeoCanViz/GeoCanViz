@@ -127,6 +127,9 @@
 							'<span class="span3 gcviz-help-textsub" data-bind="text: keyWCAGTitle"></span>' +
 							'<span class="span9" data-bind="text: keyWCAG"></span>' +
 						'</div>' +
+						'<div class="row">' +
+							'<span class="span12" data-bind="text: keyPref"></span>' +
+						'</div>' +
 					'</section>';
 
 			return node;

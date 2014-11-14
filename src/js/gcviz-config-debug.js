@@ -53,6 +53,7 @@
 		init: function() {
 			window.browser = this.searchString(this.dataBrowser) || 'unknown';
 			window.browserversion = this.searchVersion(navigator.userAgent) || this.searchVersion(navigator.appVersion) || 'unknown';
+			window.browserOS = navigator.platform.match(/(Win)/i) ? 'win' : 'mac';
 	},
 	searchString: function(data) {
 		var length = data.length,

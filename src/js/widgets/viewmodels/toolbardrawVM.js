@@ -160,6 +160,9 @@
 						// check if WCAG mode is enable, if so use dialog box instead!
 						if (!_self.isWCAG()) {
 							_self.graphic.drawText(value, _self.selectedColor());
+
+							// set the holder empty
+							_self.drawTextValue('');
 						} else {
 							_self.isDialogWCAG(true);
 						}
@@ -168,9 +171,6 @@
 					} else {
 						_self.dialogTextCancel();
 					}
-
-					// set the holder empty
-					_self.drawTextValue('');
 				};
 
 				_self.dialogTextOkEnter = function() {
@@ -199,7 +199,7 @@
 				};
 
 				_self.drawClick = function() {
-					_self.openTools('draw');
+					_self.closeTools('draw');
 
 					// check if WCAG mode is enable, if so use dialog box instead!
 					if (!_self.isWCAG()) {
@@ -218,11 +218,14 @@
 				};
 
 				_self.textClick = function() {
-					_self.openTools('text');
+					_self.closeTools('text');
 
-					// set cursor (remove default cursor first and all other cursors)
-					$container.css('cursor', '');
-					$container.addClass('gcviz-text-cursor');
+					// check if WCAG mode is disable
+					if (!_self.isWCAG()) {
+						// set cursor (remove default cursor first and all other cursors)
+						$container.css('cursor', '');
+						$container.addClass('gcviz-text-cursor');
+					}
 
 					// show dialog
 					_self.isText(false);
@@ -243,7 +246,7 @@
 				};
 
 				_self.eraseSelClick = function() {
-					_self.openTools('erase');
+					_self.closeTools('erase');
 
 					// set cursor (remove default cursor first and all other cursors)
 					$container.css('cursor', '');
@@ -285,7 +288,7 @@
 
 				_self.measureLengthClick = function() {
 					globalKey = gcvizFunc.getUUID();
-					_self.openTools('length');
+					_self.closeTools('length');
 					_self.measureType = 'length';
 
 					// check if WCAG mode is enable, if so use dialog box instead!
@@ -335,7 +338,7 @@
 
 				_self.measureAreaClick = function() {
 					globalKey = gcvizFunc.getUUID();
-					_self.openTools('area');
+					_self.closeTools('area');
 					_self.measureType = 'area';
 
 					// check if WCAG mode is enable, if so use dialog box instead!
@@ -426,7 +429,7 @@
 					});
 				};
 
-				_self.openTools = function(tool) {
+				_self.closeTools = function(tool) {
 					// close menu
 					$menu.accordion('option', 'active', false);
 					
@@ -494,11 +497,13 @@
 					var flag = false;
 
 					// select the active tool
-					if (_self.activeTool() === 'draw' && _self.WCAGcoords().length > 1) {
+					if (_self.activeTool() === 'draw') {
 						_self.graphic.drawLineWCAG(_self.WCAGcoords(), _self.selectedColor());
 						flag = true;
 					} else if (_self.activeTool() === 'text') {
 						_self.graphic.drawTextWCAG([_self.xValue() * -1, _self.yValue()], _self.drawTextValue(), _self.selectedColor());
+						// set the holder empty
+						_self.drawTextValue('');
 						flag = true;
 					} else if (_self.activeTool() === 'length') {
 						_self.graphic.measureWCAG(_self.WCAGcoords(), globalKey, 0, 'km', _self.selectedColor());
@@ -527,8 +532,9 @@
 					// if not text, or text and not ok press, open tools
 					if (active !== 'text' || (!_self.wcagok && active === 'text')) {
 						// set the focus back to the right tool
-						_self.openTools(_self.activeTool());
-						_self.setFocus();
+						//_self.openTools(_self.activeTool());
+						//_self.setFocus();
+						_self.endDraw();
 					}
 
 					_self.wcagok = false;
