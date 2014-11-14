@@ -1,0 +1,462 @@
+/*
+ *
+ * GeoCanViz viewer / Visionneuse GéoCanViz
+ * gcviz.github.io/gcviz/License-eng.txt / gcviz.github.io/gcviz/Licence-fra.txt
+ *
+ * Help widget
+ */
+(function() {
+	'use strict';
+	define(['gcviz-vm-help'
+	], function(helpVM) {
+		var initialize,
+			getKeyHelp,
+			getMapTools,
+			getFooterHelp,
+			getHeaderHelp,
+			getDrawHelp,
+			getNavHelp,
+			getLegHelp,
+			getDataHelp,
+			getDevHelp;
+
+		initialize = function($mapElem) {
+			var $help,
+				mapid = $mapElem.mapframe.id,
+				node = '';
+
+			// find the help dialog box
+			$mapElem.find('#' + mapid).append('<div class="gcviz-help"></div>');
+
+			$help = $mapElem.find('.gcviz-help');
+
+			// the full help dialog window
+			node += '<div id="help-' + mapid + '" class="gcviz-help-sect" data-bind="uiDialog: { title: lblHelpTitle, width: 600, height: 350, ok: dialogHelpOk, close: dialogHelpOk, openDialog: \'isHelpDialogOpen\', modal: false, draggable: true }">' +
+						// menu
+						'<section id="gcviz-help-menu" class="gcviz-help">' +
+							'<ul>' +
+								'<li><a href="#gcviz-help-over" data-bind="text: overTitle, click: function() { scrollTo(\'over\') }"></a></li>' +
+								'<li><a href="#gcviz-help-key" data-bind="text: keyTitle, click: function() { scrollTo(\'key\') }"></a></li>' +
+								'<li><a href="#gcviz-help-map" data-bind="text: mapTitle, click: function() { scrollTo(\'map\') }"></a></li>' +
+								'<li><a href="#gcviz-help-head" data-bind="text: headTitle, click: function() { scrollTo(\'head\') }"></a></li>' +
+								'<li><a href="#gcviz-help-foot" data-bind="text: footTitle, click: function() { scrollTo(\'foot\') }"></a></li>' +
+								'<li><a href="#gcviz-help-tbdraw" data-bind="text: drawTitle, click: function() { scrollTo(\'draw\') }"></a></li>' +
+								'<li><a href="#gcviz-help-tbnav" data-bind="text: navTitle, click: function() { scrollTo(\'nav\') }"></a></li>' +
+								'<li><a href="#gcviz-help-tbleg" data-bind="text: legTitle, click: function() { scrollTo(\'leg\') }"></a></li>' +
+								'<li><a href="#gcviz-help-tbdata" data-bind="text: dataTitle, click: function() { scrollTo(\'data\') }"></a></li>' +
+								'<li><a href="#gcviz-help-dev" data-bind="text: devTitle, click: function() { scrollTo(\'dev\') }"></a></li>' +
+							'</ul>' +
+						'</section>';
+
+			// application overview
+			node += '<section id="gcviz-help-over" class="gcviz-help gcviz-help-over">' +
+						'<span class="gcviz-help-tbtitle" data-bind="text: overTitle"></span>' +
+						'<div class="row"><span class="span12" data-bind="text: overDesc1"></span></div>' +
+						'<div class="row"><span class="span12" data-bind="text: overDesc2"></span></div>' +
+					'</section>';
+
+			// get keyboard navigation help
+			node += getKeyHelp();
+
+			// get map tools navigation
+			node += getMapTools();
+
+			// header
+			node += getHeaderHelp();
+
+			// header
+			node += getFooterHelp();
+
+            // toolbar draw
+			node += getDrawHelp();
+
+			// toolbar navigation
+			node += getNavHelp();
+
+			// toolbar legend
+			node += getLegHelp();
+
+			// toolbar navigation
+			node += getDataHelp();
+
+			// developer's corner
+			node += getDevHelp();
+
+			// close div
+			node += '</div>';
+
+			// the contextual help dialog window. The content will be populated when user click on a bubble
+			node += '<div id="helpbubble-' + mapid + '" class="gcviz-help-sect" data-bind="uiDialog: { title: lblHelpBubbleTitle, width: 600, height: 350, ok: dialogHelpBubbleOk, close: dialogHelpBubbleOk, openDialog: \'isHelpBubbleDialogOpen\', modal: false, draggable: true }">' +
+						'<section id="gcviz-bubble"></section>' +
+					'</div>';
+
+			$help.append(node);
+			return(helpVM.initialize($help, mapid));
+		};
+
+		getKeyHelp = function() {
+			var node = '';
+
+			node = '<section id="gcviz-help-key" class="gcviz-help gcviz-help-key">' +
+						'<span class="gcviz-help-tbtitle" data-bind="text: keyTitle"></span>' +
+						'<div class="row">' +
+							'<span class="span3 gcviz-help-textsub" data-bind="text: keyFocusNextTitle"></span>' +
+							'<span class="span9" data-bind="text: keyFocusNext"></span>' +
+						'</div>' +
+						'<div class="row">' +
+							'<span class="span3 gcviz-help-textsub" data-bind="text: keyFocusPrevTitle"></span>' +
+							'<span class="span9" data-bind="text: keyFocusPrev"></span>' +
+						'</div>' +
+						'<div class="row">' +
+							'<span class="span3 gcviz-help-textsub" data-bind="text: keyZoomTitle"></span>' +
+							'<span class="span9" data-bind="text: keyZoom"></span>' +
+						'</div>' +
+						'<div class="row">' +
+							'<span class="span3 gcviz-help-textsub" data-bind="text: keyPanTitle"></span>' +
+							'<span class="span9" data-bind="text: keyPan"></span>' +
+						'</div>' +
+						'<div class="row">' +
+							'<span class="span3 gcviz-help-textsub" data-bind="text: keyEnterTitle"></span>' +
+							'<span class="span9" data-bind="text: keyEnter"></span>' +
+						'</div>' +
+						'<div class="row">' +
+							'<span class="span3 gcviz-help-textsub" data-bind="text: keySpaceTitle"></span>' +
+							'<span class="span9" data-bind="text: keySpace"></span>' +
+						'</div>' +
+						'<div class="row">' +
+							'<span class="span3 gcviz-help-textsub" data-bind="text: keyWCAGTitle"></span>' +
+							'<span class="span9" data-bind="text: keyWCAG"></span>' +
+						'</div>' +
+						'<div class="row">' +
+							'<span class="span12" data-bind="text: keyPref"></span>' +
+						'</div>' +
+					'</section>';
+
+			return node;
+		};
+
+		getMapTools = function() {
+			var node = '';
+
+			node = '<section id="gcviz-help-map" class="gcviz-help gcviz-help-map">' +
+						'<span class="gcviz-help-tbtitle" data-bind="text: mapTitle"></span>' +
+						'<div class="row">' +
+							'<div class="span1">' +
+								'<button class="gcviz-map-zoommax" tabindex="-1"</button>' +
+							'</div>' +
+							'<span class="span11 gcviz-help-textbtn" data-bind="text: mapZoom"></span>' +
+						'</div>' +
+						'<div class="row">' +
+							'<div class="span1">' +
+								'<img class="gcviz-foot-logo" data-bind="attr: { src: imgHelpZoombar, alt: devLogoAlt }" tabindex="-1"></img>' +
+							'</div>' +
+							'<span class="span11" data-bind="text: mapZoombar"></span>' +
+						'</div>' +
+					'</section>';
+
+			return node;
+		};
+
+		getHeaderHelp = function() {
+			var node = '';
+
+			node = '<section id="gcviz-help-head" class="gcviz-help gcviz-help-head">' +
+						'<span class="gcviz-help-tbtitle" data-bind="text: headTitle"></span>' +
+						'<div class="row">' +
+							'<div class="span1">' +
+								'<button class="gcviz-head-help" tabindex="-1"</button>' +
+							'</div>' +
+							'<span class="span11 gcviz-help-textbtn" data-bind="text: headHelp"></span>' +
+						'</div>' +
+						'<div class="row">' +
+							'<div class="span1">' +
+								'<button class="gcviz-head-about" tabindex="-1"</button>' +
+							'</div>' +
+							'<span class="span11 gcviz-help-textbtn" data-bind="text: headAbout"></span>' +
+						'</div>' +
+						'<div class="row">' +
+							'<div class="span1">' +
+								'<button class="gcviz-head-print" tabindex="-1"</button>' +
+							'</div>' +
+							'<span class="span11 gcviz-help-textbtn" data-bind="text: headPrint"></span>' +
+						'</div>' +
+						'<div class="row">' +
+							'<div class="span1">' +
+								'<button class="gcviz-head-fs" tabindex="-1"</button>' +
+							'</div>' +
+							'<span class="span11 gcviz-help-textbtn" data-bind="text: headGoFS"></span>' +
+						'</div>' +
+						'<div class="row">' +
+							'<div class="span1">' +
+								'<button class="gcviz-head-reg" tabindex="-1"</button>' +
+							'</div>' +
+							'<span class="span11 gcviz-help-textbtn" data-bind="text: headExitFS"></span>' +
+						'</div>' +
+						'<div class="row">' +
+							'<span class="span1 gcviz-help-textsub" data-bind="text: headMenuTitle"></span>' +
+							'<span class="span11" data-bind="text: headMenu"></span>' +
+						'</div>' +
+					'</section>';
+
+			return node;
+		};
+
+		getFooterHelp = function() {
+			var node = '';
+
+			node = '<section id="gcviz-help-foot" class="gcviz-help gcviz-help-foot">' +
+						'<span class="gcviz-help-tbtitle" data-bind="text: footTitle"></span>' +
+						'<div class="row">' +
+							'<span class="span3 gcviz-help-textsub" data-bind="text: footScalebarTitle"></span>' +
+							'<span class="span9" data-bind="text: footScalebar"></span>' +
+						'</div>' +
+						'<div class="row">' +
+							'<span class="span3 gcviz-help-textsub" data-bind="text: footCoordTitle"></span>' +
+							'<span class="span9" data-bind="text: footCoord"></span>' +
+						'</div>' +
+						'<div class="row">' +
+							'<div class="span1">' +
+								'<button class="gcviz-help-arrow" tabindex="-1"</button>' +
+							'</div>' +
+							'<span class="span11 gcviz-help-textbtn" data-bind="text: footArrow"></span>' +
+						'</div>' +
+					'</section>';
+
+			return node;
+		};
+
+		getDrawHelp = function() {
+			var node = '';
+
+			node = '<section id="gcviz-help-tbdraw" class="gcviz-help gcviz-help-tbdraw">' +
+						'<span class="gcviz-help-tbtitle" data-bind="text: drawTitle"></span>' +
+						'<div class="row">' +
+							'<div class="span4 gcviz-draw-cholder">' +
+								'<button class="gcviz-draw-black" tabindex="-1"</button>' +
+								'<button class="gcviz-draw-blue" tabindex="-1"></button>' +
+								'<button class="gcviz-draw-green" tabindex="-1"></button>' +
+								'<button class="gcviz-draw-red" tabindex="-1"></button>' +
+								'<button class="gcviz-draw-yellow" tabindex="-1"></button>' +
+								'<button class="gcviz-draw-white" tabindex="-1"></button>' +
+							'</div>' +
+							'<span class="span8 gcviz-help-textbtn" data-bind="text: drawColorSelect"></span>' +
+						'</div>' +
+						'<div class="row">' +
+							'<div class="span1">' +
+								'<button class="gcviz-draw-line" tabindex="-1"</button>' +
+							'</div>' +
+							'<div class="span11">' +
+								'<span class="gcviz-help-textbtn" data-bind="text: drawLine"></span>' +
+								'<span class="gcviz-help-textlist" data-bind="text: drawLine1"></span>' +
+								'<span class="gcviz-help-textlist" data-bind="text: drawLine2"></span>' +
+								'<span class="gcviz-help-textlist" data-bind="text: drawLine3"></span>' +
+								'<span class="gcviz-help-textlist" data-bind="text: drawLine4"></span>' +
+								'<span class="gcviz-help-textlist" data-bind="text: drawLine5"></span>' +
+								'<span class="gcviz-help-textlist" data-bind="text: drawLine6"></span>' +
+							'</div>' +
+						'</div>' +
+						'<div class="row">' +
+							'<div class="span1">' +
+								'<button class="gcviz-draw-text" tabindex="-1"</button>' +
+							'</div>' +
+							'<div class="span11">' +
+								'<span class="gcviz-help-textbtn" data-bind="text: drawText"></span>' +
+								'<span class="gcviz-help-textlist" data-bind="text: drawText1"></span>' +
+								'<span class="gcviz-help-textlist" data-bind="text: drawText2"></span>' +
+								'<span class="gcviz-help-textlist" data-bind="text: drawText3"></span>' +
+								'<span class="gcviz-help-textlist" data-bind="text: drawText4"></span>' +
+								'<span class="gcviz-help-textlist" data-bind="text: drawText5"></span>' +
+								'<span class="gcviz-help-textlist" data-bind="text: drawText6"></span>' +
+							'</div>' +
+						'</div>' +
+						'<div class="row">' +
+							'<div class="span1">' +
+								'<button class="gcviz-draw-length" tabindex="-1"</button>' +
+							'</div>' +
+							'<div class="span11">' +
+								'<span class="gcviz-help-textbtn" data-bind="text: drawLength"></span>' +
+								'<span class="gcviz-help-textlist" data-bind="text: drawLength1"></span>' +
+								'<span class="gcviz-help-textlist" data-bind="text: drawLength2"></span>' +
+								'<span class="gcviz-help-textlist" data-bind="text: drawLength3"></span>' +
+								'<span class="gcviz-help-textlist" data-bind="text: drawLength4"></span>' +
+								'<span class="gcviz-help-textlist" data-bind="text: drawLength5"></span>' +
+								'<span class="gcviz-help-textlist" data-bind="text: drawLengthEra"></span>' +
+							'</div>' +
+						'</div>' +
+						'<div class="row">' +
+							'<div class="span1">' +
+								'<button class="gcviz-draw-area" tabindex="-1"</button>' +
+							'</div>' +
+							'<div class="span11">' +
+								'<span class="gcviz-help-textbtn" data-bind="text: drawArea"></span>' +
+								'<span class="gcviz-help-textlist" data-bind="text: drawArea1"></span>' +
+								'<span class="gcviz-help-textlist" data-bind="text: drawArea2"></span>' +
+								'<span class="gcviz-help-textlist" data-bind="text: drawArea3"></span>' +
+								'<span class="gcviz-help-textlist" data-bind="text: drawArea4"></span>' +
+								'<span class="gcviz-help-textlist" data-bind="text: drawArea5"></span>' +
+								'<span class="gcviz-help-textlist" data-bind="text: drawAreaEra"></span>' +
+							'</div>' +
+						'</div>' +
+						'<div class="row">' +
+							'<div class="span1">' +
+								'<button class="gcviz-draw-del" tabindex="-1"</button>' +
+							'</div>' +
+							'<span class="span11 gcviz-help-textbtn" data-bind="text: drawEraseAll"></span>' +
+						'</div>' +
+						'<div class="row">' +
+							'<div class="span1">' +
+								'<button class="gcviz-draw-delsel" tabindex="-1"</button>' +
+							'</div>' +
+							'<div class="span11">' +
+								'<span class="gcviz-help-textbtn" data-bind="text: drawEraseSel"></span>' +
+								'<span class="gcviz-help-textlist" data-bind="text: drawEraseSel1"></span>' +
+								'<span class="gcviz-help-textlist" data-bind="text: drawEraseSel2"></span>' +
+								'<span class="gcviz-help-textlist" data-bind="text: drawEraseSel3"></span>' +
+								'<span class="gcviz-help-textlist" data-bind="text: drawEraseSel4"></span>' +
+							'</div>' +
+						'</div>' +
+						'<div class="row">' +
+							'<div class="span1">' +
+								'<button class="gcviz-draw-undo" tabindex="-1"</button>' +
+							'</div>' +
+							'<span class="span11 gcviz-help-textbtn" data-bind="text: drawUndo"></span>' +
+						'</div>' +
+						'<div class="row">' +
+							'<div class="span1">' +
+								'<button class="gcviz-draw-redo" tabindex="-1"</button>' +
+							'</div>' +
+							'<span class="span11 gcviz-help-textbtn" data-bind="text: drawRedo"></span>' +
+						'</div>' +
+						'<div class="row">' +
+							'<div class="span1">' +
+								'<button class="gcviz-draw-imp" tabindex="-1"</button>' +
+							'</div>' +
+							'<span class="span11 gcviz-help-textbtn" data-bind="text: drawImport"></span>' +
+						'</div>' +
+						'<div class="row">' +
+							'<div class="span1">' +
+								'<button class="gcviz-draw-exp" tabindex="-1"</button>' +
+							'</div>' +
+							'<span class="span11 gcviz-help-textbtn" data-bind="text: drawExport"></span>' +
+						'</div>' +
+					'</section>';
+
+			return node;
+		};
+
+		getLegHelp = function() {
+			var node = '';
+
+			node = '<section id="gcviz-help-tbleg" class="gcviz-help gcviz-help-tbleg">' +
+						'<span class="gcviz-help-tbtitle" data-bind="text: legTitle"></span>' +
+						'<div class="row"><span class="span12" data-bind="text: legDesc1"></span></div>' +
+						'<div class="row"><span class="span12" data-bind="text: legDesc2"></span></div>' +
+						'<div class="row"><span class="span12" data-bind="text: legDesc3"></span></div>' +
+						'<div class="row"><span class="span12" data-bind="text: legSlider"></span></div>' +
+						'<div class="row"><span class="span12" data-bind="text: legExpand"></span></div>' +
+					'</section>';
+
+			return node;
+		};
+
+		getNavHelp = function() {
+			var node = '';
+
+			node = '<section id="gcviz-help-tbnav" class="gcviz-help gcviz-help-tbnav">' +
+						'<span class="gcviz-help-tbtitle" data-bind="text: navTitle"></span>' +
+						'<div class="row"><span class="gcviz-help-textsub" data-bind="text: navZoomtoTitle"></span></div>' +
+						'<div class="row">' +
+							'<div class="span1"></div>' +
+							'<div class="span11">' +
+								'<span class="gcviz-help-textbtn" data-bind="text: navZoomto"></span>' +
+								'<span class="gcviz-help-textlist" data-bind="text: navZoomto1"></span>' +
+								'<span class="gcviz-help-textlist" data-bind="text: navZoomto2"></span>' +
+								'<span class="gcviz-help-textlist" data-bind="text: navZoomto3"></span>' +
+								'<span class="gcviz-help-textlist" data-bind="text: navZoomto4"></span>' +
+							'</div>' +
+						'</div>' +
+						'<span class="gcviz-help-textsub" data-bind="text: navMapInfoTitle"></span>' +
+						'<div class="row">' +
+							'<div class="span1">' +
+								'<button class="gcviz-nav-pos" tabindex="-1"</button>' +
+							'</div>' +
+							'<div class="span11">' +
+								'<span class="gcviz-help-textbtn" data-bind="text: navPos"></span>' +
+								'<span class="gcviz-help-textlist" data-bind="text: navPos1"></span>' +
+								'<span class="gcviz-help-textlist" data-bind="text: navPos2"></span>' +
+								'<span class="gcviz-help-textlist" data-bind="text: navPos3"></span>' +
+								'<span class="gcviz-help-textlist" data-bind="text: navPos4"></span>' +
+								'<span class="gcviz-help-textlist" data-bind="text: navPos5"></span>' +
+							'</div>' +
+						'</div>' +
+						'<span class="gcviz-help-textsub" data-bind="text: navAltOV"></span>' +
+						'<div class="row">' +
+							'<div class="span6">' +
+								'<img class="gcviz-help-img" data-bind="attr: { src: imgHelpOV, title: navAltOV }"></img>' +
+							'</div>' +
+							'<span class="span6 gcviz-help-textbtn" data-bind="text: navOV"></span>' +
+						'</div>' +
+						'<div class="row">' +
+							'<span class="span3 gcviz-help-textsub" data-bind="text: navScaleTitle"></span>' +
+							'<span class="span9" data-bind="text: navScale"></span>' +
+						'</div>' +
+					'</section>';
+
+			return node;
+		};
+
+		getDataHelp = function() {
+			var node = '';
+
+			node = '<section id="gcviz-help-tbdata" class="gcviz-help gcviz-help-tbdata">' +
+						'<span class="gcviz-help-tbtitle" data-bind="text: dataTitle"></span>' +
+						'<div class="row">' +
+							'<div class="span1">' +
+								'<button class="gcviz-data-add" tabindex="-1"</button>' +
+							'</div>' +
+							'<span class="span11 gcviz-help-textbtn" data-bind="text: dataAdd"></span>' +
+						'</div>' +
+						'<span class="gcviz-help-textsub" data-bind="text: dataSampleTitle"></span>' +
+						'<div class="row">' +
+							'<div class="span1"></div>' +
+							'<div class="span11">' +
+								'<div class="row">' +
+									'<div class="span4">' +
+										'<img class="gcviz-help-img" data-bind="attr: { src: imgHelpDataSamp, title: dataSample }"></img>' +
+									'</div>' +
+									'<span class="span7" data-bind="text: dataSample"></span>' +
+								'</div>' +
+								'<div class="row">' +
+									'<div class="span2">' +
+										'<button class="gcviz-data-del" tabindex="-1"</button>' +
+									'</div>' +
+									'<span class="span9 gcviz-help-textbtn" data-bind="text: dataRemove"></span>' +
+							'</div>' +
+							'</div>' +
+						'</div>' +
+					'</section>';
+
+			return node;
+		};
+
+		getDevHelp = function() {
+			var node = '';
+
+			node = '<section id="gcviz-help-dev" class="gcviz-help gcviz-help-dev">' +
+						'<span class="gcviz-help-tbtitle" data-bind="text: devTitle"></span>' +
+						'<div class="row">' +
+							'<div class="span1">' +
+								'<img class="gcviz-foot-logo" data-bind="attr: { src: imgHelpLogo, alt: devLogoAlt }" tabindex="-1"></img>' +
+							'</div>' +
+							'<span class="span11 gcviz-help-textbtn" data-bind="text: devLogo"></span>' +
+						'</div>' +
+					'</section>';
+
+			return node;
+		};
+
+		return {
+			initialize: initialize
+		};
+	});
+}).call(this);

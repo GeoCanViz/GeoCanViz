@@ -29,7 +29,7 @@
 	i = metas.length;
 
 	while(i--) {
-		if (metas[i].getAttribute('property') === 'location') {
+		if (metas[i].getAttribute('name') === 'gcviz-location') {
 			locationPath = metas[i].getAttribute('content');
 		}
 	}
@@ -53,6 +53,7 @@
 		init: function() {
 			window.browser = this.searchString(this.dataBrowser) || 'unknown';
 			window.browserversion = this.searchVersion(navigator.userAgent) || this.searchVersion(navigator.appVersion) || 'unknown';
+			window.browserOS = navigator.platform.match(/(Win)/i) ? 'win' : 'mac';
 	},
 	searchString: function(data) {
 		var length = data.length,
@@ -247,6 +248,26 @@
 				location: locationPath + 'src/js/gistasks',
 				main: 'gisData'
 			}, {
+				name: 'gcviz-gisdatagrid',
+				location: locationPath + 'src/js/gistasks',
+				main: 'gisDatagrid'
+			}, {
+				name: 'gcviz-v-help',
+				location: locationPath + 'src/js/widgets/views',
+				main: 'helpV'
+			}, {
+				name: 'gcviz-vm-help',
+				location: locationPath + 'src/js/widgets/viewmodels',
+				main: 'helpVM'
+			}, {
+				name: 'gcviz-v-wcag',
+				location: locationPath + 'src/js/widgets/views',
+				main: 'wcagV'
+			}, {
+				name: 'gcviz-vm-wcag',
+				location: locationPath + 'src/js/widgets/viewmodels',
+				main: 'wcagVM'
+			}, {
 				name: 'gcviz-v-header',
 				location: locationPath + 'src/js/widgets/views',
 				main: 'headerV'
@@ -310,6 +331,14 @@
 				name: 'gcviz-vm-inset',
 				location: locationPath + 'src/js/widgets/viewmodels',
 				main: 'insetVM'
+			}, {
+				name: 'gcviz-v-datagrid',
+				location: locationPath + 'src/js/widgets/views',
+				main: 'datagridV'
+			}, {
+				name: 'gcviz-vm-datagrid',
+				location: locationPath + 'src/js/widgets/viewmodels',
+				main: 'datagridVM'
 			}
 		]
 	});

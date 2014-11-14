@@ -15,10 +15,11 @@
 			'dijit/form/RadioButton',
 			'jqueryui'
 	], function($viz, ko, gcvizFunc, slider, radio) {
-	var btnArray = [];
+	var btnArray = [],
+		panelArray = [];
 
     ko.bindingHandlers.tooltip = {
-		init: function(element, valueAccessor) {
+		init: function(element, valueAccessor, allBindings, viewModel) {
 			var local = ko.utils.unwrapObservable(valueAccessor()),
 				options = {},
 				$element = $viz(element);
@@ -27,6 +28,10 @@
 			ko.utils.extend(options, local);
 
 			$element.attr('title', options.content);
+
+			// add the within id for position here because we dont have access to the value
+			// inside function. Then assign options
+			options.position.within = '#' + viewModel.mapid;
 			$element.tooltip(options);
 
 			ko.utils.domNodeDisposal.addDisposeCallback(element, function() {
@@ -35,26 +40,41 @@
 			},
 			options: {
 				show: {
-					effect: 'slideDown',
-					delay: 1000
+					effect: 'fadeIn',
+					delay: 600
 				},
 				hide: {
-					effect: 'slideUp',
+					effect: 'fadeOut',
 					delay: 100
 				},
 				position: {
-					my: 'right+30 top+5'
+					my: 'right+30 top+5',
+					collision: 'fit'
 				},
 				tooltipClass: 'gcviz-tooltip',
 				trigger: 'hover, focus'
 			}
 	};
 
+	//custom binding handler to create a contextual menu
+	ko.bindingHandlers.contextHelp = {
+		init: function(element, valueAccessor) {
+			var options = valueAccessor() || {},
+				$element = $viz(element);
+
+			// add text
+			$element.text(options.text);
+
+			// add bubble (set the alt text, id to match the label, click function and keyboard input)
+			$element.append('<img id="' + options.id + '" tabindex="0" data-bind="click: function() { showBubble(32, 0, 0,  \'' + options.link + '\') }, clickBubble: false,  enterkey: { func: \'showBubble\', keyType: \'keydown\', params: \'' + options.link + '\' }" class="gcviz-help-bubble" src="' + options.img + '" alt="' + options.alt + '"></img>');
+		}
+	};
+
 	ko.bindingHandlers.wcag = {
 		init: function(element, valueAccessor, allBindings, viewModel) {
 			var manageWCAG,
 				mapid = viewModel.mapid,
-				vm = gcvizFunc.getElemValueVM(mapid, ['header'], 'js');
+				vm = gcvizFunc.getElemValueVM(mapid, ['wcag'], 'js');
 
 			manageWCAG = function() {
 				viewModel.isWCAG(!viewModel.isWCAG());
@@ -97,11 +117,12 @@
 		init: function(element, valueAccessor, allBindings, viewModel) {
 			// get function name to call from the binding
 			var func = valueAccessor().func,
-				keyType = valueAccessor().keyType;
+				keyType = valueAccessor().keyType,
+				params = valueAccessor().params;
 
 			ko.utils.registerEventHandler(element, keyType, function(event) {
-				if (viewModel[func](event.which, event.shiftKey, event.type)) {
-					event.preventDefault();
+				if (viewModel[func](event.which, event.shiftKey, event.type, params)) {
+					event.stopImmediatePropagation();
 					return false;
 				}
 				return true;
@@ -121,6 +142,23 @@
 				var len = btnArray.length;
 				while (len--) {
 					$viz(btnArray[len]).blur();
+				}
+			});
+		}
+	};
+	
+	ko.bindingHandlers.panelBlur = {
+		init: function(element) {
+			// add the element to the array to have an array of all problematic panels
+			panelArray.push(element);
+
+			ko.utils.registerEventHandler(element, 'mouseover', function() {
+				// loop trought panels to blur them when we mouse over another panel.
+				// This is a workaround for panel that keep focus once push. Even if
+				// use mouve over on another panel the panel doesn't loose focus.
+				var len = panelArray.length;
+				while (len--) {
+					$viz(panelArray[len]).blur();
 				}
 			});
 		}
@@ -248,7 +286,7 @@
 		init: function(element, valueAccessor, allBindings, viewModel) {
 			var customFunc,
 				local = ko.utils.unwrapObservable(valueAccessor()),
-				options = {},
+				options = { },
 				$element = $viz(element),
 				optsDefault = ko.bindingHandlers.uiDialog.options;
 
@@ -266,6 +304,21 @@
 			}
 			if (typeof options.close !== 'undefined') {
 				options.close = options.close;
+			}
+
+			// there is a bug with Firefox so we need to set the width
+			// the widh auto set by jQuery is misinterpreted by Firefox
+			if (window.browser === 'Firefox') {
+				options.open = function() {
+					var start, end, width,
+						bind;
+
+						bind = $element.attr('data-bind');
+						start = bind.indexOf('width:') + 7;
+						end = bind.indexOf(', height:');
+						width = parseInt(bind.substring(start, end), 10) - 25;
+						$element.css('width', width);
+				};
 			}
 
 			$element.dialog(options);
@@ -291,16 +344,55 @@
 			closeOnEscape: true,
 			close: function() { },
 			buttons: [{
+				id: 'btnOk',
 				text: 'Ok',
 				click: function() {
 					$viz(this).dialog('close');
 				}
 				}, {
+				id: 'btnCancel',
 				text: 'Cancel',
 				click: function() {
 					$viz(this).dialog('close');
 				}
 			}]
+		}
+	};
+
+	ko.bindingHandlers.uiAccordion = {
+		init: function(element, valueAccessor) {
+			var options = valueAccessor() || {},
+				$refresh = $viz('#' + options.refresh),
+				$element = $viz(element);
+
+			if (typeof options.sortable !== 'undefined') {
+				$element.accordion(options).sortable(options.sortable);
+			} else {
+				$element.accordion(options);
+			}
+
+			if (typeof $refresh !== '#undefined') {
+				$refresh.focus(function() {
+					if (typeof $element !== 'undefined') {
+						if ($element.hasClass('ui-accordion')) {
+							$element.accordion('refresh');
+						}
+					}
+				});
+			}
+
+			//handle disposal (if KO removes by the template binding)
+			ko.utils.domNodeDisposal.addDisposeCallback(element, function() {
+				$element.accordion('destroy');
+			});
+		},
+		update: function(element, valueAccessor) {
+			var options = valueAccessor() || {},
+				$element = $viz(element);
+
+			if (typeof options.sortable !== 'undefined') {
+				$element.accordion('destroy').accordion(options).sortable(options.sortable);
+			}
 		}
 	};
 

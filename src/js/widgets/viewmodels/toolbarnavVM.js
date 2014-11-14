@@ -13,11 +13,12 @@
 			'gcviz-func',
             'gcviz-gisgeo',
             'gcviz-gisnav',
-            'dijit/registry'
-	], function($viz, ko, i18n, gcvizFunc, gisgeo, gisnav, dijit) {
+            'gcviz-gisdatagrid'
+	], function($viz, ko, i18n, gcvizFunc, gisGeo, gisNav, gisDG) {
 		var initialize,
 			calcDDtoDMS,
 			getDMS,
+			gblOVMap = false,
 			vm;
 
 		initialize = function($mapElem, mapid, config) {
@@ -25,35 +26,44 @@
 			// data model				
 			var toolbarnavViewModel = function($mapElem, mapid) {
 				var _self = this,
+					ovMapWidget,
+					clickPosition,
 					overview = config.overview,
-					scalebar = config.scalebar,
 					scaledisplay = config.scaledisplay,
-                    clickPosition,
+					position = config.position,
                     inMapField = $viz('#inGeoLocation' + mapid),
                     btnClickMap = $viz('#btnClickMap' + mapid),
                     $container = $viz('#' + mapid + '_holder_layers'),
+                    $ovMap = $viz('#ovmapcont' + mapid),
+                    $menu = $viz('#gcviz-menu' + mapid),
+                    $panel = $viz('#gcviz-menu-cont' + mapid),
 					mymap = gcvizFunc.getElemValueVM(mapid, ['map', 'map'], 'js'),
                     autoCompleteArray = [ { minx: 0 , miny: 0, maxx: 0, maxy: 0, title: 'ddd' } ];
+
+				// viewmodel mapid to be access in tooltip custom binding
+				_self.mapid = mapid;
+
+				// get language code for scale formating
+				_self.langCode = i18n.getDict('%lang-code');
+				_self.langSep = _self.langCode === 'en' ? ',' : ' ';
 
                 // tooltips, text strings and other things from dictionary
                 _self.cancel = i18n.getDict('%cancel');
                 _self.close = i18n.getDict('%close');
                 _self.cursorTarget = i18n.getDict('%cursor-target');
-                _self.geoLocLabel = i18n.getDict('%toolbarnav-geoloclabel');
+                _self.geoLocLabel = i18n.getDict('%toolbarnav-lblgeoloc');
                 _self.geoLocUrl = i18n.getDict('%gisurllocate');
+                _self.OVLabel = i18n.getDict('%toolbarnav-lblov');
+                _self.OVDisplayLabel = i18n.getDict('%toolbarnav-lblovdisplay');
+                _self.infoLabel = i18n.getDict('%toolbarnav-lblinfo');
                 _self.info = i18n.getDict('%toolbarnav-info');
                 _self.infoAltitude = i18n.getDict('%toolbarnav-infoaltitude');
                 _self.infoAltitudeUrl = i18n.getDict('%toolbarnav-infoaltitudeurl');
-                _self.infoClickMap = i18n.getDict('%toolbarnav-infoclickmap');
                 _self.infoDecDeg = i18n.getDict('%toolbarnav-infodecdeg');
                 _self.infoDMS = i18n.getDict('%toolbarnav-infodms');
-                _self.infoGetInfo = i18n.getDict('%toolbarnav-infogetinfo');
-                _self.infoGetLocInfo = i18n.getDict('%toolbarnav-infogetlocinfo');
-                _self.infoLat = i18n.getDict('%toolbarnav-infolat');
-                _self.infoLong = i18n.getDict('%toolbarnav-infolong');
+                _self.infoLat = i18n.getDict('%lat');
+                _self.infoLong = i18n.getDict('%long');
                 _self.infoNTS = i18n.getDict('%toolbarnav-infonts');
-                _self.infoOption1 = i18n.getDict('%toolbarnav-infooption1');
-                _self.infoOption2 = i18n.getDict('%toolbarnav-infooption2');
                 _self.infoTopoCoord = i18n.getDict('%toolbarnav-infotopocoord');
                 _self.infoUTM = i18n.getDict('%toolbarnav-infoutm');
                 _self.infoUTMeast = i18n.getDict('%toolbarnav-infoutmeast');
@@ -61,15 +71,15 @@
                 _self.infoUTMz = i18n.getDict('%toolbarnav-infoutmz');
                 _self.insKeyboard = i18n.getDict('%toolbarnav-inskeyboard');
                 _self.tpGetLocInfo = i18n.getDict('%toolbarnav-info');
-                _self.tpMagnify = i18n.getDict('%toolbarnav-magnify');
                 _self.tpOverview = i18n.getDict('%toolbarnav-ovdrag');
-                _self.tpZoomFull = i18n.getDict('%toolbarnav-zoomfull');
                 _self.lblWest = i18n.getDict('%west');
-                _self.ScaleLabel = i18n.getDict('%toolbarnav-scale');
                 _self.lblLocTitle = i18n.getDict('%toolbarnav-info');
+				_self.lblScale = ko.observable(i18n.getDict('%toolbarnav-scale'));
+				_self.ScaleLabel = _self.lblScale();
+				_self.zoomGrp = i18n.getDict('%toolbarnav-zoomgrp');
+				_self.mapInfoGrp = i18n.getDict('%toolbarnav-mapinfogrp');
 
 				// WCAG
-				_self.mapid = mapid;
 				_self.WCAGTitle = i18n.getDict('%wcag-title');
 				_self.lblWCAGx = i18n.getDict('%wcag-xlong');
 				_self.lblWCAGy = i18n.getDict('%wcag-ylat');
@@ -85,7 +95,10 @@
 				_self.defaultAutoComplText = i18n.getDict('%toolbarnav-geolocsample');
 				_self.geoLocSample = i18n.getDict('%toolbarnav-geolocsample');
 
-                // Observables
+				// overviewmap checked to see if user wants it on map
+				_self.isOVShowMap = ko.observable(false);
+
+                // observables for localisation info window
                 _self.infoLatDD = ko.observable();
                 _self.infoLatDMS = ko.observable();
                 _self.infoLongDD = ko.observable();
@@ -96,7 +109,6 @@
                 _self.spnUTMzone = ko.observable();
                 _self.spnUTMeast = ko.observable();
                 _self.spnUTMnorth = ko.observable();
-                _self.lblScale = ko.observable(i18n.getDict('%toolbarnav-scale'));
 				_self.isLocDialogOpen = ko.observable(false);
 
 				// url for position info box
@@ -104,45 +116,109 @@
 				_self.urlUTM = i18n.getDict('%gisurlutm');
 
 				// projection objects
-				_self.outSR = gisgeo.getOutSR(config.mapwkid);
+				_self.outSR = gisGeo.getOutSR(config.mapwkid);
+
+				// set active tool
+				_self.activeTool = ko.observable('');
 
 				_self.init = function() {
+					var currentScale;
+
                     _self.theAutoCompleteArray = ko.observableArray(autoCompleteArray);
 
                     // See if user wanted an overview map. If so, initialize it here
                     if (overview.enable) {
-						gisnav.setOverview(mymap, overview);
-                    }
-
-                    // See if user wanted a scalebar. If so, initialize it here
-                    if (scalebar.enable) {
-						gisnav.setScaleBar(mymap, scalebar);
+						ovMapWidget = gisNav.setOverview(mymap, overview);
                     }
 
                     if (scaledisplay.enable) {
 						mymap.on('extent-change', function() {
-							var currentScale = Math.round(mymap.getScale()).toString();
-							_self.lblScale(_self.ScaleLabel + currentScale);
+							var formatScale;
+
+							// get scale
+							currentScale = Math.round(mymap.getScale()).toString();
+
+							// set formating
+							formatScale = currentScale.split('').reverse().join('');
+							formatScale = formatScale.replace(/(\d{3})(?=\d)/g, '$1' + ' ');
+							formatScale = formatScale.split('').reverse().join('');
+
+							// update scale
+							_self.lblScale(_self.ScaleLabel + '1:' + formatScale);
 						});
 					}
 
-					// check if we need to close the toolbar. We do this here instead of view because of a bug with
-					// overview widget. If the widget is not visible at load, it is not properly set.
-					setTimeout(function() {
-						if (!config.expand) {
-							dijit.byId('tbnav' + mapid).toggle();
+					// event to know when the panel is open for the first time to start
+					// the overview map
+					$panel.on('accordionactivate', function(event, ui) {
+						var menu, panel;
+
+						// start the dijiit if not already started
+						menu = $viz(event.target.parentElement.getElementsByTagName('h3')[0]).hasClass('ui-state-active'),
+						panel = ui.newPanel.hasClass('gcviz-tbnav-content');
+
+						// the menu and the panel needs to be active
+						if (panel && menu) {
+							ovMapWidget[0].startup();
+
+							// remove the events
+							$panel.off('accordionactivate');
+							$menu.off('accordionactivate');
 						}
-						dijit.byId('tbTools' + mapid).toggle();
-					}, 250);
+					});
+					
+					// if the panel is open but not the menu we need to have another way
+					// to trigger the overview startup
+					$menu.on('accordionactivate', function(event, ui) {
+						var panel,
+							menu = $viz(event.target.getElementsByTagName('h3')[0]).hasClass('ui-state-active'),
+							panels = event.target.getElementsByTagName('h3'),
+							len = panels.length;
+
+						if (menu) {
+							while (len--) {
+								panel = $viz(panels[len]);
+								if (panel.hasClass('gcviz-nav-panel') && panel.hasClass('ui-state-active')) {
+									ovMapWidget[0].startup();
+									
+									// remove the events
+									$panel.off('accordionactivate');
+									$menu.off('accordionactivate');
+								}
+							}
+						}
+					});
 
 					return { controlsDescendantBindings: true };
 				};
 
+				_self.endPosition = function() {
+					// Reset cursor
+					$container.removeClass('gcviz-nav-cursor-pos');
+
+					// set popup event
+					gisDG.addEvtPop();
+
+					// remove click event
+					if (typeof clickPosition !== 'undefined') {
+						clickPosition.remove();
+					}
+
+					// reset active tool
+					_self.activeTool('');
+
+					// open mneu
+					$menu.accordion('option', 'active', 0);
+
+					// focus last active tool
+					setTimeout(function() {
+						btnClickMap.focus();
+					}, 500);
+				};
+
 				// Clear the input field on focus if it contains the default text
 				inMapField.focus(function() {
-					if (inMapField.val() === _self.geoLocSample) {
-						inMapField.val('');
-					}
+					inMapField.val('');
 				});
 
 				// Set the input field has an autocomplete field and define the source and events for it
@@ -150,6 +226,7 @@
 					source: function(request, response) {
 						$viz.ajax({
 							url: _self.geoLocUrl,
+							cache: false,
 							dataType: 'json',
 							data: {
 								q: request.term + '*'
@@ -179,8 +256,6 @@
 											maxy = geom[3];
 											minx = geom[0];
 											maxx = geom[2];
-										} else if (qualifier === 'INTERPOLATED_CENTROID') {
-											// TODO add code for this value. If not required, remove.
 										}
 									}
 
@@ -202,7 +277,7 @@
 						for (var i=0; i<autoCompleteArray.length; i++) {
 							var acai = autoCompleteArray[i];
 							if (ui.item.label === acai.title) {
-								gisgeo.zoomLocation(acai.minx, acai.miny, acai.maxx, acai.maxy, mymap, _self.outSR);
+								gisGeo.zoomLocation(acai.minx, acai.miny, acai.maxx, acai.maxy, mymap, _self.outSR);
 							}
 						}
 						// Reset the array
@@ -217,15 +292,22 @@
 					close:
 						function() {
 							$viz(this).removeClass('ui-corner-top').addClass('ui-corner-all');
-						}
+						},
+					position: {
+						collision: 'fit',
+						within: '#' + mapid
+					}
 				});
 
-				_self.extentClick = function() {
-					gisnav.zoomFullExtent(mymap);
-				};
-
                 _self.getMapClick = function() {
-                    gcvizFunc.getElemValueVM(mymap.vIdName, ['header', 'toolsClick'], 'js')();
+                    // close menu
+                    $menu.accordion('option', 'active', false);
+
+					// set event for the toolbar
+					$menu.on('accordionbeforeactivate', function() {
+						$menu.off();
+						_self.endPosition();
+					});
 
 					// check if WCAG mode is enable, if so use dialog box instead)
 					if (!_self.isWCAG()) {
@@ -233,20 +315,30 @@
 						$container.css('cursor', '');
 						$container.addClass('gcviz-nav-cursor-pos');
 
+						// remove popup event
+						gisDG.removeEvtPop();
+
 						// Get user to click on map and capture event
-						clickPosition = mymap.on('click', function(event) {
-							gisgeo.projectPoints([event.mapPoint], 4326, _self.displayInfo);
+						clickPosition = mymap.on('click', function(evt) {
+							gisGeo.projectPoints([evt.mapPoint], 4326, _self.displayInfo);
 						});
 					} else {
 						_self.isDialogWCAG(true);
 					}
+
+					// set active tool
+					_self.activeTool('position');
+
+					// focus the map. We need to specify this because when you use the keyboard to
+					// activate the tool, the focus sometimes doesnt go to the map.
+					gcvizFunc.focusMap(mymap);
                 };
 
 				_self.dialogWCAGOk = function() {
 					var x = _self.xValue() * -1,
 						y = _self.yValue();
 
-					gisgeo.projectCoords([[x, y]], 4326, _self.displayInfo);
+					gisGeo.projectCoords([[x, y]], 4326, _self.displayInfo);
 					_self.isDialogWCAG(false);
 					_self.wcagok = true;
                 };
@@ -260,9 +352,10 @@
 
 					// if not ok press, open tools
 					if (!_self.wcagok) {
-						_self.dialogLocOk();
+						_self.isLocDialogOpen(false);
+						$menu.accordion('option', 'active', 0);
+						_self.endPosition();
 					}
-					_self.wcagok = false;
 				};
 
                 _self.displayInfo = function(outPoint) {
@@ -271,14 +364,6 @@
 						lati = outPoint[0].y,
 						longi = outPoint[0].x,
 						urlAlti = _self.infoAltitudeUrl + 'lat=' + lati + '&lon=' +  longi;
-
-					// Reset cursor
-                    $container.removeClass('gcviz-nav-cursor-pos');
-
-					// remove click event (if not WCAG)
-                    if (!_self.isWCAG()) {
-						clickPosition.remove();
-                    }
 
                     // Get lat/long in DD
                     _self.infoLatDD(' ' + lati);
@@ -290,18 +375,18 @@
                     _self.infoLongDMS(' ' + DMS.longitude.format);
 
                     // Get the NTS location using a deferred object and listen for completion
-                    gisnav.getNTS(lati, longi, _self.urlNTS)
+                    gisNav.getNTS(lati, longi, _self.urlNTS)
                         .done(function(data) {
                             _self.spnNTS(data.nts);
 					});
 
                     // Get the UTM zone information using a deferred object and listen for completion
-                    gisnav.getUTMzone(lati, longi, _self.urlUTM)
+                    gisNav.getUTMzone(lati, longi, _self.urlUTM)
                         .done(function(data) {
                             utmZone = data.zone;
                             _self.spnUTMzone(utmZone);
 
-                           gisgeo.getUTMEastNorth(lati, longi, utmZone, _self.spnUTMeast, _self.spnUTMnorth);
+                           gisGeo.getUTMEastNorth(lati, longi, utmZone, _self.spnUTMeast, _self.spnUTMnorth);
                         });
 
                     // Get the altitude
@@ -320,11 +405,35 @@
 
                 _self.dialogLocOk = function() {
 					_self.isLocDialogOpen(false);
-					gcvizFunc.getElemValueVM(mymap.vIdName, ['header', 'toolsClick'], 'js')();
-					setTimeout(function() {
-						btnClickMap.focus();
-					}, 100);
+
+					// if wcag mode is enable, open tools
+					if (_self.wcagok) {
+						$menu.accordion('option', 'active', 0);
+						_self.endPosition();
+						_self.wcagok = false;
+					}
                 };
+
+                _self.showOVMap = function() {
+					// move content from tools to map
+					if (_self.isOVShowMap()) {
+						ovMapWidget[0].show();
+						ovMapWidget[1].hide();
+						$ovMap.removeClass('gcviz-ov-border');
+					} else {
+						// start the dijiit if not already started
+						if (!gblOVMap) {
+							ovMapWidget[1].startup();
+							gblOVMap = true;
+						}
+						
+						ovMapWidget[1].show();
+						ovMapWidget[0].hide();
+						$ovMap.addClass('gcviz-ov-border');
+					}
+
+					return true;
+				};
 
 				_self.init();
 			};

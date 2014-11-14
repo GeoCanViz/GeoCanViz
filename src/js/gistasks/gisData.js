@@ -29,7 +29,7 @@
 		addCSV = function(map, data, uuid)  {
 			var latFields = ['lat', 'latitude', 'y', 'ycenter'], // list of lat field strings
 				longFields = ['lon', 'long', 'longitude', 'x', 'xcenter'], // list of lon field strings
-				firstLine = data.substr(0, data.indexOf('\n')),
+				firstLine = (window.browserOS === 'win') ? data.substr(0, data.indexOf('\n')) : data.substr(0, data.indexOf('\r')),
 				separator = getSeparator(firstLine),
 				csvStore = new esriCSVStore({
 					data: data,
@@ -93,6 +93,7 @@
 						latitude = parseFloat(attributes[latField]);
 						longitude = parseFloat(attributes[longField]);
 						if (isNaN(latitude) || isNaN(longitude)) {
+							def.resolve(3);
 							return;
 						}
 

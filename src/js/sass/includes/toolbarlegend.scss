@@ -14,6 +14,19 @@
 %imgsize_leg_icons {
   height: (0.9 * $rembase) + rem;
   width: (0.9 * $rembase) + rem;
+  margin-top: (0.7 * $rembase) + rem;
+  background-repeat: no-repeat;
+}
+
+%legspan {
+	display: inline-block;
+	padding-left: 0rem;
+	white-space: nowrap;
+}
+
+// set disable the layer li tag when layer is out of scale
+.gcviz-leg-dis {
+	opacity: 0.65;
 }
 
 // ul and li
@@ -40,23 +53,13 @@
 
 .gcviz-leg-imgholder {
   @extend %imgsize;
+  cursor: pointer;
 }
 
-// base maps group
-.gcviz-leg-baseb {
-	@include app-border(0.1, solid, $lightgrey);
-  @include content-border-radius();
-  margin-top: (1 * $rembase) + rem;
-  margin-right: (1 * $rembase) + rem;
-  margin-bottom: (1 * $rembase) + rem;
-  padding-bottom: (1 * $rembase) + rem;
-}
-
-.gcviz-leg-baset {
-  position: relative;
-  top: (-0.75 * $rembase) + rem;
-  left: (1.5 * $rembase) + rem;
-  background-color: $lightyellow;
+// base and theme maps group
+.gcviz-leg-theme {
+  margin-top: (0.75 * $rembase) + rem;
+  @include app-text(1.2, bold);
 }
 
 // item
@@ -87,23 +90,38 @@
 	padding-left: 0rem;
 }
 
-.gcviz-leg-span {
-	display: inline-block;
-	padding-left: 0rem;
-	white-space: nowrap;
+// layer title define by level of deepness
+.gcviz-leg-span1 {
+	@extend %legspan;
+	@include app-text(1.1, bold);
+}
+
+.gcviz-leg-span2 {
+	@extend %legspan;
+	@include app-text(1.1, normal);
+}
+
+.gcviz-leg-span3 {
+	@extend %legspan;
+	@include app-text(1, normal);
+}
+
+.gcviz-leg-span4 {
+	@extend %legspan;
+	@include app-text(1, normal);
 }
 
 .gcviz-legendSymbolDiv {
 	vertical-align: middle;
-	padding-left: (1.5 * $rembase) + rem;
+	padding-left: (3.5 * $rembase) + rem;
 	border: (1 * $rembase) + rem;
+	@include app-text(1, normal);
 }
 
 .gcviz-leg-uniqueSymbolHolder {
 	display: inline;
 	vertical-align: middle;
 	padding-top: 0rem;
-	padding-left: (1.5 * $rembase) + rem;
 }
 
 .gcviz-leg-uniqueSpan {

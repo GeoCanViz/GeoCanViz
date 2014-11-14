@@ -1,57 +1,80 @@
 @import "gcviz-mixin";
 
+%head-title {
+	@include app-text(1.8, bold, $black);
+	position: relative;
+	top: (1 * $rembase) + rem;
+	display: inline-block;
+}
+
+%head-button {
+	margin-right:	(1 * $rembase) + rem;
+	height: 40px!important;
+}
+
+%marg-button {
+	margin-top: (0.4 * $rembase) + rem;
+}
+
 .gcviz-head {
 	@include app-head-foot;
   background-repeat: repeat-x;
-  background-image: url($img-root + "headBlackbar.png");
+  background-image: url($img-head);
 }
 
-.gcviz-head-btn {
+.gcviz-head-btn-l {
+	@extend %head-button;
+	float: left;
+}
+
+.gcviz-head-btn-r {
+	@extend %head-button;
 	float: right;
-	margin-right:	(1 * $rembase) + rem;
 }
 
-.gcviz-head-title {
-	@include app-text(1.6, bold, $white);
-	position: relative;
-	top: 	(1 * $rembase) + rem;
-	left: 	(0.5 * $rembase) + rem;
-	display: inline-block;
+.gcviz-head-title-l {
+	@extend %head-title;
+	float: right;
+	right: (2 * $rembase) + rem;
+}
+
+.gcviz-head-title-r {
+	@extend %head-title;
+	left: (2 * $rembase) + rem;
 }
 
 // the header button sprite (need to use background-position because FF is not able to set x and y)
 .gcviz-head-help {
 	@include sprite($img-spritebtn, -110, -2);
-}
-
-.gcviz-head-wcag {
-	@include sprite($img-spritebtn, -182, -2);
-}
-
-.gcviz-head-wcagon {
-	@include sprite($img-spritebtn, -686, -2);
+	@extend %marg-button;
 }
 
 .gcviz-head-about {
 	@include sprite($img-spritebtn, -145, -2);
+	@extend %marg-button;
 }
 
 .gcviz-head-inset {
-	@include sprite($img-spritebtn, -40, -2);
+	@include sprite($img-spritebtn, -37, -2);
+	@extend %marg-button;
 }
 
 .gcviz-head-link {
 	@include sprite($img-spritebtn, -75, -2);
+	@extend %marg-button;
 }
 
 .gcviz-head-print {
 	@include sprite($img-spritebtn, -3, -2);
+	@extend %marg-button;
 }
 
 .gcviz-head-fs {
 	@include sprite($img-spritebtn, -219, -2);
+	@extend %marg-button;
 }
 
 .gcviz-head-reg {
 	@include sprite($img-spritebtn, -255, -2);
+	@extend %marg-button;
 }

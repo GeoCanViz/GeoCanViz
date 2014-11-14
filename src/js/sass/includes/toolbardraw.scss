@@ -4,14 +4,34 @@
   background: url($img-spritebtn) $x + px -85 + px no-repeat;
 }
 
-.gcviz-draw-row1 {
-	display: table;
+.gcviz-draw-textinput {
+	width: 95%;
+}
+
+// content height is static so remove the overflow
+.gcviz-tbdraw-content {
+	overflow-x: initial!important;
+}
+
+.gcviz-colorspanlabel {
+	@include app-text();
+	line-height: 2;
+}
+
+.gcviz-drawspanlabel {
+	@include app-text();
+	line-height: 2.5;
 }
 
 // the color picker holder
 .gcviz-draw-cholder {
 	display: table-cell;
 	vertical-align: middle;
+}
+
+// label on WCAG dialog window
+.gcviz-draw-lbladd {
+	margin-top: (0.6 * $rembase) + rem;
 }
 
 // buttons
@@ -37,12 +57,6 @@
 
 .gcviz-draw-white {
 	@include sprite($img-spritebtn, -469, -14, 2);
-}
-
-.gcviz-draw-arrow {
-	cursor: default!important;
-	width: (1.5 * $rembase) + rem!important;
-	@include sprite($img-spritebtn, -505, -14, 2);
 }
 
 .gcviz-draw-pickblack {
@@ -110,7 +124,7 @@
 }
 
 .gcviz-draw-wcagadd {
-	@include spritenohover($img-spritebtn, -722, -2);
+	@include sprite($img-spritebtn, -1086, -2);
 	margin-top: 0px!important;
 }
 

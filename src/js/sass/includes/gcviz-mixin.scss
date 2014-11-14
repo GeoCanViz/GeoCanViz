@@ -2,10 +2,13 @@
 
 $img-root: "images/";
 $img-spritebtn: "images/spriteButton.png";
+$img-spritepopupbtn: "images/spritePopup.png";
+$img-head: $img-root + "headGreybar.png";
 
 $font: Verdana, Arial, Helvetica, sans-serif;
 $orange: #EFA23E;
 $orange-dark: #E54F06;
+$orange-darkborder: #892f03;
 $orange-light: #FADFBB;
 $yellow: #FAFA0A;
 $red: #EF300A;
@@ -24,6 +27,7 @@ $tb-light: #FFF;
 $disabled-light: #98B8CC;
 $disabled-strong: #728A99;
 $text-color: #000 !default;
+$greyPanel: #dce0db;
 
 $base-classname: "gcviz";
 
@@ -62,10 +66,8 @@ $one_col: (100% - ($gutter * ($cols - 1))) / $cols;
 	display: inline;
 	cursor: pointer;
 	border: none;
-	margin-top: (0.5 * $rembase) + rem;
-	margin-bottom: (0.5 * $rembase) + rem;
-	height: ($size * $rembase) + rem;
-	width: ($size * $rembase) + rem;
+	height: ($size * 10) + px;
+	width: ($size * 10) + px;
   position: relative;
 	
 	&:hover {
@@ -115,15 +117,17 @@ $one_col: (100% - ($gutter * ($cols - 1))) / $cols;
   width: 100%;
   height: (4 * $rembase) + rem;
   text-align: left;
+  background-size: 100% 100%;
 }
 
-@mixin app-text($size: 1.2, $weight: normal, $color: $text-color) {
+@mixin app-text($size: 1.2, $weight: normal, $color: $text-color, $style: normal) {
   font: {
     family: $font!important;
     weight: $weight!important;
     size: ($size * 10) + px!important; // old browsers
     size: ($size * $rembase) + rem!important;
   }
+  font-style: $style!important;
   color: $color;
 }
 

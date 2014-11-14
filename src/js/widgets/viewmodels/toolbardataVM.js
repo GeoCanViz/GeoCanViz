@@ -22,18 +22,24 @@
 			// data model				
 			var toolbardataViewModel = function($mapElem, mapid) {
 				var _self = this,
+					$btnCSV = $viz('#btnAddCSV' + mapid),
 					mymap = gcvizFunc.getElemValueVM(mapid, ['map', 'map'], 'js');
 
-				// tooltip
+				// viewmodel mapid to be access in tooltip custom binding
+				_self.mapid = mapid;
+
+				// tooltip and label
 				_self.tpAdd = i18n.getDict('%toolbardata-tpadd');
 				_self.tpDelete = i18n.getDict('%toolbardata-tpdelete');
 				_self.tpVisible = i18n.getDict('%toolbarlegend-tgvis');
+				_self.lblCSV = i18n.getDict('%toolbardata-lbladdcsv');
 
 				// dialog window for text
 				_self.lblErrTitle = i18n.getDict('%toolbardata-errtitle');
 				_self.errMsg1 = i18n.getDict('%toolbardata-err1');
 				_self.errMsg2 = i18n.getDict('%toolbardata-err2');
 				_self.errMsg3 = i18n.getDict('%toolbardata-err3');
+				_self.errMsg4 = i18n.getDict('%toolbardata-err4');
 				_self.msgIE9 = i18n.getDict('%toolbardata-ie9');
 				_self.errMsg = ko.observable();
 				_self.isErrDataOpen = ko.observable();
@@ -54,6 +60,9 @@
 
 				_self.dialogDataClose = function() {
 					_self.isErrDataOpen(false);
+					
+					// focus back on add to keep focus
+					$btnCSV.focus();
 				};
 
 				_self.addClick = function(vm, event) {
@@ -65,6 +74,9 @@
 					} else {
 						_self.add(vm, event);
 					}
+					
+					// focus back on add to keep focus
+					$btnCSV.focus();
 				};
 
 				_self.add = function(vm, event) {
@@ -82,22 +94,25 @@
 
 						// closure to capture the file information and launch the process
 						reader.onload = function() {
-							var uuid = gcvizFunc.getUUID();
+							var uuid = gcvizFunc.getUUID(),
+								fileName = reader.fileName;
 
 							// use deffed object to wait for the result	
-							gisData.addCSV(mymap, reader.result, uuid)
+							gisData.addCSV(mymap, reader.result, uuid, fileName)
 								.done(function(data) {
 									if (data === 0) {
 										// add to user array so knockout will generate legend
-										_self.userArray.push({ label: reader.fileName, id: uuid });
+										_self.userArray.push({ label: fileName, id: uuid });
 									} else {
 										_self.isErrDataOpen(true);
 										if (data === 1) {
 											_self.errMsg(_self.errMsg1);
 										} else if (data === 2) {
 											_self.errMsg(_self.errMsg2);
+										} else if (data === 3) {
+											_self.errMsg(_self.errMsg3);
 										} else {
-											_self.errMsg(_self.errMsg3 + data);
+											_self.errMsg(_self.errMsg4 + data);
 										}
 									}
 								});
@@ -115,6 +130,9 @@
 					// to ave the function call when we add the item to the array.
 					mymap.removeLayer(mymap.getLayer(selectedItem.id));
 					_self.userArray.remove(selectedItem);
+					
+					// focus back on add to keep focus
+					$btnCSV.focus();
 				};
 
 				_self.changeItemsVisibility = function(selectedItem, event) {

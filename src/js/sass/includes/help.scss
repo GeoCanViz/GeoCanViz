@@ -1,0 +1,57 @@
+@import "gcviz-mixin";
+
+%bubbleMarging {
+	margin-top: (0.3 * $rembase) + rem;
+}
+
+.gcviz-help-sect {
+  max-height: (50 * $rembase) + rem!important;
+}
+
+.gcviz-help .row > [class*="span"] {
+  min-height: (2 * $rembase) + rem;
+  padding-top: (1 * $rembase) + rem;
+}
+
+.gcviz-help-bubble {
+	margin-bottom: 0!important;
+	margin-left: (0.5 * $rembase) + rem;
+	cursor: pointer;
+}
+
+.gcviz-help-bubbledesc {
+	@extend %bubbleMarging;
+	@include app-text(1.2, normal, $black, italic);
+	float: right;
+}
+
+.gcviz-wcag-bubbledesc {
+	@extend %bubbleMarging;
+	display: inline;
+}
+
+.gcviz-help {
+	padding-top: (3 * $rembase) + rem;
+}
+
+.gcviz-help-tbtitle {
+	@include app-text(1.4, bold, $black);
+}
+
+.gcviz-help-textbtn {
+	margin-top: (1 * $rembase) + rem!important;
+}
+
+.gcviz-help-textlist {
+	display: block;
+	padding-left: (1.5 * $rembase) + rem!important;
+	margin-top: (1 * $rembase) + rem!important;
+}
+
+.gcviz-help-textsub {
+	@include app-text(1.2, bold, $black);
+}
+
+.gcviz-help-img {
+	margin-top: (1 * $rembase) + rem!important;
+}

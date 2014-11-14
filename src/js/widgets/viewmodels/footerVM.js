@@ -8,11 +8,13 @@
 /* global locationPath: false */
 (function() {
 	'use strict';
-	define(['knockout',
+	define(['jquery-private',
+			'knockout',
 			'gcviz-i18n',
 			'gcviz-func',
-			'gcviz-gisgeo'
-	], function(ko, i18n, gcvizFunc, gisGeo) {
+			'gcviz-gisgeo',
+			'gcviz-gisnav'
+	], function($viz, ko, i18n, gcvizFunc, gisGeo, gisNav) {
 		var initialize,
 			vm;
 
@@ -23,8 +25,13 @@
 				var _self = this,
                     pathGCVizPNG = locationPath + 'gcviz/images/GCVizLogo.png',
 					configMouse = config.mousecoords,
-					inwkid = config.northarrow.inwkid,
+					configNorth = config.northarrow,
+					scalebar = config.scalebar,
+					inwkid = configNorth.inwkid,
 					outwkid = configMouse.outwkid;
+
+				// viewmodel mapid to be access in tooltip custom binding
+				_self.mapid = mapid;
 
 				// images path
                 _self.imgLogoPNG = pathGCVizPNG;
@@ -33,21 +40,29 @@
                 _self.urlLogo = i18n.getDict('%footer-urlgcvizrepo');
                 _self.urlLogoAlt = i18n.getDict('%footer-tpgithub');
                 _self.lblWest = i18n.getDict('%west');
+                _self.lblLong = i18n.getDict('%long');
+                _self.lblLat = i18n.getDict('%lat');
+				_self.tpDatagrid = i18n.getDict('%footer-tpdatagrid');
+				_self.tpArrow = i18n.getDict('%footer-tpNorth');
 
 				// coords and arrow
 				_self.coords = ko.observable('');
 				_self.rotateArrow = ko.observable('');
 
+				// enable button table (will be set true by datagridVM when
+				// datatable is ready)
+				_self.isTableReady = ko.observable(false);
+
 				_self.init = function() {
 					var mymap = gcvizFunc.getElemValueVM(mapid, ['map', 'map'], 'js');
 
-					if (config.mousecoords) {
+					if (configMouse.enable) {
 						mymap.on('mouse-move', function(evt) {
 							_self.showCoordinates(evt);
 						});
 					}
 
-					if (config.northarrow) {
+					if (configNorth.enable) {
 						// set init state
 						gisGeo.getNorthAngle(mymap.extent, inwkid, _self.updateArrow);
 
@@ -59,6 +74,11 @@
                             _self.showNorthArrow(evt);
 						});
 					}
+
+					// See if user wanted a scalebar. If so, initialize it here
+                    if (scalebar.enable) {
+						gisNav.setScaleBar(mymap, scalebar);
+                    }
 
 					return { controlsDescendantBindings: true };
 				};
@@ -88,7 +108,7 @@
 						strPointY = point.y.toFixed(0).toString();
 					}
 
-					_self.coords(' Lat: ' + strPointY + ' Long: ' + strPointX);
+					_self.coords(_self.lblLat + strPointY + '   ' + _self.lblLong + strPointX);
 				};
 
 				_self.showNorthArrow = function(evt) {
@@ -111,6 +131,17 @@
 					bearing = ((bearing + 360) % 360).toFixed(1) - 90; //Converting -ve to +ve (0-360)
 
 					_self.rotateArrow('rotate(' + bearing + 'deg)');
+				};
+
+				_self.datagridClick = function() {
+					var $datagrid = $viz('#gcviz-datagrid' + mapid);
+
+					if ($datagrid.accordion('option', 'active') === 0) {
+						$datagrid.accordion({ active: false }).click();
+					} else {
+						$datagrid.accordion({ active: 0 }).click();
+					}
+					return false;
 				};
 
 				_self.goGitHub = function(data, event) {

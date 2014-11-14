@@ -7,8 +7,7 @@
  */
 (function () {
 	'use strict';
-	define(['jquery-private',
-			'cluster',
+	define(['cluster',
 			'gcviz-gisgeo',
 			'esri/request',
 			'esri/symbols/SimpleMarkerSymbol',
@@ -16,7 +15,7 @@
 			'esri/renderers/jsonUtils',
 			'esri/geometry/Point',
 			'esri/SpatialReference'
-	], function($viz, cluster, gisGeo, esriRequest, esriMarker, esriRender, esriJsonUtil, esriPoint, esriSR) {
+	], function(cluster, gisGeo, esriRequest, esriMarker, esriRender, esriJsonUtil, esriPoint, esriSR) {
 		var setCluster,
 			startCluster,
 			createCluster,
@@ -24,7 +23,8 @@
 
 		startCluster = function(map, layerInfo) {
 			var urlIn = layerInfo.url,
-				url = urlIn.substring(0, urlIn.indexOf('MapServer/')) + 'MapServer/layers';
+				i = urlIn.indexOf('MapServer/'),
+				url = urlIn.substring(0, i) + 'MapServer/layers/' + urlIn.substring(i + 17, urlIn.length - 1);
 
 			esriRequest({
 				url: url,
@@ -44,7 +44,7 @@
 			// set dirty as date to avoid bug with request. If we do the same sequest twice it throws error.
 			// this is solve in ArcGIS server SP2.
 			// TODO get fields from layerInfo, all fields is too much for parsing
-			url = layerInfo.url + '0/query?where=OBJECTID+>+0&outFields=AGE&dirty=' + (new Date()).getTime();
+			url = layerInfo.url + '/query?where=OBJECTID+>+0&outFields=AGE&dirty=' + (new Date()).getTime();
 
 			esriRequest({
 				url: url,
@@ -90,7 +90,8 @@
 				map = params.map,
 				layerInfo = params.layerInfo,
 				clusterInfo = layerInfo.cluster,
-				renderer = esriJsonUtil.fromJson(params.renderJSON);
+				renderer = esriJsonUtil.fromJson(params.renderJSON),
+				scale = layerInfo.scale;
 
 			if (clusterInfo.symbol === 1) {
 				renderer = null;
@@ -109,6 +110,15 @@
 
 			map.addLayer(clusterLayer);
 			params = {};
+
+			// set scale info (set scale here instead of gisMapUtility function because the onLoad event has
+			// already been raised).
+			// *** When cluster load, gcviz-gismap is empty so we use a require to make sure it is ready
+			clusterLayer.minScale = scale.min;
+			clusterLayer.maxScale = scale.max;
+			require(['gcviz-gismap'], function(gisMap) {
+				gisMap.setScaleInfo(map, layerInfo);
+			});
 
 			// reorder layer to make sure graphic one is on top
 			map.reorderLayer(map.getLayer('gcviz-symbol'), 1000);

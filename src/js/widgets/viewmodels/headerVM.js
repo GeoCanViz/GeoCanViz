@@ -16,10 +16,11 @@
 			'gcviz-ko',
 			'gcviz-func',
 			'gcviz-gismap',
-			'dijit/registry'
-	], function($viz, ko, media, gisPrint, i18n, binding, gcvizFunc, gisM, dijit) {
+			'gcviz-vm-help'
+	], function($viz, ko, media, gisPrint, i18n, binding, gcvizFunc, gisM, helpVM) {
 		var initialize,
 			printSimple,
+			toggleMenu,
 			vm;
 
 		initialize = function($mapElem, mapid, config) {
@@ -28,37 +29,45 @@
 				var _self = this,
 					configAbout = config.about,
 					pathPrint = locationPath + 'gcviz/print/',
+					pathHelpBubble = locationPath + 'gcviz/images/helpBubble.png',
 					$section = $viz('#section' + mapid),
 					$mapholder = $viz('#' + mapid),
 					$map = $viz('#' + mapid + '_holder'),
 					$maproot = $viz('#' + mapid + '_holder_root'),
-					$btnHelp = $mapElem.find('.gcviz-head-help'),
 					$btnAbout = $mapElem.find('.gcviz-head-about'),
-					$btnFull = $mapElem.find('.gcviz-head-fs'),
-					map = gcvizFunc.getElemValueVM(mapid, ['map', 'map'], 'js');
+					$menu = $mapElem.find('#gcviz-menu' + mapid),
+					$btnFull = $mapElem.find('.gcviz-head-pop'),
+					map = gcvizFunc.getElemValueVM(mapid, ['map', 'map'], 'js'),
+					instrHeight = 36;
+
+				// viewmodel mapid to be access in tooltip custom binding
+				_self.mapid = mapid;
+
+				// help bubble
+                _self.imgHelpBubble = pathHelpBubble;
 
 				// tools panel settings
 				_self.xheightToolsOuter = ko.observable('max-height:100px!important');
 				_self.xheightToolsInner = ko.observable('max-height:100px!important');
-				_self.widthheightTBholder =  ko.observable('max-height:390px!important;max-width:340px!important');
 
 				// tooltip, text strings
 				_self.tpHelp = i18n.getDict('%header-tphelp');
-				_self.tpWCAG = i18n.getDict('%header-tpwcag');
-				_self.tpTools = i18n.getDict('%header-tptools');
 				_self.tpPrint = i18n.getDict('%header-tpprint');
 				_self.tpInset = i18n.getDict('%header-tpinset');
                 _self.tpAbout = i18n.getDict('%header-tpabout');
                 _self.tpFullScreen = i18n.getDict('%header-tpfullscreen');
+                _self.lblMenu = i18n.getDict('%header-tools');
 
-				// help dialog box
-				_self.lblHelpTitle = i18n.getDict('%header-help');
-				_self.helpInfo1 = i18n.getDict('%header-helpdownload');
-				_self.helpInfo2 = i18n.getDict('%linkopens');
-				_self.helpURL = i18n.getDict('%header-urlhelp');
-				_self.helpURLText = i18n.getDict('%header-helpmanual');
-				_self.isHelpDialogOpen = ko.observable(false);
-
+				// toolbars name
+				_self.legendTitle = i18n.getDict('%toolbarlegend-name');
+                _self.legendAlt = i18n.getDict('%toolbarlegend-alt');
+				_self.drawTitle = i18n.getDict('%toolbardraw-name');
+                _self.drawAlt = i18n.getDict('%toolbardraw-alt');
+				_self.navTitle = i18n.getDict('%toolbarnav-name');
+                _self.navAlt = i18n.getDict('%toolbarnav-alt');
+                _self.dataTitle = i18n.getDict('%toolbardata-name');
+                _self.dataAlt = i18n.getDict('%toolbardata-alt');
+                
 				// about dialog box
 				_self.lblAboutTitle = i18n.getDict('%header-tpabout');
 				_self.isAboutDialogOpen = ko.observable(false);
@@ -87,10 +96,12 @@
 				_self.fullscreenState = 0;
                 _self.opencloseToolsState = 0;
 
-				// WCAG
-				_self.isWCAG = ko.observable(false);
+				// tools initial setting
+				_self.toolsInit = config.tools;
 
 				_self.init = function() {
+					var $menuCont = $viz('#gcviz-menu-cont' + mapid);
+
 					// keep map size
 					_self.heightSection = parseInt($section.css('height'), 10);
 					_self.heightMap = parseInt($map.css('height'), 10);
@@ -102,17 +113,72 @@
                     setTimeout(function() {
 						_self.adjustContainerHeight();
 					}, 500);
+					
+					// if expand is false toggle (open by default)
+					if (!_self.toolsInit.expand) {
+						$menu.on('accordioncreate', function(event, ui) {
+							$menu.accordion('option', 'active', false);
+							$menu.off('accordioncreate');
+						});
+					}
+
+					// set the active toolbar
+					$menuCont.on('accordioncreate', function(event, ui) {
+						var value,
+							items = event.target.getElementsByTagName('div'),
+							len = items.length;
+
+						while (len--) {
+							value = items[len].getAttribute('gcviz-exp');
+							if (value === "true") {
+								$menuCont.accordion('option', 'active', len);
+							}
+						}
+						
+						$menuCont.off('accordioncreate');
+					});
+
+					// initialize full screen with magnific popup
+					$btnFull.magnificPopup({
+						items: {
+							src: '#' + mapid,
+							type: 'inline'
+						},
+						callbacks: {
+							beforeOpen: function() {
+								_self.requestFullScreen();		
+							},	
+							close: function() {
+								_self.cancelFullScreen();
+							},
+							afterClose: function() {
+								$('#' + mapid).removeClass('mfp-hide');
+								gisM.resizeCenterMap(map, 0);
+							}
+						},
+						key: 'map-key',
+						showCloseBtn: false,
+						closeOnBgClick: false,
+						enableEscapeKey: false,
+						alignTop: false,
+						modal: false,
+						mainClass: 'mfp-with-fade'
+					});
 
 					return { controlsDescendantBindings: true };
+				};
+
+				_self.showBubble = function(key, shift, keyType, id) {
+					return helpVM.toggleHelpBubble(key, id);
 				};
 
 				_self.fullscreenClick = function() {
 					// debounce the click to avoid resize problems
 					gcvizFunc.debounceClick(function() {
-						if (_self.fullscreenState) {
-							_self.cancelFullScreen();
+						if (_self.fullscreenState === 0) {
+							$btnFull.magnificPopup('close');
 						} else {
-							_self.requestFullScreen();
+							_self.fullscreenState = 0;
 						}
 
 						// remove tooltip if there (the tooltip is position before the fullscreen)
@@ -152,23 +218,19 @@
 				};
 
 				_self.toolsClick = function() {
+					var open = $menu.accordion('option', 'active');
+					
 					// Toggle the tools container
-					var tc = dijit.byId('tbTools' + mapid);
-					tc.toggle();
+					if (open === 0) {
+						$menu.accordion('option', 'active', false);
+					} else {
+						$menu.accordion('option', 'active', 0);
+					}
 				};
 
 				_self.helpClick = function() {
-                    _self.isHelpDialogOpen(true);
+                    helpVM.toggleHelp();
                 };
-
-				_self.WCAGClick = function() {
-					_self.isWCAG(!_self.isWCAG());
-				};
-
-				_self.dialogHelpOk = function() {
-					_self.isHelpDialogOpen(false);
-					$btnHelp.focus();
-				};
 
                 _self.aboutClick = function() {
                     _self.isAboutDialogOpen(true);
@@ -180,12 +242,15 @@
 				};
 
 				_self.cancelFullScreen = function() {
+					var sectH = _self.heightSection,
+						sectW = _self.widthSection,
+						mapH = _self.heightMap,
+						mapW = _self.widthMap;
+
 					// set style back for the map
-					gcvizFunc.setStyle($section[0], { 'width': _self.widthSection + 'px', 'height': _self.heightSection + 'px' });
-					gcvizFunc.setStyle($mapholder[0], { 'width': _self.widthSection + 'px', 'height': _self.heightSection + 'px' });
-					gcvizFunc.setStyle($map[0], { 'width': _self.widthMap + 'px', 'height': _self.heightMap + 'px' });
-					gcvizFunc.setStyle($maproot[0], { 'width': _self.widthMap + 'px', 'height': _self.heightMap + 'px' });
-					$section.removeClass('gcviz-sectionfs');
+					gcvizFunc.setStyle($mapholder[0], { 'width': sectW + 'px', 'height': (sectH - instrHeight) + 'px' }); // remove the keyboard instruction height
+					gcvizFunc.setStyle($map[0], { 'width': mapW + 'px', 'height': mapH + 'px' });
+					gcvizFunc.setStyle($maproot[0], { 'width': mapW + 'px', 'height': mapH + 'px' });
 
 					// trigger the fullscreen custom binding and set state
 					_self.isFullscreen(false);
@@ -194,37 +259,38 @@
 					// resize map and keep the extent
 					gisM.manageScreenState(map, 500, false);
 
-					// Set the toolbar container height
+					// set the toolbar container height and focus
                     setTimeout(function() {
 						_self.adjustContainerHeight();
+						$btnFull.focus();
 					}, 500);
 
-					// set focus
-					$btnFull.focus();
-
 					// remove the event that keeps tab in map section
-					$section.off('keydown.fs');
+					$mapholder.off('keydown.fs');
+
+					// need to set it to 40px. Link to the bug where we have a workaround in the request
+					// full screen function.
+					gcvizFunc.setStyle($viz('#ovmapcont' + mapid)[0], { 'bottom': '40px' });
 				};
 
 				_self.requestFullScreen = function() {
 					// get maximal height and width from browser window and original height and width for the map
-					var param = gcvizFunc.getFullscreenParam(_self.widthSection, _self.heightSection),
+					var param = gcvizFunc.getFullscreenParam(),
 						w = param.width,
 						h = param.height,
-						array = $section.find('[tabindex = 0]');
+						array = $mapholder.find('[tabindex = 0]'),
+						height =  (h - (2 * _self.headerHeight));
 
 					// set style for the map
-					gcvizFunc.setStyle($section[0], { 'width': screen.width + 'px', 'height': screen.height + 'px' });
 					gcvizFunc.setStyle($mapholder[0], { 'width': w + 'px', 'height': h + 'px' });
-					gcvizFunc.setStyle($map[0], { 'width': w + 'px', 'height': (h - (2 * _self.headerHeight)) + 'px' });
-					gcvizFunc.setStyle($maproot[0], { 'width': w + 'px', 'height': (h - (2 * _self.headerHeight)) + 'px' });
-					$section.addClass('gcviz-sectionfs');
+					gcvizFunc.setStyle($map[0], { 'width': w + 'px', 'height': height + 'px' });
+					gcvizFunc.setStyle($maproot[0], { 'width': w + 'px', 'height': height + 'px' });
 
 					// trigger the fullscreen custom binding and set state
 					_self.isFullscreen(true);
 					_self.fullscreenState = 1;
 
-					// resize map ans keep the extent
+					// resize map and keep the extent
 					gisM.manageScreenState(map, 1000, true);
 
 					// Set the toolbar container height
@@ -239,17 +305,21 @@
 					// create keydown event to keep tab in the map section
 					_self.first = array[0];
 					_self.last = array[array.length - 1];
-					$section.on('keydown.fs', function(event) {
+					$mapholder.on('keydown.fs', function(event) {
 						_self.manageTabbingOrder(event);
                     });
+
+                    // this is a workaround. The div for the overview map change when
+                    // we first got to full screen. To correct this we reset the bottom value.
+                    // after the first time it is ok. In the future we can trap the first full
+                    // screen and then do not do this. Or we can try to find the problem.
+                    gcvizFunc.setStyle($viz('#ovmapcont' + mapid)[0], { 'bottom': '40px' });
                 };
 
                 _self.adjustContainerHeight = function() {
-					var toolbarheight = parseInt(map.height, 10) - 15;
+					var toolbarheight = parseInt(map.height, 10) - 10;
 					_self.xheightToolsOuter('max-height:' + toolbarheight + 'px!important');
-					_self.xheightToolsInner('max-height:' + toolbarheight + 'px!important');
-					toolbarheight -= 25;
-					_self.widthheightTBholder('max-height:' + toolbarheight + 'px!important;max-width:340px!important');
+					_self.xheightToolsInner('max-height:' + (toolbarheight - instrHeight) + 'px!important'); // remove the keyboard instruction height
                 };
 
 				_self.manageTabbingOrder = function(evt) {
@@ -269,7 +339,14 @@
 					} else if (key === 9 && shift) {
 						if (node === firstClass) {
 							// workaround to avoid focus shifting to the previous element
-							setTimeout(function() { lastItem.focus(); }, 0);
+							setTimeout(function() { 
+								lastItem.focus();
+							}, 0);
+							
+							// still focus on previous item. If not Chrome will freeze
+							if (window.browser === 'Chrome') {
+								lastItem.focus();
+							}
 						}
 					}
 				};
@@ -283,7 +360,15 @@
 		};
 
 		printSimple = function(map, template) {
-			var node = $viz('#' + map.vIdName + '_holder').clone();
+			var mapid = map.vIdName,
+				node = $viz('#' + mapid + '_holder').clone();
+
+			// set map size to fit the print page
+			gcvizFunc.setStyle(node[0], { 'width': '10in', 'height': '5.5in' });
+			gcvizFunc.setStyle(node.find('#' + mapid + '_holder_root')[0], { 'width': '10in', 'height': '5.5in' });
+			
+			// resize map and keep the extent
+			gisM.manageScreenState(map, 1000, true);
 
 			// set the local storage then open page
 			localStorage.setItem('gcvizPrintNode', node[0].outerHTML);

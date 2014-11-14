@@ -154,7 +154,7 @@
 					if (_self.fullscreen) {
 						// get maximal height and width from browser window
 						// and original height and width for the map
-						var param = gcvizfunc.getFullscreenParam(mapWidth, mapHeight),
+						var param = gcvizfunc.getFullscreenParam(),
 							w = param.width,
 							h = param.height,
 							ratio = param.ratio,

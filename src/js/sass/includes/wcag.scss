@@ -1,0 +1,12 @@
+@import "gcviz-mixin";
+
+.gcviz-wcag-instr {
+	margin-bottom: (0.5 * $rembase) + rem;
+	margin-left: (0.5 * $rembase) + rem;
+	margin-right: (0.5 * $rembase) + rem;
+}
+
+// overwrite the display for accordion to make sure dislay is not none
+.gcviz-wcag-head {
+	display: block!important;
+}

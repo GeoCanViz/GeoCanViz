@@ -6,6 +6,15 @@
   margin: 0px;
 }
 
+%zoomborder {
+	border-color: $orange-darkborder!important;
+	border-width: 1px!important;
+}
+
+%zoombar {
+	top: (3 * $rembase) + rem!important;
+}
+
 .map {
   overflow: hidden;
 }
@@ -54,3 +63,64 @@
 	display: none;
 }
 
+// zoom bar (override some esri class)
+.gcviz-map table {
+	background-color:	transparent!important;
+}
+
+.esriLargeSliderVertical {
+	height: (15 * $rembase) + rem!important;
+}
+
+.esriLargeSliderTL {
+	@extend %zoombar;
+	left: (1.5 * $rembase) + rem!important;
+}
+
+.esriLargeSliderTR {
+	@extend %zoombar;
+	right: (1.05 * $rembase) + rem!important;
+}
+
+.dijitSliderProgressBarV {
+	background-color: $orange-dark!important;
+	@extend %zoomborder
+}
+
+.dijitSliderRemainingBarV {
+	@extend %zoomborder
+}
+
+.dijitSliderBumperV {
+	display: none!important;
+}
+
+// zoom full extent
+%zoommax {
+	@include sprite($img-spritebtn, -1012, -2);
+	position: absolute!important;
+	top: (4 * $rembase) + rem!important;
+	z-index: 30;
+}
+
+.gcviz-map-zoommaxl {
+	@extend %zoommax;
+	left: (0.75 * $rembase) + rem!important;
+}
+
+.gcviz-map-zoommaxr {
+	@extend %zoommax;
+	right: (0.75 * $rembase) + rem!important;
+}
+
+// to be by the help
+.gcviz-map-zoommax {
+	@include sprite($img-spritebtn, -1012, -2);
+}
+
+// hide zoom max and zoombar when print
+@media print {
+	.gcviz-map-zoommaxl, .gcviz-map-zoommaxr, .esriLargeSlider {
+		display: none!important;
+	}
+}

@@ -24,6 +24,7 @@ div.gcviz-container img {
 	@for $i from 1 through $cols {
 		.span#{$i} {
 			@include cols($i);
+			min-height: 1px; // need this so empty span are taken in consideration
 
 			@for $j from 1 through ($i - 1) {
 				.span#{$j} {
@@ -39,6 +40,14 @@ div.gcviz-container img {
 	}
 }
 
+.row:after {
+  clear: both;
+  content: ".";
+  display: block;
+  height: 0;
+  visibility: hidden;
+}
+
 // set text unselectable (solve problem that select graphic text when drawing)
 text, .unselectable {
    @include unselectable;
@@ -49,12 +58,17 @@ svg {
 }
 
 .gcviz-section {
-	padding: (1.5 * $rembase) + rem;
 	background: #FFF;
+	display: inline-block;
 }
 
 .gcviz {
 	position: relative;
+	@include app-border(0.1, solid, #c1c5be);
+}
+
+.gcviz-mapholder {
+	background: #FFF;
 }
 
 .gcviz-image-button {
@@ -91,7 +105,7 @@ svg {
 
 .gcviz-tooltip {
 	.ui-tooltip-content {
-		@include app-text(1.1, normal, $white);
+		@include app-text(1.2, normal, $black);
 	}
 }
 
@@ -107,7 +121,18 @@ svg {
 }
 
 .gcviz-label-wcag {
+	display: inline-block;
+	margin-left: (1 * $rembase) + rem;
+	margin-right: (0.5 * $rembase) + rem;
 	margin-top: (1 * $rembase) + rem!important;
+}
+
+.gcviz-label {
+	@include app-text();
+}
+
+.gcviz-subtitle {
+	@include app-text(1.1, bold);
 }
 
 .gcviz-hidden {
@@ -129,14 +154,6 @@ input[type="file"] {
 	min-height: 0rem;
 }
 
-/* full screen */
-.gcviz-sectionfs {
-	position: fixed;
-	z-index: 750;
-	top: 0;
-	left: 0;
-}
-
 .gcviz-float-left {
   float: left;
 }
@@ -147,12 +164,6 @@ input[type="file"] {
 
 .gcviz-inlineblock {
   display: inline-block!important;
-}
-
-.gcviz-label {
-	display: inline-block;
-	margin-left: (1 * $rembase) + rem;
-	margin-right: (0.5 * $rembase) + rem;
 }
 
 .gcviz-loading {
@@ -183,4 +194,50 @@ input[type="file"] {
 
 .gcviz-verticalAlignMiddle {
   vertical-align: middle;
+}
+
+// OVERWRITE
+// keyboard user instruction (overwrite WET)
+h3:not(.ui-title) {
+	color: #000!important;
+}
+
+// overwrite jquery ui-tooltip
+.ui-tooltip {
+	padding: (0.3 * $rembase) + rem!important;
+}
+
+// overwrite jqueryui autocomplete to be on top when in fullscreen
+.ui-autocomplete {
+	z-index: 15005!important;
+}
+
+// make sure ui dialog is on top of magnific popup for full screen
+// set 100% for IE
+.ui-dialog {
+	z-index: 15000!important;
+}
+
+// set 100% for IE
+.ui-dialog-content {
+	width: 100%!important;
+}
+
+// overwrite zoom slider to set a focus state
+.dijitSliderFocused .dijitSliderBar {
+	border-color: #759dc0!important;
+	border-width: 2px!important;
+}
+
+// overwite input because wet style introduce a shift in Firefox
+// there is also a problem with IE
+input[type="checkbox"], input[type="radio"]{
+    background: transparent;
+    border: 0;
+    vertical-align:	middle;
+		margin: 0!important;
+}
+
+label {
+	margin-bottom: 0!important;
 }

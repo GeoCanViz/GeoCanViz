@@ -19,9 +19,12 @@
 			destroyProgressBar,
 			checkMatch,
 			getRandomColor,
+			getArrayLen,
 			getElemValueVM,
+			setElemValueVM,
 			setVM,
 			getTextWidth,
+			focusMap,
 			timer,
 			vmObject = { };
 
@@ -66,26 +69,17 @@
 			}
 		};
 
-		getFullscreenParam = function(width, height) {
+		getFullscreenParam = function() {
 			// get maximal height and width from browser window and original height and width for the map
-			var minWW = window.innerWidth,
-				minWH = window.innerHeight,
-				w, h, ratio;
+			var w, h,
+				minWW = window.innerWidth,
+				minWH = window.innerHeight;
 
-			// calculate the width, height and ratio with the window
-			w = minWW - 50;
-			ratio = (w / width);
-			h = height * ratio;
+			// calculate the width and height with the window. Remove 25px and 35px to keep all the right and bottom section
+			w = minWW - 35;
+			h = minWH - 25;
 
-			// if the minimum window width is smaller then map height,
-			// use height as starting point to calculate dimension
-			if (minWH < h) {
-				h = minWH - 50;
-				ratio = (h / height);
-				w = width * ratio;
-			}
-
-			return { 'width': w, 'height': h, 'ratio': ratio };
+			return { 'width': w, 'height': h };
 		};
 
 		checkObjectValue = function(obj, key, value) {
@@ -145,6 +139,17 @@
 			return [c(), c(), c() ,255];
 		};
 
+		getArrayLen = function(len) {
+			var arr = [];
+
+			len += 1;
+			while (len--) {
+				arr.push(len);
+			}
+
+			return arr;
+		};
+
 		getElemValueVM = function(name, elements, type) {
 			var val,
 				len = elements.length;
@@ -163,6 +168,10 @@
 			return val;
 		};
 
+		setElemValueVM = function(vm, name, element, val) {
+			return vmObject[vm][name][element](val);
+		};
+
 		setVM = function(name, vm) {
 			vmObject[name] = vm;
 		};
@@ -179,6 +188,10 @@
 			return metric.width;
 		};
 
+		focusMap = function(map) {
+			document.getElementById(map.vIdName + '_holder').focus();
+		};
+
 		return {
 			debounce: debounce,
 			debounceClick: debounceClick,
@@ -190,9 +203,12 @@
 			destroyProgressBar: destroyProgressBar,
 			checkMatch: checkMatch,
 			getRandomColor: getRandomColor,
+			getArrayLen: getArrayLen,
 			getElemValueVM: getElemValueVM,
+			setElemValueVM: setElemValueVM,
 			setVM: setVM,
-			getTextWidth: getTextWidth
+			getTextWidth: getTextWidth,
+			focusMap: focusMap
 		};
 	});
 }());

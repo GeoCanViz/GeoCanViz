@@ -1,0 +1,109 @@
+@import "gcviz-mixin";
+
+%marg-button {
+	margin-top: (0.2 * $rembase) + rem;
+}
+
+table.display {
+ table-layout: fixed;
+ word-wrap: break-word;
+}
+
+table.dataTable.no-footer {
+	border-bottom: 0!important;
+}
+
+.gcviz-datagrid {
+	width: 100%;
+	margin-top: (0.2 * $rembase) + rem!important;
+}
+
+.gcviz-datagrid-hold {
+	background: url($img-head) no-repeat!important;
+	background-size: 100% 100%!important;
+	color: #000000!important;
+	border-radius: 0rem!important;
+	padding-top: (0.5 * $rembase) + rem!important;
+	padding-left: (0.5 * $rembase) + rem!important;
+	padding-right: (0.5 * $rembase) + rem!important;
+	padding-bottom: (2 * $rembase) + rem!important;
+}
+
+.gcviz-datagrid-tab {
+	color: #000000!important;
+}
+
+.gcviz-datagrid-ul {
+	background: #929292!important;
+	border: 1px solid #585858!important;
+}
+
+// hide the id row
+.gcviz-dg-id {
+	display: none;
+}
+
+.gcviz-dg-zoomsel {
+	margin: (1 * $rembase) + rem!important;
+}
+
+.gcviz-dg-lblselall {
+	padding-left: (0.5 * $rembase) + rem!important;
+}
+
+
+// popups
+.gcviz-popup {
+	overflow: hidden!important;
+}
+
+.gcviz-popup-counter {
+  vertical-align: 50%!important;
+}
+
+.gcviz-popup-select {
+  width: 325px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.gcviz-popup-separator {
+  margin-top: 0px!important;
+}
+
+.gcviz-popup-title {
+	@include app-text(1.2, bold);
+}
+
+.gcviz-prop {
+  @include app-text(1.1, bold);
+}
+
+.gcviz-val {
+  @include app-text(1.1, normal);
+  padding-top: 2px!important;
+  padding-left: 5px!important;
+  padding-bottom: 3px!important;
+  margin: 0!important;
+}
+
+.gcviz-popup-content {
+	overflow: auto;
+	height: 200px!important;
+}
+
+.gcviz-popup-previous {
+  @include sprite($img-spritepopupbtn, -3, -2);
+}
+
+.gcviz-popup-next {
+  @include sprite($img-spritepopupbtn, -39, -2);
+}
+
+.gcviz-popup-close {
+  @include sprite($img-spritepopupbtn, -75, -2);
+}
+
+.gcviz-popup-zoom {
+  @include sprite($img-spritepopupbtn, -110, -2);
+}

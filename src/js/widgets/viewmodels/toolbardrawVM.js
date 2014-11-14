@@ -5,6 +5,7 @@
  *
  * Toolbar draw view model widget
  */
+/* global locationPath: false */
 (function() {
 	'use strict';
 	define(['jquery-private',
@@ -12,8 +13,9 @@
 			'genfile',
 			'gcviz-i18n',
 			'gcviz-func',
-			'gcviz-gisgraphic'
-	], function($viz, ko, generateFile, i18n, gcvizFunc, gisGraphic) {
+			'gcviz-gisgraphic',
+			'gcviz-gisdatagrid'
+	], function($viz, ko, generateFile, i18n, gcvizFunc, gisGraphic, gisDG) {
 		var initialize,
 			vm;
 
@@ -33,7 +35,11 @@
 					$btnText = $mapElem.find('.gcviz-draw-text'),
 					$btnLength = $mapElem.find('.gcviz-draw-length'),
 					$btnArea = $mapElem.find('.gcviz-draw-area'),
-					$btnDelsel = $mapElem.find('.gcviz-draw-delsel');
+					$btnDelsel = $mapElem.find('.gcviz-draw-delsel'),
+					$menu = $viz('#gcviz-menu' + mapid);
+
+				// viewmodel mapid to be access in tooltip custom binding
+				_self.mapid = mapid;
 
 				// tooltip
 				_self.tpBlack = i18n.getDict('%toolbardraw-tpcolorblack');
@@ -53,9 +59,20 @@
 				_self.tpImport = i18n.getDict('%toolbardraw-tpimport');
 				_self.tpExport = i18n.getDict('%toolbardraw-tpexport');
 
+				// buttons label
+				_self.lblColor = i18n.getDict('%toolbardraw-lblselcolor');
+				_self.lblMeasFull = i18n.getDict('%toolbardraw-lblmeasfull');
+				_self.lblMeasLine = i18n.getDict('%toolbardraw-lblmeasline');
+				_self.lblMeasArea = i18n.getDict('%toolbardraw-lblmeasarea');
+				_self.lblDrawFull = i18n.getDict('%toolbardraw-lbldrawfull');
+				_self.lblDrawLine = i18n.getDict('%toolbardraw-lbldrawline');
+				_self.lblDrawText = i18n.getDict('%toolbardraw-lbldrawtext');
+				_self.lblErase = i18n.getDict('%toolbardraw-lblerase');
+				_self.lblUndoRedo = i18n.getDict('%toolbardraw-lblundoredo');
+				_self.lblImpExp = i18n.getDict('%toolbardraw-lblimpexp');
+
 				// dialog window for text
 				_self.lblTextTitle = i18n.getDict('%toolbardraw-inputbox-name');
-				_self.lblTextDesc = i18n.getDict('%toolbardraw-inputbox-label');
 				_self.lblTextInfo = i18n.getDict('%toolbardraw-insinputbox');
 				_self.isTextDialogOpen = ko.observable();
 				_self.isText = ko.observable(false);
@@ -86,7 +103,7 @@
 				_self.lblWCAGy = i18n.getDict('%wcag-ylat');
 				_self.lblWCAGmsgx = i18n.getDict('%wcag-msgx');
 				_self.lblWCAGmsgy = i18n.getDict('%wcag-msgy');
-				_self.tpWCAGadd = i18n.getDict('%wcag-addcoords');
+				_self.lblWCAGadd = i18n.getDict('%wcag-addcoords');
 				_self.lblWCAGAddPoint = i18n.getDict('%wcag-add');
 				_self.xValue = ko.observable().extend({ numeric: { precision: 3, validation: { min: 50, max: 130 } } });
 				_self.yValue = ko.observable().extend({ numeric: { precision: 3, validation: { min: 40, max: 80 } } });
@@ -96,11 +113,6 @@
 				_self.wcagok = false;
 
 				_self.init = function() {
-
-					// set event for the toolbar
-					var $tb = $viz('#tbTools' + mapid + '_titleBarNode');
-					$tb.on('click', _self.endDraw);
-
 					// select black by default
 					_self.selectColorClick('black');
 
@@ -109,24 +121,32 @@
 
 				// end draw action on tools toolbar click
 				_self.endDraw = function() {
+					// set popup event
+					gisDG.addEvtPop();
 
-					// remove cursor and set default
-					_self.removeCursors();
-					$container.css('cursor', 'default');
+					// remove cursor and event only if WCAG mode is not enable
+					if (!_self.isWCAG()) {
+						// remove cursor and set default
+						_self.removeCursors();
+						$container.css('cursor', 'default');
 
-					// measure length or area
-					if (_self.measureType === 'length') {
-						clickMeasureLength.remove();
-						dblclickMeasure.remove();
-						_self.endMeasureLength();
-					} else if (_self.measureType === 'area') {
-						clickMeasureArea.remove();
-						dblclickMeasure.remove();
-						_self.endMeasureArea();
+						// measure length or area
+						if (_self.measureType === 'length') {
+							clickMeasureLength.remove();
+							dblclickMeasure.remove();
+							_self.endMeasureLength();
+						} else if (_self.measureType === 'area') {
+							clickMeasureArea.remove();
+							dblclickMeasure.remove();
+							_self.endMeasureArea();
+						}
 					}
 
 					_self.graphic.deactivate();
 					_self.measureType = '';
+
+					// open mneu
+					$menu.accordion('option', 'active', 0);
 
 					// set the focus back to the right tool
 					_self.setFocus();
@@ -137,9 +157,12 @@
 					var value = _self.drawTextValue();
 
 					if (value !== '') {
-						// check if WCAG mode is enable, if so use dialog box instead)
+						// check if WCAG mode is enable, if so use dialog box instead!
 						if (!_self.isWCAG()) {
 							_self.graphic.drawText(value, _self.selectedColor());
+
+							// set the holder empty
+							_self.drawTextValue('');
 						} else {
 							_self.isDialogWCAG(true);
 						}
@@ -155,21 +178,19 @@
 				};
 
 				_self.dialogTextCancel = function() {
+					// open menu and reset cursor
 					_self.isTextDialogOpen(false);
 					_self.isText(false);
 					_self.endDraw();
-					_self.openTools('text');
 				};
 
 				_self.dialogTextClose = function() {
 					// if window is close with the close X
 					if (_self.isTextDialogOpen()) {
 						// open menu and reset cursor
-						_self.endDraw();
-						_self.openTools('text');
-
 						_self.isTextDialogOpen(false);
 						_self.isText(false);
+						_self.endDraw();
 					}
 				};
 
@@ -178,9 +199,9 @@
 				};
 
 				_self.drawClick = function() {
-					_self.openTools('draw');
+					_self.closeTools('draw');
 
-					// check if WCAG mode is enable, if so use dialog box instead)
+					// check if WCAG mode is enable, if so use dialog box instead!
 					if (!_self.isWCAG()) {
 						// set cursor to selected colour (remove default cursor first)
 						$container.css('cursor', '');
@@ -188,15 +209,23 @@
 						_self.graphic.drawLine(_self.selectedColor());
 					} else {
 						_self.isDialogWCAG(true);
+						_self.enableOkWCAG('disable');
 					}
+
+					// focus the map. We need to specify this because when you use the keyboard to
+					// activate ta tool, the focus sometimes doesnt go to the map.
+					gcvizFunc.focusMap(mymap);
 				};
 
 				_self.textClick = function() {
-					_self.openTools('text');
+					_self.closeTools('text');
 
-					// set cursor (remove default cursor first and all other cursors)
-					$container.css('cursor', '');
-					$container.addClass('gcviz-text-cursor');
+					// check if WCAG mode is disable
+					if (!_self.isWCAG()) {
+						// set cursor (remove default cursor first and all other cursors)
+						$container.css('cursor', '');
+						$container.addClass('gcviz-text-cursor');
+					}
 
 					// show dialog
 					_self.isText(false);
@@ -206,23 +235,37 @@
 
 				_self.eraseClick = function() {
 					_self.graphic.erase();
-					
+
+					// set focus on draw because when button is disable the focus goes
+					// automatically to the top of the page if not
+					$btnDraw.focus();
+
 					// workaround to remove tooltip on undo. The tooltip appears
 					// even if the button is disable
 					$viz('.ui-tooltip').remove();
 				};
 
 				_self.eraseSelClick = function() {
-					_self.openTools('erase');
+					_self.closeTools('erase');
 
 					// set cursor (remove default cursor first and all other cursors)
 					$container.css('cursor', '');
 					$container.addClass('gcviz-draw-cursor-erase');
 					_self.graphic.drawExtent();
+
+					// focus the map. We need to specify this because when you use the keyboard to
+					// activate ta tool, the focus sometimes doesnt go to the map.
+					gcvizFunc.focusMap(mymap);
 				};
 
 				_self.undoClick = function() {
 					_self.graphic.undo();
+
+					// set focus on draw because when button is disable the focus goes
+					// automatically to the top of the page if not
+					if (_self.stackUndo().length === 0) {
+						$btnDraw.focus();
+					}
 
 					// workaround to remove tooltip on undo. The tooltip appears
 					// even if the button is disable
@@ -232,6 +275,12 @@
 				_self.redoClick = function() {
 					_self.graphic.redo();
 
+					// set focus on draw because when button is disable the focus goes
+					// automatically to the top of the page if not
+					if (_self.stackRedo().length === 0) {
+						$btnDraw.focus();
+					}
+
 					// workaround to remove tooltip on undo. The tooltip appears
 					// even if the button is disable
 					$viz('.ui-tooltip').remove();
@@ -239,28 +288,38 @@
 
 				_self.measureLengthClick = function() {
 					globalKey = gcvizFunc.getUUID();
-					_self.openTools('length');
+					_self.closeTools('length');
 					_self.measureType = 'length';
 
-					// set cursor (remove default cursor first and all other cursors)
-					$container.css('cursor', '');
-					$container.addClass('gcviz-draw-cursor-measure');
+					// check if WCAG mode is enable, if so use dialog box instead!
+					if (!_self.isWCAG()) {
+						// set cursor (remove default cursor first and all other cursors)
+						$container.css('cursor', '');
+						$container.addClass('gcviz-draw-cursor-measure');
 
-					clickMeasureLength = mymap.on('click', function(event) {
-										_self.graphic.addMeasure(_self.measureHolder, globalKey, 0, 'km', _self.selectedColor(), event);
-									});
+						clickMeasureLength = mymap.on('click', function(event) {
+											_self.graphic.addMeasure(_self.measureHolder, globalKey, 0, 'km', _self.selectedColor(), event);
+										});
 
-					// on double click, close line and show total length
-					dblclickMeasure = mymap.on('dbl-click', function(event) {
-						// add last point then close
-						_self.graphic.addMeasure(_self.measureHolder, globalKey, 0, 'km', _self.selectedColor(), event);
+						// on double click, close line and show total length
+						dblclickMeasure = mymap.on('dbl-click', function(event) {
+							// add last point then close
+							_self.graphic.addMeasure(_self.measureHolder, globalKey, 0, 'km', _self.selectedColor(), event);
 
-						// add a small time out to let the last point to go in. If not,
-						// the last point is not in the sum length
-						setTimeout(function() {
-							_self.endMeasureLength();
-						}, 250);
-					});
+							// add a small time out to let the last point to go in. If not,
+							// the last point is not in the sum length
+							setTimeout(function() {
+								_self.endMeasureLength();
+							}, 250);
+						});
+					} else {
+						_self.isDialogWCAG(true);
+						_self.enableOkWCAG('disable');
+					}
+
+					// focus the map. We need to specify this because when you use the keyboard to
+					// activate ta tool, the focus sometimes doesnt go to the map.
+					gcvizFunc.focusMap(mymap);
 				};
 
 				_self.endMeasureLength = function() {
@@ -279,23 +338,33 @@
 
 				_self.measureAreaClick = function() {
 					globalKey = gcvizFunc.getUUID();
-					_self.openTools('area');
+					_self.closeTools('area');
 					_self.measureType = 'area';
 
-					// set cursor (remove default cursor first and all other cursors)
-					$container.css('cursor', '');
-					$container.addClass('gcviz-draw-cursor-measure');
+					// check if WCAG mode is enable, if so use dialog box instead!
+					if (!_self.isWCAG()) {
+						// set cursor (remove default cursor first and all other cursors)
+						$container.css('cursor', '');
+						$container.addClass('gcviz-draw-cursor-measure');
 
-					clickMeasureArea = mymap.on('click', function(event) {
-										_self.graphic.addMeasure(_self.measureHolder, globalKey, 1, 'km', _self.selectedColor(), event);
-									});
-					// on double click, close polygon and show total length and area
-					dblclickMeasure = mymap.on('dbl-click', function(event) {
-						// add last point then close
-						_self.graphic.addMeasure(_self.measureHolder, globalKey, 1, 'km', _self.selectedColor(), event);
+						clickMeasureArea = mymap.on('click', function(event) {
+											_self.graphic.addMeasure(_self.measureHolder, globalKey, 1, 'km', _self.selectedColor(), event);
+										});
+						// on double click, close polygon and show total length and area
+						dblclickMeasure = mymap.on('dbl-click', function(event) {
+							// add last point then close
+							_self.graphic.addMeasure(_self.measureHolder, globalKey, 1, 'km', _self.selectedColor(), event);
 
-						_self.endMeasureArea();
-					});
+							_self.endMeasureArea();
+						});
+					} else {
+						_self.isDialogWCAG(true);
+						_self.enableOkWCAG('disable');
+					}
+
+					// focus the map. We need to specify this because when you use the keyboard to
+					// activate ta tool, the focus sometimes doesnt go to the map.
+					gcvizFunc.focusMap(mymap);
 				};
 
 				_self.endMeasureArea = function() {
@@ -360,8 +429,19 @@
 					});
 				};
 
-				_self.openTools = function(tool) {
-					gcvizFunc.getElemValueVM(mapid, ['header', 'toolsClick'], 'js')();
+				_self.closeTools = function(tool) {
+					// close menu
+					$menu.accordion('option', 'active', false);
+					
+					// set event for the toolbar
+					$menu.on('accordionbeforeactivate', function() {
+						$menu.off();
+						_self.endDraw();
+					});
+
+					// remove popup event
+					gisDG.removeEvtPop();
+
 					_self.activeTool(tool);
 				};
 
@@ -400,21 +480,36 @@
 						} else if (_self.activeTool() === 'area') {
 							$btnArea.focus();
 						} else if (_self.activeTool() === 'erase') {
-							$btnDelsel.focus();
+
+							if (_self.isGraphics()) {
+								$btnDelsel.focus();
+							} else {
+								// set focus on draw because when button is disable the focus goes
+								// automatically to the top of the page if not
+								$btnDraw.focus();
+							}
 						}
 						_self.activeTool('');
-					}, 500);
+					}, 700);
 				};
 
 				_self.dialogWCAGOk = function() {
 					var flag = false;
 
 					// select the active tool
-					if (_self.activeTool() === 'draw' && _self.WCAGcoords().length > 1) {
+					if (_self.activeTool() === 'draw') {
 						_self.graphic.drawLineWCAG(_self.WCAGcoords(), _self.selectedColor());
 						flag = true;
 					} else if (_self.activeTool() === 'text') {
 						_self.graphic.drawTextWCAG([_self.xValue() * -1, _self.yValue()], _self.drawTextValue(), _self.selectedColor());
+						// set the holder empty
+						_self.drawTextValue('');
+						flag = true;
+					} else if (_self.activeTool() === 'length') {
+						_self.graphic.measureWCAG(_self.WCAGcoords(), globalKey, 0, 'km', _self.selectedColor());
+						flag = true;
+					} else if (_self.activeTool() === 'area') {
+						_self.graphic.measureWCAG(_self.WCAGcoords(), globalKey, 1, 'km', _self.selectedColor());
 						flag = true;
 					}
 
@@ -430,16 +525,24 @@
 				};
 
 				_self.dialogWCAGClose = function() {
+					var active = _self.activeTool();
+
 					_self.isDialogWCAG(false);
 
-					// if not ok press, open tools
-					if (!_self.wcagok) {
+					// if not text, or text and not ok press, open tools
+					if (active !== 'text' || (!_self.wcagok && active === 'text')) {
 						// set the focus back to the right tool
-						_self.openTools(_self.activeTool());
-						_self.setFocus();
+						//_self.openTools(_self.activeTool());
+						//_self.setFocus();
+						_self.endDraw();
 					}
+
 					_self.wcagok = false;
 					_self.WCAGcoords([]);
+				};
+
+				_self.enableOkWCAG = function(state) {
+					$viz('#diagDrawWCAG' + mapid).parent().find('#btnOk').button(state);
 				};
 
 				_self.addCoords = function() {
@@ -452,6 +555,14 @@
 						_self.WCAGcoords.push([x, y]);
 					} else if (x !== last[0] || y !== last[1]) {
 						_self.WCAGcoords.push([x, y]);
+					}
+
+					// if not area and more then 1 points enable ok button. if it is area,
+					// wait until there is at least 3 points.
+					if (_self.activeTool() !== 'area' && _self.WCAGcoords().length > 1) {
+						_self.enableOkWCAG('enable');
+					} else if (_self.WCAGcoords().length > 2) {
+						_self.enableOkWCAG('enable');
 					}
 				};
 

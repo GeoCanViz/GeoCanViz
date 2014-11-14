@@ -1,40 +1,102 @@
 @import "gcviz-mixin";
 
 %transparency {
-	background-color: rgba(100,100,100, 0.6);
+	background-color: rgba(140,140,140,0.65);
 }
 
 %tbcontent {
 	padding-left: (1 * $rembase) + rem;
 	padding-bottom: (1 * $rembase) + rem;
-	margin-top: 0rem!important;
 	z-index: 101;
 	background-color: $lightyellow;
-	overflow-x:	auto;
-
-	.dijitTitlePane {
-		margin: (0.5 * $rembase) + rem;
-	}
+	overflow:	hidden!important;
 }
 
-.gcviz-tbcontainer {
-  @include app-text();
+%tbcontainer {
+	@include app-text(1.2, bold, $black);
   @include unselectable;
   padding-top: 0rem;
-  padding-right: (1 * $rembase) + rem;
-  padding-left: (1 * $rembase) + rem;
-  padding-bottom: (1 * $rembase) + rem;
+  padding-right: (0.3 * $rembase) + rem;
+  padding-left: (0.3 * $rembase) + rem;
+  padding-bottom: (0.3 * $rembase) + rem;
   position: absolute;
   z-index: 100;
   width: (34 * $rembase) + rem;
-  right: 0rem;
   top: (4 * $rembase) + rem;
   @extend %transparency;
 }
 
-.gcviz-tbholder {
-  overflow-y: scroll;
+%panel {
+	display: block!important;
+	border-radius: 0!important;
+}
+
+.gcviz-tbcontainer-l {
+  @extend %tbcontainer;
+  left: 0;
+}
+
+.gcviz-tbcontainer-r {
+  @extend %tbcontainer;
+  right: 0;
+}
+
+.gcviz-toolsholder {
   @include unselectable;
+  background-color: rgb(140,140,140);
+
+	.gcviz-menu {
+		width: 100%!important;
+		overflow:	hidden!important;
+	}
+
+	// flip the background image on toolbar to match header when menu is on the right
+	.gcviz-menu-title-r:before {
+		background-image: url($img-head);
+		-moz-transform: scaleX(-1);
+		-o-transform: scaleX(-1);
+		-webkit-transform: scaleX(-1);
+		transform: scaleX(-1);
+		content: "";
+		position: absolute;
+		width: 340px;
+		height: 34px;
+		top: -2px;
+		left: -2px;
+		z-index: -1;
+	}
+
+	.gcviz-menu-title-r {
+		position: relative;
+		margin-top: 0!important;
+	}
+
+	.gcviz-menu-title-l {
+		background-image: url($img-head);
+		margin-top: 0!important;
+	}
+	// end background image
+
+	.gcviz-menu-title {
+		@extend %panel;
+	}
+
+	.gcviz-panel-title {
+		@extend %panel;
+		background-color: $greyPanel;
+		@include app-border(0.2, solid, $greyPanel);
+		padding-left: (3.5 * $rembase) + rem!important;
+		
+		span {
+			left: (1.3 * $rembase) + rem!important;
+		}
+	}
+
+	.gcviz-menu-cont {
+		padding: 0!important;
+		background: transparent;
+		overflow:	auto;
+	}
 
   .gcviz-tbcontent {
 		@extend %tbcontent;
@@ -42,15 +104,12 @@
   
   .gcviz-tbcontent-leg {
     @extend %tbcontent;
-		max-height: (40 * $rembase) + rem;
+		max-height: (31 * $rembase) + rem;
+		overflow:	auto!important;
   }
 }
 
-.gcviz-tbspacer {
-  @extend %transparency;
-  height: (0.3 * $rembase) + rem;
-}
-
+// separator in toolbar draw
 .gcviz-tbseparator {
 	display: inline-block;
 	@include app-border(0.1, solid, $palegrey);
@@ -64,4 +123,10 @@
 	.gcviz-tbseparator {
 		margin-bottom: (-1.25 * $rembase) + rem;
 	}
+}
+
+// for the gap on menu toolbar when on left side
+.ui-corner-all, .ui-btn-corner-all {
+	-webkit-background-clip: border-box!important;
+	background-clip: border-box!important;
 }

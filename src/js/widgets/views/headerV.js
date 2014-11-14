@@ -8,53 +8,45 @@
 (function() {
 	'use strict';
 	define(['gcviz-vm-header',
-			'gcviz-i18n',
-			'dijit/TitlePane'
-	], function(headerVM, i18n, dojotitle) {
-		var initialize;
+			'gcviz-i18n'
+	], function(headerVM, i18n) {
+		var initialize,
+			addToolbars;
 
 		initialize = function($mapElem) {
-			var $header, tp,
+			var $header, tp, ext,
 				config = $mapElem.header,
+				configTools = config.tools,
 				configAbout = config.about,
 				mapid = $mapElem.mapframe.id,
 				title = config.title.value,
-				node = '';
+				node = '',
+				menu = '';
 
 			$mapElem.find('#' + mapid).prepend('<div id="head' + mapid + '" class="gcviz-head"></div>');
 			// Find the header element to insert things in
 			$header = $mapElem.find('.gcviz-head');
 
-			// set title
+			// set the side class extension to know where to put tools and buttons
+			ext = config.side === 1 ? '-r' : '-l';
+
+			// set title (always configure with menu right so use ext = -r)
 			if (typeof title !== 'undefined') {
-				node += '<label class="gcviz-head-title unselectable">' + title + '</label>';
+				node += '<label class="gcviz-head-title-r unselectable">' + title + '</label>';
 			}
 
-			// add buttons
-			node += '<div class="gcviz-head-btn">';
-
-			// set help button (help is always visible)
-			node += '<button class="gcviz-head-help" tabindex="0" data-bind="buttonBlur, click: helpClick, tooltip: { content: tpHelp }"></button>';
-
-			// dialog text to show help
-			node += '<div data-bind="uiDialog: { title: $root.lblHelpTitle, width: 350, height: 220, ok: $root.dialogHelpOk, close: $root.dialogHelpOk, openDialog: \'isHelpDialogOpen\' }">' +
-						'<span data-bind="text: $root.helpInfo1"></span>' +
-						'<a data-bind="attr: { href: $root.helpURL, title: $root.helpURLText }, text: $root.helpURLText" tabindex="0" target="new"></a></br>' +
-						'<span data-bind="text: $root.helpInfo2"></span>' +
-					'</div>';
-
-			// set WCAG button
-			node += '<button class="gcviz-head-wcag" tabindex="0" data-bind="buttonBlur, click: WCAGClick, tooltip: { content: tpWCAG }, css: { \'gcviz-head-wcag\': isWCAG() === false, \'gcviz-head-wcagon\': isWCAG() === true }"></button>';
+			// add buttons (always configure with menu right so use ext = -r)
+			node += '<div class="gcviz-head-btn-r">';
 
 			// set about button
 			if (configAbout.enable) {
 				node += '<button class="gcviz-head-about" tabindex="0" data-bind="buttonBlur, click: aboutClick, tooltip: { content: tpAbout }"></button>';
 
 				// dialog text to show about
-				node += '<div data-bind="uiDialog: { title: $root.lblAboutTitle, width: 400, height: 300, ok: $root.dialogAboutOk, close: $root.dialogAboutOk, openDialog: \'isAboutDialogOpen\' }">' +
-						'<span data-bind="text: $root.aboutInfo1"></span>' +
-						'<div data-bind="if: aboutType === 2"><a data-bind="attr: { href: $root.aboutURL, title: $root.aboutURLText }, text: $root.aboutURLText" tabindex="0" target="_blank"></a>' +
-						'<span data-bind="text: $root.aboutInfo2"></span></div>' +
+				node += '<div data-bind="uiDialog: { title: lblAboutTitle, width: 400, height: 300, ok: dialogAboutOk, close: dialogAboutOk, openDialog: \'isAboutDialogOpen\' }">' +
+						'<span data-bind="text: aboutInfo1"></span>' +
+						'<div data-bind="if: aboutType === 2"><a data-bind="attr: { href: aboutURL, title: aboutURLText }, text: aboutURLText" tabindex="0" target="_blank"></a>' +
+						'<span data-bind="text: aboutInfo2"></span></div>' +
 					'</div>';
 			}
 
@@ -76,19 +68,70 @@
 
 			// add fullscreen button
 			if (config.fullscreen) {
-				node += '<button class="gcviz-head-fs" tabindex="0" data-bind="buttonBlur, click: fullscreenClick, tooltip: { content: tpFullScreen }, css: { \'gcviz-head-fs\': isFullscreen() === false, \'gcviz-head-reg\': isFullscreen() === true }"></button>';
+				node += '<button class="gcviz-head-fs gcviz-head-pop" tabindex="0" data-bind="buttonBlur, click: fullscreenClick, tooltip: { content: tpFullScreen }, css: { \'gcviz-head-fs\': isFullscreen() === false, \'gcviz-head-reg\': isFullscreen() === true }"></button>';
 			}
-			node += '</div>';
 
+			// set help button (help is always visible)
+			node += '<button class="gcviz-head-help" tabindex="0" data-bind="buttonBlur, click: helpClick, tooltip: { content: tpHelp }"></button>';
+
+			node += '</div>';
+		
 			$header.append(node);
-			if (config.tools === true) {
+			if (configTools.enable === true) {
 				// Add a collapsible container for tools to hold all the toolbars instead of having a tools icon
-				$mapElem.find('.gcviz-head').append('<div id="divToolsOuter' + mapid + '" class="gcviz-tbcontainer" data-bind="attr: { style: xheightToolsOuter }"><div id="divToolsInner' + mapid + '" class="gcviz-toolsholder" data-bind="attr: { style: xheightToolsInner }"></div></div>');
-				tp = new dojotitle({ id: 'tbTools' + mapid, title: '' + i18n.getDict('%header-tools') + '', content: '<div class="gcviz-tbholder" data-bind="attr: { style: widthheightTBholder }"></div>', open: true });
-				$mapElem.find('.gcviz-toolsholder').append(tp.domNode);
-				tp.startup();
+				$mapElem.find('.gcviz-head').append('<div id="divToolsOuter' + mapid + '" class="gcviz-tbcontainer' + ext + '" data-bind="attr: { style: xheightToolsOuter }">' +
+														'<div id="divToolsInner' + mapid + '" class="gcviz-toolsholder" data-bind="attr: { style: xheightToolsOuter }"></div>' +
+													'</div>');
+				menu = '<div id="gcviz-menu' + mapid + '" class="gcviz-menu" data-bind="uiAccordion: { heightStyle: \'content\', collapsible: true }, attr: { style: xheightToolsOuter }">' +
+							'<h3 class="gcviz-menu-title gcviz-menu-title' + ext + '"  data-bind="panelBlur"><span data-bind="text: lblMenu"></span></h3>' +
+							'<div id="gcviz-menu-cont' + mapid + '" class="gcviz-menu-cont" data-bind="uiAccordion: { heightStyle: \'content\', collapsible: true, active: false }, attr: { style: xheightToolsInner }">' +
+								addToolbars($mapElem, mapid) +
+							'</div>' +
+						'</div>';
+						
+				$mapElem.find('.gcviz-toolsholder').append(menu);
 			}
+
 			return (headerVM.initialize($header, mapid, config));
+		};
+
+		addToolbars = function(config, mapid) {
+			var cfgDraw = config.toolbardraw,
+				cfgNav = config.toolbarnav,
+				cfgLeg = config.toolbarlegend,
+				cfgData = config.toolbardata,
+				index = false,
+				tools = ['','','',''];
+			
+			// check what toolbar is enable, the order and the index of the expand one.
+			// add the contextual help
+			if (cfgDraw.enable) {
+				tools[cfgDraw.pos] = '<h3 class="gcviz-panel-title" data-bind="panelBlur">' +
+										'<span data-bind="contextHelp: { text: drawTitle; alt: drawAlt; img: imgHelpBubble; id: \'tbdraw' + mapid + '\'; link: \'gcviz-help-tbdraw\' }"></span>' +
+									'</h3>' +
+									'<div class="gcviz-tbdraw-content gcviz-tbcontent" gcviz-exp="' + cfgDraw.expand + '"></div>';
+			}
+			if (cfgNav.enable) {
+				tools[cfgNav.pos] = '<h3 class="gcviz-panel-title gcviz-nav-panel" data-bind="panelBlur">' +
+										'<span data-bind="contextHelp: { text: navTitle; alt: navAlt; img: imgHelpBubble; id: \'tbnav' + mapid + '\'; link: \'gcviz-help-tbnav\' }"></span>' +
+									'</h3>' +
+									'<div class="gcviz-tbnav-content gcviz-tbcontent" gcviz-exp="' + cfgNav.expand + '"></div>';
+			}
+			if (cfgLeg.enable) {
+				tools[cfgLeg.pos] = '<h3 class="gcviz-panel-title" data-bind="panelBlur">' +
+										'<span data-bind="contextHelp: { text: legendTitle; alt: legendAlt; img: imgHelpBubble; id: \'tbleg' + mapid + '\'; link: \'gcviz-help-tbleg\' }"></span>' +
+									'</h3>' +
+									'<div class="gcviz-tbleg-content gcviz-tbcontent-leg" gcviz-exp="' + cfgLeg.expand + '"></div>';
+			}
+			if (cfgData.enable) {
+				tools[cfgData.pos] = '<h3 class="gcviz-panel-title" data-bind="panelBlur">' +
+										'<span data-bind="contextHelp: { text: dataTitle; alt: dataAlt; img: imgHelpBubble; id: \'tbdata' + mapid + '\'; link: \'gcviz-help-tbdata\' }"></span>' +
+									'</h3>' +
+									'<div class="gcviz-tbdata-content gcviz-tbcontent" gcviz-exp="' + cfgData.expand + '"></div>';
+			}
+
+			// remove coma between toolbars. Make sure to keep inner coma.
+			return tools.toString().replace(/,/g, '').replace(/;/g, ',');
 		};
 
 		return {

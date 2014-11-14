@@ -20,13 +20,16 @@ var locationPath;
 			'gcviz-func',
 			'gcviz-v-map',
 			'gcviz-v-inset',
+			'gcviz-v-help',
+			'gcviz-v-wcag',
+			'gcviz-v-datagrid',
 			'gcviz-v-header',
 			'gcviz-v-footer',
 			'gcviz-v-tbdraw',
 			'gcviz-v-tbnav',
 			'gcviz-v-tblegend',
 			'gcviz-v-tbdata'
-	], function($viz, mp, jqui, i18n, gcvizFunc, map, inset, header, footer, tbdraw, tbnav, tblegend, tbdata) {
+	], function($viz, mp, jqui, i18n, gcvizFunc, map, inset, help, wcag, datagrid, header, footer, tbdraw, tbnav, tblegend, tbdata) {
 		var initialize,
 			readConfig,
 			execConfig,
@@ -103,10 +106,19 @@ var locationPath;
 				mapframe = config.mapframe,
 				mapid = mapframe.id,
 				size = mapframe.size,
-				vmArray = {};
+				width = size.width,
+				vmArray = {},
+				maxWidth = parseInt($mapElem.parent().css('width'), 10) - (2 * $mapElem.position().left); // get container width;
 
-			// create section around map. This way we can bind Knockout to the section
-			$mapElem.wrap('<section id=section' + mapid + ' class="gcviz-section" role="map" style="width:' + size.width + 'px; height:' + (size.height + 80) + 'px;">');
+			// check if the container width is smaller then gcviz. If so, set width to container width
+			// if user resize his window to a larger size later, the map will grow to the width
+			// specify in the config file.
+			if (maxWidth < size.width) {
+				width = maxWidth;
+			}
+
+			// create section around map. This way we can bind Knockout to the section (height = map + header + footer + wcag)
+			$mapElem.wrap('<section id=section' + mapid + ' class="gcviz-section" role="map" style="width:' + width + 'px; height:' + (size.height + 116) + 'px;">');
 			$mapSection = $viz(document).find('#section' + mapid);
 
 			// extend the section with configuration file info
@@ -114,13 +126,23 @@ var locationPath;
 
 			// create map and add layers
 			// save the result of every view model in an array of view models
-			vmArray.map = map.initialize($mapSection);
+			vmArray.map = map.initialize($mapSection, width);
+
 			// set the global vm to retreive link vm together
+			// we do it here first because we need a value from mapVM inside headerVM
 			gcvizFunc.setVM(mapid, vmArray);
+
+			// add the WCAG section for keyboard user
+			vmArray.wcag = wcag.initialize($mapSection);
 
 			// add header and footer
 			vmArray.header = header.initialize($mapSection);
 			vmArray.footer = footer.initialize($mapSection);
+
+			// add datatable, popup and hover
+			if (config.datagrid.enable) {
+				vmArray.datagrid = datagrid.initialize($mapSection);
+			}
 
 			// add draw toolbar
 			if (config.toolbardraw.enable) {
@@ -147,6 +169,9 @@ var locationPath;
 				vmArray.insets = inset.initialize($mapSection);
 			}
 
+			// create the help for the map instance
+			vmArray.help = help.initialize($mapSection);
+
 			// set the global vm to retreive link vm together
 			gcvizFunc.setVM(mapid, vmArray);
 
@@ -157,9 +182,40 @@ var locationPath;
 				$viz.event.trigger('gcviz-ready');
 
 				// set the resize event
-				window.onresize = gcvizFunc.debounce(function () {
-
-				}, 500, false);
+				window.onresize = gcvizFunc.debounce(function(event) {
+					var applyW, actualW, oriW, leftMarg, maxWidth,
+						$section = $(event.target.document.getElementsByClassName('gcviz-section')),
+						$mapholder = $section.find('.gcviz'),
+						$map = $section.find('.gcviz-map'),
+						$maproot = $section.find('.gcviz-root');
+						
+					// check if the $map is there (it is not there in full screen)
+					if (typeof $map !== 'undefined') {
+						// set parameters
+						actualW = parseInt($mapSection.css('width'), 10), // actual map width
+						oriW = parseInt($map.attr('gcviz-size').split(';')[1], 10), // original from config map width
+						leftMarg = $section.position().left, //containter left margin
+						maxWidth = parseInt($section.parent().css('width'), 10) - (2 * leftMarg); // get container width
+	
+						// map cant be smaller then 360px (tools panel width)
+						if (maxWidth < 360) {
+							maxWidth = 360;
+						}
+	
+						// check if we should apply the original width or the maximum possible width
+						if (oriW > maxWidth) {
+							applyW = maxWidth;
+						} else if (actualW < oriW && maxWidth > oriW) {
+							applyW = oriW;
+						}
+	
+						// set size
+						gcvizFunc.setStyle($section[0], { 'width': applyW + 'px' });
+						gcvizFunc.setStyle($mapholder[0], { 'width': applyW + 'px' });
+						gcvizFunc.setStyle($map[0], { 'width': applyW + 'px' });
+						gcvizFunc.setStyle($maproot[0], { 'width': applyW + 'px' });
+					}
+				}, 200, false);
 			}
 		};
 
@@ -212,7 +268,7 @@ var locationPath;
 				}
 					settings = $.extend({
 						scrollTarget: target,
-						offsetTop: 20,
+						offsetTop: 26,
 						duration: 500,
 						easing: 'swing'
 					}, options);

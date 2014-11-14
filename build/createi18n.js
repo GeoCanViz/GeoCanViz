@@ -25,7 +25,7 @@
 		fr = preFunct;
 	
 	// Read the first entry (skip header)
-	line = buffReader.readLine()
+	line = buffReader.readLine();
 	while (line !== null) {
 		
 		list = line.split('#');

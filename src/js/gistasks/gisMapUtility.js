@@ -7,7 +7,8 @@
  */
 (function () {
 	'use strict';
-	define(['kineticpanning',
+	define(['jquery-private',
+			'kineticpanning',
 			'gcviz-func',
 			'dijit/Menu',
 			'dijit/MenuItem',
@@ -26,7 +27,7 @@
 			'esri/geometry/Extent',
             'esri/geometry/Point',
             'esri/IdentityManager'
-	], function(kpan, func, menu, menuItem, menupopup, gisLegend, gisCluster, esriConfig, esriMap, esriFL, esriTiled, esriDyna, esriImage, webTiled, wms, wmsInfo, esriExt, esriPoint) {
+	], function($viz, kpan, func, menu, menuItem, menupopup, gisLegend, gisCluster, esriConfig, esriMap, esriFL, esriTiled, esriDyna, esriImage, webTiled, wms, wmsInfo, esriExt, esriPoint) {
 		var mapArray = {},
 			setProxy,
 			createMap,
@@ -36,9 +37,11 @@
 			connectLinkEvent,
 			connectEvent,
 			addLayer,
+			setScaleInfo,
 			resizeMap,
 			resizeCenterMap,
 			zoomPoint,
+			zoomFeature,
 			getMapCenter,
 			createMapMenu,
 			zoomIn,
@@ -64,9 +67,9 @@
 			esriConfig.defaults.io.alwaysUseProxy = false;
 		};
 
-        createMap = function(id, config) {
+        createMap = function(id, config, side) {
             var lod,
-            	iExtent = config.extentinit,
+				iExtent = config.extentinit,
                 fExtent = config.extentmax,
                 wkid = config.sr.wkid,
                 initExtent = new esriExt({ 'xmin': iExtent.xmin, 'ymin': iExtent.ymin,
@@ -102,6 +105,12 @@
 					wrapAround180: true,
 					smartNavigation: false
 				};
+
+				if (config.zoombar.bar) {
+					options.slider = true;
+					options.sliderPosition = side === 1 ? 'top-left' : 'top-right';
+					options.sliderStyle = 'large';
+				}
 			} else {
 				options = {
 					extent: initExtent,
@@ -135,7 +144,6 @@
 				// enable navigation (do not enable keyboard navigation,
 				// this is made with custom events)
 				map.enableScrollWheelZoom();
-				map.isZoomSlider = false;
 				map.disableDoubleClickZoom();
 
 				// connect event map
@@ -332,7 +340,52 @@
 			// cluster layer is added in gisCluster class
 			if (type !== 6) {
 				map.addLayer(layer);
+
+				// set scale info
+				setScaleInfo(map, layerInfo);
 			}
+		};
+
+		setScaleInfo = function(map, layerInfo) {
+			var layerScale,
+				scale = layerInfo.scale;
+
+			// set scale (we need to pass the map because the scale is not properly set at this stage)
+			layerScale = map.getLayer(layerInfo.id);
+			layerScale.myMap = map;
+			layerScale.on('load', function() {
+				var $leg,
+					min = scale.min,
+					max = scale.max,
+					mapScale = layerScale.myMap.getScale();
+
+				// set scales
+				layerScale.minScale = min;
+				layerScale.maxScale = max;
+
+				// remove mymap
+				delete layerScale.myMap;
+
+				// set scale class. We need to do this because the event
+				// scale-visibility havent been fired.
+				if (min !== 0 && max !== 0) {
+					if (min > mapScale && mapScale < max) {
+						$leg = $viz('#' + layerInfo.id);
+						$leg.addClass('gcviz-leg-dis');
+					}
+				}
+			});
+
+			// set event to know when layer is outside scale
+			layerScale.on('scale-visibility-change', function() {
+				var $leg = $viz('#' + layerInfo.id);
+
+				if (layerScale.visibleAtMapScale) {
+					$leg.removeClass('gcviz-leg-dis');
+				} else {
+					$leg.addClass('gcviz-leg-dis');
+				}
+			});
 		};
 
 		getOverviewLayer = function(configoverviewtype, configoverviewurl) {
@@ -372,6 +425,28 @@
 		zoomPoint = function(map, point) {
 			point = point || getMapCenter(map);
 			map.centerAt(point);
+		};
+
+		zoomFeature = function(map, feature) {
+			var pt, lods, len,
+				geom = feature.geometry,
+				type = geom.type,
+				factor = 0.25;
+
+			if (type === 'point') {
+
+				// if lods is define, do not use level
+				lods = map._params.lods,
+				len = lods.length;
+				if (len > 0) {
+					factor = lods[len - 1].level;
+				}
+
+				pt = new esriPoint(geom.x, geom.y, map.vWkid);
+				map.centerAndZoom(pt, factor);
+			} else {
+				map.setExtent(geom.getExtent().expand(1.5));
+			}
 		};
 
 		getMapCenter = function(map) {
@@ -499,9 +574,11 @@
 			createMap: createMap,
 			createInset: createInset,
 			addLayer: addLayer,
+			setScaleInfo: setScaleInfo,
 			resizeMap: resizeMap,
 			resizeCenterMap: resizeCenterMap,
 			zoomPoint: zoomPoint,
+			zoomFeature: zoomFeature,
 			getOverviewLayer: getOverviewLayer,
 			getMapCenter: getMapCenter,
 			manageScreenState: manageScreenState,

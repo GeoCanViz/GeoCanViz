@@ -79,8 +79,9 @@
 				anode += aFields + '</div>';
 
 				// need a spot in div for each renderer
-				domConstruct.place(anode, node);
-				domConstruct.place(domConstruct.create('br'), symbolLocation);
+				// for now we dont want the field use to symbolize
+				//domConstruct.place(anode, node);
+				//domConstruct.place(domConstruct.create('br'), symbolLocation);
 
 				$viz.each(legs, function(key, value) {
 					nodeImage = domConstruct.create('div', { 'class': 'gcviz-leg-uniqueSymbolHolder' });

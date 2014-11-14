@@ -11,9 +11,8 @@
 			'gcviz-gismap',
 			'esri/geometry/Point',
 			'esri/dijit/OverviewMap',
-			'esri/dijit/Scalebar',
-            'dojo/dom'
-	], function($viz, gisMap, esriPoint, esriOV, esriSB, dojoDom) {
+			'esri/dijit/Scalebar'
+	], function($viz, gisMap, esriPoint, esriOV, esriSB) {
 		var setOverview,
 			setScaleBar,
             getNTS,
@@ -21,10 +20,10 @@
 			zoomFullExtent;
 
 		setOverview = function(mymap, overview) {
-			var overviewMapDijit, divOV,
+			var ovTool, ovMap,
+				ovToolDiv, ovMapDiv,
 				bLayer = null,
 				mapid = mymap.vIdName,
-				ovDiv = dojoDom.byId('divOverviewMap' + mapid),
 				type = overview.type,
 				url = overview.url,
 				options = { map: mymap,
@@ -34,27 +33,36 @@
 
 				// If no layer specified, use the main map
 				// layer must be ArcGIS tiled, dynamic or imagery. It can also be OpenStreet map
-				bLayer = gisMap.getOverviewLayer(type, url);
-				if (bLayer !== null) {
-						options.baseLayer = bLayer;
+				if (url !== '') {
+					bLayer = gisMap.getOverviewLayer(type, url);
 				}
-				overviewMapDijit = new esriOV(options, ovDiv);
 
-				// we need to startup only when we see the div.
-				// open the tools and panels, startup then put back the original state
-				// iot is done in navVM
-				overviewMapDijit.startup();
+				if (bLayer !== null) {
+					options.baseLayer = bLayer;
+				}
+				ovTool = new esriOV(options, document.getElementById('divOverviewMap' + mapid));
+				ovMap = new esriOV(options, document.getElementById('ovmap' + mapid));
 
+				// *** startup the overview map in the toolbarnav (we need to see the div)
 				// work around to resize the overview div because it wont work only
 				// with the option from the dijit.
-				divOV = $viz('#divOverviewMap' + mapid + '-map');
-				divOV.width(230).height(100);
-				overviewMapDijit.resize();
+				ovToolDiv = $viz('#divOverviewMap' + mapid + '-map');
+				ovToolDiv.width(230).height(100);
+				ovTool.resize();
+
+				// *** set the overview map on the map. We need both because user can decide to see it on the map
+				ovMapDiv = $viz('ovmap' + mapid + '-map');
+				ovMapDiv.width(230).height(100);
+				ovMap.resize();
+				ovMap.hide();
+
+				// return both object to be able to show and hide from the viewmodel
+				return [ovTool, ovMap];
 		};
 
 		setScaleBar = function(mymap, scalebar) {
 			var sbMapDijit,
-				ovSB = dojoDom.byId('divScalebar' + mymap.vIdName),
+				ovSB = document.getElementById('divScalebar' + mymap.vIdName),
 				options = { map: mymap,
 							scalebarStyle: 'line',
 							scalebarUnit: 'metric',
@@ -69,29 +77,29 @@
 		};
 
         getNTS = function(lati, longi, urlNTS) {
-            var def = $viz.Deferred(); // Use a deferred object to call the service
+			var def = $viz.Deferred(); // Use a deferred object to call the service
 
-            urlNTS += longi + ',' + lati + ',' + longi + ',' + lati;
-            $viz.getJSON(urlNTS).done(function(data){
-                def.resolve({
-                    nts:data.features[0].properties.identifier + ' - ' + data.features[0].properties.name
+			urlNTS += longi + ',' + lati + ',' + longi + ',' + lati;
+			$viz.getJSON(urlNTS).done(function(data) {
+				def.resolve({
+					nts: data.features[0].properties.identifier + ' - ' + data.features[0].properties.name
                 });
             });
             // return the deferred object for listening
-            return def;
+			return def;
         };
 
         getUTMzone = function(lati, longi, urlUTM) {
-            var def = $viz.Deferred(); // Use a deferred object to call the service
+			var def = $viz.Deferred(); // Use a deferred object to call the service
 
-            urlUTM += longi + ',' + lati + ',' + longi + ',' + lati;
-            $viz.getJSON(urlUTM).done(function(data){
-                def.resolve({
-                    zone:data.features[0].properties.identifier
-                });
-            });
+			urlUTM += longi + ',' + lati + ',' + longi + ',' + lati;
+			$viz.getJSON(urlUTM).done(function(data) {
+				def.resolve({
+					zone: data.features[0].properties.identifier
+				});
+			});
             // return the deferred object for listening
-            return def;
+			return def;
         };
 
 		zoomFullExtent = function(mymap) {

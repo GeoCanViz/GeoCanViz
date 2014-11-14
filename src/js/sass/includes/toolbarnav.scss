@@ -1,10 +1,34 @@
 @import "includes/gcviz-mixin";
 
-// buttons
-.gcviz-nav-max {
-	@include sprite($img-spritebtn, -1012, -2);
+%ovmap {
+	opacity: 1.0!important;
+  width: 230px!important;
+  background: $lightyellow;
 }
 
+%ovscalemap {
+	position: absolute;
+  bottom: (4 * $rembase) + rem;
+  z-index: 30;
+}
+
+%ovborder {
+	@include app-border(0.1, solid, $orange-darkborder);
+}
+
+// content height is static so remove the overflow
+.gcviz-tbnav-content {
+	overflow-x: initial!important;
+}
+
+// autocomplete
+.gcviz-nav-auto {
+	width: 93%;
+	margin-top: 0!important;
+	margin-bottom: 0!important;
+}
+
+// map localisation buttons
 .gcviz-nav-pos {
 	@include sprite($img-spritebtn, -1049, -2);
 }
@@ -13,120 +37,88 @@
   cursor: url(#{ $img-root }navCursor.cur), crosshair;
 }
 
-// position items in responsive grid
-.gcviz-nav-zoom {
-	height: (4 * $rembase) + rem;
-	margin-top: (1 * $rembase) + rem;
-	
-	.span10 {
-		line-height: (4 * $rembase) + rem;
-	}
+.gcviz-nav-lblpos {
+	margin-top: (0.8 * $rembase) + rem;
+	margin-left: (1 * $rembase) + rem;
 }
 
-.gcviz-nav-tools {
-	height: (5 * $rembase) + rem;
+.gcviz-nav-info {
+	margin-top: (0.8 * $rembase) + rem;
 }
 
+// overview map
 .gcviz-nav-overview {
-	height: (11 * $rembase) + rem;
+	margin-top: (0.8 * $rembase) + rem;
 	
+	// if no height specified, span is ignore
 	.span1 {
 		height: (4 * $rembase) + rem;
 	}
 }
 
-.gcviz-nav-scale {
-	.span1 {
-		height: (4 * $rembase) + rem;
-	}
+.gcviz-nav-lblovdisp {
+	margin-left: (0.5 * $rembase) + rem;
 }
-
-/* Reset some ESRI classes that are being modified by the Map classes */
-.esriOverviewMap .ovwContainer .map {overflow: hidden;}
-.esriOverviewMap .ovwContainer .map .container {position: absolute; border: none; padding: 0px; margin: 0px; left: 0px; top: 0px; overflow: hidden; width: 100%; height: 100%;}
-.esriOverviewMap .ovwContainer .map .container .layersDiv {position: relative; left: 0px; top: 0px; width: 100%; height: 100%;}
-.esriOverviewMap .ovwContainer .map .container .layersDiv .layerTile {position: absolute; border: none; margin: 0px; padding: 0px;}
-.esriOverviewMap .ovwContainer .map .container .container {-webkit-tap-highlight-color: rgba(0, 0, 0, 0);}
-
-/* Change overview highlight of ESRI element */
-.ovwHighlight {
-  z-index: 999!important;
-  border: solid 3px #F00!important;
-  background-color: transparent;
-  position: relative!important;
-}
-/* End of Reset some ESRI classes that are being modified by the Map classes */
 
 .gcviz-ovtoolcontainer {
-  opacity: 1.0!important;
-  @include app-border(0.1, solid, $black);
+	@extend %ovmap;
+	@extend %ovborder;
+	margin: (0.5 * $rembase) + rem 0;
+}
+
+.gcviz-ovmapcontainerl {
+  @extend %ovmap;
+  @extend %ovscalemap;
+  left: 0;
+}
+
+.gcviz-ovmapcontainerr {
+  @extend %ovmap;
+  @extend %ovscalemap;
+  right: 0;
+}
+
+.gcviz-ov-border {
+	@extend %ovborder;
 }
 
 .gcviz-overviewMap {
   position: relative!important;
 }
 
-.gcviz-overviewMapContent {
-  width: 247px!important;
-  height: 100px!important;
+// scale bar and scale display
+.gcviz-nav-scale {
+	margin-top: (1.5 * $rembase) + rem;
 }
-
-/* Classes from esri.css for scalebar */
-.esriScalebar {
-  z-index:30;
-  width: 0px;
-  height:20px;
-}
-
-.esriScaleLabelDiv {
-  position: relative;
-  top: -5px;
-  width: 100%;
-  padding: 2px;
-}
-
-.esriScalebarLabel {
-  @include app-text(0.75);
-}
-
-.esriScalebarLineLabel {
-  position: relative;
-}
-
-.esriScalebarFirstNumber {
-  left: 45%;
-}
-
-.esriScalebarSecondNumber {
-  left: 95%;
-}
-
-.esriScalebarLine {
-  overflow: hidden;
-  position: relative;
-  width: 100%;
-  height: 6px;
-  border:2px solid #444444;
-}
-
-.esriScalebarMetricLine {
-  border-top-style: none;
-}
-/* End of classes from esri.css for scalebar */
 
 // scale display
 .gcviz-scaleDisplayLabel {
   @include app-text(1.1);
   display: block;
+  line-height: 1;
 }
 
-.gcviz-scaleApprox {
-  @include app-text(0.75);
-  margin-top: (0.5 * $rembase) + rem;
+/* Reset some ESRI classes that are being modified by the Map classes */
+.esriOverviewMap .ovwContainer .map { overflow: hidden; }
+.esriOverviewMap .ovwContainer .map .container { position: absolute; border: none; padding: 0px; margin: 0px; left: 0px; top: 0px; overflow: hidden; width: 100%; height: 100%; }
+.esriOverviewMap .ovwContainer .map .container .layersDiv { position: relative; left: 0px; top: 0px; width: 100%; height: 100%; }
+.esriOverviewMap .ovwContainer .map .container .layersDiv .layerTile { position: absolute; border: none; margin: 0px; padding: 0px; }
+.esriOverviewMap .ovwContainer .map .container .container { -webkit-tap-highlight-color: rgba(0, 0, 0, 0); }
+.esriOverviewMap .ovwContainer .map .container .container .layersDiv img { margin: 0px!important; }
+/* Change overview highlight of ESRI element */
+
+.ovwHighlight {
+  z-index: 999!important;
+  border: solid 3px #F00!important;
+  background-color: transparent;
+  position: relative!important;
+  cursor: pointer;
 }
+/* End of Reset some ESRI classes that are being modified by the Map classes */
 
 .gcviz-navinfo-content {
   margin-top: (0.5 * $rembase) + rem!important;
   @include app-border(0.1, solid, #000000);
   @include content-border-radius(0.6);
+  width: 93%;
 }
