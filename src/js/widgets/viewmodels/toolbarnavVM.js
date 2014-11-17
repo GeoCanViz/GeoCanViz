@@ -227,7 +227,7 @@
 						$viz.ajax({
 							url: _self.geoLocUrl,
 							cache: false,
-							dataType: 'json',
+							dataType: 'jsonp', // jsonp because itis cross domain
 							data: {
 								q: request.term + '*'
 							},
