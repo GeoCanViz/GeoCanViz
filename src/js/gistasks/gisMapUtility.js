@@ -68,7 +68,7 @@
 		};
 
         createMap = function(id, config, side) {
-            var lod,
+            var lod, mapUpdate,
 				iExtent = config.extentinit,
                 fExtent = config.extentmax,
                 wkid = config.sr.wkid,
@@ -159,6 +159,12 @@
 
 				// add context menu
 				//gisM.createMapMenu(mymap);
+            });
+
+            // remove loading image when map has updated
+            mapUpdate = map.on('update-end', function() {
+				func.destroyProgressBar();
+				mapUpdate.remove();
             });
 
 			return map;

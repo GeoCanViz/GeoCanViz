@@ -44,6 +44,9 @@
 						$root,
 						$container;
 
+					// add loading image
+					gcvizFunc.setProgressBar(i18n.getDict('%mp-load'));
+
 					// set proxy for esri request (https://github.com/Esri/resource-proxy)
 					gisM.setProxy(config.urlproxy);
 
@@ -161,7 +164,7 @@
 									flag = true;
 								}
 							}
-							
+
 							// if not tools acitve, just toggle the menu
 							if (!flag) {
 								gcvizFunc.getElemValueVM(mapid, ['header', 'toolsClick'], 'js')();

@@ -30,7 +30,6 @@
 					clickPosition,
 					overview = config.overview,
 					scaledisplay = config.scaledisplay,
-					position = config.position,
                     inMapField = $viz('#inGeoLocation' + mapid),
                     btnClickMap = $viz('#btnClickMap' + mapid),
                     $container = $viz('#' + mapid + '_holder_layers'),
@@ -166,10 +165,10 @@
 							$menu.off('accordionactivate');
 						}
 					});
-					
+
 					// if the panel is open but not the menu we need to have another way
 					// to trigger the overview startup
-					$menu.on('accordionactivate', function(event, ui) {
+					$menu.on('accordionactivate', function(event) {
 						var panel,
 							menu = $viz(event.target.getElementsByTagName('h3')[0]).hasClass('ui-state-active'),
 							panels = event.target.getElementsByTagName('h3'),
@@ -180,7 +179,7 @@
 								panel = $viz(panels[len]);
 								if (panel.hasClass('gcviz-nav-panel') && panel.hasClass('ui-state-active')) {
 									ovMapWidget[0].startup();
-									
+
 									// remove the events
 									$panel.off('accordionactivate');
 									$menu.off('accordionactivate');
@@ -204,16 +203,21 @@
 						clickPosition.remove();
 					}
 
-					// reset active tool
-					_self.activeTool('');
+					$menu.on('accordionactivate', function() {
+						$menu.off('accordionactivate');
 
-					// open mneu
+						// bug with jQueryUI, focus does not work when menu open
+						setTimeout(function() {
+							// focus last active tool
+							btnClickMap.focus();
+
+							// reset active tool
+							_self.activeTool('');
+						}, 1000);
+					});
+
+					// open menu
 					$menu.accordion('option', 'active', 0);
-
-					// focus last active tool
-					setTimeout(function() {
-						btnClickMap.focus();
-					}, 500);
 				};
 
 				// Clear the input field on focus if it contains the default text
@@ -426,7 +430,7 @@
 							ovMapWidget[1].startup();
 							gblOVMap = true;
 						}
-						
+
 						ovMapWidget[1].show();
 						ovMapWidget[0].hide();
 						$ovMap.addClass('gcviz-ov-border');

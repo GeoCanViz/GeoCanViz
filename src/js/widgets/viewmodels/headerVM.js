@@ -20,7 +20,6 @@
 	], function($viz, ko, media, gisPrint, i18n, binding, gcvizFunc, gisM, helpVM) {
 		var initialize,
 			printSimple,
-			toggleMenu,
 			vm;
 
 		initialize = function($mapElem, mapid, config) {
@@ -67,7 +66,7 @@
                 _self.navAlt = i18n.getDict('%toolbarnav-alt');
                 _self.dataTitle = i18n.getDict('%toolbardata-name');
                 _self.dataAlt = i18n.getDict('%toolbardata-alt');
-                
+
 				// about dialog box
 				_self.lblAboutTitle = i18n.getDict('%header-tpabout');
 				_self.isAboutDialogOpen = ko.observable(false);
@@ -113,28 +112,28 @@
                     setTimeout(function() {
 						_self.adjustContainerHeight();
 					}, 500);
-					
+
 					// if expand is false toggle (open by default)
 					if (!_self.toolsInit.expand) {
-						$menu.on('accordioncreate', function(event, ui) {
+						$menu.on('accordioncreate', function() {
 							$menu.accordion('option', 'active', false);
 							$menu.off('accordioncreate');
 						});
 					}
 
 					// set the active toolbar
-					$menuCont.on('accordioncreate', function(event, ui) {
+					$menuCont.on('accordioncreate', function(event) {
 						var value,
 							items = event.target.getElementsByTagName('div'),
 							len = items.length;
 
 						while (len--) {
 							value = items[len].getAttribute('gcviz-exp');
-							if (value === "true") {
+							if (value === 'true') {
 								$menuCont.accordion('option', 'active', len);
 							}
 						}
-						
+
 						$menuCont.off('accordioncreate');
 					});
 
@@ -146,13 +145,13 @@
 						},
 						callbacks: {
 							beforeOpen: function() {
-								_self.requestFullScreen();		
-							},	
+								_self.requestFullScreen();
+							},
 							close: function() {
 								_self.cancelFullScreen();
 							},
 							afterClose: function() {
-								$('#' + mapid).removeClass('mfp-hide');
+								$viz('#' + mapid).removeClass('mfp-hide');
 								gisM.resizeCenterMap(map, 0);
 							}
 						},
@@ -219,7 +218,7 @@
 
 				_self.toolsClick = function() {
 					var open = $menu.accordion('option', 'active');
-					
+
 					// Toggle the tools container
 					if (open === 0) {
 						$menu.accordion('option', 'active', false);
@@ -317,7 +316,7 @@
                 };
 
                 _self.adjustContainerHeight = function() {
-					var toolbarheight = parseInt(map.height, 10) - 10;
+					var toolbarheight = parseInt(map.height, 10) - 5;
 					_self.xheightToolsOuter('max-height:' + toolbarheight + 'px!important');
 					_self.xheightToolsInner('max-height:' + (toolbarheight - instrHeight) + 'px!important'); // remove the keyboard instruction height
                 };
@@ -339,10 +338,10 @@
 					} else if (key === 9 && shift) {
 						if (node === firstClass) {
 							// workaround to avoid focus shifting to the previous element
-							setTimeout(function() { 
+							setTimeout(function() {
 								lastItem.focus();
 							}, 0);
-							
+
 							// still focus on previous item. If not Chrome will freeze
 							if (window.browser === 'Chrome') {
 								lastItem.focus();
@@ -361,18 +360,29 @@
 
 		printSimple = function(map, template) {
 			var mapid = map.vIdName,
-				node = $viz('#' + mapid + '_holder').clone();
+				node = $viz('#' + mapid + '_holder'),
+				height = node.css('height'),
+				width = node.css('width');
 
 			// set map size to fit the print page
 			gcvizFunc.setStyle(node[0], { 'width': '10in', 'height': '5.5in' });
 			gcvizFunc.setStyle(node.find('#' + mapid + '_holder_root')[0], { 'width': '10in', 'height': '5.5in' });
-			
+
 			// resize map and keep the extent
-			gisM.manageScreenState(map, 1000, true);
+			gisM.manageScreenState(map, 500, true);
 
 			// set the local storage then open page
-			localStorage.setItem('gcvizPrintNode', node[0].outerHTML);
-			window.open(template + 'defaultPrint.html');
+			setTimeout(function() {
+				localStorage.setItem('gcvizPrintNode', node[0].outerHTML);
+				window.open(template + 'defaultPrint.html');
+			}, 1500);
+
+			// set map size to previous values
+			setTimeout (function() {
+				gcvizFunc.setStyle(node[0], { 'width': width, 'height': height });
+				gcvizFunc.setStyle(node.find('#' + mapid + '_holder_root')[0], { 'width': width, 'height': height });
+				gisM.manageScreenState(map, 500, true);
+			}, 2000);
 		};
 
 		return {

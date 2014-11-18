@@ -25,14 +25,15 @@
 			// set width and height (map + header and footer)
 			$div.css({ 'width': widthMax, 'height': height + 80 });
 
+			// set the side class extension to know where to put items
+			ext = side === 1 ? 'l' : 'r';
+
 			// add a wrapper around the map (keep original height and witdh on the element for resize event)
-			$div.prepend('<div id="' + mapid + '_holder' + '" name="map" class="gcviz-mapholder" gcviz-size="' + height + ';' + width + '" data-bind="event: { mouseover: enterMouse, mouseout: leaveMouse }, hasfocus: mapfocus.focused, enterkey: { func: \'applyKey\', keyType: \'keyup\' }" tabindex="0"><div class="gcviz-loading"><div class="gcviz-loadingLabel"></div></div></div>');
+			$div.prepend('<div id="' + mapid + '_holder' + '" name="map" class="gcviz-mapholder" gcviz-size="' + height + ';' + width + '" data-bind="event: { mouseover: enterMouse, mouseout: leaveMouse }, hasfocus: mapfocus.focused, enterkey: { func: \'applyKey\', keyType: \'keyup\' }" tabindex="0"><div class="gcviz-loading gcviz-loading-' + ext + '"><div class="gcviz-loadingLabel"></div></div></div>');
 
 			// add zoom full extent
 			holder = $mapElem.find('#' + mapid + '_holder');
 			if (config.zoombar.zoom) {
-				// set the side class extension to know where to put zoom max
-				ext = side === 1 ? 'l' : 'r';
 				holder.prepend('<button class="gcviz-map-zoommax' + ext + '" tabindex="0" data-bind="buttonBlur, click: extentClick, tooltip: { content: tpZoomFull }"></button>');
 			}
 

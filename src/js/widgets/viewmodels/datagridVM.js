@@ -38,7 +38,6 @@
 					$datagrid = $viz('#gcviz-datagrid' + mapid),
 					$datatab = $viz('#gcviz-datatab' + mapid),
 					$datatabUl = $datatab.find('ul'),
-					$popLayerSel = $viz('#popupSelect' + mapid),
 					$popContent = $viz('#gcviz-popup-content' + mapid);
 
 				// text for datatable
@@ -231,7 +230,6 @@
 						field = fields[lenFields];
 
 						field.render = function (data, type) {
-							var type;
 							if (data !== null) {
 								return type === 'display' && data.length > 40 ?
 								'<span title="'+ data +'">' + data.substr(0, 38) + '...</span>' : data;
@@ -532,7 +530,6 @@
 				_self.returnIdTask = function(array) {
 					var features, feature, lenFeat,
 						isFeatures = false,
-						layerNamesList = [],
 						lenLayers = array.length;
 
 					// reset array of feature and layer selection
@@ -648,7 +645,7 @@
 					if (selLayer !== allLayer) {
 						while (len--) {
 							feat = allIdFeatures[len];
-							
+
 							if (feat.layerName === selLayer) {
 								selectIdFeatures.push(feat);
 							}
@@ -656,7 +653,7 @@
 					} else {
 						selectIdFeatures = allIdFeatures;
 					}
-					
+
 					// set total count. If it is 0, it means there is no
 					// feature on the layer selected by default. In this case, set back
 					// to all features and select the all layers value.

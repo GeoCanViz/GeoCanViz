@@ -146,7 +146,7 @@
 			});
 		}
 	};
-	
+
 	ko.bindingHandlers.panelBlur = {
 		init: function(element) {
 			// add the element to the array to have an array of all problematic panels

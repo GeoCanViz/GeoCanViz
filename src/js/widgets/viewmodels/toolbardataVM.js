@@ -60,7 +60,7 @@
 
 				_self.dialogDataClose = function() {
 					_self.isErrDataOpen(false);
-					
+
 					// focus back on add to keep focus
 					$btnCSV.focus();
 				};
@@ -74,7 +74,7 @@
 					} else {
 						_self.add(vm, event);
 					}
-					
+
 					// focus back on add to keep focus
 					$btnCSV.focus();
 				};
@@ -130,7 +130,7 @@
 					// to ave the function call when we add the item to the array.
 					mymap.removeLayer(mymap.getLayer(selectedItem.id));
 					_self.userArray.remove(selectedItem);
-					
+
 					// focus back on add to keep focus
 					$btnCSV.focus();
 				};

@@ -110,12 +110,11 @@
 
 		setProgressBar = function(label) {
 			$viz('.gcviz-loadingLabel').text(label);
-			$viz('.gcviz-loading').progressbar({ value: false });
+			$viz('.gcviz-loading').progressbar({ value: false }).removeClass('gcviz-hidden');
 		};
 
 		destroyProgressBar = function() {
-			$viz('.gcviz-loadingLabel').text('');
-			$viz('.gcviz-loading').progressbar('destroy');
+			$viz('.gcviz-loading').addClass('gcviz-hidden');
 		};
 
 		checkMatch = function(array, val) {

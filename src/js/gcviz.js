@@ -41,8 +41,8 @@ var locationPath;
 		 *  initialize the GCViz application
 		 */
 		initialize = function() {
-			var maps = $viz('.gcviz'),
-				mapElem,
+			var mapElem, body,
+				maps = $viz('.gcviz'),
 				len = maps.length;
 
 			// extent or private AMD jQuery with the jQuery from outside project to get reference to some dependencies (magnificPopup, jqueryUI, slidesJS)
@@ -52,6 +52,10 @@ var locationPath;
 			// initialize map number and total for the ready event
 			mapsTotal = len;
 			mapsNum = 0;
+
+			// add the browser class to body element. It will help us to use specific css style for IE
+			body = document.getElementsByTagName('body')[0];
+			body.className = body.className + ' ' + window.browser;
 
 			// set location path
 			setLocationPath();
@@ -178,9 +182,7 @@ var locationPath;
 			mapsNum += 1;
 
 			if (mapsNum === mapsTotal) {
-				// if all maps are there, trigger the ready event
-				$viz.event.trigger('gcviz-ready');
-
+				// TODO have resize by map!
 				// set the resize event
 				window.onresize = gcvizFunc.debounce(function(event) {
 					var applyW, actualW, oriW, leftMarg, maxWidth,
@@ -188,7 +190,7 @@ var locationPath;
 						$mapholder = $section.find('.gcviz'),
 						$map = $section.find('.gcviz-map'),
 						$maproot = $section.find('.gcviz-root');
-						
+
 					// check if the $map is there (it is not there in full screen)
 					if (typeof $map !== 'undefined') {
 						// set parameters
@@ -196,19 +198,19 @@ var locationPath;
 						oriW = parseInt($map.attr('gcviz-size').split(';')[1], 10), // original from config map width
 						leftMarg = $section.position().left, //containter left margin
 						maxWidth = parseInt($section.parent().css('width'), 10) - (2 * leftMarg); // get container width
-	
+
 						// map cant be smaller then 360px (tools panel width)
 						if (maxWidth < 360) {
 							maxWidth = 360;
 						}
-	
+
 						// check if we should apply the original width or the maximum possible width
 						if (oriW > maxWidth) {
 							applyW = maxWidth;
 						} else if (actualW < oriW && maxWidth > oriW) {
 							applyW = oriW;
 						}
-	
+
 						// set size
 						gcvizFunc.setStyle($section[0], { 'width': applyW + 'px' });
 						gcvizFunc.setStyle($mapholder[0], { 'width': applyW + 'px' });

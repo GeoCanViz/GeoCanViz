@@ -90,7 +90,7 @@
 			// position information
 			if (configPosition) {
 				// Setup a dialog box to show results
-				node += '<div data-bind="uiDialog: { title: lblLocTitle, width: 400, height: 625, close: dialogLocOk, openDialog: \'isLocDialogOpen\' }">' +
+				node += '<div data-bind="uiDialog: { title: lblLocTitle, width: 400, height: 625, modal: false, draggable: true, close: dialogLocOk, openDialog: \'isLocDialogOpen\' }">' +
 							'<div class="gcviz-navinfo-content">' +
 								'<strong>&nbsp;<span data-bind="text: infoTopoCoord"></span></strong>' +
 								'<p><strong data-bind="text: infoDecDeg"></strong></p>' +
