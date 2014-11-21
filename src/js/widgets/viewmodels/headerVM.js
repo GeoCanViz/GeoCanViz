@@ -27,7 +27,7 @@
 			var headerViewModel = function($mapElem, mapid, config) {
 				var _self = this,
 					configAbout = config.about,
-					pathPrint = locationPath + 'gcviz/print/',
+					pathPrint = locationPath + 'gcviz/print/toporamaPrint-' + window.langext + '.html',
 					pathHelpBubble = locationPath + 'gcviz/images/helpBubble.png',
 					$section = $viz('#section' + mapid),
 					$mapholder = $viz('#' + mapid),
@@ -113,14 +113,6 @@
 						_self.adjustContainerHeight();
 					}, 500);
 
-					// if expand is false toggle (open by default)
-					if (!_self.toolsInit.expand) {
-						$menu.on('accordioncreate', function() {
-							$menu.accordion('option', 'active', false);
-							$menu.off('accordioncreate');
-						});
-					}
-
 					// set the active toolbar
 					$menuCont.on('accordioncreate', function(event) {
 						var value,
@@ -134,6 +126,14 @@
 							}
 						}
 
+						// if expand is false toggle (open by default)
+						if (!_self.toolsInit.expand) {
+							// need to be in timeout. If not, doesnt work
+							setTimeout(function(){
+								$menu.accordion('option', 'active', false);
+							}, 0);
+						}
+					
 						$menuCont.off('accordioncreate');
 					});
 
@@ -359,30 +359,44 @@
 		};
 
 		printSimple = function(map, template) {
-			var mapid = map.vIdName,
+			var center = {},
+				mapid = map.vIdName,
 				node = $viz('#' + mapid + '_holder'),
+				arrow = $viz('#arrow' + mapid),
+				scale = $viz('#scaletool' + mapid),
+				scalebar = $viz('#scalebar' + mapid),
 				height = node.css('height'),
 				width = node.css('width');
 
+			// get center map
+			center.point = gisM.getMapCenter(map);
+
 			// set map size to fit the print page
-			gcvizFunc.setStyle(node[0], { 'width': '10in', 'height': '5.5in' });
-			gcvizFunc.setStyle(node.find('#' + mapid + '_holder_root')[0], { 'width': '10in', 'height': '5.5in' });
+			gcvizFunc.setStyle(node[0], { 'width': '10in', 'height': '5.25in' });
+			gcvizFunc.setStyle(node.find('#' + mapid + '_holder_root')[0], { 'width': '10in', 'height': '5.25in' });
 
-			// resize map and keep the extent
-			gisM.manageScreenState(map, 500, true);
+			// resize map and center to keep scale
+			center.interval = 1500;
+			gisM.resizeCenterMap(map, center);
 
-			// set the local storage then open page
+			// open the print page here instead of timemeout because if we do so, it will act as popup.
+			// It needs to be in a click event to 
+			window.open(template);
+
+			// set the local storage
 			setTimeout(function() {
 				localStorage.setItem('gcvizPrintNode', node[0].outerHTML);
-				window.open(template + 'defaultPrint.html');
-			}, 1500);
+				localStorage.setItem('gcvizArrowNode', arrow[0].outerHTML);
+				localStorage.setItem('gcvizScaleNode', scale[0].outerHTML);
+				localStorage.setItem('gcvizScalebarNode', scalebar[0].outerHTML);
+			}, 3500);
 
 			// set map size to previous values
 			setTimeout (function() {
 				gcvizFunc.setStyle(node[0], { 'width': width, 'height': height });
 				gcvizFunc.setStyle(node.find('#' + mapid + '_holder_root')[0], { 'width': width, 'height': height });
-				gisM.manageScreenState(map, 500, true);
-			}, 2000);
+				gisM.resizeCenterMap(map, center);
+			}, 7000);
 		};
 
 		return {

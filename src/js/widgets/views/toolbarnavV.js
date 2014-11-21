@@ -108,7 +108,8 @@
 							'</div>' +
 							'<div class="gcviz-navinfo-content">' +
 								'<strong>&nbsp;<span data-bind="text: infoNTS"></span></strong>' +
-								'<p></span><span data-bind="text: spnNTS"></span></p>' +
+								'<p></span><span data-bind="text: spnNTS250"></span></p>' +
+								'<p></span><span data-bind="text: spnNTS50"></span></p>' +
 							'</div>' +
 							'<div class="gcviz-navinfo-content">' +
 								'<strong>&nbsp;<span data-bind="text: infoAltitude"></span></strong>' +

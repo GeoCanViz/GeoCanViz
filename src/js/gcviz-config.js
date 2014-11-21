@@ -18,9 +18,12 @@
 
 	if ((url.search(/_f\.htm/) > -1) || (url.search(/-fra\./) > -1) || (url.search(/-fr\./) > -1) || (url.search(/lang=fra/) > -1) || (url.search(/lang=fr/) > -1)) {
 		language = 'fr-min';
+		window.langext = 'fra';
 	} else if ((url.search(/_e\.htm/) > -1) || (url.search(/-eng\./) > -1) || (url.search(/-en\./) > -1) || (url.search(/lang=eng/) > -1) || (url.search(/lang=en/) > -1)) {
 		language = 'en-min';
+		window.langext = 'eng';
 	} else {
+		window.langext = 'eng';
 		console.log('language not set, English by default');
 	}
 
@@ -253,19 +256,19 @@
 			}, {
 				name: 'gcviz-v-help',
 				location: locationPath + 'gcviz/js/views',
-				main: 'helpV'
+				main: 'helpV-min'
 			}, {
 				name: 'gcviz-vm-help',
 				location: locationPath + 'gcviz/js/viewmodels',
-				main: 'helpVM'
+				main: 'helpVM-min'
 			}, {
 				name: 'gcviz-v-wcag',
 				location: locationPath + 'gcviz/js/views',
-				main: 'wcagV'
+				main: 'wcagV-min'
 			}, {
 				name: 'gcviz-vm-wcag',
 				location: locationPath + 'gcviz/js/viewmodels',
-				main: 'wcagVM'
+				main: 'wcagVM-min'
 			}, {
 				name: 'gcviz-v-header',
 				location: locationPath + 'gcviz/js/views',

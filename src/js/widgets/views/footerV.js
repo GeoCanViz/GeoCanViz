@@ -44,7 +44,7 @@
 			// set scalebar
 			node += '<div class="span2">';
 			if (configScalebar) {
-				node += '<div id="divScalebar' + mapid + '" class="unselectable"></div>';
+				node += '<div id="scalebar' + mapid + '" class="unselectable"></div>';
 			}
 			node += '</div>';
 
@@ -58,7 +58,7 @@
 			// set north arrow
 			node += '<div class="span1">';
 			if (config.northarrow.enable) {
-				node += '<div id="arrow_' + mapid + '" class="gcviz-foot-arrow unselectable" data-bind="style: { \'webkitTransform\': rotateArrow(), ' +
+				node += '<div id="arrow' + mapid + '" class="gcviz-foot-arrow unselectable" data-bind="style: { \'webkitTransform\': rotateArrow(), ' +
 																												'\'MozTransform\': rotateArrow(), ' +
 																												'\'msTransform\': rotateArrow(), ' +
 																												'\'OTransform\': rotateArrow(), ' +

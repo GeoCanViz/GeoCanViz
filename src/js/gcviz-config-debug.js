@@ -18,9 +18,12 @@
 
 	if ((url.search(/_f\.htm/) > -1) || (url.search(/-fra\./) > -1) || (url.search(/-fr\./) > -1) || (url.search(/lang=fra/) > -1) || (url.search(/lang=fr/) > -1)) {
 		language = 'fr-min';
+		window.langext = 'fra';
 	} else if ((url.search(/_e\.htm/) > -1) || (url.search(/-eng\./) > -1) || (url.search(/-en\./) > -1) || (url.search(/lang=eng/) > -1) || (url.search(/lang=en/) > -1)) {
 		language = 'en-min';
+		window.langext = 'eng';
 	} else {
+		window.langext = 'eng';
 		console.log('language not set, English by default');
 	}
 

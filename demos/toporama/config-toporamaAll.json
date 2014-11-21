@@ -667,7 +667,8 @@
                 },
                 "customimage": {
                     "enable": false,
-                    "images":[{}]
+                    "url": "http://s-bsc-geoappint.nrn.nrcan.gc.ca/GeoCanViz/CCMEO/images/hillshade.png",
+                    "alttext": "Hillshade picture"
                 },
                 "items": []
             },{
@@ -704,7 +705,8 @@
             	},
             	"customimage":{
             		"enable":false,
-            		"images":[{}]
+            		"url":"http://s-bsc-geoappint.nrn.nrcan.gc.ca/GeoCanViz/CCMEO/images/Lansat7.png",
+            		"alttext":"Geobase landsat imagery legend"
             	},
             	"items":[]
             
@@ -740,7 +742,8 @@
                 },
                 "customimage": {
                     "enable": false,
-                    "images":[{}]
+                    "url": "http://s-bsc-geoappint.nrn.nrcan.gc.ca/GeoCanViz/CCMEO/images/CBMT.png",
+                    "alttext": "Canada base map image icon"
                 },
                 "items": []
             }],
@@ -776,16 +779,8 @@
             	},
             	"customimage":{
             		"enable":true,
-            		"images":[{
-            			"url":"legendImg/airfield_alt.gif",
-            			"label":"Toporama legend for sample with the new way to do the stuff... we mean now we go with a table and real text instead of images."
-            		},{
-            			"url":"legendImg/airport_2_alt.gif",
-            			"label":"Canal / Lake / Watercourse / Reservoir: Intermittent"
-            		},{
-            			"url":"legendImg/airport_alt.gif",
-            			"label":"Toporama legend"
-            		}]
+            		"url":"canvec_en.jpg",
+            		"alttext":"Toporama legend"
             	},
             	"items":[]
             },{
@@ -818,8 +813,7 @@
                     "enable": true
                 },
                 "customimage": {
-                    "enable": false,
-                    "images":[{}]
+                    "enable": false
                 },
                 "items": [{
                 "expand": false,
@@ -851,8 +845,7 @@
                     "enable": true
                 },
                 "customimage": {
-                    "enable": false,
-                    "images":[{}]
+                    "enable": false
                 },
                 "items": [{
 						"expand":false,
@@ -886,10 +879,8 @@
 						},
 						"customimage":{
 							"enable":true,
-							"images":[{
-								"url":"http://s-bsc-geoappint.nrn.nrcan.gc.ca/GeoCanViz/CCMEO/images/E_PlaceAndfeatureNames.jpg",
-								"label":""
-							}]
+							"url":"http://s-bsc-geoappint.nrn.nrcan.gc.ca/GeoCanViz/CCMEO/images/E_PlaceAndfeatureNames.jpg",
+							"alttext":""
 						},
 						"items":[]
 					},{
@@ -924,7 +915,8 @@
 						},
 						"customimage":{
 							"enable":false,
-							"images":[{}]
+							"url":"",
+							"alttext":""
 						},
 						"items":[]
 					}]
@@ -960,10 +952,8 @@
 					},
 					"customimage":{
 						"enable":true,
-						"images":[{
-							"url":"http://s-bsc-geoappint.nrn.nrcan.gc.ca/GeoCanViz/CCMEO/images/E_Boundaries.jpg",
-							"label":""
-						}]
+						"url":"http://s-bsc-geoappint.nrn.nrcan.gc.ca/GeoCanViz/CCMEO/images/E_Boundaries.jpg",
+						"alttext":""
 					},
 					"items":[]
 				},{
@@ -996,8 +986,7 @@
 						"enable": true
 					},
 					"customimage": {
-						"enable": false,
-						"images":[{}]
+						"enable": false
 					},
 					"items": [{
 						"expand":false,
@@ -1031,10 +1020,8 @@
 						},
 						"customimage":{
 							"enable":true,
-							"images":[{
-								"url":"http://s-bsc-geoappint.nrn.nrcan.gc.ca/GeoCanViz/CCMEO/images/E_RoadNetwork.jpg",
-								"label":""
-							}]
+							"url":"http://s-bsc-geoappint.nrn.nrcan.gc.ca/GeoCanViz/CCMEO/images/E_RoadNetwork.jpg",
+							"alttext":""
 						},
 						"items":[]
 					},{
@@ -1069,10 +1056,8 @@
 						},
 						"customimage":{
 							"enable":true,
-							"images":[{
-								"url":"http://s-bsc-geoappint.nrn.nrcan.gc.ca/GeoCanViz/CCMEO/images/E_RailNetwork.jpg",
-								"label":""
-							}]
+							"url":"http://s-bsc-geoappint.nrn.nrcan.gc.ca/GeoCanViz/CCMEO/images/E_RailNetwork.jpg",
+							"alttext":""
 						},
 						"items":[]
 					},{
@@ -1107,10 +1092,8 @@
 					},
 					"customimage":{
 						"enable":false,
-						"images":[{
-							"url":"http://s-bsc-geoappint.nrn.nrcan.gc.ca/GeoCanViz/CCMEO/images/E_ConstructedFeatures.jpg",
-							"label":""
-						}]
+						"url":"http://s-bsc-geoappint.nrn.nrcan.gc.ca/GeoCanViz/CCMEO/images/E_ConstructedFeatures.jpg",
+						"alttext":""
 					},
 					"items":[]
 				}]
@@ -1144,8 +1127,7 @@
 						"enable": true
 					},
 					"customimage": {
-						"enable": false,
-						"images":[{}]
+						"enable": false
 					},
 					"items": [{
 					"expand":false,
@@ -1179,10 +1161,8 @@
 					},
 					"customimage":{
 						"enable":true,
-						"images":[{
-							"url":"http://s-bsc-geoappint.nrn.nrcan.gc.ca/GeoCanViz/CCMEO/images/E_DesignatedAreas.jpg",
-							"label":""
-						}]
+						"url":"http://s-bsc-geoappint.nrn.nrcan.gc.ca/GeoCanViz/CCMEO/images/E_DesignatedAreas.jpg",
+						"alttext":""
 					},
 					"items":[]
 				},{
@@ -1217,10 +1197,8 @@
 					},
 					"customimage":{
 						"enable":true,
-						"images":[{
-							"url":"http://s-bsc-geoappint.nrn.nrcan.gc.ca/GeoCanViz/CCMEO/images/E_ConstructedFeatures.jpg",
-							"label":""
-						}]
+						"url":"http://s-bsc-geoappint.nrn.nrcan.gc.ca/GeoCanViz/CCMEO/images/E_ConstructedFeatures.jpg",
+						"alttext":""
 					},
 					"items":[]
 				},{
@@ -1255,10 +1233,8 @@
 					},
 					"customimage":{
 						"enable":true,
-						"images":[{
-							"url":"http://s-bsc-geoappint.nrn.nrcan.gc.ca/GeoCanViz/CCMEO/images/E_PowerNetwork.jpg",
-							"label":""
-						}]
+						"url":"http://s-bsc-geoappint.nrn.nrcan.gc.ca/GeoCanViz/CCMEO/images/E_PowerNetwork.jpg",
+						"alttext":""
 					},
 					"items":[]
 				}]
@@ -1292,8 +1268,7 @@
 						"enable": true
 					},
 					"customimage": {
-						"enable": false,
-						"images":[{}]
+						"enable": false
 					},
 					"items": [{
 					"expand":false,
@@ -1327,10 +1302,8 @@
 					},
 					"customimage":{
 						"enable":true,
-						"images":[{
-							"url":"http://s-bsc-geoappint.nrn.nrcan.gc.ca/GeoCanViz/CCMEO/images/E_Contours.jpg",
-							"label":""
-						}]
+						"url":"http://s-bsc-geoappint.nrn.nrcan.gc.ca/GeoCanViz/CCMEO/images/E_Contours.jpg",
+						"alttext":""
 					},
 					"items":[]
 				},{
@@ -1365,10 +1338,8 @@
 					},
 					"customimage":{
 						"enable":false,
-						"images":[{
-							"url":"",
-							"label":""
-						}]
+						"url":"",
+						"alttext":""
 					},
 					"items":[]
 				}]
@@ -1402,8 +1373,7 @@
 						"enable": true
 					},
 					"customimage": {
-						"enable": false,
-						"images":[{}]
+						"enable": false
 					},
 					"items": [{
 					"expand":false,
@@ -1437,10 +1407,8 @@
 					},
 					"customimage":{
 						"enable":true,
-						"images":[{
-							"url":"http://s-bsc-geoappint.nrn.nrcan.gc.ca/GeoCanViz/CCMEO/images/E_Hydrography.jpg",
-							"label":""
-						}]
+						"url":"http://s-bsc-geoappint.nrn.nrcan.gc.ca/GeoCanViz/CCMEO/images/E_Hydrography.jpg",
+						"alttext":""
 					},
 					"items":[]
 				},{
@@ -1475,10 +1443,8 @@
 					},
 					"customimage":{
 						"enable":true,
-						"images":[{
-							"url":"http://s-bsc-geoappint.nrn.nrcan.gc.ca/GeoCanViz/CCMEO/images/E_WaterSaturatedSoils.jpg",
-							"label":""
-						}]
+						"url":"http://s-bsc-geoappint.nrn.nrcan.gc.ca/GeoCanViz/CCMEO/images/E_WaterSaturatedSoils.jpg",
+						"alttext":""
 					},
 					"items":[]
 				},{
@@ -1513,10 +1479,8 @@
 					},
 					"customimage":{
 						"enable":false,
-						"images":[{
-							"url":"",
-							"label":""
-						}]
+						"url":"",
+						"alttext":""
 					},
 					"items":[]
 				}]
@@ -1552,10 +1516,8 @@
 					},
 					"customimage":{
 						"enable":true,
-						"images":[{
-							"url":"http://s-bsc-geoappint.nrn.nrcan.gc.ca/GeoCanViz/CCMEO/images/E_Vegetation.jpg",
-							"label":""
-						}]
+						"url":"http://s-bsc-geoappint.nrn.nrcan.gc.ca/GeoCanViz/CCMEO/images/E_Vegetation.jpg",
+						"alttext":""
 					},
 					"items":[]
 				},{
@@ -1590,10 +1552,8 @@
 					},
 					"customimage":{
 						"enable":true,
-						"images":[{
-							"url":"http://s-bsc-geoappint.nrn.nrcan.gc.ca/GeoCanViz/CCMEO/images/E_BuiltupAreas.jpg",
-							"label":""
-						}]
+						"url":"http://s-bsc-geoappint.nrn.nrcan.gc.ca/GeoCanViz/CCMEO/images/E_BuiltupAreas.jpg",
+						"alttext":""
 					},
 					"items":[]
 				},{
@@ -1628,10 +1588,8 @@
 					},
 					"customimage":{
 						"enable":true,
-						"images":[{
-							"url":"http://s-bsc-geoappint.nrn.nrcan.gc.ca/GeoCanViz/CCMEO/images/E_OtherFeatures.jpg",
-							"label":""
-						}]
+						"url":"http://s-bsc-geoappint.nrn.nrcan.gc.ca/GeoCanViz/CCMEO/images/E_OtherFeatures.jpg",
+						"alttext":""
 					},
 					"items":[]
 				}]
@@ -1667,10 +1625,8 @@
             	},
             	"customimage":{
             		"enable":false,
-            		"images":[{
-            			"url":"",
-            			"label":""
-            		}]
+            		"url":"",
+            		"alttext":""
             	},
             	"items":[]
             }]

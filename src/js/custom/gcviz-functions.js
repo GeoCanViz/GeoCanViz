@@ -25,6 +25,7 @@
 			setVM,
 			getTextWidth,
 			focusMap,
+			padDigits,
 			timer,
 			vmObject = { };
 
@@ -191,6 +192,10 @@
 			document.getElementById(map.vIdName + '_holder').focus();
 		};
 
+		padDigits = function(number, digits) {
+			return Array(Math.max(digits - String(number).length + 1, 0)).join(0) + number;
+		};
+
 		return {
 			debounce: debounce,
 			debounceClick: debounceClick,
@@ -207,7 +212,8 @@
 			setElemValueVM: setElemValueVM,
 			setVM: setVM,
 			getTextWidth: getTextWidth,
-			focusMap: focusMap
+			focusMap: focusMap,
+			padDigits: padDigits
 		};
 	});
 }());

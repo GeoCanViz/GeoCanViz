@@ -104,7 +104,8 @@
                 _self.infoLongDMS = ko.observable();
                 _self.isToolsOpen = ko.observable(false);
                 _self.spnAltitude = ko.observable();
-                _self.spnNTS = ko.observable();
+                _self.spnNTS250 = ko.observable();
+                _self.spnNTS50 = ko.observable();
                 _self.spnUTMzone = ko.observable();
                 _self.spnUTMeast = ko.observable();
                 _self.spnUTMnorth = ko.observable();
@@ -381,16 +382,30 @@
                     // Get the NTS location using a deferred object and listen for completion
                     gisNav.getNTS(lati, longi, _self.urlNTS)
                         .done(function(data) {
-                            _self.spnNTS(data.nts);
+                        	var prop,
+                        		nts = data.nts;
+                        	
+							if (nts.length > 0) {
+								prop = nts[0].properties;
+								_self.spnNTS250(prop.identifier + ' - ' + prop.name);
+
+								prop = nts[1].properties;
+                            	_self.spnNTS50(prop.identifier + ' - ' + prop.name);
+							} else {
+								_self.spnNTS250('');
+                            	_self.spnNTS50('');
+							}
 					});
 
                     // Get the UTM zone information using a deferred object and listen for completion
+                    _self.spnUTMeast('');
+                    _self.spnUTMnorth('');
                     gisNav.getUTMzone(lati, longi, _self.urlUTM)
                         .done(function(data) {
                             utmZone = data.zone;
                             _self.spnUTMzone(utmZone);
 
-                           gisGeo.getUTMEastNorth(lati, longi, utmZone, _self.spnUTMeast, _self.spnUTMnorth);
+                           gisGeo.getUTMEastNorth(lati, longi, gcvizFunc.padDigits(utmZone, 2), _self.spnUTMeast, _self.spnUTMnorth);
                         });
 
                     // Get the altitude
