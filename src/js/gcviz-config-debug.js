@@ -11,7 +11,7 @@
 	'use strict';
 	// get the language
 	var url = window.location.toString(),
-		locationPath,
+		locationPath, redirectPath,
 		language = 'en-min',
 		metas,
 		i;
@@ -27,13 +27,16 @@
 		console.log('language not set, English by default');
 	}
 
-	// get code location from meta tag
+	// get code location and redirect page from meta tag
 	metas = document.getElementsByTagName('meta'),
 	i = metas.length;
 
 	while(i--) {
 		if (metas[i].getAttribute('name') === 'gcviz-location') {
 			locationPath = metas[i].getAttribute('content');
+		}
+		if (metas[i].getAttribute('name') === 'gcviz-redirect') {
+			redirectPath = metas[i].getAttribute('content');
 		}
 	}
 
@@ -149,7 +152,7 @@
 			alert('Navigateur non pris en charge: doit être Chrome, Firefox, Safari ou Explorer. Vous serez redirigé vers la page de projet');
 		}
 
-		window.location = 'https://github.com/GeoCanViz/GeoCanViz/';
+		window.location = redirectPath;
 	} else if (window.browser === 'Explorer' && window.browserversion <= 8) {
 		if (language === 'en-min') {
 			alert('Browser not supported: Explorer needs to be version 9 or higher. You will be redirected to project page.' +  ' ' + window.browserversion);
@@ -157,7 +160,7 @@
 			alert('Navigateur non pris en charge: Explorer doit être version 9 ou supérieur. Vous serez redirigé vers la page de projet.');
 		}
 
-		//TODO: find why IE useragent is wrong... window.location = 'https://github.com/GeoCanViz/GeoCanViz/';
+		window.location = redirectPath;
 	}
 
 	// load the require libraries

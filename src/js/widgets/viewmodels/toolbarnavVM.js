@@ -129,6 +129,53 @@
                     // See if user wanted an overview map. If so, initialize it here
                     if (overview.enable) {
 						ovMapWidget = gisNav.setOverview(mymap, overview);
+						
+						// event to know when the panel is open for the first time to start
+						// the overview map
+						$panel.on('accordionactivate', function(event, ui) {
+							var menu, panel;
+	
+							// start the dijiit if not already started
+							menu = $viz(event.target.parentElement.getElementsByTagName('h3')[0]).hasClass('ui-state-active'),
+							panel = ui.newPanel.hasClass('gcviz-tbnav-content');
+	
+							// the menu and the panel needs to be active
+							if (panel && menu) {
+								ovMapWidget[0].startup();
+								
+								// because IE will tab svg tag we need to set them focusable = false
+								$mapElem.find('svg').attr('tabindex', -1).attr('focusable', false);
+
+								// remove the events
+								$panel.off('accordionactivate');
+								$menu.off('accordionactivate');
+							}
+						});
+	
+						// if the panel is open but not the menu we need to have another way
+						// to trigger the overview startup
+						$menu.on('accordionactivate', function(event) {
+							var panel,
+								menu = $viz(event.target.getElementsByTagName('h3')[0]).hasClass('ui-state-active'),
+								panels = event.target.getElementsByTagName('h3'),
+								len = panels.length;
+	
+							if (menu) {
+								while (len--) {
+									panel = $viz(panels[len]);
+									if (panel.hasClass('gcviz-nav-panel') && panel.hasClass('ui-state-active')) {
+										ovMapWidget[0].startup();
+
+										// because IE will tab svg tag we need to set them focusable = false
+										$mapElem.find('svg').attr('tabindex', -1).attr('focusable', false);
+
+										// remove the events
+										$panel.off('accordionactivate');
+										$menu.off('accordionactivate');
+									}
+								}
+							}
+						});
                     }
 
                     if (scaledisplay.enable) {
@@ -147,47 +194,6 @@
 							_self.lblScale(_self.ScaleLabel + '1:' + formatScale);
 						});
 					}
-
-					// event to know when the panel is open for the first time to start
-					// the overview map
-					$panel.on('accordionactivate', function(event, ui) {
-						var menu, panel;
-
-						// start the dijiit if not already started
-						menu = $viz(event.target.parentElement.getElementsByTagName('h3')[0]).hasClass('ui-state-active'),
-						panel = ui.newPanel.hasClass('gcviz-tbnav-content');
-
-						// the menu and the panel needs to be active
-						if (panel && menu) {
-							ovMapWidget[0].startup();
-
-							// remove the events
-							$panel.off('accordionactivate');
-							$menu.off('accordionactivate');
-						}
-					});
-
-					// if the panel is open but not the menu we need to have another way
-					// to trigger the overview startup
-					$menu.on('accordionactivate', function(event) {
-						var panel,
-							menu = $viz(event.target.getElementsByTagName('h3')[0]).hasClass('ui-state-active'),
-							panels = event.target.getElementsByTagName('h3'),
-							len = panels.length;
-
-						if (menu) {
-							while (len--) {
-								panel = $viz(panels[len]);
-								if (panel.hasClass('gcviz-nav-panel') && panel.hasClass('ui-state-active')) {
-									ovMapWidget[0].startup();
-
-									// remove the events
-									$panel.off('accordionactivate');
-									$menu.off('accordionactivate');
-								}
-							}
-						}
-					});
 
 					return { controlsDescendantBindings: true };
 				};

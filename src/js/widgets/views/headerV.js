@@ -107,25 +107,25 @@
 				tools[cfgDraw.pos] = '<h3 class="gcviz-panel-title" data-bind="panelBlur">' +
 										'<span data-bind="contextHelp: { text: drawTitle; alt: drawAlt; img: imgHelpBubble; id: \'tbdraw' + mapid + '\'; link: \'gcviz-help-tbdraw\' }"></span>' +
 									'</h3>' +
-									'<div class="gcviz-tbdraw-content gcviz-tbcontent" gcviz-exp="' + cfgDraw.expand + '"></div>';
+									'<div class="gcviz-tbdraw-content gcviz-tbcontent" gcviz-exp="' + cfgDraw.expand + '" tabindex="-1"></div>';
 			}
 			if (cfgNav.enable) {
 				tools[cfgNav.pos] = '<h3 class="gcviz-panel-title gcviz-nav-panel" data-bind="panelBlur">' +
 										'<span data-bind="contextHelp: { text: navTitle; alt: navAlt; img: imgHelpBubble; id: \'tbnav' + mapid + '\'; link: \'gcviz-help-tbnav\' }"></span>' +
 									'</h3>' +
-									'<div class="gcviz-tbnav-content gcviz-tbcontent" gcviz-exp="' + cfgNav.expand + '"></div>';
+									'<div class="gcviz-tbnav-content gcviz-tbcontent" gcviz-exp="' + cfgNav.expand + '" tabindex="-1"></div>';
 			}
 			if (cfgLeg.enable) {
 				tools[cfgLeg.pos] = '<h3 class="gcviz-panel-title" data-bind="panelBlur">' +
 										'<span data-bind="contextHelp: { text: legendTitle; alt: legendAlt; img: imgHelpBubble; id: \'tbleg' + mapid + '\'; link: \'gcviz-help-tbleg\' }"></span>' +
 									'</h3>' +
-									'<div class="gcviz-tbleg-content gcviz-tbcontent-leg" gcviz-exp="' + cfgLeg.expand + '"></div>';
+									'<div class="gcviz-tbleg-content gcviz-tbcontent-leg" gcviz-exp="' + cfgLeg.expand + '" tabindex="-1"></div>';
 			}
 			if (cfgData.enable) {
 				tools[cfgData.pos] = '<h3 class="gcviz-panel-title" data-bind="panelBlur">' +
 										'<span data-bind="contextHelp: { text: dataTitle; alt: dataAlt; img: imgHelpBubble; id: \'tbdata' + mapid + '\'; link: \'gcviz-help-tbdata\' }"></span>' +
 									'</h3>' +
-									'<div class="gcviz-tbdata-content gcviz-tbcontent" gcviz-exp="' + cfgData.expand + '"></div>';
+									'<div class="gcviz-tbdata-content gcviz-tbcontent" gcviz-exp="' + cfgData.expand + '" tabindex="-1"></div>';
 			}
 
 			// remove coma between toolbars. Make sure to keep inner coma.

@@ -146,6 +146,12 @@
 				map.enableScrollWheelZoom();
 				map.disableDoubleClickZoom();
 
+				// disable keyboard navigation. We overwrite the keyboard navigation in mapVM
+				map.disableKeyboardNavigation();
+
+				// because IE will tab svg tag we need to set them focusable = false
+				$viz('.gcviz-section').find('svg').attr('tabindex', -1).attr('focusable', false);
+
 				// connect event map
 				if (config.link) {
 					linkNames.push({ 'name': map.vIdName, 'fire': false });
@@ -528,7 +534,7 @@
 
 		getKeyExtent = function(map, direction) {
 			var extent = map.extent,
-				factorPan = 2,
+				factorPan = 3,
 				factorZoom = 4,
 				delta,
 				xmin = extent.xmin,

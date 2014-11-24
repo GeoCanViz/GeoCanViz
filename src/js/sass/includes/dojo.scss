@@ -1870,7 +1870,8 @@ div.dijitTabDisabled,
 .claro .dijitToggleButton .dijitRadioIcon { background-position: -107px }
 .claro .dijitRadioDisabled { background-position: -165px }
 .claro .dijitRadioHover { background-position: -135px }
-.claro .dijitRadioFocused { background-position: -135px }
+.claro .dijitRadioFocused { background-position: -135px!important } // gcviz
+.claro .dijitRadioCheckedFocused { background-position: -120px!important } //gcviz
 .claro .dijitRadioChecked { background-position: -90px }
 .claro .dijitToggleButtonChecked .dijitRadioIcon { background-position: -92px }
 .claro .dijitRadioCheckedHover { background-position: -120px }

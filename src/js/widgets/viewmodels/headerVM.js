@@ -313,6 +313,10 @@
                     // after the first time it is ok. In the future we can trap the first full
                     // screen and then do not do this. Or we can try to find the problem.
                     gcvizFunc.setStyle($viz('#ovmapcont' + mapid)[0], { 'bottom': '40px' });
+                    
+                    var a = $('ui-dialog').clone();
+                    $('.mfp-content').append(a);
+                    $('ui-dialog').remove();
                 };
 
                 _self.adjustContainerHeight = function() {

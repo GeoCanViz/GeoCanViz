@@ -34,6 +34,9 @@
 				// viewmodel mapid to be access in tooltip custom binding
 				_self.mapid = mapid;
 
+				// map focus observable
+				_self.mapfocus = ko.observable();
+
 				_self.init = function() {
 					var layer, base,
 						layers = config.layers,
@@ -55,6 +58,14 @@
 
 					// keep reference for map holder
 					_self.mapholder = $map;
+
+					// set focus and blur event to set observable
+					ko.utils.registerEventHandler(_self.mapholder, 'focus', function(event) {
+						_self.mapfocus(true);
+					});
+					ko.utils.registerEventHandler(_self.mapholder, 'blur', function(event) {
+						_self.mapfocus(false);
+					});
 
 					// create map	
 					map = gisM.createMap(mapid + '_holder', config, side);
@@ -81,7 +92,7 @@
 					$container.addClass('gcviz-container');
 
 					// focus the map to let cluster be able to link to it
-					_self.focus($map);
+					// TODO: do we dot it only if there is cluster then cluster will remove focus. Is it right to focus on aomething on load? _self.mapholder.focus();
 
 					// keep map reference in the viewmodel to be accessible from other view model
 					_self.map = map;
@@ -99,21 +110,6 @@
 
 				_self.leaveMouse = function() {
 					_self.mapholder.blur();
-				};
-
-				_self.focus = function() {
-					// focus (events (focusin focusout))
-					_self.mapfocus = ko.observable();
-					_self.mapfocus.focused = ko.observable();
-					_self.mapfocus.focused.subscribe(function(isFocus) {
-						if (isFocus) {
-							_self.mapholder.focus();
-							_self.mapfocus(true);
-						} else {
-							_self.mapholder.blur();
-							_self.mapfocus(false);
-						}
-					});
 				};
 
 				_self.applyKey = function(key, shift) {
@@ -134,7 +130,7 @@
 						} else if (key === 40) {
 							gisM.panDown(map);
 							prevent = true;
-
+	
 						// chrome/safari is different then firefox. Need to check for both.
 						} else if ((key === 187 && shift) || (key === 61 && shift)) {
 							gisM.zoomIn(map);
@@ -142,13 +138,13 @@
 						}  else if ((key === 189 && shift) || (key === 173 && shift)) {
 							gisM.zoomOut(map);
 							prevent = true;
-
+	
 						// firefox trigger internal api zoom even if shift is not press. Grab this key and prevent default.
 						} else if (key === 61) {
 							prevent = true;
 						// open tools if esc is press
 						} else if (key === 27) {
-
+	
 							// check if draw is active. If so apply event
 							if (typeof gcvizFunc.getElemValueVM(mapid, ['draw'], 'js') !== 'undefined') {
 								if (gcvizFunc.getElemValueVM(mapid, ['draw', 'activeTool'], 'ko') !== '') {
@@ -156,7 +152,6 @@
 									flag = true;
 								}
 							}
-
 							// check if position is active. If so apply event
 							if (typeof gcvizFunc.getElemValueVM(mapid, ['nav'], 'js') !== 'undefined') {
 								if (gcvizFunc.getElemValueVM(mapid, ['nav', 'activeTool'], 'ko') === 'position') {
@@ -164,13 +159,14 @@
 									flag = true;
 								}
 							}
-
+	
 							// if not tools acitve, just toggle the menu
 							if (!flag) {
 								gcvizFunc.getElemValueVM(mapid, ['header', 'toolsClick'], 'js')();
 							}
 						}
 					}
+
 					return prevent;
 				};
 
