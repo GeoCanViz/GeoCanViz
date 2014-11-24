@@ -14,8 +14,9 @@
 %imgsize_leg_icons {
   height: (0.9 * $rembase) + rem;
   width: (0.9 * $rembase) + rem;
-  margin-top: (0.7 * $rembase) + rem;
+  margin-top: (0.8 * $rembase) + rem;
   background-repeat: no-repeat;
+  cursor: pointer;
 }
 
 %legspan {
@@ -53,7 +54,6 @@
 
 .gcviz-leg-imgholder {
   @extend %imgsize;
-  cursor: pointer;
 }
 
 // base and theme maps group
@@ -64,10 +64,18 @@
 
 // item
 .gcviz-legendImg {
-	margin: 0rem;
-	padding-top: (0.5 * $rembase) + rem;
-	padding-left: (2.5 * $rembase) + rem;
-}  
+	margin: 0!important;
+}
+
+.gcviz-legendImgText {
+	@include app-text(1, normal);
+}
+
+.gcviz-legendTable {
+	width: (20 * $rembase) + rem;
+	margin-left: (4 * $rembase) + rem;
+	background: $lightyellow;
+}
 
 .gcviz-legendHolderDiv {
 	display: inline-block;
@@ -81,13 +89,26 @@
 
 .gcviz-leg-check {
 	display: inline-block;
-	margin-left: (0.5 * $rembase) + rem!important;
+	margin-left: (0.8 * $rembase) + rem!important;
 }
 
 .gcviz-leg-slider {
 	display: inline-block;
 	width: (5 * $rembase) + rem;
 	padding-left: 0rem;
+}
+
+%dijitbumper {
+	width: 1px!important;
+}
+.dijitSliderLeftBumper {
+	@extend %dijitbumper;
+	border-right: 0!important;
+}
+
+.dijitSliderRightBumper {
+	@extend %dijitbumper;
+	border-left: 0!important;
 }
 
 // layer title define by level of deepness
@@ -136,4 +157,8 @@
 	vertical-align: middle;
   text-align: left;
 	width: (100 * $rembase) + rem;
+}
+
+.gcviz-leg-chekhold {
+	margin-left: (0.2 * $rembase) + rem;
 }

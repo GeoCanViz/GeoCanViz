@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+		<style type="text/css" media="print">
+			@page
+			{
+				size: landscape;
+				margin: 2cm;
+			}
+		</style>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+		<script>
+			$(document).ready(function(){
+				var doc = window.document;
+					map = doc.getElementById('gcviz-print'),
+					arrrow = doc.getElementById('gcviz-arrow'),
+					scale = doc.getElementById('gcviz-scale'),
+					scalebar = doc.getElementById('gcviz-scalebar');
+
+				// wait for the resize map from GCViz to finish
+				setTimeout(function() {
+					// set nodes
+					map.innerHTML = localStorage.gcvizPrintNode;
+					arrrow.innerHTML = localStorage.gcvizArrowNode;
+					scale.innerHTML = localStorage.gcvizScaleNode;
+					scalebar.innerHTML = localStorage.gcvizScalebarNode;
+					
+					// clean
+					localStorage.removeItem('gcvizPrintNode');
+					localStorage.removeItem('gcvizArrowNode');
+					localStorage.removeItem('gcvizScaleNode');
+					localStorage.removeItem('gcvizScalebarNode');
+					
+					var doct = "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">";
+    document.write(doct + document.getElementsByTagName('html')[0].innerHTML);
+				}, 4000);
+				
+				// wait the page finish the refresh
+				setTimeout(function() {
+					window.print();
+				}, 6000);
+			});
+		</script>
+	</head>
+    <body>
+    	<div id="gcviz-title" style="width: 100%;"><span style="height: 100%;width: 50px; margin: 10px auto; display: block; font-size: 20px; font-weight: bold;">Toporama</span></div>
+    	<div id="gcviz-print"></div>
+    	<div id="gcviz-scalebar" style="display: inline-block; margin-left: 1in;"></div>
+    	<div id="gcviz-scale" style="display: inline-block; margin-left: 3.5in;"></div>
+    	<div id="gcviz-arrow" style="display: inline-block; margin-left: 2.5in;"></div>
+    	<div id="gcviz-copy">
+    		<p style="font-family:Sans-Serif; font-size:small;">&#64; Sa Majest&#233; la Reine du chef du Canada, repr&#233;sent&#233;e par le ministre de Ressources naturelles Canada, 2014.<br>&#64; Her Majesty the Queen in Right of Canada, as represented by the Minister of Natural Resources, 2014.</p>
+    		<object data="../images/nrcan_fip_f.svg" type="image/svg+xml">
+				<img src="../images/NRCanF.jpeg" />
+			</object>
+    	</div>
+    	<script src="http://js.arcgis.com/3.11/"></script>
+		<link rel="stylesheet" href="../gcviz-min.css">
+    </body>
+</html>

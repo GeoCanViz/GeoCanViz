@@ -20,7 +20,6 @@
 	], function($viz, ko, media, gisPrint, i18n, binding, gcvizFunc, gisM, helpVM) {
 		var initialize,
 			printSimple,
-			toggleMenu,
 			vm;
 
 		initialize = function($mapElem, mapid, config) {
@@ -28,7 +27,7 @@
 			var headerViewModel = function($mapElem, mapid, config) {
 				var _self = this,
 					configAbout = config.about,
-					pathPrint = locationPath + 'gcviz/print/',
+					pathPrint = locationPath + 'gcviz/print/toporamaPrint-' + window.langext + '.html',
 					pathHelpBubble = locationPath + 'gcviz/images/helpBubble.png',
 					$section = $viz('#section' + mapid),
 					$mapholder = $viz('#' + mapid),
@@ -67,7 +66,7 @@
                 _self.navAlt = i18n.getDict('%toolbarnav-alt');
                 _self.dataTitle = i18n.getDict('%toolbardata-name');
                 _self.dataAlt = i18n.getDict('%toolbardata-alt');
-                
+
 				// about dialog box
 				_self.lblAboutTitle = i18n.getDict('%header-tpabout');
 				_self.isAboutDialogOpen = ko.observable(false);
@@ -113,28 +112,28 @@
                     setTimeout(function() {
 						_self.adjustContainerHeight();
 					}, 500);
-					
-					// if expand is false toggle (open by default)
-					if (!_self.toolsInit.expand) {
-						$menu.on('accordioncreate', function(event, ui) {
-							$menu.accordion('option', 'active', false);
-							$menu.off('accordioncreate');
-						});
-					}
 
 					// set the active toolbar
-					$menuCont.on('accordioncreate', function(event, ui) {
+					$menuCont.on('accordioncreate', function(event) {
 						var value,
 							items = event.target.getElementsByTagName('div'),
 							len = items.length;
 
 						while (len--) {
 							value = items[len].getAttribute('gcviz-exp');
-							if (value === "true") {
+							if (value === 'true') {
 								$menuCont.accordion('option', 'active', len);
 							}
 						}
-						
+
+						// if expand is false toggle (open by default)
+						if (!_self.toolsInit.expand) {
+							// need to be in timeout. If not, doesnt work
+							setTimeout(function(){
+								$menu.accordion('option', 'active', false);
+							}, 0);
+						}
+					
 						$menuCont.off('accordioncreate');
 					});
 
@@ -146,13 +145,13 @@
 						},
 						callbacks: {
 							beforeOpen: function() {
-								_self.requestFullScreen();		
-							},	
+								_self.requestFullScreen();
+							},
 							close: function() {
 								_self.cancelFullScreen();
 							},
 							afterClose: function() {
-								$('#' + mapid).removeClass('mfp-hide');
+								$viz('#' + mapid).removeClass('mfp-hide');
 								gisM.resizeCenterMap(map, 0);
 							}
 						},
@@ -219,7 +218,7 @@
 
 				_self.toolsClick = function() {
 					var open = $menu.accordion('option', 'active');
-					
+
 					// Toggle the tools container
 					if (open === 0) {
 						$menu.accordion('option', 'active', false);
@@ -317,7 +316,7 @@
                 };
 
                 _self.adjustContainerHeight = function() {
-					var toolbarheight = parseInt(map.height, 10) - 10;
+					var toolbarheight = parseInt(map.height, 10) - 5;
 					_self.xheightToolsOuter('max-height:' + toolbarheight + 'px!important');
 					_self.xheightToolsInner('max-height:' + (toolbarheight - instrHeight) + 'px!important'); // remove the keyboard instruction height
                 };
@@ -339,10 +338,10 @@
 					} else if (key === 9 && shift) {
 						if (node === firstClass) {
 							// workaround to avoid focus shifting to the previous element
-							setTimeout(function() { 
+							setTimeout(function() {
 								lastItem.focus();
 							}, 0);
-							
+
 							// still focus on previous item. If not Chrome will freeze
 							if (window.browser === 'Chrome') {
 								lastItem.focus();
@@ -360,19 +359,44 @@
 		};
 
 		printSimple = function(map, template) {
-			var mapid = map.vIdName,
-				node = $viz('#' + mapid + '_holder').clone();
+			var center = {},
+				mapid = map.vIdName,
+				node = $viz('#' + mapid + '_holder'),
+				arrow = $viz('#arrow' + mapid),
+				scale = $viz('#scaletool' + mapid),
+				scalebar = $viz('#scalebar' + mapid),
+				height = node.css('height'),
+				width = node.css('width');
+
+			// get center map
+			center.point = gisM.getMapCenter(map);
 
 			// set map size to fit the print page
-			gcvizFunc.setStyle(node[0], { 'width': '10in', 'height': '5.5in' });
-			gcvizFunc.setStyle(node.find('#' + mapid + '_holder_root')[0], { 'width': '10in', 'height': '5.5in' });
-			
-			// resize map and keep the extent
-			gisM.manageScreenState(map, 1000, true);
+			gcvizFunc.setStyle(node[0], { 'width': '10in', 'height': '5.25in' });
+			gcvizFunc.setStyle(node.find('#' + mapid + '_holder_root')[0], { 'width': '10in', 'height': '5.25in' });
 
-			// set the local storage then open page
-			localStorage.setItem('gcvizPrintNode', node[0].outerHTML);
-			window.open(template + 'defaultPrint.html');
+			// resize map and center to keep scale
+			center.interval = 1500;
+			gisM.resizeCenterMap(map, center);
+
+			// open the print page here instead of timemeout because if we do so, it will act as popup.
+			// It needs to be in a click event to 
+			window.open(template);
+
+			// set the local storage
+			setTimeout(function() {
+				localStorage.setItem('gcvizPrintNode', node[0].outerHTML);
+				localStorage.setItem('gcvizArrowNode', arrow[0].outerHTML);
+				localStorage.setItem('gcvizScaleNode', scale[0].outerHTML);
+				localStorage.setItem('gcvizScalebarNode', scalebar[0].outerHTML);
+			}, 3500);
+
+			// set map size to previous values
+			setTimeout (function() {
+				gcvizFunc.setStyle(node[0], { 'width': width, 'height': height });
+				gcvizFunc.setStyle(node.find('#' + mapid + '_holder_root')[0], { 'width': width, 'height': height });
+				gisM.resizeCenterMap(map, center);
+			}, 7000);
 		};
 
 		return {

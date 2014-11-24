@@ -7,14 +7,13 @@
  */
 (function() {
 	'use strict';
-	define(['gcviz-vm-header',
-			'gcviz-i18n'
-	], function(headerVM, i18n) {
+	define(['gcviz-vm-header'
+	], function(headerVM) {
 		var initialize,
 			addToolbars;
 
 		initialize = function($mapElem) {
-			var $header, tp, ext,
+			var $header, ext,
 				config = $mapElem.header,
 				configTools = config.tools,
 				configAbout = config.about,
@@ -75,7 +74,7 @@
 			node += '<button class="gcviz-head-help" tabindex="0" data-bind="buttonBlur, click: helpClick, tooltip: { content: tpHelp }"></button>';
 
 			node += '</div>';
-		
+
 			$header.append(node);
 			if (configTools.enable === true) {
 				// Add a collapsible container for tools to hold all the toolbars instead of having a tools icon
@@ -88,7 +87,7 @@
 								addToolbars($mapElem, mapid) +
 							'</div>' +
 						'</div>';
-						
+
 				$mapElem.find('.gcviz-toolsholder').append(menu);
 			}
 
@@ -100,9 +99,8 @@
 				cfgNav = config.toolbarnav,
 				cfgLeg = config.toolbarlegend,
 				cfgData = config.toolbardata,
-				index = false,
 				tools = ['','','',''];
-			
+
 			// check what toolbar is enable, the order and the index of the expand one.
 			// add the contextual help
 			if (cfgDraw.enable) {

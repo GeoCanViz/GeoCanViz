@@ -30,7 +30,6 @@
 					clickPosition,
 					overview = config.overview,
 					scaledisplay = config.scaledisplay,
-					position = config.position,
                     inMapField = $viz('#inGeoLocation' + mapid),
                     btnClickMap = $viz('#btnClickMap' + mapid),
                     $container = $viz('#' + mapid + '_holder_layers'),
@@ -105,7 +104,8 @@
                 _self.infoLongDMS = ko.observable();
                 _self.isToolsOpen = ko.observable(false);
                 _self.spnAltitude = ko.observable();
-                _self.spnNTS = ko.observable();
+                _self.spnNTS250 = ko.observable();
+                _self.spnNTS50 = ko.observable();
                 _self.spnUTMzone = ko.observable();
                 _self.spnUTMeast = ko.observable();
                 _self.spnUTMnorth = ko.observable();
@@ -166,10 +166,10 @@
 							$menu.off('accordionactivate');
 						}
 					});
-					
+
 					// if the panel is open but not the menu we need to have another way
 					// to trigger the overview startup
-					$menu.on('accordionactivate', function(event, ui) {
+					$menu.on('accordionactivate', function(event) {
 						var panel,
 							menu = $viz(event.target.getElementsByTagName('h3')[0]).hasClass('ui-state-active'),
 							panels = event.target.getElementsByTagName('h3'),
@@ -180,7 +180,7 @@
 								panel = $viz(panels[len]);
 								if (panel.hasClass('gcviz-nav-panel') && panel.hasClass('ui-state-active')) {
 									ovMapWidget[0].startup();
-									
+
 									// remove the events
 									$panel.off('accordionactivate');
 									$menu.off('accordionactivate');
@@ -204,16 +204,21 @@
 						clickPosition.remove();
 					}
 
-					// reset active tool
-					_self.activeTool('');
+					$menu.on('accordionactivate', function() {
+						$menu.off('accordionactivate');
 
-					// open mneu
+						// bug with jQueryUI, focus does not work when menu open
+						setTimeout(function() {
+							// focus last active tool
+							btnClickMap.focus();
+
+							// reset active tool
+							_self.activeTool('');
+						}, 1000);
+					});
+
+					// open menu
 					$menu.accordion('option', 'active', 0);
-
-					// focus last active tool
-					setTimeout(function() {
-						btnClickMap.focus();
-					}, 500);
 				};
 
 				// Clear the input field on focus if it contains the default text
@@ -227,7 +232,7 @@
 						$viz.ajax({
 							url: _self.geoLocUrl,
 							cache: false,
-							dataType: 'json',
+							dataType: 'jsonp', // jsonp because itis cross domain
 							data: {
 								q: request.term + '*'
 							},
@@ -377,16 +382,30 @@
                     // Get the NTS location using a deferred object and listen for completion
                     gisNav.getNTS(lati, longi, _self.urlNTS)
                         .done(function(data) {
-                            _self.spnNTS(data.nts);
+                        	var prop,
+                        		nts = data.nts;
+                        	
+							if (nts.length > 0) {
+								prop = nts[0].properties;
+								_self.spnNTS250(prop.identifier + ' - ' + prop.name);
+
+								prop = nts[1].properties;
+                            	_self.spnNTS50(prop.identifier + ' - ' + prop.name);
+							} else {
+								_self.spnNTS250('');
+                            	_self.spnNTS50('');
+							}
 					});
 
                     // Get the UTM zone information using a deferred object and listen for completion
+                    _self.spnUTMeast('');
+                    _self.spnUTMnorth('');
                     gisNav.getUTMzone(lati, longi, _self.urlUTM)
                         .done(function(data) {
                             utmZone = data.zone;
                             _self.spnUTMzone(utmZone);
 
-                           gisGeo.getUTMEastNorth(lati, longi, utmZone, _self.spnUTMeast, _self.spnUTMnorth);
+                           gisGeo.getUTMEastNorth(lati, longi, gcvizFunc.padDigits(utmZone, 2), _self.spnUTMeast, _self.spnUTMnorth);
                         });
 
                     // Get the altitude
@@ -426,7 +445,7 @@
 							ovMapWidget[1].startup();
 							gblOVMap = true;
 						}
-						
+
 						ovMapWidget[1].show();
 						ovMapWidget[0].hide();
 						$ovMap.addClass('gcviz-ov-border');

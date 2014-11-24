@@ -50,24 +50,8 @@
 		overflow:	hidden!important;
 	}
 
-	// flip the background image on toolbar to match header when menu is on the right
-	.gcviz-menu-title-r:before {
-		background-image: url($img-head);
-		-moz-transform: scaleX(-1);
-		-o-transform: scaleX(-1);
-		-webkit-transform: scaleX(-1);
-		transform: scaleX(-1);
-		content: "";
-		position: absolute;
-		width: 340px;
-		height: 34px;
-		top: -2px;
-		left: -2px;
-		z-index: -1;
-	}
-
 	.gcviz-menu-title-r {
-		position: relative;
+		background-image: url($img-root + "headGreybarMenu.png");
 		margin-top: 0!important;
 	}
 

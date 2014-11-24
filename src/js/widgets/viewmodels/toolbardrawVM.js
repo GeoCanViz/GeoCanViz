@@ -5,7 +5,6 @@
  *
  * Toolbar draw view model widget
  */
-/* global locationPath: false */
 (function() {
 	'use strict';
 	define(['jquery-private',
@@ -145,11 +144,11 @@
 					_self.graphic.deactivate();
 					_self.measureType = '';
 
-					// open mneu
-					$menu.accordion('option', 'active', 0);
-
 					// set the focus back to the right tool
 					_self.setFocus();
+
+					// open mneu
+					$menu.accordion('option', 'active', 0);
 				};
 
 				// add text dialog buttons functions (ok and cancel)
@@ -432,7 +431,7 @@
 				_self.closeTools = function(tool) {
 					// close menu
 					$menu.accordion('option', 'active', false);
-					
+
 					// set event for the toolbar
 					$menu.on('accordionbeforeactivate', function() {
 						$menu.off();
@@ -470,27 +469,35 @@
 				};
 
 				_self.setFocus = function() {
-					setTimeout(function() {
-						if (_self.activeTool() === 'draw') {
-							$btnDraw.focus();
-						} else if (_self.activeTool() === 'text') {
-							$btnText.focus();
-						} else if (_self.activeTool() === 'length') {
-							$btnLength.focus();
-						} else if (_self.activeTool() === 'area') {
-							$btnArea.focus();
-						} else if (_self.activeTool() === 'erase') {
 
-							if (_self.isGraphics()) {
-								$btnDelsel.focus();
-							} else {
-								// set focus on draw because when button is disable the focus goes
-								// automatically to the top of the page if not
+					$menu.on('accordionactivate', function() {
+						$menu.off('accordionactivate');
+
+						// bug with jQueryUI, focus does not work when menu open
+						setTimeout(function() {
+							if (_self.activeTool() === 'draw') {
 								$btnDraw.focus();
+							} else if (_self.activeTool() === 'text') {
+								$btnText.focus();
+							} else if (_self.activeTool() === 'length') {
+								$btnLength.focus();
+							} else if (_self.activeTool() === 'area') {
+								$btnArea.focus();
+							} else if (_self.activeTool() === 'erase') {
+
+								if (_self.isGraphics()) {
+									$btnDelsel.focus();
+								} else {
+									// set focus on draw because when button is disable the focus goes
+									// automatically to the top of the page if not
+									$btnDraw.focus();
+								}
 							}
-						}
-						_self.activeTool('');
-					}, 700);
+
+							// reset active tools
+							_self.activeTool('');
+						}, 1000);
+					});
 				};
 
 				_self.dialogWCAGOk = function() {
@@ -531,9 +538,6 @@
 
 					// if not text, or text and not ok press, open tools
 					if (active !== 'text' || (!_self.wcagok && active === 'text')) {
-						// set the focus back to the right tool
-						//_self.openTools(_self.activeTool());
-						//_self.setFocus();
 						_self.endDraw();
 					}
 

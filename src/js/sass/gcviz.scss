@@ -166,22 +166,28 @@ input[type="file"] {
   display: inline-block!important;
 }
 
-.gcviz-loading {
+%loading {
 	position: absolute;
-	right: 10%;
-	top: 45%;
-	padding: 0!important;
-	z-index: -1;
-	width: 80%;
-	height: (3 * $rembase) + rem;
+	bottom: (4 * $rembase) + rem;
+	width: (15 * $rembase) + rem;
+	height: (2 * $rembase) + rem!important;
+	z-index: 1;
+}
+
+.gcviz-loading-l {
+	@extend %loading;
+	left: 0;
+}
+
+.gcviz-loading-r {
+	@extend %loading;
+	right: 0;
 }
 
 .gcviz-loadingLabel {
 	position: absolute;
-	left: 50%;
-	top:  (0.7 * $rembase) + rem;
+	left: (1 * $rembase) + rem;
 	@include app-text(1.2, normal, $white);
-	text-align: middle;
 }
 
 .gcviz-appText {
@@ -218,8 +224,8 @@ h3:not(.ui-title) {
 	z-index: 15000!important;
 }
 
-// set 100% for IE
-.ui-dialog-content {
+// set 100% for IE only
+.Explorer .ui-dialog-content {
 	width: 100%!important;
 }
 
@@ -235,7 +241,6 @@ input[type="checkbox"], input[type="radio"]{
     background: transparent;
     border: 0;
     vertical-align:	middle;
-		margin: 0!important;
 }
 
 label {

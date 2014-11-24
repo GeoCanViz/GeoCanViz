@@ -26,10 +26,10 @@
     margin-top: (1 * $rembase) + rem;
     float: right;
   }
-  
-	.gcviz-foot-arrow {
-		@extend %arrow
-  }
+}
+
+.gcviz-foot-arrow {
+	@extend %arrow
 }
 
 .gcviz-help-arrow {

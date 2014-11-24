@@ -174,7 +174,7 @@
 				_self.legDesc3 = i18n.getDict('%help-leg-desc3');
 				_self.legSlider = i18n.getDict('%help-leg-slider');
 				_self.legExpand = i18n.getDict('%help-leg-exp');
-				
+
 				// data text
 				_self.dataTitle = i18n.getDict('%help-data-title');
 				_self.dataAdd = i18n.getDict('%help-data-add');

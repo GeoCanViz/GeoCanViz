@@ -62,7 +62,7 @@
 
 		setScaleBar = function(mymap, scalebar) {
 			var sbMapDijit,
-				ovSB = document.getElementById('divScalebar' + mymap.vIdName),
+				ovSB = document.getElementById('scalebar' + mymap.vIdName),
 				options = { map: mymap,
 							scalebarStyle: 'line',
 							scalebarUnit: 'metric',
@@ -82,7 +82,7 @@
 			urlNTS += longi + ',' + lati + ',' + longi + ',' + lati;
 			$viz.getJSON(urlNTS).done(function(data) {
 				def.resolve({
-					nts: data.features[0].properties.identifier + ' - ' + data.features[0].properties.name
+					nts: data.features
                 });
             });
             // return the deferred object for listening

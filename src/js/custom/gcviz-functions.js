@@ -25,6 +25,7 @@
 			setVM,
 			getTextWidth,
 			focusMap,
+			padDigits,
 			timer,
 			vmObject = { };
 
@@ -110,12 +111,11 @@
 
 		setProgressBar = function(label) {
 			$viz('.gcviz-loadingLabel').text(label);
-			$viz('.gcviz-loading').progressbar({ value: false });
+			$viz('.gcviz-loading').progressbar({ value: false }).removeClass('gcviz-hidden');
 		};
 
 		destroyProgressBar = function() {
-			$viz('.gcviz-loadingLabel').text('');
-			$viz('.gcviz-loading').progressbar('destroy');
+			$viz('.gcviz-loading').addClass('gcviz-hidden');
 		};
 
 		checkMatch = function(array, val) {
@@ -192,6 +192,10 @@
 			document.getElementById(map.vIdName + '_holder').focus();
 		};
 
+		padDigits = function(number, digits) {
+			return Array(Math.max(digits - String(number).length + 1, 0)).join(0) + number;
+		};
+
 		return {
 			debounce: debounce,
 			debounceClick: debounceClick,
@@ -208,7 +212,8 @@
 			setElemValueVM: setElemValueVM,
 			setVM: setVM,
 			getTextWidth: getTextWidth,
-			focusMap: focusMap
+			focusMap: focusMap,
+			padDigits: padDigits
 		};
 	});
 }());
