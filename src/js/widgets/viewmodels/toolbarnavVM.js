@@ -30,14 +30,15 @@
 					clickPosition,
 					overview = config.overview,
 					scaledisplay = config.scaledisplay,
-                    inMapField = $viz('#inGeoLocation' + mapid),
-                    btnClickMap = $viz('#btnClickMap' + mapid),
+                    inMapField = $mapElem.find('#inGeoLocation' + mapid),
+                    btnClickMap = $mapElem.find('#btnClickMap' + mapid),
                     $container = $viz('#' + mapid + '_holder_layers'),
                     $ovMap = $viz('#ovmapcont' + mapid),
                     $menu = $viz('#gcviz-menu' + mapid),
-                    $panel = $viz('#gcviz-menu-cont' + mapid),
+                    $panel = $mapElem.find('#gcviz-menu-cont' + mapid),
+                    $posDiag = $mapElem.find('#gcviz-pos' + mapid),
 					mymap = gcvizFunc.getElemValueVM(mapid, ['map', 'map'], 'js'),
-                    autoCompleteArray = [ { minx: 0 , miny: 0, maxx: 0, maxy: 0, title: 'ddd' } ];
+                    autoCompleteArray = [{ minx: 0 , miny: 0, maxx: 0, maxy: 0, title: 'ddd' }];
 
 				// viewmodel mapid to be access in tooltip custom binding
 				_self.mapid = mapid;
@@ -129,20 +130,20 @@
                     // See if user wanted an overview map. If so, initialize it here
                     if (overview.enable) {
 						ovMapWidget = gisNav.setOverview(mymap, overview);
-						
+
 						// event to know when the panel is open for the first time to start
 						// the overview map
 						$panel.on('accordionactivate', function(event, ui) {
 							var menu, panel;
-	
+
 							// start the dijiit if not already started
 							menu = $viz(event.target.parentElement.getElementsByTagName('h3')[0]).hasClass('ui-state-active'),
 							panel = ui.newPanel.hasClass('gcviz-tbnav-content');
-	
+
 							// the menu and the panel needs to be active
 							if (panel && menu) {
 								ovMapWidget[0].startup();
-								
+
 								// because IE will tab svg tag we need to set them focusable = false
 								$mapElem.find('svg').attr('tabindex', -1).attr('focusable', false);
 
@@ -151,7 +152,7 @@
 								$menu.off('accordionactivate');
 							}
 						});
-	
+
 						// if the panel is open but not the menu we need to have another way
 						// to trigger the overview startup
 						$menu.on('accordionactivate', function(event) {
@@ -159,7 +160,7 @@
 								menu = $viz(event.target.getElementsByTagName('h3')[0]).hasClass('ui-state-active'),
 								panels = event.target.getElementsByTagName('h3'),
 								len = panels.length;
-	
+
 							if (menu) {
 								while (len--) {
 									panel = $viz(panels[len]);
@@ -209,6 +210,9 @@
 					if (typeof clickPosition !== 'undefined') {
 						clickPosition.remove();
 					}
+
+					// close dialog box
+					$posDiag.dialog('close');
 
 					$menu.on('accordionactivate', function() {
 						$menu.off('accordionactivate');
@@ -388,18 +392,18 @@
                     // Get the NTS location using a deferred object and listen for completion
                     gisNav.getNTS(lati, longi, _self.urlNTS)
                         .done(function(data) {
-                        	var prop,
-                        		nts = data.nts;
-                        	
+							var prop,
+								nts = data.nts;
+
 							if (nts.length > 0) {
 								prop = nts[0].properties;
 								_self.spnNTS250(prop.identifier + ' - ' + prop.name);
 
 								prop = nts[1].properties;
-                            	_self.spnNTS50(prop.identifier + ' - ' + prop.name);
+								_self.spnNTS50(prop.identifier + ' - ' + prop.name);
 							} else {
 								_self.spnNTS250('');
-                            	_self.spnNTS50('');
+								_self.spnNTS50('');
 							}
 					});
 

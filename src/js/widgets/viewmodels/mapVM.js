@@ -60,10 +60,10 @@
 					_self.mapholder = $map;
 
 					// set focus and blur event to set observable
-					ko.utils.registerEventHandler(_self.mapholder, 'focus', function(event) {
+					ko.utils.registerEventHandler(_self.mapholder, 'focus', function() {
 						_self.mapfocus(true);
 					});
-					ko.utils.registerEventHandler(_self.mapholder, 'blur', function(event) {
+					ko.utils.registerEventHandler(_self.mapholder, 'blur', function() {
 						_self.mapfocus(false);
 					});
 
@@ -130,7 +130,7 @@
 						} else if (key === 40) {
 							gisM.panDown(map);
 							prevent = true;
-	
+
 						// chrome/safari is different then firefox. Need to check for both.
 						} else if ((key === 187 && shift) || (key === 61 && shift)) {
 							gisM.zoomIn(map);
@@ -138,13 +138,13 @@
 						}  else if ((key === 189 && shift) || (key === 173 && shift)) {
 							gisM.zoomOut(map);
 							prevent = true;
-	
+
 						// firefox trigger internal api zoom even if shift is not press. Grab this key and prevent default.
 						} else if (key === 61) {
 							prevent = true;
 						// open tools if esc is press
 						} else if (key === 27) {
-	
+
 							// check if draw is active. If so apply event
 							if (typeof gcvizFunc.getElemValueVM(mapid, ['draw'], 'js') !== 'undefined') {
 								if (gcvizFunc.getElemValueVM(mapid, ['draw', 'activeTool'], 'ko') !== '') {
@@ -159,7 +159,7 @@
 									flag = true;
 								}
 							}
-	
+
 							// if not tools acitve, just toggle the menu
 							if (!flag) {
 								gcvizFunc.getElemValueVM(mapid, ['header', 'toolsClick'], 'js')();

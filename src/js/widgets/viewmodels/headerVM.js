@@ -36,6 +36,7 @@
 					$btnAbout = $mapElem.find('.gcviz-head-about'),
 					$menu = $mapElem.find('#gcviz-menu' + mapid),
 					$btnFull = $mapElem.find('.gcviz-head-pop'),
+					$ovMap = $viz('#ovmapcont' + mapid),
 					map = gcvizFunc.getElemValueVM(mapid, ['map', 'map'], 'js'),
 					instrHeight = 36;
 
@@ -133,35 +134,8 @@
 								$menu.accordion('option', 'active', false);
 							}, 0);
 						}
-					
-						$menuCont.off('accordioncreate');
-					});
 
-					// initialize full screen with magnific popup
-					$btnFull.magnificPopup({
-						items: {
-							src: '#' + mapid,
-							type: 'inline'
-						},
-						callbacks: {
-							beforeOpen: function() {
-								_self.requestFullScreen();
-							},
-							close: function() {
-								_self.cancelFullScreen();
-							},
-							afterClose: function() {
-								$viz('#' + mapid).removeClass('mfp-hide');
-								gisM.resizeCenterMap(map, 0);
-							}
-						},
-						key: 'map-key',
-						showCloseBtn: false,
-						closeOnBgClick: false,
-						enableEscapeKey: false,
-						alignTop: false,
-						modal: false,
-						mainClass: 'mfp-with-fade'
+						$menuCont.off('accordioncreate');
 					});
 
 					return { controlsDescendantBindings: true };
@@ -175,9 +149,11 @@
 					// debounce the click to avoid resize problems
 					gcvizFunc.debounceClick(function() {
 						if (_self.fullscreenState === 0) {
-							$btnFull.magnificPopup('close');
+							$viz('html').css('overflow', 'hidden');
+							_self.requestFullScreen();
 						} else {
-							_self.fullscreenState = 0;
+							$viz('html').css('overflow', 'auto');
+							_self.cancelFullScreen();
 						}
 
 						// remove tooltip if there (the tooltip is position before the fullscreen)
@@ -250,6 +226,7 @@
 					gcvizFunc.setStyle($mapholder[0], { 'width': sectW + 'px', 'height': (sectH - instrHeight) + 'px' }); // remove the keyboard instruction height
 					gcvizFunc.setStyle($map[0], { 'width': mapW + 'px', 'height': mapH + 'px' });
 					gcvizFunc.setStyle($maproot[0], { 'width': mapW + 'px', 'height': mapH + 'px' });
+					$mapholder.removeClass('gcviz-sectionfs');
 
 					// trigger the fullscreen custom binding and set state
 					_self.isFullscreen(false);
@@ -269,7 +246,7 @@
 
 					// need to set it to 40px. Link to the bug where we have a workaround in the request
 					// full screen function.
-					gcvizFunc.setStyle($viz('#ovmapcont' + mapid)[0], { 'bottom': '40px' });
+					gcvizFunc.setStyle($ovMap[0], { 'bottom': '40px' });
 				};
 
 				_self.requestFullScreen = function() {
@@ -282,8 +259,9 @@
 
 					// set style for the map
 					gcvizFunc.setStyle($mapholder[0], { 'width': w + 'px', 'height': h + 'px' });
-					gcvizFunc.setStyle($map[0], { 'width': w + 'px', 'height': height + 'px' });
-					gcvizFunc.setStyle($maproot[0], { 'width': w + 'px', 'height': height + 'px' });
+					gcvizFunc.setStyle($map[0], { 'width': (w - 15) + 'px', 'height': height + 'px' });
+					gcvizFunc.setStyle($maproot[0], { 'width': (w - 15) + 'px', 'height': height + 'px' });
+					$mapholder.addClass('gcviz-sectionfs');
 
 					// trigger the fullscreen custom binding and set state
 					_self.isFullscreen(true);
@@ -312,11 +290,7 @@
                     // we first got to full screen. To correct this we reset the bottom value.
                     // after the first time it is ok. In the future we can trap the first full
                     // screen and then do not do this. Or we can try to find the problem.
-                    gcvizFunc.setStyle($viz('#ovmapcont' + mapid)[0], { 'bottom': '40px' });
-                    
-                    var a = $('ui-dialog').clone();
-                    $('.mfp-content').append(a);
-                    $('ui-dialog').remove();
+                    gcvizFunc.setStyle($ovMap[0], { 'bottom': '40px' });
                 };
 
                 _self.adjustContainerHeight = function() {
@@ -384,7 +358,7 @@
 			gisM.resizeCenterMap(map, center);
 
 			// open the print page here instead of timemeout because if we do so, it will act as popup.
-			// It needs to be in a click event to 
+			// It needs to be in a click event to open without a warning
 			window.open(template);
 
 			// set the local storage

@@ -243,6 +243,11 @@ input[type="checkbox"], input[type="radio"]{
     vertical-align:	middle;
 }
 
+// solve problem with a black bar when you drag jQueryUI dialog window
+.ui-draggable {
+	margin-top: 0!important;
+}
+
 label {
 	margin-bottom: 0!important;
 }

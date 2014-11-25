@@ -26,9 +26,9 @@
 				node = '';
 
 			// find the help dialog box
-			$mapElem.find('#' + mapid).append('<div class="gcviz-help"></div>');
+			$mapElem.find('#' + mapid).append('<div class="gcviz-help-cont"></div>');
 
-			$help = $mapElem.find('.gcviz-help');
+			$help = $mapElem.find('.gcviz-help-cont');
 
 			// the full help dialog window
 			node += '<div id="help-' + mapid + '" class="gcviz-help-sect" data-bind="uiDialog: { title: lblHelpTitle, width: 600, height: 350, ok: dialogHelpOk, close: dialogHelpOk, openDialog: \'isHelpDialogOpen\', modal: false, draggable: true }">' +

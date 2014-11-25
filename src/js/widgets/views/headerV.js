@@ -7,8 +7,9 @@
  */
 (function() {
 	'use strict';
-	define(['gcviz-vm-header'
-	], function(headerVM) {
+	define(['jquery-private',
+			'gcviz-vm-header'
+	], function($viz, headerVM) {
 		var initialize,
 			addToolbars;
 

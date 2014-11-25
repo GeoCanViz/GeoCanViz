@@ -64,14 +64,14 @@
 
 			// add text
 			$element.text(options.text);
-			
+
 			// set the tabindex of the image help bubble to 0 when on focus and -1 on blur
 			ko.utils.registerEventHandler($element.parent(), 'focus', function(event) {
-            	event.currentTarget.getElementsByTagName('img')[0].tabIndex = 0;
-        	});
-        	ko.utils.registerEventHandler($element.parent(), 'blur', function(event) {
-            	event.currentTarget.getElementsByTagName('img')[0].tabIndex = -1;
-        	});
+				event.currentTarget.getElementsByTagName('img')[0].tabIndex = 0;
+			});
+			ko.utils.registerEventHandler($element.parent(), 'blur', function(event) {
+				event.currentTarget.getElementsByTagName('img')[0].tabIndex = -1;
+			});
 
 			// add bubble (set the alt text, id to match the label, click function and keyboard input)
 			$element.append('<img id="' + options.id + '" tabindex="-1" data-bind="click: function() { showBubble(32, 0, 0,  \'' + options.link + '\') }, clickBubble: false,  enterkey: { func: \'showBubble\', keyType: \'keydown\', params: \'' + options.link + '\' }" class="gcviz-help-bubble" src="' + options.img + '" alt="' + options.alt + '"></img>');
@@ -127,7 +127,7 @@
 			var func = valueAccessor().func,
 				keyType = valueAccessor().keyType,
 				params = valueAccessor().params;
-        
+
 			ko.utils.registerEventHandler(element, keyType, function(event) {
 				if (viewModel[func](event.which, event.shiftKey, event.type, params)) {
 					event.stopImmediatePropagation();

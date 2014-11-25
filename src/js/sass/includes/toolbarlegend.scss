@@ -63,12 +63,18 @@
 }
 
 // item
+.gcviz-legendImgDesc {
+	@include app-text(1, normal);
+	margin-left: (4 * $rembase) + rem;
+}
+
 .gcviz-legendImg {
 	margin: 0!important;
 }
 
 .gcviz-legendImgText {
 	@include app-text(1, normal);
+	margin: 0!important;
 }
 
 .gcviz-legendTable {

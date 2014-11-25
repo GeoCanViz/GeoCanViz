@@ -210,7 +210,9 @@
 
 				_self.dialogHelpOk = function() {
 					_self.isHelpDialogOpen(false);
-					$btnHelp.focus();
+					setTimeout(function() {
+						$btnHelp.focus();
+					}, 500);
 				};
 
 				_self.dialogHelpBubbleOk = function() {

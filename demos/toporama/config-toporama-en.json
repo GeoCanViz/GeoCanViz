@@ -667,8 +667,8 @@
                 },
                 "customimage": {
                     "enable": false,
-                    "url": "http://s-bsc-geoappint.nrn.nrcan.gc.ca/GeoCanViz/CCMEO/images/hillshade.png",
-                    "alttext": "Hillshade picture"
+                    "description": "",
+                    "images":[{}]
                 },
                 "items": []
             },{
@@ -705,8 +705,8 @@
             	},
             	"customimage":{
             		"enable":false,
-            		"url":"http://s-bsc-geoappint.nrn.nrcan.gc.ca/GeoCanViz/CCMEO/images/Lansat7.png",
-            		"alttext":"Geobase landsat imagery legend"
+            		"description": "",
+            		"images":[{}]
             	},
             	"items":[]
             
@@ -742,8 +742,8 @@
                 },
                 "customimage": {
                     "enable": false,
-                    "url": "http://s-bsc-geoappint.nrn.nrcan.gc.ca/GeoCanViz/CCMEO/images/CBMT.png",
-                    "alttext": "Canada base map image icon"
+                    "description": "",
+                    "images":[{}]
                 },
                 "items": []
             }],
@@ -771,16 +771,16 @@
             		"enable":true,
             		"initstate":true,
             		"type":2,
-					"radioid":10
+								"radioid":10
             	},
             	"displaychild":{
             		"enable":false,
             		"symbol":"{\"type\":\"simple\",\"symbol\":{\"type\":\"esriSFS\",\"style\":\"esriSFSSolid\",\"color\":[0,0,0,0],\"outline\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[0,0,0,0],\"width\":0.4}},\"label\":\"\",\"description\":\"\"}"
             	},
             	"customimage":{
-            		"enable":true,
-            		"url":"canvec_en.jpg",
-            		"alttext":"Toporama legend"
+            		"enable":false,
+            		"description": "",
+            		"images":[{}]
             	},
             	"items":[]
             },{
@@ -813,7 +813,9 @@
                     "enable": true
                 },
                 "customimage": {
-                    "enable": false
+                    "enable": false,
+                    "description": "",
+                    "images":[{}]
                 },
                 "items": [{
                 "expand": false,
@@ -845,7 +847,9 @@
                     "enable": true
                 },
                 "customimage": {
-                    "enable": false
+                    "enable": false,
+                    "description": "",
+                    "images":[{}]
                 },
                 "items": [{
 						"expand":false,
@@ -879,8 +883,38 @@
 						},
 						"customimage":{
 							"enable":true,
-							"url":"http://s-bsc-geoappint.nrn.nrcan.gc.ca/GeoCanViz/CCMEO/images/E_PlaceAndfeatureNames.jpg",
-							"alttext":""
+							"description": "Abbreviation: (FN): First Nation",
+							"images":[{
+					            "url": "./images/legend/new/place_names.gif",
+					            "label": "Place Name / Geographic Feature Names / Administrative Area names"
+					        },{
+					            "url": "./images/legend/new/hydro_names.gif",
+					            "label": "Hydrographic Names"
+					        },{
+					            "url": "./images/legend/new/pop_0-999.gif",
+					            "label": "0 - 999"
+					        },{
+					            "url": "./images/legend/new/pop_1000-4999.gif",
+					            "label": "1 000 - 4 999"
+					        },{
+					            "url": "./images/legend/new/pop_5000-24999.gif",
+					            "label": "5 000 - 24 999"
+					        },{
+					            "url": "./images/legend/new/pop_25000-99999.gif",
+					            "label": "25 000 - 99 999"
+					        },{
+					            "url": "./images/legend/new/pop_100000-499999.gif",
+					            "label": "100 000 - 499 999"
+					        },{
+					            "url": "./images/legend/new/pop_500000-greater.gif",
+					            "label": "500 000 or greater"
+					        },{
+					            "url": "./images/legend/national_capital.gif",
+					            "label": "National Capital"
+					        },{
+					            "url": "./images/legend/provincial_capital.gif",
+					            "label": "Provincial / Territorial Capitals"
+					       }]
 						},
 						"items":[]
 					},{
@@ -914,9 +948,15 @@
 							"symbol":"{\"type\":\"simple\",\"symbol\":{\"type\":\"esriSFS\",\"style\":\"esriSFSSolid\",\"color\":[0,0,0,0],\"outline\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[0,0,0,0],\"width\":0.4}},\"label\":\"\",\"description\":\"\"}"
 						},
 						"customimage":{
-							"enable":false,
-							"url":"",
-							"alttext":""
+							"enable":true,
+							"description": "",
+							"images":[{
+					            "url": "./images/legend/new/place_names.gif",
+					            "label": "Place Name / Geographic Feature Names / Administrative Area names"
+					        },{
+					            "url": "./images/legend/new/hydro_names.gif",
+					            "label": "Hydrographic Names"
+					  	}]
 						},
 						"items":[]
 					}]
@@ -952,8 +992,20 @@
 					},
 					"customimage":{
 						"enable":true,
-						"url":"http://s-bsc-geoappint.nrn.nrcan.gc.ca/GeoCanViz/CCMEO/images/E_Boundaries.jpg",
-						"alttext":""
+						"description": "",
+						"images":[{
+			            "url": "./images/legend/new/international.gif",
+			            "label": "International"
+			        },{
+			            "url": "./images/legend/new/provincial_territorial.gif",
+			            "label": "Provincial / Territorial"
+			        },{
+			            "url": "./images/legend/new/canada_kalaallit_dividing_line.gif",
+			            "label": "Canada / Kalaallit Nunaat Dividing Line"
+			        },{
+			            "url": "./images/legend/new/canada_eez.gif",
+			            "label": "Canada's Exclusive Economic Zone (EEZ)"
+			        }]
 					},
 					"items":[]
 				},{
@@ -986,7 +1038,9 @@
 						"enable": true
 					},
 					"customimage": {
-						"enable": false
+						"enable": false,
+						"description": "",
+						"images":[{}]
 					},
 					"items": [{
 						"expand":false,
@@ -1020,8 +1074,41 @@
 						},
 						"customimage":{
 							"enable":true,
-							"url":"http://s-bsc-geoappint.nrn.nrcan.gc.ca/GeoCanViz/CCMEO/images/E_RoadNetwork.jpg",
-							"alttext":""
+							"description": "",
+							"images":[{
+			            "url": "./images/legend/ferry_alt.gif",
+			            "label": "Ferry Route"
+			        },{
+			            "url": "./images/legend/toll_gate_new_alt.gif",
+			            "label": "Gate / Toll Gate"
+			        },{
+			            "url": "./images/legend/route_number_new_alt.gif",
+			            "label": "Highway Route Number"
+			        },{
+			            "url": "./images/legend/road_a_new_alt.gif",
+			            "label": "Road A: hard surface, more than 2 lanes"
+			        },{
+			            "url": "./images/legend/road_b_new_alt.gif",
+			            "label": "Road B: hard surface, 2 lanes"
+			        },{
+			            "url": "./images/legend/road_c_new_alt.gif",
+			            "label": "Road C: hard surface, less than 2 lanes; Street: hard surface"
+			        },{
+			            "url": "./images/legend/road_d_new_alt.gif",
+			            "label": "Road D: loose surface, 2 lanes or more"
+			        },{
+			            "url": "./images/legend/road_e_new_alt.gif",
+			            "label": "Road E: loose surface, less than 2 lanes; Street: unpaved"
+			        },{
+			            "url": "./images/legend/winter_new_alt.gif",
+			            "label": "Road G: Vehicle Track / Winter Road"
+			        },{
+			            "url": "./images/legend/trail_new_alt_.gif",
+			            "label": "Road H: Trail / Portage"
+			        },{
+			            "url": "./images/legend/snowshed_alt.gif",
+			            "label": "Snowshed"
+			        }]
 						},
 						"items":[]
 					},{
@@ -1056,8 +1143,26 @@
 						},
 						"customimage":{
 							"enable":true,
-							"url":"http://s-bsc-geoappint.nrn.nrcan.gc.ca/GeoCanViz/CCMEO/images/E_RailNetwork.jpg",
-							"alttext":""
+							"description": "",
+							"images":[{
+			            "url": "./images/legend/railway_alt.gif",
+			            "label": "Railway"
+			        },{
+			            "url": "./images/legend/railway_bridge_alt.gif",
+			            "label": "Railway Bridge"
+			        },{
+			            "url": "./images/legend/railway_nonoperate_alt.gif",
+			            "label": "Railway: Not Operational"
+			        },{
+			            "url": "./images/legend/snowshed_alt.gif",
+			            "label": "Railway Snowshed"
+			        },{
+			            "url": "./images/legend/tunnel_alt.gif",
+			            "label": "Railway Tunnel"
+			        },{
+			            "url": "./images/legend/railway_turntable.gif",
+			            "label": "Railway Turntable"
+			        }]
 						},
 						"items":[]
 					},{
@@ -1091,9 +1196,15 @@
 						"symbol":"{\"type\":\"simple\",\"symbol\":{\"type\":\"esriSFS\",\"style\":\"esriSFSSolid\",\"color\":[0,0,0,0],\"outline\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[0,0,0,0],\"width\":0.4}},\"label\":\"\",\"description\":\"\"}"
 					},
 					"customimage":{
-						"enable":false,
-						"url":"http://s-bsc-geoappint.nrn.nrcan.gc.ca/GeoCanViz/CCMEO/images/E_ConstructedFeatures.jpg",
-						"alttext":""
+						"enable":true,
+						"description": "",
+						"images":[{
+			            "url": "./images/legend/road_bridge_new_alt.gif",
+			            "label": "Bridge"
+			        },{
+			            "url": "./images/legend/tunnel_alt.gif",
+			            "label": "Tunnel"
+			        }]
 					},
 					"items":[]
 				}]
@@ -1127,7 +1238,9 @@
 						"enable": true
 					},
 					"customimage": {
-						"enable": false
+						"enable": false,
+						"description": "",
+						"images":[{}]
 					},
 					"items": [{
 					"expand":false,
@@ -1161,8 +1274,80 @@
 					},
 					"customimage":{
 						"enable":true,
-						"url":"http://s-bsc-geoappint.nrn.nrcan.gc.ca/GeoCanViz/CCMEO/images/E_DesignatedAreas.jpg",
-						"alttext":""
+						"description": "",
+						"images":[{
+			            "url": "./images/legend/campground_large_alt.gif",
+			            "label": "Campground: large"
+			        },{
+			            "url": "./images/legend/campground_small_alt.gif",
+			            "label": "Campground: small"
+			        },{
+			            "url": "./images/legend/cemetery_large_alt.gif",
+			            "label": "Cemetery: large"
+			        },{
+			            "url": "./images/legend/cemetery_small_alt.gif",
+			            "label": "Cemetery: small"
+			        },{
+			            "url": "./images/legend/designated_area_alt.gif",
+			            "label": "Designated Area: labelled"
+			        },{
+			            "url": "./images/legend/drivein_large_alt.gif",
+			            "label": "Drive-in Theatre: large"
+			        },{
+			            "url": "./images/legend/drivein_small_alt.gif",
+			            "label": "Drive-in Theatre: small"
+			        },{
+			            "url": "./images/legend/fort_alt.gif",
+			            "label": "Fort: labelled"
+			        },{
+			            "url": "./images/legend/golfcourse_large_alt.gif",
+			            "label": "Golf Course: large"
+			        },{
+			            "url": "./images/legend/golfcourse_small_alt.gif",
+			            "label": "Golf Course: small"
+			        },{
+			            "url": "./images/legend/golfdriveing_large_alt.gif",
+			            "label": "Golf Driving Range: large"
+			        },{
+			            "url": "./images/legend/golfdrivieng_small_alt.gif",
+			            "label": "Golf Driving Range: small"
+			        },{
+			            "url": "./images/legend/historic_point_interest.gif",
+			            "label": "Historic Site / Point of Interest"
+			        },{
+			            "url": "./images/legend/industrial_depot_alt.gif",
+			            "label": "Industrial Solids Depot: labelled"
+			        },{
+			            "url": "./images/legend/chimney_alt.gif",
+			            "label": "Lookout: labelled"
+			        },{
+			            "url": "./images/legend/mine_large_alt.gif",
+			            "label": "Mine: large"
+			        },{
+			            "url": "./images/legend/mine_small_alt.gif",
+			            "label": "Mine: small; Mining Area"
+			        },{
+			            "url": "./images/legend/park_sports_alt.gif",
+			            "label": "Park / Sports Field"
+			        },{
+			            "url": "./images/legend/picnic_large_alt.gif",
+			            "label": "Picnic Site: large"
+			        },{
+			            "url": "./images/legend/picnic_small_alt.gif",
+			            "label": "Picnic Site: small"
+			        },{
+			            "url": "./images/legend/gravel_alt.gif",
+			            "label": "Pit"
+			        },{
+			            "url": "./images/legend/quarry_alt.gif",
+			            "label": "Quarry"
+			        },{
+			            "url": "./images/legend/shrine.gif",
+			            "label": "Shrine"
+			        },{
+			            "url": "./images/legend/centre_de_ski.gif",
+			            "label": "Ski Centre"
+			        }]
 					},
 					"items":[]
 				},{
@@ -1197,8 +1382,113 @@
 					},
 					"customimage":{
 						"enable":true,
-						"url":"http://s-bsc-geoappint.nrn.nrcan.gc.ca/GeoCanViz/CCMEO/images/E_ConstructedFeatures.jpg",
-						"alttext":""
+						"description": "",
+						"images":[{
+					            "url": "./images/legend/airfield_alt.gif",
+					            "label": "Airfield"
+					      },{
+					            "url": "./images/legend/airport_alt.gif",
+					            "label": "Airport"
+					      },{
+					            "url": "./images/legend/airport_2_alt.gif",
+					            "label": "Airport"
+					      },{
+					            "url": "./images/legend/runway_hard_alt.gif",
+					            "label": "Airport"
+					      },{
+					            "url": "./images/legend/building_alt.gif",
+					            "label": "Building"
+					      },{
+					            "url": "./images/legend/building_text_alt.gif",
+					            "label": "Building: labelled"
+					      },{
+					            "url": "./images/legend/chimney_alt.gif",
+					            "label": "Chimney / Tower: labelled"
+					      },{
+					            "url": "./images/legend/batiment_0_garde_cotiere.gif",
+					            "label": "Coast Guard Station"
+					      },{
+					            "url": "./images/legend/chimney_alt.gif",
+					            "label": "Cross: labelled"
+					      },{
+					            "url": "./images/legend/batiment_0_douane.gif",
+					            "label": "Customs Post"
+					      },{
+					            "url": "./images/legend/designated_area_alt.gif",
+					            "label": "Designated Area: labelled"
+					      },{
+					            "url": "./images/legend/building_school.gif",
+					            "label": "Educational Building"
+					      },{
+					            "url": "./images/legend/electric_power_station.gif",
+					            "label": "Electric Power Station"
+					      },{
+					            "url": "./images/legend/fence_alt.gif",
+					            "label": "Fence"
+					      },{
+					            "url": "./images/legend/fire_station_alt.gif",
+					            "label": "Fire Station"
+					      },{
+					            "url": "./images/legend/footbridge_alt.gif",
+					            "label": "Footbridge"
+					      },{
+					            "url": "./images/legend/heliport_alt.gif",
+					            "label": "Heliport"
+					      },{
+					            "url": "./images/legend/service_station_alt.gif",
+					            "label": "Highway Service Centre"
+					      },{
+					            "url": "./images/legend/chimney_alt.gif",
+					            "label": "Parabolic Antenna: labelled"
+					      },{
+					            "url": "./images/legend/building_religiousl.gif",
+					            "label": "Religious Building"
+					      },{
+					            "url": "./images/legend/ruins_large_alt.gif",
+					            "label": "Ruins: large"
+					      },{
+					            "url": "./images/legend/ruins_small.gif",
+					            "label": "Ruins: small"
+					      },{
+					            "url": "./images/legend/seaplane_anchorage_alt.gif",
+					            "label": "Seaplane Anchorage"
+					      },{
+					            "url": "./images/legend/seaplane_base_alt.gif",
+					            "label": "Seaplane Base; Water Aerodrome"
+					      },{
+					            "url": "./images/legend/silo.gif",
+					            "label": "Silo"
+					      },{
+					            "url": "./images/legend/sports_track_alt.gif",
+					            "label": "Sports Track / Race Track"
+					      },{
+					            "url": "./images/legend/stadium_alt.gif",
+					            "label": "Stadium"
+					      },{
+					            "url": "./images/legend/horizontal_tank_alt.gif",
+					            "label": "Tank: Horizontal"
+					      },{
+					            "url": "./images/legend/vertical_tank_alt.gif",
+					            "label": "Tank: Vertical"
+					      },{
+					            "url": "./images/legend/under_res_large.gif",
+					            "label": "Underground Reservoir: large"
+					      },{
+					            "url": "./images/legend/under_res_small.gif",
+					            "label": "Underground Reservoir: small"
+					      },{
+					            "url": "./images/legend/wall_alt.gif",
+					            "label": "Wall"
+					      },{
+					            "url": "./images/legend/well_water.gif",
+					            "label": "Well: Brine / Water"
+					      },{
+					            "url": "./images/legend/well_gas.gif",
+					            "label": "Well: Petroleum"
+					      },{
+					            "url": "./images/legend/wind_operated_dev_alt.gif",
+					            "label": "Wind-operated Device"
+        		}]
 					},
 					"items":[]
 				},{
@@ -1233,8 +1523,44 @@
 					},
 					"customimage":{
 						"enable":true,
-						"url":"http://s-bsc-geoappint.nrn.nrcan.gc.ca/GeoCanViz/CCMEO/images/E_PowerNetwork.jpg",
-						"alttext":""
+						"description": "",
+						"images":[{
+				            "url": "./images/legend/transformer_station_large_alt.gif",
+				            "label": "Electric Facility: large"
+				      },{
+				            "url": "./images/legend/poste_transformateur_0.gif",
+				            "label": "Electric Facility: small; Transformer Station"
+				      },{
+				            "url": "./images/legend/number_lines_alt.gif",
+				            "label": "Number of Pipelines"
+				      },{
+				            "url": "./images/legend/number_lines_alt.gif",
+				            "label": "Number of Power Transmission Lines"
+				      },{
+				            "url": "./images/legend/oilgas_facility_large_alt.gif",
+				            "label": "Oil / Natural Gas Facility: large"
+				      },{
+				            "url": "./images/legend/oilgas_facility_alt.gif",
+				            "label": "Oil / Natural Gas Facility: small"
+				      },{
+				            "url": "./images/legend/pipeline_aboveground_alt.gif",
+				            "label": "Pipeline"
+				      },{
+				            "url": "./images/legend/pipeline_valve.gif",
+				            "label": "Pipeline: Control Valve"
+				      },{
+				            "url": "./images/legend/pipeline_underground_alt.gif",
+				            "label": "Pipeline: Underground"
+				      },{
+				            "url": "./images/legend/power_transmission_line_alt.gif",
+				            "label": "Power Transmission Line"
+				      },{
+				            "url": "./images/legend/submarine_cable_alt.gif",
+				            "label": "Submarine Cable"
+				      },{
+				            "url": "./images/legend/telephone_line_alt.gif",
+				            "label": "Telephone Line"
+		        }]
 					},
 					"items":[]
 				}]
@@ -1268,7 +1594,9 @@
 						"enable": true
 					},
 					"customimage": {
-						"enable": false
+						"enable": false,
+						"description": "",
+						"images":[{}]
 					},
 					"items": [{
 					"expand":false,
@@ -1302,8 +1630,32 @@
 					},
 					"customimage":{
 						"enable":true,
-						"url":"http://s-bsc-geoappint.nrn.nrcan.gc.ca/GeoCanViz/CCMEO/images/E_Contours.jpg",
-						"alttext":""
+						"description": "Contour / Elevation Values: m = metres, ft = feet",
+						"images":[{
+				            "url": "./images/legend/contour_approx_index_alt.gif",
+				            "label": "Contour: Approximate, Index (interval varies)"
+				      },{
+				            "url": "./images/legend/contour_approx_inter_alt.gif",
+				            "label": "Contour: Approximate, Intermediate (interval varies)"
+				      },{
+				            "url": "./images/legend/contour_dep_index.gif",
+				            "label": "Contour: Depression, Index (interval varies)"
+				      },{
+				            "url": "./images/legend/contour_dep_inter.gif",
+				            "label": "Contour: Depression, Intermediate (interval varies)"
+				      },{
+				            "url": "./images/legend/contour_index_alt.gif",
+				            "label": "Contour: Index (interval varies)"
+				      },{
+				            "url": "./images/legend/contour_intermediate_alt.gif",
+				            "label": "Contour: Intermediate (interval varies)"
+				      },{
+				            "url": "./images/legend/precise_elevation_alt.gif",
+				            "label": "Precise Elevation"
+				      },{
+				            "url": "./images/legend/spot_height_alt.gif",
+				            "label": "Spot Height"
+      			}]
 					},
 					"items":[]
 				},{
@@ -1337,9 +1689,21 @@
 						"symbol":"{\"type\":\"simple\",\"symbol\":{\"type\":\"esriSFS\",\"style\":\"esriSFSSolid\",\"color\":[0,0,0,0],\"outline\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[0,0,0,0],\"width\":0.4}},\"label\":\"\",\"description\":\"\"}"
 					},
 					"customimage":{
-						"enable":false,
-						"url":"",
-						"alttext":""
+						"enable":true,
+						"description": "",
+						"images":[{
+				            "url": "./images/legend/esker_alt.gif",
+				            "label": "Esker"
+				      },{
+				            "url": "./images/legend/moraine.gif",
+				            "label": "Moraine"
+				      },{
+				            "url": "./images/legend/pingo.gif",
+				            "label": "Pingo"
+				      },{
+				            "url": "./images/legend/sand_other_alt.gif",
+				            "label": "Sand"
+						}]
 					},
 					"items":[]
 				}]
@@ -1373,7 +1737,9 @@
 						"enable": true
 					},
 					"customimage": {
-						"enable": false
+						"enable": false,
+						"description": "",
+						"images":[{}]
 					},
 					"items": [{
 					"expand":false,
@@ -1407,8 +1773,38 @@
 					},
 					"customimage":{
 						"enable":true,
-						"url":"http://s-bsc-geoappint.nrn.nrcan.gc.ca/GeoCanViz/CCMEO/images/E_Hydrography.jpg",
-						"alttext":""
+						"description": "",
+						"images":[{
+				            "url": "./images/legend/bank_int_alt_new.gif",
+				            "label": "Banks: Intermittent"
+				      },{
+				            "url": "./images/legend/water_bodies_alt_new.gif",
+				            "label": "Ocean / Canal / Lake / Watercourse / Reservoir"
+				      },{
+				            "url": "./images/legend/intermittant_waterbody_alt_new.gif",
+				            "label": "Canal / Lake / Watercourse / Reservoir: Intermittent"
+				      },{
+				            "url": "./images/legend/river_alt_new.gif",
+				            "label": "Canal / Conduit / Watercourse"
+				      },{
+				            "url": "./images/legend/river_int_alt_new.gif",
+				            "label": "Canal / Conduit / Watercourse (Intermittent)"
+				      },{
+				            "url": "./images/legend/debris_covered_ice_alt.png",
+				            "label": "Debris-covered Ice"
+				      },{
+				            "url": "./images/legend/drink_filter_water.gif",
+				            "label": "Drinkable Water / Water Filter"
+				      },{
+				            "url": "./images/legend/liquid_waste_alt.gif",
+				            "label": "Liquid Waste"
+				      },{
+				            "url": "./images/legend/permanent_snow_ice_alt.png",
+				            "label": "Permanent Snow / Ice"
+				      },{
+				            "url": "./images/legend/palsa_alt.png",
+				            "label": "Palsa Bog"
+        		}]
 					},
 					"items":[]
 				},{
@@ -1443,8 +1839,20 @@
 					},
 					"customimage":{
 						"enable":true,
-						"url":"http://s-bsc-geoappint.nrn.nrcan.gc.ca/GeoCanViz/CCMEO/images/E_WaterSaturatedSoils.jpg",
-						"alttext":""
+						"description": "",
+						"images":[{
+				            "url": "./images/legend/tourbiere_reticulee.gif",
+				            "label": "String Bog"
+				      },{
+				            "url": "./images/legend/sols_polygonaux.gif",
+				            "label": "Tundra Polygon"
+				      },{
+				            "url": "./images/legend/etang_toundra.gif",
+				            "label": "Tundra Pond"
+				      },{
+				            "url": "./images/legend/terre_humide5.gif",
+				            "label": "Wetland"
+        		}]
 					},
 					"items":[]
 				},{
@@ -1478,9 +1886,72 @@
 						"symbol":"{\"type\":\"simple\",\"symbol\":{\"type\":\"esriSFS\",\"style\":\"esriSFSSolid\",\"color\":[0,0,0,0],\"outline\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[0,0,0,0],\"width\":0.4}},\"label\":\"\",\"description\":\"\"}"
 					},
 					"customimage":{
-						"enable":false,
-						"url":"",
-						"alttext":""
+						"enable":true,
+						"description": "",
+						"images":[{
+				            "url": "./images/legend/boatramp.gif",
+				            "label": "Boat Ramp"
+				      },{
+				            "url": "./images/legend/breakwater_2_alt_new.gif",
+				            "label": "Breakwater"
+				      },{
+				            "url": "./images/legend/dam_large_alt_new.gif",
+				            "label": "Dam: large"
+				      },{
+				            "url": "./images/legend/dam_line_alt_new.gif",
+				            "label": "Dam: small"
+				      },{
+				            "url": "./images/legend/disappearing_stream_new_alt.gif",
+				            "label": "Disappearing Stream"
+				      },{
+				            "url": "./images/legend/dry_riverbed_alt.gif",
+				            "label": "Dry River Bed"
+				      },{
+				            "url": "./images/legend/dyke_2_alt.gif",
+				            "label": "Dyke / Levee"
+				      },{
+				            "url": "./images/legend/shipwreck_new_alt.gif",
+				            "label": "Exposed Shipwreck"
+				      },{
+				            "url": "./images/legend/falls_line_alt_new.gif",
+				            "label": "Falls"
+				      },{
+				            "url": "./images/legend/fish_ladder_alt.gif",
+				            "label": "Fish Ladder"
+				      },{
+				            "url": "./images/legend/ford_new_alt.gif",
+				            "label": "Ford"
+				      },{
+				            "url": "./images/legend/lockgate.gif",
+				            "label": "Lock Gate"
+				      },{
+				            "url": "./images/legend/navigation_beacon_alt_new.gif",
+				            "label": "Navigation Beacon: labelled"
+				      },{
+				            "url": "./images/legend/repere_navigation_new.gif",
+				            "label": "Navigation Light"
+				      },{
+				            "url": "./images/legend/rapids_large_alt_new.gif",
+				            "label": "Rapids: large"
+				      },{
+				            "url": "./images/legend/rapids_line_alt_new.gif",
+				            "label": "Rapids: small"
+				      },{
+				            "url": "./images/legend/rock_alt_new.gif",
+				            "label": "Rock in Water"
+				      },{
+				            "url": "./images/legend/rocky_ledge_alt_new.gif",
+				            "label": "Rocky Ledge / Reef"
+				      },{
+				            "url": "./images/legend/rocky_ledge_alt_new.gif",
+				            "label": "Slip"
+				      },{
+				            "url": "./images/legend/drydock_new_alt.gif",
+				            "label": "Underwater Sand"
+				      },{
+				            "url": "./images/legend/wharf_alt_new.gif",
+				            "label": "Wharf"
+        		}]
 					},
 					"items":[]
 				}]
@@ -1516,8 +1987,17 @@
 					},
 					"customimage":{
 						"enable":true,
-						"url":"http://s-bsc-geoappint.nrn.nrcan.gc.ca/GeoCanViz/CCMEO/images/E_Vegetation.jpg",
-						"alttext":""
+						"description": "",
+						"images":[{
+				            "url": "./images/legend/cutline_other_alt.gif",
+				            "label": "Cut Line: Other / Unknown"
+				      },{
+				            "url": "./images/legend/cutline_firebreak_alt.gif",
+				            "label": "Cut Line: Firebreak"
+				      },{
+				            "url": "./images/legend/wooded_alt.gif",
+				            "label": "Wooded Area"
+        		}]
 					},
 					"items":[]
 				},{
@@ -1552,8 +2032,11 @@
 					},
 					"customimage":{
 						"enable":true,
-						"url":"http://s-bsc-geoappint.nrn.nrcan.gc.ca/GeoCanViz/CCMEO/images/E_BuiltupAreas.jpg",
-						"alttext":""
+						"description": "",
+						"images":[{
+		            "url": "./images/legend/builtup_alt.gif",
+		            "label": "Built-up Area: large"
+        		}]
 					},
 					"items":[]
 				},{
@@ -1588,8 +2071,17 @@
 					},
 					"customimage":{
 						"enable":true,
-						"url":"http://s-bsc-geoappint.nrn.nrcan.gc.ca/GeoCanViz/CCMEO/images/E_OtherFeatures.jpg",
-						"alttext":""
+						"description": "",
+						"images":[{
+					            "url": "./images/legend/new/provinces_territories_colour.gif",
+					            "label": "Provinces / Territories (colour varies)"
+					      },{
+					            "url": "./images/legend/new/regions_outside_canada.gif",
+					            "label": "Regions Outside Canada"
+					      },{
+					            "url": "./images/legend/new/administrative_area_geographic_feature_names.gif",
+					            "label": "Administrative Area / Geographic Feature Names"
+        			}]
 					},
 					"items":[]
 				}]
@@ -1625,8 +2117,8 @@
             	},
             	"customimage":{
             		"enable":false,
-            		"url":"",
-            		"alttext":""
+            		"description": "",
+            		"images":[{}]
             	},
             	"items":[]
             }]
