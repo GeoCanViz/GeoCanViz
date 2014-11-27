@@ -37,6 +37,9 @@
 					_self.layersArray = ko.observableArray(config.items);
 					_self.basesArray = ko.observableArray(config.basemaps);
 
+					// concat all layers to access in determineTextCSS
+					_self.allLayers = _self.layersArray().concat(_self.basesArray()),
+					
 					// set initial visibility state
 					setTimeout(function() {
 						_self.changeItemsVisibility();
@@ -67,55 +70,22 @@
 					var layer,
 						className = 'gcviz-leg-span',
 						layers = _self.layersArray().concat(_self.basesArray()),
-						len = layers.length,
-						count = 1;
+						len = _self.allLayers.length,
+						count = 0;
 
 					// loop trought layers to find a match
 					while (len--) {
-						layer = layers[len];
-
-						// if the layer is the same as the one for the grapic item,
-						// find the level of deepness
-						if (item.id === layer.id) {
-
-							// if it is not on this level, call getIndex
-							if (layer.items.length > 0 && item.graphid !== layer.graphid) {
-								count =	_self.getIndex(layer.items, item.graphid, count);
-							}
-
-							className += count;
+						layer = _self.allLayers[len];
+						
+						if (item.graphid === layer.graphid) {
 							count = 1;
-							return className;
 						}
 					}
-				};
-
-				_self.getIndex = function(items, graphid, count) {
-					var layer,
-						len = items.length;
-
-					// increment count
-					count += 1;
-
-					// check if there is a match at this level. If so, return the count
-					while (len--) {
-						layer = items[len];
-
-						if (graphid === layer.graphid) {
-							return count;
-						}
-					}
-
-					// if there is no match, loop trought childs items and recall the
-					// function
-					len = items.length;
-					while (len--) {
-						layer = items[len].items;
-						count = _self.getIndex(layer, graphid, count);
-						return count;
-					}
-
-					return count;
+					
+					count = (count === 0) ? 2 : 1;
+					
+					return className + count;
+					
 				};
 
 				// needs this function because the a tag inside li tag doesn't work.

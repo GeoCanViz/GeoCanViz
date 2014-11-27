@@ -168,3 +168,10 @@
 .gcviz-leg-chekhold {
 	margin-left: (0.2 * $rembase) + rem;
 }
+
+.gcviz-legendTable {
+	tr, td {
+		padding: 2px!important;
+		vertical-align: middle;
+	}
+}

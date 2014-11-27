@@ -34,7 +34,7 @@
 			// add zoom full extent
 			holder = $mapElem.find('#' + mapid + '_holder');
 			if (config.zoombar.zoom) {
-				holder.prepend('<button class="gcviz-map-zoommax' + ext + '" tabindex="0" data-bind="buttonBlur, click: extentClick, tooltip: { content: tpZoomFull }"></button>');
+				holder.prepend('<button class="gcviz-map-zm gcviz-map-zoommax' + ext + '" tabindex="0" data-bind="buttonBlur, click: extentClick, tooltip: { content: tpZoomFull }"></button>');
 			}
 
 			// add div to hold overview map if user decide to show it on the map instead of toolbar

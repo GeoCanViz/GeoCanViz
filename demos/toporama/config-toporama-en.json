@@ -138,7 +138,7 @@
                     "label": "CBMT3978",
                     "id": "62e7429b-b08a-9325-45dd-4fbff4f67858",
                     "type": 2,
-                    "url": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/BaseMaps/CBMT3978/MapServer",
+                    "url": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/BaseMaps/CBMT_CBCT_GEOM_3978/MapServer",
                     "scale": {
                         "min": 0,
                         "max": 17500
@@ -171,7 +171,7 @@
           		} ],
                 "layers": [{
                 	"label": "toporama_limits",
-                	"id":"bbbb469d-aaaa-c8f5-175c-645271a6b6fe",
+                	"id":"bbbb469d-bbb1-c8f5-175c-645271a6b6fe",
                 	"type": 3,
                 	"url": "http://wms.ess-ws.nrcan.gc.ca/wms/toporama_en",                    					
                 	"options": {
@@ -193,7 +193,7 @@
           			}
                 },{
                 	"label": "toporama_builtup_areas",
-                	"id":"bbbb469d-aaaa-c8f5-175c-645282a6b6fe",
+                	"id":"bbbb469d-bbb2-c8f5-175c-645282a6b6fe",
                 	"type": 3,
                 	"url": "http://wms.ess-ws.nrcan.gc.ca/wms/toporama_en",                    					
                 	"options": {
@@ -215,7 +215,7 @@
           			}
                 },{
                 	"label": "toporama_vegetation",
-                	"id":"bbbb469d-aaaa-c8f5-175c-645272a6b6fe",
+                	"id":"bbbb469d-bbb3-c8f5-175c-645272a6b6fe",
                 	"type": 3,
                 	"url": "http://wms.ess-ws.nrcan.gc.ca/wms/toporama_en",                    					
                 	"options": {
@@ -237,7 +237,7 @@
           			}
                 },{
                 	"label": "toporama_hydrography",
-                	"id":"bbbb469d-aaaa-c8f5-175c-645273a6b6fe",
+                	"id":"bbbb469d-bbb6-c8f5-175c-645273a6b6fe",
                 	"type": 3,
                 	"url": "http://wms.ess-ws.nrcan.gc.ca/wms/toporama_en",                    					
                 	"options": {
@@ -259,7 +259,7 @@
           			}
                 },{
                 	"label": "toporama_water_saturated_soils",
-                	"id":"bbbb469d-aaaa-c8f5-175c-645276a6b6fe",
+                	"id":"bbbb469d-bbb5-c8f5-175c-645276a6b6fe",
                 	"type": 3,
                 	"url": "http://wms.ess-ws.nrcan.gc.ca/wms/toporama_en",                    					
                 	"options": {
@@ -281,7 +281,7 @@
           			}
                 },{
                 	"label": "toporama_water_features",
-                	"id":"bbbb469d-aaaa-c8f5-175c-645280a6b6fe",
+                	"id":"bbbb469d-bbb4-c8f5-175c-645280a6b6fe",
                 	"type": 3,
                 	"url": "http://wms.ess-ws.nrcan.gc.ca/wms/toporama_en",                    					
                 	"options": {
@@ -303,7 +303,7 @@
           			}
                 },{
                 	"label": "toporama_landforms",
-                	"id":"bbbb469d-aaaa-c8f5-175c-645277a6b6fe",
+                	"id":"bbbb469d-bbb8-c8f5-175c-645277a6b6fe",
                 	"type": 3,
                 	"url": "http://wms.ess-ws.nrcan.gc.ca/wms/toporama_en",                    					
                 	"options": {
@@ -325,7 +325,7 @@
           			}
                 },{
                 	"label": "toporama_hypsography",
-                	"id":"bbbb469d-aaaa-c8f5-175c-645275a6b6fe",
+                	"id":"bbbb469d-bbb9-c8f5-175c-645275a6b6fe",
                 	"type": 3,
                 	"url": "http://wms.ess-ws.nrcan.gc.ca/wms/toporama_en",                    					
                 	"options": {
@@ -347,7 +347,7 @@
           			}
                 },{
                 	"label": "toporama_power_network",
-                	"id":"bbbb469d-aaaa-c8f5-175c-645284a6b6fe",
+                	"id":"bbbb469d-ccc1-c8f5-175c-645284a6b6fe",
                 	"type": 3,
                 	"url": "http://wms.ess-ws.nrcan.gc.ca/wms/toporama_en",                    					
                 	"options": {
@@ -369,7 +369,7 @@
           			}
                 },{
                 	"label": "toporama_constructions",
-                	"id":"bbbb469d-aaaa-c8f5-175c-645278a6b6fe",
+                	"id":"bbbb469d-ccc2-c8f5-175c-645278a6b6fe",
                 	"type": 3,
                 	"url": "http://wms.ess-ws.nrcan.gc.ca/wms/toporama_en",                    					
                 	"options": {
@@ -391,7 +391,7 @@
           			}
                 },{
                 	"label": "designated_areas",
-                	"id":"bbbb469d-aaaa-c8f5-175c-645274a6b6fe",
+                	"id":"bbbb469d-ccc3-c8f5-175c-645274a6b6fe",
                 	"type": 3,
                 	"url": "http://wms.ess-ws.nrcan.gc.ca/wms/toporama_en",                    					
                 	"options": {
@@ -413,7 +413,7 @@
           			}
                 },{
                 	"label": "toporama_structures",
-                	"id":"bbbb469d-aaaa-c8f5-175c-645286a6b6fe",
+                	"id":"bbbb469d-ddd1-c8f5-175c-645286a6b6fe",
                 	"type": 3,
                 	"url": "http://wms.ess-ws.nrcan.gc.ca/wms/toporama_en",                    					
                 	"options": {
@@ -435,7 +435,7 @@
           			}
                 },{
                 	"label": "toporama_railway",
-                	"id":"bbbb469d-aaaa-c8f5-175c-645285a6b6fe",
+                	"id":"bbbb469d-ddd2-c8f5-175c-645285a6b6fe",
                 	"type": 3,
                 	"url": "http://wms.ess-ws.nrcan.gc.ca/wms/toporama_en",                    					
                 	"options": {
@@ -457,7 +457,7 @@
           			}
                 },{
                 	"label": "toporama_road_network",
-                	"id":"bbbb469d-aaaa-c8f5-175c-645281a6b6fe",
+                	"id":"bbbb469d-ddd3-c8f5-175c-645281a6b6fe",
                 	"type": 3,
                 	"url": "http://wms.ess-ws.nrcan.gc.ca/wms/toporama_en",                    					
                 	"options": {
@@ -479,7 +479,7 @@
           			}
                 },{
                 	"label": "toporama_feature_names",
-                	"id":"bbbb469d-aaaa-c8f5-175c-645299a6b6fe",
+                	"id":"bbbb469d-eee1-c8f5-175c-645299a6b6fe",
                 	"type": 3,
                 	"url": "http://wms.ess-ws.nrcan.gc.ca/wms/toporama_en",                    					
                 	"options": {
@@ -501,7 +501,7 @@
           			}
                 },{
                 	"label": "toporama_feature_names",
-                	"id":"bbbb469d-aaaa-c8f5-175c-645287a6b6fe",
+                	"id":"bbbb469d-fff1-c8f5-175c-645287a6b6fe",
                 	"type": 3,
                 	"url": "http://wms.ess-ws.nrcan.gc.ca/wms/toporama_en",                    					
                 	"options": {
@@ -523,7 +523,7 @@
           			}
                 },{
                 	"label": "toporama_populated_places",
-                	"id":"bbbb469d-aaaa-c8f5-175c-645283a6b6fe",
+                	"id":"bbbb469d-fff2-c8f5-175c-645283a6b6fe",
                 	"type": 3,
                 	"url": "http://wms.ess-ws.nrcan.gc.ca/wms/toporama_en",                    					
                 	"options": {
@@ -545,7 +545,7 @@
           			}
                 },{
                 	"label": "toporama",
-                	"id":"bbbb469d-aaaa-c8f5-175c-645270a6b6fe",
+                	"id":"bbbb469d-gggg-c8f5-175c-645270a6b6fe",
                 	"type": 3,
                 	"url": "http://wms.ess-ws.nrcan.gc.ca/wms/toporama_en",                    					
                 	"options": {
@@ -567,7 +567,7 @@
           			}
                 },{
                 	"label": "toporama_NTS_Index",
-                	"id":"bbbb469d-aaaa-c8f5-175c-645200a6b6fe",
+                	"id":"bbbb469d-aaa1-c8f5-175c-645200a6b6fe",
                 	"type": 3,
                 	"url": "http://ows.geobase.ca/wms/geobase_en",                    					
                 	"options": {
@@ -640,7 +640,7 @@
                 "last": true,
                 "type": 2,
                 "id": "34ad6a2c-2bcf-bd20-111f-ce0421f62a53",
-                "graphid": "762eb7ed-a85c-242f-6fcf-af08f5605eb1",
+                "graphid": "762eb7ed-0001-242f-6fcf-af08f5605eb1",
                 "displayfields": false,
                 "label": {
                     "value": "Hillshade",
@@ -676,7 +676,7 @@
             	"last":true,
             	"type":3,
             	"id":"99999999-0003-c8f5-175c-645270a6b6fe",
-            	"graphid":"e5511402-0003-5cbe-0d3c-f537c612b7df",
+            	"graphid":"e5511402-0002-5cbe-0d3c-f537c612b7df",
             	"displayfields":false,
             	"label":{
             		"value":"Landsat Imagery",
@@ -701,7 +701,7 @@
             	},
             	"displaychild":{
             		"enable":false,
-            		"symbol":"{\"type\":\"simple\",\"symbol\":{\"type\":\"esriSFS\",\"style\":\"esriSFSSolid\",\"color\":[0,0,0,0],\"outline\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[0,0,0,0],\"width\":0.4}},\"label\":\"\",\"description\":\"\"}"
+            		"symbol":""
             	},
             	"customimage":{
             		"enable":false,
@@ -715,7 +715,7 @@
                 "last": true,
                 "type": 2,
                 "id": "62e7429b-b08a-9325-45dd-4fbff4f67858",
-                "graphid": "cc7fde4c-eed4-1cf2-8358-7ca86eefb13c",
+                "graphid": "cc7fde4c-0003-1cf2-8358-7ca86eefb13c",
                 "displayfields": false,
                 "label": {
                     "value": "Canada Base Map",
@@ -738,7 +738,7 @@
                 },
                 "displaychild": {
                     "enable": false,
-                    "symbol": "{\"type\":\"simple\",\"symbol\":{\"type\":\"esriSFS\",\"style\":\"esriSFSSolid\",\"color\":[0,0,0,0],\"outline\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[0,0,0,0],\"width\":0.4}},\"label\":\"\",\"description\":\"\"}"
+                    "symbol": ""
                 },
                 "customimage": {
                     "enable": false,
@@ -751,8 +751,8 @@
                 "expand":false,
             	"last":false,
             	"type":3,
-            	"id":"bbbb469d-aaaa-c8f5-175c-645270a6b6fe",
-            	"graphid":"e5511402-9999-5cbe-0d3c-f537c612b7df",
+            	"id":"bbbb469d-gggg-c8f5-175c-645270a6b6fe",
+            	"graphid":"e5511402-0004-5cbe-0d3c-f537c612b7df",
             	"displayfields":false,
             	"label":{
             		"value":"Toporama complete",
@@ -775,7 +775,7 @@
             	},
             	"displaychild":{
             		"enable":false,
-            		"symbol":"{\"type\":\"simple\",\"symbol\":{\"type\":\"esriSFS\",\"style\":\"esriSFSSolid\",\"color\":[0,0,0,0],\"outline\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[0,0,0,0],\"width\":0.4}},\"label\":\"\",\"description\":\"\"}"
+            		"symbol":""
             	},
             	"customimage":{
             		"enable":false,
@@ -787,8 +787,8 @@
                 "expand": false,
                 "last": false,
                 "type": 0,
-                "id": "9f66a0dd-eba7-bfff-c7b8-8a55f66cf92b",
-                "graphid": "8a9bb0ab-c670-32b1-6715-be42194945aa",
+                "id": "9f66a0dd-abcd-bfff-c7b8-8a55f66cf92b",
+                "graphid": "8a9bb0ab-0005-32b1-6715-be42194945aa",
                 "displayfields": false,
                 "label": {
                     "value": "Toporama features",
@@ -821,12 +821,12 @@
                 "expand": false,
                 "last": false,
                 "type": 0,
-                "id": "9f66a0dd-eba7-bfff-c7b8-8a56f66cf92b",
-                "graphid": "8a9bb0ab-c670-32b1-6715-be42194945aa",
+                "id": "9f66a0dd-fff3-bfff-c7b8-8a56f66cf92b",
+                "graphid": "8a9bb0ab-0006-32b1-6715-be42194945aa",
                 "displayfields": false,
                 "label": {
-                    "value": "Place and feature names",
-                    "alttext": "Place and feature names"
+                    "value": "Place and Feature Names",
+                    "alttext": "Place and Feature Names"
                 },
                 "metadata": {
                     "enable": false
@@ -855,12 +855,12 @@
 						"expand":false,
 						"last":false,
 						"type":3,
-						"id":"bbbb469d-aaaa-c8f5-175c-645283a6b6fe",
-						"graphid":"e5511402-9999-5cbe-0d3c-f537c612b7df",
+						"id":"bbbb469d-fff2-c8f5-175c-645283a6b6fe",
+						"graphid":"e5511402-0007-5cbe-0d3c-f537c612b7df",
 						"displayfields":false,
 						"label":{
-							"value":"Place and feature names",
-							"alttext":"Place and feature names"
+							"value":"Place and Feature Names",
+							"alttext":"Place and Feature Names"
 						},
 						"metadata":
 							{"enable":false
@@ -879,7 +879,7 @@
 						},
 						"displaychild":{
 							"enable":false,
-							"symbol":"{\"type\":\"simple\",\"symbol\":{\"type\":\"esriSFS\",\"style\":\"esriSFSSolid\",\"color\":[0,0,0,0],\"outline\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[0,0,0,0],\"width\":0.4}},\"label\":\"\",\"description\":\"\"}"
+							"symbol":""
 						},
 						"customimage":{
 							"enable":true,
@@ -921,12 +921,12 @@
 						"expand":false,
 						"last":false,
 						"type":3,
-						"id":"bbbb469d-aaaa-c8f5-175c-645287a6b6fe",
-						"graphid":"e5511402-9999-5cbe-0d3c-f537c612b7df",
+						"id":"bbbb469d-fff1-c8f5-175c-645287a6b6fe",
+						"graphid":"e5511402-0008-5cbe-0d3c-f537c612b7df",
 						"displayfields":false,
 						"label":{
-							"value":"Other features",
-							"alttext":"Other features"
+							"value":"Other Features",
+							"alttext":"Other Features"
 						},
 						"metadata":
 							{"enable":false
@@ -945,7 +945,7 @@
 						},
 						"displaychild":{
 							"enable":false,
-							"symbol":"{\"type\":\"simple\",\"symbol\":{\"type\":\"esriSFS\",\"style\":\"esriSFSSolid\",\"color\":[0,0,0,0],\"outline\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[0,0,0,0],\"width\":0.4}},\"label\":\"\",\"description\":\"\"}"
+							"symbol":""
 						},
 						"customimage":{
 							"enable":true,
@@ -964,8 +964,8 @@
 					"expand":false,
 					"last":false,
 					"type":3,
-					"id":"bbbb469d-aaaa-c8f5-175c-645299a6b6fe",
-					"graphid":"e5511402-9999-5cbe-0d3c-f537c612b7df",
+					"id":"bbbb469d-eee1-c8f5-175c-645299a6b6fe",
+					"graphid":"e5511402-0009-5cbe-0d3c-f537c612b7df",
 					"displayfields":false,
 					"label":{
 						"value":"Boundaries",
@@ -988,7 +988,7 @@
 					},
 					"displaychild":{
 						"enable":false,
-						"symbol":"{\"type\":\"simple\",\"symbol\":{\"type\":\"esriSFS\",\"style\":\"esriSFSSolid\",\"color\":[0,0,0,0],\"outline\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[0,0,0,0],\"width\":0.4}},\"label\":\"\",\"description\":\"\"}"
+						"symbol":""
 					},
 					"customimage":{
 						"enable":true,
@@ -1012,8 +1012,8 @@
 					"expand": false,
 					"last": false,
 					"type": 0,
-					"id": "9f66a0dd-eba7-bfff-c7b8-8a56f66cf93b",
-					"graphid": "8a9bb0ab-c670-32b1-6715-be42194945aa",
+					"id": "9f66a0dd-ddd4-bfff-c7b8-8a56f66cf93b",
+					"graphid": "8a9bb0ab-0010-32b1-6715-be42194945aa",
 					"displayfields": false,
 					"label": {
 						"value": "Transportation",
@@ -1046,12 +1046,12 @@
 						"expand":false,
 						"last":false,
 						"type":3,
-						"id":"bbbb469d-aaaa-c8f5-175c-645281a6b6fe",
-						"graphid":"e5511402-9999-5cbe-0d3c-f537c612b7df",
+						"id":"bbbb469d-ddd3-c8f5-175c-645281a6b6fe",
+						"graphid":"e5511402-0011-5cbe-0d3c-f537c612b7df",
 						"displayfields":false,
 						"label":{
-							"value":"Road network",
-							"alttext":"Road network"
+							"value":"Road Network",
+							"alttext":"Road Network"
 						},
 						"metadata":
 							{"enable":false
@@ -1070,7 +1070,7 @@
 						},
 						"displaychild":{
 							"enable":false,
-							"symbol":"{\"type\":\"simple\",\"symbol\":{\"type\":\"esriSFS\",\"style\":\"esriSFSSolid\",\"color\":[0,0,0,0],\"outline\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[0,0,0,0],\"width\":0.4}},\"label\":\"\",\"description\":\"\"}"
+							"symbol":""
 						},
 						"customimage":{
 							"enable":true,
@@ -1115,8 +1115,8 @@
 						"expand":false,
 						"last":false,
 						"type":3,
-						"id":"bbbb469d-aaaa-c8f5-175c-645285a6b6fe",
-						"graphid":"e5511402-9999-5cbe-0d3c-f537c612b7df",
+						"id":"bbbb469d-ddd2-c8f5-175c-645285a6b6fe",
+						"graphid":"e5511402-0012-5cbe-0d3c-f537c612b7df",
 						"displayfields":false,
 						"label":{
 							"value":"Railway",
@@ -1139,7 +1139,7 @@
 						},
 						"displaychild":{
 							"enable":false,
-							"symbol":"{\"type\":\"simple\",\"symbol\":{\"type\":\"esriSFS\",\"style\":\"esriSFSSolid\",\"color\":[0,0,0,0],\"outline\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[0,0,0,0],\"width\":0.4}},\"label\":\"\",\"description\":\"\"}"
+							"symbol":""
 						},
 						"customimage":{
 							"enable":true,
@@ -1169,8 +1169,8 @@
 					"expand":false,
 					"last":false,
 					"type":3,
-					"id":"bbbb469d-aaaa-c8f5-175c-645286a6b6fe",
-					"graphid":"e5511402-9999-5cbe-0d3c-f537c612b7df",
+					"id":"bbbb469d-ddd1-c8f5-175c-645286a6b6fe",
+					"graphid":"e5511402-0013-5cbe-0d3c-f537c612b7df",
 					"displayfields":false,
 					"label":{
 						"value":"Structures",
@@ -1193,7 +1193,7 @@
 					},
 					"displaychild":{
 						"enable":false,
-						"symbol":"{\"type\":\"simple\",\"symbol\":{\"type\":\"esriSFS\",\"style\":\"esriSFSSolid\",\"color\":[0,0,0,0],\"outline\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[0,0,0,0],\"width\":0.4}},\"label\":\"\",\"description\":\"\"}"
+						"symbol":""
 					},
 					"customimage":{
 						"enable":true,
@@ -1212,8 +1212,8 @@
 					"expand": false,
 					"last": false,
 					"type": 0,
-					"id": "9f66a0dd-eba7-bfff-c7b8-8a56f66cf94b",
-					"graphid": "8a9bb0ab-c670-32b1-6715-be42194945aa",
+					"id": "9f66a0dd-ccc4-bfff-c7b8-8a56f66cf94b",
+					"graphid": "8a9bb0ab-0014-32b1-6715-be42194945aa",
 					"displayfields": false,
 					"label": {
 						"value": "Constructed Features",
@@ -1246,12 +1246,12 @@
 					"expand":false,
 					"last":false,
 					"type":3,
-					"id":"bbbb469d-aaaa-c8f5-175c-645274a6b6fe",
-					"graphid":"e5511402-9999-5cbe-0d3c-f537c612b7df",
+					"id":"bbbb469d-ccc3-c8f5-175c-645274a6b6fe",
+					"graphid":"e5511402-0015-5cbe-0d3c-f537c612b7df",
 					"displayfields":false,
 					"label":{
-						"value":"Designated areas",
-						"alttext":"Designated areas"
+						"value":"Designated Areas",
+						"alttext":"Designated Areas"
 					},
 					"metadata":
 						{"enable":false
@@ -1270,7 +1270,7 @@
 					},
 					"displaychild":{
 						"enable":false,
-						"symbol":"{\"type\":\"simple\",\"symbol\":{\"type\":\"esriSFS\",\"style\":\"esriSFSSolid\",\"color\":[0,0,0,0],\"outline\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[0,0,0,0],\"width\":0.4}},\"label\":\"\",\"description\":\"\"}"
+						"symbol":""
 					},
 					"customimage":{
 						"enable":true,
@@ -1354,8 +1354,8 @@
 					"expand":false,
 					"last":false,
 					"type":3,
-					"id":"bbbb469d-aaaa-c8f5-175c-645278a6b6fe",
-					"graphid":"e5511402-9999-5cbe-0d3c-f537c612b7df",
+					"id":"bbbb469d-ccc2-c8f5-175c-645278a6b6fe",
+					"graphid":"e5511402-0016-5cbe-0d3c-f537c612b7df",
 					"displayfields":false,
 					"label":{
 						"value":"Constructions",
@@ -1378,7 +1378,7 @@
 					},
 					"displaychild":{
 						"enable":false,
-						"symbol":"{\"type\":\"simple\",\"symbol\":{\"type\":\"esriSFS\",\"style\":\"esriSFSSolid\",\"color\":[0,0,0,0],\"outline\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[0,0,0,0],\"width\":0.4}},\"label\":\"\",\"description\":\"\"}"
+						"symbol":""
 					},
 					"customimage":{
 						"enable":true,
@@ -1495,12 +1495,12 @@
 					"expand":false,
 					"last":false,
 					"type":3,
-					"id":"bbbb469d-aaaa-c8f5-175c-645284a6b6fe",
-					"graphid":"e5511402-9999-5cbe-0d3c-f537c612b7df",
+					"id":"bbbb469d-ccc1-c8f5-175c-645284a6b6fe",
+					"graphid":"e5511402-0017-5cbe-0d3c-f537c612b7df",
 					"displayfields":false,
 					"label":{
-						"value":"Power network",
-						"alttext":"Power network"
+						"value":"Power Network",
+						"alttext":"Power Network"
 					},
 					"metadata":
 						{"enable":false
@@ -1519,7 +1519,7 @@
 					},
 					"displaychild":{
 						"enable":false,
-						"symbol":"{\"type\":\"simple\",\"symbol\":{\"type\":\"esriSFS\",\"style\":\"esriSFSSolid\",\"color\":[0,0,0,0],\"outline\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[0,0,0,0],\"width\":0.4}},\"label\":\"\",\"description\":\"\"}"
+						"symbol":""
 					},
 					"customimage":{
 						"enable":true,
@@ -1568,8 +1568,8 @@
 					"expand":false,
 					"last":false,
 					"type":0,
-					"id": "9f66a0dd-eba7-bfff-c7b8-8a56f66cf95b",
-					"graphid": "8a9bb0ab-c670-32b1-6715-be42194945aa",
+					"id": "9f66a0dd-bb10-bfff-c7b8-8a56f66cf95b",
+					"graphid": "8a9bb0ab-0018-32b1-6715-be42194945aa",
 					"displayfields":false,
 					"label": {
 						"value": "Contours and Landforms",
@@ -1602,8 +1602,8 @@
 					"expand":false,
 					"last":false,
 					"type":3,
-					"id":"bbbb469d-aaaa-c8f5-175c-645275a6b6fe",
-					"graphid":"e5511402-9999-5cbe-0d3c-f537c612b7df",
+					"id":"bbbb469d-bbb9-c8f5-175c-645275a6b6fe",
+					"graphid":"e5511402-0019-5cbe-0d3c-f537c612b7df",
 					"displayfields":false,
 					"label":{
 						"value":"Contours",
@@ -1626,7 +1626,7 @@
 					},
 					"displaychild":{
 						"enable":false,
-						"symbol":"{\"type\":\"simple\",\"symbol\":{\"type\":\"esriSFS\",\"style\":\"esriSFSSolid\",\"color\":[0,0,0,0],\"outline\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[0,0,0,0],\"width\":0.4}},\"label\":\"\",\"description\":\"\"}"
+						"symbol":""
 					},
 					"customimage":{
 						"enable":true,
@@ -1662,8 +1662,8 @@
 					"expand":false,
 					"last":false,
 					"type":3,
-					"id":"bbbb469d-aaaa-c8f5-175c-645277a6b6fe",
-					"graphid":"e5511402-9999-5cbe-0d3c-f537c612b7df",
+					"id":"bbbb469d-bbb8-c8f5-175c-645277a6b6fe",
+					"graphid":"e5511402-0020-5cbe-0d3c-f537c612b7df",
 					"displayfields":false,
 					"label":{
 						"value":"Landforms",
@@ -1686,7 +1686,7 @@
 					},
 					"displaychild":{
 						"enable":false,
-						"symbol":"{\"type\":\"simple\",\"symbol\":{\"type\":\"esriSFS\",\"style\":\"esriSFSSolid\",\"color\":[0,0,0,0],\"outline\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[0,0,0,0],\"width\":0.4}},\"label\":\"\",\"description\":\"\"}"
+						"symbol":""
 					},
 					"customimage":{
 						"enable":true,
@@ -1711,8 +1711,8 @@
 					"expand": false,
 					"last": false,
 					"type": 0,
-					"id": "9f66a0dd-eba7-bfff-c7b8-8a56f66cf96b",
-					"graphid": "8a9bb0ab-c670-32b1-6715-be42194945aa",
+					"id": "9f66a0dd-bbb7-bfff-c7b8-8a56f66cf96b",
+					"graphid": "8a9bb0ab-0021-32b1-6715-be42194945aa",
 					"displayfields": false,
 					"label": {
 						"value": "Hydrographic Features",
@@ -1745,8 +1745,8 @@
 					"expand":false,
 					"last":false,
 					"type":3,
-					"id":"bbbb469d-aaaa-c8f5-175c-645273a6b6fe",
-					"graphid":"e5511402-9999-5cbe-0d3c-f537c612b7df",
+					"id":"bbbb469d-bbb6-c8f5-175c-645273a6b6fe",
+					"graphid":"e5511402-0022-5cbe-0d3c-f537c612b7df",
 					"displayfields":false,
 					"label":{
 						"value":"Hydrography",
@@ -1769,7 +1769,7 @@
 					},
 					"displaychild":{
 						"enable":false,
-						"symbol":"{\"type\":\"simple\",\"symbol\":{\"type\":\"esriSFS\",\"style\":\"esriSFSSolid\",\"color\":[0,0,0,0],\"outline\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[0,0,0,0],\"width\":0.4}},\"label\":\"\",\"description\":\"\"}"
+						"symbol":""
 					},
 					"customimage":{
 						"enable":true,
@@ -1811,12 +1811,12 @@
 					"expand":false,
 					"last":false,
 					"type":3,
-					"id":"bbbb469d-aaaa-c8f5-175c-645276a6b6fe",
-					"graphid":"e5511402-9999-5cbe-0d3c-f537c612b7df",
+					"id":"bbbb469d-bbb5-c8f5-175c-645276a6b6fe",
+					"graphid":"e5511402-0023-5cbe-0d3c-f537c612b7df",
 					"displayfields":false,
 					"label":{
-						"value":"Water saturated soils",
-						"alttext":"Water saturated soils"
+						"value":"Water Saturated Soils",
+						"alttext":"Water Saturated Soils"
 					},
 					"metadata":
 						{"enable":false
@@ -1835,7 +1835,7 @@
 					},
 					"displaychild":{
 						"enable":false,
-						"symbol":"{\"type\":\"simple\",\"symbol\":{\"type\":\"esriSFS\",\"style\":\"esriSFSSolid\",\"color\":[0,0,0,0],\"outline\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[0,0,0,0],\"width\":0.4}},\"label\":\"\",\"description\":\"\"}"
+						"symbol":""
 					},
 					"customimage":{
 						"enable":true,
@@ -1859,12 +1859,12 @@
 					"expand":false,
 					"last":false,
 					"type":3,
-					"id":"bbbb469d-aaaa-c8f5-175c-645280a6b6fe",
-					"graphid":"e5511402-9999-5cbe-0d3c-f537c612b7df",
+					"id":"bbbb469d-bbb4-c8f5-175c-645280a6b6fe",
+					"graphid":"e5511402-0024-5cbe-0d3c-f537c612b7df",
 					"displayfields":false,
 					"label":{
-						"value":"Water features",
-						"alttext":"Water features"
+						"value":"Water Features",
+						"alttext":"Water Features"
 					},
 					"metadata":
 						{"enable":false
@@ -1883,7 +1883,7 @@
 					},
 					"displaychild":{
 						"enable":false,
-						"symbol":"{\"type\":\"simple\",\"symbol\":{\"type\":\"esriSFS\",\"style\":\"esriSFSSolid\",\"color\":[0,0,0,0],\"outline\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[0,0,0,0],\"width\":0.4}},\"label\":\"\",\"description\":\"\"}"
+						"symbol":""
 					},
 					"customimage":{
 						"enable":true,
@@ -1959,8 +1959,8 @@
 					"expand":false,
 					"last":false,
 					"type":3,
-					"id":"bbbb469d-aaaa-c8f5-175c-645272a6b6fe",
-					"graphid":"e5511402-9999-5cbe-0d3c-f537c612b7df",
+					"id":"bbbb469d-bbb3-c8f5-175c-645272a6b6fe",
+					"graphid":"e5511402-0025-5cbe-0d3c-f537c612b7df",
 					"displayfields":false,
 					"label":{
 						"value":"Vegetation",
@@ -1983,7 +1983,7 @@
 					},
 					"displaychild":{
 						"enable":false,
-						"symbol":"{\"type\":\"simple\",\"symbol\":{\"type\":\"esriSFS\",\"style\":\"esriSFSSolid\",\"color\":[0,0,0,0],\"outline\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[0,0,0,0],\"width\":0.4}},\"label\":\"\",\"description\":\"\"}"
+						"symbol":""
 					},
 					"customimage":{
 						"enable":true,
@@ -2004,12 +2004,12 @@
 					"expand":false,
 					"last":false,
 					"type":3,
-					"id":"bbbb469d-aaaa-c8f5-175c-645282a6b6fe",
-					"graphid":"e5511402-9999-5cbe-0d3c-f537c612b7df",
+					"id":"bbbb469d-bbb2-c8f5-175c-645282a6b6fe",
+					"graphid":"e5511402-0026-5cbe-0d3c-f537c612b7df",
 					"displayfields":false,
 					"label":{
-						"value":"Built-up areas",
-						"alttext":"Built-up areas"
+						"value":"Built-up Areas",
+						"alttext":"Built-up Areas"
 					},
 					"metadata":
 						{"enable":false
@@ -2028,7 +2028,7 @@
 					},
 					"displaychild":{
 						"enable":false,
-						"symbol":"{\"type\":\"simple\",\"symbol\":{\"type\":\"esriSFS\",\"style\":\"esriSFSSolid\",\"color\":[0,0,0,0],\"outline\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[0,0,0,0],\"width\":0.4}},\"label\":\"\",\"description\":\"\"}"
+						"symbol":""
 					},
 					"customimage":{
 						"enable":true,
@@ -2043,8 +2043,8 @@
 					"expand":false,
 					"last":false,
 					"type":3,
-					"id":"bbbb469d-aaaa-c8f5-175c-645271a6b6fe",
-					"graphid":"e5511402-9999-5cbe-0d3c-f537c612b7df",
+					"id":"bbbb469d-bbb1-c8f5-175c-645271a6b6fe",
+					"graphid":"e5511402-0027-5cbe-0d3c-f537c612b7df",
 					"displayfields":false,
 					"label":{
 						"value":"Limits",
@@ -2067,7 +2067,7 @@
 					},
 					"displaychild":{
 						"enable":false,
-						"symbol":"{\"type\":\"simple\",\"symbol\":{\"type\":\"esriSFS\",\"style\":\"esriSFSSolid\",\"color\":[0,0,0,0],\"outline\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[0,0,0,0],\"width\":0.4}},\"label\":\"\",\"description\":\"\"}"
+						"symbol":""
 					},
 					"customimage":{
 						"enable":true,
@@ -2089,8 +2089,8 @@
                 "expand":false,
             	"last":false,
             	"type":3,
-            	"id":"bbbb469d-aaaa-c8f5-175c-645200a6b6fe",
-            	"graphid":"e5511402-9999-5cbe-0d3c-f537c612b7df",
+            	"id":"bbbb469d-aaa1-c8f5-175c-645200a6b6fe",
+            	"graphid":"e5511402-0028-5cbe-0d3c-f537c612b7df",
             	"displayfields":false,
             	"label":{
             		"value":"NTS Grid",
@@ -2113,7 +2113,7 @@
             	},
             	"displaychild":{
             		"enable":false,
-            		"symbol":"{\"type\":\"simple\",\"symbol\":{\"type\":\"esriSFS\",\"style\":\"esriSFSSolid\",\"color\":[0,0,0,0],\"outline\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[0,0,0,0],\"width\":0.4}},\"label\":\"\",\"description\":\"\"}"
+            		"symbol":""
             	},
             	"customimage":{
             		"enable":false,

@@ -124,3 +124,9 @@
 		display: none!important;
 	}
 }
+
+@media print {
+	.gcviz-map {
+		border: 2px solid black;
+	}
+}

@@ -20,6 +20,7 @@
 	], function($viz, ko, media, gisPrint, i18n, binding, gcvizFunc, gisM, helpVM) {
 		var initialize,
 			printSimple,
+			getRotationDegrees,
 			vm;
 
 		initialize = function($mapElem, mapid, config) {
@@ -337,12 +338,15 @@
 		};
 
 		printSimple = function(map, template) {
-			var center = {},
+			var style, rotation, reg,
+				center = {},
 				mapid = map.vIdName,
 				node = $viz('#' + mapid + '_holder'),
 				arrow = $viz('#arrow' + mapid),
 				scale = $viz('#scaletool' + mapid),
 				scalebar = $viz('#scalebar' + mapid),
+				zoomMax = $viz('.gcviz-map-zm'),
+				zoomBar = $viz('.dijitSlider'),
 				height = node.css('height'),
 				width = node.css('width');
 
@@ -361,20 +365,71 @@
 			// It needs to be in a click event to open without a warning
 			window.open(template);
 
-			// set the local storage
+			// hide zoom max and zoom bar
+			zoomMax.addClass('gcviz-hidden');
+			zoomBar.addClass('gcviz-hidden');
+
+			// get rotation, substract 90 degree and update. If Firefox on Windows remove decimal part before
+			rotation = getRotationDegrees(arrow);
+			style = arrow.attr('style');
+			if (window.browser === 'Firefox' && window.browserOS === 'win') {
+				var sub, reg1,
+					reg2 = new RegExp(rotation - 1, 'g'),
+					reg3 = new RegExp(rotation, 'g'),
+					reg4 = new RegExp(rotation + 1, 'g'),
+					ind = style.indexOf('.');
+				sub = style.substring(ind, ind + 2);
+				reg1 = new RegExp(sub, 'g');
+				style = style.replace(reg1, '');
+				
+				// because it iwas round we need to check minus 1 value and plus one
+				style = style.replace(reg2, rotation - 90);
+				style = style.replace(reg3, rotation - 90);
+				style = style.replace(reg4, rotation - 90);
+			} else {
+				reg = new RegExp(rotation, 'g');
+				style = style.replace(reg, rotation - 90);
+			}
+
+			// set the local storage (modify arrow because it wont print... it is an image background)
 			setTimeout(function() {
 				localStorage.setItem('gcvizPrintNode', node[0].outerHTML);
-				localStorage.setItem('gcvizArrowNode', arrow[0].outerHTML);
-				localStorage.setItem('gcvizScaleNode', scale[0].outerHTML);
+				localStorage.setItem('gcvizArrowNode', '<img src="../images/printNorthArrow.png" style="' + style + '"></img>');
 				localStorage.setItem('gcvizScalebarNode', scalebar[0].outerHTML);
+				localStorage.setItem('gcvizURL', window.location.href);
 			}, 3500);
 
 			// set map size to previous values
 			setTimeout (function() {
+				zoomMax.removeClass('gcviz-hidden');
+				zoomBar.removeClass('gcviz-hidden');
 				gcvizFunc.setStyle(node[0], { 'width': width, 'height': height });
 				gcvizFunc.setStyle(node.find('#' + mapid + '_holder_root')[0], { 'width': width, 'height': height });
 				gisM.resizeCenterMap(map, center);
 			}, 7000);
+		};
+
+		// http://stackoverflow.com/questions/8270612/get-element-moz-transformrotate-value-in-jquery
+		getRotationDegrees = function(obj) {
+			var values, a, b, angle,
+				matrix = obj.css("-webkit-transform") ||
+				obj.css("-moz-transform")    ||
+				obj.css("-ms-transform")     ||
+				obj.css("-o-transform")      ||
+				obj.css("transform");
+
+			if (matrix !== 'none') {
+				values = matrix.split('(')[1].split(')')[0].split(',');
+				a = values[0];
+				b = values[1];
+				angle = Math.round(Math.atan2(b, a) * (180/Math.PI));
+			} else {
+				angle = 0;
+			}
+
+			if (angle < 0) angle +=360;
+
+			return angle;
 		};
 
 		return {

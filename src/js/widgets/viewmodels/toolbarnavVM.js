@@ -377,8 +377,7 @@
                     var DMS, alti,
 						utmZone = '',
 						lati = outPoint[0].y,
-						longi = outPoint[0].x,
-						urlAlti = _self.infoAltitudeUrl + 'lat=' + lati + '&lon=' +  longi;
+						longi = outPoint[0].x;
 
                     // Get lat/long in DD
                     _self.infoLatDD(' ' + lati);
@@ -395,12 +394,16 @@
 							var prop,
 								nts = data.nts;
 
-							if (nts.length > 0) {
+							if (nts.length === 2) {
 								prop = nts[0].properties;
 								_self.spnNTS250(prop.identifier + ' - ' + prop.name);
 
 								prop = nts[1].properties;
 								_self.spnNTS50(prop.identifier + ' - ' + prop.name);
+							} else if (nts.length === 1) {
+								prop = nts[0].properties;
+								_self.spnNTS250(prop.identifier + ' - ' + prop.name);
+								_self.spnNTS50('');
 							} else {
 								_self.spnNTS250('');
 								_self.spnNTS50('');
@@ -419,8 +422,8 @@
                         });
 
                     // Get the altitude
-                    $viz.getJSON(urlAlti,
-                        function(data) {
+                   gisNav.getAltitude(lati, longi, _self.infoAltitudeUrl)
+                   		.done(function(data) {
                            alti = '0';
                             if (data.altitude !== null) {
 								alti = data.altitude;

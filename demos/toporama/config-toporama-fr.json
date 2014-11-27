@@ -138,7 +138,7 @@
                     "label": "CBMT3978",
                     "id": "62e7429b-b08a-9325-45dd-4fbff4f67858",
                     "type": 2,
-                    "url": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/BaseMaps/CBMT3978/MapServer",
+                    "url": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/BaseMaps/CBMT_CBCT_GEOM_3978/MapServer",
                     "scale": {
                         "min": 0,
                         "max": 17500
@@ -640,7 +640,7 @@
                 "last": true,
                 "type": 2,
                 "id": "34ad6a2c-2bcf-bd20-111f-ce0421f62a53",
-                "graphid": "762eb7ed-a85c-242f-6fcf-af08f5605eb1",
+                "graphid": "762eb7ed-0001-242f-6fcf-af08f5605eb1",
                 "displayfields": false,
                 "label": {
                     "value": "Ombrage",
@@ -676,7 +676,7 @@
             	"last":true,
             	"type":3,
             	"id":"99999999-0003-c8f5-175c-645270a6b6fe",
-            	"graphid":"e5511402-0003-5cbe-0d3c-f537c612b7df",
+            	"graphid":"e5511402-0002-5cbe-0d3c-f537c612b7df",
             	"displayfields":false,
             	"label":{
             		"value":"Images Landsat",
@@ -701,7 +701,7 @@
             	},
             	"displaychild":{
             		"enable":false,
-            		"symbol":"{\"type\":\"simple\",\"symbol\":{\"type\":\"esriSFS\",\"style\":\"esriSFSSolid\",\"color\":[0,0,0,0],\"outline\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[0,0,0,0],\"width\":0.4}},\"label\":\"\",\"description\":\"\"}"
+            		"symbol":""
             	},
             	"customimage":{
             		"enable":false,
@@ -715,7 +715,7 @@
                 "last": true,
                 "type": 2,
                 "id": "62e7429b-b08a-9325-45dd-4fbff4f67858",
-                "graphid": "cc7fde4c-eed4-1cf2-8358-7ca86eefb13c",
+                "graphid": "cc7fde4c-0003-1cf2-8358-7ca86eefb13c",
                 "displayfields": false,
                 "label": {
                     "value": "Carte de base du Canada",
@@ -752,7 +752,7 @@
             	"last":false,
             	"type":3,
             	"id":"bbbb469d-aaaa-c8f5-175c-645270a6b6fe",
-            	"graphid":"e5511402-9999-5cbe-0d3c-f537c612b7df",
+            	"graphid":"e5511402-0004-5cbe-0d3c-f537c612b7df",
             	"displayfields":false,
             	"label":{
             		"value":"Toporama complet",
@@ -775,7 +775,7 @@
             	},
             	"displaychild":{
             		"enable":false,
-            		"symbol":"{\"type\":\"simple\",\"symbol\":{\"type\":\"esriSFS\",\"style\":\"esriSFSSolid\",\"color\":[0,0,0,0],\"outline\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[0,0,0,0],\"width\":0.4}},\"label\":\"\",\"description\":\"\"}"
+            		"symbol":""
             	},
             	"customimage":{
             		"enable":false,
@@ -788,7 +788,7 @@
                 "last": false,
                 "type": 0,
                 "id": "9f66a0dd-eba7-bfff-c7b8-8a55f66cf92b",
-                "graphid": "8a9bb0ab-c670-32b1-6715-be42194945aa",
+                "graphid": "8a9bb0ab-0005-32b1-6715-be42194945aa",
                 "displayfields": false,
                 "label": {
                     "value": "Toporama (éléments)",
@@ -822,7 +822,7 @@
                 "last": false,
                 "type": 0,
                 "id": "9f66a0dd-eba7-bfff-c7b8-8a56f66cf92b",
-                "graphid": "8a9bb0ab-c670-32b1-6715-be42194945aa",
+                "graphid": "8a9bb0ab-0006-32b1-6715-be42194945aa",
                 "displayfields": false,
                 "label": {
                     "value": "Lieux habités",
@@ -856,7 +856,7 @@
 						"last":false,
 						"type":3,
 						"id":"bbbb469d-aaaa-c8f5-175c-645283a6b6fe",
-						"graphid":"e5511402-9999-5cbe-0d3c-f537c612b7df",
+						"graphid":"e5511402-0007-5cbe-0d3c-f537c612b7df",
 						"displayfields":false,
 						"label":{
 							"value":"Lieux habités",
@@ -879,7 +879,7 @@
 						},
 						"displaychild":{
 							"enable":false,
-							"symbol":"{\"type\":\"simple\",\"symbol\":{\"type\":\"esriSFS\",\"style\":\"esriSFSSolid\",\"color\":[0,0,0,0],\"outline\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[0,0,0,0],\"width\":0.4}},\"label\":\"\",\"description\":\"\"}"
+							"symbol":""
 						},
 						"customimage":{
 							"enable":true,
@@ -922,7 +922,7 @@
 						"last":false,
 						"type":3,
 						"id":"bbbb469d-aaaa-c8f5-175c-645287a6b6fe",
-						"graphid":"e5511402-9999-5cbe-0d3c-f537c612b7df",
+						"graphid":"e5511402-0008-5cbe-0d3c-f537c612b7df",
 						"displayfields":false,
 						"label":{
 							"value":"Autres lieux",
@@ -945,7 +945,7 @@
 						},
 						"displaychild":{
 							"enable":false,
-							"symbol":"{\"type\":\"simple\",\"symbol\":{\"type\":\"esriSFS\",\"style\":\"esriSFSSolid\",\"color\":[0,0,0,0],\"outline\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[0,0,0,0],\"width\":0.4}},\"label\":\"\",\"description\":\"\"}"
+							"symbol":""
 						},
 						"customimage":{
 							"enable":true,
@@ -965,7 +965,7 @@
 					"last":false,
 					"type":3,
 					"id":"bbbb469d-aaaa-c8f5-175c-645299a6b6fe",
-					"graphid":"e5511402-9999-5cbe-0d3c-f537c612b7df",
+					"graphid":"e5511402-0009-5cbe-0d3c-f537c612b7df",
 					"displayfields":false,
 					"label":{
 						"value":"Frontières et limites",
@@ -988,7 +988,7 @@
 					},
 					"displaychild":{
 						"enable":false,
-						"symbol":"{\"type\":\"simple\",\"symbol\":{\"type\":\"esriSFS\",\"style\":\"esriSFSSolid\",\"color\":[0,0,0,0],\"outline\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[0,0,0,0],\"width\":0.4}},\"label\":\"\",\"description\":\"\"}"
+						"symbol":""
 					},
 					"customimage":{
 						"enable":true,
@@ -1013,7 +1013,7 @@
 					"last": false,
 					"type": 0,
 					"id": "9f66a0dd-eba7-bfff-c7b8-8a56f66cf93b",
-					"graphid": "8a9bb0ab-c670-32b1-6715-be42194945aa",
+					"graphid": "8a9bb0ab-0010-32b1-6715-be42194945aa",
 					"displayfields": false,
 					"label": {
 						"value": "Transport",
@@ -1047,7 +1047,7 @@
 						"last":false,
 						"type":3,
 						"id":"bbbb469d-aaaa-c8f5-175c-645281a6b6fe",
-						"graphid":"e5511402-9999-5cbe-0d3c-f537c612b7df",
+						"graphid":"e5511402-0011-5cbe-0d3c-f537c612b7df",
 						"displayfields":false,
 						"label":{
 							"value":"Réseau routier",
@@ -1070,7 +1070,7 @@
 						},
 						"displaychild":{
 							"enable":false,
-							"symbol":"{\"type\":\"simple\",\"symbol\":{\"type\":\"esriSFS\",\"style\":\"esriSFSSolid\",\"color\":[0,0,0,0],\"outline\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[0,0,0,0],\"width\":0.4}},\"label\":\"\",\"description\":\"\"}"
+							"symbol":""
 						},
 						"customimage":{
 							"enable":true,
@@ -1116,7 +1116,7 @@
 						"last":false,
 						"type":3,
 						"id":"bbbb469d-aaaa-c8f5-175c-645285a6b6fe",
-						"graphid":"e5511402-9999-5cbe-0d3c-f537c612b7df",
+						"graphid":"e5511402-0012-5cbe-0d3c-f537c612b7df",
 						"displayfields":false,
 						"label":{
 							"value":"Réseau ferroviaire",
@@ -1139,7 +1139,7 @@
 						},
 						"displaychild":{
 							"enable":false,
-							"symbol":"{\"type\":\"simple\",\"symbol\":{\"type\":\"esriSFS\",\"style\":\"esriSFSSolid\",\"color\":[0,0,0,0],\"outline\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[0,0,0,0],\"width\":0.4}},\"label\":\"\",\"description\":\"\"}"
+							"symbol":""
 						},
 						"customimage":{
 							"enable":true,
@@ -1170,7 +1170,7 @@
 					"last":false,
 					"type":3,
 					"id":"bbbb469d-aaaa-c8f5-175c-645286a6b6fe",
-					"graphid":"e5511402-9999-5cbe-0d3c-f537c612b7df",
+					"graphid":"e5511402-0013-5cbe-0d3c-f537c612b7df",
 					"displayfields":false,
 					"label":{
 						"value":"Structures",
@@ -1193,7 +1193,7 @@
 					},
 					"displaychild":{
 						"enable":false,
-						"symbol":"{\"type\":\"simple\",\"symbol\":{\"type\":\"esriSFS\",\"style\":\"esriSFSSolid\",\"color\":[0,0,0,0],\"outline\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[0,0,0,0],\"width\":0.4}},\"label\":\"\",\"description\":\"\"}"
+						"symbol":""
 					},
 					"customimage":{
 						"enable":true,
@@ -1213,7 +1213,7 @@
 					"last": false,
 					"type": 0,
 					"id": "9f66a0dd-eba7-bfff-c7b8-8a56f66cf94b",
-					"graphid": "8a9bb0ab-c670-32b1-6715-be42194945aa",
+					"graphid": "8a9bb0ab-0014-32b1-6715-be42194945aa",
 					"displayfields": false,
 					"label": {
 						"value": "Constructions",
@@ -1247,7 +1247,7 @@
 					"last":false,
 					"type":3,
 					"id":"bbbb469d-aaaa-c8f5-175c-645274a6b6fe",
-					"graphid":"e5511402-9999-5cbe-0d3c-f537c612b7df",
+					"graphid":"e5511402-0015-5cbe-0d3c-f537c612b7df",
 					"displayfields":false,
 					"label":{
 						"value":"Aires désignées",
@@ -1270,7 +1270,7 @@
 					},
 					"displaychild":{
 						"enable":false,
-						"symbol":"{\"type\":\"simple\",\"symbol\":{\"type\":\"esriSFS\",\"style\":\"esriSFSSolid\",\"color\":[0,0,0,0],\"outline\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[0,0,0,0],\"width\":0.4}},\"label\":\"\",\"description\":\"\"}"
+						"symbol":""
 					},
 					"customimage":{
 						"enable":true,
@@ -1355,7 +1355,7 @@
 					"last":false,
 					"type":3,
 					"id":"bbbb469d-aaaa-c8f5-175c-645278a6b6fe",
-					"graphid":"e5511402-9999-5cbe-0d3c-f537c612b7df",
+					"graphid":"e5511402-0016-5cbe-0d3c-f537c612b7df",
 					"displayfields":false,
 					"label":{
 						"value":"Constructions",
@@ -1378,7 +1378,7 @@
 					},
 					"displaychild":{
 						"enable":false,
-						"symbol":"{\"type\":\"simple\",\"symbol\":{\"type\":\"esriSFS\",\"style\":\"esriSFSSolid\",\"color\":[0,0,0,0],\"outline\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[0,0,0,0],\"width\":0.4}},\"label\":\"\",\"description\":\"\"}"
+						"symbol":""
 					},
 					"customimage":{
 						"enable":true,
@@ -1496,7 +1496,7 @@
 					"last":false,
 					"type":3,
 					"id":"bbbb469d-aaaa-c8f5-175c-645284a6b6fe",
-					"graphid":"e5511402-9999-5cbe-0d3c-f537c612b7df",
+					"graphid":"e5511402-0017-5cbe-0d3c-f537c612b7df",
 					"displayfields":false,
 					"label":{
 						"value":"Réseau énergétique",
@@ -1519,7 +1519,7 @@
 					},
 					"displaychild":{
 						"enable":false,
-						"symbol":"{\"type\":\"simple\",\"symbol\":{\"type\":\"esriSFS\",\"style\":\"esriSFSSolid\",\"color\":[0,0,0,0],\"outline\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[0,0,0,0],\"width\":0.4}},\"label\":\"\",\"description\":\"\"}"
+						"symbol":""
 					},
 					"customimage":{
 						"enable":true,
@@ -1569,7 +1569,7 @@
 					"last":false,
 					"type":0,
 					"id": "9f66a0dd-eba7-bfff-c7b8-8a56f66cf95b",
-					"graphid": "8a9bb0ab-c670-32b1-6715-be42194945aa",
+					"graphid": "8a9bb0ab-0018-32b1-6715-be42194945aa",
 					"displayfields":false,
 					"label": {
 						"value": "Courbes de niveau, relief et formes",
@@ -1603,7 +1603,7 @@
 					"last":false,
 					"type":3,
 					"id":"bbbb469d-aaaa-c8f5-175c-645275a6b6fe",
-					"graphid":"e5511402-9999-5cbe-0d3c-f537c612b7df",
+					"graphid":"e5511402-0019-5cbe-0d3c-f537c612b7df",
 					"displayfields":false,
 					"label":{
 						"value":"Courbes de niveau",
@@ -1626,7 +1626,7 @@
 					},
 					"displaychild":{
 						"enable":false,
-						"symbol":"{\"type\":\"simple\",\"symbol\":{\"type\":\"esriSFS\",\"style\":\"esriSFSSolid\",\"color\":[0,0,0,0],\"outline\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[0,0,0,0],\"width\":0.4}},\"label\":\"\",\"description\":\"\"}"
+						"symbol":""
 					},
 					"customimage":{
 						"enable":true,
@@ -1663,7 +1663,7 @@
 					"last":false,
 					"type":3,
 					"id":"bbbb469d-aaaa-c8f5-175c-645277a6b6fe",
-					"graphid":"e5511402-9999-5cbe-0d3c-f537c612b7df",
+					"graphid":"e5511402-0020-5cbe-0d3c-f537c612b7df",
 					"displayfields":false,
 					"label":{
 						"value":"Relief et formes",
@@ -1686,7 +1686,7 @@
 					},
 					"displaychild":{
 						"enable":false,
-						"symbol":"{\"type\":\"simple\",\"symbol\":{\"type\":\"esriSFS\",\"style\":\"esriSFSSolid\",\"color\":[0,0,0,0],\"outline\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[0,0,0,0],\"width\":0.4}},\"label\":\"\",\"description\":\"\"}"
+						"symbol":""
 					},
 					"customimage":{
 						"enable":true,
@@ -1712,7 +1712,7 @@
 					"last": false,
 					"type": 0,
 					"id": "9f66a0dd-eba7-bfff-c7b8-8a56f66cf96b",
-					"graphid": "8a9bb0ab-c670-32b1-6715-be42194945aa",
+					"graphid": "8a9bb0ab-0021-32b1-6715-be42194945aa",
 					"displayfields": false,
 					"label": {
 						"value": "Hydrographie",
@@ -1746,7 +1746,7 @@
 					"last":false,
 					"type":3,
 					"id":"bbbb469d-aaaa-c8f5-175c-645273a6b6fe",
-					"graphid":"e5511402-9999-5cbe-0d3c-f537c612b7df",
+					"graphid":"e5511402-0022-5cbe-0d3c-f537c612b7df",
 					"displayfields":false,
 					"label":{
 						"value":"Hydrographie",
@@ -1769,7 +1769,7 @@
 					},
 					"displaychild":{
 						"enable":false,
-						"symbol":"{\"type\":\"simple\",\"symbol\":{\"type\":\"esriSFS\",\"style\":\"esriSFSSolid\",\"color\":[0,0,0,0],\"outline\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[0,0,0,0],\"width\":0.4}},\"label\":\"\",\"description\":\"\"}"
+						"symbol":""
 					},
 					"customimage":{
 						"enable":true,
@@ -1812,7 +1812,7 @@
 					"last":false,
 					"type":3,
 					"id":"bbbb469d-aaaa-c8f5-175c-645276a6b6fe",
-					"graphid":"e5511402-9999-5cbe-0d3c-f537c612b7df",
+					"graphid":"e5511402-0023-5cbe-0d3c-f537c612b7df",
 					"displayfields":false,
 					"label":{
 						"value":"Sols saturés",
@@ -1835,7 +1835,7 @@
 					},
 					"displaychild":{
 						"enable":false,
-						"symbol":"{\"type\":\"simple\",\"symbol\":{\"type\":\"esriSFS\",\"style\":\"esriSFSSolid\",\"color\":[0,0,0,0],\"outline\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[0,0,0,0],\"width\":0.4}},\"label\":\"\",\"description\":\"\"}"
+						"symbol":""
 					},
 					"customimage":{
 						"enable":true,
@@ -1860,7 +1860,7 @@
 					"last":false,
 					"type":3,
 					"id":"bbbb469d-aaaa-c8f5-175c-645280a6b6fe",
-					"graphid":"e5511402-9999-5cbe-0d3c-f537c612b7df",
+					"graphid":"e5511402-0024-5cbe-0d3c-f537c612b7df",
 					"displayfields":false,
 					"label":{
 						"value":"Éléments hydrographiques",
@@ -1883,7 +1883,7 @@
 					},
 					"displaychild":{
 						"enable":false,
-						"symbol":"{\"type\":\"simple\",\"symbol\":{\"type\":\"esriSFS\",\"style\":\"esriSFSSolid\",\"color\":[0,0,0,0],\"outline\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[0,0,0,0],\"width\":0.4}},\"label\":\"\",\"description\":\"\"}"
+						"symbol":""
 					},
 					"customimage":{
 						"enable":true,
@@ -1960,7 +1960,7 @@
 					"last":false,
 					"type":3,
 					"id":"bbbb469d-aaaa-c8f5-175c-645272a6b6fe",
-					"graphid":"e5511402-9999-5cbe-0d3c-f537c612b7df",
+					"graphid":"e5511402-0025-5cbe-0d3c-f537c612b7df",
 					"displayfields":false,
 					"label":{
 						"value":"Végétation",
@@ -1983,7 +1983,7 @@
 					},
 					"displaychild":{
 						"enable":false,
-						"symbol":"{\"type\":\"simple\",\"symbol\":{\"type\":\"esriSFS\",\"style\":\"esriSFSSolid\",\"color\":[0,0,0,0],\"outline\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[0,0,0,0],\"width\":0.4}},\"label\":\"\",\"description\":\"\"}"
+						"symbol":""
 					},
 					"customimage":{
 						"enable":true,
@@ -2005,7 +2005,7 @@
 					"last":false,
 					"type":3,
 					"id":"bbbb469d-aaaa-c8f5-175c-645282a6b6fe",
-					"graphid":"e5511402-9999-5cbe-0d3c-f537c612b7df",
+					"graphid":"e5511402-0026-5cbe-0d3c-f537c612b7df",
 					"displayfields":false,
 					"label":{
 						"value":"Agglomération",
@@ -2028,7 +2028,7 @@
 					},
 					"displaychild":{
 						"enable":false,
-						"symbol":"{\"type\":\"simple\",\"symbol\":{\"type\":\"esriSFS\",\"style\":\"esriSFSSolid\",\"color\":[0,0,0,0],\"outline\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[0,0,0,0],\"width\":0.4}},\"label\":\"\",\"description\":\"\"}"
+						"symbol":""
 					},
 					"customimage":{
 						"enable":true,
@@ -2044,7 +2044,7 @@
 					"last":false,
 					"type":3,
 					"id":"bbbb469d-aaaa-c8f5-175c-645271a6b6fe",
-					"graphid":"e5511402-9999-5cbe-0d3c-f537c612b7df",
+					"graphid":"e5511402-0027-5cbe-0d3c-f537c612b7df",
 					"displayfields":false,
 					"label":{
 						"value":"Limites",
@@ -2067,7 +2067,7 @@
 					},
 					"displaychild":{
 						"enable":false,
-						"symbol":"{\"type\":\"simple\",\"symbol\":{\"type\":\"esriSFS\",\"style\":\"esriSFSSolid\",\"color\":[0,0,0,0],\"outline\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[0,0,0,0],\"width\":0.4}},\"label\":\"\",\"description\":\"\"}"
+						"symbol":""
 					},
 					"customimage":{
 						"enable":true,
@@ -2090,7 +2090,7 @@
             	"last":false,
             	"type":3,
             	"id":"bbbb469d-aaaa-c8f5-175c-645200a6b6fe",
-            	"graphid":"e5511402-9999-5cbe-0d3c-f537c612b7df",
+            	"graphid":"e5511402-0028-5cbe-0d3c-f537c612b7df",
             	"displayfields":false,
             	"label":{
             		"value":"Grille SNRC",
@@ -2113,7 +2113,7 @@
             	},
             	"displaychild":{
             		"enable":false,
-            		"symbol":"{\"type\":\"simple\",\"symbol\":{\"type\":\"esriSFS\",\"style\":\"esriSFSSolid\",\"color\":[0,0,0,0],\"outline\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[0,0,0,0],\"width\":0.4}},\"label\":\"\",\"description\":\"\"}"
+            		"symbol":""
             	},
             	"customimage":{
             		"enable":false,
