@@ -322,12 +322,15 @@
 					var start, end, width,
 						bind;
 
-						bind = $element.attr('data-bind');
-						start = bind.indexOf('width:') + 7;
-						end = bind.indexOf(', height:');
-						width = parseInt(bind.substring(start, end), 10) - 25;
-						$element.css('width', width);
-				};
+					bind = $element.attr('data-bind');
+					start = bind.indexOf('width:') + 7;
+					end = bind.indexOf(', height:');
+					width = parseInt(bind.substring(start, end), 10) - 25;
+					$element.css('width', width);
+					
+					// solve wrong position for FireFox
+					$element.dialog('option', 'position', '{ my: \'center\', at: \'center\', of: window }');
+				};	
 			}
 
 			$element.dialog(options);
@@ -364,7 +367,12 @@
 				click: function() {
 					$viz(this).dialog('close');
 				}
-			}]
+			}],
+			position: {
+				my: 'center',
+				at: 'center',
+				collision: 'fit'
+			}
 		}
 	};
 

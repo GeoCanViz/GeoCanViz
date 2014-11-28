@@ -40,11 +40,29 @@
 					// concat all layers to access in determineTextCSS
 					_self.allLayers = _self.layersArray().concat(_self.basesArray()),
 					
+					// subscribe to fullscreen so we cant change the max height
+					gcvizFunc.subscribeTo(_self.mapid, 'header', 'isFullscreen', _self.setHeight);
+
+					// set max height for legend container (related to menu max height)
+					_self.setHeight();
+
 					// set initial visibility state
 					setTimeout(function() {
 						_self.changeItemsVisibility();
 					}, 1000);
 					return { controlsDescendantBindings: true };
+				};
+
+				_self.setHeight = function() {
+					setTimeout(function() {
+						var tb, height;
+
+						// find the maximum height for legend content
+						// (max container height - nb of toolbar + 1 for menu - the bottom spaces and margin)
+						tb = (($viz('.gcviz-tbcontent').length + 2) * 37) + 25;
+						height = parseInt($viz('.gcviz-toolsholder').css('max-height'), 10) - tb;
+						$viz('.gcviz-tbcontent-leg').css('max-height', height + 'px');
+					}, 1000);
 				};
 
 				// determine which CSS class to use on an item on load

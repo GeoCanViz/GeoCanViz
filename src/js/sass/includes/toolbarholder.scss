@@ -88,8 +88,9 @@
   
   .gcviz-tbcontent-leg {
     @extend %tbcontent;
-		max-height: (31 * $rembase) + rem;
+    min-width: (30.9 * $rembase) + rem;
 		overflow:	auto!important;
+		white-space: nowrap;
   }
 }
 

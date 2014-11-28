@@ -13,8 +13,9 @@
 			'gcviz-func',
             'gcviz-gisgeo',
             'gcviz-gisnav',
-            'gcviz-gisdatagrid'
-	], function($viz, ko, i18n, gcvizFunc, gisGeo, gisNav, gisDG) {
+            'gcviz-gisdatagrid',
+            'gcviz-gisgraphic'
+	], function($viz, ko, i18n, gcvizFunc, gisGeo, gisNav, gisDG, gisGraph) {
 		var initialize,
 			calcDDtoDMS,
 			getDMS,
@@ -292,7 +293,15 @@
 						for (var i=0; i<autoCompleteArray.length; i++) {
 							var acai = autoCompleteArray[i];
 							if (ui.item.label === acai.title) {
+								var geometry = { 'polygon': [[[acai.minx, acai.miny],
+																[acai.maxx, acai.miny],
+																[acai.maxx, acai.maxy],
+																[acai.minx, acai.maxy],
+																[acai.minx, acai.miny]]] };
 								gisGeo.zoomLocation(acai.minx, acai.miny, acai.maxx, acai.maxy, mymap, _self.outSR);
+								
+								// add graphic representation
+								gisGraph.createGraphic(mymap, 'polygon', geometry, { title: acai.title}, 4326, 'location');
 							}
 						}
 						// Reset the array

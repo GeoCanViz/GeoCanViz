@@ -22,12 +22,16 @@
 			'esri/geometry/Polygon',
 			'esri/geometry/Polyline',
 			'esri/graphic',
+			'esri/InfoTemplate',
 			'dojo/on'
-	], function($viz, ko, gcvizFunc, gisgeo, esriGraphLayer, esriTools, esriLine, esriFill, esriMarker, esriText, esriScreenPt, esriPt, esriPoly, esriPolyline, esriGraph, dojoOn) {
+	], function($viz, ko, gcvizFunc, gisgeo, esriGraphLayer, esriTools, esriLine, esriFill, esriMarker, esriText, esriScreenPt, esriPt, esriPoly, esriPolyline, esriGraph, esriInfoTmp, dojoOn) {
 		var initialize,
 			importGraphics,
 			exportGraphics,
-			addUndoStack;
+			createGraphic,
+			callbackCG,
+			addUndoStack,
+			privateMap;
 
 		initialize = function(mymap, isGraphics, stackUndo, stackRedo, lblDist, lblArea) {
 
@@ -831,10 +835,72 @@
 			return JSON.stringify(output);
 		};
 
+		createGraphic = function(map, type, geom, att, sr, key) {
+			var geometry;
+
+			// create geometry type
+			if (type === 'point') {
+				new esriPoint({ 'x': geom.x, 'y': geom.y, 'spatialReference': sr });
+			} else if (type === 'polyline') {
+				geometry = new esriPolyline({ 'paths': geom.paths, 'spatialReference': sr });
+			} else if (type === 'polygon'){
+				geometry = new esriPoly({ 'rings': geom.polygon, 'spatialReference': sr });
+			}
+
+			// set map for callback function
+			privateMap = map;
+
+			// set attributes then project geometry then addToMap
+			att.key = key;
+			geometry.attributes = att;
+			gisgeo.projectGeoms([geometry], map.spatialReference.wkid, callbackCG);
+		};
+		
+		callbackCG = function(data) {
+			var symb, graphic,
+				geometry = data[0].geometry,
+				type = geometry.type,
+				layer = privateMap.getLayer('gcviz-symbol');
+
+			// from geometry type, select symbol
+			if (type === 'point') {
+				symb = symbPoint;
+			} else if (type === 'polyline') {
+				symb = symbLine;
+			} else if (type === 'polygon'){
+				symb = new esriFill({
+							'type': 'esriSFS',
+							'style': 'esriSFSSolid',
+							'color': [255,255,102,125],
+							'outline': { 'type': 'esriSLS',
+											'style': 'esriSLSSolid',
+											'color': [255,255,0,255],
+											'width': 1
+										}
+						});
+			}
+
+			// generate graphic and asign symbol
+			graphic = new esriGraph(geometry);
+			graphic.symbol = symb;
+
+			// add the key to be able to find back the graphic
+			graphic.key = data[0].key;
+
+			var info = new esriInfoTmp();
+			info.setTitle('my location');
+			info.setContent('<span>' + graphic.title + '</span>');
+			graphic.setInfoTemplate(info);
+
+			// add graphic
+			layer.add(graphic);
+		};
+		
 		return {
 			initialize: initialize,
 			importGraphics: importGraphics,
-			exportGraphics: exportGraphics
+			exportGraphics: exportGraphics,
+			createGraphic: createGraphic
 		};
 	});
 }());

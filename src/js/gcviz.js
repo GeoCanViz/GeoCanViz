@@ -174,7 +174,7 @@ var locationPath;
 			}
 
 			// create the help for the map instance
-			vmArray.help = help.initialize($mapSection);
+			vmArray.help = help.initialize($mapSection, config);
 
 			// set the global vm to retreive link vm together
 			gcvizFunc.setVM(mapid, vmArray);

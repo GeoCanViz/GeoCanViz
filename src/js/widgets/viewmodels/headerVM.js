@@ -412,11 +412,11 @@
 		// http://stackoverflow.com/questions/8270612/get-element-moz-transformrotate-value-in-jquery
 		getRotationDegrees = function(obj) {
 			var values, a, b, angle,
-				matrix = obj.css("-webkit-transform") ||
-				obj.css("-moz-transform")    ||
-				obj.css("-ms-transform")     ||
-				obj.css("-o-transform")      ||
-				obj.css("transform");
+				matrix = obj.css('-webkit-transform') ||
+				obj.css('-moz-transform')    ||
+				obj.css('-ms-transform')     ||
+				obj.css('-o-transform')      ||
+				obj.css('transform');
 
 			if (matrix !== 'none') {
 				values = matrix.split('(')[1].split(')')[0].split(',');

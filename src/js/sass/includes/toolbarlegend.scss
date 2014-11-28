@@ -39,7 +39,6 @@
 
 .gcviz-leg-li {
 	@extend %listate;
-  width: (100 * $rembase) + rem;
 }
 
 .gcviz-leg-imgli {
@@ -75,12 +74,6 @@
 .gcviz-legendImgText {
 	@include app-text(1, normal);
 	margin: 0!important;
-}
-
-.gcviz-legendTable {
-	width: (20 * $rembase) + rem;
-	margin-left: (4 * $rembase) + rem;
-	background: $lightyellow;
 }
 
 .gcviz-legendHolderDiv {
@@ -170,6 +163,11 @@
 }
 
 .gcviz-legendTable {
+	white-space: normal;
+	width: (20 * $rembase) + rem;
+	margin-left: (4 * $rembase) + rem;
+	background: $lightyellow;
+
 	tr, td {
 		padding: 2px!important;
 		vertical-align: middle;

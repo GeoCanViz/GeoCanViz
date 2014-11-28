@@ -196,6 +196,14 @@
 				_self.isHelpBubbleDialogOpen = ko.observable(false);
 
 				_self.init = function() {
+					// disable link if section is not part of GCViz implementation
+					($helpMap.length > 0) ? _self.noMap = false : _self.noMap = true;
+					($helpFoot.length > 0) ? _self.noFoot = false : _self.noFoot = true;
+					($helpDraw.length > 0) ? _self.noDraw = false : _self.noDraw = true;
+					($helpNav.length > 0) ? _self.noNav = false : _self.noNav = true;
+					($helpLeg.length > 0) ? _self.noLeg = false : _self.noLeg = true;
+					($helpData.length > 0) ? _self.noData = false : _self.noData = true;
+
 					// set global dialog to be able to open help from
 					// outisede the view model. This way, it is easy
 					// for header VM to open help dialog

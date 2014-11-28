@@ -23,6 +23,7 @@
 			getElemValueVM,
 			setElemValueVM,
 			setVM,
+			subscribeTo,
 			getTextWidth,
 			focusMap,
 			padDigits,
@@ -176,6 +177,10 @@
 			vmObject[name] = vm;
 		};
 
+		subscribeTo = function(name, vm, value, funct) {
+			vmObject[name][vm][value].subscribe(funct);
+		};
+
 		// Uses canvas.measureText to compute and return the width of the given text of given font in pixels.
 		// http://stackoverflow.com/questions/118241/calculate-text-width-with-javascript/21015393#21015393
 		getTextWidth = function(text, font) {
@@ -211,6 +216,7 @@
 			getElemValueVM: getElemValueVM,
 			setElemValueVM: setElemValueVM,
 			setVM: setVM,
+			subscribeTo: subscribeTo,
 			getTextWidth: getTextWidth,
 			focusMap: focusMap,
 			padDigits: padDigits
