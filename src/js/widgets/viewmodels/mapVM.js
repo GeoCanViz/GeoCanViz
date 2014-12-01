@@ -30,6 +30,7 @@
 
 				// text
 				_self.tpZoomFull = i18n.getDict('%map-tpzoomfull');
+				_self.close = i18n.getDict('%close');
 
 				// viewmodel mapid to be access in tooltip custom binding
 				_self.mapid = mapid;
@@ -38,7 +39,7 @@
 				_self.mapfocus = ko.observable();
 
 				_self.init = function() {
-					var layer, base,
+					var layer, base, panel,
 						layers = config.layers,
 						bases = config.bases,
 						lenLayers = layers.length,
@@ -96,6 +97,18 @@
 
 					// keep map reference in the viewmodel to be accessible from other view model
 					_self.map = map;
+
+					// set a wcag close button for map info window
+					map.on('load', function() {
+						var btn;
+
+						panel = $viz('.esriPopupWrapper').find('.titlePane');
+						panel.prepend('<button class="gcviz-wcag-close" type="button" tabindex="0">' + _self.close + '</button>');
+						btn = panel.find('.gcviz-wcag-close');
+						btn.on('click', function() {
+							gisM.hideInfoWindow(_self.map, 'location');
+						});
+					});
 
 					return { controlsDescendantBindings: true };
 				};

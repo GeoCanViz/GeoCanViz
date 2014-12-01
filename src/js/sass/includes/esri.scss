@@ -1,3 +1,5 @@
+@import "gcviz-mixin";
+
 .esriPopup {
 	position: absolute;
 	z-index: 40;
@@ -35,7 +37,8 @@
 	position: absolute;
 	top: 2px;
 	cursor: pointer;
-	background: url("../dijit/images/popup.png") no-repeat;
+	background-image: url($img-root + "ui-icons_222222_256x240.png");
+	background-position: -96px -128px!important;
 }
 
 .esriPopup .sizer {
@@ -55,4 +58,11 @@
 
 .esriPopup .actionsPane {
 	display: none; 
+}
+
+.gcviz-wcag-close {
+	position: absolute;
+	right: 2px;
+	z-index: 10;
+	margin: 1px;
 }

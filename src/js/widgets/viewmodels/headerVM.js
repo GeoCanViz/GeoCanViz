@@ -338,7 +338,8 @@
 		};
 
 		printSimple = function(map, template) {
-			var style, rotation, reg,
+			var style, rotation,
+				sub, ind, reg1, reg2, reg3, reg4,
 				center = {},
 				mapid = map.vIdName,
 				node = $viz('#' + mapid + '_holder'),
@@ -369,27 +370,25 @@
 			zoomMax.addClass('gcviz-hidden');
 			zoomBar.addClass('gcviz-hidden');
 
-			// get rotation, substract 90 degree and update. If Firefox on Windows remove decimal part before
+			// get rotation, substract 90 degree and update. Remove decimal part before
 			rotation = getRotationDegrees(arrow);
 			style = arrow.attr('style');
-			if (window.browser === 'Firefox' && window.browserOS === 'win') {
-				var sub, reg1,
-					reg2 = new RegExp(rotation - 1, 'g'),
-					reg3 = new RegExp(rotation, 'g'),
-					reg4 = new RegExp(rotation + 1, 'g'),
-					ind = style.indexOf('.');
-				sub = style.substring(ind, ind + 2);
-				reg1 = new RegExp(sub, 'g');
-				style = style.replace(reg1, '');
+
+			// create 3 reg because we dont know where to round the decimal
+			reg2 = new RegExp(rotation - 1, 'g'),
+			reg3 = new RegExp(rotation, 'g'),
+			reg4 = new RegExp(rotation + 1, 'g'),
+			ind = style.indexOf('.');
+			sub = style.substring(ind, ind + 2);
+			
+			// remove decimal
+			reg1 = new RegExp(sub, 'g');
+			style = style.replace(reg1, '');
 				
-				// because it iwas round we need to check minus 1 value and plus one
-				style = style.replace(reg2, rotation - 90);
-				style = style.replace(reg3, rotation - 90);
-				style = style.replace(reg4, rotation - 90);
-			} else {
-				reg = new RegExp(rotation, 'g');
-				style = style.replace(reg, rotation - 90);
-			}
+			// because it was round we need to check minus 1 value and plus one
+			style = style.replace(reg2, rotation - 90);
+			style = style.replace(reg3, rotation - 90);
+			style = style.replace(reg4, rotation - 90);
 
 			// set the local storage (modify arrow because it wont print... it is an image background)
 			setTimeout(function() {

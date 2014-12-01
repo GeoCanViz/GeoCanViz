@@ -50,6 +50,8 @@
 			panUp,
 			panRight,
 			panDown,
+			showInfoWindow,
+			hideInfoWindow,
 			getKeyExtent,
 			getOverviewLayer,
 			linkNames = [],
@@ -135,6 +137,7 @@
 			map.vIdName = mapid;
 			map.vWkid = wkid;
 			map.vInsetId = [];
+			map.vSideMenu = side;
 
 			// resize the map on load to ensure everything is set correctly.
 			// if we dont do this, every maps after the first one are not set properly
@@ -581,6 +584,67 @@
 			return extent;
 		};
 
+		showInfoWindow = function(map, title, content, geom) {
+			// check if we need to set the anchor to left (see where is the menu)
+			var layer, graphics, graphic, len, point,
+				btn = $viz('.esriPopupWrapper').find('.gcviz-wcag-close'),
+				anchor = (map.vSideMenu !== 1) ? 'upperright' : 'upperleft';
+
+			// if no geom value get the point where to put the window as the map center
+			// If there is a string get the point from the graphic with this key.
+			//if the geom is a geometry, use it directly
+			if (typeof geom === 'undefined') {
+				point = getMapCenter(map);
+			} else if (typeof geom === 'string') {
+				// grab graphic from key
+				layer = map.getLayer('gcviz-symbol');
+				graphics = layer.graphics;
+				len = graphics.length;
+
+				while (len--) {
+					graphic = graphics[len];
+					if (graphic.key === geom) {
+						point = graphic.geometry;
+					}
+				}
+			} else {
+				point = geom;
+			}
+
+			map.infoWindow.setTitle(title);
+			map.infoWindow.setContent('<span>' + content + '</span>');
+			map.infoWindow.anchor = anchor;
+			map.infoWindow.show(point, map.getInfoWindowAnchor(point));
+
+			// set focus on close button
+			btn.focus();
+		};
+		
+		hideInfoWindow = function(map, key) {
+			var layer, graphics, graphic, len;
+
+			// if there is a key, remove graphics with those values
+			if (typeof key !== 'undefined') {
+				layer = map.getLayer('gcviz-symbol');
+				graphics = layer.graphics;
+				len = graphics.length;
+
+				while (len--) {
+					graphic = graphics[len];
+
+					if (key === graphic.key) {
+						layer.remove(graphic);
+					}
+				}
+			}
+
+			// hide window
+			map.infoWindow.hide();
+
+			// focus the map
+			func.focusMap(map);
+		};
+
 		return {
 			setProxy: setProxy,
 			createMap: createMap,
@@ -600,7 +664,9 @@
 			panLeft: panLeft,
 			panUp: panUp,
 			panRight: panRight,
-			panDown: panDown
+			panDown: panDown,
+			showInfoWindow: showInfoWindow,
+			hideInfoWindow: hideInfoWindow
 		};
 	});
 }());

@@ -22,9 +22,8 @@
 			'esri/geometry/Polygon',
 			'esri/geometry/Polyline',
 			'esri/graphic',
-			'esri/InfoTemplate',
 			'dojo/on'
-	], function($viz, ko, gcvizFunc, gisgeo, esriGraphLayer, esriTools, esriLine, esriFill, esriMarker, esriText, esriScreenPt, esriPt, esriPoly, esriPolyline, esriGraph, esriInfoTmp, dojoOn) {
+	], function($viz, ko, gcvizFunc, gisgeo, esriGraphLayer, esriTools, esriLine, esriFill, esriMarker, esriText, esriScreenPt, esriPt, esriPoly, esriPolyline, esriGraph, dojoOn) {
 		var initialize,
 			importGraphics,
 			exportGraphics,
@@ -840,10 +839,10 @@
 
 			// create geometry type
 			if (type === 'point') {
-				new esriPoint({ 'x': geom.x, 'y': geom.y, 'spatialReference': sr });
+				geometry = new esriPt({ 'x': geom.x, 'y': geom.y, 'spatialReference': sr });
 			} else if (type === 'polyline') {
 				geometry = new esriPolyline({ 'paths': geom.paths, 'spatialReference': sr });
-			} else if (type === 'polygon'){
+			} else if (type === 'polygon') {
 				geometry = new esriPoly({ 'rings': geom.polygon, 'spatialReference': sr });
 			}
 
@@ -852,29 +851,44 @@
 
 			// set attributes then project geometry then addToMap
 			att.key = key;
-			geometry.attributes = att;
+			geometry.attributes = { },
+			geometry.attributes.attributes = att;
 			gisgeo.projectGeoms([geometry], map.spatialReference.wkid, callbackCG);
 		};
 		
 		callbackCG = function(data) {
 			var symb, graphic,
-				geometry = data[0].geometry,
+				elem = data[0],
+				geometry = elem.geometry,
 				type = geometry.type,
 				layer = privateMap.getLayer('gcviz-symbol');
 
 			// from geometry type, select symbol
 			if (type === 'point') {
-				symb = symbPoint;
+				symb = new esriMarker({
+										'type': 'esriSMS',
+										'style': 'esriSMSCircle',
+										'color':  [229,0,51,125],
+										'size': 20,
+										'angle': 0,
+										'xoffset': 0,
+										'yoffset': 0,
+										'outline': { 'type': 'esriSLS',
+											'style': 'esriSLSSolid',
+											'color': [229,0,51,255],
+											'width': 1
+										}
+						});
 			} else if (type === 'polyline') {
-				symb = symbLine;
+				symb = '';
 			} else if (type === 'polygon'){
 				symb = new esriFill({
 							'type': 'esriSFS',
 							'style': 'esriSFSSolid',
-							'color': [255,255,102,125],
+							'color': [229,0,51,125],
 							'outline': { 'type': 'esriSLS',
 											'style': 'esriSLSSolid',
-											'color': [255,255,0,255],
+											'color': [229,0,51,255],
 											'width': 1
 										}
 						});
@@ -885,15 +899,13 @@
 			graphic.symbol = symb;
 
 			// add the key to be able to find back the graphic
-			graphic.key = data[0].key;
-
-			var info = new esriInfoTmp();
-			info.setTitle('my location');
-			info.setContent('<span>' + graphic.title + '</span>');
-			graphic.setInfoTemplate(info);
+			graphic.key = elem.attributes.key;
 
 			// add graphic
 			layer.add(graphic);
+			
+			// reset private map
+			privateMap = '';
 		};
 		
 		return {

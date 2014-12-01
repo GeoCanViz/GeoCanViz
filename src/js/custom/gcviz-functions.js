@@ -27,6 +27,7 @@
 			getTextWidth,
 			focusMap,
 			padDigits,
+			parseLonLat,
 			timer,
 			vmObject = { };
 
@@ -200,6 +201,56 @@
 		padDigits = function(number, digits) {
 			return Array(Math.max(digits - String(number).length + 1, 0)).join(0) + number;
 		};
+		
+		parseLonLat = function(input) {
+	        var x, y, lonlat,
+	        	ddregex = /^(-?\d{2,3}(\.\d*)?),?\s*(-?\d{2,3}(\.\d*)?)\s*$/g,
+	        	dd = ddregex.exec(input),
+	        	dmsregex = /(-)?(\d{2,3})([:°d|\s+])\s*([0-5][0-9])([:\'m]|\s*)(\s*([0-5][0-9])([\.,](\d+))?([\"s]|\s*))?\s*([NnWwOo])?[ |,]\s*(-)?(\d{2,3})([:°d|\s+])\s*([0-5][0-9])([:\'m]|\s*)(\s*([0-5][0-9])([\.,](\d+))?([\"s]|\s*))?\s*([NnWwOo])?/g,
+				dms = dmsregex.exec(input);
+	
+			if (dd && dd.length == 5) {
+				x = Number(dd[1]);
+				y = Number(dd[3]);
+
+				if (y < x) {
+					lonlat = [y, x];
+				} else {
+					lonlat = [x, y];
+				}
+			} else if (dms) {
+				x = parseDMS(dms[2], dms[4], dms[7], dms[9]);
+				y = parseDMS(dms[13], dms[15], dms[18], dms[20]);
+
+				if (dms[1]) {
+					x = -x;
+				}
+				if (dms[12]) {
+					y = -y;
+				}
+				
+				if (dms[11] == 'N' || dms[11] == 'n' || dms[22] == 'W' || dms[22] == 'w' || dms[22] == 'O' || dms[22] == 'o') {
+					if (y > 0.0) {
+						y = -y;
+					}
+					lonlat = [y, x];
+				} else if (dms[11] == 'W' || dms[11] == 'w' || dms[11] == 'O' || dms[11] == 'o' || dms[22] == 'N' || dms[22] == 'n') {
+					if (x > 0.0) {
+						x = -x;
+					}
+					lonlat = [x, y];
+				} else if (y < x) {
+					lonlat = [y, x];
+				} else {                
+					if (x > 0.0) {
+						x = -x;
+					}
+                	lonlat = new [x, y];
+				}
+			}
+
+        return lonlat;    
+    };
 
 		return {
 			debounce: debounce,
@@ -219,7 +270,8 @@
 			subscribeTo: subscribeTo,
 			getTextWidth: getTextWidth,
 			focusMap: focusMap,
-			padDigits: padDigits
+			padDigits: padDigits,
+			parseLonLat: parseLonLat
 		};
 	});
 }());

@@ -11,11 +11,12 @@
             'knockout',
 			'gcviz-i18n',
 			'gcviz-func',
+			'gcviz-gismap',
             'gcviz-gisgeo',
             'gcviz-gisnav',
             'gcviz-gisdatagrid',
             'gcviz-gisgraphic'
-	], function($viz, ko, i18n, gcvizFunc, gisGeo, gisNav, gisDG, gisGraph) {
+	], function($viz, ko, i18n, gcvizFunc, gisMap, gisGeo, gisNav, gisDG, gisGraph) {
 		var initialize,
 			calcDDtoDMS,
 			getDMS,
@@ -29,6 +30,7 @@
 				var _self = this,
 					ovMapWidget,
 					clickPosition,
+					geolocation = config.geolocation,
 					overview = config.overview,
 					scaledisplay = config.scaledisplay,
                     inMapField = $mapElem.find('#inGeoLocation' + mapid),
@@ -249,35 +251,34 @@
 							},
 							success: function(data) {
 								response($viz.map(data, function(item) {
-									var geom, pt1, pt2,
+									var geom, coords, pt1, pt2,
 										miny, maxy, minx, maxx,
 										txtLabel, valItem,
-										type = item.type,
-										qualifier = item.qualifier,
+										bbox = item.bbox,
 										bufVal = 0.01799856; // 2km = 0.01799856 degrees
 
-									if (type === 'ca.gc.nrcan.geoloc.data.model.PostalCode' || type === 'ca.gc.nrcan.geoloc.data.model.Intersection' || qualifier === 'INTERPOLATED_POSITION') {
+									if (typeof bbox === 'object') {
+										coords = item.geometry.coordinates;
+										geom = bbox;
+										miny = geom[1];
+										maxy = geom[3];
+										minx = geom[0];
+										maxx = geom[2];
+									} else {
 										// Convert the lat/long to a bbox with 2km width
 										geom = item.geometry.coordinates;
+										coords = geom;
 										pt1 = geom[1];
 										pt2 = geom[0];
 										miny = pt1 - bufVal;
 										maxy = pt1 + bufVal;
 										minx = pt2 - bufVal;
 										maxx = pt2 + bufVal;
-									} else {
-										if (qualifier === 'LOCATION') {
-											geom = item.bbox;
-											miny = geom[1];
-											maxy = geom[3];
-											minx = geom[0];
-											maxx = geom[2];
-										}
 									}
 
 									txtLabel = item.title;
 									valItem = item.title;
-									autoCompleteArray.push({ minx: minx, miny: miny, maxx: maxx, maxy: maxy, title: item.title });
+									autoCompleteArray.push({ minx: minx, miny: miny, maxx: maxx, maxy: maxy, coords: coords, title: item.title });
 
 									return {
 										label: txtLabel,
@@ -289,19 +290,39 @@
 					},
 					minLength: 3,
 					select: function(event, ui) {
+						var acai, title, infotitle, geometry, coords;
+
 						// Find selection and zoom to it
 						for (var i=0; i<autoCompleteArray.length; i++) {
-							var acai = autoCompleteArray[i];
-							if (ui.item.label === acai.title) {
-								var geometry = { 'polygon': [[[acai.minx, acai.miny],
-																[acai.maxx, acai.miny],
-																[acai.maxx, acai.maxy],
-																[acai.minx, acai.maxy],
-																[acai.minx, acai.miny]]] };
+							acai = autoCompleteArray[i],
+							title = acai.title;
+							coords = acai.coords;
+
+							if (ui.item.label === title) {
+								geometry = { 'polygon': [[[acai.minx, acai.miny],
+															[acai.maxx, acai.miny],
+															[acai.maxx, acai.maxy],
+															[acai.minx, acai.maxy],
+															[acai.minx, acai.miny]]] };
 								gisGeo.zoomLocation(acai.minx, acai.miny, acai.maxx, acai.maxy, mymap, _self.outSR);
-								
+
+								// remove previous info window if there is one.
+								gisMap.hideInfoWindow(mymap, 'location');
+
 								// add graphic representation
-								gisGraph.createGraphic(mymap, 'polygon', geometry, { title: acai.title}, 4326, 'location');
+								if (geolocation.graphic) {
+									geometry = { 'x': coords[0], 'y': coords[1] };
+									gisGraph.createGraphic(mymap, 'point', geometry, { title: title }, 4326, 'location');
+								}
+
+								// show info window (keep title because it will be overides in before the timeout occurs)
+								infotitle = title;
+
+								if (geolocation.info) {
+									setTimeout(function() {
+										gisMap.showInfoWindow(mymap, 'Location', infotitle, 'location');
+									}, 1000);
+								}
 							}
 						}
 						// Reset the array

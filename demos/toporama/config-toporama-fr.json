@@ -2152,7 +2152,8 @@
             "mapwkid": 3978,
             "geolocation": {
                 "enable": true,
-                "type": -1
+                "graphic": true,
+                "info": true
             },
             "scaledisplay": {
                 "enable": true,
