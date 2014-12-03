@@ -13,9 +13,9 @@
 			'dijit/Menu',
 			'dijit/MenuItem',
 			'dijit/PopupMenuItem',
-            'gcviz-gislegend',
-            'gcviz-giscluster',
-            'esri/config',
+			'gcviz-gislegend',
+			'gcviz-giscluster',
+			'esri/config',
 			'esri/map',
 			'esri/layers/FeatureLayer',
 			'esri/layers/ArcGISTiledMapServiceLayer',
@@ -25,8 +25,8 @@
 			'esri/layers/WMSLayer',
 			'esri/layers/WMSLayerInfo',
 			'esri/geometry/Extent',
-            'esri/geometry/Point',
-            'esri/IdentityManager'
+			'esri/geometry/Point',
+			'esri/IdentityManager'
 	], function($viz, kpan, func, menu, menuItem, menupopup, gisLegend, gisCluster, esriConfig, esriMap, esriFL, esriTiled, esriDyna, esriImage, webTiled, wms, wmsInfo, esriExt, esriPoint) {
 		var mapArray = {},
 			setProxy,
@@ -50,6 +50,8 @@
 			panUp,
 			panRight,
 			panDown,
+			showInfoWindow,
+			hideInfoWindow,
 			getKeyExtent,
 			getOverviewLayer,
 			linkNames = [],
@@ -67,15 +69,15 @@
 			esriConfig.defaults.io.alwaysUseProxy = false;
 		};
 
-        createMap = function(id, config, side) {
-            var lod, mapUpdate,
+		createMap = function(id, config, side) {
+			var lod, mapUpdate,
 				iExtent = config.extentinit,
-                fExtent = config.extentmax,
-                wkid = config.sr.wkid,
-                initExtent = new esriExt({ 'xmin': iExtent.xmin, 'ymin': iExtent.ymin,
+				fExtent = config.extentmax,
+				wkid = config.sr.wkid,
+				initExtent = new esriExt({ 'xmin': iExtent.xmin, 'ymin': iExtent.ymin,
 										'xmax': iExtent.xmax, 'ymax': iExtent.ymax,
 										'spatialReference': { 'wkid': wkid } }),
-                fullExtent = new esriExt({ 'xmin': fExtent.xmin, 'ymin': fExtent.ymin,
+				fullExtent = new esriExt({ 'xmin': fExtent.xmin, 'ymin': fExtent.ymin,
 										'xmax': fExtent.xmax, 'ymax': fExtent.ymax,
 										'spatialReference': { 'wkid': wkid } }),
 				initLods = config.lods.values.reverse(),
@@ -135,6 +137,7 @@
 			map.vIdName = mapid;
 			map.vWkid = wkid;
 			map.vInsetId = [];
+			map.vSideMenu = side;
 
 			// resize the map on load to ensure everything is set correctly.
 			// if we dont do this, every maps after the first one are not set properly
@@ -145,6 +148,12 @@
 				// this is made with custom events)
 				map.enableScrollWheelZoom();
 				map.disableDoubleClickZoom();
+
+				// disable keyboard navigation. We overwrite the keyboard navigation in mapVM
+				map.disableKeyboardNavigation();
+
+				// because IE will tab svg tag we need to set them focusable = false
+				$viz('.gcviz-section').find('svg').attr('tabindex', -1).attr('focusable', false);
 
 				// connect event map
 				if (config.link) {
@@ -159,13 +168,13 @@
 
 				// add context menu
 				//gisM.createMapMenu(mymap);
-            });
+			});
 
-            // remove loading image when map has updated
-            mapUpdate = map.on('update-end', function() {
+			// remove loading image when map has updated
+			mapUpdate = map.on('update-end', function() {
 				func.destroyProgressBar();
 				mapUpdate.remove();
-            });
+			});
 
 			return map;
 		};
@@ -334,9 +343,9 @@
 				layer = new esriDyna(layerInfo.url, { 'id': layerInfo.id });
 			} else if (type === 5) {
 				layer = new esriFL(layerInfo.url, {
-                    mode: esriFL.MODE_ONDEMAND,
-                    outFields: ['*'],
-                    id: layerInfo.id
+					mode: esriFL.MODE_ONDEMAND,
+					outFields: ['*'],
+					id: layerInfo.id
 				});
 			} else if (type === 6) {
 				// cluster layer
@@ -396,20 +405,20 @@
 
 		getOverviewLayer = function(configoverviewtype, configoverviewurl) {
 			var bLayer;
-            if (configoverviewtype === 1) { // WMTS service
+			if (configoverviewtype === 1) { // WMTS service
 				bLayer = new webTiled(configoverviewurl);
-            } else if (configoverviewtype === 2) { // tiled service
+			} else if (configoverviewtype === 2) { // tiled service
 				bLayer = new esriTiled(configoverviewurl);
-            } else if (configoverviewtype === 4) { // dynamic service
+			} else if (configoverviewtype === 4) { // dynamic service
 				bLayer = new esriDyna(configoverviewurl);
-            // } else if (configoverviewtype === 7) { // image service
+			// } else if (configoverviewtype === 7) { // image service
 				// bLayer = new esriImage(configoverviewurl);
-            // } else if (configoverviewtype === 8) { // Virtual Earth service
+			// } else if (configoverviewtype === 8) { // Virtual Earth service
 				// bLayer = new esriImage(configoverviewurl);
-            // } else if (configoverviewtype === 9) { // Open Street Map service
+			// } else if (configoverviewtype === 9) { // Open Street Map service
 				// bLayer = new esriImage(configoverviewurl);
-            }
-            return bLayer;
+			}
+			return bLayer;
 		};
 
 		resizeMap = function(map) {
@@ -488,7 +497,7 @@
 				targetNodeIds: ['gcviz-header']
 				// onOpen: function(box) {
 				// // Lets calculate the map coordinates where user right clicked.
-				// //currentLocation = getMapPointFromMenuPosition(box);          
+				// //currentLocation = getMapPointFromMenuPosition(box);
 				// }
 			});
 
@@ -500,7 +509,7 @@
 
 			ctxMenuMap.startup();
 			//ctxMenuMap.bindDomNode(map.container);
-        };
+		};
 
 		zoomIn = function(map) {
 			map.setExtent(getKeyExtent(map, 'in'));
@@ -528,7 +537,7 @@
 
 		getKeyExtent = function(map, direction) {
 			var extent = map.extent,
-				factorPan = 2,
+				factorPan = 3,
 				factorZoom = 4,
 				delta,
 				xmin = extent.xmin,
@@ -575,6 +584,67 @@
 			return extent;
 		};
 
+		showInfoWindow = function(map, title, content, geom) {
+			// check if we need to set the anchor to left (see where is the menu)
+			var layer, graphics, graphic, len, point,
+				btn = $viz('.esriPopupWrapper').find('.gcviz-wcag-close'),
+				anchor = (map.vSideMenu !== 1) ? 'upperright' : 'upperleft';
+
+			// if no geom value get the point where to put the window as the map center
+			// If there is a string get the point from the graphic with this key.
+			//if the geom is a geometry, use it directly
+			if (typeof geom === 'undefined') {
+				point = getMapCenter(map);
+			} else if (typeof geom === 'string') {
+				// grab graphic from key
+				layer = map.getLayer('gcviz-symbol');
+				graphics = layer.graphics;
+				len = graphics.length;
+
+				while (len--) {
+					graphic = graphics[len];
+					if (graphic.key === geom) {
+						point = graphic.geometry;
+					}
+				}
+			} else {
+				point = geom;
+			}
+
+			map.infoWindow.setTitle(title);
+			map.infoWindow.setContent('<span>' + content + '</span>');
+			map.infoWindow.anchor = anchor;
+			map.infoWindow.show(point, map.getInfoWindowAnchor(point));
+
+			// set focus on close button
+			btn.focus();
+		};
+
+		hideInfoWindow = function(map, key) {
+			var layer, graphics, graphic, len;
+
+			// if there is a key, remove graphics with those values
+			if (typeof key !== 'undefined') {
+				layer = map.getLayer('gcviz-symbol');
+				graphics = layer.graphics;
+				len = graphics.length;
+
+				while (len--) {
+					graphic = graphics[len];
+
+					if (key === graphic.key) {
+						layer.remove(graphic);
+					}
+				}
+			}
+
+			// hide window
+			map.infoWindow.hide();
+
+			// focus the map
+			func.focusMap(map);
+		};
+
 		return {
 			setProxy: setProxy,
 			createMap: createMap,
@@ -594,7 +664,9 @@
 			panLeft: panLeft,
 			panUp: panUp,
 			panRight: panRight,
-			panDown: panDown
+			panDown: panDown,
+			showInfoWindow: showInfoWindow,
+			hideInfoWindow: hideInfoWindow
 		};
 	});
 }());

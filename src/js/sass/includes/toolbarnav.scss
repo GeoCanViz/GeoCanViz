@@ -2,14 +2,14 @@
 
 %ovmap {
 	opacity: 1.0!important;
-  width: 230px!important;
-  background: $lightyellow;
+	width: 230px!important;
+	background: $lightyellow;
 }
 
 %ovscalemap {
 	position: absolute;
-  bottom: (4 * $rembase) + rem;
-  z-index: 30;
+	bottom: (4 * $rembase) + rem;
+	z-index: 30;
 }
 
 %ovborder {
@@ -34,7 +34,7 @@
 }
 
 .gcviz-nav-cursor-pos {
-  cursor: url(#{ $img-root }navCursor.cur), crosshair;
+	cursor: url(#{ $img-root }navCursor.cur), crosshair;
 }
 
 .gcviz-nav-lblpos {
@@ -67,15 +67,15 @@
 }
 
 .gcviz-ovmapcontainerl {
-  @extend %ovmap;
-  @extend %ovscalemap;
-  left: 0;
+	@extend %ovmap;
+	@extend %ovscalemap;
+	left: 0;
 }
 
 .gcviz-ovmapcontainerr {
-  @extend %ovmap;
-  @extend %ovscalemap;
-  right: 0;
+	@extend %ovmap;
+	@extend %ovscalemap;
+	right: 0;
 }
 
 .gcviz-ov-border {
@@ -83,7 +83,7 @@
 }
 
 .gcviz-overviewMap {
-  position: relative!important;
+	position: relative!important;
 }
 
 // scale bar and scale display
@@ -93,9 +93,9 @@
 
 // scale display
 .gcviz-scaleDisplayLabel {
-  @include app-text(1.1);
-  display: block;
-  line-height: 1;
+	@include app-text(1.1);
+	display: block;
+	line-height: 1;
 }
 
 /* Reset some ESRI classes that are being modified by the Map classes */
@@ -108,17 +108,17 @@
 /* Change overview highlight of ESRI element */
 
 .ovwHighlight {
-  z-index: 999!important;
-  border: solid 3px #F00!important;
-  background-color: transparent;
-  position: relative!important;
-  cursor: pointer;
+	z-index: 999!important;
+	border: solid 3px #F00!important;
+	background-color: transparent;
+	position: relative!important;
+	cursor: pointer;
 }
 /* End of Reset some ESRI classes that are being modified by the Map classes */
 
 .gcviz-navinfo-content {
-  margin-top: (0.5 * $rembase) + rem!important;
-  @include app-border(0.1, solid, #000000);
-  @include content-border-radius(0.6);
-  width: 93%;
+	margin-top: (0.5 * $rembase) + rem!important;
+	@include app-border(0.1, solid, #000000);
+	@include content-border-radius(0.6);
+	width: 93%;
 }

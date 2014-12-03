@@ -37,11 +37,32 @@
 					_self.layersArray = ko.observableArray(config.items);
 					_self.basesArray = ko.observableArray(config.basemaps);
 
+					// concat all layers to access in determineTextCSS
+					_self.allLayers = _self.layersArray().concat(_self.basesArray()),
+
+					// subscribe to fullscreen so we cant change the max height
+					gcvizFunc.subscribeTo(_self.mapid, 'header', 'isFullscreen', _self.setHeight);
+
+					// set max height for legend container (related to menu max height)
+					_self.setHeight();
+
 					// set initial visibility state
 					setTimeout(function() {
 						_self.changeItemsVisibility();
 					}, 1000);
 					return { controlsDescendantBindings: true };
+				};
+
+				_self.setHeight = function() {
+					setTimeout(function() {
+						var tb, height;
+
+						// find the maximum height for legend content
+						// (max container height - nb of toolbar + 1 for menu - the bottom spaces and margin)
+						tb = (($viz('.gcviz-tbcontent').length + 2) * 37) + 25;
+						height = parseInt($viz('.gcviz-toolsholder').css('max-height'), 10) - tb;
+						$viz('.gcviz-tbcontent-leg').css('max-height', height + 'px');
+					}, 1000);
 				};
 
 				// determine which CSS class to use on an item on load
@@ -66,56 +87,21 @@
 				_self.determineTextCSS = function(item) {
 					var layer,
 						className = 'gcviz-leg-span',
-						layers = _self.layersArray().concat(_self.basesArray()),
-						len = layers.length,
-						count = 1;
+						len = _self.allLayers.length,
+						count = 0;
 
 					// loop trought layers to find a match
 					while (len--) {
-						layer = layers[len];
+						layer = _self.allLayers[len];
 
-						// if the layer is the same as the one for the grapic item,
-						// find the level of deepness
-						if (item.id === layer.id) {
-
-							// if it is not on this level, call getIndex
-							if (layer.items.length > 0 && item.graphid !== layer.graphid) {
-								count =	_self.getIndex(layer.items, item.graphid, count);
-							}
-
-							className += count;
+						if (item.graphid === layer.graphid) {
 							count = 1;
-							return className;
-						}
-					}
-				};
-
-				_self.getIndex = function(items, graphid, count) {
-					var layer,
-						len = items.length;
-
-					// increment count
-					count += 1;
-
-					// check if there is a match at this level. If so, return the count
-					while (len--) {
-						layer = items[len];
-
-						if (graphid === layer.graphid) {
-							return count;
 						}
 					}
 
-					// if there is no match, loop trought childs items and recall the
-					// function
-					len = items.length;
-					while (len--) {
-						layer = items[len].items;
-						count = _self.getIndex(layer, graphid, count);
-						return count;
-					}
+					count = (count === 0) ? 2 : 1;
 
-					return count;
+					return className + count;
 				};
 
 				// needs this function because the a tag inside li tag doesn't work.

@@ -30,12 +30,16 @@
 
 				// text
 				_self.tpZoomFull = i18n.getDict('%map-tpzoomfull');
+				_self.close = i18n.getDict('%close');
 
 				// viewmodel mapid to be access in tooltip custom binding
 				_self.mapid = mapid;
 
+				// map focus observable
+				_self.mapfocus = ko.observable();
+
 				_self.init = function() {
-					var layer, base,
+					var layer, base, panel,
 						layers = config.layers,
 						bases = config.bases,
 						lenLayers = layers.length,
@@ -55,6 +59,14 @@
 
 					// keep reference for map holder
 					_self.mapholder = $map;
+
+					// set focus and blur event to set observable
+					ko.utils.registerEventHandler(_self.mapholder, 'focus', function() {
+						_self.mapfocus(true);
+					});
+					ko.utils.registerEventHandler(_self.mapholder, 'blur', function() {
+						_self.mapfocus(false);
+					});
 
 					// create map	
 					map = gisM.createMap(mapid + '_holder', config, side);
@@ -81,10 +93,22 @@
 					$container.addClass('gcviz-container');
 
 					// focus the map to let cluster be able to link to it
-					_self.focus($map);
+					// TODO: do we dot it only if there is cluster then cluster will remove focus. Is it right to focus on aomething on load? _self.mapholder.focus();
 
 					// keep map reference in the viewmodel to be accessible from other view model
 					_self.map = map;
+
+					// set a wcag close button for map info window
+					map.on('load', function() {
+						var btn;
+
+						panel = $viz('.esriPopupWrapper').find('.titlePane');
+						panel.prepend('<button class="gcviz-wcag-close" type="button" tabindex="0">' + _self.close + '</button>');
+						btn = panel.find('.gcviz-wcag-close');
+						btn.on('click', function() {
+							gisM.hideInfoWindow(_self.map, 'location');
+						});
+					});
 
 					return { controlsDescendantBindings: true };
 				};
@@ -99,21 +123,6 @@
 
 				_self.leaveMouse = function() {
 					_self.mapholder.blur();
-				};
-
-				_self.focus = function() {
-					// focus (events (focusin focusout))
-					_self.mapfocus = ko.observable();
-					_self.mapfocus.focused = ko.observable();
-					_self.mapfocus.focused.subscribe(function(isFocus) {
-						if (isFocus) {
-							_self.mapholder.focus();
-							_self.mapfocus(true);
-						} else {
-							_self.mapholder.blur();
-							_self.mapfocus(false);
-						}
-					});
 				};
 
 				_self.applyKey = function(key, shift) {
@@ -139,7 +148,7 @@
 						} else if ((key === 187 && shift) || (key === 61 && shift)) {
 							gisM.zoomIn(map);
 							prevent = true;
-						}  else if ((key === 189 && shift) || (key === 173 && shift)) {
+						} else if ((key === 189 && shift) || (key === 173 && shift)) {
 							gisM.zoomOut(map);
 							prevent = true;
 
@@ -156,7 +165,6 @@
 									flag = true;
 								}
 							}
-
 							// check if position is active. If so apply event
 							if (typeof gcvizFunc.getElemValueVM(mapid, ['nav'], 'js') !== 'undefined') {
 								if (gcvizFunc.getElemValueVM(mapid, ['nav', 'activeTool'], 'ko') === 'position') {
@@ -171,6 +179,7 @@
 							}
 						}
 					}
+
 					return prevent;
 				};
 

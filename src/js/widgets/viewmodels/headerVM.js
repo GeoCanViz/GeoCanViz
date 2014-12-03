@@ -20,6 +20,7 @@
 	], function($viz, ko, media, gisPrint, i18n, binding, gcvizFunc, gisM, helpVM) {
 		var initialize,
 			printSimple,
+			getRotationDegrees,
 			vm;
 
 		initialize = function($mapElem, mapid, config) {
@@ -36,6 +37,7 @@
 					$btnAbout = $mapElem.find('.gcviz-head-about'),
 					$menu = $mapElem.find('#gcviz-menu' + mapid),
 					$btnFull = $mapElem.find('.gcviz-head-pop'),
+					$ovMap = $viz('#ovmapcont' + mapid),
 					map = gcvizFunc.getElemValueVM(mapid, ['map', 'map'], 'js'),
 					instrHeight = 36;
 
@@ -43,7 +45,7 @@
 				_self.mapid = mapid;
 
 				// help bubble
-                _self.imgHelpBubble = pathHelpBubble;
+				_self.imgHelpBubble = pathHelpBubble;
 
 				// tools panel settings
 				_self.xheightToolsOuter = ko.observable('max-height:100px!important');
@@ -53,19 +55,19 @@
 				_self.tpHelp = i18n.getDict('%header-tphelp');
 				_self.tpPrint = i18n.getDict('%header-tpprint');
 				_self.tpInset = i18n.getDict('%header-tpinset');
-                _self.tpAbout = i18n.getDict('%header-tpabout');
-                _self.tpFullScreen = i18n.getDict('%header-tpfullscreen');
-                _self.lblMenu = i18n.getDict('%header-tools');
+				_self.tpAbout = i18n.getDict('%header-tpabout');
+				_self.tpFullScreen = i18n.getDict('%header-tpfullscreen');
+				_self.lblMenu = i18n.getDict('%header-tools');
 
 				// toolbars name
 				_self.legendTitle = i18n.getDict('%toolbarlegend-name');
-                _self.legendAlt = i18n.getDict('%toolbarlegend-alt');
+				_self.legendAlt = i18n.getDict('%toolbarlegend-alt');
 				_self.drawTitle = i18n.getDict('%toolbardraw-name');
-                _self.drawAlt = i18n.getDict('%toolbardraw-alt');
+				_self.drawAlt = i18n.getDict('%toolbardraw-alt');
 				_self.navTitle = i18n.getDict('%toolbarnav-name');
-                _self.navAlt = i18n.getDict('%toolbarnav-alt');
-                _self.dataTitle = i18n.getDict('%toolbardata-name');
-                _self.dataAlt = i18n.getDict('%toolbardata-alt');
+				_self.navAlt = i18n.getDict('%toolbarnav-alt');
+				_self.dataTitle = i18n.getDict('%toolbardata-name');
+				_self.dataAlt = i18n.getDict('%toolbardata-alt');
 
 				// about dialog box
 				_self.lblAboutTitle = i18n.getDict('%header-tpabout');
@@ -93,7 +95,7 @@
 				_self.isInsetVisible = ko.observable(true);
 				_self.insetState = true;
 				_self.fullscreenState = 0;
-                _self.opencloseToolsState = 0;
+				_self.opencloseToolsState = 0;
 
 				// tools initial setting
 				_self.toolsInit = config.tools;
@@ -109,7 +111,7 @@
 					_self.headerHeight = parseInt($mapElem.css('height'), 10);
 
 					// Set the toolbar container height
-                    setTimeout(function() {
+					setTimeout(function() {
 						_self.adjustContainerHeight();
 					}, 500);
 
@@ -133,35 +135,8 @@
 								$menu.accordion('option', 'active', false);
 							}, 0);
 						}
-					
-						$menuCont.off('accordioncreate');
-					});
 
-					// initialize full screen with magnific popup
-					$btnFull.magnificPopup({
-						items: {
-							src: '#' + mapid,
-							type: 'inline'
-						},
-						callbacks: {
-							beforeOpen: function() {
-								_self.requestFullScreen();
-							},
-							close: function() {
-								_self.cancelFullScreen();
-							},
-							afterClose: function() {
-								$viz('#' + mapid).removeClass('mfp-hide');
-								gisM.resizeCenterMap(map, 0);
-							}
-						},
-						key: 'map-key',
-						showCloseBtn: false,
-						closeOnBgClick: false,
-						enableEscapeKey: false,
-						alignTop: false,
-						modal: false,
-						mainClass: 'mfp-with-fade'
+						$menuCont.off('accordioncreate');
 					});
 
 					return { controlsDescendantBindings: true };
@@ -175,9 +150,11 @@
 					// debounce the click to avoid resize problems
 					gcvizFunc.debounceClick(function() {
 						if (_self.fullscreenState === 0) {
-							$btnFull.magnificPopup('close');
+							$viz('html').css('overflow', 'hidden');
+							_self.requestFullScreen();
 						} else {
-							_self.fullscreenState = 0;
+							$viz('html').css('overflow', 'auto');
+							_self.cancelFullScreen();
 						}
 
 						// remove tooltip if there (the tooltip is position before the fullscreen)
@@ -228,14 +205,14 @@
 				};
 
 				_self.helpClick = function() {
-                    helpVM.toggleHelp();
-                };
+					helpVM.toggleHelp();
+				};
 
-                _self.aboutClick = function() {
-                    _self.isAboutDialogOpen(true);
-                };
+				_self.aboutClick = function() {
+					_self.isAboutDialogOpen(true);
+				};
 
-                _self.dialogAboutOk = function() {
+				_self.dialogAboutOk = function() {
 					_self.isAboutDialogOpen(false);
 					$btnAbout.focus();
 				};
@@ -250,6 +227,7 @@
 					gcvizFunc.setStyle($mapholder[0], { 'width': sectW + 'px', 'height': (sectH - instrHeight) + 'px' }); // remove the keyboard instruction height
 					gcvizFunc.setStyle($map[0], { 'width': mapW + 'px', 'height': mapH + 'px' });
 					gcvizFunc.setStyle($maproot[0], { 'width': mapW + 'px', 'height': mapH + 'px' });
+					$mapholder.removeClass('gcviz-sectionfs');
 
 					// trigger the fullscreen custom binding and set state
 					_self.isFullscreen(false);
@@ -259,7 +237,7 @@
 					gisM.manageScreenState(map, 500, false);
 
 					// set the toolbar container height and focus
-                    setTimeout(function() {
+					setTimeout(function() {
 						_self.adjustContainerHeight();
 						$btnFull.focus();
 					}, 500);
@@ -269,7 +247,7 @@
 
 					// need to set it to 40px. Link to the bug where we have a workaround in the request
 					// full screen function.
-					gcvizFunc.setStyle($viz('#ovmapcont' + mapid)[0], { 'bottom': '40px' });
+					gcvizFunc.setStyle($ovMap[0], { 'bottom': '40px' });
 				};
 
 				_self.requestFullScreen = function() {
@@ -278,12 +256,13 @@
 						w = param.width,
 						h = param.height,
 						array = $mapholder.find('[tabindex = 0]'),
-						height =  (h - (2 * _self.headerHeight));
+						height = (h - (2 * _self.headerHeight));
 
 					// set style for the map
 					gcvizFunc.setStyle($mapholder[0], { 'width': w + 'px', 'height': h + 'px' });
-					gcvizFunc.setStyle($map[0], { 'width': w + 'px', 'height': height + 'px' });
-					gcvizFunc.setStyle($maproot[0], { 'width': w + 'px', 'height': height + 'px' });
+					gcvizFunc.setStyle($map[0], { 'width': (w - 15) + 'px', 'height': height + 'px' });
+					gcvizFunc.setStyle($maproot[0], { 'width': (w - 15) + 'px', 'height': height + 'px' });
+					$mapholder.addClass('gcviz-sectionfs');
 
 					// trigger the fullscreen custom binding and set state
 					_self.isFullscreen(true);
@@ -293,7 +272,7 @@
 					gisM.manageScreenState(map, 1000, true);
 
 					// Set the toolbar container height
-                    setTimeout(function() {
+					setTimeout(function() {
 						_self.adjustContainerHeight();
 
 						// set focus (cant cache because the class doesn't exist at init)
@@ -306,20 +285,20 @@
 					_self.last = array[array.length - 1];
 					$mapholder.on('keydown.fs', function(event) {
 						_self.manageTabbingOrder(event);
-                    });
+					});
 
-                    // this is a workaround. The div for the overview map change when
-                    // we first got to full screen. To correct this we reset the bottom value.
-                    // after the first time it is ok. In the future we can trap the first full
-                    // screen and then do not do this. Or we can try to find the problem.
-                    gcvizFunc.setStyle($viz('#ovmapcont' + mapid)[0], { 'bottom': '40px' });
-                };
+					// this is a workaround. The div for the overview map change when
+					// we first got to full screen. To correct this we reset the bottom value.
+					// after the first time it is ok. In the future we can trap the first full
+					// screen and then do not do this. Or we can try to find the problem.
+					gcvizFunc.setStyle($ovMap[0], { 'bottom': '40px' });
+				};
 
-                _self.adjustContainerHeight = function() {
+				_self.adjustContainerHeight = function() {
 					var toolbarheight = parseInt(map.height, 10) - 5;
 					_self.xheightToolsOuter('max-height:' + toolbarheight + 'px!important');
 					_self.xheightToolsInner('max-height:' + (toolbarheight - instrHeight) + 'px!important'); // remove the keyboard instruction height
-                };
+				};
 
 				_self.manageTabbingOrder = function(evt) {
 					var key = evt.which,
@@ -359,12 +338,15 @@
 		};
 
 		printSimple = function(map, template) {
-			var center = {},
+			var style, rotation,
+				sub, ind, reg1, reg2, reg3, reg4,
+				center = {},
 				mapid = map.vIdName,
 				node = $viz('#' + mapid + '_holder'),
 				arrow = $viz('#arrow' + mapid),
-				scale = $viz('#scaletool' + mapid),
 				scalebar = $viz('#scalebar' + mapid),
+				zoomMax = $viz('.gcviz-map-zm'),
+				zoomBar = $viz('.dijitSlider'),
 				height = node.css('height'),
 				width = node.css('width');
 
@@ -380,23 +362,74 @@
 			gisM.resizeCenterMap(map, center);
 
 			// open the print page here instead of timemeout because if we do so, it will act as popup.
-			// It needs to be in a click event to 
+			// It needs to be in a click event to open without a warning
 			window.open(template);
 
-			// set the local storage
+			// hide zoom max and zoom bar
+			zoomMax.addClass('gcviz-hidden');
+			zoomBar.addClass('gcviz-hidden');
+
+			// get rotation, substract 90 degree and update. Remove decimal part before
+			rotation = getRotationDegrees(arrow);
+			style = arrow.attr('style');
+
+			// create 3 reg because we dont know where to round the decimal
+			reg2 = new RegExp(rotation - 1, 'g'),
+			reg3 = new RegExp(rotation, 'g'),
+			reg4 = new RegExp(rotation + 1, 'g'),
+			ind = style.indexOf('.');
+			sub = style.substring(ind, ind + 2);
+
+			// remove decimal
+			reg1 = new RegExp(sub, 'g');
+			style = style.replace(reg1, '');
+
+			// because it was round we need to check minus 1 value and plus one
+			style = style.replace(reg2, rotation - 90);
+			style = style.replace(reg3, rotation - 90);
+			style = style.replace(reg4, rotation - 90);
+
+			// set the local storage (modify arrow because it wont print... it is an image background)
 			setTimeout(function() {
 				localStorage.setItem('gcvizPrintNode', node[0].outerHTML);
-				localStorage.setItem('gcvizArrowNode', arrow[0].outerHTML);
-				localStorage.setItem('gcvizScaleNode', scale[0].outerHTML);
+				localStorage.setItem('gcvizArrowNode', '<img src="../images/printNorthArrow.png" style="' + style + '"></img>');
 				localStorage.setItem('gcvizScalebarNode', scalebar[0].outerHTML);
+				localStorage.setItem('gcvizURL', window.location.href);
 			}, 3500);
 
 			// set map size to previous values
 			setTimeout (function() {
+				zoomMax.removeClass('gcviz-hidden');
+				zoomBar.removeClass('gcviz-hidden');
 				gcvizFunc.setStyle(node[0], { 'width': width, 'height': height });
 				gcvizFunc.setStyle(node.find('#' + mapid + '_holder_root')[0], { 'width': width, 'height': height });
 				gisM.resizeCenterMap(map, center);
 			}, 7000);
+		};
+
+		// http://stackoverflow.com/questions/8270612/get-element-moz-transformrotate-value-in-jquery
+		getRotationDegrees = function(obj) {
+			var values, a, b, angle,
+				matrix = obj.css('-webkit-transform') ||
+				obj.css('-moz-transform') ||
+				obj.css('-ms-transform') ||
+				obj.css('-o-transform') ||
+				obj.css('transform');
+
+			if (matrix !== 'none') {
+				values = matrix.split('(')[1].split(')')[0].split(',');
+				a = values[0];
+				b = values[1];
+				angle = Math.round(Math.atan2(b, a) * (180/Math.PI));
+			} else {
+				angle = 0;
+			}
+
+			if (angle < 0) {
+				angle +=360;
+			}
+
+			return angle;
 		};
 
 		return {

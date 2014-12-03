@@ -138,7 +138,7 @@
                     "label": "CBMT3978",
                     "id": "62e7429b-b08a-9325-45dd-4fbff4f67858",
                     "type": 2,
-                    "url": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/BaseMaps/CBMT3978/MapServer",
+                    "url": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/BaseMaps/CBMT_CBCT_GEOM_3978/MapServer",
                     "scale": {
                         "min": 0,
                         "max": 17500
@@ -171,7 +171,7 @@
           		} ],
                 "layers": [{
                 	"label": "toporama_limits",
-                	"id":"bbbb469d-aaaa-c8f5-175c-645271a6b6fe",
+                	"id":"bbbb469d-bbb1-c8f5-175c-645271a6b6fe",
                 	"type": 3,
                 	"url": "http://wms.ess-ws.nrcan.gc.ca/wms/toporama_en",                    					
                 	"options": {
@@ -193,7 +193,7 @@
           			}
                 },{
                 	"label": "toporama_builtup_areas",
-                	"id":"bbbb469d-aaaa-c8f5-175c-645282a6b6fe",
+                	"id":"bbbb469d-bbb2-c8f5-175c-645282a6b6fe",
                 	"type": 3,
                 	"url": "http://wms.ess-ws.nrcan.gc.ca/wms/toporama_en",                    					
                 	"options": {
@@ -215,7 +215,7 @@
           			}
                 },{
                 	"label": "toporama_vegetation",
-                	"id":"bbbb469d-aaaa-c8f5-175c-645272a6b6fe",
+                	"id":"bbbb469d-bbb3-c8f5-175c-645272a6b6fe",
                 	"type": 3,
                 	"url": "http://wms.ess-ws.nrcan.gc.ca/wms/toporama_en",                    					
                 	"options": {
@@ -237,7 +237,7 @@
           			}
                 },{
                 	"label": "toporama_hydrography",
-                	"id":"bbbb469d-aaaa-c8f5-175c-645273a6b6fe",
+                	"id":"bbbb469d-bbb6-c8f5-175c-645273a6b6fe",
                 	"type": 3,
                 	"url": "http://wms.ess-ws.nrcan.gc.ca/wms/toporama_en",                    					
                 	"options": {
@@ -259,7 +259,7 @@
           			}
                 },{
                 	"label": "toporama_water_saturated_soils",
-                	"id":"bbbb469d-aaaa-c8f5-175c-645276a6b6fe",
+                	"id":"bbbb469d-bbb5-c8f5-175c-645276a6b6fe",
                 	"type": 3,
                 	"url": "http://wms.ess-ws.nrcan.gc.ca/wms/toporama_en",                    					
                 	"options": {
@@ -281,7 +281,7 @@
           			}
                 },{
                 	"label": "toporama_water_features",
-                	"id":"bbbb469d-aaaa-c8f5-175c-645280a6b6fe",
+                	"id":"bbbb469d-bbb4-c8f5-175c-645280a6b6fe",
                 	"type": 3,
                 	"url": "http://wms.ess-ws.nrcan.gc.ca/wms/toporama_en",                    					
                 	"options": {
@@ -303,7 +303,7 @@
           			}
                 },{
                 	"label": "toporama_landforms",
-                	"id":"bbbb469d-aaaa-c8f5-175c-645277a6b6fe",
+                	"id":"bbbb469d-bbb8-c8f5-175c-645277a6b6fe",
                 	"type": 3,
                 	"url": "http://wms.ess-ws.nrcan.gc.ca/wms/toporama_en",                    					
                 	"options": {
@@ -325,7 +325,7 @@
           			}
                 },{
                 	"label": "toporama_hypsography",
-                	"id":"bbbb469d-aaaa-c8f5-175c-645275a6b6fe",
+                	"id":"bbbb469d-bbb9-c8f5-175c-645275a6b6fe",
                 	"type": 3,
                 	"url": "http://wms.ess-ws.nrcan.gc.ca/wms/toporama_en",                    					
                 	"options": {
@@ -347,7 +347,7 @@
           			}
                 },{
                 	"label": "toporama_power_network",
-                	"id":"bbbb469d-aaaa-c8f5-175c-645284a6b6fe",
+                	"id":"bbbb469d-ccc1-c8f5-175c-645284a6b6fe",
                 	"type": 3,
                 	"url": "http://wms.ess-ws.nrcan.gc.ca/wms/toporama_en",                    					
                 	"options": {
@@ -369,7 +369,7 @@
           			}
                 },{
                 	"label": "toporama_constructions",
-                	"id":"bbbb469d-aaaa-c8f5-175c-645278a6b6fe",
+                	"id":"bbbb469d-ccc2-c8f5-175c-645278a6b6fe",
                 	"type": 3,
                 	"url": "http://wms.ess-ws.nrcan.gc.ca/wms/toporama_en",                    					
                 	"options": {
@@ -391,7 +391,7 @@
           			}
                 },{
                 	"label": "designated_areas",
-                	"id":"bbbb469d-aaaa-c8f5-175c-645274a6b6fe",
+                	"id":"bbbb469d-ccc3-c8f5-175c-645274a6b6fe",
                 	"type": 3,
                 	"url": "http://wms.ess-ws.nrcan.gc.ca/wms/toporama_en",                    					
                 	"options": {
@@ -413,7 +413,7 @@
           			}
                 },{
                 	"label": "toporama_structures",
-                	"id":"bbbb469d-aaaa-c8f5-175c-645286a6b6fe",
+                	"id":"bbbb469d-ddd1-c8f5-175c-645286a6b6fe",
                 	"type": 3,
                 	"url": "http://wms.ess-ws.nrcan.gc.ca/wms/toporama_en",                    					
                 	"options": {
@@ -435,7 +435,7 @@
           			}
                 },{
                 	"label": "toporama_railway",
-                	"id":"bbbb469d-aaaa-c8f5-175c-645285a6b6fe",
+                	"id":"bbbb469d-ddd2-c8f5-175c-645285a6b6fe",
                 	"type": 3,
                 	"url": "http://wms.ess-ws.nrcan.gc.ca/wms/toporama_en",                    					
                 	"options": {
@@ -457,7 +457,7 @@
           			}
                 },{
                 	"label": "toporama_road_network",
-                	"id":"bbbb469d-aaaa-c8f5-175c-645281a6b6fe",
+                	"id":"bbbb469d-ddd3-c8f5-175c-645281a6b6fe",
                 	"type": 3,
                 	"url": "http://wms.ess-ws.nrcan.gc.ca/wms/toporama_en",                    					
                 	"options": {
@@ -479,7 +479,7 @@
           			}
                 },{
                 	"label": "toporama_feature_names",
-                	"id":"bbbb469d-aaaa-c8f5-175c-645299a6b6fe",
+                	"id":"bbbb469d-eee1-c8f5-175c-645299a6b6fe",
                 	"type": 3,
                 	"url": "http://wms.ess-ws.nrcan.gc.ca/wms/toporama_en",                    					
                 	"options": {
@@ -501,7 +501,7 @@
           			}
                 },{
                 	"label": "toporama_feature_names",
-                	"id":"bbbb469d-aaaa-c8f5-175c-645287a6b6fe",
+                	"id":"bbbb469d-fff1-c8f5-175c-645287a6b6fe",
                 	"type": 3,
                 	"url": "http://wms.ess-ws.nrcan.gc.ca/wms/toporama_en",                    					
                 	"options": {
@@ -523,7 +523,7 @@
           			}
                 },{
                 	"label": "toporama_populated_places",
-                	"id":"bbbb469d-aaaa-c8f5-175c-645283a6b6fe",
+                	"id":"bbbb469d-fff2-c8f5-175c-645283a6b6fe",
                 	"type": 3,
                 	"url": "http://wms.ess-ws.nrcan.gc.ca/wms/toporama_en",                    					
                 	"options": {
@@ -545,7 +545,7 @@
           			}
                 },{
                 	"label": "toporama",
-                	"id":"bbbb469d-aaaa-c8f5-175c-645270a6b6fe",
+                	"id":"bbbb469d-gggg-c8f5-175c-645270a6b6fe",
                 	"type": 3,
                 	"url": "http://wms.ess-ws.nrcan.gc.ca/wms/toporama_en",                    					
                 	"options": {
@@ -567,7 +567,7 @@
           			}
                 },{
                 	"label": "toporama_NTS_Index",
-                	"id":"bbbb469d-aaaa-c8f5-175c-645200a6b6fe",
+                	"id":"bbbb469d-aaa1-c8f5-175c-645200a6b6fe",
                 	"type": 3,
                 	"url": "http://ows.geobase.ca/wms/geobase_en",                    					
                 	"options": {
@@ -640,7 +640,7 @@
                 "last": true,
                 "type": 2,
                 "id": "34ad6a2c-2bcf-bd20-111f-ce0421f62a53",
-                "graphid": "762eb7ed-a85c-242f-6fcf-af08f5605eb1",
+                "graphid": "762eb7ed-0001-242f-6fcf-af08f5605eb1",
                 "displayfields": false,
                 "label": {
                     "value": "Hillshade",
@@ -667,6 +667,7 @@
                 },
                 "customimage": {
                     "enable": false,
+                    "description": "",
                     "images":[{}]
                 },
                 "items": []
@@ -675,7 +676,7 @@
             	"last":true,
             	"type":3,
             	"id":"99999999-0003-c8f5-175c-645270a6b6fe",
-            	"graphid":"e5511402-0003-5cbe-0d3c-f537c612b7df",
+            	"graphid":"e5511402-0002-5cbe-0d3c-f537c612b7df",
             	"displayfields":false,
             	"label":{
             		"value":"Landsat Imagery",
@@ -700,10 +701,11 @@
             	},
             	"displaychild":{
             		"enable":false,
-            		"symbol":"{\"type\":\"simple\",\"symbol\":{\"type\":\"esriSFS\",\"style\":\"esriSFSSolid\",\"color\":[0,0,0,0],\"outline\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[0,0,0,0],\"width\":0.4}},\"label\":\"\",\"description\":\"\"}"
+            		"symbol":""
             	},
             	"customimage":{
             		"enable":false,
+            		"description": "",
             		"images":[{}]
             	},
             	"items":[]
@@ -713,7 +715,7 @@
                 "last": true,
                 "type": 2,
                 "id": "62e7429b-b08a-9325-45dd-4fbff4f67858",
-                "graphid": "cc7fde4c-eed4-1cf2-8358-7ca86eefb13c",
+                "graphid": "cc7fde4c-0003-1cf2-8358-7ca86eefb13c",
                 "displayfields": false,
                 "label": {
                     "value": "Canada Base Map",
@@ -736,10 +738,11 @@
                 },
                 "displaychild": {
                     "enable": false,
-                    "symbol": "{\"type\":\"simple\",\"symbol\":{\"type\":\"esriSFS\",\"style\":\"esriSFSSolid\",\"color\":[0,0,0,0],\"outline\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[0,0,0,0],\"width\":0.4}},\"label\":\"\",\"description\":\"\"}"
+                    "symbol": ""
                 },
                 "customimage": {
                     "enable": false,
+                    "description": "",
                     "images":[{}]
                 },
                 "items": []
@@ -748,8 +751,8 @@
                 "expand":false,
             	"last":false,
             	"type":3,
-            	"id":"bbbb469d-aaaa-c8f5-175c-645270a6b6fe",
-            	"graphid":"e5511402-9999-5cbe-0d3c-f537c612b7df",
+            	"id":"bbbb469d-gggg-c8f5-175c-645270a6b6fe",
+            	"graphid":"e5511402-0004-5cbe-0d3c-f537c612b7df",
             	"displayfields":false,
             	"label":{
             		"value":"Toporama complete",
@@ -768,32 +771,24 @@
             		"enable":true,
             		"initstate":true,
             		"type":2,
-					"radioid":10
+								"radioid":10
             	},
             	"displaychild":{
             		"enable":false,
-            		"symbol":"{\"type\":\"simple\",\"symbol\":{\"type\":\"esriSFS\",\"style\":\"esriSFSSolid\",\"color\":[0,0,0,0],\"outline\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[0,0,0,0],\"width\":0.4}},\"label\":\"\",\"description\":\"\"}"
+            		"symbol":""
             	},
             	"customimage":{
-            		"enable":true,
-            		"images":[{
-            			"url":"legendImg/airfield_alt.gif",
-            			"label":"Toporama legend for sample with the new way to do the stuff... we mean now we go with a table and real text instead of images."
-            		},{
-            			"url":"legendImg/airport_2_alt.gif",
-            			"label":"Canal / Lake / Watercourse / Reservoir: Intermittent"
-            		},{
-            			"url":"legendImg/airport_alt.gif",
-            			"label":"Toporama legend"
-            		}]
+            		"enable":false,
+            		"description": "",
+            		"images":[{}]
             	},
             	"items":[]
             },{
                 "expand": false,
                 "last": false,
                 "type": 0,
-                "id": "9f66a0dd-eba7-bfff-c7b8-8a55f66cf92b",
-                "graphid": "8a9bb0ab-c670-32b1-6715-be42194945aa",
+                "id": "9f66a0dd-abcd-bfff-c7b8-8a55f66cf92b",
+                "graphid": "8a9bb0ab-0005-32b1-6715-be42194945aa",
                 "displayfields": false,
                 "label": {
                     "value": "Toporama features",
@@ -819,18 +814,19 @@
                 },
                 "customimage": {
                     "enable": false,
+                    "description": "",
                     "images":[{}]
                 },
                 "items": [{
                 "expand": false,
                 "last": false,
                 "type": 0,
-                "id": "9f66a0dd-eba7-bfff-c7b8-8a56f66cf92b",
-                "graphid": "8a9bb0ab-c670-32b1-6715-be42194945aa",
+                "id": "9f66a0dd-fff3-bfff-c7b8-8a56f66cf92b",
+                "graphid": "8a9bb0ab-0006-32b1-6715-be42194945aa",
                 "displayfields": false,
                 "label": {
-                    "value": "Place and feature names",
-                    "alttext": "Place and feature names"
+                    "value": "Place and Feature Names",
+                    "alttext": "Place and Feature Names"
                 },
                 "metadata": {
                     "enable": false
@@ -852,18 +848,19 @@
                 },
                 "customimage": {
                     "enable": false,
+                    "description": "",
                     "images":[{}]
                 },
                 "items": [{
 						"expand":false,
 						"last":false,
 						"type":3,
-						"id":"bbbb469d-aaaa-c8f5-175c-645283a6b6fe",
-						"graphid":"e5511402-9999-5cbe-0d3c-f537c612b7df",
+						"id":"bbbb469d-fff2-c8f5-175c-645283a6b6fe",
+						"graphid":"e5511402-0007-5cbe-0d3c-f537c612b7df",
 						"displayfields":false,
 						"label":{
-							"value":"Place and feature names",
-							"alttext":"Place and feature names"
+							"value":"Place and Feature Names",
+							"alttext":"Place and Feature Names"
 						},
 						"metadata":
 							{"enable":false
@@ -882,26 +879,54 @@
 						},
 						"displaychild":{
 							"enable":false,
-							"symbol":"{\"type\":\"simple\",\"symbol\":{\"type\":\"esriSFS\",\"style\":\"esriSFSSolid\",\"color\":[0,0,0,0],\"outline\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[0,0,0,0],\"width\":0.4}},\"label\":\"\",\"description\":\"\"}"
+							"symbol":""
 						},
 						"customimage":{
 							"enable":true,
+							"description": "Abbreviation: (FN): First Nation",
 							"images":[{
-								"url":"http://s-bsc-geoappint.nrn.nrcan.gc.ca/GeoCanViz/CCMEO/images/E_PlaceAndfeatureNames.jpg",
-								"label":""
-							}]
+					            "url": "./images/legend/new/place_names.gif",
+					            "label": "Place Name / Geographic Feature Names / Administrative Area names"
+					        },{
+					            "url": "./images/legend/new/hydro_names.gif",
+					            "label": "Hydrographic Names"
+					        },{
+					            "url": "./images/legend/new/pop_0-999.gif",
+					            "label": "0 - 999"
+					        },{
+					            "url": "./images/legend/new/pop_1000-4999.gif",
+					            "label": "1 000 - 4 999"
+					        },{
+					            "url": "./images/legend/new/pop_5000-24999.gif",
+					            "label": "5 000 - 24 999"
+					        },{
+					            "url": "./images/legend/new/pop_25000-99999.gif",
+					            "label": "25 000 - 99 999"
+					        },{
+					            "url": "./images/legend/new/pop_100000-499999.gif",
+					            "label": "100 000 - 499 999"
+					        },{
+					            "url": "./images/legend/new/pop_500000-greater.gif",
+					            "label": "500 000 or greater"
+					        },{
+					            "url": "./images/legend/national_capital.gif",
+					            "label": "National Capital"
+					        },{
+					            "url": "./images/legend/provincial_capital.gif",
+					            "label": "Provincial / Territorial Capitals"
+					       }]
 						},
 						"items":[]
 					},{
 						"expand":false,
 						"last":false,
 						"type":3,
-						"id":"bbbb469d-aaaa-c8f5-175c-645287a6b6fe",
-						"graphid":"e5511402-9999-5cbe-0d3c-f537c612b7df",
+						"id":"bbbb469d-fff1-c8f5-175c-645287a6b6fe",
+						"graphid":"e5511402-0008-5cbe-0d3c-f537c612b7df",
 						"displayfields":false,
 						"label":{
-							"value":"Other features",
-							"alttext":"Other features"
+							"value":"Other Features",
+							"alttext":"Other Features"
 						},
 						"metadata":
 							{"enable":false
@@ -920,11 +945,18 @@
 						},
 						"displaychild":{
 							"enable":false,
-							"symbol":"{\"type\":\"simple\",\"symbol\":{\"type\":\"esriSFS\",\"style\":\"esriSFSSolid\",\"color\":[0,0,0,0],\"outline\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[0,0,0,0],\"width\":0.4}},\"label\":\"\",\"description\":\"\"}"
+							"symbol":""
 						},
 						"customimage":{
-							"enable":false,
-							"images":[{}]
+							"enable":true,
+							"description": "",
+							"images":[{
+					            "url": "./images/legend/new/place_names.gif",
+					            "label": "Place Name / Geographic Feature Names / Administrative Area names"
+					        },{
+					            "url": "./images/legend/new/hydro_names.gif",
+					            "label": "Hydrographic Names"
+					  	}]
 						},
 						"items":[]
 					}]
@@ -932,8 +964,8 @@
 					"expand":false,
 					"last":false,
 					"type":3,
-					"id":"bbbb469d-aaaa-c8f5-175c-645299a6b6fe",
-					"graphid":"e5511402-9999-5cbe-0d3c-f537c612b7df",
+					"id":"bbbb469d-eee1-c8f5-175c-645299a6b6fe",
+					"graphid":"e5511402-0009-5cbe-0d3c-f537c612b7df",
 					"displayfields":false,
 					"label":{
 						"value":"Boundaries",
@@ -956,22 +988,32 @@
 					},
 					"displaychild":{
 						"enable":false,
-						"symbol":"{\"type\":\"simple\",\"symbol\":{\"type\":\"esriSFS\",\"style\":\"esriSFSSolid\",\"color\":[0,0,0,0],\"outline\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[0,0,0,0],\"width\":0.4}},\"label\":\"\",\"description\":\"\"}"
+						"symbol":""
 					},
 					"customimage":{
 						"enable":true,
+						"description": "",
 						"images":[{
-							"url":"http://s-bsc-geoappint.nrn.nrcan.gc.ca/GeoCanViz/CCMEO/images/E_Boundaries.jpg",
-							"label":""
-						}]
+			            "url": "./images/legend/new/international.gif",
+			            "label": "International"
+			        },{
+			            "url": "./images/legend/new/provincial_territorial.gif",
+			            "label": "Provincial / Territorial"
+			        },{
+			            "url": "./images/legend/new/canada_kalaallit_dividing_line.gif",
+			            "label": "Canada / Kalaallit Nunaat Dividing Line"
+			        },{
+			            "url": "./images/legend/new/canada_eez.gif",
+			            "label": "Canada's Exclusive Economic Zone (EEZ)"
+			        }]
 					},
 					"items":[]
 				},{
 					"expand": false,
 					"last": false,
 					"type": 0,
-					"id": "9f66a0dd-eba7-bfff-c7b8-8a56f66cf93b",
-					"graphid": "8a9bb0ab-c670-32b1-6715-be42194945aa",
+					"id": "9f66a0dd-ddd4-bfff-c7b8-8a56f66cf93b",
+					"graphid": "8a9bb0ab-0010-32b1-6715-be42194945aa",
 					"displayfields": false,
 					"label": {
 						"value": "Transportation",
@@ -997,18 +1039,19 @@
 					},
 					"customimage": {
 						"enable": false,
+						"description": "",
 						"images":[{}]
 					},
 					"items": [{
 						"expand":false,
 						"last":false,
 						"type":3,
-						"id":"bbbb469d-aaaa-c8f5-175c-645281a6b6fe",
-						"graphid":"e5511402-9999-5cbe-0d3c-f537c612b7df",
+						"id":"bbbb469d-ddd3-c8f5-175c-645281a6b6fe",
+						"graphid":"e5511402-0011-5cbe-0d3c-f537c612b7df",
 						"displayfields":false,
 						"label":{
-							"value":"Road network",
-							"alttext":"Road network"
+							"value":"Road Network",
+							"alttext":"Road Network"
 						},
 						"metadata":
 							{"enable":false
@@ -1027,22 +1070,53 @@
 						},
 						"displaychild":{
 							"enable":false,
-							"symbol":"{\"type\":\"simple\",\"symbol\":{\"type\":\"esriSFS\",\"style\":\"esriSFSSolid\",\"color\":[0,0,0,0],\"outline\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[0,0,0,0],\"width\":0.4}},\"label\":\"\",\"description\":\"\"}"
+							"symbol":""
 						},
 						"customimage":{
 							"enable":true,
+							"description": "",
 							"images":[{
-								"url":"http://s-bsc-geoappint.nrn.nrcan.gc.ca/GeoCanViz/CCMEO/images/E_RoadNetwork.jpg",
-								"label":""
-							}]
+			            "url": "./images/legend/ferry_alt.gif",
+			            "label": "Ferry Route"
+			        },{
+			            "url": "./images/legend/toll_gate_new_alt.gif",
+			            "label": "Gate / Toll Gate"
+			        },{
+			            "url": "./images/legend/route_number_new_alt.gif",
+			            "label": "Highway Route Number"
+			        },{
+			            "url": "./images/legend/road_a_new_alt.gif",
+			            "label": "Road A: hard surface, more than 2 lanes"
+			        },{
+			            "url": "./images/legend/road_b_new_alt.gif",
+			            "label": "Road B: hard surface, 2 lanes"
+			        },{
+			            "url": "./images/legend/road_c_new_alt.gif",
+			            "label": "Road C: hard surface, less than 2 lanes; Street: hard surface"
+			        },{
+			            "url": "./images/legend/road_d_new_alt.gif",
+			            "label": "Road D: loose surface, 2 lanes or more"
+			        },{
+			            "url": "./images/legend/road_e_new_alt.gif",
+			            "label": "Road E: loose surface, less than 2 lanes; Street: unpaved"
+			        },{
+			            "url": "./images/legend/winter_new_alt.gif",
+			            "label": "Road G: Vehicle Track / Winter Road"
+			        },{
+			            "url": "./images/legend/trail_new_alt_.gif",
+			            "label": "Road H: Trail / Portage"
+			        },{
+			            "url": "./images/legend/snowshed_alt.gif",
+			            "label": "Snowshed"
+			        }]
 						},
 						"items":[]
 					},{
 						"expand":false,
 						"last":false,
 						"type":3,
-						"id":"bbbb469d-aaaa-c8f5-175c-645285a6b6fe",
-						"graphid":"e5511402-9999-5cbe-0d3c-f537c612b7df",
+						"id":"bbbb469d-ddd2-c8f5-175c-645285a6b6fe",
+						"graphid":"e5511402-0012-5cbe-0d3c-f537c612b7df",
 						"displayfields":false,
 						"label":{
 							"value":"Railway",
@@ -1065,22 +1139,38 @@
 						},
 						"displaychild":{
 							"enable":false,
-							"symbol":"{\"type\":\"simple\",\"symbol\":{\"type\":\"esriSFS\",\"style\":\"esriSFSSolid\",\"color\":[0,0,0,0],\"outline\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[0,0,0,0],\"width\":0.4}},\"label\":\"\",\"description\":\"\"}"
+							"symbol":""
 						},
 						"customimage":{
 							"enable":true,
+							"description": "",
 							"images":[{
-								"url":"http://s-bsc-geoappint.nrn.nrcan.gc.ca/GeoCanViz/CCMEO/images/E_RailNetwork.jpg",
-								"label":""
-							}]
+			            "url": "./images/legend/railway_alt.gif",
+			            "label": "Railway"
+			        },{
+			            "url": "./images/legend/railway_bridge_alt.gif",
+			            "label": "Railway Bridge"
+			        },{
+			            "url": "./images/legend/railway_nonoperate_alt.gif",
+			            "label": "Railway: Not Operational"
+			        },{
+			            "url": "./images/legend/snowshed_alt.gif",
+			            "label": "Railway Snowshed"
+			        },{
+			            "url": "./images/legend/tunnel_alt.gif",
+			            "label": "Railway Tunnel"
+			        },{
+			            "url": "./images/legend/railway_turntable.gif",
+			            "label": "Railway Turntable"
+			        }]
 						},
 						"items":[]
 					},{
 					"expand":false,
 					"last":false,
 					"type":3,
-					"id":"bbbb469d-aaaa-c8f5-175c-645286a6b6fe",
-					"graphid":"e5511402-9999-5cbe-0d3c-f537c612b7df",
+					"id":"bbbb469d-ddd1-c8f5-175c-645286a6b6fe",
+					"graphid":"e5511402-0013-5cbe-0d3c-f537c612b7df",
 					"displayfields":false,
 					"label":{
 						"value":"Structures",
@@ -1103,14 +1193,18 @@
 					},
 					"displaychild":{
 						"enable":false,
-						"symbol":"{\"type\":\"simple\",\"symbol\":{\"type\":\"esriSFS\",\"style\":\"esriSFSSolid\",\"color\":[0,0,0,0],\"outline\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[0,0,0,0],\"width\":0.4}},\"label\":\"\",\"description\":\"\"}"
+						"symbol":""
 					},
 					"customimage":{
-						"enable":false,
+						"enable":true,
+						"description": "",
 						"images":[{
-							"url":"http://s-bsc-geoappint.nrn.nrcan.gc.ca/GeoCanViz/CCMEO/images/E_ConstructedFeatures.jpg",
-							"label":""
-						}]
+			            "url": "./images/legend/road_bridge_new_alt.gif",
+			            "label": "Bridge"
+			        },{
+			            "url": "./images/legend/tunnel_alt.gif",
+			            "label": "Tunnel"
+			        }]
 					},
 					"items":[]
 				}]
@@ -1118,8 +1212,8 @@
 					"expand": false,
 					"last": false,
 					"type": 0,
-					"id": "9f66a0dd-eba7-bfff-c7b8-8a56f66cf94b",
-					"graphid": "8a9bb0ab-c670-32b1-6715-be42194945aa",
+					"id": "9f66a0dd-ccc4-bfff-c7b8-8a56f66cf94b",
+					"graphid": "8a9bb0ab-0014-32b1-6715-be42194945aa",
 					"displayfields": false,
 					"label": {
 						"value": "Constructed Features",
@@ -1145,18 +1239,19 @@
 					},
 					"customimage": {
 						"enable": false,
+						"description": "",
 						"images":[{}]
 					},
 					"items": [{
 					"expand":false,
 					"last":false,
 					"type":3,
-					"id":"bbbb469d-aaaa-c8f5-175c-645274a6b6fe",
-					"graphid":"e5511402-9999-5cbe-0d3c-f537c612b7df",
+					"id":"bbbb469d-ccc3-c8f5-175c-645274a6b6fe",
+					"graphid":"e5511402-0015-5cbe-0d3c-f537c612b7df",
 					"displayfields":false,
 					"label":{
-						"value":"Designated areas",
-						"alttext":"Designated areas"
+						"value":"Designated Areas",
+						"alttext":"Designated Areas"
 					},
 					"metadata":
 						{"enable":false
@@ -1175,22 +1270,92 @@
 					},
 					"displaychild":{
 						"enable":false,
-						"symbol":"{\"type\":\"simple\",\"symbol\":{\"type\":\"esriSFS\",\"style\":\"esriSFSSolid\",\"color\":[0,0,0,0],\"outline\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[0,0,0,0],\"width\":0.4}},\"label\":\"\",\"description\":\"\"}"
+						"symbol":""
 					},
 					"customimage":{
 						"enable":true,
+						"description": "",
 						"images":[{
-							"url":"http://s-bsc-geoappint.nrn.nrcan.gc.ca/GeoCanViz/CCMEO/images/E_DesignatedAreas.jpg",
-							"label":""
-						}]
+			            "url": "./images/legend/campground_large_alt.gif",
+			            "label": "Campground: large"
+			        },{
+			            "url": "./images/legend/campground_small_alt.gif",
+			            "label": "Campground: small"
+			        },{
+			            "url": "./images/legend/cemetery_large_alt.gif",
+			            "label": "Cemetery: large"
+			        },{
+			            "url": "./images/legend/cemetery_small_alt.gif",
+			            "label": "Cemetery: small"
+			        },{
+			            "url": "./images/legend/designated_area_alt.gif",
+			            "label": "Designated Area: labelled"
+			        },{
+			            "url": "./images/legend/drivein_large_alt.gif",
+			            "label": "Drive-in Theatre: large"
+			        },{
+			            "url": "./images/legend/drivein_small_alt.gif",
+			            "label": "Drive-in Theatre: small"
+			        },{
+			            "url": "./images/legend/fort_alt.gif",
+			            "label": "Fort: labelled"
+			        },{
+			            "url": "./images/legend/golfcourse_large_alt.gif",
+			            "label": "Golf Course: large"
+			        },{
+			            "url": "./images/legend/golfcourse_small_alt.gif",
+			            "label": "Golf Course: small"
+			        },{
+			            "url": "./images/legend/golfdriveing_large_alt.gif",
+			            "label": "Golf Driving Range: large"
+			        },{
+			            "url": "./images/legend/golfdrivieng_small_alt.gif",
+			            "label": "Golf Driving Range: small"
+			        },{
+			            "url": "./images/legend/historic_point_interest.gif",
+			            "label": "Historic Site / Point of Interest"
+			        },{
+			            "url": "./images/legend/industrial_depot_alt.gif",
+			            "label": "Industrial Solids Depot: labelled"
+			        },{
+			            "url": "./images/legend/chimney_alt.gif",
+			            "label": "Lookout: labelled"
+			        },{
+			            "url": "./images/legend/mine_large_alt.gif",
+			            "label": "Mine: large"
+			        },{
+			            "url": "./images/legend/mine_small_alt.gif",
+			            "label": "Mine: small; Mining Area"
+			        },{
+			            "url": "./images/legend/park_sports_alt.gif",
+			            "label": "Park / Sports Field"
+			        },{
+			            "url": "./images/legend/picnic_large_alt.gif",
+			            "label": "Picnic Site: large"
+			        },{
+			            "url": "./images/legend/picnic_small_alt.gif",
+			            "label": "Picnic Site: small"
+			        },{
+			            "url": "./images/legend/gravel_alt.gif",
+			            "label": "Pit"
+			        },{
+			            "url": "./images/legend/quarry_alt.gif",
+			            "label": "Quarry"
+			        },{
+			            "url": "./images/legend/shrine.gif",
+			            "label": "Shrine"
+			        },{
+			            "url": "./images/legend/centre_de_ski.gif",
+			            "label": "Ski Centre"
+			        }]
 					},
 					"items":[]
 				},{
 					"expand":false,
 					"last":false,
 					"type":3,
-					"id":"bbbb469d-aaaa-c8f5-175c-645278a6b6fe",
-					"graphid":"e5511402-9999-5cbe-0d3c-f537c612b7df",
+					"id":"bbbb469d-ccc2-c8f5-175c-645278a6b6fe",
+					"graphid":"e5511402-0016-5cbe-0d3c-f537c612b7df",
 					"displayfields":false,
 					"label":{
 						"value":"Constructions",
@@ -1213,26 +1378,129 @@
 					},
 					"displaychild":{
 						"enable":false,
-						"symbol":"{\"type\":\"simple\",\"symbol\":{\"type\":\"esriSFS\",\"style\":\"esriSFSSolid\",\"color\":[0,0,0,0],\"outline\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[0,0,0,0],\"width\":0.4}},\"label\":\"\",\"description\":\"\"}"
+						"symbol":""
 					},
 					"customimage":{
 						"enable":true,
+						"description": "",
 						"images":[{
-							"url":"http://s-bsc-geoappint.nrn.nrcan.gc.ca/GeoCanViz/CCMEO/images/E_ConstructedFeatures.jpg",
-							"label":""
-						}]
+					            "url": "./images/legend/airfield_alt.gif",
+					            "label": "Airfield"
+					      },{
+					            "url": "./images/legend/airport_alt.gif",
+					            "label": "Airport"
+					      },{
+					            "url": "./images/legend/airport_2_alt.gif",
+					            "label": "Airport"
+					      },{
+					            "url": "./images/legend/runway_hard_alt.gif",
+					            "label": "Airport"
+					      },{
+					            "url": "./images/legend/building_alt.gif",
+					            "label": "Building"
+					      },{
+					            "url": "./images/legend/building_text_alt.gif",
+					            "label": "Building: labelled"
+					      },{
+					            "url": "./images/legend/chimney_alt.gif",
+					            "label": "Chimney / Tower: labelled"
+					      },{
+					            "url": "./images/legend/batiment_0_garde_cotiere.gif",
+					            "label": "Coast Guard Station"
+					      },{
+					            "url": "./images/legend/chimney_alt.gif",
+					            "label": "Cross: labelled"
+					      },{
+					            "url": "./images/legend/batiment_0_douane.gif",
+					            "label": "Customs Post"
+					      },{
+					            "url": "./images/legend/designated_area_alt.gif",
+					            "label": "Designated Area: labelled"
+					      },{
+					            "url": "./images/legend/building_school.gif",
+					            "label": "Educational Building"
+					      },{
+					            "url": "./images/legend/electric_power_station.gif",
+					            "label": "Electric Power Station"
+					      },{
+					            "url": "./images/legend/fence_alt.gif",
+					            "label": "Fence"
+					      },{
+					            "url": "./images/legend/fire_station_alt.gif",
+					            "label": "Fire Station"
+					      },{
+					            "url": "./images/legend/footbridge_alt.gif",
+					            "label": "Footbridge"
+					      },{
+					            "url": "./images/legend/heliport_alt.gif",
+					            "label": "Heliport"
+					      },{
+					            "url": "./images/legend/service_station_alt.gif",
+					            "label": "Highway Service Centre"
+					      },{
+					            "url": "./images/legend/chimney_alt.gif",
+					            "label": "Parabolic Antenna: labelled"
+					      },{
+					            "url": "./images/legend/building_religiousl.gif",
+					            "label": "Religious Building"
+					      },{
+					            "url": "./images/legend/ruins_large_alt.gif",
+					            "label": "Ruins: large"
+					      },{
+					            "url": "./images/legend/ruins_small.gif",
+					            "label": "Ruins: small"
+					      },{
+					            "url": "./images/legend/seaplane_anchorage_alt.gif",
+					            "label": "Seaplane Anchorage"
+					      },{
+					            "url": "./images/legend/seaplane_base_alt.gif",
+					            "label": "Seaplane Base; Water Aerodrome"
+					      },{
+					            "url": "./images/legend/silo.gif",
+					            "label": "Silo"
+					      },{
+					            "url": "./images/legend/sports_track_alt.gif",
+					            "label": "Sports Track / Race Track"
+					      },{
+					            "url": "./images/legend/stadium_alt.gif",
+					            "label": "Stadium"
+					      },{
+					            "url": "./images/legend/horizontal_tank_alt.gif",
+					            "label": "Tank: Horizontal"
+					      },{
+					            "url": "./images/legend/vertical_tank_alt.gif",
+					            "label": "Tank: Vertical"
+					      },{
+					            "url": "./images/legend/under_res_large.gif",
+					            "label": "Underground Reservoir: large"
+					      },{
+					            "url": "./images/legend/under_res_small.gif",
+					            "label": "Underground Reservoir: small"
+					      },{
+					            "url": "./images/legend/wall_alt.gif",
+					            "label": "Wall"
+					      },{
+					            "url": "./images/legend/well_water.gif",
+					            "label": "Well: Brine / Water"
+					      },{
+					            "url": "./images/legend/well_gas.gif",
+					            "label": "Well: Petroleum"
+					      },{
+					            "url": "./images/legend/wind_operated_dev_alt.gif",
+					            "label": "Wind-operated Device"
+        		}]
 					},
 					"items":[]
 				},{
 					"expand":false,
 					"last":false,
 					"type":3,
-					"id":"bbbb469d-aaaa-c8f5-175c-645284a6b6fe",
-					"graphid":"e5511402-9999-5cbe-0d3c-f537c612b7df",
+					"id":"bbbb469d-ccc1-c8f5-175c-645284a6b6fe",
+					"graphid":"e5511402-0017-5cbe-0d3c-f537c612b7df",
 					"displayfields":false,
 					"label":{
-						"value":"Power network",
-						"alttext":"Power network"
+						"value":"Power Network",
+						"alttext":"Power Network"
 					},
 					"metadata":
 						{"enable":false
@@ -1251,14 +1519,48 @@
 					},
 					"displaychild":{
 						"enable":false,
-						"symbol":"{\"type\":\"simple\",\"symbol\":{\"type\":\"esriSFS\",\"style\":\"esriSFSSolid\",\"color\":[0,0,0,0],\"outline\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[0,0,0,0],\"width\":0.4}},\"label\":\"\",\"description\":\"\"}"
+						"symbol":""
 					},
 					"customimage":{
 						"enable":true,
+						"description": "",
 						"images":[{
-							"url":"http://s-bsc-geoappint.nrn.nrcan.gc.ca/GeoCanViz/CCMEO/images/E_PowerNetwork.jpg",
-							"label":""
-						}]
+				            "url": "./images/legend/transformer_station_large_alt.gif",
+				            "label": "Electric Facility: large"
+				      },{
+				            "url": "./images/legend/poste_transformateur_0.gif",
+				            "label": "Electric Facility: small; Transformer Station"
+				      },{
+				            "url": "./images/legend/number_lines_alt.gif",
+				            "label": "Number of Pipelines"
+				      },{
+				            "url": "./images/legend/number_lines_alt.gif",
+				            "label": "Number of Power Transmission Lines"
+				      },{
+				            "url": "./images/legend/oilgas_facility_large_alt.gif",
+				            "label": "Oil / Natural Gas Facility: large"
+				      },{
+				            "url": "./images/legend/oilgas_facility_alt.gif",
+				            "label": "Oil / Natural Gas Facility: small"
+				      },{
+				            "url": "./images/legend/pipeline_aboveground_alt.gif",
+				            "label": "Pipeline"
+				      },{
+				            "url": "./images/legend/pipeline_valve.gif",
+				            "label": "Pipeline: Control Valve"
+				      },{
+				            "url": "./images/legend/pipeline_underground_alt.gif",
+				            "label": "Pipeline: Underground"
+				      },{
+				            "url": "./images/legend/power_transmission_line_alt.gif",
+				            "label": "Power Transmission Line"
+				      },{
+				            "url": "./images/legend/submarine_cable_alt.gif",
+				            "label": "Submarine Cable"
+				      },{
+				            "url": "./images/legend/telephone_line_alt.gif",
+				            "label": "Telephone Line"
+		        }]
 					},
 					"items":[]
 				}]
@@ -1266,8 +1568,8 @@
 					"expand":false,
 					"last":false,
 					"type":0,
-					"id": "9f66a0dd-eba7-bfff-c7b8-8a56f66cf95b",
-					"graphid": "8a9bb0ab-c670-32b1-6715-be42194945aa",
+					"id": "9f66a0dd-bb10-bfff-c7b8-8a56f66cf95b",
+					"graphid": "8a9bb0ab-0018-32b1-6715-be42194945aa",
 					"displayfields":false,
 					"label": {
 						"value": "Contours and Landforms",
@@ -1293,14 +1595,15 @@
 					},
 					"customimage": {
 						"enable": false,
+						"description": "",
 						"images":[{}]
 					},
 					"items": [{
 					"expand":false,
 					"last":false,
 					"type":3,
-					"id":"bbbb469d-aaaa-c8f5-175c-645275a6b6fe",
-					"graphid":"e5511402-9999-5cbe-0d3c-f537c612b7df",
+					"id":"bbbb469d-bbb9-c8f5-175c-645275a6b6fe",
+					"graphid":"e5511402-0019-5cbe-0d3c-f537c612b7df",
 					"displayfields":false,
 					"label":{
 						"value":"Contours",
@@ -1323,22 +1626,44 @@
 					},
 					"displaychild":{
 						"enable":false,
-						"symbol":"{\"type\":\"simple\",\"symbol\":{\"type\":\"esriSFS\",\"style\":\"esriSFSSolid\",\"color\":[0,0,0,0],\"outline\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[0,0,0,0],\"width\":0.4}},\"label\":\"\",\"description\":\"\"}"
+						"symbol":""
 					},
 					"customimage":{
 						"enable":true,
+						"description": "Contour / Elevation Values: m = metres, ft = feet",
 						"images":[{
-							"url":"http://s-bsc-geoappint.nrn.nrcan.gc.ca/GeoCanViz/CCMEO/images/E_Contours.jpg",
-							"label":""
-						}]
+				            "url": "./images/legend/contour_approx_index_alt.gif",
+				            "label": "Contour: Approximate, Index (interval varies)"
+				      },{
+				            "url": "./images/legend/contour_approx_inter_alt.gif",
+				            "label": "Contour: Approximate, Intermediate (interval varies)"
+				      },{
+				            "url": "./images/legend/contour_dep_index.gif",
+				            "label": "Contour: Depression, Index (interval varies)"
+				      },{
+				            "url": "./images/legend/contour_dep_inter.gif",
+				            "label": "Contour: Depression, Intermediate (interval varies)"
+				      },{
+				            "url": "./images/legend/contour_index_alt.gif",
+				            "label": "Contour: Index (interval varies)"
+				      },{
+				            "url": "./images/legend/contour_intermediate_alt.gif",
+				            "label": "Contour: Intermediate (interval varies)"
+				      },{
+				            "url": "./images/legend/precise_elevation_alt.gif",
+				            "label": "Precise Elevation"
+				      },{
+				            "url": "./images/legend/spot_height_alt.gif",
+				            "label": "Spot Height"
+      			}]
 					},
 					"items":[]
 				},{
 					"expand":false,
 					"last":false,
 					"type":3,
-					"id":"bbbb469d-aaaa-c8f5-175c-645277a6b6fe",
-					"graphid":"e5511402-9999-5cbe-0d3c-f537c612b7df",
+					"id":"bbbb469d-bbb8-c8f5-175c-645277a6b6fe",
+					"graphid":"e5511402-0020-5cbe-0d3c-f537c612b7df",
 					"displayfields":false,
 					"label":{
 						"value":"Landforms",
@@ -1361,13 +1686,23 @@
 					},
 					"displaychild":{
 						"enable":false,
-						"symbol":"{\"type\":\"simple\",\"symbol\":{\"type\":\"esriSFS\",\"style\":\"esriSFSSolid\",\"color\":[0,0,0,0],\"outline\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[0,0,0,0],\"width\":0.4}},\"label\":\"\",\"description\":\"\"}"
+						"symbol":""
 					},
 					"customimage":{
-						"enable":false,
+						"enable":true,
+						"description": "",
 						"images":[{
-							"url":"",
-							"label":""
+				            "url": "./images/legend/esker_alt.gif",
+				            "label": "Esker"
+				      },{
+				            "url": "./images/legend/moraine.gif",
+				            "label": "Moraine"
+				      },{
+				            "url": "./images/legend/pingo.gif",
+				            "label": "Pingo"
+				      },{
+				            "url": "./images/legend/sand_other_alt.gif",
+				            "label": "Sand"
 						}]
 					},
 					"items":[]
@@ -1376,8 +1711,8 @@
 					"expand": false,
 					"last": false,
 					"type": 0,
-					"id": "9f66a0dd-eba7-bfff-c7b8-8a56f66cf96b",
-					"graphid": "8a9bb0ab-c670-32b1-6715-be42194945aa",
+					"id": "9f66a0dd-bbb7-bfff-c7b8-8a56f66cf96b",
+					"graphid": "8a9bb0ab-0021-32b1-6715-be42194945aa",
 					"displayfields": false,
 					"label": {
 						"value": "Hydrographic Features",
@@ -1403,14 +1738,15 @@
 					},
 					"customimage": {
 						"enable": false,
+						"description": "",
 						"images":[{}]
 					},
 					"items": [{
 					"expand":false,
 					"last":false,
 					"type":3,
-					"id":"bbbb469d-aaaa-c8f5-175c-645273a6b6fe",
-					"graphid":"e5511402-9999-5cbe-0d3c-f537c612b7df",
+					"id":"bbbb469d-bbb6-c8f5-175c-645273a6b6fe",
+					"graphid":"e5511402-0022-5cbe-0d3c-f537c612b7df",
 					"displayfields":false,
 					"label":{
 						"value":"Hydrography",
@@ -1433,26 +1769,54 @@
 					},
 					"displaychild":{
 						"enable":false,
-						"symbol":"{\"type\":\"simple\",\"symbol\":{\"type\":\"esriSFS\",\"style\":\"esriSFSSolid\",\"color\":[0,0,0,0],\"outline\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[0,0,0,0],\"width\":0.4}},\"label\":\"\",\"description\":\"\"}"
+						"symbol":""
 					},
 					"customimage":{
 						"enable":true,
+						"description": "",
 						"images":[{
-							"url":"http://s-bsc-geoappint.nrn.nrcan.gc.ca/GeoCanViz/CCMEO/images/E_Hydrography.jpg",
-							"label":""
-						}]
+				            "url": "./images/legend/bank_int_alt_new.gif",
+				            "label": "Banks: Intermittent"
+				      },{
+				            "url": "./images/legend/water_bodies_alt_new.gif",
+				            "label": "Ocean / Canal / Lake / Watercourse / Reservoir"
+				      },{
+				            "url": "./images/legend/intermittant_waterbody_alt_new.gif",
+				            "label": "Canal / Lake / Watercourse / Reservoir: Intermittent"
+				      },{
+				            "url": "./images/legend/river_alt_new.gif",
+				            "label": "Canal / Conduit / Watercourse"
+				      },{
+				            "url": "./images/legend/river_int_alt_new.gif",
+				            "label": "Canal / Conduit / Watercourse (Intermittent)"
+				      },{
+				            "url": "./images/legend/debris_covered_ice_alt.png",
+				            "label": "Debris-covered Ice"
+				      },{
+				            "url": "./images/legend/drink_filter_water.gif",
+				            "label": "Drinkable Water / Water Filter"
+				      },{
+				            "url": "./images/legend/liquid_waste_alt.gif",
+				            "label": "Liquid Waste"
+				      },{
+				            "url": "./images/legend/permanent_snow_ice_alt.png",
+				            "label": "Permanent Snow / Ice"
+				      },{
+				            "url": "./images/legend/palsa_alt.png",
+				            "label": "Palsa Bog"
+        		}]
 					},
 					"items":[]
 				},{
 					"expand":false,
 					"last":false,
 					"type":3,
-					"id":"bbbb469d-aaaa-c8f5-175c-645276a6b6fe",
-					"graphid":"e5511402-9999-5cbe-0d3c-f537c612b7df",
+					"id":"bbbb469d-bbb5-c8f5-175c-645276a6b6fe",
+					"graphid":"e5511402-0023-5cbe-0d3c-f537c612b7df",
 					"displayfields":false,
 					"label":{
-						"value":"Water saturated soils",
-						"alttext":"Water saturated soils"
+						"value":"Water Saturated Soils",
+						"alttext":"Water Saturated Soils"
 					},
 					"metadata":
 						{"enable":false
@@ -1471,26 +1835,36 @@
 					},
 					"displaychild":{
 						"enable":false,
-						"symbol":"{\"type\":\"simple\",\"symbol\":{\"type\":\"esriSFS\",\"style\":\"esriSFSSolid\",\"color\":[0,0,0,0],\"outline\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[0,0,0,0],\"width\":0.4}},\"label\":\"\",\"description\":\"\"}"
+						"symbol":""
 					},
 					"customimage":{
 						"enable":true,
+						"description": "",
 						"images":[{
-							"url":"http://s-bsc-geoappint.nrn.nrcan.gc.ca/GeoCanViz/CCMEO/images/E_WaterSaturatedSoils.jpg",
-							"label":""
-						}]
+				            "url": "./images/legend/tourbiere_reticulee.gif",
+				            "label": "String Bog"
+				      },{
+				            "url": "./images/legend/sols_polygonaux.gif",
+				            "label": "Tundra Polygon"
+				      },{
+				            "url": "./images/legend/etang_toundra.gif",
+				            "label": "Tundra Pond"
+				      },{
+				            "url": "./images/legend/terre_humide5.gif",
+				            "label": "Wetland"
+        		}]
 					},
 					"items":[]
 				},{
 					"expand":false,
 					"last":false,
 					"type":3,
-					"id":"bbbb469d-aaaa-c8f5-175c-645280a6b6fe",
-					"graphid":"e5511402-9999-5cbe-0d3c-f537c612b7df",
+					"id":"bbbb469d-bbb4-c8f5-175c-645280a6b6fe",
+					"graphid":"e5511402-0024-5cbe-0d3c-f537c612b7df",
 					"displayfields":false,
 					"label":{
-						"value":"Water features",
-						"alttext":"Water features"
+						"value":"Water Features",
+						"alttext":"Water Features"
 					},
 					"metadata":
 						{"enable":false
@@ -1509,14 +1883,75 @@
 					},
 					"displaychild":{
 						"enable":false,
-						"symbol":"{\"type\":\"simple\",\"symbol\":{\"type\":\"esriSFS\",\"style\":\"esriSFSSolid\",\"color\":[0,0,0,0],\"outline\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[0,0,0,0],\"width\":0.4}},\"label\":\"\",\"description\":\"\"}"
+						"symbol":""
 					},
 					"customimage":{
-						"enable":false,
+						"enable":true,
+						"description": "",
 						"images":[{
-							"url":"",
-							"label":""
-						}]
+				            "url": "./images/legend/boatramp.gif",
+				            "label": "Boat Ramp"
+				      },{
+				            "url": "./images/legend/breakwater_2_alt_new.gif",
+				            "label": "Breakwater"
+				      },{
+				            "url": "./images/legend/dam_large_alt_new.gif",
+				            "label": "Dam: large"
+				      },{
+				            "url": "./images/legend/dam_line_alt_new.gif",
+				            "label": "Dam: small"
+				      },{
+				            "url": "./images/legend/disappearing_stream_new_alt.gif",
+				            "label": "Disappearing Stream"
+				      },{
+				            "url": "./images/legend/dry_riverbed_alt.gif",
+				            "label": "Dry River Bed"
+				      },{
+				            "url": "./images/legend/dyke_2_alt.gif",
+				            "label": "Dyke / Levee"
+				      },{
+				            "url": "./images/legend/shipwreck_new_alt.gif",
+				            "label": "Exposed Shipwreck"
+				      },{
+				            "url": "./images/legend/falls_line_alt_new.gif",
+				            "label": "Falls"
+				      },{
+				            "url": "./images/legend/fish_ladder_alt.gif",
+				            "label": "Fish Ladder"
+				      },{
+				            "url": "./images/legend/ford_new_alt.gif",
+				            "label": "Ford"
+				      },{
+				            "url": "./images/legend/lockgate.gif",
+				            "label": "Lock Gate"
+				      },{
+				            "url": "./images/legend/navigation_beacon_alt_new.gif",
+				            "label": "Navigation Beacon: labelled"
+				      },{
+				            "url": "./images/legend/repere_navigation_new.gif",
+				            "label": "Navigation Light"
+				      },{
+				            "url": "./images/legend/rapids_large_alt_new.gif",
+				            "label": "Rapids: large"
+				      },{
+				            "url": "./images/legend/rapids_line_alt_new.gif",
+				            "label": "Rapids: small"
+				      },{
+				            "url": "./images/legend/rock_alt_new.gif",
+				            "label": "Rock in Water"
+				      },{
+				            "url": "./images/legend/rocky_ledge_alt_new.gif",
+				            "label": "Rocky Ledge / Reef"
+				      },{
+				            "url": "./images/legend/rocky_ledge_alt_new.gif",
+				            "label": "Slip"
+				      },{
+				            "url": "./images/legend/drydock_new_alt.gif",
+				            "label": "Underwater Sand"
+				      },{
+				            "url": "./images/legend/wharf_alt_new.gif",
+				            "label": "Wharf"
+        		}]
 					},
 					"items":[]
 				}]
@@ -1524,8 +1959,8 @@
 					"expand":false,
 					"last":false,
 					"type":3,
-					"id":"bbbb469d-aaaa-c8f5-175c-645272a6b6fe",
-					"graphid":"e5511402-9999-5cbe-0d3c-f537c612b7df",
+					"id":"bbbb469d-bbb3-c8f5-175c-645272a6b6fe",
+					"graphid":"e5511402-0025-5cbe-0d3c-f537c612b7df",
 					"displayfields":false,
 					"label":{
 						"value":"Vegetation",
@@ -1548,26 +1983,33 @@
 					},
 					"displaychild":{
 						"enable":false,
-						"symbol":"{\"type\":\"simple\",\"symbol\":{\"type\":\"esriSFS\",\"style\":\"esriSFSSolid\",\"color\":[0,0,0,0],\"outline\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[0,0,0,0],\"width\":0.4}},\"label\":\"\",\"description\":\"\"}"
+						"symbol":""
 					},
 					"customimage":{
 						"enable":true,
+						"description": "",
 						"images":[{
-							"url":"http://s-bsc-geoappint.nrn.nrcan.gc.ca/GeoCanViz/CCMEO/images/E_Vegetation.jpg",
-							"label":""
-						}]
+				            "url": "./images/legend/cutline_other_alt.gif",
+				            "label": "Cut Line: Other / Unknown"
+				      },{
+				            "url": "./images/legend/cutline_firebreak_alt.gif",
+				            "label": "Cut Line: Firebreak"
+				      },{
+				            "url": "./images/legend/wooded_alt.gif",
+				            "label": "Wooded Area"
+        		}]
 					},
 					"items":[]
 				},{
 					"expand":false,
 					"last":false,
 					"type":3,
-					"id":"bbbb469d-aaaa-c8f5-175c-645282a6b6fe",
-					"graphid":"e5511402-9999-5cbe-0d3c-f537c612b7df",
+					"id":"bbbb469d-bbb2-c8f5-175c-645282a6b6fe",
+					"graphid":"e5511402-0026-5cbe-0d3c-f537c612b7df",
 					"displayfields":false,
 					"label":{
-						"value":"Built-up areas",
-						"alttext":"Built-up areas"
+						"value":"Built-up Areas",
+						"alttext":"Built-up Areas"
 					},
 					"metadata":
 						{"enable":false
@@ -1586,22 +2028,23 @@
 					},
 					"displaychild":{
 						"enable":false,
-						"symbol":"{\"type\":\"simple\",\"symbol\":{\"type\":\"esriSFS\",\"style\":\"esriSFSSolid\",\"color\":[0,0,0,0],\"outline\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[0,0,0,0],\"width\":0.4}},\"label\":\"\",\"description\":\"\"}"
+						"symbol":""
 					},
 					"customimage":{
 						"enable":true,
+						"description": "",
 						"images":[{
-							"url":"http://s-bsc-geoappint.nrn.nrcan.gc.ca/GeoCanViz/CCMEO/images/E_BuiltupAreas.jpg",
-							"label":""
-						}]
+		            "url": "./images/legend/builtup_alt.gif",
+		            "label": "Built-up Area: large"
+        		}]
 					},
 					"items":[]
 				},{
 					"expand":false,
 					"last":false,
 					"type":3,
-					"id":"bbbb469d-aaaa-c8f5-175c-645271a6b6fe",
-					"graphid":"e5511402-9999-5cbe-0d3c-f537c612b7df",
+					"id":"bbbb469d-bbb1-c8f5-175c-645271a6b6fe",
+					"graphid":"e5511402-0027-5cbe-0d3c-f537c612b7df",
 					"displayfields":false,
 					"label":{
 						"value":"Limits",
@@ -1624,14 +2067,21 @@
 					},
 					"displaychild":{
 						"enable":false,
-						"symbol":"{\"type\":\"simple\",\"symbol\":{\"type\":\"esriSFS\",\"style\":\"esriSFSSolid\",\"color\":[0,0,0,0],\"outline\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[0,0,0,0],\"width\":0.4}},\"label\":\"\",\"description\":\"\"}"
+						"symbol":""
 					},
 					"customimage":{
 						"enable":true,
+						"description": "",
 						"images":[{
-							"url":"http://s-bsc-geoappint.nrn.nrcan.gc.ca/GeoCanViz/CCMEO/images/E_OtherFeatures.jpg",
-							"label":""
-						}]
+					            "url": "./images/legend/new/provinces_territories_colour.gif",
+					            "label": "Provinces / Territories (colour varies)"
+					      },{
+					            "url": "./images/legend/new/regions_outside_canada.gif",
+					            "label": "Regions Outside Canada"
+					      },{
+					            "url": "./images/legend/new/administrative_area_geographic_feature_names.gif",
+					            "label": "Administrative Area / Geographic Feature Names"
+        			}]
 					},
 					"items":[]
 				}]
@@ -1639,8 +2089,8 @@
                 "expand":false,
             	"last":false,
             	"type":3,
-            	"id":"bbbb469d-aaaa-c8f5-175c-645200a6b6fe",
-            	"graphid":"e5511402-9999-5cbe-0d3c-f537c612b7df",
+            	"id":"bbbb469d-aaa1-c8f5-175c-645200a6b6fe",
+            	"graphid":"e5511402-0028-5cbe-0d3c-f537c612b7df",
             	"displayfields":false,
             	"label":{
             		"value":"NTS Grid",
@@ -1663,14 +2113,12 @@
             	},
             	"displaychild":{
             		"enable":false,
-            		"symbol":"{\"type\":\"simple\",\"symbol\":{\"type\":\"esriSFS\",\"style\":\"esriSFSSolid\",\"color\":[0,0,0,0],\"outline\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[0,0,0,0],\"width\":0.4}},\"label\":\"\",\"description\":\"\"}"
+            		"symbol":""
             	},
             	"customimage":{
             		"enable":false,
-            		"images":[{
-            			"url":"",
-            			"label":""
-            		}]
+            		"description": "",
+            		"images":[{}]
             	},
             	"items":[]
             }]
@@ -1704,7 +2152,8 @@
             "mapwkid": 3978,
             "geolocation": {
                 "enable": true,
-                "type": -1
+                "graphic": true,
+                "info": true
             },
             "scaledisplay": {
                 "enable": true,

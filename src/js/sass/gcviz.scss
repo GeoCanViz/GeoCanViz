@@ -41,16 +41,16 @@ div.gcviz-container img {
 }
 
 .row:after {
-  clear: both;
-  content: ".";
-  display: block;
-  height: 0;
-  visibility: hidden;
+	clear: both;
+	content: ".";
+	display: block;
+	height: 0;
+	visibility: hidden;
 }
 
 // set text unselectable (solve problem that select graphic text when drawing)
 text, .unselectable {
-   @include unselectable;
+	@include unselectable;
 }
 
 svg {
@@ -72,35 +72,35 @@ svg {
 }
 
 .gcviz-image-button {
-  background: #666666!important;
-  border: 2px solid #666666!important;
-  border-radius: 6px!important;
-  -webkit-border-radius: 6px!important;
-  -moz-border-radius: 6px!important;
-  padding: 0px 5px!important;
-  float: left!important;
-  width: auto!important;
-  height:30px!important;
-  @include app-text(1.1, normal, $white);
-  display:block!important;
-  cursor: pointer;
-  
-  &:hover {
-    border: 2px solid #ff6600!important;
-    background: #000000!important;
-  }
+	background: #666666!important;
+	border: 2px solid #666666!important;
+	border-radius: 6px!important;
+	-webkit-border-radius: 6px!important;
+	-moz-border-radius: 6px!important;
+	padding: 0px 5px!important;
+	float: left!important;
+	width: auto!important;
+	height:30px!important;
+	@include app-text(1.1, normal, $white);
+	display:block!important;
+	cursor: pointer;
+
+	&:hover {
+		border: 2px solid #ff6600!important;
+		background: #000000!important;
+	}
 }
-  
+
 .gcviz-button-icon {
-  padding-left: 0px!important;
-  width:30px!important;
-  height:30px!important;
+	padding-left: 0px!important;
+	width:30px!important;
+	height:30px!important;
 }
 
 .gcviz-button-text {
-  padding-left: 10px!important;
-  position: relative;
-  top: -8px;
+	padding-left: 10px!important;
+	position: relative;
+	top: -8px;
 }
 
 .gcviz-tooltip {
@@ -155,15 +155,15 @@ input[type="file"] {
 }
 
 .gcviz-float-left {
-  float: left;
+	float: left;
 }
 
 .gcviz-inline {
-  display: inline!important;
+	display: inline!important;
 }
 
 .gcviz-inlineblock {
-  display: inline-block!important;
+	display: inline-block!important;
 }
 
 %loading {
@@ -191,15 +191,15 @@ input[type="file"] {
 }
 
 .gcviz-appText {
-  @include app-text;
+	@include app-text;
 }
 
 .gcviz-verticalAlignTop {
-  vertical-align: top;
+	vertical-align: top;
 }
 
 .gcviz-verticalAlignMiddle {
-  vertical-align: middle;
+	vertical-align: middle;
 }
 
 // OVERWRITE
@@ -238,9 +238,14 @@ h3:not(.ui-title) {
 // overwite input because wet style introduce a shift in Firefox
 // there is also a problem with IE
 input[type="checkbox"], input[type="radio"]{
-    background: transparent;
-    border: 0;
-    vertical-align:	middle;
+	background: transparent;
+	border: 0;
+	vertical-align:	middle;
+}
+
+// solve problem with a black bar when you drag jQueryUI dialog window
+.ui-draggable {
+	margin-top: 0!important;
 }
 
 label {

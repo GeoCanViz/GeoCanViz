@@ -28,8 +28,8 @@
 				_self.mapid = mapid;
 
 				// help and bubble
-                _self.imgHelpBubble = pathHelpBubble;
-                _self.helpAlt = i18n.getDict('%wcag-instrtitlealt');
+				_self.imgHelpBubble = pathHelpBubble;
+				_self.helpAlt = i18n.getDict('%wcag-instrtitlealt');
 
 				// text keyboard instruction
 				_self.wcagInstr = i18n.getDict('%wcag-instr');

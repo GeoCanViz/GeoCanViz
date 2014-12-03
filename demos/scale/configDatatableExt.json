@@ -28,7 +28,7 @@
 "toolbardata": {"enable": true,"expand": false,"pos": 3,"data": {"enable": true}},"insetframe": {"enable": false},
 "insetframe": {"enable": false},
 "datagrid": {
-	"enable": false,
+	"enable": true,
 	"layers": [
 			
 				{"layerinfo": { 

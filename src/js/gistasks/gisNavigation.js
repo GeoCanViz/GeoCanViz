@@ -5,6 +5,7 @@
  *
  * GIS navigation functions
  */
+/* global XDomainRequest: false */
 (function () {
 	'use strict';
 	define(['jquery-private',
@@ -15,8 +16,9 @@
 	], function($viz, gisMap, esriPoint, esriOV, esriSB) {
 		var setOverview,
 			setScaleBar,
-            getNTS,
-            getUTMzone,
+			getNTS,
+			getUTMzone,
+			getAltitude,
 			zoomFullExtent;
 
 		setOverview = function(mymap, overview) {
@@ -76,31 +78,92 @@
 				sbMapDijit = new esriSB(options, ovSB);
 		};
 
-        getNTS = function(lati, longi, urlNTS) {
-			var def = $viz.Deferred(); // Use a deferred object to call the service
+		getNTS = function(lati, longi, urlNTS) {
+			var xdr,
+				def = $viz.Deferred(); // Use a deferred object to call the service
 
 			urlNTS += longi + ',' + lati + ',' + longi + ',' + lati;
-			$viz.getJSON(urlNTS).done(function(data) {
-				def.resolve({
-					nts: data.features
-                });
-            });
-            // return the deferred object for listening
-			return def;
-        };
 
-        getUTMzone = function(lati, longi, urlUTM) {
-			var def = $viz.Deferred(); // Use a deferred object to call the service
+			if (window.browser !== 'Explorer') {
+				$viz.getJSON(urlNTS).done(function(data) {
+					def.resolve({
+						nts: data.features
+					});
+				});
+			} else {
+				xdr = new XDomainRequest();
+				xdr.open('get', urlNTS + '&dirty=' + (new Date()).getTime());
+				xdr.onload = function() {
+					var data = xdr.responseText;
+					data = $viz.parseJSON(data);
+					def.resolve({
+						nts: data.features
+					});
+				};
+				xdr.send();
+			}
+
+			// return the deferred object for listening
+			return def;
+		};
+
+		getUTMzone = function(lati, longi, urlUTM) {
+			var xdr,
+				def = $viz.Deferred(); // Use a deferred object to call the service
 
 			urlUTM += longi + ',' + lati + ',' + longi + ',' + lati;
-			$viz.getJSON(urlUTM).done(function(data) {
-				def.resolve({
-					zone: data.features[0].properties.identifier
+
+			if (window.browser !== 'Explorer') {
+				$viz.getJSON(urlUTM).done(function(data) {
+					def.resolve({
+						zone: data.features[0].properties.identifier
+					});
 				});
-			});
-            // return the deferred object for listening
+			} else {
+				xdr = new XDomainRequest();
+				xdr.open('get', urlUTM + '&dirty=' + (new Date()).getTime());
+				xdr.onload = function() {
+					var data = xdr.responseText;
+					data = $viz.parseJSON(data);
+					def.resolve({
+						zone: data.features[0].properties.identifier
+					});
+				};
+				xdr.send();
+			}
+
+			// return the deferred object for listening
 			return def;
-        };
+		};
+
+		getAltitude = function(lati, longi, urlAlti) {
+			var xdr,
+				def = $viz.Deferred(); // Use a deferred object to call the service
+
+			urlAlti += 'lat=' + lati + '&lon=' + longi;
+
+			if (window.browser !== 'Explorer') {
+				$viz.getJSON(urlAlti).done(function(data) {
+					def.resolve({
+						altitude: data.altitude
+					});
+				});
+			} else {
+				xdr = new XDomainRequest();
+				xdr.open('get', urlAlti + '&dirty=' + (new Date()).getTime());
+				xdr.onload = function() {
+					var data = xdr.responseText;
+					data = $viz.parseJSON(data);
+					def.resolve({
+						altitude: data.altitude
+					});
+				};
+				xdr.send();
+			}
+
+			// return the deferred object for listening
+			return def;
+		};
 
 		zoomFullExtent = function(mymap) {
 			mymap.setExtent(mymap.vFullExtent, mymap.spatialReference.wkid);
@@ -109,10 +172,10 @@
 		return {
 			setOverview: setOverview,
 			setScaleBar: setScaleBar,
-            getNTS: getNTS,
-            getUTMzone: getUTMzone,
-            zoomFullExtent: zoomFullExtent
+			getNTS: getNTS,
+			getUTMzone: getUTMzone,
+			getAltitude: getAltitude,
+			zoomFullExtent: zoomFullExtent
 		};
 	});
 }());
-

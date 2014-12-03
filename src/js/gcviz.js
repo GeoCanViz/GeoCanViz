@@ -38,7 +38,7 @@ var locationPath;
 			setScrollTo;
 
 		/*
-		 *  initialize the GCViz application
+		 * initialize the GCViz application
 		 */
 		initialize = function() {
 			var mapElem, body,
@@ -76,7 +76,7 @@ var locationPath;
 		};
 
 		/*
-		 *  read configuration file and start execution
+		 * read configuration file and start execution
 		 */
 		readConfig = function(mapElem) {
 			var file = mapElem.getAttribute('data-gcviz');
@@ -95,14 +95,14 @@ var locationPath;
 					console.log(i18n.getDict('%msg-configread'));
 				},
 				error: function() {
-					console.log(i18n.getDict('%msg-configerr')  + ': ' + file);
+					console.log(i18n.getDict('%msg-configerr') + ': ' + file);
 				}
 			}); // end ajax
 		};
 
 		/*
-		 *  execute the configuration file. add all viewmodel to a master view model. This viewmodel will be store in an array
-		 *  of view models (one for each map)
+		 * execute the configuration file. add all viewmodel to a master view model. This viewmodel will be store in an array
+		 * of view models (one for each map)
 		 */
 		execConfig = function(mapElem, config) {
 			var $mapSection,
@@ -189,34 +189,38 @@ var locationPath;
 						$section = $(event.target.document.getElementsByClassName('gcviz-section')),
 						$mapholder = $section.find('.gcviz'),
 						$map = $section.find('.gcviz-map'),
-						$maproot = $section.find('.gcviz-root');
+						$maproot = $section.find('.gcviz-root'),
+						isFullScreen = $mapholder.hasClass('gcviz-sectionfs');
 
-					// check if the $map is there (it is not there in full screen)
-					if (typeof $map !== 'undefined') {
+					// check if in full screen
+					if (isFullScreen) {
+						maxWidth = window.innerWidth;
+					} else {
 						// set parameters
 						actualW = parseInt($mapSection.css('width'), 10), // actual map width
 						oriW = parseInt($map.attr('gcviz-size').split(';')[1], 10), // original from config map width
 						leftMarg = $section.position().left, //containter left margin
 						maxWidth = parseInt($section.parent().css('width'), 10) - (2 * leftMarg); // get container width
-
-						// map cant be smaller then 360px (tools panel width)
-						if (maxWidth < 360) {
-							maxWidth = 360;
-						}
-
-						// check if we should apply the original width or the maximum possible width
-						if (oriW > maxWidth) {
-							applyW = maxWidth;
-						} else if (actualW < oriW && maxWidth > oriW) {
-							applyW = oriW;
-						}
-
-						// set size
-						gcvizFunc.setStyle($section[0], { 'width': applyW + 'px' });
-						gcvizFunc.setStyle($mapholder[0], { 'width': applyW + 'px' });
-						gcvizFunc.setStyle($map[0], { 'width': applyW + 'px' });
-						gcvizFunc.setStyle($maproot[0], { 'width': applyW + 'px' });
 					}
+
+					// map cant be smaller then 360px (tools panel width)
+					if (maxWidth < 360) {
+						maxWidth = 360;
+					}
+
+					// check if we should apply the original width or the maximum possible width
+					if (oriW > maxWidth || isFullScreen) {
+						applyW = maxWidth;
+					} else if (actualW < oriW && maxWidth > oriW) {
+						applyW = oriW;
+					}
+
+					// set size
+					gcvizFunc.setStyle($section[0], { 'width': applyW + 'px' });
+					gcvizFunc.setStyle($mapholder[0], { 'width': applyW + 'px' });
+					gcvizFunc.setStyle($map[0], { 'width': applyW + 'px' });
+					gcvizFunc.setStyle($maproot[0], { 'width': applyW + 'px' });
+
 				}, 200, false);
 			}
 		};

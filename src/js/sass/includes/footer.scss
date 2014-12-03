@@ -20,12 +20,12 @@
 	@include app-head-foot;
 	background-repeat: repeat-x;
 	background-image: url($img-head);
-  
-  .gcviz-foot-coords-values {
-  	@include app-text(1.2, normal, $black);
-    margin-top: (1 * $rembase) + rem;
-    float: right;
-  }
+
+	.gcviz-foot-coords-values {
+		@include app-text(1.2, normal, $black);
+		margin-top: (1 * $rembase) + rem;
+		float: right;
+	}
 }
 
 .gcviz-foot-arrow {
@@ -43,48 +43,48 @@
 }
 
 .gcviz-foot-logo {
-  float: left;
-  margin-left: (0.5 * $rembase) + rem;
+	float: left;
+	margin-left: (0.5 * $rembase) + rem;
 	margin-top: (0.25 * $rembase) + rem;
 }
 
 /* Classes from esri.css for scalebar */
 .esriScalebar {
-  z-index:30;
-  width: 0px;
-  height:20px;
+	z-index:30;
+	width: 0px;
+	height:20px;
 }
 
 .esriScaleLabelDiv {
-  position: relative;
-  width: 100%;
+	position: relative;
+	width: 100%;
 }
 
 .esriScalebarLabel {
-  @include app-text(0.9);
+	@include app-text(0.9);
 }
 
 .esriScalebarLineLabel {
-  position: relative;
+	position: relative;
 }
 
 .esriScalebarFirstNumber {
-  left: 45%;
+	left: 45%;
 }
 
 .esriScalebarSecondNumber {
-  left: 85%;
+	left: 85%;
 }
 
 .esriScalebarLine {
-  overflow: hidden;
-  position: relative;
-  width: 100%;
-  height: 6px;
-  border:2px solid #444444;
+	overflow: hidden;
+	position: relative;
+	width: 100%;
+	height: 6px;
+	border:2px solid #444444;
 }
 
 .esriScalebarMetricLine {
-  border-top-style: none;
+	border-top-style: none;
 }
 /* End of classes from esri.css for scalebar */

@@ -58,17 +58,17 @@ table.dataTable.no-footer {
 }
 
 .gcviz-popup-counter {
-  vertical-align: 50%!important;
+	vertical-align: 50%!important;
 }
 
 .gcviz-popup-select {
-  width: 325px;
-  margin-top: 5px;
-  margin-bottom: 5px;
+	width: 325px;
+	margin-top: 5px;
+	margin-bottom: 5px;
 }
 
 .gcviz-popup-separator {
-  margin-top: 0px!important;
+	margin-top: 0px!important;
 }
 
 .gcviz-popup-title {
@@ -76,15 +76,15 @@ table.dataTable.no-footer {
 }
 
 .gcviz-prop {
-  @include app-text(1.1, bold);
+	@include app-text(1.1, bold);
 }
 
 .gcviz-val {
-  @include app-text(1.1, normal);
-  padding-top: 2px!important;
-  padding-left: 5px!important;
-  padding-bottom: 3px!important;
-  margin: 0!important;
+	@include app-text(1.1, normal);
+	padding-top: 2px!important;
+	padding-left: 5px!important;
+	padding-bottom: 3px!important;
+	margin: 0!important;
 }
 
 .gcviz-popup-content {
@@ -93,17 +93,17 @@ table.dataTable.no-footer {
 }
 
 .gcviz-popup-previous {
-  @include sprite($img-spritepopupbtn, -3, -2);
+	@include sprite($img-spritepopupbtn, -3, -2);
 }
 
 .gcviz-popup-next {
-  @include sprite($img-spritepopupbtn, -39, -2);
+	@include sprite($img-spritepopupbtn, -39, -2);
 }
 
 .gcviz-popup-close {
-  @include sprite($img-spritepopupbtn, -75, -2);
+	@include sprite($img-spritepopupbtn, -75, -2);
 }
 
 .gcviz-popup-zoom {
-  @include sprite($img-spritepopupbtn, -110, -2);
+	@include sprite($img-spritepopupbtn, -110, -2);
 }

@@ -7,8 +7,9 @@
  */
 (function () {
 	'use strict';
-	define(['jquery-private'
-	], function($viz) {
+	define(['jquery-private',
+			'gcviz-i18n'
+	], function($viz, i18n) {
 		var debounce,
 			debounceClick,
 			setStyle,
@@ -23,9 +24,13 @@
 			getElemValueVM,
 			setElemValueVM,
 			setVM,
+			subscribeTo,
 			getTextWidth,
 			focusMap,
 			padDigits,
+			parseLonLat,
+			parseDMS,
+			convertDdToDms,
 			timer,
 			vmObject = { };
 
@@ -76,9 +81,9 @@
 				minWW = window.innerWidth,
 				minWH = window.innerHeight;
 
-			// calculate the width and height with the window. Remove 25px and 35px to keep all the right and bottom section
-			w = minWW - 35;
-			h = minWH - 25;
+			// calculate the width and height with the window.
+			w = minWW;
+			h = minWH;
 
 			return { 'width': w, 'height': h };
 		};
@@ -176,6 +181,10 @@
 			vmObject[name] = vm;
 		};
 
+		subscribeTo = function(name, vm, value, funct) {
+			vmObject[name][vm][value].subscribe(funct);
+		};
+
 		// Uses canvas.measureText to compute and return the width of the given text of given font in pixels.
 		// http://stackoverflow.com/questions/118241/calculate-text-width-with-javascript/21015393#21015393
 		getTextWidth = function(text, font) {
@@ -196,6 +205,96 @@
 			return Array(Math.max(digits - String(number).length + 1, 0)).join(0) + number;
 		};
 
+		parseLonLat = function(input) {
+			var x, y, lonlat,
+				ddregex = /^([+\-]?[0-1]?[0-7]?[0-9](\.[0-9]{1,})?)([\s+])([+\-]?[0-1]?[0-7]?[0-9](\.[0-9]{1,})?)$/g,
+				dd = ddregex.exec(input),
+				dmsregex = /(-)?(\d{2,3})([:°d|\s+])\s*([0-5][0-9])([:\'m]|\s*)(\s*([0-5][0-9])([\.,](\d+))?([\"s]|\s*))?\s*([NnWwOo])?[ |,]\s*(-)?(\d{2,3})([:°d|\s+])\s*([0-5][0-9])([:\'m]|\s*)(\s*([0-5][0-9])([\.,](\d+))?([\"s]|\s*))?\s*([NnWwOo])?/g,
+				dms = dmsregex.exec(input);
+
+			if (dd && dd.length === 6) {
+				x = Number(dd[1]);
+				y = Number(dd[4]);
+
+				if (y < x) {
+					lonlat = [y, x, 'dd'];
+				} else {
+					lonlat = [x, y, 'dd'];
+				}
+			} else if (dms) {
+				x = parseDMS(dms[2], dms[4], dms[7], dms[9]);
+				y = parseDMS(dms[13], dms[15], dms[18], dms[20]);
+
+				if (dms[1]) {
+					x = -x;
+				}
+				if (dms[12]) {
+					y = -y;
+				}
+
+				if (dms[11] === 'N' || dms[11] === 'n' || dms[22] === 'W' || dms[22] === 'w' || dms[22] === 'O' || dms[22] === 'o') {
+					if (y > 0.0) {
+						y = -y;
+					}
+					lonlat = [y, x, 'dms'];
+				} else if (dms[11] === 'W' || dms[11] === 'w' || dms[11] === 'O' || dms[11] === 'o' || dms[22] === 'N' || dms[22] === 'n') {
+					if (x > 0.0) {
+						x = -x;
+					}
+					lonlat = [x, y, 'dms'];
+				} else if (y < x) {
+					lonlat = [y, x, 'dms'];
+				} else {
+					if (x > 0.0) {
+						x = -x;
+					}
+					lonlat = [x, y, 'dms'];
+				}
+			}
+
+			return lonlat;
+		};
+
+		parseDMS = function(degres, minutes, seconds, decimal) {
+			var dd = Number(degres) + Number(minutes)/60;
+			if (seconds) {
+				if (decimal) {
+					seconds += '.' + decimal;
+				}
+				dd += (Number(seconds)/3600);
+			}
+
+			return dd;
+		};
+
+		convertDdToDms = function(degX, degY) {
+			var yLabel, xLabel,
+				dx = parseInt(degX, 10),
+				mdx = Math.abs(degX - dx) * 60,
+				mx = padDigits(parseInt(mdx, 10), 2),
+				sdx = padDigits(parseInt((mdx - mx) * 60, 10), 2),
+				dy = parseInt(degY, 10),
+				mdy = Math.abs(degY - dy) * 60,
+				my = padDigits(parseInt(mdy, 10), 2),
+				sdy = padDigits(parseInt((mdy - my) * 60, 10), 2),
+				degreeSymbol = String.fromCharCode(176);
+
+			if (dy > 0) {
+				yLabel = 'N';
+			} else {
+				yLabel = 'S';
+			}
+
+			if (dx < 0) {
+				xLabel = i18n.getDict('%west');
+			} else {
+				xLabel = 'E';
+			}
+
+			return { x: [dx + degreeSymbol, mx + '\'', sdx + '"', xLabel],
+					y: [dy + degreeSymbol, my + '\'', sdy + '"', yLabel] };
+		};
+
 		return {
 			debounce: debounce,
 			debounceClick: debounceClick,
@@ -211,9 +310,12 @@
 			getElemValueVM: getElemValueVM,
 			setElemValueVM: setElemValueVM,
 			setVM: setVM,
+			subscribeTo: subscribeTo,
 			getTextWidth: getTextWidth,
 			focusMap: focusMap,
-			padDigits: padDigits
+			padDigits: padDigits,
+			parseLonLat: parseLonLat,
+			convertDdToDms: convertDdToDms
 		};
 	});
 }());

@@ -26,7 +26,7 @@
 		// https://developers.arcgis.com/javascript/jssamples/exp_dragdrop.html
 		// we dont use the drag and drop because it is not WCAG but we use the way they
 		// add CSV info on map
-		addCSV = function(map, data, uuid)  {
+		addCSV = function(map, data, uuid) {
 			var latFields = ['lat', 'latitude', 'y', 'ycenter'], // list of lat field strings
 				longFields = ['lon', 'long', 'longitude', 'x', 'xcenter'], // list of lon field strings
 				firstLine = (window.browserOS === 'win') ? data.substr(0, data.indexOf('\n')) : data.substr(0, data.indexOf('\r')),
@@ -118,7 +118,7 @@
 			});
 
 			return def;
-        };
+		};
 
 		createLayer = function(features) {
 			var featureLayer, feature, item, attr,

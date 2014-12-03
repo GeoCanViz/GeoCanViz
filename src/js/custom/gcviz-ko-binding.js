@@ -18,7 +18,7 @@
 	var btnArray = [],
 		panelArray = [];
 
-    ko.bindingHandlers.tooltip = {
+	ko.bindingHandlers.tooltip = {
 		init: function(element, valueAccessor, allBindings, viewModel) {
 			var local = ko.utils.unwrapObservable(valueAccessor()),
 				options = {},
@@ -65,8 +65,16 @@
 			// add text
 			$element.text(options.text);
 
+			// set the tabindex of the image help bubble to 0 when on focus and -1 on blur
+			ko.utils.registerEventHandler($element.parent(), 'focus', function(event) {
+				event.currentTarget.getElementsByTagName('img')[0].tabIndex = 0;
+			});
+			ko.utils.registerEventHandler($element.parent(), 'blur', function(event) {
+				event.currentTarget.getElementsByTagName('img')[0].tabIndex = -1;
+			});
+
 			// add bubble (set the alt text, id to match the label, click function and keyboard input)
-			$element.append('<img id="' + options.id + '" tabindex="0" data-bind="click: function() { showBubble(32, 0, 0,  \'' + options.link + '\') }, clickBubble: false,  enterkey: { func: \'showBubble\', keyType: \'keydown\', params: \'' + options.link + '\' }" class="gcviz-help-bubble" src="' + options.img + '" alt="' + options.alt + '"></img>');
+			$element.append('<img id="' + options.id + '" tabindex="-1" data-bind="click: function() { showBubble(32, 0, 0, \'' + options.link + '\') }, clickBubble: false, enterkey: { func: \'showBubble\', keyType: \'keydown\', params: \'' + options.link + '\' }" class="gcviz-help-bubble" src="' + options.img + '" alt="' + options.alt + '"></img>');
 		}
 	};
 
@@ -123,6 +131,7 @@
 			ko.utils.registerEventHandler(element, keyType, function(event) {
 				if (viewModel[func](event.which, event.shiftKey, event.type, params)) {
 					event.stopImmediatePropagation();
+					event.preventDefault();
 					return false;
 				}
 				return true;
@@ -165,7 +174,7 @@
 	};
 
 	ko.bindingHandlers.HorizontalSliderDijit = {
-        init: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
+		init: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
 			var options = valueAccessor(),
 				id = viewModel.id,
 				widget;
@@ -242,9 +251,9 @@
 
 			widget = new radio({
 				name: options.group,
-                value: options.value,
-                checked: options.value
-            }).placeAt(element);
+				value: options.value,
+				checked: options.value
+			}).placeAt(element);
 
 			widget.on('Change', function(e) {
 				bindingContext.$root.switchRadioButtonVisibility(bindingContext.$root.mymap, bindingContext.$data, e);
@@ -313,11 +322,14 @@
 					var start, end, width,
 						bind;
 
-						bind = $element.attr('data-bind');
-						start = bind.indexOf('width:') + 7;
-						end = bind.indexOf(', height:');
-						width = parseInt(bind.substring(start, end), 10) - 25;
-						$element.css('width', width);
+					bind = $element.attr('data-bind');
+					start = bind.indexOf('width:') + 7;
+					end = bind.indexOf(', height:');
+					width = parseInt(bind.substring(start, end), 10) - 25;
+					$element.css('width', width);
+
+					// solve wrong position for FireFox
+					$element.dialog('option', 'position', '{ my: \'center\', at: \'center\', of: window }');
 				};
 			}
 
@@ -355,7 +367,12 @@
 				click: function() {
 					$viz(this).dialog('close');
 				}
-			}]
+			}],
+			position: {
+				my: 'center',
+				at: 'center',
+				collision: 'fit'
+			}
 		}
 	};
 
@@ -414,7 +431,7 @@
 	ko.extenders.numeric = function(target, options) {
 		// create a writeable computed observable to intercept writes to our observable
 		var result = ko.computed({
-			read: target,  // always return the original observables value
+			read: target, // always return the original observables value
 			write: function(newValue) {
 				var min, max,
 					current = target(),

@@ -50,14 +50,14 @@
 				_self.mapid = mapid;
 
 				// images path
-                _self.imgHelpBubble = pathHelpBubble;
-                _self.imgHelpOV = pathOV;
-                _self.imgHelpDataSamp = pathDataSample;
-                _self.imgHelpLogo = pathGCVizPNG;
-                _self.imgHelpZoombar = pathZoombar;
+				_self.imgHelpBubble = pathHelpBubble;
+				_self.imgHelpOV = pathOV;
+				_self.imgHelpDataSamp = pathDataSample;
+				_self.imgHelpLogo = pathGCVizPNG;
+				_self.imgHelpZoombar = pathZoombar;
 
-                // text
-                _self.urlLogo = i18n.getDict('%footer-urlgcvizrepo');
+				// text
+				_self.urlLogo = i18n.getDict('%footer-urlgcvizrepo');
 
 				// overview
 				_self.overTitle = i18n.getDict('%help-overview-title');
@@ -196,6 +196,14 @@
 				_self.isHelpBubbleDialogOpen = ko.observable(false);
 
 				_self.init = function() {
+					// disable link if section is not part of GCViz implementation
+					_self.noMap = ($helpMap.length > 0) ? false : true;
+					_self.noFoot = ($helpFoot.length > 0) ? false : true;
+					_self.noDraw = ($helpDraw.length > 0) ? false : true;
+					_self.noNav = ($helpNav.length > 0) ? false : true;
+					_self.noLeg = ($helpLeg.length > 0) ? false : true;
+					_self.noData = ($helpData.length > 0) ? false : true;
+
 					// set global dialog to be able to open help from
 					// outisede the view model. This way, it is easy
 					// for header VM to open help dialog
@@ -210,7 +218,9 @@
 
 				_self.dialogHelpOk = function() {
 					_self.isHelpDialogOpen(false);
-					$btnHelp.focus();
+					setTimeout(function() {
+						$btnHelp.focus();
+					}, 500);
 				};
 
 				_self.dialogHelpBubbleOk = function() {
