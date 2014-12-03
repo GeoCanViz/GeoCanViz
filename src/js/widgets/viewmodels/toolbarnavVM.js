@@ -259,7 +259,7 @@
 
 								// add dms and dd representation
 								add = gcvizFunc.convertDdToDms(pt2, pt1);
-								value = add.x.join().replace(/,/g,'') + ' ' + add.y.join().replace(/,/g,'');
+								value = add.y.join().replace(/,/g,'') + ' ' + add.x.join().replace(/,/g,'');
 								value += ' | ' + pt1.toFixed(3) + ' ' + pt2.toFixed(3);
 								autoCompleteArray.push({ minx: minx, miny: miny, maxx: maxx, maxy: maxy, coords: lonlat, title: value });
 

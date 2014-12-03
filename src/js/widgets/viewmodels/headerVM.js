@@ -339,7 +339,7 @@
 
 		printSimple = function(map, template) {
 			var style, rotation,
-				sub, ind, reg1, reg2, reg3, reg4,
+				sub, ind1, ind2, reg1, reg2, reg3, reg4,
 				center = {},
 				mapid = map.vIdName,
 				node = $viz('#' + mapid + '_holder'),
@@ -377,8 +377,9 @@
 			reg2 = new RegExp(rotation - 1, 'g'),
 			reg3 = new RegExp(rotation, 'g'),
 			reg4 = new RegExp(rotation + 1, 'g'),
-			ind = style.indexOf('.');
-			sub = style.substring(ind, ind + 2);
+			ind1 = style.indexOf('.');
+			ind2 = style.indexOf('deg');
+			sub = style.substring(ind1, ind2);
 
 			// remove decimal
 			reg1 = new RegExp(sub, 'g');

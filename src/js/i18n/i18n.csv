@@ -19,20 +19,20 @@ Global sys value#%gisurlutm#http://geogratis.gc.ca/services/delimitation/en/utmz
 #%long#Longitude: #Longitude : 
 #%wcag-instrtitle#Instructions: Keyboard Navigation#Instruction: Naviguer dans la carte à l'aide du clavier
 #%wcag-instrtitlealt#Instructions: Keyboard Navigation - Help#Instruction: Naviguer dans la carte à l'aide du clavier - aide
-#%wcag-instr#Keyboard user: When the map is in focus, use the arrow keys to pan the map and the plus and minus keys to zoom. Setup your keyboard to control the mouse or enable the accessibility mode to have coordinates input box.#Utilisateur du clavier : Lorsque la carte a l'attention, utiliser les touches flèches pour déplacer la carte et utiliser les touches plus et négatif pour faire un zoom. Configurer votre clavier pour contrôler la souris ou activer le mode accessibilité afin d'avoir les boîte d'entrée pour les coordonnées.
+#%wcag-instr#Keyboard user: When the map is in focus, use the arrow keys to pan the map and the plus and minus keys to zoom. Setup your keyboard to control the mouse or enable the accessibility mode to have coordinates input box.#Utilisateur du clavier : Lorsque la carte a l'attention, utiliser les touches flèches pour déplacer la carte et utiliser les touches plus et négatif pour faire un zoom. Configurer votre clavier pour contrôler la souris ou activer le mode accessibilité afin d'avoir les boîtes d'entrée pour les coordonnées.
 #%wcag-lblenable#Enable accessibility mode#Activer le mode accessibilité
-#%wcag-xlong#Longitude West (x): #Longitude ouest (x): 
-#%wcag-ylat#Latitude North (y): #Latitude nord (y): 
-#%wcag-title#Accessibility mode coordinates input#Entré des coordonnées en mode accessibilité
-#%wcag-msgx#Value needs to be between 50 and 130#la valeur doit être entre 50 et 130
-#%wcag-msgy#Value needs to be between 40 and 80#la valeur doit être entre 40 et 80
+#%wcag-xlong#Longitude West (x): #Longitude ouest (x) : 
+#%wcag-ylat#Latitude North (y): #Latitude nord (y) : 
+#%wcag-title#Accessibility mode coordinates input#Entrée des coordonnées en mode accessibilité
+#%wcag-msgx#Value needs to be between 50 and 130#La valeur doit être entre 50 et 130.
+#%wcag-msgy#Value needs to be between 40 and 80#La valeur doit être entre 40 et 80.
 #%wcag-addcoords#Add a new coordinate to the list#Ajouter une coordonnée à la liste
-#%wcag-remove#Remove#enlever
+#%wcag-remove#Remove#Enlever
 #%map-tpzoomfull#Zoom to full extent#Zoom à l`étendue maximum
 #%header-tools#Menu#Menu
-#%header-abouttitle#about this map #à-propos de cette carte 
+#%header-abouttitle#about this map #À propos de cette carte 
 #%header-aboutread#Read #Lire 
-#%header-tpabout#About this map#À propos de cette carte
+#%header-tpabout#About this map#�À propos de cette carte
 #%header-tphelp#Help#Aide
 #%header-tpprint#Print map#Imprimer la carte
 #%header-tpinset#Show or hide insets#Afficher ou cacher les insertions
@@ -43,23 +43,23 @@ Global sys value#%gisurlutm#http://geogratis.gc.ca/services/delimitation/en/utmz
 #%footer-tpdatagrid#Open/Close datagrid#Ouvrir ou fermer le tableau des données
 #%datagrid-processing#Processing...#Traitement en cours...
 #%datagrid-search#Search:#Rechercher&nbsp;:
-#%datagrid-lengthMenu#Show _MENU_ entries#Afficher _MENU_ &eacute;l&eacute;ments
-#%datagrid-info#Showing _START_ to _END_ of _TOTAL_ entries#Affichage de l'&eacute;lement _START_ &agrave; _END_ sur _TOTAL_ &eacute;l&eacute;ments
-#%datagrid-infoEmpty#Showing 0 to 0 of 0 entries#Affichage de l'&eacute;lement 0 &agrave; 0 sur 0 &eacute;l&eacute;ments
-#%datagrid-infoFiltered#(filtered from _MAX_ total entries)#(filtr&eacute; de _MAX_ &eacute;l&eacute;ments au total)
-#%datagrid-infoThousands#,# 
+#%datagrid-lengthMenu#Show _MENU_ entries#Afficher _MENU_ éléments
+#%datagrid-info#Showing _START_ to _END_ of _TOTAL_ entries#Affichage de l'élément _START_ à _END_ sur _TOTAL_ éléments
+#%datagrid-infoEmpty#Showing 0 to 0 of 0 entries#Affichage de l'élement 0 à 0 sur 0 éléments
+#%datagrid-infoFiltered#(filtered from _MAX_ total entries)#(filtré de _MAX_ éléments au total)
+#%datagrid-infoThousands#,#
 #%datagrid-infoPostFix# # 
 #%datagrid-loadingRecords#Loading...#Chargement en cours...
-#%datagrid-zeroRecords#No matching records found#Aucun &eacute;l&eacute;ment &agrave; afficher
+#%datagrid-zeroRecords#No matching records found#Aucun élément à afficher
 #%datagrid-emptyTable#No data available in table#Aucune donnée disponible dans le tableau
 #%datagrid-first#First#Premier
-#%datagrid-previous#Previous#Pr&eacute;c&eacute;dent
+#%datagrid-previous#Previous#Précédent
 #%datagrid-next#Next#Suivant
 #%datagrid-last#Last#Dernier
 #%datagrid-sortAscending#: activate to sort column ascending#: activer pour trier la colonne par ordre croissant
 #%datagrid-sortDescending#: activate to sort column descending#: activer pour trier la colonne par ordre décroissant
 #%datagrid-selectall#Select All#Sélectionner tout
-#%datagrid-zoomselect#Zoom Selected#Zoom sélectionnés
+#%datagrid-zoomselect#Zoom Selected#Zoom sélectionné
 #%datagrid-poptitle#Data Window#Fenêtre données
 #%datagrid-popalllayers#All layers#Toutes les couches
 #%datagrid-popselect#Select the features from the following layer#Sélectionnez une couche dans les suivantes
@@ -69,7 +69,7 @@ Global sys value#%gisurlutm#http://geogratis.gc.ca/services/delimitation/en/utmz
 #%toolbardraw-inputbox-name#Add Text#Ajouter du texte
 #%toolbardraw-tpcolorblack#Select black colour#Sélectionner la couleur noire
 #%toolbardraw-tpcolorred#Select red colour#Sélectionner la couleur rouge
-#%toolbardraw-tpcolorgreen#Select green colour#Sélectionner la couleur vert
+#%toolbardraw-tpcolorgreen#Select green colour#Sélectionner la couleur verte
 #%toolbardraw-tpcolorblue#Select blue colour#Sélectionner la couleur bleu
 #%toolbardraw-tpcoloryellow#Select yellow colour#Sélectionner la couleur jaune
 #%toolbardraw-tpcolorwhite#Select white colour#Sélectionner la couleur blanche
@@ -79,8 +79,8 @@ Global sys value#%gisurlutm#http://geogratis.gc.ca/services/delimitation/en/utmz
 #%toolbardraw-tpmeasurelength#Measure a length on the map#Mesurer une longueur sur la carte
 #%toolbardraw-tperase#Erase annotations#Effacer les annotations
 #%toolbardraw-tperasesel#Erase selected annotations#Effacer les annotations sélectionnées
-#%toolbardraw-tpundo#Undo last operation#Annuler la dèrniere opération
-#%toolbardraw-tpredo#Redo last operation#Refaire la dèrniere opération
+#%toolbardraw-tpundo#Undo last operation#Annuler la dernière opération
+#%toolbardraw-tpredo#Redo last operation#Refaire la dernière opération
 #%toolbardraw-tpimport#Import annotations#Importer des annotations
 #%toolbardraw-tpexport#Export annotations#Exporter des annotations
 #%toolbardraw-dist#Total Length: #Longueur totale: 
@@ -97,19 +97,19 @@ Global sys value#%gisurlutm#http://geogratis.gc.ca/services/delimitation/en/utmz
 #%toolbardraw-lblimpexp#Import / Export#Importer / Exporter
 #%toolbarlegend-alt#Map Layers and Legend(s) - Help#Couvertures de la carte et légende(s) - Aide
 #%toolbarlegend-name#Map Layers and Legend(s)#Couvertures de la carte et légende(s)
-#%toolbarlegend-base#Base(s)#Base(s)
+#%toolbarlegend-base#Base(s)#Carte(s) de fond
 #%toolbarlegend-theme#Theme(s) #Thème(s)
 #%toolbarlegend-tpvis#Toggle Visibility#Basculer la visibilité
 #%toolbarlegend-tpexpand#Click to expand#Cliquer pour agrandir
 #%toolbarnav-alt#Search and Map Information - Help#Recherche et information sur la carte - Aide
 #%toolbarnav-name#Search and Map Information#Recherche et information sur la carte
-#%toolbarnav-zoomgrp#Find a Location#
-#%toolbarnav-lblgeoloc#Enter and select a geographical name, topographic map number or postal code#Entrez et sélectionnez un nom géographique ou topographique, un numéro de carte ou un code postal
-#%toolbarnav-inskeyboard#When entering a geographic location suggested names will appear in the auto-fill list below the text entry box. Suggestions will start appearing after you type 3 characters.#Lorsque vous spécifiez un lieu géographique des suggestions apparaissent dans la liste d'auto-remplissage en dessous de la zone de texte. Les suggestions commenceront à apparaître après avoir tapé 3 caractères.
-#%toolbarnav-mapinfogrp#Map Information#
-#%toolbarnav-lblinfo#Get coordinates information#Obtenir de l'information sur les coordonnées
-#%toolbarnav-info#Map location information#Information de localisation
-#%toolbarnav-infotopocoord#Geographic Coordinates#
+#%toolbarnav-zoomgrp#Find a Location#Trouver un lieu
+#%toolbarnav-lblgeoloc#Enter and select a geographical name, topographic map number or postal code#Entrez et sélectionnez un nom géographique ou topographique, un numéro de carte ou un code postal.
+#%toolbarnav-inskeyboard#When entering a geographic location suggested names will appear in the auto-fill list below the text entry box. Suggestions will start appearing after you type 3 characters.#Lorsque vous spécifiez un lieu géographique, des suggestions apparaissent dans la liste d'auto-remplissage en dessous de la zone de texte. Les suggestions commenceront à apparaître après avoir tapé 3 caractères.
+#%toolbarnav-mapinfogrp#Map Information#Information sur la carte
+#%toolbarnav-lblinfo#Get coordinates information#Information sur les coordonnées
+#%toolbarnav-info#Map location information#Information de localisation sur la carte
+#%toolbarnav-infotopocoord#Geographic Coordinates#Coordonnées géographiques 
 #%toolbarnav-infodecdeg#Degrees Decimal#Degrés décimaux
 #%toolbarnav-infodms#Degrees Minutes Seconds (DMS)#Degrés minutes secondes (DMS)
 #%toolbarnav-infoutm#UTM Coordinates#Coordonnées UTM
@@ -129,127 +129,127 @@ Global sys value#%gisurlutm#http://geogratis.gc.ca/services/delimitation/en/utmz
 #%toolbardata-lbladdcsv#Import points in CSV format#Importer des points en format CSV
 #%toolbardata-tpdelete#Remove Data#Enlever des données
 #%toolbardata-errtitle#Add Data Error#Erreur dans l'ajout des données
-#%toolbardata-err1#There must be a field for y coordinates (latitude, lat, y or ycenter), and a field for x coordinates (longitude, long, x or xcenter).#Il doit y avoir un champ (latitude, lat, y ou ycenter) pour les coordonnées y et un champ (longitude, longue, x ou xcenter) pour les coordonnées x.
-#%toolbardata-err2#Unable to determine the field separator. It should be one of these characters (, ; |).#Incapable de déterminer le separateur.
+#%toolbardata-err1#There must be a field for y coordinates (latitude, lat, y or ycenter), and a field for x coordinates (longitude, long, x or xcenter).#Il doit y avoir un champ (latitude, lat, y ou ycenter) pour les coordonnées y et un champ (longitude, long, x ou xcenter) pour les coordonnées x.
+#%toolbardata-err2#Unable to determine the field separator. It should be one of these characters (, ; |).#Incapable de déterminer le séparateur. Il devrait être l'un des caractères suivants : (, ; |).
 #%toolbardata-err3#Presence of element(s) with invalid latitude and/or longitude.#Présence d'élément(s) dont les valeurs de latitude et/ou de longitude sont invalides.
-#%toolbardata-err4#Error fetching items from CSV file: #Erreur de récupération des items du fichier CSV: 
-#%toolbardata-ie9#This tool is not available in Internet Explorer version 9. You need Internet Explorer version 10 or another browser (Chrome, FireFox or Safari).#Cet outil n'est pas disponible dans Internet Explorer 9. Vous devez avoir la version 10 ou un autre navigateur (Chrome, Firefox ou Safari).
+#%toolbardata-err4#Error fetching items from CSV file: #Erreur de récupération des items du fichier CSV : 
+#%toolbardata-ie9#This tool is not available in Internet Explorer version 9. You need Internet Explorer version 10 and higher or another browser (Chrome, FireFox or Safari).#Cet outil n'est pas disponible dans Internet Explorer 9. Vous devez avoir la version 10 et plus ou un autre navigateur (Chrome, Firefox ou Safari).
 #%inset-tplight#Open the content in a lightbox#Ouvrir le contenu dans un lightbox
 #%inset-tpplayvideo#Play video#Jouer la vidéo
 #%mp-close#Close (Esc)#Fermer (Esc)
 #%mp-load#Loading...#Chargement...
-#%mp-next#Previous (Left arrow key)#Precédent (touche flèche gauche)
+#%mp-next#Previous (Left arrow key)#Precèdent (touche flèche gauche)
 #%mp-prev#Next (Right arrow key)#Suivant (touche flèche droite)
 #%mp-count#%curr% of %total%#%curr% de %total%
 #%mp-error#<a href='%url%'>The image</a> could not be loaded.#<a href='%url%'>L'image</a> ne peut être chargée.
 
-#%help-dialogtitle#GeoCanViz Help#Aide pour GéoCanViz
-#%help-dialogbubbletitle#GeoCanViz Contextual Help#Aide contextuelle pour GéoCanViz
-#%help-overview-title#Application Overview#
-#%help-overview-desc1#The GeoCanViz Viewer is a tool to help you find, explore and understand spatial data using a graphical user interface.#
-#%help-overview-desc2#The GeoCanViz Viewer can be configured to use some or all of the tools and toolbars depending on the needs and the content of the map. For this reason, some of the tools described in this help document may not be available for the map you are currently viewing.#
-#%help-key-title#Navigation Using the Keyboard#
-#%help-key-fntitle#Advance focus:#
-#%help-key-fn#TAB key moves the focus foward to the next element.#
-#%help-key-fptitle#Previous focus:#
-#%help-key-fp#SHIFT+TAB keys moves the focus back to the previous element.#
-#%help-key-zoomtitle#Zoom the map:#
-#%help-key-zoom#+/- or CTRL+/CTRL- keys will zoom in/out on the map. The focus must be on the map.#
-#%help-key-pantitle#Panning the map:#
-#%help-key-pan#LEFT ARROW, RIGHT ARROW, UP ARROW, DOWN ARROW keys will pan around the map (moves the map sideways or up/down). The focus must be on the map.#
-#%help-key-entertitle#Execute a tool:#
-#%help-key-enter#ENTER key will select the element which currently has the focus.#
-#%help-key-spacetitle#Expand menu:#
-#%help-key-space#When the focus is on an expander icon, the SPACE BAR key will expand the toolbar. Selecting the SPACE BAR key again will close it.#
-#%help-key-wcagtitle#Accessibility mode:#
-#%help-key-wcag#You can enable the accessibility mode by checking the enable accessibility mode check box in the -Instructions: Map navigation- drop down section at the top of the map.#
-#%help-key-pref#Note: Do not forget to properly setup your keyboard preferences in your operating system and your browser. If you have forgotten to do so, you may end up with unexpected behaviours.#
-#%help-map-title#Navigation Tools on the Map#
-#%help-map-zoom#Click the Full Extent tool to zoom the map out to its full (national) extent.#
-#%help-map-zoombar#Use the Zoom Bar tool to change the zoom level of the map. The red coloured line indicates the zoom level of the map and to change the zoom level, click the bar above the red coloured line to zoom in, or click the bar below the red coloured line to zoom out.#
+#%help-dialogtitle#Help#Aide
+#%help-dialogbubbletitle#Contextual Help#Aide contextuelle
+#%help-overview-title#Application Overview#Aperçu de l'application
+#%help-overview-desc1#The GeoCanViz Viewer is a tool to help you find, explore and understand spatial data using a graphical user interface.#Le visualisateur GéoCanViz  est un outil conçu pour vous aider à trouver, explorer et comprendre les données spatiales au moyen d'une interface utilisateur graphique.
+#%help-overview-desc2#The GeoCanViz Viewer can be configured to use some or all of the tools and toolbars depending on the needs and the content of the map. For this reason, some of the tools described in this help document may not be available for the map you are currently viewing.#Le visualisateur GéoCanViz peut être configuré pour vous permettre d'utiliser une partie ou la totalité des outils et des barres d'outils selon vos besoins et le contenu de la carte. Pour cette raison, certains des outils décrits dans le présent document d'aide peuvent ne pas être disponibles pour la carte que vous regardez en ce moment.
+#%help-key-title#Navigation Using the Keyboard#Navigation au moyen du clavier
+#%help-key-fntitle#Advance focus:#Report de l'attention sur l'élément suivant :
+#%help-key-fn#TAB key moves the focus forward to the next element.#La touche TAB reporte l'attention sur l'élément suivant.
+#%help-key-fptitle#Previous focus:#Report de l'attention sur l'élément précèdent :
+#%help-key-fp#SHIFT+TAB keys moves the focus back to the previous element.#Les touches SHIFT+TAB reportent l'attention sur l'élément précèdent.
+#%help-key-zoomtitle#Zoom the map:#Faire un zoom sur la carte :
+#%help-key-zoom#+/- or CTRL+/CTRL- keys will zoom in/out on the map. The focus must be on the map.#Les touches +/- ou CTRL+/CTRL- permettent de faire un zoom avant ou arrière sur la carte. L'attention doit être portée sur la carte.
+#%help-key-pantitle#Panning the map:#Faire un panoramique :
+#%help-key-pan#LEFT ARROW, RIGHT ARROW, UP ARROW, DOWN ARROW keys will pan around the map (moves the map sideways or up/down). The focus must be on the map.#Les touches FLÈCHE GAUCHE, FLÈCHE DROITE, FLÈCHE HAUT et FLÈCHE BAS permettent de faire un panoramique dans la carte (de déplacer la carte de côté ou de haut en bas). L'attention doit être portée sur la carte.
+#%help-key-entertitle#Execute a tool:#Exécuter un outil :
+#%help-key-enter#ENTER key will select the element which currently has the focus.#La touche ENTER permet de sélectionner l'élément sur lequel l'attention est portée.
+#%help-key-spacetitle#Expand menu:#Développer le menu :
+#%help-key-space#When the focus is on an expander icon, the SPACE BAR key will expand the toolbar. Selecting the SPACE BAR key again will close it.#Lorsque l'attention est portée sur une icône de développement, la BARRE D'ESPACEMENT permet de développer la  barre d'outils. Sélectionner la BARRE D'ESPACEMENT de nouveau permet de la fermer.
+#%help-key-wcagtitle#Accessibility mode:#Mode d'accessibilité :
+#%help-key-wcag#You can enable the accessibility mode by checking the enable accessibility mode check box in the -Instructions: Map navigation- drop down section at the top of the map.#Vous pouvez activer le mode d'accessibilité en cochant la case activer le mode d'accessibilité dans le menu déroulant Instructions : Navigation dans la carte au haut de la carte.
+#%help-key-pref#Note: Do not forget to properly setup your keyboard preferences in your operating system and your browser. If you have forgotten to do so, you may end up with unexpected behaviours.#Note : N'oubliez pas de configurer adéquatement vos préférences de clavier dans votre système d'exploitation et votre navigateur. Si vous avez oublié de le faire, l'outil pourrait se comporter de façon inattendue.
+#%help-map-title#Navigation Tools on the Map#Outils de navigation sur la carte
+#%help-map-zoom#Click the Full Extent tool to zoom the map out to its full extent.#Cliquez sur l'outil Zoom à l'étendue maximum pour faire un zoom arrière et passer à l'étendue maximale.
+#%help-map-zoombar#Use the Zoom Bar tool to change the zoom level of the map. The red coloured line indicates the zoom level of the map and to change the zoom level, click the bar above the red coloured line to zoom in, or click the bar below the red coloured line to zoom out.#Utilisez l'outil Barre de zoom pour changer le niveau de zoom sur la carte. La ligne colorée en rouge indique le niveau de zoom de la carte. Pour changer le niveau de zoom, cliquez sur la barre située au-dessus de la ligne colorée en rouge pour faire un zoom avant ou sur la barre située sous la ligne colorée en rouge pour faire un zoom arrière.
 #%help-head-title#Header#En-tête
-#%help-head-help#Click to open the help window.#
-#%help-head-about#Click to open a window containing a description of the map.#
-#%help-head-print#Click to print the current view of the map.#
-#%help-head-gofs#Click to view the maximum map size.#
-#%help-head-exfs#Click to return to the default map size.#
+#%help-head-help#Click to open the help window.#Cliquez pour ouvrir la fenêtre d'aide.
+#%help-head-about#Click to open a window containing a description of the map.#Cliquez pour ouvrir une fenêtre contenant une description de la carte.
+#%help-head-print#Click to print the current view of the map.#Cliquez pour imprimer l'aperçu actuel de la carte.
+#%help-head-gofs#Click to view the maximum map size.#Cliquez pour voir la taille maximale de la carte.
+#%help-head-exfs#Click to return to the default map size.#Cliquer pour retourner à la taille par défaut de la carte.
 #%help-head-menutitle#Menu#Menu
-#%help-head-menu#Toggle to open and close all the available toolbars#
+#%help-head-menu#Toggle to open and close all the available toolbars#Touche basculante pour ouvrir et fermer toutes les barres d'outils disponibles.
 #%help-foot-title#Footer#Bas de page
-#%help-foot-scalebartitle#Map scale bar:#
-#%help-foot-scalebar#The map scale bar displays the length of the corresponding distance on the map. Note: the distance is approximate#
-#%help-foot-coordtitle#Map coordinates:#
-#%help-foot-coord#The coordinates shown are the latitude and longitude of the mouse cursor location on the map.#
-#%help-foot-arrow#This north arrow shows the direction of the geographic north also known as the North Pole. This direction will change based on the geographic area shown in the map window and the map’s projection.#
-#%help-draw-title#Measuring and Drawing Tools#Mesures et outils de dessin
-#%help-draw-colorselect#The colour selector is used to select a colour for measured paths and areas, drawn lines and added text.#
-#%help-draw-line#Use the pencil tool to draw lines on the map:#
-#%help-draw-line1#1. Click the pencil tool, the menu will then close.#
-#%help-draw-line2#2. Click on the map, keeping the left mouse button depressed#
-#%help-draw-line3#3. Draw any shape of line.#
-#%help-draw-line4#4. When finished, release the left mouse button.#
-#%help-draw-line5#5. When finished, press the “Esc” key on your keyboard or click on the Menu title.#
-#%help-draw-line6#6. The menu will re-open.#
-#%help-draw-text#Use the text tool to add text to the map:#
-#%help-draw-text1#1. Click the text tool, the menu will then close.#
-#%help-draw-text2#2. An “Add Text” dialogue box will appear, enter the text and click “Ok”.#
-#%help-draw-text3#3. The dialogue box will be replaced with a “target” shaped cursor.#
-#%help-draw-text4#4. Click on the map were the text should be placed.#
-#%help-draw-text5#5. The dialogue box will reappear, repeat steps 2 to 4 to enter more text or click “Cancel” to finish.#
-#%help-draw-text6#6. The menu will re-open.#
-#%help-draw-length#Use the Measure a Path tool to measure single or multiple connected distances on the map (it is possible to measure multiple distances).#
-#%help-draw-length1#1. Click the Measure a Path tool, the menu will then close.#
-#%help-draw-length2#2. Click the start location on the map.#
-#%help-draw-length3#3. If a single path is measured, either double click the second location on the map or single click the second location followed by pressing the “Esc” key on your keyboard. The total distance will be displayed.#
-#%help-draw-length4#4. If multiple connected paths are measured, click all locations on the map ensuring the last location is either a double click or a single click followed by pressing the “Esc” key on your keyboard. The total distance will be displayed.#
-#%help-draw-length5#5. When finished, press the “Escape” key on your keyboard or click on the Menu title and the menu will reopen.#
-#%help-draw-lengtherase#* To erase one or all measured distances, click on the Menu title and use the Erase All or Erase Selected tools.#
-#%help-draw-area#Use the Measure an Area tool to measure areas on the map (it is possible to measure multiple areas).#
-#%help-draw-area1#1. Click the Measure an Area tool, the menu will then close.#
-#%help-draw-area2#2. Click the start location on the map.#
-#%help-draw-area3#3. Click at least three or more other locations on the map to create a polygon.#
-#%help-draw-area4#4. When the polygon on the map covers the desired area, either double click the final location or single click it, followed by pressing the “Esc” key on your keyboard. The area will be shown.#
-#%help-draw-area5#5. When finished, press the “Escape” key on your keyboard or click on the Menu title and the menu will reopen.#
-#%help-draw-areaerase#* To erase one or all measured areas, click on the Menu title and use the Erase All or Erase Selected tools.#
-#%help-draw-eraseall#Click the Erase All tool to erase all lines, text and distances on the map.#
-#%help-draw-eraseselect#Click the Erase Selected tool to erase selected lines, text and distances on the map.#
-#%help-draw-eraseselect1#1. Click the Erase Selected tool, the menu will then close.#
-#%help-draw-eraseselect2#2. Click on the map, keeping the left mouse button depressed and draw a polygon over the feature(s) to be erased.#
-#%help-draw-eraseselect3#3. Release the left mouse button and the feature(s) will disappear.#
-#%help-draw-eraseselect4#4. When finished, press the “Escape” key on your keyboard or click on the Menu title and the menu will reopen.#
-#%help-draw-undo#Use the Undo tool to undo past actions such as adding lines, text and distance measurements,#
-#%help-draw-redo#Use the Redo tool to redo actions such as adding lines, text and distance measurements after they have been deleted,#
-#%help-draw-import#Use the Import File tool to import a file that contains drawings that were previously saved. This file must be in JavaScript Object Notation (JSON) format.#
-#%help-draw-export#Export the drawings on the map to a file in JavaScript Object Notation (JSON) format, ready for import.#
+#%help-foot-scalebartitle#Map scale bar:#Barre d'échelle de la carte :
+#%help-foot-scalebar#The map scale bar displays the length of the corresponding distance on the map. Note: the distance is approximate#La barre d'échelle de la carte affiche la longueur de la distance correspondante sur la carte. Note : la distance est approximative.
+#%help-foot-coordtitle#Map coordinates:#Coordonnées de la carte :
+#%help-foot-coord#The coordinates shown are the latitude and longitude of the mouse cursor location on the map.#Les coordonnées illustrées sont la latitude et la longitude de l'emplacement du curseur de la souris sur la carte.
+#%help-foot-arrow#This north arrow shows the direction of the geographic north also known as the North Pole. This direction will change based on the geographic area shown in the map window and the map's projection.#Cette flèche nord montre la direction du nord géographique qu'on appelle aussi le pôle Nord. Cette direction dépend de la région géographique montrée dans la fenêtre et de la projection de la carte.
+#%help-draw-title#Measuring and Drawing Tools#Outils de mesure et de dessin
+#%help-draw-colorselect#The colour selector is used to select a colour for measured paths and area, drawn lines and added text.#Le sélectionneur de couleur est utilisé pour sélectionner une couleur pour les longueurs et les surfaces mesurées, les lignes tracées et le texte ajouté.
+#%help-draw-line#Use the pencil tool to draw lines on the map:#Utilisez l'outil crayon pour tracer des lignes sur la carte :
+#%help-draw-line1#1. Click the pencil tool, the menu will then close.#1. Cliquez sur l'outil crayon. Le menu se fermera.
+#%help-draw-line2#2. Click on the map, keeping the left mouse button depressed#2. Cliquez sur la carte en maintenant enfoncé le bouton gauche de la souris.
+#%help-draw-line3#3. Draw any shape of line.#3. Tracez une ligne de n'importe quelle forme.
+#%help-draw-line4#4. When finished, release the left mouse button.#4. Lorsque vous avez terminé, relâchez le bouton gauche de la souris.
+#%help-draw-line5#5. When finished, press the ESC key on your keyboard or click on the Menu title.#5. Lorsque vous avez terminé, appuyez sur la touche ESC sur votre clavier ou cliquez sur le titre du menu.
+#%help-draw-line6#6. The menu will re-open.#6. Le menu se rouvrira.
+#%help-draw-text#Use the text tool to add text to the map:#Utilisez l'outil texte pour ajouter du texte à la carte :
+#%help-draw-text1#1. Click the text tool, the menu will then close.#1. Cliquez sur l'outil texte. Le menu se fermera.
+#%help-draw-text2#2. An “Add Text” dialogue box will appear, enter the text and click “Ok”.#2. Une boîte de dialogue « Ajouter du texte » apparaîtra. Entrez le texte et cliquez sur « Ok ».
+#%help-draw-text3#3. The dialogue box will be replaced with a “target” shaped cursor if your browser support it.#3. La boîte de dialogue sera remplacée par un curseur en forme de « cible » si votre navigateur le supporte.
+#%help-draw-text4#4. Click on the map were the text should be placed.#4. Cliquez sur la carte à l'endroit où le texte doit être placé.
+#%help-draw-text5#5. The dialogue box will reappear, repeat steps 2 to 4 to enter more text or click “Cancel” to finish.#5. La boîte de dialogue réapparaîtra. Répétez les étapes 2 à 4 pour entrer du texte supplémentaire ou cliquez sur « Annuler » pour terminer.
+#%help-draw-text6#6. The menu will re-open.#6. Le menu se rouvrira.
+#%help-draw-length#Use the Measure a Path tool to measure single or multiple connected distances on the map (it is possible to measure multiple distances).#Utilisez l'outil Mesurer une longueur sur la carte pour mesurer une ou plusieurs distances reliées sur la carte (il est possible de mesurer plusieurs distances).
+#%help-draw-length1#1. Click the Measure a Path tool, the menu will then close.#1. Cliquez sur l'outil Mesurer une longueur sur la carte. Le menu se fermera.
+#%help-draw-length2#2. Click the start location on the map.#2. Cliquez sur l'emplacement de départ sur la carte.
+#%help-draw-length3#3. If a single path is measured, either double click the second location on the map or single click the second location followed by pressing the ESC key on your keyboard. The total distance will be displayed.#3. Si une longueur unique est mesurée, double cliquez sur le second emplacement sur la carte ou cliquez une fois sur le second emplacement et appuyez ensuite sur la touche ESC sur votre clavier. La distance totale s'affichera.
+#%help-draw-length4#4. If multiple connected paths are measured, click all locations on the map ensuring the last location is either a double click or a single click followed by pressing the ESC key on your keyboard. The total distance will be displayed.#4. Si plusieurs distances reliées sont mesurées, cliquez sur tous les emplacements de la carte en prenant soin de double cliquer sur le dernier emplacement ou de faire un simple clic et d'appuyer ensuite sur la touche ESC sur votre clavier. La distance totale s'affichera.
+#%help-draw-length5#5. When finished, press the ESC key on your keyboard or click on the Menu title and the menu will reopen.#5. Lorsque vous avez terminé, appuyer sur la touche ESC sur votre clavier ou cliquez sur le titre du menu et le menu se rouvrira.
+#%help-draw-lengtherase#* To erase one or all measured distances, click on the Menu title and use the Erase annotations or Erase selected annotations tools.#* Pour effacer une des distances mesurées ou toutes les distances, cliquez sur le titre du menu et utilisez les outils Effacer les annotations ou Effacer les annotations sélectionnées.
+#%help-draw-area#Use the Measure an Area tool to measure areas on the map (it is possible to measure multiple areas).#Utilisez l'outil Mesurer une surface sur la carte pour mesurer des surfaces sur la carte (il est possible de mesurer plusieurs surfaces).
+#%help-draw-area1#1. Click the Measure an Area tool, the menu will then close.#1. Cliquez sur l'outil Mesurer une surface sur la carte. Le menu se fermera.
+#%help-draw-area2#2. Click the start location on the map.#2. Cliquez sur l'emplacement de départ sur la carte.
+#%help-draw-area3#3. Click at least three or more other locations on the map to create a polygon.#3. Cliquez sur au moins trois autres emplacements sur la carte pour créer un polygone.
+#%help-draw-area4#4. When the polygon on the map covers the desired area, either double click the final location or single click it, followed by pressing the ESC key on your keyboard. The area will be shown.#4. Lorsque le polygone couvre la surface désirée sur la carte, double cliquez sur le dernier emplacement ou faites un simple clic sur celui-ci et appuyez ensuite sur la touche ESC sur votre clavier. La surface s'affichera.
+#%help-draw-area5#5. When finished, press the ESC key on your keyboard or click on the Menu title and the menu will reopen.#5. Lorsque vous avez terminé, appuyez sur la touche ESC sur votre clavier ou cliquez sur le titre du menu et le menu se rouvrira.
+#%help-draw-areaerase#* To erase one or all measured areas, click on the Menu title and use the Erase annotations or Erase selected annotations tools.#* Pour effacer une des surfaces mesurées ou toutes, cliquez sur le titre du menu et utilisez les outils Effacer les annotations ou Effacer les annotations sélectionnées.
+#%help-draw-eraseall#Click the Erase annotations tool to erase all lines, text and distances on the map.#Cliquez sur l'outil Effacer les annotations pour effacer toutes les lignes, le texte et les distances sur la carte.
+#%help-draw-eraseselect#Click the Erase selected annotations tool to erase selected lines, text and distances on the map.#Cliquez sur l'outil Effacer les annotations sélectionnées pour effacer les lignes, le texte et les distances sélectionnés sur la carte.
+#%help-draw-eraseselect1#1. Click the Erase selected annotations tool, the menu will then close.#1. Cliquez sur l'outil Effacer les annotations sélectionnées. Le menu se fermera.
+#%help-draw-eraseselect2#2. Click on the map, keeping the left mouse button depressed and draw a polygon over the feature(s) to be erased.#2. Cliquez sur la carte en maintenant enfoncé le bouton gauche de la souris et dessinez un polygone sur le ou les éléments à effacer.
+#%help-draw-eraseselect3#3. Release the left mouse button and the feature(s) will disappear.#3. Relâchez le bouton gauche de la souris et le ou les éléments disparaîtront.
+#%help-draw-eraseselect4#4. When finished, press the ESC key on your keyboard or click on the Menu title and the menu will reopen.#4. Lorsque vous avez terminé, appuyez sur la touche ESC sur votre clavier ou cliquez sur le titre du menu et le menu se rouvrira.
+#%help-draw-undo#Use the Undo tool to undo past actions such as adding lines, text and distance measurements.#Utilisez l'outil Annuler la dernière opération pour annuler les actions antérieures comme l'ajout de lignes ou de texte et la mesure des distances.
+#%help-draw-redo#Use the Redo tool to redo actions such as adding lines, text and distance measurements after they have been deleted.#Utilisez l'outil Refaire la dernière opération pour refaire les actions comme l'ajout de lignes ou de texte et la mesure des distances après qu'elles aient été annulées.
+#%help-draw-import#Use the Import File tool to import a file that contains drawings that were previously saved. This file must be in JavaScript Object Notation (JSON) format.#Utilisez l'outil Importer des annotations pour importer un fichier qui contient des dessins qui ont été sauvegardés auparavant. Ce fichier doit être en format JavaScript Object Notation (JSON).
+#%help-draw-export#Export the drawings on the map to a file in JavaScript Object Notation (JSON) format, ready for import.#Exportez les dessins sur la carte dans un fichier en format JavaScript Object Notation (JSON), prêt pour l'importation.
 #%help-nav-title#Search and Map Information#Recherche et information sur la carte
-#%help-nav-zoomtotitle#Find a Location#
-#%help-nav-zoomto#Use this tool to search, then zoom to, a geographic location:#
-#%help-nav-zoomto1#1. Enter a geographic name, such as a province, town, lake, river, National Topographic System map number or postal code, in the text box.#
-#%help-nav-zoomto2#2. A drop down list will then appear containing place name choices from the Canadian Geographical Names Database (http://www.nrcan.gc.ca/earth-sciences/geography/place-names/10786).#
-#%help-nav-zoomto3#3. Select one of the place names from the list by clicking on it.#
-#%help-nav-zoomto4#4. The map will then zoom to the selected place name.#
-#%help-nav-mapinfotitle#Map Information#
-#%help-nav-pos#Use the Map Information tool to get information about a specific location on the map. The information includes the geographic and UTM co-ordinates, the National Topographic System (NTS) map number and the elevation.#
-#%help-nav-pos1#1. Click the Get Coordinates Information tool, the menu will then close.#
-#%help-nav-pos2#2. Click a specific location on the map.#
-#%help-nav-pos3#3. A pop-up window will appear showing the map location information.#
-#%help-nav-pos4#4. When finished, click “Ok” or press the “Escape” key on your keyboard. It will close the window.#
-#%help-nav-pos5#5. Repeat steps 2 to 4 to view information of another specific map location. Press the “Esc” key on your keyboard or click on the Menu title to finish.#
-#%help-nav-ovalt#Overview Map#
-#%help-nav-ov#The Overview Map Window shows a red rectangle identifying your current map extent in a regional context. Click, hold and drag this rectangle to quickly pan the map to a different location.#
-#%help-nav-scaletitle#Approximate map scale:#
-#%help-nav-scale#The map scale number displays the relationship or ratio between a distance on the map and the same distance on the ground. Note: the distance is approximate.#
-#%help-leg-title#Map Layers and Legend(s)#Couvertures de la carte et légende(s)
-#%help-leg-desc1#This panel displays the map’s layer(s) and legend(s). The layers are grouped into Theme(s), at the top of the panel, and Bases(s) at the bottom of the panel. Themes and bases can both be individual layers and multi-layered maps. Please see the map description for more information.#
-#%help-leg-desc2#To display a layer when only one layer can be viewed at a time, click the “radio button” on the left side of the layer’s row.#
-#%help-leg-desc3#To display layers when more than one layer can be viewed at a time, click the “check box” on the left side of the layer's row to turn it on or off.#
-#%help-leg-slider#The slider on the left of the layer name can be used to change the opacity. Sliding it to the left will make the layer less opaque. sliding it to the right will make the layer more opaque.#
-#%help-leg-exp#To view a legend, click on the right pointing black triangle displayed at the left end of the layer. It will point down and change colour from black to red. Depending on how the layers are structured, it might be necessary to click more than one black triangle to view the legend.#
+#%help-nav-zoomtotitle#Find a Location#Trouver un lieu
+#%help-nav-zoomto#Use this tool to search, then zoom to, a geographic location:#Utilisez cet outil pour chercher un lieu géographique puis faire un zoom sur celui-ci :
+#%help-nav-zoomto1#1. Enter a geographic name, such as a province, town, lake, river, National Topographic System map number or postal code, in the text box.#1. Entrez un nom géographique comme une province, une ville, un lac, une rivière, un numéro de carte du Système national de référence cartographique ou un code postal dans la zone de texte.
+#%help-nav-zoomto2#2. A drop down list will then appear containing place name choices from the Canadian Geographical Names Database (http://www.nrcan.gc.ca/earth-sciences/geography/place-names/10786).#2. Un menu déroulant contenant les noms de lieu disponibles dans la Base de données toponymiques du Canada (http://www.nrcan.gc.ca/earth-sciences/geography/place-names/10786) apparaîtra alors.
+#%help-nav-zoomto3#3. Select one of the place names from the list by clicking on it.#3. Sélectionnez l'un des noms de lieu dans la liste en cliquant dessus.
+#%help-nav-zoomto4#4. The map will then zoom to the selected place name.#4. La carte fera alors un zoom sur le nom de lieu sélectionné.
+#%help-nav-mapinfotitle#Map Information#Information de localisation sur la carte
+#%help-nav-pos#Use the Map Information tool to get information about a specific location on the map. The information includes the geographic and UTM co-ordinates#, the National Topographic System (NTS) map number and the elevation.#Utilisez l'outil Information de localisation sur la carte pour obtenir de l'information sur un lieu en particulier sur la carte. L'information comprend les coordonnées géographiques et UTM, le numéro de carte du Système national de référence cartographique (SNRC) et l'élévation.
+#%help-nav-pos1#1. Click the Get Coordinates Information tool, the menu will then close.#1. Cliquez sur l'outil Information de localisation sur la carte. Le menu se fermera alors.
+#%help-nav-pos2#2. Click a specific location on the map.#2. Cliquez sur un lieu en particulier sur la carte.
+#%help-nav-pos3#3. A pop-up window will appear showing the map location information.#3. Une fenêtre contextuelle contenant l'information de localisation de la carte apparaîtra.
+#%help-nav-pos4#4. When finished, click “Ok” or press the ESC key on your keyboard. It will close the window.#4. Lorsque vous avez terminé, cliquez sur « Ok » ou appuyez sur la touche ESC sur votre clavier. La fenêtre se fermera.
+#%help-nav-pos5#5. Repeat steps 2 to 4 to view information of another specific map location. Press the ESC key on your keyboard or click on the Menu title to finish.#5. Répétez les étapes 2 à 4 pour voir l'information sur un autre lieu sur la carte. Appuyez sur la touche ESC sur votre clavier ou cliquez sur le titre du menu pour terminer.
+#%help-nav-ovalt#Overview Map#Carte aperçu
+#%help-nav-ov#The Overview Map Window shows a red rectangle identifying your current map extent in a regional context. Click, hold and drag this rectangle to quickly pan the map to a different location.#La fenêtre de la Carte apeçu montre un rectangle rouge qui indique l'étendue actuelle de votre carte dans un contexte régional. Cliquez sur ce rectangle et faites-le glisser pour parcourir rapidement la carte et atteindre un autre lieu.
+#%help-nav-scaletitle#Approximate map scale:#Échelle approximative de la carte :
+#%help-nav-scale#The map scale number displays the relationship or ratio between a distance on the map and the same distance on the ground. Note: the distance is approximate.#L'échelle de la carte représente la relation ou le rapport entre une distance sur la carte et la même distance sur le terrain. Note : la distance est approximative.
+#%help-leg-title#Map Layers and Legend(s)#Couches de la carte et légende(s)
+#%help-leg-desc1#This panel displays the map's layer(s) and legend(s). The layers are grouped into Theme(s), at the top of the panel, and Bases(s) at the bottom of the panel. Themes and bases can both be individual layers and multi-layered maps. Please see the map description for more information.#Ce panneau affiche la ou les couches et légendes de la carte. Les couches sont groupées en un ou plusieurs thèmes (au haut du panneau) et en une ou plusieurs cartes de fond (au bas du panneau). Les thèmes et les bases peuvent être des couches individuelles ou des cartes à plusieurs couches. Voyez la description de la carte pour de plus amples informations.
+#%help-leg-desc2#To display a layer when only one layer can be viewed at a time, click the “radio button” on the left side of the layer's row.#Pour afficher une couche lorsqu'une seule couche peut être vue à la fois, cliquez sur le « bouton radio » à la gauche de la rangée de la couche.
+#%help-leg-desc3#To display layers when more than one layer can be viewed at a time, click the “check box” on the left side of the layer's row to turn it on or off.#Pour afficher les couches lorsque plus d'une couche peut être vue à la fois, cliquez sur la case « cocher » à la gauche de la rangée de la couche pour l'activer ou la désactiver.
+#%help-leg-slider#The slider on the left of the layer name can be used to change the opacity. Sliding it to the left will make the layer less opaque. sliding it to the right will make the layer more opaque.#La barre coulissante à la gauche du nom de la couche peut être utilisée pour changer l'opacité. Faites-la glisser vers la droite ou la gauche pour rendre la couche plus ou moins opaque.
+#%help-leg-exp#To view a legend, click on the right pointing black triangle displayed at the left end of the layer. It will point down and change colour from black to red. Depending on how the layers are structured, it might be necessary to click more than one black triangle to view the legend.#Pour voir une légende, cliquez sur le triangle noir qui pointe vers la droite à l'extrémité gauche de la couche. Il pointera alors vers le bas et passera du noir au rouge. Selon la façon dont les couches sont structurées, il pourrait être nécessaire de cliquer sur plus d'un triangle noir pour voir la légende.
 #%help-data-title#Import Data#Importer des données
-#%help-data-add#Use the Import Data tool to import a Comma Separated Values (CSV) file that contains geolocation information and to display it on the map. This file must contain geolocation fields that hold the geometry. The field names should be (latitude, lat, y, or ycenter) for y coordinates, and (longitude, long, x, or xcenter) for x coordinates. The field separator must be one of these characters (, ; |).#
-#%help-data-sampletitle#Added Layer Information#
-#%help-data-sample#This is an example of an imported CSV file. A visibility checkbox and the symbology used to render the layer is displayed.
-#%help-data-remove#Button to remove the imported data layer from the map.#
+#%help-data-add#Use the Import Data tool to import a Comma Separated Values (CSV) file that contains geolocation information and to display it on the map. This file must contain geolocation fields that hold the geometry. The field names should be (latitude, lat, y, or ycenter) for y coordinates, and (longitude, long, x, or xcenter) for x coordinates. The field separator must be one of these characters (, ; |).#Utilisez l'outil Importer des données pour importer un fichier Comma Separated Values (CSV) contenant de l'information de géolocalisation et l'afficher sur la carte. Ce fichier doit comprendre des champs de géolocalisation qui contiennent la géométrie. Les noms des champs doivent être (latitude, lat, y, ou ycenter) pour les coordonnées y et (longitude, long, x, ou xcenter) pour les coordonnées x. Le séparateur doit être l'un des caractères suivants : (, ; |).
+#%help-data-sampletitle#Added Layer Information#Information sur une couche ajoutée
+#%help-data-sample#This is an example of an imported CSV file. A visibility checkbox and the symbology used to render the layer is displayed.#Voici un exemple de fichier CSV importé. Une case à cocher de visibilité et la symbolique utilisée pour représenter la couche sont affichées.
+#%help-data-remove#Button to remove the imported data layer from the map.#Bouton pour retirer la couche des données importées de la carte.
 #%help-dev-title#Developer's Corner#Le coin du développeur
 #%help-dev-logoalt#Get GeoCanViz on GitHub#Obtenir GéoCanViz de GitHub
-#%help-dev-logo#Click to view the latest GeoCanViz development source code on GitHub.#
+#%help-dev-logo#Click to view the latest GeoCanViz development source code on GitHub.#Cliquez pour voir le tout dernier code source de développement de GéoCanViz sur GitHub.
