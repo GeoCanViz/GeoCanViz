@@ -20,7 +20,7 @@
 			getDataHelp,
 			getDevHelp;
 
-		initialize = function($mapElem, config) {
+		initialize = function($mapElem) {
 			var $help,
 				mapid = $mapElem.mapframe.id,
 				head = $mapElem.header,
@@ -74,7 +74,7 @@
 			// footer
 			node += getFooterHelp(foot);
 
-            // toolbar draw
+			// toolbar draw
 			node += getDrawHelp(tbDraw);
 
 			// toolbar navigation
@@ -208,7 +208,7 @@
 							'</div>' +
 							'<span class="span11 gcviz-help-textbtn" data-bind="text: headPrint"></span>' +
 						'</div>';
-			}		
+			}
 
 			if (fullscreen) {
 				node += '<div class="row">' +
@@ -259,7 +259,7 @@
 								'<span class="span3 gcviz-help-textsub" data-bind="text: footCoordTitle"></span>' +
 								'<span class="span9" data-bind="text: footCoord"></span>' +
 							'</div>';
-				}		
+				}
 
 				if (arrow) {
 					node += '<div class="row">' +
@@ -269,7 +269,7 @@
 								'<span class="span11" data-bind="text: footArrow"></span>' +
 							'</div>';
 				}
-						
+
 				node += '</section>';
 			}
 

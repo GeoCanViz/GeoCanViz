@@ -148,7 +148,7 @@
 						} else if ((key === 187 && shift) || (key === 61 && shift)) {
 							gisM.zoomIn(map);
 							prevent = true;
-						}  else if ((key === 189 && shift) || (key === 173 && shift)) {
+						} else if ((key === 189 && shift) || (key === 173 && shift)) {
 							gisM.zoomOut(map);
 							prevent = true;
 

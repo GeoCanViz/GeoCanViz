@@ -79,12 +79,12 @@
 		//@include button-gradiant-hover;
 		//@include content-border-radius;
 	}
-  
+
 	&:focus {
 		//@include button-gradiant-hover;
 		//@include content-border-radius;
 	}
-  
+
 	&:active {
 		//@include button-gradiant-active;
 		//@include content-border-radius;
@@ -186,7 +186,7 @@
 	margin: (0.2 * $rembase) + rem (0.5 * $rembase) + rem;
 	float: right;
 	list-style: none;
-    
+
 	li {
 		float: left;
 		margin: 0 (0.1 * $rembase) + rem;

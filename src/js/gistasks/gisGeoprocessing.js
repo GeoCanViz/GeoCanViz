@@ -8,8 +8,8 @@
 (function () {
 	'use strict';
 	define(['esri/config',
-            'esri/tasks/ProjectParameters',
-            'esri/tasks/DistanceParameters',
+			'esri/tasks/ProjectParameters',
+			'esri/tasks/DistanceParameters',
 			'esri/tasks/AreasAndLengthsParameters',
 			'esri/tasks/GeometryService',
 			'esri/SpatialReference',
@@ -113,23 +113,23 @@
 		};
 
 		zoomLocation = function(minx, miny, maxx, maxy, mymap, outSR) {
-            var inSR = new esriSR({ 'wkid': 4326 }),
+			var inSR = new esriSR({ 'wkid': 4326 }),
 				extent = new esriExtent(),
 				inputpoint1 = new esriPoint(minx, miny, inSR),
 				inputpoint2 = new esriPoint(maxx, maxy, inSR),
 				geom = [inputpoint1, inputpoint2],
 				geomServ = esriConfig.defaults.io.geometryService;
 
-            params.geometries = geom;
-            params.outSR = outSR;
+			params.geometries = geom;
+			params.outSR = outSR;
 
-            // Transform the lat/long extent to map coordinates
-            geomServ.project(params, function(projectedPoints) {
+			// Transform the lat/long extent to map coordinates
+			geomServ.project(params, function(projectedPoints) {
 				var pt1 = projectedPoints[0],
 					pt2 = projectedPoints[1];
 				extent = new esriExtent(pt1.x, pt1.y, pt2.x, pt2.y, outSR);
-                mymap.setExtent(extent, true);
-            });
+				mymap.setExtent(extent, true);
+			});
 		};
 
 		projectPoints = function(points, outwkid, success) {
@@ -224,7 +224,7 @@
 			measureLength: measureLength,
 			measureArea: measureArea,
 			labelPoints: labelPoints,
-            zoomLocation: zoomLocation,
+			zoomLocation: zoomLocation,
 			projectPoints: projectPoints,
 			projectCoords: projectCoords,
 			projectGeoms: projectGeoms,

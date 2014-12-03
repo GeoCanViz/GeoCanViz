@@ -23,7 +23,7 @@
 			// data model				
 			var footerViewModel = function($mapElem, mapid, config) {
 				var _self = this,
-                    pathGCVizPNG = locationPath + 'gcviz/images/GCVizLogo.png',
+					pathGCVizPNG = locationPath + 'gcviz/images/GCVizLogo.png',
 					configMouse = config.mousecoords,
 					configNorth = config.northarrow,
 					scalebar = config.scalebar,
@@ -34,14 +34,14 @@
 				_self.mapid = mapid;
 
 				// images path
-                _self.imgLogoPNG = pathGCVizPNG;
+				_self.imgLogoPNG = pathGCVizPNG;
 
-                // text
-                _self.urlLogo = i18n.getDict('%footer-urlgcvizrepo');
-                _self.urlLogoAlt = i18n.getDict('%footer-tpgithub');
-                _self.lblWest = i18n.getDict('%west');
-                _self.lblLong = i18n.getDict('%long');
-                _self.lblLat = i18n.getDict('%lat');
+				// text
+				_self.urlLogo = i18n.getDict('%footer-urlgcvizrepo');
+				_self.urlLogoAlt = i18n.getDict('%footer-tpgithub');
+				_self.lblWest = i18n.getDict('%west');
+				_self.lblLong = i18n.getDict('%long');
+				_self.lblLat = i18n.getDict('%lat');
 				_self.tpDatagrid = i18n.getDict('%footer-tpdatagrid');
 				_self.tpArrow = i18n.getDict('%footer-tpNorth');
 
@@ -67,18 +67,18 @@
 						gisGeo.getNorthAngle(mymap.extent, inwkid, _self.updateArrow);
 
 						mymap.on('pan-end', function(evt) {
-                            _self.showNorthArrow(evt);
+							_self.showNorthArrow(evt);
 						});
 
 						mymap.on('zoom-end', function(evt) {
-                            _self.showNorthArrow(evt);
+							_self.showNorthArrow(evt);
 						});
 					}
 
 					// See if user wanted a scalebar. If so, initialize it here
-                    if (scalebar.enable) {
+					if (scalebar.enable) {
 						gisNav.setScaleBar(mymap, scalebar);
-                    }
+					}
 
 					return { controlsDescendantBindings: true };
 				};
@@ -127,7 +127,7 @@
 					lat2 = pointB.y * Math.PI / 180;
 					y = Math.sin(dLon) * Math.cos(lat2);
 					x = Math.cos(lat1) * Math.sin(lat2) - Math.sin(lat1) * Math.cos(lat2) * Math.cos(dLon);
-					bearing = Math.atan2(y, x)  * 180 / Math.PI;
+					bearing = Math.atan2(y, x) * 180 / Math.PI;
 					bearing = ((bearing + 360) % 360).toFixed(1) - 90; //Converting -ve to +ve (0-360)
 
 					_self.rotateArrow('rotate(' + bearing + 'deg)');

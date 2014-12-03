@@ -38,7 +38,7 @@ var locationPath;
 			setScrollTo;
 
 		/*
-		 *  initialize the GCViz application
+		 * initialize the GCViz application
 		 */
 		initialize = function() {
 			var mapElem, body,
@@ -76,7 +76,7 @@ var locationPath;
 		};
 
 		/*
-		 *  read configuration file and start execution
+		 * read configuration file and start execution
 		 */
 		readConfig = function(mapElem) {
 			var file = mapElem.getAttribute('data-gcviz');
@@ -95,14 +95,14 @@ var locationPath;
 					console.log(i18n.getDict('%msg-configread'));
 				},
 				error: function() {
-					console.log(i18n.getDict('%msg-configerr')  + ': ' + file);
+					console.log(i18n.getDict('%msg-configerr') + ': ' + file);
 				}
 			}); // end ajax
 		};
 
 		/*
-		 *  execute the configuration file. add all viewmodel to a master view model. This viewmodel will be store in an array
-		 *  of view models (one for each map)
+		 * execute the configuration file. add all viewmodel to a master view model. This viewmodel will be store in an array
+		 * of view models (one for each map)
 		 */
 		execConfig = function(mapElem, config) {
 			var $mapSection,
@@ -174,7 +174,7 @@ var locationPath;
 			}
 
 			// create the help for the map instance
-			vmArray.help = help.initialize($mapSection, config);
+			vmArray.help = help.initialize($mapSection);
 
 			// set the global vm to retreive link vm together
 			gcvizFunc.setVM(mapid, vmArray);

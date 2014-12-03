@@ -47,7 +47,7 @@
 				_self.info = i18n.getDict('%datagrid-info');
 				_self.infoEmpty = i18n.getDict('%datagrid-infoEmpty');
 				_self.infoFiltered = i18n.getDict('%datagrid-infoFiltered');
-				_self.infoThousands =  i18n.getDict('%datagrid-infoThousands');
+				_self.infoThousands = i18n.getDict('%datagrid-infoThousands');
 				_self.infoPostFix = i18n.getDict('%datagrid-infoPostFix');
 				_self.loadingRecords = i18n.getDict('%datagrid-loadingRecords');
 				_self.zeroRecords = i18n.getDict('%datagrid-zeroRecords');
@@ -58,12 +58,12 @@
 				_self.last = i18n.getDict('%datagrid-last');
 				_self.sortAscending = i18n.getDict('%datagrid-sortAscending');
 				_self.sortDescending = i18n.getDict('%datagrid-sortDescending');
-				_self.lblAllLayer =  i18n.getDict('%datagrid-popalllayers');
-				_self.lblSelectLayer =  i18n.getDict('%datagrid-popselect');
+				_self.lblAllLayer = i18n.getDict('%datagrid-popalllayers');
+				_self.lblSelectLayer = i18n.getDict('%datagrid-popselect');
 
 				// text for popup
-				_self.lblSelectAll =  i18n.getDict('%datagrid-selectall');
-				_self.lblZoomSelect =  i18n.getDict('%datagrid-zoomselect');
+				_self.lblSelectAll = i18n.getDict('%datagrid-selectall');
+				_self.lblZoomSelect = i18n.getDict('%datagrid-zoomselect');
 				_self.popupDialogTitle = i18n.getDict('%datagrid-poptitle');
 
 				// observable for popup

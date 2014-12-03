@@ -10,29 +10,35 @@
 	define(['jquery-private',
 			'knockout',
 			'gcviz-func',
+			'gcviz-gissymbol',
 			'gcviz-gisgeo',
 			'esri/layers/GraphicsLayer',
 			'esri/toolbars/draw',
 			'esri/symbols/SimpleLineSymbol',
-			'esri/symbols/SimpleFillSymbol',
-			'esri/symbols/SimpleMarkerSymbol',
-			'esri/symbols/TextSymbol',
 			'esri/geometry/ScreenPoint',
 			'esri/geometry/Point',
 			'esri/geometry/Polygon',
 			'esri/geometry/Polyline',
 			'esri/graphic',
 			'dojo/on'
-	], function($viz, ko, gcvizFunc, gisgeo, esriGraphLayer, esriTools, esriLine, esriFill, esriMarker, esriText, esriScreenPt, esriPt, esriPoly, esriPolyline, esriGraph, dojoOn) {
+	], function($viz, ko, gcvizFunc, gissymb, gisgeo, esriGraphLayer, esriTools, esriLine, esriScreenPt, esriPt, esriPoly, esriPolyline, esriGraph, dojoOn) {
 		var initialize,
 			importGraphics,
 			exportGraphics,
 			createGraphic,
 			callbackCG,
 			addUndoStack,
-			privateMap;
+			privateMap,
+			gissymbols;
 
 		initialize = function(mymap, isGraphics, stackUndo, stackRedo, lblDist, lblArea) {
+
+			// there is a problem with the define. the gcviz-gissymbol is not able to be set. The weird thing
+			// is if I replace gisgeo with gissymbol in the define, gisgeo will be set as gissymbol but I can't
+			// have access to gisgeo anymore. With the require, we set the reference to gissymbol (hard way)
+			require(['gcviz-gissymbol'], function(gissymb) {
+				gissymbols = gissymb;
+			});
 
 			// data model				
 			var graphic = function(mymap, isGraphics, undo, redo, lblDist, lblArea) {
@@ -43,7 +49,6 @@
 					mouseMeasureLength, nextMeasureLength, showNextMeasureLength,
 					addBackgroundText, addToMap,
 					setColor,
-					getSymbLine, getSymbPoly, getSymbPoint, getSymbText, getSymbErase,
 					toolbar,
 					gText, gColor, gKey, gUnit, gBackColor, gColorName,
 					stackUndo = undo,
@@ -79,7 +84,7 @@
 					// set global then call the tool
 					setColor(color);
 
-					toolbar.setLineSymbol(getSymbLine(gColor, 2));
+					toolbar.setLineSymbol(gissymbols.getSymbLine(gColor, 2));
 					toolbar.activate(esriTools.FREEHAND_POLYLINE);
 				};
 
@@ -109,7 +114,7 @@
 				};
 
 				_self.drawExtent = function() {
-					toolbar.setFillSymbol(getSymbErase());
+					toolbar.setFillSymbol(gissymbols.getSymbErase());
 					toolbar.activate(esriTools.EXTENT);
 				};
 
@@ -471,7 +476,7 @@
 
 						// add line
 						graphic = new esriGraph(line);
-						graphic.symbol =  getSymbLine(gColor, 1);
+						graphic.symbol = gissymbols.getSymbLine(gColor, 1);
 						graphic.key = gKey;
 						symbLayer.add(graphic);
 
@@ -502,7 +507,7 @@
 
 					// add the point symbol
 					graphic = new esriGraph(array[len - 1]);
-					graphic.symbol = getSymbPoint(gColor, 4);
+					graphic.symbol = gissymbols.getSymbPoint(gColor, 4, polyFill, 2);
 					graphic.key = gKey;
 					symbLayer.add(graphic);
 
@@ -521,7 +526,7 @@
 
 						mymap.graphics.clear();
 						graphic = new esriGraph(line);
-						graphic.symbol =  getSymbLine(gColor, 1);
+						graphic.symbol = gissymbols.getSymbLine(gColor, 1);
 						mymap.graphics.add(graphic);
 
 						gisgeo.measureLength([new esriPt(first.x, first.y, sr), new esriPt(geometry.x, geometry.y, sr)], unit, showNextMeasureLength);
@@ -535,7 +540,7 @@
 
 					if (distance > 0) {
 						graphic = new esriGraph(pt, symbol);
-						graphic.symbol = getSymbText(gColor, pt.distance + ' ' + unit, 10, 0, 0, -10, 'normal', 'center');
+						graphic.symbol = gissymbols.getSymbText(gColor, pt.distance + ' ' + unit, 10, 0, 0, -10, 'normal', 'center');
 
 						// add background then text
 						addBackgroundText(graphic, gBackColor, 'center', 12, 0, -2, -11, mymap.graphics);
@@ -551,7 +556,7 @@
 
 					// add the point symbol
 					graphic = new esriGraph(array()[len - 1]);
-					graphic.symbol =  getSymbPoint(gColor, 4);
+					graphic.symbol = gissymbols.getSymbPoint(gColor, 4, polyFill, 2);
 					graphic.key = gKey;
 					symbLayer.add(graphic);
 
@@ -575,7 +580,7 @@
 						}
 
 						graphic = new esriGraph(poly);
-						graphic.symbol =  getSymbPoly(gColor, polyFill, 1);
+						graphic.symbol = gissymbols.getSymbPoly(gColor, polyFill, 1);
 						graphic.key = gKey;
 						symbLayer.add(graphic);
 					}
@@ -585,7 +590,7 @@
 					var graphic, symbol;
 
 					graphic = new esriGraph(pt, symbol);
-					graphic.symbol = getSymbText(gColor, pt.text, 10, angle, offX, offY, 'normal', 'center');
+					graphic.symbol = gissymbols.getSymbText(gColor, pt.text, 10, angle, offX, offY, 'normal', 'center');
 					graphic.key = gKey;
 
 					// add background then text
@@ -622,7 +627,7 @@
 					}
 
 					graphic = new esriGraph(point);
-					graphic.symbol =  getSymbText(backColor, text, size, angle, offX, offY, 'bold', align);
+					graphic.symbol = gissymbols.getSymbText(backColor, text, size, angle, offX, offY, 'bold', align);
 					graphic.key = gKey;
 					graphLayer.add(graphic);
 				},
@@ -648,10 +653,10 @@
 						_self.eraseSelect(geometry);
 					} else {
 						if (geomType === 'polyline') {
-							symbol = getSymbLine(gColor, 2);
+							symbol = gissymbols.getSymbLine(gColor, 2);
 							graphic = new esriGraph(geometry, symbol);
 						} else if (geomType === 'point') {
-							symbol = getSymbText(gColor, gText, 10, 0, 0, 0, 'normal', 'left');
+							symbol = gissymbols.getSymbText(gColor, gText, 10, 0, 0, 0, 'normal', 'left');
 							graphic = new esriGraph(geometry, symbol);
 							addBackgroundText(graphic, gBackColor, 'left', 12, 0, -4, -1, symbLayer);
 
@@ -697,7 +702,7 @@
 					if (color === 'red') {
 						gColor = red;
 						gBackColor = white;
-					} else if  (color === 'green') {
+					} else if (color === 'green') {
 						gColor = green;
 						gBackColor = white;
 					} else if (color === 'blue') {
@@ -715,78 +720,6 @@
 					}
 
 					gColorName = color;
-				};
-
-				getSymbLine = function(color, width) {
-					return new esriLine({
-									'type': 'esriSLS',
-									'style': 'esriSLSSolid',
-									'color': color,
-									'width': width
-								});
-				};
-
-				getSymbPoly = function(color, fill, width) {
-					return new esriFill({
-									'type': 'esriSFS',
-									'style': 'esriSFSSolid',
-									'color': fill,
-									'outline':
-									{
-										'type': 'esriSLS',
-										'style': 'esriSLSSolid',
-										'color': color,
-										'width': width
-									}
-								});
-				};
-
-				getSymbPoint = function(color, size) {
-					return new esriMarker({
-										'type': 'esriSMS',
-										'style': 'esriSMSCircle',
-										'color': color,
-										'size': size,
-										'angle': 0,
-										'xoffset': 0,
-										'yoffset': 0
-								});
-				};
-
-				getSymbText = function(color, text, size, angle, xOff, yOff, weight, align) {
-					return new esriText({
-										'type': 'esriTS',
-										'color': color,
-										'verticalAlignment': 'baseline',
-										'horizontalAlignment': align,
-										'rightToLeft': false,
-										'angle': angle,
-										'xoffset': xOff,
-										'yoffset': yOff,
-										'text': text,
-										'font': {
-											'family': 'Arial',
-											'size': size,
-											'style': 'normal',
-											'weight': weight,
-											'decoration': 'none'
-										}
-									});
-				};
-
-				getSymbErase = function() {
-					return new esriFill({
-									'type': 'esriSFS',
-									'style': 'esriSFSSolid',
-									'color': polyFill,
-									'outline':
-									{
-										'type': 'esriSLS',
-										'style': 'esriSLSSolid',
-										'color': [205,197,197,255],
-										'width': 2
-									}
-								});
 				};
 
 				_self.init();
@@ -855,7 +788,7 @@
 			geometry.attributes.attributes = att;
 			gisgeo.projectGeoms([geometry], map.spatialReference.wkid, callbackCG);
 		};
-		
+
 		callbackCG = function(data) {
 			var symb, graphic,
 				elem = data[0],
@@ -865,33 +798,11 @@
 
 			// from geometry type, select symbol
 			if (type === 'point') {
-				symb = new esriMarker({
-										'type': 'esriSMS',
-										'style': 'esriSMSCircle',
-										'color':  [229,0,51,125],
-										'size': 20,
-										'angle': 0,
-										'xoffset': 0,
-										'yoffset': 0,
-										'outline': { 'type': 'esriSLS',
-											'style': 'esriSLSSolid',
-											'color': [229,0,51,255],
-											'width': 1
-										}
-						});
+				symb = gissymbols.getSymbPoint([205,197,197,180], 20, [229,0,51,255], 2);
 			} else if (type === 'polyline') {
-				symb = '';
-			} else if (type === 'polygon'){
-				symb = new esriFill({
-							'type': 'esriSFS',
-							'style': 'esriSFSSolid',
-							'color': [229,0,51,125],
-							'outline': { 'type': 'esriSLS',
-											'style': 'esriSLSSolid',
-											'color': [229,0,51,255],
-											'width': 1
-										}
-						});
+				symb = gissymbols.getSymbLine([229,0,51,255], 2);
+			} else if (type === 'polygon') {
+				symb = gissymbols.getSymbPoly([205,197,197,100], 20, [229,0,51,255], 2);
 			}
 
 			// generate graphic and asign symbol
@@ -903,11 +814,11 @@
 
 			// add graphic
 			layer.add(graphic);
-			
+
 			// reset private map
 			privateMap = '';
 		};
-		
+
 		return {
 			initialize: initialize,
 			importGraphics: importGraphics,

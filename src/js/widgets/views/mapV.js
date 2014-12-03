@@ -41,7 +41,7 @@
 			$div.append('<div id="ovmapcont' + mapid +'" class="gcviz-ovmapcontainer' + ext + '"><div id="ovmap' + mapid +'"></div></div>');
 
 			// set height and width for the map. Substract the header height
-			holder.css({  'width': widthMax, 'height': height });
+			holder.css({ 'width': widthMax, 'height': height });
 
 			return mapVM.initialize($mapElem, side);
 		};

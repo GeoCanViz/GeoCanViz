@@ -18,8 +18,8 @@
 
 .gcviz-head {
 	@include app-head-foot;
-  background-repeat: repeat-x;
-  background-image: url($img-head);
+	background-repeat: repeat-x;
+	background-image: url($img-head);
 }
 
 .gcviz-head-btn-l {

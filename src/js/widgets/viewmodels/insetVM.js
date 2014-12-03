@@ -168,7 +168,7 @@
 						// check if px or %
 						if (_self.size === '%') {
 							if (bottom !== headerHeight) {
-								css.bottom  = ((bottom * ratio) +
+								css.bottom = ((bottom * ratio) +
 											((headerHeight * ratio) - headerHeight)) + 'px';
 							}
 							if (left !== 0) {
@@ -356,8 +356,8 @@
 				func = { beforeOpen: function() {
 							$lb.find('video').height((window.innerHeight * 0.8));
 							$back.addClass('gcviz-hidden');
-                            },
-                        close: function() {
+						},
+						close: function() {
 							$lb.find('video')[0].pause();
 							$back.removeClass('gcviz-hidden');
 							}

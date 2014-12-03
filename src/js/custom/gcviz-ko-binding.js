@@ -18,7 +18,7 @@
 	var btnArray = [],
 		panelArray = [];
 
-    ko.bindingHandlers.tooltip = {
+	ko.bindingHandlers.tooltip = {
 		init: function(element, valueAccessor, allBindings, viewModel) {
 			var local = ko.utils.unwrapObservable(valueAccessor()),
 				options = {},
@@ -74,7 +74,7 @@
 			});
 
 			// add bubble (set the alt text, id to match the label, click function and keyboard input)
-			$element.append('<img id="' + options.id + '" tabindex="-1" data-bind="click: function() { showBubble(32, 0, 0,  \'' + options.link + '\') }, clickBubble: false,  enterkey: { func: \'showBubble\', keyType: \'keydown\', params: \'' + options.link + '\' }" class="gcviz-help-bubble" src="' + options.img + '" alt="' + options.alt + '"></img>');
+			$element.append('<img id="' + options.id + '" tabindex="-1" data-bind="click: function() { showBubble(32, 0, 0, \'' + options.link + '\') }, clickBubble: false, enterkey: { func: \'showBubble\', keyType: \'keydown\', params: \'' + options.link + '\' }" class="gcviz-help-bubble" src="' + options.img + '" alt="' + options.alt + '"></img>');
 		}
 	};
 
@@ -174,7 +174,7 @@
 	};
 
 	ko.bindingHandlers.HorizontalSliderDijit = {
-        init: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
+		init: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
 			var options = valueAccessor(),
 				id = viewModel.id,
 				widget;
@@ -251,9 +251,9 @@
 
 			widget = new radio({
 				name: options.group,
-                value: options.value,
-                checked: options.value
-            }).placeAt(element);
+				value: options.value,
+				checked: options.value
+			}).placeAt(element);
 
 			widget.on('Change', function(e) {
 				bindingContext.$root.switchRadioButtonVisibility(bindingContext.$root.mymap, bindingContext.$data, e);
@@ -327,10 +327,10 @@
 					end = bind.indexOf(', height:');
 					width = parseInt(bind.substring(start, end), 10) - 25;
 					$element.css('width', width);
-					
+
 					// solve wrong position for FireFox
 					$element.dialog('option', 'position', '{ my: \'center\', at: \'center\', of: window }');
-				};	
+				};
 			}
 
 			$element.dialog(options);
@@ -431,7 +431,7 @@
 	ko.extenders.numeric = function(target, options) {
 		// create a writeable computed observable to intercept writes to our observable
 		var result = ko.computed({
-			read: target,  // always return the original observables value
+			read: target, // always return the original observables value
 			write: function(newValue) {
 				var min, max,
 					current = target(),

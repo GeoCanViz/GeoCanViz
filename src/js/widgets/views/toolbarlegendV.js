@@ -39,17 +39,17 @@
 				itemsTemplate += '</li>';
 			itemsTemplate += '</script>';
 
-            $legend.append(itemsTemplate);
-            node += '<div data-bind="if: layersArray().length > 0"><div class="gcviz-leg-theme"><span data-bind="text: theme"></span></div></div>';
-            node += '<div><ul class="gcviz-leg-ul" data-bind="template: { name: \'itemsTmpl\', foreach: $data.layersArray }"></ul></div>';
-            node += '<div data-bind="if: basesArray().length > 0"><div class="gcviz-leg-theme"><span data-bind="text: base"></span><ul class="gcviz-leg-ul" data-bind="template: { name: \'itemsTmpl\', foreach: $data.basesArray }"></ul></div></div>';
+			$legend.append(itemsTemplate);
+			node += '<div data-bind="if: layersArray().length > 0"><div class="gcviz-leg-theme"><span data-bind="text: theme"></span></div></div>';
+			node += '<div><ul class="gcviz-leg-ul" data-bind="template: { name: \'itemsTmpl\', foreach: $data.layersArray }"></ul></div>';
+			node += '<div data-bind="if: basesArray().length > 0"><div class="gcviz-leg-theme"><span data-bind="text: base"></span><ul class="gcviz-leg-ul" data-bind="template: { name: \'itemsTmpl\', foreach: $data.basesArray }"></ul></div></div>';
 
-            $legend.append(node);
-            return (tblegendVM.initialize($legend, mapid, config));
-        };
+			$legend.append(node);
+			return (tblegendVM.initialize($legend, mapid, config));
+		};
 
-        return {
-            initialize: initialize
-        };
-    });
+		return {
+			initialize: initialize
+		};
+	});
 }).call(this);

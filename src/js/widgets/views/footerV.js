@@ -25,14 +25,14 @@
 			// create row to hold all componants
 			node = '<div class="row">';
 
-            // logo and link to GitHub
-            node += '<div class="span5">';
+			// logo and link to GitHub
+			node += '<div class="span5">';
 
-            if (config.logo) {
+			if (config.logo) {
 				node += '<div><a target="_blank" data-bind="attr: { href: urlLogo }" tabindex="-1">' +
 							'<img class="gcviz-foot-logo" data-bind="event: { keyup: goGitHub }, attr: { src: imgLogoPNG }, tooltip: { content: urlLogoAlt }" tabindex="0"></img>' +
 						'</a></div>';
-            }
+			}
 
 			// add button to open datagrid
 			if (configDatagrid.enable) {

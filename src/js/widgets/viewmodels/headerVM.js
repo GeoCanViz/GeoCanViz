@@ -45,7 +45,7 @@
 				_self.mapid = mapid;
 
 				// help bubble
-                _self.imgHelpBubble = pathHelpBubble;
+				_self.imgHelpBubble = pathHelpBubble;
 
 				// tools panel settings
 				_self.xheightToolsOuter = ko.observable('max-height:100px!important');
@@ -55,19 +55,19 @@
 				_self.tpHelp = i18n.getDict('%header-tphelp');
 				_self.tpPrint = i18n.getDict('%header-tpprint');
 				_self.tpInset = i18n.getDict('%header-tpinset');
-                _self.tpAbout = i18n.getDict('%header-tpabout');
-                _self.tpFullScreen = i18n.getDict('%header-tpfullscreen');
-                _self.lblMenu = i18n.getDict('%header-tools');
+				_self.tpAbout = i18n.getDict('%header-tpabout');
+				_self.tpFullScreen = i18n.getDict('%header-tpfullscreen');
+				_self.lblMenu = i18n.getDict('%header-tools');
 
 				// toolbars name
 				_self.legendTitle = i18n.getDict('%toolbarlegend-name');
-                _self.legendAlt = i18n.getDict('%toolbarlegend-alt');
+				_self.legendAlt = i18n.getDict('%toolbarlegend-alt');
 				_self.drawTitle = i18n.getDict('%toolbardraw-name');
-                _self.drawAlt = i18n.getDict('%toolbardraw-alt');
+				_self.drawAlt = i18n.getDict('%toolbardraw-alt');
 				_self.navTitle = i18n.getDict('%toolbarnav-name');
-                _self.navAlt = i18n.getDict('%toolbarnav-alt');
-                _self.dataTitle = i18n.getDict('%toolbardata-name');
-                _self.dataAlt = i18n.getDict('%toolbardata-alt');
+				_self.navAlt = i18n.getDict('%toolbarnav-alt');
+				_self.dataTitle = i18n.getDict('%toolbardata-name');
+				_self.dataAlt = i18n.getDict('%toolbardata-alt');
 
 				// about dialog box
 				_self.lblAboutTitle = i18n.getDict('%header-tpabout');
@@ -95,7 +95,7 @@
 				_self.isInsetVisible = ko.observable(true);
 				_self.insetState = true;
 				_self.fullscreenState = 0;
-                _self.opencloseToolsState = 0;
+				_self.opencloseToolsState = 0;
 
 				// tools initial setting
 				_self.toolsInit = config.tools;
@@ -111,7 +111,7 @@
 					_self.headerHeight = parseInt($mapElem.css('height'), 10);
 
 					// Set the toolbar container height
-                    setTimeout(function() {
+					setTimeout(function() {
 						_self.adjustContainerHeight();
 					}, 500);
 
@@ -205,14 +205,14 @@
 				};
 
 				_self.helpClick = function() {
-                    helpVM.toggleHelp();
-                };
+					helpVM.toggleHelp();
+				};
 
-                _self.aboutClick = function() {
-                    _self.isAboutDialogOpen(true);
-                };
+				_self.aboutClick = function() {
+					_self.isAboutDialogOpen(true);
+				};
 
-                _self.dialogAboutOk = function() {
+				_self.dialogAboutOk = function() {
 					_self.isAboutDialogOpen(false);
 					$btnAbout.focus();
 				};
@@ -237,7 +237,7 @@
 					gisM.manageScreenState(map, 500, false);
 
 					// set the toolbar container height and focus
-                    setTimeout(function() {
+					setTimeout(function() {
 						_self.adjustContainerHeight();
 						$btnFull.focus();
 					}, 500);
@@ -256,7 +256,7 @@
 						w = param.width,
 						h = param.height,
 						array = $mapholder.find('[tabindex = 0]'),
-						height =  (h - (2 * _self.headerHeight));
+						height = (h - (2 * _self.headerHeight));
 
 					// set style for the map
 					gcvizFunc.setStyle($mapholder[0], { 'width': w + 'px', 'height': h + 'px' });
@@ -272,7 +272,7 @@
 					gisM.manageScreenState(map, 1000, true);
 
 					// Set the toolbar container height
-                    setTimeout(function() {
+					setTimeout(function() {
 						_self.adjustContainerHeight();
 
 						// set focus (cant cache because the class doesn't exist at init)
@@ -285,20 +285,20 @@
 					_self.last = array[array.length - 1];
 					$mapholder.on('keydown.fs', function(event) {
 						_self.manageTabbingOrder(event);
-                    });
+					});
 
-                    // this is a workaround. The div for the overview map change when
-                    // we first got to full screen. To correct this we reset the bottom value.
-                    // after the first time it is ok. In the future we can trap the first full
-                    // screen and then do not do this. Or we can try to find the problem.
-                    gcvizFunc.setStyle($ovMap[0], { 'bottom': '40px' });
-                };
+					// this is a workaround. The div for the overview map change when
+					// we first got to full screen. To correct this we reset the bottom value.
+					// after the first time it is ok. In the future we can trap the first full
+					// screen and then do not do this. Or we can try to find the problem.
+					gcvizFunc.setStyle($ovMap[0], { 'bottom': '40px' });
+				};
 
-                _self.adjustContainerHeight = function() {
+				_self.adjustContainerHeight = function() {
 					var toolbarheight = parseInt(map.height, 10) - 5;
 					_self.xheightToolsOuter('max-height:' + toolbarheight + 'px!important');
 					_self.xheightToolsInner('max-height:' + (toolbarheight - instrHeight) + 'px!important'); // remove the keyboard instruction height
-                };
+				};
 
 				_self.manageTabbingOrder = function(evt) {
 					var key = evt.which,
@@ -344,7 +344,6 @@
 				mapid = map.vIdName,
 				node = $viz('#' + mapid + '_holder'),
 				arrow = $viz('#arrow' + mapid),
-				scale = $viz('#scaletool' + mapid),
 				scalebar = $viz('#scalebar' + mapid),
 				zoomMax = $viz('.gcviz-map-zm'),
 				zoomBar = $viz('.dijitSlider'),
@@ -380,11 +379,11 @@
 			reg4 = new RegExp(rotation + 1, 'g'),
 			ind = style.indexOf('.');
 			sub = style.substring(ind, ind + 2);
-			
+
 			// remove decimal
 			reg1 = new RegExp(sub, 'g');
 			style = style.replace(reg1, '');
-				
+
 			// because it was round we need to check minus 1 value and plus one
 			style = style.replace(reg2, rotation - 90);
 			style = style.replace(reg3, rotation - 90);
@@ -412,9 +411,9 @@
 		getRotationDegrees = function(obj) {
 			var values, a, b, angle,
 				matrix = obj.css('-webkit-transform') ||
-				obj.css('-moz-transform')    ||
-				obj.css('-ms-transform')     ||
-				obj.css('-o-transform')      ||
+				obj.css('-moz-transform') ||
+				obj.css('-ms-transform') ||
+				obj.css('-o-transform') ||
 				obj.css('transform');
 
 			if (matrix !== 'none') {
@@ -426,7 +425,9 @@
 				angle = 0;
 			}
 
-			if (angle < 0) angle +=360;
+			if (angle < 0) {
+				angle +=360;
+			}
 
 			return angle;
 		};

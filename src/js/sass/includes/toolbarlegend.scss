@@ -2,21 +2,21 @@
 
 %listate {
 	margin-top: (0.5 * $rembase) + rem;
-  padding-left: (1.5 * $rembase) + rem;
-  background-repeat: no-repeat;
+	padding-left: (1.5 * $rembase) + rem;
+	background-repeat: no-repeat;
 }
 
 %imgsize {
-  height: (1.6 * $rembase) + rem;
-  width: (1.4 * $rembase) + rem;
+	height: (1.6 * $rembase) + rem;
+	width: (1.4 * $rembase) + rem;
 }
 
 %imgsize_leg_icons {
-  height: (0.9 * $rembase) + rem;
-  width: (0.9 * $rembase) + rem;
-  margin-top: (0.8 * $rembase) + rem;
-  background-repeat: no-repeat;
-  cursor: pointer;
+	height: (0.9 * $rembase) + rem;
+	width: (0.9 * $rembase) + rem;
+	margin-top: (0.8 * $rembase) + rem;
+	background-repeat: no-repeat;
+	cursor: pointer;
 }
 
 %legspan {
@@ -34,7 +34,7 @@
 .gcviz-leg-ul {
 	list-style-type: none;
 	margin: 0rem;
-  padding-left: 0rem;
+	padding-left: 0rem;
 }
 
 .gcviz-leg-li {
@@ -47,18 +47,18 @@
 }
 
 .gcviz-leg-imgliopen {
-  background-image: url("images/arrowbulletopen.png");
-  @extend %imgsize_leg_icons;
+	background-image: url("images/arrowbulletopen.png");
+	@extend %imgsize_leg_icons;
 }
 
 .gcviz-leg-imgholder {
-  @extend %imgsize;
+	@extend %imgsize;
 }
 
 // base and theme maps group
 .gcviz-leg-theme {
-  margin-top: (0.75 * $rembase) + rem;
-  @include app-text(1.2, bold);
+	margin-top: (0.75 * $rembase) + rem;
+	@include app-text(1.2, bold);
 }
 
 // item
@@ -154,7 +154,7 @@
 	display: inline-block;
 	padding-right: (0.5 * $rembase) + rem;
 	vertical-align: middle;
-  text-align: left;
+	text-align: left;
 	width: (100 * $rembase) + rem;
 }
 

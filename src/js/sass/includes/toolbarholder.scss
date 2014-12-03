@@ -14,16 +14,16 @@
 
 %tbcontainer {
 	@include app-text(1.2, bold, $black);
-  @include unselectable;
-  padding-top: 0rem;
-  padding-right: (0.3 * $rembase) + rem;
-  padding-left: (0.3 * $rembase) + rem;
-  padding-bottom: (0.3 * $rembase) + rem;
-  position: absolute;
-  z-index: 100;
-  width: (34 * $rembase) + rem;
-  top: (4 * $rembase) + rem;
-  @extend %transparency;
+	@include unselectable;
+	padding-top: 0rem;
+	padding-right: (0.3 * $rembase) + rem;
+	padding-left: (0.3 * $rembase) + rem;
+	padding-bottom: (0.3 * $rembase) + rem;
+	position: absolute;
+	z-index: 100;
+	width: (34 * $rembase) + rem;
+	top: (4 * $rembase) + rem;
+	@extend %transparency;
 }
 
 %panel {
@@ -32,18 +32,18 @@
 }
 
 .gcviz-tbcontainer-l {
-  @extend %tbcontainer;
-  left: 0;
+	@extend %tbcontainer;
+	left: 0;
 }
 
 .gcviz-tbcontainer-r {
-  @extend %tbcontainer;
-  right: 0;
+	@extend %tbcontainer;
+	right: 0;
 }
 
 .gcviz-toolsholder {
-  @include unselectable;
-  background-color: rgb(140,140,140);
+	@include unselectable;
+	background-color: rgb(140,140,140);
 
 	.gcviz-menu {
 		width: 100%!important;
@@ -82,16 +82,16 @@
 		overflow:	auto;
 	}
 
-  .gcviz-tbcontent {
+	.gcviz-tbcontent {
 		@extend %tbcontent;
-  }
-  
-  .gcviz-tbcontent-leg {
-    @extend %tbcontent;
-    min-width: (30.9 * $rembase) + rem;
+	}
+
+	.gcviz-tbcontent-leg {
+		@extend %tbcontent;
+		min-width: (30.9 * $rembase) + rem;
 		overflow:	auto!important;
 		white-space: nowrap;
-  }
+	}
 }
 
 // separator in toolbar draw

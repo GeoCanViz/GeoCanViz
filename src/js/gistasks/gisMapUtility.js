@@ -13,9 +13,9 @@
 			'dijit/Menu',
 			'dijit/MenuItem',
 			'dijit/PopupMenuItem',
-            'gcviz-gislegend',
-            'gcviz-giscluster',
-            'esri/config',
+			'gcviz-gislegend',
+			'gcviz-giscluster',
+			'esri/config',
 			'esri/map',
 			'esri/layers/FeatureLayer',
 			'esri/layers/ArcGISTiledMapServiceLayer',
@@ -25,8 +25,8 @@
 			'esri/layers/WMSLayer',
 			'esri/layers/WMSLayerInfo',
 			'esri/geometry/Extent',
-            'esri/geometry/Point',
-            'esri/IdentityManager'
+			'esri/geometry/Point',
+			'esri/IdentityManager'
 	], function($viz, kpan, func, menu, menuItem, menupopup, gisLegend, gisCluster, esriConfig, esriMap, esriFL, esriTiled, esriDyna, esriImage, webTiled, wms, wmsInfo, esriExt, esriPoint) {
 		var mapArray = {},
 			setProxy,
@@ -69,15 +69,15 @@
 			esriConfig.defaults.io.alwaysUseProxy = false;
 		};
 
-        createMap = function(id, config, side) {
-            var lod, mapUpdate,
+		createMap = function(id, config, side) {
+			var lod, mapUpdate,
 				iExtent = config.extentinit,
-                fExtent = config.extentmax,
-                wkid = config.sr.wkid,
-                initExtent = new esriExt({ 'xmin': iExtent.xmin, 'ymin': iExtent.ymin,
+				fExtent = config.extentmax,
+				wkid = config.sr.wkid,
+				initExtent = new esriExt({ 'xmin': iExtent.xmin, 'ymin': iExtent.ymin,
 										'xmax': iExtent.xmax, 'ymax': iExtent.ymax,
 										'spatialReference': { 'wkid': wkid } }),
-                fullExtent = new esriExt({ 'xmin': fExtent.xmin, 'ymin': fExtent.ymin,
+				fullExtent = new esriExt({ 'xmin': fExtent.xmin, 'ymin': fExtent.ymin,
 										'xmax': fExtent.xmax, 'ymax': fExtent.ymax,
 										'spatialReference': { 'wkid': wkid } }),
 				initLods = config.lods.values.reverse(),
@@ -168,13 +168,13 @@
 
 				// add context menu
 				//gisM.createMapMenu(mymap);
-            });
+			});
 
-            // remove loading image when map has updated
-            mapUpdate = map.on('update-end', function() {
+			// remove loading image when map has updated
+			mapUpdate = map.on('update-end', function() {
 				func.destroyProgressBar();
 				mapUpdate.remove();
-            });
+			});
 
 			return map;
 		};
@@ -343,9 +343,9 @@
 				layer = new esriDyna(layerInfo.url, { 'id': layerInfo.id });
 			} else if (type === 5) {
 				layer = new esriFL(layerInfo.url, {
-                    mode: esriFL.MODE_ONDEMAND,
-                    outFields: ['*'],
-                    id: layerInfo.id
+					mode: esriFL.MODE_ONDEMAND,
+					outFields: ['*'],
+					id: layerInfo.id
 				});
 			} else if (type === 6) {
 				// cluster layer
@@ -405,20 +405,20 @@
 
 		getOverviewLayer = function(configoverviewtype, configoverviewurl) {
 			var bLayer;
-            if (configoverviewtype === 1) { // WMTS service
+			if (configoverviewtype === 1) { // WMTS service
 				bLayer = new webTiled(configoverviewurl);
-            } else if (configoverviewtype === 2) { // tiled service
+			} else if (configoverviewtype === 2) { // tiled service
 				bLayer = new esriTiled(configoverviewurl);
-            } else if (configoverviewtype === 4) { // dynamic service
+			} else if (configoverviewtype === 4) { // dynamic service
 				bLayer = new esriDyna(configoverviewurl);
-            // } else if (configoverviewtype === 7) { // image service
+			// } else if (configoverviewtype === 7) { // image service
 				// bLayer = new esriImage(configoverviewurl);
-            // } else if (configoverviewtype === 8) { // Virtual Earth service
+			// } else if (configoverviewtype === 8) { // Virtual Earth service
 				// bLayer = new esriImage(configoverviewurl);
-            // } else if (configoverviewtype === 9) { // Open Street Map service
+			// } else if (configoverviewtype === 9) { // Open Street Map service
 				// bLayer = new esriImage(configoverviewurl);
-            }
-            return bLayer;
+			}
+			return bLayer;
 		};
 
 		resizeMap = function(map) {
@@ -497,7 +497,7 @@
 				targetNodeIds: ['gcviz-header']
 				// onOpen: function(box) {
 				// // Lets calculate the map coordinates where user right clicked.
-				// //currentLocation = getMapPointFromMenuPosition(box);          
+				// //currentLocation = getMapPointFromMenuPosition(box);
 				// }
 			});
 
@@ -509,7 +509,7 @@
 
 			ctxMenuMap.startup();
 			//ctxMenuMap.bindDomNode(map.container);
-        };
+		};
 
 		zoomIn = function(map) {
 			map.setExtent(getKeyExtent(map, 'in'));
@@ -619,7 +619,7 @@
 			// set focus on close button
 			btn.focus();
 		};
-		
+
 		hideInfoWindow = function(map, key) {
 			var layer, graphics, graphic, len;
 

@@ -31,7 +31,7 @@
 			}
 
 			// set legend and template for recursive item loading
-            node += '<div><ul class="gcviz-data-ul" data-bind="template: { name: \'userTmpl\', foreach: $root.userArray }"></ul></div>';
+			node += '<div><ul class="gcviz-data-ul" data-bind="template: { name: \'userTmpl\', foreach: $root.userArray }"></ul></div>';
 			node += '<script id="userTmpl" type="text/html">';
 				node += '<li class="gcviz-data-li"><div class="gcviz-data-item">';
 					node += '<input class="gcviz-data-itemchild" type="checkbox" data-bind="event: { click: $root.changeItemsVisibility }, attr: { alt: $root.tpVisible, id: \'checkbox\' + id }, checked: true"/>';
@@ -46,12 +46,12 @@
 						'<span data-bind="text: errMsg"></span>' +
 					'</div>';
 
-            $toolbar.append(node);
-            return (tbdataVM.initialize($toolbar, mapid));
-        };
+			$toolbar.append(node);
+			return (tbdataVM.initialize($toolbar, mapid));
+		};
 
-        return {
-            initialize: initialize
-        };
-    });
+		return {
+			initialize: initialize
+		};
+	});
 }).call(this);

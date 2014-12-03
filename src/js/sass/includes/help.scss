@@ -5,19 +5,19 @@
 }
 
 .gcviz-help-sect {
-  max-height: (50 * $rembase) + rem!important;
-  
-  span {
-  	padding-bottom: (0.3 * $rembase) + rem;
-  }
-  
-  .row {
-  	margin-top: (1.5 * $rembase) + rem;
-  }
+	max-height: (50 * $rembase) + rem!important;
+
+	span {
+		padding-bottom: (0.3 * $rembase) + rem;
+	}
+
+	.row {
+		margin-top: (1.5 * $rembase) + rem;
+	}
 }
 
 .gcviz-help .row > [class*="span"] {
-  min-height: (2 * $rembase) + rem;
+	min-height: (2 * $rembase) + rem;
 }
 
 .gcviz-help-bubble {

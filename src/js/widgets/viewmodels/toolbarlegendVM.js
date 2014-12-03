@@ -39,7 +39,7 @@
 
 					// concat all layers to access in determineTextCSS
 					_self.allLayers = _self.layersArray().concat(_self.basesArray()),
-					
+
 					// subscribe to fullscreen so we cant change the max height
 					gcvizFunc.subscribeTo(_self.mapid, 'header', 'isFullscreen', _self.setHeight);
 
@@ -87,23 +87,21 @@
 				_self.determineTextCSS = function(item) {
 					var layer,
 						className = 'gcviz-leg-span',
-						layers = _self.layersArray().concat(_self.basesArray()),
 						len = _self.allLayers.length,
 						count = 0;
 
 					// loop trought layers to find a match
 					while (len--) {
 						layer = _self.allLayers[len];
-						
+
 						if (item.graphid === layer.graphid) {
 							count = 1;
 						}
 					}
-					
+
 					count = (count === 0) ? 2 : 1;
-					
+
 					return className + count;
-					
 				};
 
 				// needs this function because the a tag inside li tag doesn't work.

@@ -166,7 +166,7 @@ Global sys value#%gisurlutm#http://geogratis.gc.ca/services/delimitation/en/utmz
 #%help-key-pref#Note: Do not forget to properly setup your keyboard preferences in your operating system and your browser. If you have forgotten to do so, you may end up with unexpected behaviours.#
 #%help-map-title#Navigation Tools on the Map#
 #%help-map-zoom#Click the Full Extent tool to zoom the map out to its full (national) extent.#
-#%help-map-zoombar#Use the Zoom Bar tool to change the zoom level of the map.  The red coloured line indicates the zoom level of the map and to change the zoom level, click the bar above the red coloured line to zoom in, or click the bar below the red coloured line to zoom out.#
+#%help-map-zoombar#Use the Zoom Bar tool to change the zoom level of the map. The red coloured line indicates the zoom level of the map and to change the zoom level, click the bar above the red coloured line to zoom in, or click the bar below the red coloured line to zoom out.#
 #%help-head-title#Header#En-tête
 #%help-head-help#Click to open the help window.#
 #%help-head-about#Click to open a window containing a description of the map.#

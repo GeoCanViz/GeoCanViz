@@ -46,7 +46,7 @@
 		if (starGeo !== -1) {
 			locationPath = url.substring(0, url.search('GeoCanViz')) + 'GeoCanViz/';
 		} else {
-			if  (language === 'fr-min') {
+			if (language === 'fr-min') {
 				console.log('Définir le meta paramètre "location" ou mettre le site web dans un répertoire nommé "GeoCanViz"');
 			} else {
 				console.log('Define "location" meta paramter or put web site in a folder called "GeoCanViz"');
@@ -55,6 +55,7 @@
 	}
 
 	// detect browser (code from http://www.quirksmode.org/)
+	// see new version https://github.com/WhichBrowser/WhichBrowser SHOULD IMPLEMENT!!!
 	var browserDetect = {
 		init: function() {
 			window.browser = this.searchString(this.dataBrowser) || 'unknown';
@@ -96,46 +97,43 @@
 			string: navigator.userAgent,
 			subString: 'Chrome',
 			identity: 'Chrome'
-		},
-		{
+		}, {
 			string: navigator.vendor,
 			subString: 'Apple',
 			identity: 'Safari',
 			versionSearch: 'Version'
-		},
-		{
+		}, {
 			prop: window.opera,
 			identity: 'Opera',
 			versionSearch: 'Version'
-		},
-		{
+		}, {
 			string: navigator.userAgent,
 			subString: 'Firefox',
 			identity: 'Firefox'
-		},
-		{
+		}, {
 			string: navigator.vendor,
 			subString: 'Camino',
 			identity: 'Camino'
-		},
-		{	// for newer Netscapes (6+)
+		}, { // for newer Netscapes (6+)
 			string: navigator.userAgent,
 			subString: 'Netscape',
 			identity: 'Netscape'
-		},
-		{
+		}, {
 			string: navigator.userAgent,
 			subString: 'MSIE',
 			identity: 'Explorer',
 			versionSearch: 'MSIE'
-		},
-		{
+		}, { // for IE 11
+			string: navigator.userAgent,
+			subString: 'Windows NT',
+			identity: 'Explorer',
+			versionSearch: 'rv'
+		},{
 			string: navigator.userAgent,
 			subString: 'Gecko',
 			identity: 'Mozilla',
 			versionSearch: 'rv'
-		},
-		{	// for older Netscapes (4-)
+		}, { // for older Netscapes (4-)
 			string: navigator.userAgent,
 			subString: 'Mozilla',
 			identity: 'Netscape',
@@ -155,7 +153,7 @@
 		window.location = redirectPath;
 	} else if (window.browser === 'Explorer' && window.browserversion <= 8) {
 		if (language === 'en-min') {
-			alert('Browser not supported: Explorer needs to be version 9 or higher. You will be redirected to project page.' +  ' ' + window.browserversion);
+			alert('Browser not supported: Explorer needs to be version 9 or higher. You will be redirected to project page.' + ' ' + window.browserversion);
 		} else {
 			alert('Navigateur non pris en charge: Explorer doit être version 9 ou supérieur. Vous serez redirigé vers la page de projet.');
 		}
@@ -193,18 +191,18 @@
 				name: 'magnificpopup',
 				location: locationPath + 'src/js/dependencies',
 				main: 'magnificpopup.min'
-            }, {
-                name: 'kineticpanning',
-                location: locationPath + 'src/js/dependencies',
-                main: 'kineticpanning.min'
-            }, {
-                name: 'cluster',
-                location: locationPath + 'src/js/dependencies',
-                main: 'esri.clusterlayer.min'
-            }, {
-                name: 'media',
-                location: locationPath + 'src/js/dependencies',
-                main: 'jquery.media.min'
+			}, {
+				name: 'kineticpanning',
+				location: locationPath + 'src/js/dependencies',
+				main: 'kineticpanning.min'
+			}, {
+				name: 'cluster',
+				location: locationPath + 'src/js/dependencies',
+				main: 'esri.clusterlayer.min'
+			}, {
+				name: 'media',
+				location: locationPath + 'src/js/dependencies',
+				main: 'jquery.media.min'
 			}, {
 				name: 'gcviz',
 				location: locationPath + 'src/js',
@@ -237,6 +235,10 @@
 				name: 'gcviz-gisgraphic',
 				location: locationPath + 'src/js/gistasks',
 				main: 'gisGraphic'
+			}, {
+				name: 'gcviz-gissymbol',
+				location: locationPath + 'src/js/gistasks',
+				main: 'gisSymbol'
 			}, {
 				name: 'gcviz-gislegend',
 				location: locationPath + 'src/js/gistasks',
@@ -351,13 +353,13 @@
 
 	// start the process with a private jquery. If we dont, it creates a conflict because we laod jQuery and it is different then the one loaded by WET
 	define('jquery-private', ['jquery'], function ($viz) {
-        var noConflict = $viz.noConflict(true);
+		var noConflict = $viz.noConflict(true);
 
-        // if there is no jQuery loaded, set the window jquery to be the one from this project. Otherwise keep the outside one because it is use
-        // by script outside this project.
-        window.jQuery = !(window.jQuery) ? window.$ = $viz : window.jQuery;
+		// if there is no jQuery loaded, set the window jquery to be the one from this project. Otherwise keep the outside one because it is use
+		// by script outside this project.
+		window.jQuery = !(window.jQuery) ? window.$ = $viz : window.jQuery;
 
-        return noConflict;
+		return noConflict;
 	});
 
 	require(['jquery-private', 'gcviz'], function($viz, gcviz) {
