@@ -339,7 +339,7 @@
 
 		printSimple = function(map, template) {
 			var style, rotation,
-				sub, ind, reg1, reg2, reg3, reg4,
+				sub, ind1, ind2, reg1, reg2, reg3, reg4,
 				center = {},
 				mapid = map.vIdName,
 				node = $viz('#' + mapid + '_holder'),
@@ -377,12 +377,17 @@
 			reg2 = new RegExp(rotation - 1, 'g'),
 			reg3 = new RegExp(rotation, 'g'),
 			reg4 = new RegExp(rotation + 1, 'g'),
-			ind = style.indexOf('.');
-			sub = style.substring(ind, ind + 2);
+			ind1 = style.indexOf('.');
+			ind2 = style.indexOf('deg');
+			
+			// check if we need to remove decimal part
+			if (ind1 !== -1) {
+				sub = style.substring(ind1, ind2);
 
-			// remove decimal
-			reg1 = new RegExp(sub, 'g');
-			style = style.replace(reg1, '');
+				// remove decimal
+				reg1 = new RegExp(sub, 'g');
+				style = style.replace(reg1, '');
+			}
 
 			// because it was round we need to check minus 1 value and plus one
 			style = style.replace(reg2, rotation - 90);

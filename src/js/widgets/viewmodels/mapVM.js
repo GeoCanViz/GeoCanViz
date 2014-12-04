@@ -30,7 +30,6 @@
 
 				// text
 				_self.tpZoomFull = i18n.getDict('%map-tpzoomfull');
-				_self.close = i18n.getDict('%close');
 
 				// viewmodel mapid to be access in tooltip custom binding
 				_self.mapid = mapid;
@@ -103,7 +102,10 @@
 						var btn;
 
 						panel = $viz('.esriPopupWrapper').find('.titlePane');
-						panel.prepend('<button class="gcviz-wcag-close" type="button" tabindex="0">' + _self.close + '</button>');
+						panel.prepend('<button class="gcviz-wcag-close ui-button ui-state-default ui-button-icon-only ui-dialog-titlebar-close" role="button" aria-disabled="false" title="close">' +
+											'<span class="ui-button-icon-primary ui-icon ui-icon-closethick"></span>' +
+											'<span class="ui-button-text">close</span>' +
+										'</button>');
 						btn = panel.find('.gcviz-wcag-close');
 						btn.on('click', function() {
 							gisM.hideInfoWindow(_self.map, 'location');

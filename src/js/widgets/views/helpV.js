@@ -42,7 +42,6 @@
 						// menu
 						'<section id="gcviz-help-menu" class="gcviz-help">' +
 							'<ul>' +
-								'<li><a href="#gcviz-help-over" data-bind="text: overTitle, click: function() { scrollTo(\'over\') }"></a></li>' +
 								'<li><a href="#gcviz-help-key" data-bind="text: keyTitle, click: function() { scrollTo(\'key\') }"></a></li>' +
 								'<li data-bind="css: { \'gcviz-hidden\': noMap }"><a href="#gcviz-help-map" data-bind="text: mapTitle, click: function() { scrollTo(\'map\') }"></a></li>' +
 								'<li><a href="#gcviz-help-head" data-bind="text: headTitle, click: function() { scrollTo(\'head\') }"></a></li>' +
@@ -54,13 +53,6 @@
 								'<li><a href="#gcviz-help-dev" data-bind="text: devTitle, click: function() { scrollTo(\'dev\') }"></a></li>' +
 							'</ul>' +
 						'</section>';
-
-			// application overview
-			node += '<section id="gcviz-help-over" class="gcviz-help gcviz-help-over">' +
-						'<div class="row"><span class="gcviz-help-tbtitle" data-bind="text: overTitle"></span></div>' +
-						'<div class="row"><span class="span12" data-bind="text: overDesc1"></span></div>' +
-						'<div class="row"><span class="span12" data-bind="text: overDesc2"></span></div>' +
-					'</section>';
 
 			// get keyboard navigation help
 			node += getKeyHelp();
@@ -87,13 +79,13 @@
 			node += getDataHelp(tbData);
 
 			// developer's corner
-			node += getDevHelp();
+			node += getDevHelp(foot);
 
 			// close div
 			node += '</div>';
 
 			// the contextual help dialog window. The content will be populated when user click on a bubble
-			node += '<div id="helpbubble-' + mapid + '" class="gcviz-help-sect" data-bind="uiDialog: { title: lblHelpBubbleTitle, width: 600, height: 350, ok: dialogHelpBubbleOk, close: dialogHelpBubbleOk, openDialog: \'isHelpBubbleDialogOpen\', modal: false, draggable: true }">' +
+			node += '<div id="helpbubble-' + mapid + '" class="gcviz-help-sect" data-bind="uiDialog: { title: lblHelpTitle, width: 600, height: 350, ok: dialogHelpBubbleOk, close: dialogHelpBubbleOk, openDialog: \'isHelpBubbleDialogOpen\', modal: false, draggable: true }">' +
 						'<section id="gcviz-bubble"></section>' +
 					'</div>';
 
@@ -456,6 +448,14 @@
 								'<div class="span11">' +
 									'<span data-bind="text: navZoomto"></span>' +
 									'<span class="gcviz-help-textlist" data-bind="text: navZoomto1"></span>' +
+									'<span class="gcviz-help-textlist" data-bind="text: navZoomto1b"></span>' +
+									'<ul>' +
+										'<li class="gcviz-help-textlist" data-bind="text: navZoomto1b1"></li>' +
+										'<li class="gcviz-help-textlist" data-bind="text: navZoomto1b2"></li>' +
+										'<li class="gcviz-help-textlist" data-bind="text: navZoomto1b3"></li>' +
+										'<li class="gcviz-help-textlist" data-bind="text: navZoomto1b4"></li>' +
+										'<li class="gcviz-help-textlist" data-bind="text: navZoomto1b5"></li>' +
+									'</ul>' +
 									'<span class="gcviz-help-textlist" data-bind="text: navZoomto2"></span>' +
 									'<span class="gcviz-help-textlist" data-bind="text: navZoomto3"></span>' +
 									'<span class="gcviz-help-textlist" data-bind="text: navZoomto4"></span>' +
@@ -545,18 +545,22 @@
 			return node;
 		};
 
-		getDevHelp = function() {
+		getDevHelp = function(config) {
 			var node = '';
 
 			node = '<section id="gcviz-help-dev" class="gcviz-help gcviz-help-dev">' +
-						'<div class="row"><span class="gcviz-help-tbtitle" data-bind="text: devTitle"></span></div>' +
-						'<div class="row">' +
+						'<div class="row"><span class="gcviz-help-tbtitle" data-bind="text: devTitle"></span></div>';
+
+			if (config.logo) {
+				node += '<div class="row">' +
 							'<div class="span1">' +
 								'<img class="gcviz-foot-logo" data-bind="attr: { src: imgHelpLogo, alt: devLogoAlt }" tabindex="-1"></img>' +
 							'</div>' +
 							'<span class="span11" data-bind="text: devLogo"></span>' +
-						'</div>' +
-					'</section>';
+						'</div>';
+			}
+
+			node +='<div class="row"><span class="span12" data-bind="text: devDesc"></span></div></section>';
 
 			return node;
 		};

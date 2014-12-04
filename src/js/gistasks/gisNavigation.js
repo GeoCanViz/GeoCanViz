@@ -84,7 +84,7 @@
 
 			urlNTS += longi + ',' + lati + ',' + longi + ',' + lati;
 
-			if (window.browser !== 'Explorer') {
+			if (window.browser !== 'Explorer' || (window.browser === 'Explorer' && window.browserversion > 10)) {
 				$viz.getJSON(urlNTS).done(function(data) {
 					def.resolve({
 						nts: data.features
@@ -113,7 +113,7 @@
 
 			urlUTM += longi + ',' + lati + ',' + longi + ',' + lati;
 
-			if (window.browser !== 'Explorer') {
+			if (window.browser !== 'Explorer' || (window.browser === 'Explorer' && window.browserversion > 10)) {
 				$viz.getJSON(urlUTM).done(function(data) {
 					def.resolve({
 						zone: data.features[0].properties.identifier
@@ -142,7 +142,7 @@
 
 			urlAlti += 'lat=' + lati + '&lon=' + longi;
 
-			if (window.browser !== 'Explorer') {
+			if (window.browser !== 'Explorer' || (window.browser === 'Explorer' && window.browserversion > 10)) {
 				$viz.getJSON(urlAlti).done(function(data) {
 					def.resolve({
 						altitude: data.altitude

@@ -35,7 +35,6 @@
 					$dialog = $mapElem.find('#help-' + mapid),
 					$dialogBubble = $mapElem.find('#helpbubble-' + mapid),
 					$helpSect = $mapElem.find('.gcviz-help-sect'),
-					$helpOver = $helpSect.find('.gcviz-help-over'),
 					$helpKey = $helpSect.find('.gcviz-help-key'),
 					$helpMap = $helpSect.find('.gcviz-help-map'),
 					$helpHead = $helpSect.find('.gcviz-help-head'),
@@ -152,6 +151,12 @@
 				_self.navZoomtoTitle = i18n.getDict('%help-nav-zoomtotitle');
 				_self.navZoomto = i18n.getDict('%help-nav-zoomto');
 				_self.navZoomto1 = i18n.getDict('%help-nav-zoomto1');
+				_self.navZoomto1b = i18n.getDict('%help-nav-zoomto1b');
+				_self.navZoomto1b1 = i18n.getDict('%help-nav-zoomto1b1');
+				_self.navZoomto1b2 = i18n.getDict('%help-nav-zoomto1b2');
+				_self.navZoomto1b3 = i18n.getDict('%help-nav-zoomto1b3');
+				_self.navZoomto1b4 = i18n.getDict('%help-nav-zoomto1b4');
+				_self.navZoomto1b5 = i18n.getDict('%help-nav-zoomto1b5');
 				_self.navZoomto2 = i18n.getDict('%help-nav-zoomto2');
 				_self.navZoomto3 = i18n.getDict('%help-nav-zoomto3');
 				_self.navZoomto4 = i18n.getDict('%help-nav-zoomto4');
@@ -186,13 +191,13 @@
 				_self.devTitle = i18n.getDict('%help-dev-title');
 				_self.devLogoAlt = i18n.getDict('%help-dev-logoalt');
 				_self.devLogo = i18n.getDict('%help-dev-logo');
+				_self.devDesc = i18n.getDict('%help-dev-desc');
 
 				// help dialog box
 				_self.lblHelpTitle = i18n.getDict('%help-dialogtitle');
 				_self.isHelpDialogOpen = ko.observable(false);
 
 				// help bubble dialog box
-				_self.lblHelpBubbleTitle = i18n.getDict('%help-dialogbubbletitle');
 				_self.isHelpBubbleDialogOpen = ko.observable(false);
 
 				_self.init = function() {
@@ -229,9 +234,7 @@
 				};
 
 				_self.scrollTo = function(section) {
-					if (section === 'over') {
-						$helpSect.scrollTo($helpOver);
-					} else if (section === 'key') {
+					if (section === 'key') {
 						$helpSect.scrollTo($helpKey);
 					} else if (section === 'map') {
 						$helpSect.scrollTo($helpMap);

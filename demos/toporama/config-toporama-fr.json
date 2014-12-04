@@ -643,8 +643,8 @@
                 "graphid": "762eb7ed-0001-242f-6fcf-af08f5605eb1",
                 "displayfields": false,
                 "label": {
-                    "value": "Ombrage",
-                    "alttext": "Ombrage"
+                    "value": "Relief ombré",
+                    "alttext": "Relief ombré"
                 },
                 "metadata": {
                     "enable": false
@@ -791,8 +791,8 @@
                 "graphid": "8a9bb0ab-0005-32b1-6715-be42194945aa",
                 "displayfields": false,
                 "label": {
-                    "value": "Toporama (éléments)",
-                    "alttext": "Toporama (éléments)"
+                    "value": "Toporama (couches)",
+                    "alttext": "Toporama (couches)"
                 },
                 "metadata": {
                     "enable": false

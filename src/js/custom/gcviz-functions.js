@@ -207,20 +207,16 @@
 
 		parseLonLat = function(input) {
 			var x, y, lonlat,
-				ddregex = /^([+\-]?[0-1]?[0-7]?[0-9](\.[0-9]{1,})?)([\s+])([+\-]?[0-1]?[0-7]?[0-9](\.[0-9]{1,})?)$/g,
+				ddregex = /^([-+]?([1-8]?\d(\.\d+)?|90(\.0+)?))([\s+])([-+]?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?))$/g,
 				dd = ddregex.exec(input),
 				dmsregex = /(-)?(\d{2,3})([:°d|\s+])\s*([0-5][0-9])([:\'m]|\s*)(\s*([0-5][0-9])([\.,](\d+))?([\"s]|\s*))?\s*([NnWwOo])?[ |,]\s*(-)?(\d{2,3})([:°d|\s+])\s*([0-5][0-9])([:\'m]|\s*)(\s*([0-5][0-9])([\.,](\d+))?([\"s]|\s*))?\s*([NnWwOo])?/g,
 				dms = dmsregex.exec(input);
 
-			if (dd && dd.length === 6) {
-				x = Number(dd[1]);
-				y = Number(dd[4]);
+			if (dd && dd.length === 13) {
+				x = Number(dd[6]);
+				y = Number(dd[1]);
 
-				if (y < x) {
-					lonlat = [y, x, 'dd'];
-				} else {
-					lonlat = [x, y, 'dd'];
-				}
+				lonlat = [x, y, 'dd'];
 			} else if (dms) {
 				x = parseDMS(dms[2], dms[4], dms[7], dms[9]);
 				y = parseDMS(dms[13], dms[15], dms[18], dms[20]);
@@ -291,8 +287,8 @@
 				xLabel = 'E';
 			}
 
-			return { x: [dx + degreeSymbol, mx + '\'', sdx + '"', xLabel],
-					y: [dy + degreeSymbol, my + '\'', sdy + '"', yLabel] };
+			return { x: [Math.abs(dx) + degreeSymbol, mx + '\'', sdx + '"', xLabel],
+					y: [Math.abs(dy) + degreeSymbol, my + '\'', sdy + '"', yLabel] };
 		};
 
 		return {
