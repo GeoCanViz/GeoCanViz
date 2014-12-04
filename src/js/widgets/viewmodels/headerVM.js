@@ -379,11 +379,15 @@
 			reg4 = new RegExp(rotation + 1, 'g'),
 			ind1 = style.indexOf('.');
 			ind2 = style.indexOf('deg');
-			sub = style.substring(ind1, ind2);
+			
+			// check if we need to remove decimal part
+			if (ind1 !== -1) {
+				sub = style.substring(ind1, ind2);
 
-			// remove decimal
-			reg1 = new RegExp(sub, 'g');
-			style = style.replace(reg1, '');
+				// remove decimal
+				reg1 = new RegExp(sub, 'g');
+				style = style.replace(reg1, '');
+			}
 
 			// because it was round we need to check minus 1 value and plus one
 			style = style.replace(reg2, rotation - 90);

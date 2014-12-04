@@ -13,8 +13,9 @@
 			'gcviz-func',
 			'dijit/form/HorizontalSlider',
 			'dijit/form/RadioButton',
+			'gcviz-i18n',
 			'jqueryui'
-	], function($viz, ko, gcvizFunc, slider, radio) {
+	], function($viz, ko, gcvizFunc, slider, radio, i18n) {
 	var btnArray = [],
 		panelArray = [];
 
@@ -363,7 +364,7 @@
 				}
 				}, {
 				id: 'btnCancel',
-				text: 'Cancel',
+				text: i18n.getDict('%cancel'),
 				click: function() {
 					$viz(this).dialog('close');
 				}
