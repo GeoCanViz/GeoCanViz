@@ -51,7 +51,8 @@
 			// set mouse coordinates
 			node += '<div class="span4">';
 			if (config.mousecoords.enable) {
-				node += '<span id="mousecoord_' + mapid + '" class="gcviz-foot-coords-values unselectable" data-bind="text: coords"></span>';
+				node += '<button class="gcviz-nav-pos gcviz-foot-convert" tabindex="0" data-bind="buttonBlur, click: formatCoordClick, tooltip: { content: tpFormat, position: { my: \'right+30 bottom-33\' } }"></button>' +
+						'<span id="mousecoord_' + mapid + '" class="gcviz-foot-coords-values unselectable" data-bind="text: coords"></span>';
 			}
 			node += '</div>';
 

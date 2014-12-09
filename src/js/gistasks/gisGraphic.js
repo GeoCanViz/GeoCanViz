@@ -655,6 +655,10 @@
 						if (geomType === 'polyline') {
 							symbol = gissymbols.getSymbLine(gColor, 2);
 							graphic = new esriGraph(geometry, symbol);
+
+							// focus the map. We need to specify this because when you use the keyboard to
+							// activate ta tool, the focus sometimes doesnt go to the map.
+							gcvizFunc.focusMap(mymap);
 						} else if (geomType === 'point') {
 							symbol = gissymbols.getSymbText(gColor, gText, 10, 0, 0, 0, 'normal', 'left');
 							graphic = new esriGraph(geometry, symbol);
@@ -802,7 +806,7 @@
 			} else if (type === 'polyline') {
 				symb = gissymbols.getSymbLine([229,0,51,255], 2);
 			} else if (type === 'polygon') {
-				symb = gissymbols.getSymbPoly([205,197,197,100], 20, [229,0,51,255], 2);
+				symb = gissymbols.getSymbPoly([205,197,197,100], [229,0,51,255], 2);
 			}
 
 			// generate graphic and asign symbol

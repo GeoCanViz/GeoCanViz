@@ -36,6 +36,9 @@
 				// images path
 				_self.imgLogoPNG = pathGCVizPNG;
 
+				// tooltip, text strings
+				_self.tpFormat = i18n.getDict('%footer-tpformat');
+
 				// text
 				_self.urlLogo = i18n.getDict('%footer-urlgcvizrepo');
 				_self.urlLogoAlt = i18n.getDict('%footer-tpgithub');
@@ -47,6 +50,7 @@
 
 				// coords and arrow
 				_self.coords = ko.observable('');
+				_self.coordsType = 'dd';
 				_self.rotateArrow = ko.observable('');
 
 				// enable button table (will be set true by datagridVM when
@@ -88,20 +92,26 @@
 				};
 
 				_self.updateCoordinates = function(projectedPoints) {
-					var strPointX, strPointY,
+					var strPointX, strPointY, dms,
 						point = projectedPoints[0];
 
 					if (outwkid === 4326) {
-						if (point.x < 0) {
-							strPointX = (-1 * point.x.toFixed(3)).toString() + _self.lblWest;
+						if (_self.coordsType === 'dd') {
+							if (point.x < 0) {
+								strPointX = (-1 * point.x.toFixed(3)).toString() + _self.lblWest;
+							} else {
+								strPointX = point.x.toFixed(3).toString() + 'E';
+							}
+	
+							if (point.y < 0) {
+								strPointY = (-1 * point.y.toFixed(3)).toString() + 'S';
+							} else {
+								strPointY = point.y.toFixed(3).toString() + 'N';
+							}
 						} else {
-							strPointX = point.x.toFixed(3).toString() + 'E';
-						}
-
-						if (point.y < 0) {
-							strPointY = (-1 * point.y.toFixed(3)).toString() + 'S';
-						} else {
-							strPointY = point.y.toFixed(3).toString() + 'N';
+							dms = gcvizFunc.convertDdToDms(point.x, point.y);
+							strPointY = dms.y.join('');
+							strPointX = dms.x.join('');
 						}
 					} else {
 						strPointX = point.x.toFixed(0).toString();
@@ -109,6 +119,10 @@
 					}
 
 					_self.coords(_self.lblLat + strPointY + '   ' + _self.lblLong + strPointX);
+				};
+
+				_self.formatCoordClick = function() {
+					_self.coordsType = (_self.coordsType === 'dd') ? 'dms' : 'dd';
 				};
 
 				_self.showNorthArrow = function(evt) {

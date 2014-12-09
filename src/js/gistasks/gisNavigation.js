@@ -66,7 +66,7 @@
 			var sbMapDijit,
 				ovSB = document.getElementById('scalebar' + mymap.vIdName),
 				options = { map: mymap,
-							scalebarStyle: 'line',
+							scalebarStyle: 'ruler',
 							scalebarUnit: 'metric',
 							height: 25,
 							width: 200 };

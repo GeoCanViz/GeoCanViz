@@ -252,12 +252,12 @@
 		};
 
 		parseDMS = function(degres, minutes, seconds, decimal) {
-			var dd = Number(degres) + Number(minutes)/60;
+			var dd = Number(degres) + Number(minutes) / 60;
 			if (seconds) {
 				if (decimal) {
 					seconds += '.' + decimal;
 				}
-				dd += (Number(seconds)/3600);
+				dd += (Number(seconds) / 3600);
 			}
 
 			return dd;

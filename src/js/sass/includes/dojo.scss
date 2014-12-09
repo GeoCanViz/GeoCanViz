@@ -2865,16 +2865,16 @@ div.dijitTabDisabled,
 .claro .dijitSliderDisabled .dijitSliderImageHandleH { background-position: -54px 0 }
 .claro .dijitSliderImageHandleV {
     border: 0;
-    width: 18px;
-    height: 16px;
-    background-image: url("form/images/sliderThumbs.png");
+    width: 14px;
+    height: 8px;
+    background-image: url("images/sliderThumbs.png");
     background-repeat: no-repeat;
-    background-position: -289px 0;
+    background-position: 0px -22px;
 }
-.claro .dijitSliderHover .dijitSliderImageHandleV { background-position: -307px 0 }
-.claro .dijitSliderFocused .dijitSliderImageHandleV { background-position: -325px 0 }
-.claro .dijitSliderProgressBarV .dijitSliderThumbHover { background-position: -325px 0 }
-.claro .dijitSliderProgressBarV .dijitSliderThumbActive { background-position: -325px 0 }
+.claro .dijitSliderHover .dijitSliderImageHandleV { background-position: 0 -7px }
+.claro .dijitSliderFocused .dijitSliderImageHandleV { background-position: 0 -7px }
+.claro .dijitSliderProgressBarV .dijitSliderThumbHover { background-position: 0 -7px }
+.claro .dijitSliderProgressBarV .dijitSliderThumbActive { background-position: 0 -7px }
 .claro .dijitSliderReadOnly .dijitSliderImageHandleV,
 .claro .dijitSliderDisabled .dijitSliderImageHandleV { background-position: -343px 0 }
 .claro .dijitSliderButtonContainerH { padding: 1px 3px 1px 2px }
@@ -4468,20 +4468,20 @@ div.dijitNumberTextBoxRtl { text-align: right }
 }
 .claro .dijitSliderImageHandleV {
  border: 0;
- width: 18px;
- height: 16px;
+ width: 14px;
+ height: 8px;
  background-image: url("images/sliderThumbs.png");
  background-repeat: no-repeat;
- background-position: -289px 0;
+ background-position: 0px -22px;
 }
 .claro .dijitSliderHover .dijitSliderImageHandleV {
- background-position: -307px 0;
+ background-position: -0px -7px;
 }
 .claro .dijitSliderFocused .dijitSliderImageHandleV {
- background-position: -325px 0;
+ background-position: -0px -7px;
 }
 .claro .dijitSliderProgressBarV .dijitSliderThumbHover {
- background-position: -325px 0;
+ background-position: -0px -7px;
 }
 .claro .dijitSliderProgressBarV .dijitSliderThumbActive {
  background-position: -325px 0;

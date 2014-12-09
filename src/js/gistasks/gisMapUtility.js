@@ -584,9 +584,9 @@
 			return extent;
 		};
 
-		showInfoWindow = function(map, title, content, geom) {
+		showInfoWindow = function(map, title, content, geom, offX, offY) {
 			// check if we need to set the anchor to left (see where is the menu)
-			var layer, graphics, graphic, len, point,
+			var layer, graphics, graphic, len, point, screenPnt,
 				btn = $viz('.esriPopupWrapper').find('.gcviz-wcag-close'),
 				anchor = (map.vSideMenu !== 1) ? 'upperright' : 'upperleft';
 
@@ -614,7 +614,12 @@
 			map.infoWindow.setTitle(title);
 			map.infoWindow.setContent('<span>' + content + '</span>');
 			map.infoWindow.anchor = anchor;
-			map.infoWindow.show(point, map.getInfoWindowAnchor(point));
+			
+			// move a little the window
+			screenPnt = map.toScreen(point);
+			screenPnt.x = (anchor === 'upperright') ? screenPnt.x + offX : screenPnt.x - offX;
+			screenPnt.y += offY;
+			map.infoWindow.show(screenPnt);
 
 			// set focus on close button
 			btn.focus();

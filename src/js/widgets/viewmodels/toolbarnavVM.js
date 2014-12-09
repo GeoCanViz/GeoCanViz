@@ -348,7 +348,7 @@
 
 								if (geolocation.info) {
 									setTimeout(function() {
-										gisMap.showInfoWindow(mymap, 'Location', infotitle, 'location');
+										gisMap.showInfoWindow(mymap, 'Location', infotitle, 'location', 12, 0);
 									}, 1000);
 								}
 							}
