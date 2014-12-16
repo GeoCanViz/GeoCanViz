@@ -153,7 +153,7 @@
 		window.location = redirectPath;
 	} else if (window.browser === 'Explorer' && window.browserversion <= 8) {
 		if (language === 'en-min') {
-			alert('Browser not supported: Explorer needs to be version 9 or higher. You will be redirected to project page.' + ' ' + window.browserversion);
+			alert('Browser not supported: Explorer needs to be version 9 or higher. You will be redirected to project page.');
 		} else {
 			alert('Navigateur non pris en charge: Explorer doit être version 9 ou supérieur. Vous serez redirigé vers la page de projet.');
 		}

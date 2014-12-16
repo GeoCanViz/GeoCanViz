@@ -8,8 +8,9 @@ Global sys value#%github-urlgcvizrepo#https://github.com/GeoCanViz/GeoCanViz#htt
 Global sys value#%msg-configread#Configuration file read#Fichier de configuration lu
 Global sys value#%msg-configerr#Configuration file error#Erreur fichier de configuration
 Global sys value#%gisurllocate#http://geogratis.gc.ca/services/geolocation/en/locate?#http://geogratis.gc.ca/services/geolocation/fr/locate?
-Global sys value#%gisurlnts#http://geogratis.gc.ca/services/delimitation/en/nts?bbox=#http://geogratis.gc.ca/services/delimitation/fr/nts?bbox=
-Global sys value#%gisurlutm#http://geogratis.gc.ca/services/delimitation/en/utmzone?bbox=#http://geogratis.gc.ca/services/delimitation/fr/utmzone?bbox=
+Global sys value#%gisurlnts#http://geogratis.gc.ca/services/delimitation/en/nts?#http://geogratis.gc.ca/services/delimitation/fr/nts?
+Global sys value#%gisurlutm#http://geogratis.gc.ca/services/delimitation/en/utmzone?#http://geogratis.gc.ca/services/delimitation/fr/utmzone?
+Global sys value#%gisurlalti#http://geogratis.gc.ca/services/elevation/cdem/altitude?#http://geogratis.gc.ca/services/elevation/cdem/altitude?
 #%cancel#Cancel#Annuler
 #%close#Close#Fermer
 #%linkopens#This link opens in a new browser window, browser tab or is downloaded, depending on your setting.#Ce lien s'ouvre dans une nouvelle fenêtre, onglet du navigateur ou est téléchargé, selon vos réglages.
@@ -17,6 +18,7 @@ Global sys value#%gisurlutm#http://geogratis.gc.ca/services/delimitation/en/utmz
 #%west#W#O
 #%lat#Latitude: #Latitude : 
 #%long#Longitude: #Longitude : 
+#%position#Position: #Position : 
 #%wcag-instrtitle#Instructions: Keyboard Navigation#Instruction: Naviguer dans la carte à l'aide du clavier
 #%wcag-instrtitlealt#Instructions: Keyboard Navigation - Help#Instruction: Naviguer dans la carte à l'aide du clavier - aide
 #%wcag-instr#Keyboard user: When the map is in focus, use the arrow keys to pan the map and the shift+plus and shift+minus keys to zoom. Setup your keyboard to control the mouse or enable the accessibility mode to have coordinates input box.#Utilisateur du clavier : Lorsque la carte a l'attention, utiliser les touches flèches pour déplacer la carte et utiliser les touches shift+plus et shift+négatif pour faire un zoom. Configurer votre clavier pour contrôler la souris ou activer le mode accessibilité afin d'avoir les boîtes d'entrée pour les coordonnées.
@@ -119,7 +121,6 @@ Global sys value#%gisurlutm#http://geogratis.gc.ca/services/delimitation/en/utmz
 #%toolbarnav-infoutmz#Zone: #Zone : 
 #%toolbarnav-infonts#NTS Mapsheet#Carte du SNRC
 #%toolbarnav-infoaltitude#Elevation#Élévation
-#%toolbarnav-infoaltitudeurl#http://geogratis.gc.ca/services/elevation/cdem/altitude?#http://geogratis.gc.ca/services/elevation/cdem/altitude?
 #%toolbarnav-lblov#Overview Map#Carte aperçu
 #%toolbarnav-lblovdisplay#Show on map#Afficher sur la carte
 #%toolbarnav-ovdrag#Drag to change map extent#Glisser pour changer l'étendue de la carte

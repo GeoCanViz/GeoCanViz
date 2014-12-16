@@ -82,13 +82,17 @@
 			var xdr,
 				def = $viz.Deferred(); // Use a deferred object to call the service
 
-			urlNTS += longi + ',' + lati + ',' + longi + ',' + lati;
-
 			if (window.browser !== 'Explorer' || (window.browser === 'Explorer' && window.browserversion > 10)) {
-				$viz.getJSON(urlNTS).done(function(data) {
-					def.resolve({
-						nts: data.features
-					});
+				$viz.ajax({
+					url: urlNTS,
+					cache: false,
+					data: { bbox: longi + ',' + lati + ',' + longi + ',' + lati },
+					dataType: 'json',
+					success: function(data) {
+						def.resolve({
+							nts: data.features
+						});
+					}
 				});
 			} else {
 				xdr = new XDomainRequest();
@@ -111,13 +115,17 @@
 			var xdr,
 				def = $viz.Deferred(); // Use a deferred object to call the service
 
-			urlUTM += longi + ',' + lati + ',' + longi + ',' + lati;
-
 			if (window.browser !== 'Explorer' || (window.browser === 'Explorer' && window.browserversion > 10)) {
-				$viz.getJSON(urlUTM).done(function(data) {
-					def.resolve({
-						zone: data.features[0].properties.identifier
-					});
+				$viz.ajax({
+					url: urlUTM,
+					cache: false,
+					data: { bbox: longi + ',' + lati + ',' + longi + ',' + lati },
+					dataType: 'json',
+					success: function(data) {
+						def.resolve({
+							zone: data.features[0].properties.identifier
+						});
+					}
 				});
 			} else {
 				xdr = new XDomainRequest();
@@ -140,13 +148,17 @@
 			var xdr,
 				def = $viz.Deferred(); // Use a deferred object to call the service
 
-			urlAlti += 'lat=' + lati + '&lon=' + longi;
-
 			if (window.browser !== 'Explorer' || (window.browser === 'Explorer' && window.browserversion > 10)) {
-				$viz.getJSON(urlAlti).done(function(data) {
-					def.resolve({
-						altitude: data.altitude
-					});
+				$viz.ajax({
+					url: urlAlti,
+					cache: false,
+					data: { lat: lati, lon: longi },
+					dataType: 'json',
+					success: function(data) {
+						def.resolve({
+							altitude: data.altitude
+						});
+					}
 				});
 			} else {
 				xdr = new XDomainRequest();

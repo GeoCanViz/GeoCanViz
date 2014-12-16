@@ -202,7 +202,14 @@
 		};
 
 		padDigits = function(number, digits) {
-			return Array(Math.max(digits - String(number).length + 1, 0)).join(0) + number;
+			var split = String(number).split('.'),
+				pad = Array(Math.max(digits - split[0].length + 1, 0)).join(0) + split[0];
+
+			if (split.length === 2) {
+				pad += '.' + split[1];
+			}
+
+			return pad;
 		};
 
 		parseLonLat = function(input) {
@@ -263,16 +270,16 @@
 			return dd;
 		};
 
-		convertDdToDms = function(degX, degY) {
+		convertDdToDms = function(degX, degY, digit) {
 			var yLabel, xLabel,
 				dx = parseInt(degX, 10),
 				mdx = Math.abs(degX - dx) * 60,
 				mx = padDigits(parseInt(mdx, 10), 2),
-				sdx = padDigits(parseInt((mdx - mx) * 60, 10), 2),
+				sdx = padDigits(parseFloat((mdx - mx) * 60, 10).toFixed(digit), 2),
 				dy = parseInt(degY, 10),
 				mdy = Math.abs(degY - dy) * 60,
 				my = padDigits(parseInt(mdy, 10), 2),
-				sdy = padDigits(parseInt((mdy - my) * 60, 10), 2),
+				sdy = padDigits(parseFloat((mdy - my) * 60, 10).toFixed(digit), 2),
 				degreeSymbol = String.fromCharCode(176);
 
 			if (dy > 0) {

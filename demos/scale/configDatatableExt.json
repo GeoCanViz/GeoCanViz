@@ -6,7 +6,7 @@
 			{"label":"Geochron","id":"6f798c6b-f369-4e24-78dd-9bfa5a9bc59e","type":4,"url":"http://geoappext.nrcan.gc.ca/arcgis/rest/services/GSCC/Geochronology/MapServer/","scale":{"min":20000000,"max":10},"cluster":{"enable":true,"distance":50,"label":false,"symbol":true,"maxsizeprop":50,"maxdataprop":1000}}
 ]}},
 "header": {"side": 1, "title": {"value": "My Sample Map","alttext": ""},"tools": { "enable": true, "expand": true},"link": false,"inset": false,"about": {"enable": true,"type": 1,"value": "This is a map about"},"print": {"enable": true,"type": 1},"fullscreen": true},
-"footer": {"northarrow": {"enable": true,"inwkid": 3978},"mousecoords": {"enable": true,"outwkid": 4326},"scalebar": {"enable": true,"unit": 1},"datatable": {"direction": "in"}, "logo": false},
+"footer": {"northarrow": {"enable": true,"inwkid": 3978},"mousecoords": {"enable": true,"outwkid": 3978},"scalebar": {"enable": true,"unit": 1},"datatable": {"direction": "in"}, "logo": false},
 "toolbarlegend": {"enable": true,"expand": false,"pos": 1,
 "basemaps": [
 	{"expand":false,"last":true,"type":2,"id":"380a923d-466f-4e97-88af-7e6d66f2570a","graphid":"93fa722d-8208-95c3-a64a-5d63ac4b5216","displayfields":false,

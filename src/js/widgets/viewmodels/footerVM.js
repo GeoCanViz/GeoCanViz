@@ -38,19 +38,17 @@
 
 				// tooltip, text strings
 				_self.tpFormat = i18n.getDict('%footer-tpformat');
-
-				// text
 				_self.urlLogo = i18n.getDict('%footer-urlgcvizrepo');
 				_self.urlLogoAlt = i18n.getDict('%footer-tpgithub');
 				_self.lblWest = i18n.getDict('%west');
-				_self.lblLong = i18n.getDict('%long');
-				_self.lblLat = i18n.getDict('%lat');
+				_self.lblPosition = i18n.getDict('%position');
 				_self.tpDatagrid = i18n.getDict('%footer-tpdatagrid');
 				_self.tpArrow = i18n.getDict('%footer-tpNorth');
 
 				// coords and arrow
-				_self.coords = ko.observable('');
-				_self.coordsType = 'dd';
+				_self.coords1 = ko.observable('');
+				_self.coords2 = ko.observable('');
+				_self.dualCoords = ko.observable(0);
 				_self.rotateArrow = ko.observable('');
 
 				// enable button table (will be set true by datagridVM when
@@ -93,36 +91,41 @@
 
 				_self.updateCoordinates = function(projectedPoints) {
 					var strPointX, strPointY, dms,
-						point = projectedPoints[0];
+						strPointX2 = '',
+						strPointY2 = '',
+						point = projectedPoints[0],
+						x = point.x,
+						y = point.y;
 
+					// if lat/long, set dd and dms
 					if (outwkid === 4326) {
-						if (_self.coordsType === 'dd') {
-							if (point.x < 0) {
-								strPointX = (-1 * point.x.toFixed(3)).toString() + _self.lblWest;
-							} else {
-								strPointX = point.x.toFixed(3).toString() + 'E';
-							}
-	
-							if (point.y < 0) {
-								strPointY = (-1 * point.y.toFixed(3)).toString() + 'S';
-							} else {
-								strPointY = point.y.toFixed(3).toString() + 'N';
-							}
+						_self.dualCoords(1);
+
+						// dms
+						dms = gcvizFunc.convertDdToDms(x, y, 0);
+						strPointY = dms.y.join(' ');
+						strPointX = dms.x.join(' ');
+
+						// dd
+						if (x < 0) {
+							strPointX2 = (-1 * x.toFixed(3)).toString() + ' ' + _self.lblWest;
 						} else {
-							dms = gcvizFunc.convertDdToDms(point.x, point.y);
-							strPointY = dms.y.join('');
-							strPointX = dms.x.join('');
+							strPointX2 = x.toFixed(3).toString() + ' E';
 						}
+
+						if (y < 0) {
+							strPointY2 = (-1 * y.toFixed(3)).toString() + ' S';
+						} else {
+							strPointY2 = y.toFixed(3).toString() + ' N';
+						}
+
+						_self.coords2(strPointY2 + ' | ' + strPointX2);
 					} else {
-						strPointX = point.x.toFixed(0).toString();
-						strPointY = point.y.toFixed(0).toString();
+						strPointX = 'X= ' + x.toFixed(3).toString();
+						strPointY = 'Y= ' + y.toFixed(3).toString();
 					}
 
-					_self.coords(_self.lblLat + strPointY + '   ' + _self.lblLong + strPointX);
-				};
-
-				_self.formatCoordClick = function() {
-					_self.coordsType = (_self.coordsType === 'dd') ? 'dms' : 'dd';
+					_self.coords1(_self.lblPosition + strPointY + ' | ' + strPointX);
 				};
 
 				_self.showNorthArrow = function(evt) {

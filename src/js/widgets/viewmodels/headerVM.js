@@ -379,7 +379,7 @@
 			reg4 = new RegExp(rotation + 1, 'g'),
 			ind1 = style.indexOf('.');
 			ind2 = style.indexOf('deg');
-			
+
 			// check if we need to remove decimal part
 			if (ind1 !== -1) {
 				sub = style.substring(ind1, ind2);

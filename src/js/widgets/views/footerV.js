@@ -41,21 +41,6 @@
 
 			node += '</div>';
 
-			// set scalebar
-			node += '<div class="span2">';
-			if (configScalebar) {
-				node += '<div id="scalebar' + mapid + '" class="unselectable"></div>';
-			}
-			node += '</div>';
-
-			// set mouse coordinates
-			node += '<div class="span4">';
-			if (config.mousecoords.enable) {
-				node += '<button class="gcviz-nav-pos gcviz-foot-convert" tabindex="0" data-bind="buttonBlur, click: formatCoordClick, tooltip: { content: tpFormat, position: { my: \'right+30 bottom-33\' } }"></button>' +
-						'<span id="mousecoord_' + mapid + '" class="gcviz-foot-coords-values unselectable" data-bind="text: coords"></span>';
-			}
-			node += '</div>';
-
 			// set north arrow
 			node += '<div class="span1">';
 			if (config.northarrow.enable) {
@@ -65,6 +50,21 @@
 																												'\'OTransform\': rotateArrow(), ' +
 																												'\'transform\': rotateArrow() }, ' +
 																												'attr: { alt: tpArrow }"></div>';
+			}
+			node += '</div>';
+
+			// set mouse coordinates
+			node += '<div class="span4">';
+			if (config.mousecoords.enable) {
+				node += '<div id="mousecoord_' + mapid + '1" class="gcviz-foot-coords-values unselectable" data-bind="text: coords1, style: { marginTop: dualCoords() < 1 ? \'13px\' : \'7px\' }"></div>';
+				node += '<div id="mousecoord_' + mapid + '2" class="gcviz-foot-coords-values unselectable" data-bind="text: coords2"></div>';
+			}
+			node += '</div>';
+
+			// set scalebar
+			node += '<div class="span2">';
+			if (configScalebar) {
+				node += '<div id="scalebar' + mapid + '" class="unselectable"></div>';
 			}
 			node += '</div>';
 

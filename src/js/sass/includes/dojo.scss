@@ -2869,12 +2869,12 @@ div.dijitTabDisabled,
     height: 8px;
     background-image: url("images/sliderThumbs.png");
     background-repeat: no-repeat;
-    background-position: 0px -22px;
+    background-position: -25px -3px;
 }
-.claro .dijitSliderHover .dijitSliderImageHandleV { background-position: 0 -7px }
-.claro .dijitSliderFocused .dijitSliderImageHandleV { background-position: 0 -7px }
-.claro .dijitSliderProgressBarV .dijitSliderThumbHover { background-position: 0 -7px }
-.claro .dijitSliderProgressBarV .dijitSliderThumbActive { background-position: 0 -7px }
+.claro .dijitSliderHover .dijitSliderImageHandleV { background-position: -45px -3px }
+.claro .dijitSliderFocused .dijitSliderImageHandleV { background-position: -45px -3px }
+.claro .dijitSliderProgressBarV .dijitSliderThumbHover { background-position: -45px -3px }
+.claro .dijitSliderProgressBarV .dijitSliderThumbActive { background-position: -45px -3px }
 .claro .dijitSliderReadOnly .dijitSliderImageHandleV,
 .claro .dijitSliderDisabled .dijitSliderImageHandleV { background-position: -343px 0 }
 .claro .dijitSliderButtonContainerH { padding: 1px 3px 1px 2px }
@@ -4472,16 +4472,16 @@ div.dijitNumberTextBoxRtl { text-align: right }
  height: 8px;
  background-image: url("images/sliderThumbs.png");
  background-repeat: no-repeat;
- background-position: 0px -22px;
+ background-position: -25px -3px;
 }
 .claro .dijitSliderHover .dijitSliderImageHandleV {
- background-position: -0px -7px;
+ background-position: -45px -3px;
 }
 .claro .dijitSliderFocused .dijitSliderImageHandleV {
- background-position: -0px -7px;
+ background-position: -45px -3px;
 }
 .claro .dijitSliderProgressBarV .dijitSliderThumbHover {
- background-position: -0px -7px;
+ background-position: -45px -3px;
 }
 .claro .dijitSliderProgressBarV .dijitSliderThumbActive {
  background-position: -325px 0;
