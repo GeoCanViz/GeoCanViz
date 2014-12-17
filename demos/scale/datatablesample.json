@@ -51,3 +51,32 @@
 									"hoverfield": "AGE"
 								}
 				},
+				
+, {
+                "layerinfo": {
+                    "id": "6f798c6b-aaa3-4e24-78dd-9bfa5a9bc59e",
+                    "type": 5,
+                    "index": 0
+                },
+                "title": "Polygon",
+                "fields": [{
+                    "title": "Id",
+                    "width": "60px",
+                    "data": "OBJECTID"
+                }, {
+                    "title": "ENTITYNAME",
+                    "width": "60px",
+                    "data": "ENTITYNAME"
+                }],
+                "linktable": {
+                    "enable": false
+                 },
+                 "popups": {
+                    "enable": true,
+                    "title": "Poly"
+                 },
+                 "hover": {
+                     "enable": false,
+                     "hoverfield": "Community Well-Being"
+                 }
+            }

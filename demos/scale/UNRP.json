@@ -1821,11 +1821,6 @@
                         "width": "120px",
                         "data": "INUIT",
                         "datapop": "INUIT"
-                    }, {
-                        "title": "Aboriginal Population (%)",
-                        "width": "120px",
-                        "data": "PCCTotAbo",
-                        "datapop": "PCCTotAbo"
                     }],
                     "linktable": {
                         "enable": false

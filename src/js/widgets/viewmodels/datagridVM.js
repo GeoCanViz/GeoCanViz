@@ -259,7 +259,7 @@
 						data: null,
 						className: 'dt-body-center',
 						title: 'Select',
-						width: '28px',
+						width: '32px',
 						searchable: false,
 						orderable: false,
 						render: function (data, type) {

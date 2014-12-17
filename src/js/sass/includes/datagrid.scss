@@ -51,6 +51,10 @@ table.dataTable.no-footer {
 	padding-left: (0.5 * $rembase) + rem!important;
 }
 
+// overrides
+.ui-tabs .ui-tabs-panel {
+	padding: 0 1em!important;
+}
 
 // popups
 .gcviz-popup {
