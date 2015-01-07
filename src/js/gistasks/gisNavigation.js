@@ -87,7 +87,7 @@
 					url: urlNTS,
 					cache: false,
 					data: { bbox: longi + ',' + lati + ',' + longi + ',' + lati },
-					dataType: 'json',
+					dataType: 'jsonp', // jsonp because it is cross domain
 					success: function(data) {
 						def.resolve({
 							nts: data.features
@@ -120,7 +120,7 @@
 					url: urlUTM,
 					cache: false,
 					data: { bbox: longi + ',' + lati + ',' + longi + ',' + lati },
-					dataType: 'json',
+					dataType: 'jsonp', // jsonp because it is cross domain
 					success: function(data) {
 						def.resolve({
 							zone: data.features[0].properties.identifier
@@ -153,7 +153,7 @@
 					url: urlAlti,
 					cache: false,
 					data: { lat: lati, lon: longi },
-					dataType: 'json',
+					dataType: 'jsonp', // jsonp because it is cross domain
 					success: function(data) {
 						def.resolve({
 							altitude: data.altitude
