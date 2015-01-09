@@ -454,13 +454,15 @@
 				lods = map._params.lods,
 				len = lods.length;
 				if (len > 0) {
-					factor = lods[len - 1].level;
+					factor = lods[len - 5].resolution;
 				}
 
 				pt = new esriPoint(geom.x, geom.y, map.vWkid);
-				map.centerAndZoom(pt, factor);
+				// there is a bug with the API. It only work the first few times
+				// I remove the factor and it works. Will have to investigate TODO:
+				map.centerAndZoom(pt);
 			} else {
-				map.setExtent(geom.getExtent().expand(1.5));
+				map.setExtent(geom.getExtent().expand(2));
 			}
 		};
 

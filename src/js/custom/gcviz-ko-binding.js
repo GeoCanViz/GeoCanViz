@@ -33,6 +33,12 @@
 			// add the within id for position here because we dont have access to the value
 			// inside function. Then assign options
 			options.position.within = '#' + viewModel.mapid;
+			
+			// if mobile device, do not show tooltip
+			if (window.browser === 'Mobile') {
+				options.tooltipClass = options.tooltipClass + ', gcviz-hidden';
+			}
+
 			$element.tooltip(options);
 
 			ko.utils.domNodeDisposal.addDisposeCallback(element, function() {

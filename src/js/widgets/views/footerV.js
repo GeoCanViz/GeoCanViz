@@ -55,7 +55,7 @@
 
 			// set mouse coordinates
 			node += '<div class="span4">';
-			if (config.mousecoords.enable) {
+			if (config.mousecoords.enable && window.browser !== 'Mobile') {
 				node += '<div id="mousecoord_' + mapid + '1" class="gcviz-foot-coords-values unselectable" data-bind="text: coords1, style: { marginTop: dualCoords() < 1 ? \'13px\' : \'7px\' }"></div>';
 				node += '<div id="mousecoord_' + mapid + '2" class="gcviz-foot-coords-values unselectable" data-bind="text: coords2"></div>';
 			}

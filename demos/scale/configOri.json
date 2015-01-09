@@ -472,7 +472,7 @@
                 },
                 "visibility": {
                     "enable": true,
-                    "initstate": true,
+                    "initstate": false,
                     "type": 1,
                     "radioid": 0
                 },

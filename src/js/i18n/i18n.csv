@@ -62,7 +62,8 @@ Global sys value#%gisurlalti#http://geogratis.gc.ca/services/elevation/cdem/alti
 #%datagrid-sortAscending#: activate to sort column ascending#: activer pour trier la colonne par ordre croissant
 #%datagrid-sortDescending#: activate to sort column descending#: activer pour trier la colonne par ordre décroissant
 #%datagrid-selectall#Select All#Sélectionner tout
-#%datagrid-zoomselect#Zoom Selected#Zoom sélectionné
+#%datagrid-zoomselect#Zoom to selected#Zoom sélection
+#%datagrid-clearzoom#Clear zoom#Effacer zoom
 #%datagrid-poptitle#Data Window#Fenêtre données
 #%datagrid-popalllayers#All layers#Toutes les couches
 #%datagrid-popselect#Select the features from the following layer#Sélectionnez une couche dans les suivantes

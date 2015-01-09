@@ -38,12 +38,20 @@ table.dataTable.no-footer {
 	border: 1px solid #585858!important;
 }
 
+.gcviz-backYellow {
+	background-color: #F0F782!important;
+}
+
 // hide the id row
 .gcviz-dg-id {
 	display: none;
 }
 
 .gcviz-dg-zoomsel {
+	margin: (1 * $rembase) + rem!important;
+}
+
+.gcviz-dg-clearzoom {
 	margin: (1 * $rembase) + rem!important;
 }
 

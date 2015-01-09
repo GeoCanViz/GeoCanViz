@@ -109,6 +109,42 @@ svg {
 	}
 }
 
+// remove tooltip on mobile device
+/* #### Mobile Phones Portrait #### */
+@media screen and (max-device-width: 480px) and (orientation: portrait){
+  .gcviz-tooltip {
+		display: none!important;
+	}
+}
+
+/* #### Mobile Phones Landscape #### */
+@media screen and (max-device-width: 640px) and (orientation: landscape){
+  .gcviz-tooltip {
+		display: none!important;
+	}
+}
+
+/* #### Mobile Phones Portrait or Landscape #### */
+@media screen and (max-device-width: 640px){
+  .gcviz-tooltip {
+		display: none!important;
+	}
+}
+
+/* #### iPhone 4+ Portrait or Landscape #### */
+@media screen and (max-device-width: 480px) and (-webkit-min-device-pixel-ratio: 2){
+  .gcviz-tooltip {
+		display: none!important;
+	}
+}
+
+/* #### Tablets Portrait or Landscape #### */
+@media screen and (min-device-width: 768px) and (max-device-width: 1280px){
+ .gcviz-tooltip {
+		display: none!important;
+	}
+}
+
 .gcviz-message-wcag {
 	@include app-text(1.1, normal, black);
 	display: inline-block;

@@ -107,42 +107,45 @@
 		};
 
 		getData = function(url, layer, success) {
-
-			esriRequest({
-				url: url,
-				content: { f: 'json' },
-				handleAs: 'json',
-				callbackParamName: 'callback',
-				load: function(response) {
-					var relatedQuery, featLayer,
-						layerInfo = layer.layerinfo,
-						linkInfo = layer.linktable,
-						id = layerInfo.id,
-						sr = response.spatialReference,
-						data = [],
-						features = response.features,
-						len = features.length;
-
-					// if there is a link table to retrieve info from, set it here.
-					// it only work with feature layer who have a valid OBJECTID field
-					if (linkInfo.enable) {
-						featLayer = mymap.getLayer(id);
-						relatedQuery = new esriRelRequest();
-						relatedQuery.outFields = linkInfo.fields;
-						relatedQuery.relationshipId = linkInfo.relationship;
-						relatedQuery.objectIds = gcvizFunc.getArrayLen(len);
-
-						featLayer.queryRelatedFeatures(relatedQuery, function(relatedRecords) {
-							data = createDataArray(features, len, sr, id, relatedRecords);
+			// set a timeout between table to ensure there is no overlap and table number
+			// doesn't get screwed
+			setTimeout(function() {
+				esriRequest({
+					url: url,
+					content: { f: 'json' },
+					handleAs: 'json',
+					callbackParamName: 'callback',
+					load: function(response) {
+						var relatedQuery, featLayer,
+							layerInfo = layer.layerinfo,
+							linkInfo = layer.linktable,
+							id = layerInfo.id,
+							sr = response.spatialReference,
+							data = [],
+							features = response.features,
+							len = features.length;
+	
+						// if there is a link table to retrieve info from, set it here.
+						// it only work with feature layer who have a valid OBJECTID field
+						if (linkInfo.enable) {
+							featLayer = mymap.getLayer(id);
+							relatedQuery = new esriRelRequest();
+							relatedQuery.outFields = linkInfo.fields;
+							relatedQuery.relationshipId = linkInfo.relationship;
+							relatedQuery.objectIds = gcvizFunc.getArrayLen(len);
+	
+							featLayer.queryRelatedFeatures(relatedQuery, function(relatedRecords) {
+								data = createDataArray(features, len, sr, id, relatedRecords);
+								closeGetData(data, layer, success);
+							});
+						} else {
+							data = createDataArray(features, len, sr, id);
 							closeGetData(data, layer, success);
-						});
-					} else {
-						data = createDataArray(features, len, sr, id);
-						closeGetData(data, layer, success);
-					}
-				},
-				error: function(err) { console.log('datagrid error: ' + err); }
-			});
+						}
+					},
+					error: function(err) { console.log('datagrid error: ' + err); }
+				});
+			}, 1000);
 		};
 
 		createDataArray = function(features, len, sr, id, relRecords) {
@@ -171,6 +174,7 @@
 				// add a unique id and wkid
 				geometry.attributes = feat.attributes;
 				geometry.attributes.gcvizid = table + '-' + len;
+				geometry.attributes.gcvizcheck = false;
 				geometry.attributes.layerid = id;
 
 				// if present, add the related records from a link table
@@ -243,6 +247,9 @@
 
 			// zoom graphic
 			gisMap.zoomFeature(mymap, graphic);
+			
+			// focus the map
+			gcvizFunc.focusMap(mymap);
 		};
 
 		zoomFeatures = function(geometries) {
@@ -264,10 +271,13 @@
 			// get the extent then zoom
 			extent = esri.graphicsExtent(graphics); // can't load AMD
 			mymap.setExtent(extent.expand(1.75));
+			
+			// focus the map
+			gcvizFunc.focusMap(mymap);
 		};
 
 		selectFeature = function(geometry, info) {
-			var graphic = createGraphic(geometry, 'sel' + info.table + '-' + info.feat);
+			var graphic = createGraphic(geometry, 'sel' + '-' + info.table + '-' + info.feat);
 
 			// add graphic
 			selectLayer.add(graphic);

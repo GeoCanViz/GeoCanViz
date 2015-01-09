@@ -60,6 +60,7 @@
 				_self.sortDescending = i18n.getDict('%datagrid-sortDescending');
 				_self.lblAllLayer = i18n.getDict('%datagrid-popalllayers');
 				_self.lblSelectLayer = i18n.getDict('%datagrid-popselect');
+				_self.lblClearZoom = i18n.getDict('%datagrid-clearzoom');
 
 				// text for popup
 				_self.lblSelectAll = i18n.getDict('%datagrid-selectall');
@@ -135,18 +136,18 @@
 
 				_self.createTab = function(data) {
 					// get layer info from first element
-					var layer = data[0].layer,
-						id = layer.mapid;
+					var layer = data[0].layer;
 					delete data[0].layer;
 
 					// increment table
 					table += 1;
 
-					// add the tab
-					$datatabUl.append('<li><a href="#tabs-' + id + '-' + table + '">' + layer.title + '</a></li>');
-					$datatab.append('<div id="tabs-' + id + '-' + table + '" class="gcviz-datagrid-tab">' +
-									'<table id="table-' + id + '-' + table + '" class="gcviz-datatable display">' +
+					// add the tab and controls (select all, zoom selected and clear zoom)
+					$datatabUl.append('<li><a href="#tabs-' + mapid + '-' + table + '">' + layer.title + '</a></li>');
+					$datatab.append('<div id="tabs-' + mapid + '-' + table + '" class="gcviz-datagrid-tab">' +
+									'<table id="table-' + mapid + '-' + table + '" class="gcviz-datatable display">' +
 										'<button class="gcviz-dg-zoomsel">' + _self.lblZoomSelect + '</button>' +
+										'<button class="gcviz-dg-clearzoom">' + _self.lblClearZoom + '</button>' +
 										'<input type="checkbox" class="gcviz-dg-selall" id="cb_seletAllFeat">' +
 										'<label for="cb_seletAllFeat" class="form-checkbox gcviz-dg-lblselall">' + _self.lblSelectAll + '</label>' +
 									'</table></div>');
@@ -162,6 +163,7 @@
 
 					dataTB = $table.DataTable({
 						'data': data,
+						'serverSide': false,
 						'scrollY': 300,
 						'scrollX': true,
 						'scrollCollapse': true,
@@ -193,6 +195,13 @@
 							'sortAscending': _self.sortAscending,
 								'sortDescending': _self.sortDescending
 							}
+						},
+						rowCallback: function (row, data) {
+							// Set the checked state of the checkbox in the table
+							var item = $viz('.gcviz-dg-select', row),
+								val = data.gcvizcheck;
+							item.prop('checked', val === true);
+							_self.highlightRow(item, val);
 						}
 					});
 
@@ -203,13 +212,6 @@
 					// workaround to be able to solve this like reinitialze on tab active. but another problem always
 					// arise (the redraw made the selection disapear)!
 					//new $viz.fn.dataTable.FixedColumns($viz('#table-' + mapid + '-' + table), { leftColumns: 2 });
-
-					// set the draw event to select/unselect all. We need to have this event because when we click
-					// the select all, it only does it for what we can see on the page.
-					$table.on('draw.dt', function(e) {
-						// select or unselect all features
-						_self.selectAll(e, 'page');
-					});
 
 					// order the first row after select and zoom by default to remove the arrow on select column
 					dataTB.order([3, 'asc']).draw();
@@ -248,26 +250,26 @@
 						searchable: false,
 						orderable: false,
 						render: function (data, type) {
-											if (type === 'display') {
-												return '<button class="gcviz-dg-zoom">Zoom</button>';
-											}
-											return data;
-										}
+									if (type === 'display') {
+										return '<button class="gcviz-dg-zoom">Zoom</button>';
+									}
+									return data;
+								}
 					});
 
 					fields.unshift({
-						data: null,
+						data: 'gcvizcheck',
 						className: 'dt-body-center',
 						title: 'Select',
 						width: '32px',
 						searchable: false,
 						orderable: false,
 						render: function (data, type) {
-											if (type === 'display') {
-												return '<input type="checkbox" class="gcviz-dg-select">';
-											}
-											return data;
-										}
+									if (type === 'display') {
+										return '<input type="checkbox" class="gcviz-dg-select"></input>';
+									}
+									return data;
+								}
 					});
 
 					// add unique id column. We cant use visible false because the column is not added to the table
@@ -319,7 +321,7 @@
 						$tabs = $viz('#tabs-' + mapid + '-' + table);
 
 					// set checkbox event
-					$table.on('change', 'input.gcviz-dg-select', function(e) {
+					$table.on('change', '.gcviz-dg-select', function(e) {
 						var $checkbox = $viz(e.target.parentNode.parentNode).find('.gcviz-dg-select'),
 							info = _self.getInfo(e, 'control');
 
@@ -327,14 +329,19 @@
 						_self.select($checkbox, info);
 					});
 
+					// search fields
+					$table.on('search.dt', function(e) {
+						var api = $viz(this.parentElement.parentElement.parentElement).find('input')[0].value;
+					});
+
 					// set select/unselect all event
-					$tabs.on('change', 'input.gcviz-dg-selall', function(e) {
+					$tabs.on('change', '.gcviz-dg-selall', function(e) {
 						// select or unselect all features
-						_self.selectAll(e, 'checkbox');
+						_self.selectAll(e);
 					});
 
 					// set zoom event
-					$table.on('click', 'button.gcviz-dg-zoom', function(e) {
+					$table.on('click', '.gcviz-dg-zoom', function(e) {
 						// get the id from the table
 						var info = _self.getInfo(e, 'control');
 
@@ -343,17 +350,24 @@
 					});
 
 					// set zoom selected event
-					$tabs.on('click', 'button.gcviz-dg-zoomsel', function(e) {
+					$tabs.on('click', '.gcviz-dg-zoomsel', function(e) {
 						// zoom to features
 						_self.zoomSelect(e);
+					});
+					
+					// set clear zoom event
+					$tabs.on('click', '.gcviz-dg-clearzoom', function(e) {
+						// clear zoom features
+						gisDG.unselectFeature('zoom');
 					});
 
 					// set click and double click on row
 					// code for this section as been taken from the first answer
 					// http://stackoverflow.com/questions/6330431/jquery-bind-double-click-and-single-click-separately
-					$table.on('click', function(e) {
-						var info,
-							targetType = e.target.type;
+					$table.on('click', 'tr', function(e) {
+						var info, $checkbox,
+							target = e.target,
+							targetType = target.type;
 
 						// if target type is different then checbox or button, it means
 						// row has been clicked
@@ -364,7 +378,7 @@
 							if (clicks === 1) {
 								timer = setTimeout(function() {
 									// perform single-click action
-									var $checkbox = $viz(e.target.parentNode).find('.gcviz-dg-select');
+									$checkbox = $viz(target.parentNode).find('.gcviz-dg-select');
 
 									// get the id from the table
 									info = _self.getInfo(e, 'row');
@@ -409,7 +423,7 @@
 
 					if (type === 'row') {
 						str = $viz(e.target.parentNode).find('.gcviz-dg-id').html();
-					} else {
+					} else if (type === 'control') {
 						str = $viz(e.target.parentNode.parentNode).find('.gcviz-dg-id').html();
 					}
 
@@ -444,7 +458,7 @@
 					while (len--) {
 						feat = data[len];
 
-						if (feat.gcvizCheck) {
+						if (feat.gcvizcheck) {
 							features.push(feat.geometry);
 						}
 					}
@@ -464,59 +478,50 @@
 					// get the geometry then call gisDatagrid to select feature on map (create graphic)
 					// or unselect the feature (remove graphic)
 					if (checkbox.prop('checked')) {
-						feat.gcvizCheck = true;
-						geom = feat.geometry;
-						gisDG.selectFeature(geom, info);
+						feat.gcvizcheck = true;
+						_self.highlightRow(checkbox, true);
+						gisDG.selectFeature(feat.geometry, info);
 					} else {
-						feat.gcvizCheck = false;
-						gisDG.unselectFeature('sel' + info.table + '-' + info.feat);
+						feat.gcvizcheck = false;
+						_self.highlightRow(checkbox, false);
+						gisDG.unselectFeature('sel' + '-' + info.table + '-' + info.feat);
 					}
 				};
 
-				_self.selectAll = function(e, type) {
-					var tableId, table, val, lenTable,
+				_self.selectAll = function(e) {
+					var tableId, table, val, lenTable, check, rows,
 						info = { },
 						target = e.target,
 						checks = target.parentElement.getElementsByClassName('gcviz-dg-select'),
 						len = checks.length;
 
-					// get the value oc select all checkbox. We do it differentlly if it comes from
-					// a next page redraw event or a actual check on the checkbox.
-					// if it comes from the checkbox, we grab the table id (we will need it later)
-					if (type === 'page') {
-						val = target.parentElement.parentElement.parentElement.parentElement.getElementsByClassName('gcviz-dg-selall')[0].checked;
-					} else {
-						val = target.checked;
-						tableId = parseInt(target.parentElement.id.split('-')[2] - 1, 10);
-
-						// set table id info
-						info.table = tableId;
-					}
+					// it comes from the checkbox, we grab the table id (we will need it later)
+					tableId = parseInt(target.parentElement.id.split('-')[2] - 1, 10);
+					info.table = tableId;
 
 					// update the ui with the selected value
+					val = target.checked;
+					rows = objDataTable[tableId].rows().nodes();
 					while (len--) {
-						if (val) {
-							checks[len].checked = val;
-						} else {
-							checks[len].checked = val;
-						}
+						check = $viz('.gcviz-dg-select', rows[len]);
+
+						checks[len].checked = val;
+						_self.highlightRow(check, val);
 					}
 
 					// if the type is checkbox, we apply the check value to all features from the table
 					// we also apply the select on unselect task for every feature.
-					if (type === 'checkbox') {
-						table = objData[tableId],
-						lenTable = table.length;
+					table = objData[tableId];
+					lenTable = table.length;
 
-						while (lenTable--) {
-							if (val) {
-								info.feat = [lenTable];
-								table[lenTable].gcvizCheck = true;
-								gisDG.selectFeature(table[lenTable].geometry, info);
-							} else {
-								table[lenTable].gcvizCheck = false;
-								gisDG.unselectFeature('sel' + tableId + '-' + lenTable);
-							}
+					while (lenTable--) {
+						if (val) {
+							info.feat = [lenTable];
+							table[lenTable].gcvizcheck = true;
+							gisDG.selectFeature(table[lenTable].geometry, info);
+						} else {
+							table[lenTable].gcvizcheck = true;
+							gisDG.unselectFeature('sel' + '-' + tableId + '-' + lenTable);
 						}
 					}
 				};
@@ -525,6 +530,20 @@
 				// in this case we will need it to add a new tab for csv data
 				innerTab = _self.createTab;
 				innerTable = table;
+
+				_self.highlightRow = function(item, check) {
+					var row = item.parent().parent();
+					
+					// set class to row if selected. We also have to set it to column with
+					// sorting class. If not, the color is not applied.
+					if (check) {
+						row.addClass('gcviz-backYellow');
+						row.find('.sorting_1').addClass('gcviz-backYellow');
+					} else {
+						row.removeClass('gcviz-backYellow');
+						row.find('.gcviz-backYellow').removeClass('gcviz-backYellow');
+					}
+				};
 
 				// ********* popup section **********
 				_self.returnIdTask = function(array) {
@@ -773,6 +792,7 @@
 				// add stuff for gcviz
 				data.layerid = layerId;
 				data.gcvizid = table + '-' + lenFeat;
+				data.gcvizcheck = false;
 				datas.push(data);
 			}
 
