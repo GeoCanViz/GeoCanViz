@@ -338,10 +338,18 @@
 				name: 'gcviz-v-tbdata',
 				location: locationPath + 'gcviz/js/views',
 				main: 'toolbardataV-min'
-			},{
+			}, {
 				name: 'gcviz-vm-tbdata',
 				location: locationPath + 'gcviz/js/viewmodels',
 				main: 'toolbardataVM-min'
+			}, {
+				name: 'gcviz-v-tbextract',
+				location: locationPath + 'gcviz/js/views',
+				main: 'toolbarextractV-min'
+			}, {
+				name: 'gcviz-vm-tbextract',
+				location: locationPath + 'gcviz/js/viewmodels',
+				main: 'toolbarextractVM-min'
 			}, {
 				name: 'gcviz-v-map',
 				location: locationPath + 'gcviz/js/views',

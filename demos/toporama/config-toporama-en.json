@@ -2171,10 +2171,40 @@
         "toolbardata": {
             "enable": true,
             "expand": false,
-            "pos": 3,
+            "pos": 4,
             "data": {
                 "enable": true
             }
+        },
+        "toolbarextract": {
+            "enable": true,
+            "expand": false,
+            "pos": 3,
+            "items": [{
+            	"label": "Custom extent selection of CanVec and Elevation data using the Data Extraction Tool",
+            	"scale": 100000,
+            	"url": "http://geogratis.gc.ca/site/eng/extraction",
+            	"query": {
+            		"type": "extent",
+            		"param": "?bbox=XXX"
+            		}
+            	}, {
+            	"label": "Single NTS CanVec and legacy National Topographic Data Base (NTDB) tile",
+	            "scale": 1200000,
+	            "url": "http://geogratis.gc.ca/api/en/nrcan-rncan/ess-sst/-/OR/(urn:iso:series)toporama/(urn:iso:series)canvec",
+	            "query": {
+            		"type": "nts",
+            		"param": "?q=XXX"
+            		}
+	            }, {
+	            "label": "Multiple CanVec and legacy National Topographic Data Base (NTDB) tiles for the entire displayed map",
+	            "scale": 350000,
+	            "url": "http://geogratis.gc.ca/api/en/nrcan-rncan/ess-sst/-/OR/(urn:iso:series)toporama/(urn:iso:series)canvec",
+	            "query": {
+            		"type": "extent",
+            		"param": "?bbox=XXX&sort-field=spatial"
+            		}
+	           }]
         },
         "insetframe": {
             "enable": false

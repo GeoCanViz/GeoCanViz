@@ -344,6 +344,14 @@
 				location: locationPath + 'src/js/widgets/viewmodels',
 				main: 'toolbardataVM'
 			}, {
+				name: 'gcviz-v-tbextract',
+				location: locationPath + 'src/js/widgets/views',
+				main: 'toolbarextractV'
+			},{
+				name: 'gcviz-vm-tbextract',
+				location: locationPath + 'src/js/widgets/viewmodels',
+				main: 'toolbarextractVM'
+			}, {
 				name: 'gcviz-v-map',
 				location: locationPath + 'src/js/widgets/views',
 				main: 'mapV'

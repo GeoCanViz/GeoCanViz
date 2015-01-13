@@ -150,11 +150,11 @@
 			});
 		};
 
-		projectCoords = function(coords, outwkid, success) {
+		projectCoords = function(coords, inwkid, outwkid, success) {
 			var point,
 				points = [],
 				len = coords.length,
-				inSR = new esriSR({ 'wkid': 4326 });
+				inSR = new esriSR({ 'wkid': inwkid });
 
 			while (len--) {
 				point = coords[len];

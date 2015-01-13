@@ -2176,6 +2176,11 @@
                 "enable": true
             }
         },
+        "toolbarextract": {
+            "enable": true,
+            "expand": false,
+            "pos": 4
+        },
         "insetframe": {
             "enable": false
         },

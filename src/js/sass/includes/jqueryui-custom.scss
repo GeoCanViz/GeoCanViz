@@ -522,7 +522,7 @@ button.ui-button::-moz-focus-inner {
 	cursor: pointer;
 	position: relative;
 	margin-top: 2px;
-	padding: .5em .5em .5em .7em;
+	padding: .25em .25em .25em .7em; // gcviz
 	min-height: 0; /* support: IE7 */
 	
 	// gcviz to have transparent border, so when hover, no move

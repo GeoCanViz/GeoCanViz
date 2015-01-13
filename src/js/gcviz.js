@@ -28,8 +28,9 @@ var locationPath;
 			'gcviz-v-tbdraw',
 			'gcviz-v-tbnav',
 			'gcviz-v-tblegend',
-			'gcviz-v-tbdata'
-	], function($viz, mp, jqui, i18n, gcvizFunc, map, inset, help, wcag, datagrid, header, footer, tbdraw, tbnav, tblegend, tbdata) {
+			'gcviz-v-tbdata',
+			'gcviz-v-tbextract'
+	], function($viz, mp, jqui, i18n, gcvizFunc, map, inset, help, wcag, datagrid, header, footer, tbdraw, tbnav, tblegend, tbdata, tbextract) {
 		var initialize,
 			readConfig,
 			execConfig,
@@ -166,6 +167,11 @@ var locationPath;
 			// add data
 			if (config.toolbardata.enable) {
 				vmArray.data = tbdata.initialize($mapSection);
+			}
+
+			// add data extraction
+			if (config.toolbarextract.enable) {
+				vmArray.extract = tbextract.initialize($mapSection);
 			}
 
 			// add inset

@@ -93,7 +93,7 @@
 					setColor(color);
 
 					// project point then call addToMap
-					gisgeo.projectCoords(points, map.spatialReference.wkid, addToMap);
+					gisgeo.projectCoords(points, 4326, map.spatialReference.wkid, addToMap);
 				};
 
 				_self.drawText = function(text, color) {
@@ -110,7 +110,7 @@
 					setColor(color);
 
 					// project point then call addToMap
-					gisgeo.projectCoords([[point[0], point[1]]], map.spatialReference.wkid, addToMap);
+					gisgeo.projectCoords([[point[0], point[1]]], 4326, map.spatialReference.wkid, addToMap);
 				};
 
 				_self.drawExtent = function() {
@@ -268,10 +268,10 @@
 
 					if (type === 0) {
 						// project point then call lengthWCAG
-						gisgeo.projectCoords(points, map.spatialReference.wkid, lengthWCAG);
+						gisgeo.projectCoords(points, 4326, map.spatialReference.wkid, lengthWCAG);
 					} else {
 						// project point then call areaWCAG
-						gisgeo.projectCoords(points, map.spatialReference.wkid, areaWCAG);
+						gisgeo.projectCoords(points, 4326, map.spatialReference.wkid, areaWCAG);
 					}
 				};
 

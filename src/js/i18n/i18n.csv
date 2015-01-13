@@ -137,6 +137,9 @@ Global sys value#%gisurlalti#http://geogratis.gc.ca/services/elevation/cdem/alti
 #%toolbardata-err3#Presence of element(s) with invalid latitude and/or longitude.#Présence d'élément(s) dont les valeurs de latitude et/ou de longitude sont invalides.
 #%toolbardata-err4#Error fetching items from CSV file: #Erreur de récupération des items du fichier CSV : 
 #%toolbardata-ie9#This tool is not available in Internet Explorer version 9. You need Internet Explorer version 10 and higher or another browser (Chrome, FireFox or Safari).#Cet outil n'est pas disponible dans Internet Explorer 9. Vous devez avoir la version 10 et plus ou un autre navigateur (Chrome, Firefox ou Safari).
+#%toolbarextract-alt#Download Topographic Maps and Data - Help#Téléchager cartes et données - Aide
+#%toolbarextract-name#Download Topographic Maps and Data#Téléchager cartes et données
+#%toolbarextract-btnget#Get Data#Obtenir les données
 #%inset-tplight#Open the content in a lightbox#Ouvrir le contenu dans un lightbox
 #%inset-tpplayvideo#Play video#Jouer la vidéo
 #%mp-close#Close (Esc)#Fermer (Esc)
