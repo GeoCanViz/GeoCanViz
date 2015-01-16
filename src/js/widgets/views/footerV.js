@@ -36,7 +36,8 @@
 
 			// add button to open datagrid
 			if (configDatagrid.enable) {
-				node += '<button class="gcviz-foot-data" tabindex="0" data-bind="buttonBlur, click: datagridClick, tooltip: { content: tpDatagrid }, enable: isTableReady"></button>';
+				node += '<button tabindex="0" data-bind="buttonBlur, click: datagridClick, tooltip: { content: tpDatagrid, position: { my: \'right+30 top-65\', collision: \'fit\' } },' +
+				 										'enable: isTableReady, css: { \'gcviz-foot-data\': isTableReady(), \'gcviz-foot-loaddata\': !isTableReady() }"></button>';
 			}
 
 			node += '</div>';

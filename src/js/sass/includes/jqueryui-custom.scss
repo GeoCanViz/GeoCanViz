@@ -12,7 +12,7 @@
 	top: 0;
 	left: 0;
 	outline: 0;
-	background: $lightyellow!important;
+	background: $yellow-light!important;
 	z-index: 15003!important;
 }
 .ui-dialog .ui-dialog-titlebar {
@@ -28,7 +28,7 @@
   border-bottom-right-radius: 0px!important;
 }
 .ui-dialog .ui-dialog-titlebar, .ui-widget-header {
-  border: none!important;
+  border: none;
 }
 .ui-dialog .ui-widget-header {
   color: #000000!important;
@@ -64,7 +64,7 @@
   margin-top: 0px!important;
   margin-bottom: 0px!important;
 	color: #000000!important;
-	background: $lightyellow!important;
+	background: $yellow-light!important;
 	height: 100%!important;
 }
 .ui-dialog .ui-dialog-content a {
@@ -266,9 +266,7 @@ button.ui-button::-moz-focus-inner {
 .ui-widget-content .ui-state-default,
 .ui-widget-header .ui-state-default {
 	border: 2px solid #b1afab;
-	// gcviz remove
-	//background: #555555 url(images/ui-bg_glass_20_555555_1x400.png) 50% 50% repeat-x;
-	color: #000; // set black
+	color: #000!important; // set black
 }
 .ui-state-default a,
 .ui-state-default a:link,
@@ -282,9 +280,8 @@ button.ui-button::-moz-focus-inner {
 .ui-state-focus,
 .ui-widget-content .ui-state-focus,
 .ui-widget-header .ui-state-focus {
-  border: 2px solid #ff6600!important;
-  //background: #fff;
-  color: #000;
+  border: 2px solid #ff7e27!important;
+  color: #000!important;
 }
 .ui-state-hover a,
 .ui-state-hover a:hover,
@@ -301,8 +298,6 @@ button.ui-button::-moz-focus-inner {
 .ui-widget-content .ui-state-active,
 .ui-widget-header .ui-state-active {
 	border: 1px solid #ffaf0f;
-	// gcviz remove
-	//background: #f58400 url(images/ui-bg_inset-soft_30_f58400_1x100.png) 50% 50% repeat-x;
 	color: #ffaf0f;
 }
 .ui-state-active a,
@@ -310,6 +305,41 @@ button.ui-button::-moz-focus-inner {
 .ui-state-active a:visited {
 	color: #ffffff;
 	text-decoration: none;
+}
+
+/* overwrite for tabs
+----------------------------------*/
+.gcviz-datagrid-ul {
+	.ui-state-default,
+	.ui-widget-content .ui-state-default,
+	.ui-widget-header .ui-state-default {
+		border: none!important;
+		background: #d2dbdb;
+		color: #000!important; // set black
+	}
+	
+	.ui-state-hover,
+	.ui-widget-content .ui-state-hover,
+	.ui-widget-header .ui-state-hover,
+	.ui-state-focus,
+	.ui-widget-content .ui-state-focus,
+	.ui-widget-header .ui-state-focus {
+	  border: none!important;
+	  background: #ff8a3b;
+	  color: #000!important;
+	}
+	
+	.ui-state-active,
+	.ui-widget-content .ui-state-active,
+	.ui-widget-header .ui-state-active {
+		border: none!important;
+		background: #ffad76;
+		color: #ffaf0f;
+	}
+	
+	.ui-tabs-anchor {
+		color: $black!important;
+	}
 }
 
 /* Interaction Cues

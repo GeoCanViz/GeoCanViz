@@ -531,12 +531,18 @@
             }
         },
         "toolbardata": {
-            "enable": false,
+            "enable": true,
             "expand": false,
             "pos": 3,
             "data": {
                 "enable": true
             }
+        },
+        "toolbarextract": {
+            "enable": false,
+            "expand": false,
+            "pos": 4,
+            "items": []
         },
         "insetframe": {
             "enable": false
@@ -552,31 +558,36 @@
                 "title": "GMRC",
                 "fields": [{
                     "title": "Object Id",
-                    "width": "60px",
-                    "data": "OBJECTID"
+                    "width": "160px",
+                    "data": "OBJECTID",
+                    "dataalias": "OBJECTID"
                 }, {
                     "title": "Geo Id",
-                    "width": "60px",
-                    "data": "GEO_ID"
+                    "width": "160px",
+                    "data": "GEO_ID",
+                    "dataalias": "GEO_ID"
                 }, {
                     "title": "Geo Sym",
-                    "width": "50px",
-                    "data": "GEO_SYM"
+                    "width": "250px",
+                    "data": "GEO_SYM",
+                    "dataalias": "GEO_SYM"
                 }, {
                     "title": "Geo EDESC",
-                    "width": "50px",
-                    "data": "GEO_EDESC"
+                    "width": "250px",
+                    "data": "GEO_EDESC",
+                    "dataalias": "GEO_EDESC"
                 }, {
                     "title": "Geo FDESC",
                     "width": "250px",
-                    "data": "GEO_FDESC"
+                    "data": "GEO_FDESC",
+                    "dataalias": "GEO_FDESC"
                 }],
                 "linktable": {
                     "enable": false
                  },
                  "popups": {
                     "enable": true,
-                    "title": "GMRC"
+                    "title": "Geology - Major Rock Categories"
                  },
                  "hover": {
                      "enable": false,
@@ -586,28 +597,31 @@
                 "layerinfo": {
                     "id": "6f798c6b-aaa1-4e24-78dd-9bfa5a9bc59e",
                     "type": 5,
-                    "index": 0
+                    "index": 27
                 },
                 "title": "Point",
                 "fields": [{
                     "title": "OBJECTID",
                     "width": "60px",
-                    "data": "OBJECTID"
+                    "data": "OBJECTID",
+                    "dataalias": "OBJECTID"
                 }, {
                     "title": "Species",
                     "width": "60px",
-                    "data": "SPECIES"
+                    "data": "SPECIES",
+                    "dataalias": "SPECIES"
                 }, {
                     "title": "Rank",
                     "width": "50px",
-                    "data": "RANK"
+                    "data": "RANK",
+                    "dataalias": "RANK"
                 }],
                 "linktable": {
                     "enable": false
                  },
                  "popups": {
                     "enable": true,
-                    "title": "Points"
+                    "title": "Rare Plants"
                  },
                  "hover": {
                      "enable": false,
@@ -617,20 +631,21 @@
                 "layerinfo": {
                     "id": "6f798c6b-aaa2-4e24-78dd-9bfa5a9bc59e",
                     "type": 5,
-                    "index": 0
+                    "index": 11
                 },
                 "title": "Line",
                 "fields": [{
                     "title": "Id",
                     "width": "60px",
-                    "data": "OBJECTID"
+                    "data": "OBJECTID",
+                    "dataalias": "SHAPE_FID"
                 }],
                 "linktable": {
                     "enable": false
                  },
                  "popups": {
                     "enable": true,
-                    "title": "Line"
+                    "title": "Canada - Political Boundaries"
                  },
                  "hover": {
                      "enable": false,
@@ -646,45 +661,20 @@
                 "fields": [{
                     "title": "OperationE",
                     "width": "60px",
-                    "data": "OperationE"
+                    "data": "OperationE",
+                    "dataalias": "OperationE"
                 }, {
                     "title": "CityE",
                     "width": "60px",
-                    "data": "CityE"
+                    "data": "CityE",
+                    "dataalias": "CityE"
                 }],
                 "linktable": {
                     "enable": false
                  },
                  "popups": {
                     "enable": true,
-                    "title": "Mines2"
-                 },
-                 "hover": {
-                     "enable": false,
-                     "hoverfield": "Community Well-Being"
-                 }
-            }, {
-                "layerinfo": {
-                    "id": "6f798c6b-aaa4-4e24-78dd-9bfa5a9bc59e",
-                    "type": 4,
-                    "index": 2
-                },
-                "title": "Dynamic Coil Mines",
-                "fields": [{
-                    "title": "Province",
-                    "width": "60px",
-                    "data": "Province_E"
-                }, {
-                    "title": "Operation Type",
-                    "width": "60px",
-                    "data": "Operation_Type"
-                }],
-                "linktable": {
-                    "enable": false
-                 },
-                 "popups": {
-                    "enable": true,
-                    "title": "Mines"
+                    "title": "Metal mines"
                  },
                  "hover": {
                      "enable": false,

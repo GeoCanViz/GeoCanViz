@@ -449,18 +449,20 @@
 				factor = 0.25;
 
 			if (type === 'point') {
-
-				// if lods is define, do not use level
+				// if lods is define, use level
 				lods = map._params.lods,
 				len = lods.length;
 				if (len > 0) {
 					factor = lods[len - 5].resolution;
+					map.setLevel(factor);
+				} else {
+					map.setZoom(factor);
 				}
 
+				// there is a bug with the API with centerAtZoom. It only work the first few times.
+				// to avoid this, we use centerAt then zoom to the geometry.
 				pt = new esriPoint(geom.x, geom.y, map.vWkid);
-				// there is a bug with the API. It only work the first few times
-				// I remove the factor and it works. Will have to investigate TODO:
-				map.centerAndZoom(pt);
+				map.centerAt(pt);
 			} else {
 				map.setExtent(geom.getExtent().expand(2));
 			}

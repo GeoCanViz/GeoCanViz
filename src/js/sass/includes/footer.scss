@@ -46,8 +46,16 @@
 
 // the header button sprite (need to use background-position because FF is not able to set x and y)
 .gcviz-foot-data {
-	@include sprite($img-spritebtn, -976, -2);
+	@include sprite($img-spritebtn, -1481, -2);
 	margin-top: (0.4 * $rembase) + rem;
+}
+
+.gcviz-foot-loaddata {
+	background: url("images/footLoadData.gif") no-repeat;
+	height: 32px;
+	width: 32px;
+	border: none;
+	margin: (0.4 * $rembase) + rem;
 }
 
 .gcviz-foot-logo {

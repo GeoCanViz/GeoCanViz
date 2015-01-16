@@ -4,6 +4,45 @@
 	margin-top: (0.2 * $rembase) + rem;
 }
 
+.gcviz-dt-search {
+	display: block;
+	margin: auto;
+	width: 80%;
+}
+
+/* tooltip for string element more then 40 characters. This one is
+   activated on focus to solve the wcag issue */
+.gcviz-datagrid-stringbtn {
+	width: 12px;
+	border: none;
+	display: inline-block;
+	background: none;
+	margin: 0;
+	padding: 0;
+	cursor: initial!important;
+}
+
+.gcviz-datagrid-stringtp {
+	z-index: 10;
+	display: none;
+	padding: 14px 20px;
+	margin-left: -300px;
+	width: 300px;
+	border-radius: 4px;
+	box-shadow: 5px 5px 8px #CCC;
+}
+
+.gcviz-datagrid-stringbtn:focus + .gcviz-datagrid-stringtp {
+	display: inline;
+	position: absolute;
+	color: $black;
+	border: 1px solid $black;
+	background: $yellow-light;
+	visibility: visible;
+	opacity: 1;
+}
+/* end tooltip section */
+
 table.display {
  table-layout: fixed;
  word-wrap: break-word;
@@ -21,7 +60,7 @@ table.dataTable.no-footer {
 .gcviz-datagrid-hold {
 	background: url($img-head) no-repeat!important;
 	background-size: 100% 100%!important;
-	color: #000000!important;
+	color: $black!important;
 	border-radius: 0rem!important;
 	padding-top: (0.5 * $rembase) + rem!important;
 	padding-left: (0.5 * $rembase) + rem!important;
@@ -30,16 +69,17 @@ table.dataTable.no-footer {
 }
 
 .gcviz-datagrid-tab {
-	color: #000000!important;
+	color: $black!important;
 }
 
 .gcviz-datagrid-ul {
-	background: #929292!important;
-	border: 1px solid #585858!important;
+	background: $grey-green!important;
+	border-radius: 0!important;
+	border: 1px solid #677!important;
 }
 
 .gcviz-backYellow {
-	background-color: #F0F782!important;
+	background-color: $yellow-select!important;
 }
 
 // hide the id row

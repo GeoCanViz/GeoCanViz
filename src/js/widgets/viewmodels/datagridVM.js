@@ -16,7 +16,9 @@
 	], function($viz, ko, i18n, gcvizFunc, gisMap, gisDG) {
 		var initialize,
 			addTab,
-			innerTab,
+			removeTab,
+			innerAddTab,
+			innerRemoveTab,
 			innerTable,
 			vm;
 
@@ -83,34 +85,50 @@
 						collapsible: true,
 						active: false,
 						activate: function() {
-							// order the first row after select and zoom to align header and column
-							objDataTable[0].order([3, 'asc']).draw();
+							// redraw to align header and column
+							objDataTable[tables - 1].draw();
 						}
 					});
 					$viz('.ui-accordion-header').hide();
 
 					// wait for the map to load
 					mymap.on('load', function() {
-						var layers = config.layers,
+						var interval,
+							layers = config.layers,
 							lenLayers = layers.length;
 
 						// intialize gisdatagrid. It will create the grahic layer for selection
 						gisDG.initialize(mymap);
 
-						// loop all layers
-						while (lenLayers--) {
-							_self.getData(layers[lenLayers]);
-						}
+						// initialize array length to position the data at the right place later.
+						// if a table initialize slower then next one, position can be messed up.
+						objDataTable[lenLayers - 1] = undefined;
+						objData[lenLayers - 1] = undefined;
+
+						// loop all layers inside an interval to make sure there is no mees up with the index
+						// When they start at the same time, index can be switch to another table and the geometries
+						// doesn't match the table anymore.
+						interval = setInterval(function() {
+							lenLayers--;
+							_self.getData(layers[lenLayers], lenLayers);
+							
+							if (lenLayers === 0) {
+								clearInterval(interval);
+							}
+						}, 1000);
 					});
 				};
 
-				_self.getData = function(layer) {
+				_self.getData = function(layer, pos) {
 					var urlFull,
 						layerInfo = layer.layerinfo,
 						layerIndex = layerInfo.index,
 						type = layerInfo.type,
 						url = mymap.getLayer(layerInfo.id).url,
 						popup = layer.popups.enable;
+
+					// set position in the array too be able to create unique id later
+					layerInfo.pos = pos;
 
 					if (type === 4) {
 						// datatable (dynamic layer, need layer index to select one layer in the dynamic service)
@@ -134,16 +152,23 @@
 					}
 				};
 
+				_self.removeTab = function(id) {
+					console.log(id);
+					$viz('[id=' + id + ']').remove();
+					$datatab.tabs('refresh');
+				};
+
 				_self.createTab = function(data) {
 					// get layer info from first element
-					var layer = data[0].layer;
-					delete data[0].layer;
+					var item = data[0],
+						layer = item.layer;
+					delete item.layer;
 
 					// increment table
 					table += 1;
 
 					// add the tab and controls (select all, zoom selected and clear zoom)
-					$datatabUl.append('<li><a href="#tabs-' + mapid + '-' + table + '">' + layer.title + '</a></li>');
+					$datatabUl.append('<li><a href="#tabs-' + mapid + '-' + table + '" id="' + item.layerid + '">' + layer.title + '</a></li>');
 					$datatab.append('<div id="tabs-' + mapid + '-' + table + '" class="gcviz-datagrid-tab">' +
 									'<table id="table-' + mapid + '-' + table + '" class="gcviz-datatable display">' +
 										'<button class="gcviz-dg-zoomsel">' + _self.lblZoomSelect + '</button>' +
@@ -164,14 +189,21 @@
 					dataTB = $table.DataTable({
 						'data': data,
 						'serverSide': false,
-						'scrollY': 300,
+						'scrollY': 400,
 						'scrollX': true,
 						'scrollCollapse': true,
 						'pagingType': 'full',
 						'processing': true,
 						'columns': fields,
-						'initComplete': function() {
+						'initComplete': function(inTable) {
 							_self.finishInit(table);
+							
+							// Setup - add a text input to each header cell (for search capabilities)
+							$viz('#' + inTable.sTableId + '_wrapper .dataTables_scrollHead th').each(function (colIdx) {
+								if (colIdx > 2) {
+									$(this).append('<input type="text" class="gcviz-dt-search" placeholder="Search '+ this.innerText +'"></text>');
+								}
+							});
 						},
 						'language': {
 							'processing': _self.processing,
@@ -196,13 +228,23 @@
 								'sortDescending': _self.sortDescending
 							}
 						},
-						rowCallback: function (row, data) {
+						rowCallback: function(row, data) {
 							// Set the checked state of the checkbox in the table
 							var item = $viz('.gcviz-dg-select', row),
 								val = data.gcvizcheck;
 							item.prop('checked', val === true);
 							_self.highlightRow(item, val);
 						}
+					});
+
+					// Apply the search by field
+					dataTB.columns().eq(0).each(function(colIdx) {
+						$viz('input', dataTB.column(colIdx).header()).on('keyup change', function() {
+							dataTB
+								.column(colIdx)
+								.search(this.value)
+								.draw();
+							});
 					});
 
 					// FIXED COLUMNS
@@ -218,8 +260,17 @@
 
 					// add the datatable and data to a global array so we can access it later
 					// reverse the data to have then in the same order as the id. It will easier to find later.
-					objDataTable.push(dataTB);
-					objData.push(data.reverse());
+					// we set the table at the right position to ensure a good link. If not, table with item 1-1
+					// can be in the third position of the array. The result is the zoom function will use the wrong
+					// geometry.
+					if (typeof layer.layerinfo !== 'undefined') {
+						objDataTable[layer.layerinfo.pos] = dataTB;
+						objData[layer.layerinfo.pos] = data.reverse();
+					} else {
+						// table added with data toolbar
+						objDataTable.push(dataTB);
+						objData.push(data.reverse());
+					}
 				};
 
 				_self.createFields = function(layer) {
@@ -231,10 +282,15 @@
 					while (lenFields--) {
 						field = fields[lenFields];
 
-						field.render = function (data, type) {
+						field.render = function (data, type, row) {
 							if (data !== null) {
+								// for wcag we add a text input read only. This element is focusable so we can have
+								// the tooltip. Wrap in a relative position div to have the tooltip at the right
+								// after a scroll
 								return type === 'display' && data.length > 40 ?
-								'<span title="'+ data +'">' + data.substr(0, 38) + '...</span>' : data;
+								'<div style="position: relative;"><span title="'+ data +'">' + data.substr(0, 38) + '</span>' +
+								'<input type="text" readOnly=true value= "..." class="gcviz-datagrid-stringbtn"></input>' +
+								'<span class="gcviz-datagrid-stringtp">' + data + '</span></div>' : data;
 							} else {
 								return data;
 							}
@@ -246,7 +302,7 @@
 						data: null,
 						className: 'dt-body-center',
 						title: 'Zoom',
-						width: '35px',
+						width: '45px',
 						searchable: false,
 						orderable: false,
 						render: function (data, type) {
@@ -261,7 +317,7 @@
 						data: 'gcvizcheck',
 						className: 'dt-body-center',
 						title: 'Select',
-						width: '32px',
+						width: '45px',
 						searchable: false,
 						orderable: false,
 						render: function (data, type) {
@@ -291,15 +347,17 @@
 
 					// if all tables have been initialize
 					if (table === tables) {
+
 						// set tabs and refresh accordion
 						$datatab.tabs({
 							heightStyle: 'auto',
+							event: 'mouseover',
 							activate: function() {
 								// order the first row after select and zoom to align header and column
 								var len = objDataTable.length;
 
 								while (len--) {
-									objDataTable[len].order([3, 'asc']).draw();
+									objDataTable[len].draw();
 								}
 							}
 						});
@@ -307,6 +365,10 @@
 
 						// enable datagrid button in footerVM
 						gcvizFunc.setElemValueVM(mapid, 'footer', 'isTableReady', true);
+						
+						$viz('.gcviz-dt-search').on('click', function(e) {
+							event.stopPropagation();
+						});
 					}
 
 					// new table have been added
@@ -526,11 +588,6 @@
 					}
 				};
 
-				// keep _self outiside initialize to be able to call it from outside
-				// in this case we will need it to add a new tab for csv data
-				innerTab = _self.createTab;
-				innerTable = table;
-
 				_self.highlightRow = function(item, check) {
 					var row = item.parent().parent();
 					
@@ -544,6 +601,12 @@
 						row.find('.gcviz-backYellow').removeClass('gcviz-backYellow');
 					}
 				};
+
+				// keep _self outiside initialize to be able to call it from outside
+				// in this case we will need it to add a new tab for csv data or remove one
+				innerAddTab = _self.createTab;
+				innerRemoveTab = _self.removeTab;
+				innerTable = tables - 1;
 
 				// ********* popup section **********
 				_self.returnIdTask = function(array) {
@@ -624,7 +687,7 @@
 								lenFields--;
 
 								for (var l = 0; l < attrNames.length; l++) {
-									if (field.datapop.toUpperCase() === attrNames[l].toUpperCase()) {
+									if (field.dataalias.toUpperCase() === attrNames[l].toUpperCase()) {
 										info = '<span class="gcviz-prop">' + field.title + '</span>' +
 												'<p class="gcviz-val">' + attrValues[l] + '</p>' +
 												info;
@@ -806,12 +869,17 @@
 			datas[0].layer = layer;
 
 			// call the inner create tab function
-			innerTab(datas);
+			innerAddTab(datas);
+		};
+
+		removeTab = function(id) {
+			innerRemoveTab(id);
 		};
 
 		return {
 			initialize: initialize,
-			addTab: addTab
+			addTab: addTab,
+			removeTab: removeTab
 		};
 	});
 }).call(this);

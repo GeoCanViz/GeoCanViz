@@ -1147,6 +1147,12 @@
                 "enable": false
             }
         },
+        "toolbarextract": {
+            "enable": false,
+            "expand": false,
+            "pos": 4,
+            "items": []
+        },
         "insetframe": {
             "enable": false
         },
@@ -1165,12 +1171,12 @@
                         "title": "Project Name",
                         "width": "90px",
                         "data": "Short_Name",
-                        "datapop": "Short_Name"
+                        "dataalias": "Short_Name"
                     }, {
                         "title": "AMPI Classification",
                         "width": "60px",
                         "data": "AMPI_Classification",
-                        "datapop": "AMPI_Classification"
+                        "dataalias": "AMPI_Classification"
                     }],
                     "linktable": {
                         "enable": false
@@ -1194,67 +1200,67 @@
                         "title": "Total S (Scores)",
                         "width": "90px",
                         "data": "NAME",
-                        "datapop": "NAME"
+                        "dataalias": "NAME"
                     }, {
                         "title": "Type",
                         "width": "90px",
                         "data": "TYPE",
-                        "datapop": "TYPE"
+                        "dataalias": "TYPE"
                     }, {
                         "title": "Measure: probability of construction jobs",
                         "width": "90px",
                         "data": "M_1",
-                        "datapop": "M_1"
+                        "dataalias": "M_1"
                     }, {
                         "title": "Measure: In Ground Value (physical volume of resource) x commodity price ",
                         "width": "60px",
                         "data": "M_2",
-                        "datapop": "M_2"
+                        "dataalias": "M_2"
                     }, {
                         "title": "Criteria: Economic Output (EO) Total S (Scores)",
                         "width": "60px",
                         "data": "EO_S",
-                        "datapop": "EO_S"
+                        "dataalias": "EO_S"
                     }, {
                         "title": "Measure: Project Diversity (new commodities added, pr-weighted for minerals)",
                         "width": "60px",
                         "data": "M_3",
-                        "datapop": "M_3"
+                        "dataalias": "M_3"
                     }, {
                         "title": "Measure: Employment Duration (P/Y)",
                         "width": "60px",
                         "data": "M_4",
-                        "datapop": "M_4"
+                        "dataalias": "M_4"
                     }, {
                         "title": "Measure: Anchor Projects (# existing mines with ~ 200 jobs or more)",
                         "width": "60px",
                         "data": "M_5",
-                        "datapop": "M_5"
+                        "dataalias": "M_5"
                     }, {
                         "title": "Criteria: Cluster Resilience (CR) Total S (Scores)",
                         "width": "60px",
                         "data": "CR_S",
-                        "datapop": "CR_S"
+                        "dataalias": "CR_S"
                     }, {
                         "title": "Measure: distance from nearest transportation infrastructure (km)",
                         "width": "60px",
                         "data": "M_6",
-                        "datapop": "M_6"
+                        "dataalias": "M_6"
                     }, {
                         "title": "Measure: total electricity generation capacity (kW)",
                         "width": "60px",
                         "data": "M_7",
-                        "datapop": "M_7"
+                        "dataalias": "M_7"
                     }, {
                         "title": "Measure: access to broadband  (% of population unserved)",
                         "width": "60px",
                         "data": "M_8",
-                        "datapop": "M_8"
+                        "dataalias": "M_8"
                     }, {
                         "title": "Measure: number of communities",
                         "width": "60px",
                         "data": "M_9",
-                        "datapop": "M_9"
+                        "dataalias": "M_9"
                     }],
                     "linktable": {
                         "enable": false

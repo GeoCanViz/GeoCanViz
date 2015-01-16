@@ -31,7 +31,13 @@
 "toolbardraw": {"enable": true,"expand": true,"drawline": {"enable": true},"drawtext": {"enable": true},"measureline": {"enable": true,"unit": 1},"measurearea": {"enable": true,"unit": 1},"importexport": {"enable": true}},
 "toolbarnav": {"enable": true,"expand": false,"mapwkid": 3978,"geolocation": {"enable": true,"type": -1},"scaledisplay": {"enable": true,"format": 1},"overview": {"enable": true,"url": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/BaseMaps/Provinces/MapServer","type": 4},"position": {"enable": true}},
 "toolbardata": {"enable": true,"expand": false,"data": {"enable": true}},"insetframe": {"enable": false},
-"datagrid": {
+"toolbarextract": {
+            "enable": true,
+            "expand": false,
+            "pos": 3,
+            "items": []
+        },
+        "datagrid": {
 	"enable": false
 },
 "customwidgets": []}}

@@ -12,8 +12,9 @@
 			'gcviz-func',
 			'gcviz-i18n',
 			'gcviz-gisdata',
-			'gcviz-gislegend'
-	], function($viz, ko, gcvizFunc, i18n, gisData, gisLegend) {
+			'gcviz-gislegend',
+			'gcviz-vm-datagrid'
+	], function($viz, ko, gcvizFunc, i18n, gisData, gisLegend, vmDatagrid) {
 		var initialize,
 			vm;
 
@@ -97,7 +98,7 @@
 							var uuid = gcvizFunc.getUUID(),
 								fileName = reader.fileName;
 
-							// use deffed object to wait for the result	
+							// use deffered object to wait for the result	
 							gisData.addCSV(mymap, reader.result, uuid, fileName)
 								.done(function(data) {
 									if (data === 0) {
@@ -133,6 +134,11 @@
 
 					// focus back on add to keep focus
 					$btnCSV.focus();
+					
+					// remove table if datagrid is enable
+					if (typeof vmDatagrid !== 'undefined') {
+						vmDatagrid.removeTab(selectedItem.id);
+					}
 				};
 
 				_self.changeItemsVisibility = function(selectedItem, event) {

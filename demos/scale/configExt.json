@@ -26,6 +26,12 @@
 "toolbardraw": {"enable": true,"expand": false,"pos": 0,"drawline": {"enable": true},"drawtext": {"enable": true},"measureline": {"enable": true,"unit": 1},"measurearea": {"enable": true,"unit": 1},"importexport": {"enable": true}},
 "toolbarnav": {"enable": true,"expand": true,"pos": 2,"mapwkid": 3978,"geolocation": {"enable": true,"type": -1},"scaledisplay": {"enable": true,"format": 1},"overview": {"enable": true,"url": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/BaseMaps/Provinces/MapServer","type": 4},"position": {"enable": true}},
 "toolbardata": {"enable": true,"expand": false,"pos": 3,"data": {"enable": true}},"insetframe": {"enable": false},
+"toolbarextract": {
+            "enable": false,
+            "expand": false,
+            "pos": 4,
+            "items": []
+        },
 "insetframe": {"enable": false},
 "datagrid": {
 	"enable": true,
@@ -38,8 +44,8 @@
                },
                "title": "GMRC",
                "fields": [
-                    	{"title": "Desc English", "width": "90px", "data": "GEO_EDESC", "datapop": "GEO_EDESC"},
-                    	{"title": "Desc French", "width": "60px", "data": "GEO_FDESC", "datapop": "GEO_FDESC"}
+                    	{"title": "Desc English", "width": "90px", "data": "GEO_EDESC", "dataalias": "GEO_EDESC"},
+                    	{"title": "Desc French", "width": "60px", "data": "GEO_FDESC", "dataalias": "GEO_FDESC"}
 								],
 								"linktable": {
 									"enable": false
@@ -60,11 +66,11 @@
                },
                "title": "Geochronology Géochronologie",
                "fields": [
-                    	{"title": "Age (Million years)", "width": "90px", "data": "AGE", "datapop": "Age"},
-                    	{"title": "Age Method", "width": "60px", "data": "AGE_METHOD", "datapop": "Method"},
-                    	{"title": "Error Plus", "width": "60px", "data": "ERR_PLUS", "datapop": "Error Plus"},
-                    	{"title": "Error Minus", "width": "60px", "data": "ERR_MINUS", "datapop": "Error Minus"},
-                    	{"title": "Age Note", "width": "60px", "data": "AGE_NOTE",  "datapop": "Note"}
+                    	{"title": "Age (Million years)", "width": "90px", "data": "AGE", "dataalias": "Age"},
+                    	{"title": "Age Method", "width": "60px", "data": "AGE_METHOD", "dataalias": "Method"},
+                    	{"title": "Error Plus", "width": "60px", "data": "ERR_PLUS", "dataalias": "Error Plus"},
+                    	{"title": "Error Minus", "width": "60px", "data": "ERR_MINUS", "dataalias": "Error Minus"},
+                    	{"title": "Age Note", "width": "60px", "data": "AGE_NOTE",  "dataalias": "Note"}
 								],
 								"linktable": {
 									"enable": false
