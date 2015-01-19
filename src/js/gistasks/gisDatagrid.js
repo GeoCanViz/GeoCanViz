@@ -194,15 +194,36 @@
 		};
 
 		closeGetData = function(data, layer, success) {
-			// add layer info to first element. This way we will be able to get back to it
-			// after the reprojection.
+			var feat, len,
+				features = [],
+				item = data[0],
+				mapWkid = mymap.vWkid;
+
 			// set mapid to layer to make the function more global for data added with
 			// data toolbar
-			layer.mapid = mymap.vIdName,
-			data[0].attributes.layer = layer;
+			layer.mapid = mymap.vIdName;
 
 			// check if we need to reproject geometries
-			gisGeo.projectGeoms(data, wkid, success);
+			// add layer info to first element. This way we will be able to get back to it
+			// after the reprojection.
+			if (mapWkid !== item.spatialReference.wkid) {
+				item.attributes.layer = layer;
+				gisGeo.projectGeoms(data, mapWkid, success);
+			} else {
+				len = data.length;
+				data = data.reverse();
+
+				// put the attributes on first level
+				while (len--) {
+					feat = { };
+					feat = data[len].attributes;
+					delete data[len].attributes;
+					feat.geometry = data[len];
+					features.push(feat);
+				}
+				features[0].layer = layer;
+				success(features);
+			}
 		};
 
 		createGraphic = function(geometry, key) {

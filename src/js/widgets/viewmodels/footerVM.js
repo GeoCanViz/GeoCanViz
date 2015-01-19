@@ -28,7 +28,9 @@
 					configNorth = config.northarrow,
 					scalebar = config.scalebar,
 					inwkid = configNorth.inwkid,
-					outwkid = configMouse.outwkid;
+					outwkid = configMouse.outwkid,
+					$section = $viz('#section' + mapid),
+					heightData = 659; // height of datatable whn open
 
 				// viewmodel mapid to be access in tooltip custom binding
 				_self.mapid = mapid;
@@ -151,12 +153,17 @@
 				};
 
 				_self.datagridClick = function() {
-					var $datagrid = $viz('#gcviz-datagrid' + mapid);
+					var $datagrid = $viz('#gcviz-datagrid' + mapid),
+						heightSect = parseInt($section.css('height'), 10);
 
+					// refresh accordion and set the section height. If we dont set the heiggt when datatable is
+					// open, there is overlap in Safari.
 					if ($datagrid.accordion('option', 'active') === 0) {
 						$datagrid.accordion({ active: false }).click();
+						gcvizFunc.setStyle($section[0], { 'height': (heightSect - heightData) + 'px' });
 					} else {
 						$datagrid.accordion({ active: 0 }).click();
+						gcvizFunc.setStyle($section[0], { 'height': (heightSect + heightData) + 'px' });
 					}
 					return false;
 				};

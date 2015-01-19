@@ -161,29 +161,31 @@
 				_self.createTab = function(data) {
 					// get layer info from first element
 					var item = data[0],
-						layer = item.layer;
+						layer = item.layer,
+						pos = layer.layerinfo.pos;
 					delete item.layer;
 
-					// increment table
-					table += 1;
-
 					// add the tab and controls (select all, zoom selected and clear zoom)
-					$datatabUl.append('<li><a href="#tabs-' + mapid + '-' + table + '" id="' + item.layerid + '">' + layer.title + '</a></li>');
-					$datatab.append('<div id="tabs-' + mapid + '-' + table + '" class="gcviz-datagrid-tab">' +
-									'<table id="table-' + mapid + '-' + table + '" class="gcviz-datatable display">' +
+					$datatabUl.append('<li><a href="#tabs-' + mapid + '-' + pos + '" id="' + item.layerid + '">' + layer.title + '</a></li>');
+					$datatab.append('<div id="tabs-' + mapid + '-' + pos + '" class="gcviz-datagrid-tab">' +
+									'<table id="table-' + mapid + '-' + pos + '" class="gcviz-datatable display">' +
 										'<button class="gcviz-dg-zoomsel">' + _self.lblZoomSelect + '</button>' +
 										'<button class="gcviz-dg-clearzoom">' + _self.lblClearZoom + '</button>' +
 										'<input type="checkbox" class="gcviz-dg-selall" id="cb_seletAllFeat">' +
 										'<label for="cb_seletAllFeat" class="form-checkbox gcviz-dg-lblselall">' + _self.lblSelectAll + '</label>' +
 									'</table></div>');
 
+					// increment table and innerTable for the outside class function
+					table += 1;
+					innerTable = table;
+
 					// create datatable
-					_self.createTable(data, layer);
+					_self.createTable(data, layer, pos);
 				};
 
-				_self.createTable = function(data, layer) {
+				_self.createTable = function(data, layer, pos) {
 					var dataTB,
-						$table = $viz('#table-' + mapid + '-' + table),
+						$table = $viz('#table-' + mapid + '-' + pos),
 						fields = _self.createFields(layer);
 
 					dataTB = $table.DataTable({
@@ -196,12 +198,21 @@
 						'processing': true,
 						'columns': fields,
 						'initComplete': function(inTable) {
-							_self.finishInit(table);
+							var idTable = inTable.sTableId,
+								idxTable = idTable.split('-'),
+								$filter = $viz('#' + idTable + '_filter');
+
+							// call finish init with the position of the table in the array
+							_self.finishInit(idxTable[idxTable.length - 1]);
 							
+							// add the clear filter button
+							$filter.prepend('<button class="gcviz-foot-data gcviz-dg-clearquery"></button>');
+							$filter.children().addClass('gcviz-dt-pad');
+
 							// Setup - add a text input to each header cell (for search capabilities)
-							$viz('#' + inTable.sTableId + '_wrapper .dataTables_scrollHead th').each(function (colIdx) {
+							$viz('#' + idTable + '_wrapper .dataTables_scrollHead th').each(function (colIdx) {
 								if (colIdx > 2) {
-									$(this).append('<input type="text" class="gcviz-dt-search" placeholder="Search '+ this.innerText +'"></text>');
+									$(this).append('<input type="text" class="gcviz-dt-search" placeholder="' + _self.search + ' ' + this.innerHTML +'"></text>');
 								}
 							});
 						},
@@ -264,8 +275,8 @@
 					// can be in the third position of the array. The result is the zoom function will use the wrong
 					// geometry.
 					if (typeof layer.layerinfo !== 'undefined') {
-						objDataTable[layer.layerinfo.pos] = dataTB;
-						objData[layer.layerinfo.pos] = data.reverse();
+						objDataTable[pos] = dataTB;
+						objData[pos] = data.reverse();
 					} else {
 						// table added with data toolbar
 						objDataTable.push(dataTB);
@@ -341,9 +352,9 @@
 					return fields;
 				};
 
-				_self.finishInit = function() {
+				_self.finishInit = function(pos) {
 
-					_self.setEvents();
+					_self.setEvents(pos);
 
 					// if all tables have been initialize
 					if (table === tables) {
@@ -351,7 +362,6 @@
 						// set tabs and refresh accordion
 						$datatab.tabs({
 							heightStyle: 'auto',
-							event: 'mouseover',
 							activate: function() {
 								// order the first row after select and zoom to align header and column
 								var len = objDataTable.length;
@@ -365,9 +375,20 @@
 
 						// enable datagrid button in footerVM
 						gcvizFunc.setElemValueVM(mapid, 'footer', 'isTableReady', true);
-						
-						$viz('.gcviz-dt-search').on('click', function(e) {
+
+						// stop propagation of event on search by column field
+						$viz('.gcviz-dt-search').on('click', function(event) {
 							event.stopPropagation();
+						});
+
+						// subscribe to the full screen event. Redraw datatable because the width
+						// is modified
+						gcvizFunc.subscribeTo(mapid, 'header', 'isFullscreen', function() {
+							var len = objDataTable.length;
+
+							while (len--) {
+								objDataTable[len].draw();
+							}
 						});
 					}
 
@@ -378,9 +399,9 @@
 					}
 				};
 
-				_self.setEvents = function() {
-					var $table = $viz('#table-' + mapid + '-' + table),
-						$tabs = $viz('#tabs-' + mapid + '-' + table);
+				_self.setEvents = function(pos) {
+					var $table = $viz('#table-' + mapid + '-' + pos),
+						$tabs = $viz('#tabs-' + mapid + '-' + pos);
 
 					// set checkbox event
 					$table.on('change', '.gcviz-dg-select', function(e) {
@@ -421,6 +442,10 @@
 					$tabs.on('click', '.gcviz-dg-clearzoom', function(e) {
 						// clear zoom features
 						gisDG.unselectFeature('zoom');
+					});
+
+					$tabs.on('click', '.gcviz-dg-clearquery', function(e) {
+						alert('in');
 					});
 
 					// set click and double click on row
@@ -511,7 +536,7 @@
 				_self.zoomSelect = function(e) {
 					var feat,
 						features = [],
-						tableId = parseInt(e.target.parentElement.id.split('-')[2], 10) - 1,
+						tableId = parseInt(e.target.parentElement.id.split('-')[2], 10),
 						data = objData[tableId],
 						len = data.length;
 
@@ -558,7 +583,7 @@
 						len = checks.length;
 
 					// it comes from the checkbox, we grab the table id (we will need it later)
-					tableId = parseInt(target.parentElement.id.split('-')[2] - 1, 10);
+					tableId = parseInt(target.parentElement.id.split('-')[2], 10);
 					info.table = tableId;
 
 					// update the ui with the selected value
@@ -606,7 +631,6 @@
 				// in this case we will need it to add a new tab for csv data or remove one
 				innerAddTab = _self.createTab;
 				innerRemoveTab = _self.removeTab;
-				innerTable = tables - 1;
 
 				// ********* popup section **********
 				_self.returnIdTask = function(array) {
@@ -829,7 +853,7 @@
 				layer = { },
 				feats = featColl.featureSet.features,
 				lenFeat = feats.length,
-				table = innerTable + 1;
+				table = innerTable;
 
 			// setup fields
 			while (lenField--) {
@@ -866,6 +890,7 @@
 			layer.fields = fields;
 
 			// add layer info to first element
+			layer.layerinfo = { 'pos': table };
 			datas[0].layer = layer;
 
 			// call the inner create tab function

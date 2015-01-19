@@ -10,6 +10,12 @@
 	width: 80%;
 }
 
+.gcviz-dt-pad {
+	margin-bottom: 0!important;
+	padding: (0.5 * $rembase) + rem;
+	display: inline;
+}
+
 /* tooltip for string element more then 40 characters. This one is
    activated on focus to solve the wcag issue */
 .gcviz-datagrid-stringbtn {

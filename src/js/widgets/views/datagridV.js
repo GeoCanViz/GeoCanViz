@@ -22,7 +22,7 @@
 			$footer = $mapElem.find('.gcviz-foot');
 
 			// datatable and popup holder
-			node = '<div id="gcviz-datagridall' + mapid + '">' +
+			node = '<div id="gcviz-datagridall' + mapid + '" class="gcviz-dg-all">' +
 						'<div id="gcviz-datagrid' + mapid + '" class="gcviz-datagrid">' +
 							'<h3 id="gcviz-datahead' + mapid + '"></h3>' +
 							'<div id="gcviz-datatab' + mapid + '" class="gcviz-datagrid-hold">' +

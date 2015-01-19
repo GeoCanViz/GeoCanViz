@@ -198,7 +198,10 @@
 		};
 
 		focusMap = function(map) {
-			document.getElementById(map.vIdName + '_holder').focus();
+			var element = document.getElementById(map.vIdName + '_holder');
+
+			element.focus();
+			element.scrollIntoView(true);
 		};
 
 		padDigits = function(number, digits) {
