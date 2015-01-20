@@ -16,8 +16,9 @@
 			'gcviz-ko',
 			'gcviz-func',
 			'gcviz-gismap',
+			'gcviz-vm-tbextract',
 			'gcviz-vm-help'
-	], function($viz, ko, media, gisPrint, i18n, binding, gcvizFunc, gisM, helpVM) {
+	], function($viz, ko, media, gisPrint, i18n, binding, gcvizFunc, gisM, extractVM, helpVM) {
 		var initialize,
 			printSimple,
 			getRotationDegrees,
@@ -146,6 +147,16 @@
 
 				_self.showBubble = function(key, shift, keyType, id) {
 					return helpVM.toggleHelpBubble(key, id);
+				};
+
+				_self.showExtractGrid = function(event, ui) {
+					var panel = ui.newPanel;
+					
+					if (panel.hasClass('gcviz-tbextract-content')) {
+						extractVM.showGrid(map, true);
+					} else {
+						extractVM.showGrid(map, false);
+					}
 				};
 
 				_self.fullscreenClick = function() {

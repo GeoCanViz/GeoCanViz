@@ -84,7 +84,7 @@
 													'</div>');
 				menu = '<div id="gcviz-menu' + mapid + '" class="gcviz-menu" data-bind="uiAccordion: { heightStyle: \'content\', collapsible: true }, attr: { style: xheightToolsOuter }">' +
 							'<h3 class="gcviz-menu-title gcviz-menu-title' + ext + '" data-bind="panelBlur"><span data-bind="text: lblMenu"></span></h3>' +
-							'<div id="gcviz-menu-cont' + mapid + '" class="gcviz-menu-cont" data-bind="uiAccordion: { heightStyle: \'content\', collapsible: true, active: false }, attr: { style: xheightToolsInner }">' +
+							'<div id="gcviz-menu-cont' + mapid + '" class="gcviz-menu-cont" data-bind="uiAccordion: { heightStyle: \'content\', collapsible: true, active: false, activate: function(event, ui) { showExtractGrid(event, ui); } }, attr: { style: xheightToolsInner }">' +
 								addToolbars($mapElem, mapid) +
 							'</div>' +
 						'</div>';

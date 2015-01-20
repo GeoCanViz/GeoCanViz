@@ -409,7 +409,7 @@
 					var x = _self.xValue() * -1,
 						y = _self.yValue();
 
-					gisGeo.projectCoords([[x, y]], 4326, _self.displayInfo);
+					gisGeo.projectCoords([[x, y]], mymap.vWkid, 4326, _self.displayInfo);
 					_self.isDialogWCAG(false);
 					_self.wcagok = true;
 				};

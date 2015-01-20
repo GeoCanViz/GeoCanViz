@@ -1,6 +1,16 @@
 @import "includes/gcviz-mixin";
 
-.gcviz-extract-urldis {
+.gcviz-ext-urldis {
 	pointer-events: none;
 	color: $grey!important;
+}
+
+.gcviz-ext-url {
+	margin-left: (0.5 * $rembase) + rem;
+	margin-top: (0.25 * $rembase) + rem;
+	margin-bottom: (1 * $rembase) + rem;
+}
+// nts select button
+.gcviz-ext-nts {
+	@include sprite($img-spritebtn, -1049, -2);
 }

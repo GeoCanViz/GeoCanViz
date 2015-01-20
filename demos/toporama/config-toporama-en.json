@@ -2180,30 +2180,47 @@
             "enable": true,
             "expand": false,
             "pos": 3,
+            "grid": "bbbb469d-aaa1-c8f5-175c-645200a6b6fe",
             "items": [{
-            	"label": "Custom extent selection of CanVec and Elevation data using the Data Extraction Tool",
-            	"scale": 100000,
-            	"url": "http://geogratis.gc.ca/site/eng/extraction",
-            	"query": {
-            		"type": "extent",
-            		"param": "?bbox=XXX"
-            		}
-            	}, {
-            	"label": "Single NTS CanVec and legacy National Topographic Data Base (NTDB) tile",
-	            "scale": 1200000,
-	            "url": "http://geogratis.gc.ca/api/en/nrcan-rncan/ess-sst/-/OR/(urn:iso:series)toporama/(urn:iso:series)canvec",
-	            "query": {
+            	"label": "Maps: Toporama, CanMatrix Print-ready and Georeferenced",
+            	"scale": 1200000,
+            	"url": "http://geogratis.gc.ca/api/en/nrcan-rncan/ess-sst/-/(urn:iso:series)toporama",
+            	"query": [{
+            		"control": "button",
             		"type": "nts",
-            		"param": "?q=XXX"
-            		}
-	            }, {
-	            "label": "Multiple CanVec and legacy National Topographic Data Base (NTDB) tiles for the entire displayed map",
-	            "scale": 350000,
-	            "url": "http://geogratis.gc.ca/api/en/nrcan-rncan/ess-sst/-/OR/(urn:iso:series)toporama/(urn:iso:series)canvec",
-	            "query": {
+            		"param": "?q=XXX",
+            		"label": "Click map for single NTS area"
+            		}, {
+            		"control": "link",
             		"type": "extent",
-            		"param": "?bbox=XXX&sort-field=spatial"
-            		}
+            		"param": "?bbox=XXX",
+            		"label": "Get all NTS maps for area shown"
+            		}]
+            	}, {
+            	"label": "Data: CanVec and National Topographic Data Base (NTDB)",
+	            "scale": 1200000,
+	            "url": "http://geogratis.gc.ca/api/en/nrcan-rncan/ess-sst/-/OR/(urn:iso:series)ntdb/(urn:iso:series)canvec",
+	            "query": [{
+	           	  "control": "button",
+            		"type": "nts",
+            		"param": "?q=XXX",
+            		"label": "Click map for single NTS area"
+            		}, {
+            		"control": "link",
+            		"type": "extent",
+            		"param": "?bbox=XXX&sort-field=spatial",
+            		"label": "Get all data for area shown"
+            		}]
+	            }, {
+	            "label": "Data: CanVec and Elevation data using custom geographic extent",
+	            "scale": 350000,
+            	"url": "http://geogratis.gc.ca/site/eng/extraction",
+            	"query": [{
+            		"control": "link",
+            		"type": "extent",
+            		"param": "?bbox=XXX",
+            		"label": "Get data using the Data Extraction Tool"
+            		}]
 	           }]
         },
         "insetframe": {
