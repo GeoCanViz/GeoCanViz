@@ -27,7 +27,7 @@
 			// data model				
 			var toolbarextractViewModel = function($mapElem, mapid) {
 				var _self = this,
-					item, query, lenQuery,
+					item, lenQuery,
 					clickNTS,
 					len = config.items.length,
 					$menu = $viz('#gcviz-menu' + mapid),
@@ -55,13 +55,13 @@
 				// hrefData will be set true when extend is good and set href observable
 				while (len--) {
 					item = config.items[len];
-					
+
 					// loop trought query and set the href observable
 					lenQuery = item.query.length;
 					while (lenQuery--) {
 						item.query[lenQuery].hrefData = ko.observable('');
 					}
-					
+
 					// set the is ready observable to know if we are in the scale range
 					item.isReady = ko.observable(false);
 
@@ -77,7 +77,7 @@
 
 				// url for select nts button
 				_self.urlNTS = i18n.getDict('%gisurlnts');
-				
+
 				// WCAG
 				_self.WCAGTitle = i18n.getDict('%wcag-title');
 				_self.lblWCAGx = i18n.getDict('%wcag-xlong');
@@ -122,7 +122,7 @@
 
 						if (scale <= item.scale) {
 							item.isReady(true);
-							
+
 							// loop trought query to set href
 							while (lenQuery--) {
 								query = item.query[lenQuery];
@@ -218,7 +218,7 @@
 				_self.selectNTS = function(outPoint) {
 					var lati = outPoint[0].y,
 						longi = outPoint[0].x;
-					
+
 					// Get the NTS location using a deferred object and listen for completion
 					gisNav.getNTS(lati, longi, _self.urlNTS)
 						.done(function(data) {
@@ -279,7 +279,6 @@
 			if (!chk) {
 				gisLeg.setLayerVisibility(map, gridId, val);
 			}
-			
 		};
 
 		return {

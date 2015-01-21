@@ -587,7 +587,7 @@
                  },
                  "popups": {
                     "enable": true,
-                    "title": "Geology - Major Rock Categories"
+                    "layeralias": "Geology - Major Rock Categories"
                  },
                  "hover": {
                      "enable": false,
@@ -621,7 +621,7 @@
                  },
                  "popups": {
                     "enable": true,
-                    "title": "Rare Plants"
+                    "layeralias": "Rare Plants"
                  },
                  "hover": {
                      "enable": false,
@@ -645,7 +645,7 @@
                  },
                  "popups": {
                     "enable": true,
-                    "title": "Canada - Political Boundaries"
+                    "layeralias": "Canada - Political Boundaries"
                  },
                  "hover": {
                      "enable": false,
@@ -674,7 +674,7 @@
                  },
                  "popups": {
                     "enable": true,
-                    "title": "Metal mines"
+                    "layeralias": "Metal mines"
                  },
                  "hover": {
                      "enable": false,

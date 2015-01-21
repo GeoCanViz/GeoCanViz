@@ -2184,7 +2184,7 @@
             "items": [{
             	"label": "Maps: Toporama, CanMatrix Print-ready and Georeferenced",
             	"scale": 1200000,
-            	"url": "http://geogratis.gc.ca/api/en/nrcan-rncan/ess-sst/-/(urn:iso:series)toporama",
+            	"url": "http://geogratis.gc.ca/api/en/nrcan-rncan/ess-sst/-/OR/(urn:iso:series)toporama/(urn:iso:series)canmatrix-georeferenced",
             	"query": [{
             		"control": "button",
             		"type": "nts",
@@ -2199,7 +2199,7 @@
             	}, {
             	"label": "Data: CanVec and National Topographic Data Base (NTDB)",
 	            "scale": 1200000,
-	            "url": "http://geogratis.gc.ca/api/en/nrcan-rncan/ess-sst/-/OR/(urn:iso:series)ntdb/(urn:iso:series)canvec",
+	            "url": "http://geogratis.gc.ca/api/en/nrcan-rncan/ess-sst/-/OR/(urn:iso:series)national-topographic-data-base-ntdb/(urn:iso:series)canvec-plus",
 	            "query": [{
 	           	  "control": "button",
             		"type": "nts",

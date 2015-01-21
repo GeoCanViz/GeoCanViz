@@ -121,7 +121,7 @@
 						data = [],
 						features = response.features,
 						len = features.length;
-	
+
 					// if there is a link table to retrieve info from, set it here.
 					// it only work with feature layer who have a valid OBJECTID field
 					if (linkInfo.enable) {
@@ -261,7 +261,7 @@
 
 			// zoom graphic
 			gisMap.zoomFeature(mymap, graphic);
-			
+
 			// focus the map
 			gcvizFunc.focusMap(mymap);
 		};
@@ -285,7 +285,7 @@
 			// get the extent then zoom
 			extent = esri.graphicsExtent(graphics); // can't load AMD
 			mymap.setExtent(extent.expand(1.75));
-			
+
 			// focus the map
 			gcvizFunc.focusMap(mymap);
 		};

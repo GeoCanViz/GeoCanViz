@@ -151,7 +151,7 @@
 
 				_self.showExtractGrid = function(event, ui) {
 					var panel = ui.newPanel;
-					
+
 					if (panel.hasClass('gcviz-tbextract-content')) {
 						extractVM.showGrid(map, true);
 					} else {

@@ -12,6 +12,8 @@
 	], function($viz, i18n) {
 		var debounce,
 			debounceClick,
+			closureFunc,
+			addTooltip,
 			setStyle,
 			getFullscreenParam,
 			checkObjectValue,
@@ -19,6 +21,7 @@
 			setProgressBar,
 			destroyProgressBar,
 			checkMatch,
+			getLookup,
 			getRandomColor,
 			getArrayLen,
 			getElemValueVM,
@@ -65,6 +68,48 @@
 			}
 
 			timer = setTimeout(func, threshold);
+		};
+
+		// http://stackoverflow.com/questions/5033861/pass-additional-parameters-to-jquery-each-callback
+		closureFunc = function(fn, varArgs) {
+			var args = Array.prototype.slice.call(arguments, 1);
+			return function() {
+				// Clone the array (with slice()) and append additional arguments
+				// to the existing arguments.
+				var newArgs = args.slice();
+				newArgs.push.apply(newArgs, arguments);
+				return fn.apply(this, newArgs);
+			};
+		};
+
+		addTooltip = function($element, userOpts) {
+			var options = {
+					show: {
+						effect: 'fadeIn',
+						delay: 600
+					},
+					hide: {
+						effect: 'fadeOut',
+						delay: 100
+					},
+					position: {
+						my: 'left+30 top-15',
+						collision: 'fit'
+					},
+					tooltipClass: 'gcviz-tooltip',
+					trigger: 'hover, focus'
+				};
+
+			// sest options and title
+			$viz.extend(options, userOpts);
+			$element.attr('title', options.content);
+
+			// if mobile device, do not show tooltip
+			if (window.browser === 'Mobile') {
+				options.tooltipClass = options.tooltipClass + ', gcviz-hidden';
+			}
+
+			$element.tooltip(options);
 		};
 
 		setStyle = function(elem, propertyObject) {
@@ -131,6 +176,20 @@
 				item = array[len];
 				if (item.toUpperCase() === val.toUpperCase()) {
 					return true;
+				}
+			}
+
+			return false;
+		};
+
+		getLookup = function(array, val) {
+			var item,
+				len = array.length;
+
+			while (len--) {
+				item = array[len];
+				if (item[0] === val) {
+					return item[1];
 				}
 			}
 
@@ -304,6 +363,8 @@
 		return {
 			debounce: debounce,
 			debounceClick: debounceClick,
+			closureFunc: closureFunc,
+			addTooltip: addTooltip,
 			setStyle: setStyle,
 			getFullscreenParam: getFullscreenParam,
 			checkObjectValue: checkObjectValue,
@@ -311,6 +372,7 @@
 			setProgressBar: setProgressBar,
 			destroyProgressBar: destroyProgressBar,
 			checkMatch: checkMatch,
+			getLookup: getLookup,
 			getRandomColor: getRandomColor,
 			getArrayLen: getArrayLen,
 			getElemValueVM: getElemValueVM,

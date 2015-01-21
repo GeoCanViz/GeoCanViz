@@ -30,6 +30,7 @@
 					delay = 400, clicks = 0, timer = null,
 					objDataTable = [],
 					objData = [],
+					lookPopups = new Array(),
 					table = 0,
 					tables = config.layers.length,
 					selectIdFeatures = [],
@@ -111,7 +112,7 @@
 						interval = setInterval(function() {
 							lenLayers--;
 							_self.getData(layers[lenLayers], lenLayers);
-							
+
 							if (lenLayers === 0) {
 								clearInterval(interval);
 							}
@@ -120,12 +121,12 @@
 				};
 
 				_self.getData = function(layer, pos) {
-					var urlFull,
+					var tmpLook, urlFull,
 						layerInfo = layer.layerinfo,
 						layerIndex = layerInfo.index,
 						type = layerInfo.type,
 						url = mymap.getLayer(layerInfo.id).url,
-						popup = layer.popups.enable;
+						popup = layer.popups;
 
 					// set position in the array too be able to create unique id later
 					layerInfo.pos = pos;
@@ -136,8 +137,11 @@
 						gisDG.getData(urlFull, layer, _self.createTab);
 
 						// popup
-						if (popup) {
+						if (popup.enable) {
 							gisDG.createIdTask(url, layerIndex, _self.returnIdTask);
+
+							// add title and layer name alias to a lookup table for popups
+							lookPopups.push([popup.layeralias, layer.title]);
 						}
 					} else if (type === 5) {
 						// datatable (feature layer)
@@ -145,9 +149,12 @@
 						gisDG.getData(urlFull, layer, _self.createTab);
 
 						// popup (remove layer index)
-						if (popup) {
+						if (popup.enable) {
 							url = url.substring(0, url.indexOf('MapServer/') + 10);
 							gisDG.createIdTask(url, layerIndex, _self.returnIdTask);
+
+							// add title and layer name alias to a lookup table for popups
+							lookPopups.push([popup.layeralias, layer.title]);
 						}
 					}
 				};
@@ -169,8 +176,6 @@
 					$datatabUl.append('<li><a href="#tabs-' + mapid + '-' + pos + '" id="' + item.layerid + '">' + layer.title + '</a></li>');
 					$datatab.append('<div id="tabs-' + mapid + '-' + pos + '" class="gcviz-datagrid-tab">' +
 									'<table id="table-' + mapid + '-' + pos + '" class="gcviz-datatable display">' +
-										'<button class="gcviz-dg-zoomsel">' + _self.lblZoomSelect + '</button>' +
-										'<button class="gcviz-dg-clearzoom">' + _self.lblClearZoom + '</button>' +
 										'<input type="checkbox" class="gcviz-dg-selall" id="cb_seletAllFeat">' +
 										'<label for="cb_seletAllFeat" class="form-checkbox gcviz-dg-lblselall">' + _self.lblSelectAll + '</label>' +
 									'</table></div>');
@@ -200,21 +205,34 @@
 						'initComplete': function(inTable) {
 							var idTable = inTable.sTableId,
 								idxTable = idTable.split('-'),
+								id = idxTable[idxTable.length - 1],
 								$filter = $viz('#' + idTable + '_filter');
 
 							// call finish init with the position of the table in the array
-							_self.finishInit(idxTable[idxTable.length - 1]);
-							
-							// add the clear filter button
-							$filter.prepend('<button class="gcviz-foot-data gcviz-dg-clearquery"></button>');
-							$filter.children().addClass('gcviz-dt-pad');
+							_self.finishInit(id);
 
-							// Setup - add a text input to each header cell (for search capabilities)
-							$viz('#' + idTable + '_wrapper .dataTables_scrollHead th').each(function (colIdx) {
-								if (colIdx > 2) {
-									$(this).append('<input type="text" class="gcviz-dt-search" placeholder="' + _self.search + ' ' + this.innerHTML +'"></text>');
+							// add the clear filter button and class on label
+							$filter.prepend('<button class="gcviz-dg-filterclear"></button>');
+							$filter.children().addClass('gcviz-dg-pad').attr('id', 'clearfilter-' + id);
+
+							// setup - add a text input to each header cell (for search capabilities)
+							// for the first 2 columns add zoom to selected and clear zoom.
+							$viz('#' + idTable + '_wrapper .dataTables_scrollHead th').each(gcvizFunc.closureFunc(function(id, colIdx) {
+								var elem;
+
+								if (colIdx === 1) {
+									// add zoom to selected
+									elem = $viz(this).append('<button id=zoomsel-' + id + '" class="gcviz-dg-zoomsel"></button>');
+									gcvizFunc.addTooltip(elem, { content: _self.lblZoomSelect });
+								} else if (colIdx === 2) {
+									// add clear zoom
+									elem = $viz(this).append('<button class="gcviz-dg-zoomclear"></button>');
+									gcvizFunc.addTooltip(elem, { content: _self.lblClearZoom });
+								} else {
+									// add filter
+									$viz(this).append('<input type="text" class="gcviz-dg-search" placeholder="' + _self.search + ' ' + this.innerHTML +'"></text>');
 								}
-							});
+							}, id));
 						},
 						'language': {
 							'processing': _self.processing,
@@ -251,11 +269,8 @@
 					// Apply the search by field
 					dataTB.columns().eq(0).each(function(colIdx) {
 						$viz('input', dataTB.column(colIdx).header()).on('keyup change', function() {
-							dataTB
-								.column(colIdx)
-								.search(this.value)
-								.draw();
-							});
+							dataTB.column(colIdx).search(this.value).draw();
+						});
 					});
 
 					// FIXED COLUMNS
@@ -293,7 +308,7 @@
 					while (lenFields--) {
 						field = fields[lenFields];
 
-						field.render = function (data, type, row) {
+						field.render = function (data, type) {
 							if (data !== null) {
 								// for wcag we add a text input read only. This element is focusable so we can have
 								// the tooltip. Wrap in a relative position div to have the tooltip at the right
@@ -377,7 +392,7 @@
 						gcvizFunc.setElemValueVM(mapid, 'footer', 'isTableReady', true);
 
 						// stop propagation of event on search by column field
-						$viz('.gcviz-dt-search').on('click', function(event) {
+						$viz('.gcviz-dg-search').on('click', function(event) {
 							event.stopPropagation();
 						});
 
@@ -412,11 +427,6 @@
 						_self.select($checkbox, info);
 					});
 
-					// search fields
-					$table.on('search.dt', function(e) {
-						var api = $viz(this.parentElement.parentElement.parentElement).find('input')[0].value;
-					});
-
 					// set select/unselect all event
 					$tabs.on('change', '.gcviz-dg-selall', function(e) {
 						// select or unselect all features
@@ -437,15 +447,20 @@
 						// zoom to features
 						_self.zoomSelect(e);
 					});
-					
+
 					// set clear zoom event
-					$tabs.on('click', '.gcviz-dg-clearzoom', function(e) {
+					$tabs.on('click', '.gcviz-dg-zoomclear', function() {
 						// clear zoom features
 						gisDG.unselectFeature('zoom');
 					});
 
-					$tabs.on('click', '.gcviz-dg-clearquery', function(e) {
-						alert('in');
+					$tabs.on('click', '.gcviz-dg-filterclear', function(e) {
+						var $elems = $viz(e.target.parentElement.parentElement).find('.gcviz-dg-search'),
+							id = parseInt(e.target.id.split('-')[1], 10);
+
+						// reset value then trigger a "change" event. We need to reset the 
+						$elems.val('');
+						objDataTable[id].search('').columns().search('').draw();
 					});
 
 					// set click and double click on row
@@ -536,7 +551,7 @@
 				_self.zoomSelect = function(e) {
 					var feat,
 						features = [],
-						tableId = parseInt(e.target.parentElement.id.split('-')[2], 10),
+						tableId = parseInt(e.target.id.split('-')[1], 10),
 						data = objData[tableId],
 						len = data.length;
 
@@ -558,8 +573,7 @@
 				};
 
 				_self.select = function(checkbox, info) {
-					var geom,
-						feat = objData[info.table][info.feat];
+					var feat = objData[info.table][info.feat];
 
 					// check or uncheck select checkbox
 					// get the geometry then call gisDatagrid to select feature on map (create graphic)
@@ -607,7 +621,7 @@
 							table[lenTable].gcvizcheck = true;
 							gisDG.selectFeature(table[lenTable].geometry, info);
 						} else {
-							table[lenTable].gcvizcheck = true;
+							table[lenTable].gcvizcheck = false;
 							gisDG.unselectFeature('sel' + '-' + tableId + '-' + lenTable);
 						}
 					}
@@ -615,7 +629,7 @@
 
 				_self.highlightRow = function(item, check) {
 					var row = item.parent().parent();
-					
+
 					// set class to row if selected. We also have to set it to column with
 					// sorting class. If not, the color is not applied.
 					if (check) {
@@ -659,7 +673,7 @@
 								// put the features in a variable accessible by the other functions.
 								// add the layer name
 								allIdFeatures.push(feature);
-								_self.layerNameHolder.push(feature.layerName);
+								_self.layerNameHolder.push(gcvizFunc.getLookup(lookPopups, feature.layerName));
 							}
 						}
 					}
@@ -676,8 +690,8 @@
 						attrNames,
 						attrValues,
 						field, fields, lenFields,
-						layer,
-						layerName = currentFeature.layerName,
+						layer, popups,
+						layerName = gcvizFunc.getLookup(lookPopups, currentFeature.layerName),
 						feature = currentFeature.feature,
 						attributes = feature.attributes,
 						layers = config.layers,
@@ -686,8 +700,9 @@
 					// display the feature attributes in the popup
 					while (len--) {
 						layer = layers[len];
+						popups = layer.popups;
 
-						if (layer.popups && layerName === layer.popups.title) {
+						if (popups && layerName === layer.title) {
 
 							// get the feature attribute names and values
 							attrNames = $viz.map(attributes, function(value, index) {
@@ -752,7 +767,7 @@
 						while (len--) {
 							feat = allIdFeatures[len];
 
-							if (feat.layerName === selLayer) {
+							if (gcvizFunc.getLookup(lookPopups, feat.layerName) === selLayer) {
 								selectIdFeatures.push(feat);
 							}
 						}

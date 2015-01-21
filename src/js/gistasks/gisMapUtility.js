@@ -618,7 +618,7 @@
 			map.infoWindow.setTitle(title);
 			map.infoWindow.setContent('<span>' + content + '</span>');
 			map.infoWindow.anchor = anchor;
-			
+
 			// move a little the window
 			screenPnt = map.toScreen(point);
 			screenPnt.x = (anchor === 'upperright') ? screenPnt.x + offX : screenPnt.x - offX;

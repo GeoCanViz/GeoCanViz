@@ -52,7 +52,7 @@
 								},
 								"popups": {
 									"enable": true,
-									"title": "Geology - Major Rock Categories"
+									"layeralias": "Geology - Major Rock Categories"
 								},
 								"hover": {
 									"enable": false,
@@ -77,7 +77,7 @@
 								},
 								"popups": {
 									"enable": true,
-									"title": "Geochronology Géochronologie"
+									"layeralias": "Geochronology Géochronologie"
 								},
 								"hover": {
 									"enable": false,

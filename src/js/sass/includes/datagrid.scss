@@ -4,16 +4,34 @@
 	margin-top: (0.2 * $rembase) + rem;
 }
 
-.gcviz-dt-search {
+.gcviz-dg-search {
 	display: block;
 	margin: auto;
 	width: 80%;
 }
 
-.gcviz-dt-pad {
+.gcviz-dg-pad {
 	margin-bottom: 0!important;
 	padding: (0.5 * $rembase) + rem;
 	display: inline;
+}
+
+// buttons zoom selected, clear zoom and clear filter
+.gcviz-dg-zoomsel {
+	@include sprite($img-spritebtn, -1481, -2);
+	display: block;
+	margin: auto;
+}
+
+.gcviz-dg-zoomclear {
+	@include sprite($img-spritebtn, -1481, -2);
+	display: block;
+	margin: auto;
+}
+
+.gcviz-dg-filterclear {
+	@include sprite($img-spritebtn, -1481, -2);
+	margin-top: (0.4 * $rembase) + rem;
 }
 
 /* tooltip for string element more then 40 characters. This one is
@@ -91,14 +109,6 @@ table.dataTable.no-footer {
 // hide the id row
 .gcviz-dg-id {
 	display: none;
-}
-
-.gcviz-dg-zoomsel {
-	margin: (1 * $rembase) + rem!important;
-}
-
-.gcviz-dg-clearzoom {
-	margin: (1 * $rembase) + rem!important;
 }
 
 .gcviz-dg-lblselall {

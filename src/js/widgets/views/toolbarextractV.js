@@ -17,7 +17,7 @@
 				config = $mapElem.toolbarextract,
 				mapid = $mapElem.mapframe.id,
 				node = '';
-            
+
 			// find toolbar and start to add items
 			$toolbar = $mapElem.find('.gcviz-tbextract-content');
 
