@@ -18,20 +18,21 @@
 
 // buttons zoom selected, clear zoom and clear filter
 .gcviz-dg-zoomsel {
-	@include sprite($img-spritebtn, -1481, -2);
+	@include sprite($img-spritebtn, -1516, -2);
 	display: block;
 	margin: auto;
 }
 
 .gcviz-dg-zoomclear {
-	@include sprite($img-spritebtn, -1481, -2);
+	@include sprite($img-spritebtn, -1553, -2);
 	display: block;
 	margin: auto;
 }
 
 .gcviz-dg-filterclear {
-	@include sprite($img-spritebtn, -1481, -2);
+	@include sprite($img-spritebtn, -1589, -2);
 	margin-top: (0.4 * $rembase) + rem;
+	vertical-align: middle;
 }
 
 /* tooltip for string element more then 40 characters. This one is
@@ -113,11 +114,16 @@ table.dataTable.no-footer {
 
 .gcviz-dg-lblselall {
 	padding-left: (0.5 * $rembase) + rem!important;
+	padding-right: (3 * $rembase) + rem!important;
 }
 
 // overrides
 .ui-tabs .ui-tabs-panel {
 	padding: 0 1em!important;
+}
+
+.dataTables_wrapper .dataTables_length {
+  margin: 5px;
 }
 
 // popups

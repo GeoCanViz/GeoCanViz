@@ -64,6 +64,7 @@
 				_self.lblAllLayer = i18n.getDict('%datagrid-popalllayers');
 				_self.lblSelectLayer = i18n.getDict('%datagrid-popselect');
 				_self.lblClearZoom = i18n.getDict('%datagrid-clearzoom');
+				_self.lblClearFilters = i18n.getDict('%datagrid-clearfilters');
 
 				// text for popup
 				_self.lblSelectAll = i18n.getDict('%datagrid-selectall');
@@ -160,8 +161,8 @@
 				};
 
 				_self.removeTab = function(id) {
-					console.log(id);
 					$viz('[id=' + id + ']').remove();
+					$datatab.tabs('option', 'active', 0);
 					$datatab.tabs('refresh');
 				};
 
@@ -176,8 +177,6 @@
 					$datatabUl.append('<li><a href="#tabs-' + mapid + '-' + pos + '" id="' + item.layerid + '">' + layer.title + '</a></li>');
 					$datatab.append('<div id="tabs-' + mapid + '-' + pos + '" class="gcviz-datagrid-tab">' +
 									'<table id="table-' + mapid + '-' + pos + '" class="gcviz-datatable display">' +
-										'<input type="checkbox" class="gcviz-dg-selall" id="cb_seletAllFeat">' +
-										'<label for="cb_seletAllFeat" class="form-checkbox gcviz-dg-lblselall">' + _self.lblSelectAll + '</label>' +
 									'</table></div>');
 
 					// increment table and innerTable for the outside class function
@@ -203,16 +202,24 @@
 						'processing': true,
 						'columns': fields,
 						'initComplete': function(inTable) {
-							var idTable = inTable.sTableId,
+							var elem,
+								idTable = inTable.sTableId,
 								idxTable = idTable.split('-'),
 								id = idxTable[idxTable.length - 1],
-								$filter = $viz('#' + idTable + '_filter');
+								$filter = $viz('#' + idTable + '_filter'),
+								$len = $viz('#' + idTable + '_wrapper .dataTables_length');
 
 							// call finish init with the position of the table in the array
 							_self.finishInit(id);
 
+							// add a select all checkbox and class on label
+							$len.append('<div><input type="checkbox" class="gcviz-dg-selall" id="cb_seletAllFeat-' + id + '">' +
+										'<label for="cb_seletAllFeat" class="form-checkbox gcviz-dg-lblselall">' + _self.lblSelectAll + '</label></div>');
+							$len.children().addClass('gcviz-dg-pad');
+
 							// add the clear filter button and class on label
-							$filter.prepend('<button class="gcviz-dg-filterclear"></button>');
+							elem = $filter.prepend('<button class="gcviz-dg-filterclear"></button>');
+							gcvizFunc.addTooltip(elem, { content: _self.lblClearFilters });
 							$filter.children().addClass('gcviz-dg-pad').attr('id', 'clearfilter-' + id);
 
 							// setup - add a text input to each header cell (for search capabilities)
@@ -405,6 +412,16 @@
 								objDataTable[len].draw();
 							}
 						});
+						
+						// subscribe to the open datagrid event. The firts time we need to redraw
+						// the table
+						gcvizFunc.subscribeTo(mapid, 'footer', 'isOpenDG', function() {
+							var len = objDataTable.length;
+
+							while (len--) {
+								objDataTable[len].draw();
+							}
+						});
 					}
 
 					// new table have been added
@@ -590,37 +607,46 @@
 				};
 
 				_self.selectAll = function(e) {
-					var tableId, table, val, lenTable, check, rows,
+					var tableId, table, lenTable, lenRows,
+						val, td, rows, lenIds, id,
+						ids = [],
 						info = { },
 						target = e.target,
-						checks = target.parentElement.getElementsByClassName('gcviz-dg-select'),
+						checks = target.parentElement.parentElement.parentElement.getElementsByClassName('gcviz-dg-select'),
 						len = checks.length;
 
 					// it comes from the checkbox, we grab the table id (we will need it later)
-					tableId = parseInt(target.parentElement.id.split('-')[2], 10);
+					tableId = parseInt(target.id.split('-')[1], 10);
 					info.table = tableId;
 
-					// update the ui with the selected value
+					// update the ui with the selected value for the row filtered
+					// add the id to an array to be able to check the data as well
 					val = target.checked;
-					rows = objDataTable[tableId].rows().nodes();
+					rows = objDataTable[tableId].$('tr', {"filter":"applied"});
 					while (len--) {
-						check = $viz('.gcviz-dg-select', rows[len]);
-
+						td = $viz('.gcviz-dg-select', rows[len]);
 						checks[len].checked = val;
-						_self.highlightRow(check, val);
+						_self.highlightRow(td, val);
 					}
 
-					// if the type is checkbox, we apply the check value to all features from the table
-					// we also apply the select on unselect task for every feature.
+					// apply the check value to all filtered features from the table
+					// we also apply the select on unselect task for every of those features.
+					// we need to do this to applyt he chedck/uncheck to item on other pages
 					table = objData[tableId];
+					lenRows = rows.length;
 					lenTable = table.length;
 
-					while (lenTable--) {
-						if (val) {
-							info.feat = [lenTable];
-							table[lenTable].gcvizcheck = true;
-							gisDG.selectFeature(table[lenTable].geometry, info);
-						} else {
+					if (val) {
+						// if select, do it for filtered feartures
+						while (lenRows--) {
+							id = parseInt($viz('.gcviz-dg-id', rows[lenRows])[0].innerHTML.split('-')[1], 10);
+							info.feat = id;
+							table[id].gcvizcheck = true;
+							gisDG.selectFeature(table[id].geometry, info);
+						}
+					} else {
+						// if unselect, do it for all features
+						while (lenTable--) {
 							table[lenTable].gcvizcheck = false;
 							gisDG.unselectFeature('sel' + '-' + tableId + '-' + lenTable);
 						}

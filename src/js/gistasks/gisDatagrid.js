@@ -120,15 +120,15 @@
 						sr = response.spatialReference,
 						data = [],
 						features = response.features,
-						len = features.length;
+						len = features.length - 1;
 
 					// if there is a link table to retrieve info from, set it here.
 					// it only work with feature layer who have a valid OBJECTID field
 					if (linkInfo.enable) {
 						featLayer = mymap.getLayer(id);
 						relatedQuery = new esriRelRequest();
-						relatedQuery.outFields = linkInfo.fields;
-						relatedQuery.relationshipId = linkInfo.relationship;
+						relatedQuery.outFields = ["*"]; //TODO: linkInfo.fields;
+						relatedQuery.relationshipId = 0; //TODO: linkInfo.relationship;
 						relatedQuery.objectIds = gcvizFunc.getArrayLen(len);
 
 						featLayer.queryRelatedFeatures(relatedQuery, function(relatedRecords) {
@@ -176,7 +176,7 @@
 				// if present, add the related records from a link table
 				if (flag) {
 					// we add + 1 because it is not zero index based
-					linkFeats = relRecords[len + 1].features;
+					linkFeats = relRecords[len].features;
 					linkLen = linkFeats.length;
 
 					geometry.link = [];

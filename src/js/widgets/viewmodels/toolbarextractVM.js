@@ -273,11 +273,16 @@
 		};
 
 		showGrid = function(map, val) {
-			var chk = $viz('#checkbox' + gridId)[0].checked;
-
-			// if layer is already selected, do nothing
-			if (!chk) {
-				gisLeg.setLayerVisibility(map, gridId, val);
+			var chk,
+				control = $viz('#checkbox' + gridId)[0];
+			
+			// to see if control exist
+			if (typeof control !== 'undefined') {
+				// if layer is already selected, do nothing
+				chk = control.checked;
+				if (!chk) {
+					gisLeg.setLayerVisibility(map, gridId, val);
+				}
 			}
 		};
 

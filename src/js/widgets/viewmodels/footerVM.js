@@ -57,6 +57,9 @@
 				// datatable is ready)
 				_self.isTableReady = ko.observable(false);
 
+				// to notify datagridVM open datagrid button has been pushed
+				_self.isOpenDG = ko.observable(false);
+
 				_self.init = function() {
 					var mymap = gcvizFunc.getElemValueVM(mapid, ['map', 'map'], 'js');
 
@@ -156,14 +159,16 @@
 					var $datagrid = $viz('#gcviz-datagrid' + mapid),
 						heightSect = parseInt($section.css('height'), 10);
 
-					// refresh accordion and set the section height. If we dont set the heiggt when datatable is
+					// refresh accordion and set the section height. If we dont set the height when datatable is
 					// open, there is overlap in Safari.
 					if ($datagrid.accordion('option', 'active') === 0) {
 						$datagrid.accordion({ active: false }).click();
 						gcvizFunc.setStyle($section[0], { 'height': (heightSect - heightData) + 'px' });
+						_self.isOpenDG(false);
 					} else {
 						$datagrid.accordion({ active: 0 }).click();
 						gcvizFunc.setStyle($section[0], { 'height': (heightSect + heightData) + 'px' });
+						_self.isOpenDG(true);
 					}
 					return false;
 				};

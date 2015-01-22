@@ -151,23 +151,6 @@
                         "maxdataprop": 1000
                     }
                 }, {
-                    "label": "Geochronology***Geochronology Géochronologie",
-                    "id": "6f798c6b-f369-4e24-78dd-9bfa5a9bc59e",
-                    "type": 4,
-                    "url": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/GSCC/Geochronology/MapServer/",
-                    "scale": {
-                        "min": 0,
-                        "max": 0
-                    },
-                    "cluster": {
-                        "enable": true,
-                        "distance": 50,
-                        "label": false,
-                        "symbol": true,
-                        "maxsizeprop": 50,
-                        "maxdataprop": 1000
-                    }
-                }, {
                     "label": "Point",
                     "id": "6f798c6b-aaa1-4e24-78dd-9bfa5a9bc59e",
                     "type": 5,
@@ -223,6 +206,23 @@
                     "id": "6f798c6b-aaa4-4e24-78dd-9bfa5a9bc59e",
                     "type": 4,
                     "url": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/MMS/PM_E/MapServer/",
+                    "scale": {
+                        "min": 0,
+                        "max": 0
+                    },
+                    "cluster": {
+                        "enable": false,
+                        "distance": 50,
+                        "label": false,
+                        "symbol": true,
+                        "maxsizeprop": 50,
+                        "maxdataprop": 1000
+                    }
+                }, {
+                    "label": "link table",
+                    "id": "6f798c6b-dddd1-4e24-78dd-9bfa5a9bc59e",
+                    "type": 5,
+                    "url": "http://s-bsc-geoappint.nrn.nrcan.gc.ca/arcgis/rest/services/Test/msMiningAgree/MapServer/0",
                     "scale": {
                         "min": 0,
                         "max": 0
@@ -337,39 +337,6 @@
                     "min": 0,
                     "max": 1,
                     "initstate": 0.25
-                },
-                "visibility": {
-                    "enable": true,
-                    "initstate": false,
-                    "type": 1,
-                    "radioid": 0
-                },
-                "displaychild": {
-                    "enable": true
-                },
-                "customimage": {
-                    "enable": false
-                },
-                "items": []
-            }, {
-                "expand": false,
-                "last": false,
-                "type": 4,
-                "id": "6f798c6b-f369-4e24-78dd-9bfa5a9bc59e",
-                "graphid": "68865be1-057c-7faf-9521-029baa08899a",
-                "displayfields": false,
-                "label": {
-                    "value": "Geochronology",
-                    "alttext": "Geochronology Cluster"
-                },
-                "metadata": {
-                    "enable": false
-                },
-                "opacity": {
-                    "enable": false,
-                    "min": 0,
-                    "max": 1,
-                    "initstate": 1
                 },
                 "visibility": {
                     "enable": true,
@@ -675,6 +642,35 @@
                  "popups": {
                     "enable": true,
                     "layeralias": "Metal mines"
+                 },
+                 "hover": {
+                     "enable": false,
+                     "hoverfield": "Community Well-Being"
+                 }
+            }, {
+                "layerinfo": {
+                    "id": "6f798c6b-dddd1-4e24-78dd-9bfa5a9bc59e",
+                    "type": 5,
+                    "index": 0
+                },
+                "title": "Link tables",
+                "fields": [{
+                    "title": "Comp. Name.",
+                    "width": "60px",
+                    "data": "MINING_COMP_NAME",
+                    "dataalias": "MINING_COMP_NAME"
+                }, {
+                    "title": "Project Status",
+                    "width": "60px",
+                    "data": "PROJ_STATUS_EN",
+                    "dataalias": "PROJ_STATUS_EN"
+                }],
+                "linktable": {
+                    "enable": false
+                 },
+                 "popups": {
+                    "enable": true,
+                    "layeralias": "Mining Project Status"
                  },
                  "hover": {
                      "enable": false,

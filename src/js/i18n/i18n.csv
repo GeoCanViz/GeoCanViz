@@ -64,6 +64,7 @@ Global sys value#%gisurlalti#http://geogratis.gc.ca/services/elevation/cdem/alti
 #%datagrid-selectall#Select All#Sélectionner tout
 #%datagrid-zoomselect#Zoom to selected#Zoom sélection
 #%datagrid-clearzoom#Clear zoom#Effacer zoom
+#%datagrid-clearfilters#Clear filters#Effacer les filtres
 #%datagrid-poptitle#Information#Information
 #%datagrid-popalllayers#All layers#Toutes les couches
 #%datagrid-popselect#Select the features from the following layer#Sélectionnez une couche dans les suivantes
