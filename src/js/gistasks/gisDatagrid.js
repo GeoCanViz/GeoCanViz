@@ -120,7 +120,7 @@
 						sr = response.spatialReference,
 						data = [],
 						features = response.features,
-						len = features.length - 1;
+						len = 30; //features.length - 1;
 
 					// if there is a link table to retrieve info from, set it here.
 					// it only work with feature layer who have a valid OBJECTID field

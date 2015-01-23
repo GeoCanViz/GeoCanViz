@@ -16,6 +16,8 @@
 			'gcviz-vm-datagrid'
 	], function($viz, ko, gcvizFunc, i18n, gisData, gisLegend, vmDatagrid) {
 		var initialize,
+			notifyAdd,
+			innerNotifyAdd,
 			vm;
 
 		initialize = function($mapElem, mapid) {
@@ -48,7 +50,13 @@
 				// array of user layer
 				_self.userArray = ko.observableArray([]);
 
+				// observable to notify when data is in the add process
+				_self.isAddData = ko.observable(false);
+
 				_self.init = function() {
+					// to expose the observable to know when the layer has been added
+					innerNotifyAdd = _self.notifyAdd;
+
 					return { controlsDescendantBindings: true };
 				};
 
@@ -73,7 +81,13 @@
 						_self.errMsg(_self.msgIE9);
 						_self.isErrDataOpen(true);
 					} else {
-						_self.add(vm, event);
+						_self.isAddData(true);
+						// put the add in a timeout to let time to footer vm to remove the showCoord event
+						// The problem comes from the reprojection that interfere with the new data to be
+						// added projection. We set back the event after.
+						setTimeout(function() {
+							_self.add(vm, event);
+						}, 1000);
 					}
 
 					// focus back on add to keep focus
@@ -98,7 +112,7 @@
 							var uuid = gcvizFunc.getUUID(),
 								fileName = reader.fileName;
 
-							// use deffered object to wait for the result	
+							// use deffered object to wait for the result
 							gisData.addCSV(mymap, reader.result, uuid, fileName)
 								.done(function(data) {
 									if (data === 0) {
@@ -106,6 +120,7 @@
 										_self.userArray.push({ label: fileName, id: uuid });
 									} else {
 										_self.isErrDataOpen(true);
+										_self.isAddData(false);
 										if (data === 1) {
 											_self.errMsg(_self.errMsg1);
 										} else if (data === 2) {
@@ -150,6 +165,10 @@
 					return true;
 				};
 
+				_self.notifyAdd = function() {
+					_self.isAddData(false);
+				};
+
 				_self.init();
 			};
 
@@ -158,8 +177,13 @@
 			return vm;
 		};
 
+		notifyAdd = function() {
+			innerNotifyAdd();
+		};
+
 		return {
-			initialize: initialize
+			initialize: initialize,
+			notifyAdd: notifyAdd
 		};
 	});
 }).call(this);

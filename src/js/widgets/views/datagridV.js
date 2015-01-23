@@ -41,6 +41,11 @@
 							'<span class="gcviz-popup-title" data-bind="text: featLayerName"></span>' +
 							'<div id="gcviz-popup-content' + mapid + '" class="gcviz-popup-content"></div>' +
 						'</div>' +
+						
+						// add modal dialog until tables are loaded
+						'<div id="diagWait' + mapid + '" data-bind="uiDialog: { title: progressTitle, width: 490, height: 350, modal: true, openDialog: \'isWait\', closeOnEscape: false, beforeClose: closeWait, open: openWait, position: { at: \'center\', of: \'#' + mapid + '_holder\' } }">' +
+							'<div><span data-bind="text: progressDesc"></span></div>' +
+						'</div>' +
 					'</div>';
 
 			$footer.after(node);

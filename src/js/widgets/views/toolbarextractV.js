@@ -25,17 +25,17 @@
 			if (config.enable) {
 
 				// set template for recursive item loading
-				node += '<div><ul class="gcviz-data-ul" data-bind="template: { name: \'userTmpl\', foreach: $root.itemsArray }"></ul></div>';
-				node += '<script id="userTmpl" type="text/html">';
+				node += '<div><ul class="gcviz-data-ul" data-bind="template: { name: \'linkTmpl\', foreach: $root.itemsArray }"></ul></div>';
+				node += '<script id="linkTmpl" type="text/html">';
 					node += '<li><div>';
-						node += '<span class="gcviz-label" data-bind="text: label"></span>';
-						node +=	'<div class="gcviz-ext-url" data-bind="foreach: query">';
-							node += '<div data-bind="if: control === \'link\'"><a target="_blank" data-bind="attr: { href: hrefData }, text: label, css: { \'gcviz-ext-urldis\': !$parent.isReady() }"></a></div>';
-							node += '<div class="row" data-bind="if: control === \'button\'">';
-								node += '<div class="span1"><button class="gcviz-ext-nts" tabindex="0" data-bind="buttonBlur, click: function() { $root.clickNTS(hrefData()) }, attr: { alt: label, id: \'selnts\' + $parentContext.$index() + $index() }, enable: $parent.isReady()"></button></div>';
-								node += '<div class="span11"><label class="gcviz-label gcviz-nav-lblpos" data-bind="text: label, attr: { for: \'selnts\' + $parentContext.$index() + $index() }, css: { \'gcviz-ext-urldis\': !$parent.isReady() }"></label></div>';
+						node += '<span class="gcviz-label gcviz-bold" data-bind="text: title"></span><span class="gcviz-label" data-bind="text: subtitle"></span>';
+						node +=	'<ul class="gcviz-ext-url" data-bind="foreach: query">';
+							node += '<div data-bind="if: control === \'link\'"><li><a target="_blank" data-bind="attr: { href: hrefData }, text: label, css: { \'gcviz-ext-urldis\': !$parent.isReady() }"></a></li></div>';
+							node += '<div data-bind="if: control === \'button\'">';
+								node += '<li><button class="gcviz-ext-nts" tabindex="0" data-bind="buttonBlur, click: function() { $root.clickNTS(hrefData()) }, attr: { alt: label, id: \'selnts\' + $parentContext.$index() + $index() }, enable: $parent.isReady()"></button>';
+								node += '<label class="gcviz-label gcviz-nav-lblpos gcviz-inlineblock" data-bind="text: label, attr: { for: \'selnts\' + $parentContext.$index() + $index() }, css: { \'gcviz-ext-urldis\': !$parent.isReady() }"></label></li>';
 							node += '</div>';
-						node += '</div>';
+						node += '</ul>';
 					node += '</div></li>';
 				node += '</script>';
 			}

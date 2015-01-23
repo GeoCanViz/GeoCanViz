@@ -12,11 +12,12 @@
 			'gcviz-gisgeo',
 			'gcviz-gislegend',
 			'gcviz-vm-datagrid',
+			'gcviz-vm-tbdata',
 			'dojox/data/CsvStore',
 			'esri/layers/FeatureLayer',
 			'esri/SpatialReference',
 			'esri/geometry/Point'
-	], function($viz, gcvizFunc, gisGeo, gisLegend, vmDatagrid, esriCSVStore, esriFeatLayer, esriSR, esriPoint) {
+	], function($viz, gcvizFunc, gisGeo, gisLegend, vmDatagrid, vmTbData, esriCSVStore, esriFeatLayer, esriSR, esriPoint) {
 		var addCSV,
 			createLayer,
 			getSeparator,
@@ -150,6 +151,13 @@
 
 			// add the data to the datagrid
 			vmDatagrid.addTab(mymap.vIdName, featCollection, gfileName, guuid);
+
+			// there is a problem with the define. the gcviz-vm-tbdata is not able to be set.
+			// With the require, we set the reference to gcviz-vm-tbdata (hard way)
+			require(['gcviz-vm-tbdata'], function(vmTbData) {
+				// notify toolbar data the new layer is finish
+				vmTbData.notifyAdd();
+			});
 		};
 
 		getSeparator = function(string) {

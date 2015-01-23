@@ -22,7 +22,7 @@
 
 			// data model				
 			var footerViewModel = function($mapElem, mapid, config) {
-				var _self = this,
+				var _self = this, coordEvt,
 					pathGCVizPNG = locationPath + 'gcviz/images/GCVizLogo.png',
 					configMouse = config.mousecoords,
 					configNorth = config.northarrow,
@@ -64,8 +64,22 @@
 					var mymap = gcvizFunc.getElemValueVM(mapid, ['map', 'map'], 'js');
 
 					if (configMouse.enable) {
-						mymap.on('mouse-move', function(evt) {
+						coordEvt = mymap.on('mouse-move', function(evt) {
 							_self.showCoordinates(evt);
+						});
+						
+						$viz('#map2').on('gcviz-ready', function() {
+							// subscribe to the open add data event. When data is added we need to stop the
+							// show coordinate event because it corrupts the projection and creates errors
+							gcvizFunc.subscribeTo(mapid, 'data', 'isAddData', function(val) {
+								if (val) {
+									coordEvt.remove();
+								} else {
+									coordEvt = mymap.on('mouse-move', function(evt) {
+										_self.showCoordinates(evt);
+									});
+								}
+							});
 						});
 					}
 

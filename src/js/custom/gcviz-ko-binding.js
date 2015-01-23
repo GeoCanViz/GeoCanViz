@@ -312,6 +312,8 @@
 			// if function are provided for ok and/or cancel, update
 			if (typeof options.ok !== 'undefined') {
 				options.buttons[0].click = options.ok;
+			} else {
+				options.buttons.shift();
 			}
 			if (typeof options.cancel !== 'undefined') {
 				options.buttons[1].click = options.cancel;

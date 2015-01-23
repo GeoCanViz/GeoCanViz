@@ -68,6 +68,8 @@ Global sys value#%gisurlalti#http://geogratis.gc.ca/services/elevation/cdem/alti
 #%datagrid-poptitle#Information#Information
 #%datagrid-popalllayers#All layers#Toutes les couches
 #%datagrid-popselect#Select the features from the following layer#Sélectionnez une couche dans les suivantes
+#%datagrid-protitle#Table Creation#Création des tables
+#%datagrid-prodesc#Please wait until all tables are created. This operation could take a while if there is a lot of data.#S'il vous plaît, attendre que les toutes tables soient créées. Cette opération peut prendre du temps si il y a beacoup de données.
 #%toolbardraw-alt#Measuring and Drawing Tools - Help#Mesures et outils de dessin - Aide
 #%toolbardraw-name#Measuring and Drawing Tools#Mesures et outils de dessin
 #%toolbardraw-insinputbox#Enter text, click OK and then click the map location where the text should be placed.#Cliquez sur OK pour placer le texte sur la carte ou cliquez sur Annuler pour abandonner.

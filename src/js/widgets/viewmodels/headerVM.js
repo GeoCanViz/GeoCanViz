@@ -382,7 +382,7 @@
 			zoomMax.addClass('gcviz-hidden');
 			zoomBar.addClass('gcviz-hidden');
 
-			// get rotation, substract 90 degree and update. Remove decimal part before
+			// get rotation and remove decimal part
 			rotation = getRotationDegrees(arrow);
 			style = arrow.attr('style');
 
@@ -403,9 +403,9 @@
 			}
 
 			// because it was round we need to check minus 1 value and plus one
-			style = style.replace(reg2, rotation - 90);
-			style = style.replace(reg3, rotation - 90);
-			style = style.replace(reg4, rotation - 90);
+			style = style.replace(reg2, rotation);
+			style = style.replace(reg3, rotation);
+			style = style.replace(reg4, rotation);
 
 			// set the local storage (modify arrow because it wont print... it is an image background)
 			setTimeout(function() {

@@ -185,6 +185,8 @@ var locationPath;
 			// set the global vm to retreive link vm together
 			gcvizFunc.setVM(mapid, vmArray);
 
+			// notify the map is ready and increment
+			$mapElem.trigger('gcviz-ready');
 			mapsNum += 1;
 
 			if (mapsNum === mapsTotal) {

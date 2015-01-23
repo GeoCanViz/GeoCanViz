@@ -126,6 +126,11 @@ table.dataTable.no-footer {
   margin: 5px;
 }
 
+// overrides jqueryui dialog to remove the close button for the progress window
+.gcviz-dg-wait {
+	display: none!important;
+}
+ 
 // popups
 .gcviz-popup {
 	overflow: hidden!important;

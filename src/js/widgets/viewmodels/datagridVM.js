@@ -71,6 +71,10 @@
 				_self.lblZoomSelect = i18n.getDict('%datagrid-zoomselect');
 				_self.popupDialogTitle = i18n.getDict('%datagrid-poptitle');
 
+				// text for progress dialog
+				_self.progressTitle = i18n.getDict('%datagrid-protitle');
+				_self.progressDesc = i18n.getDict('%datagrid-prodesc');
+
 				// observable for popup
 				_self.layerNameHolder = ko.observableArray([]);
 				_self.layerName = ko.observableArray([_self.lblAllLayer]); // create with value so the binding is not fire when we add the value
@@ -80,6 +84,9 @@
 				_self.isEnablePrevious = ko.observable(false);
 				_self.isEnableNext = ko.observable(false);
 				_self.popupCounter = ko.observable('');
+
+				// variable to start the progress dialog
+				_self.isWait = ko.observable(false);
 
 				_self.init = function() {
 					// init accordion and hide header
@@ -92,6 +99,11 @@
 						}
 					});
 					$viz('.ui-accordion-header').hide();
+
+					// start progress dialog. Put in a timer if not, the variable is not initialize
+					setTimeout(function() {
+						_self.isWait(true);
+					}, 0);
 
 					// wait for the map to load
 					mymap.on('load', function() {
@@ -119,6 +131,19 @@
 							}
 						}, 1000);
 					});
+				};
+
+				_self.openWait = function(event) {
+					$(event.target.parentElement).find('.ui-dialog-titlebar-close').addClass('gcviz-dg-wait');
+				};
+
+				_self.closeWait = function() {
+					// do not close wait if process is not finish
+					if (_self.isWait()) {
+						return false;
+					} else {
+						return true;
+					}
 				};
 
 				_self.getData = function(layer, pos) {
@@ -395,12 +420,18 @@
 						});
 						$datagrid.accordion('refresh');
 
+						// remove progress dialog
+						_self.isWait(false);
+
 						// enable datagrid button in footerVM
 						gcvizFunc.setElemValueVM(mapid, 'footer', 'isTableReady', true);
 
 						// stop propagation of event on search by column field
 						$viz('.gcviz-dg-search').on('click', function(event) {
+							event.preventDefault();
+
 							event.stopPropagation();
+							return false;
 						});
 
 						// subscribe to the full screen event. Redraw datatable because the width
@@ -934,8 +965,10 @@
 			layer.layerinfo = { 'pos': table };
 			datas[0].layer = layer;
 
-			// call the inner create tab function
-			innerAddTab(datas);
+			// call the inner create tab function (if datagrid is enable)
+			if (typeof innerAddTab !== 'undefined') {
+				innerAddTab(datas);
+			}
 		};
 
 		removeTab = function(id) {

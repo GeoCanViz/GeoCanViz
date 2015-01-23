@@ -6,11 +6,12 @@
 }
 
 .gcviz-ext-url {
-	margin-left: (0.5 * $rembase) + rem;
-	margin-top: (0.25 * $rembase) + rem;
-	margin-bottom: (1 * $rembase) + rem;
+	list-style-type: disc;
 }
+
 // nts select button
 .gcviz-ext-nts {
 	@include sprite($img-spritebtn, -1049, -2);
+	display: inline-block;
+	vertical-align: middle;
 }
