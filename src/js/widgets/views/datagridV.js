@@ -31,7 +31,7 @@
 						'</div>' +
 
 						// popup
-						'<div id="gcviz-popup' + mapid + '" class="gcviz-popup" data-bind="uiDialog: { title: popupDialogTitle, width: 350, height: 200, close: dialogPopupClose, openDialog: \'isPopupDialogOpen\', modal: false, draggable: true, position: { within: \'#' + mapid + '_holder\', at: \'' + side + ' bottom\' } }">' +
+						'<div id="gcviz-popup' + mapid + '" class="gcviz-popup" data-bind="uiDialog: { title: popupDialogTitle, width: 350, height: 200, close: dialogPopupClose, openDialog: \'isPopupDialogOpen\', modal: false, resizable: true, draggable: true, position: { within: \'#' + mapid + '_holder\', at: \'' + side + ' bottom\' } }">' +
 							'<select id="popupSelect' + mapid + '" class="gcviz-popup-select" data-bind="options: layerName, value: selectedLayer, event: { change: changeSelectLayer }, attr: { title: lblSelectLayer }" tabindex="0"></select>' +
 							'<button class="gcviz-popup-zoom" data-bind="click: clickZoom, attr: { title: lblZoomSelect }" tabindex="0"></button>' +
 							'<button class="gcviz-popup-previous" data-bind="click: clickPrevious, enable: isEnablePrevious, attr: { title: previous }" tabindex="0"></button>' +

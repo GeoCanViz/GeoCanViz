@@ -35,6 +35,30 @@
 	vertical-align: middle;
 }
 
+//  ****** link info section ******
+// the open close buttons for link info
+td.gcviz-dg-link {
+	background: url($img-root + 'dgLinkOpen.png') no-repeat center center;
+	cursor: pointer;
+}
+tr.shown td.gcviz-dg-link {
+	background: url($img-root + 'dgLinkClose.png') no-repeat center center;
+}
+
+.gcviz-dg-linktitle {
+	@include app-text(1.2, bold);
+	display: block;
+}
+
+.gcviz-dg-linksubtitle {
+	@include app-text(1.2);
+}
+
+.gcviz-dg-linktable {
+	border: 1px solid black;
+}
+//****** end link info section ********
+
 /* tooltip for string element more then 40 characters. This one is
    activated on focus to solve the wcag issue */
 .gcviz-datagrid-stringbtn {
@@ -107,11 +131,6 @@ table.dataTable.no-footer {
 	background-color: $yellow-select!important;
 }
 
-// hide the id row
-.gcviz-dg-id {
-	display: none;
-}
-
 .gcviz-dg-lblselall {
 	padding-left: (0.5 * $rembase) + rem!important;
 	padding-right: (3 * $rembase) + rem!important;
@@ -144,6 +163,7 @@ table.dataTable.no-footer {
 	width: 325px;
 	margin-top: 5px;
 	margin-bottom: 5px;
+	display: block;
 }
 
 .gcviz-popup-separator {

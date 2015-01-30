@@ -90,7 +90,7 @@
 
 				_self.init = function() {
 					// init accordion and hide header
-					$viz('#gcviz-datagrid' + mapid).accordion({
+					$datagrid.accordion({
 						collapsible: true,
 						active: false,
 						activate: function() {
@@ -213,12 +213,30 @@
 				};
 
 				_self.createTable = function(data, layer, pos) {
-					var dataTB,
-						$table = $viz('#table-' + mapid + '-' + pos),
-						fields = _self.createFields(layer);
+					var dataTB, fields,
+						deferRender = false,
+						link = false,
+						searchInd = 2,
+						$table = $viz('#table-' + mapid + '-' + pos);
+
+					// check if we need to add a columns to open/close link info
+					if (typeof data[0].link !== 'undefined') {
+						link = true;
+						searchInd = 3;
+					}
+
+					// if there is too much data on the page we need to use defer render to speed up the process
+					if (data.length > 2500) {
+						deferRender = true;
+					}
+
+					// create fields
+					fields = _self.createFields(layer, link);
 
 					dataTB = $table.DataTable({
 						'data': data,
+						'deferRender': deferRender,
+						'autoWidth': false,
 						'serverSide': false,
 						'scrollY': 400,
 						'scrollX': true,
@@ -234,13 +252,14 @@
 								$filter = $viz('#' + idTable + '_filter'),
 								$len = $viz('#' + idTable + '_wrapper .dataTables_length');
 
-							// call finish init with the position of the table in the array
-							_self.finishInit(id);
-
-							// add a select all checkbox and class on label
-							$len.append('<div><input type="checkbox" class="gcviz-dg-selall" id="cb_seletAllFeat-' + id + '">' +
-										'<label for="cb_seletAllFeat" class="form-checkbox gcviz-dg-lblselall">' + _self.lblSelectAll + '</label></div>');
-							$len.children().addClass('gcviz-dg-pad');
+							// if defer render is true, do not add the select all because it wont work
+							// properly. The rows are not created until user navigate to them.
+							if (!deferRender) {
+								// add a select all checkbox and class on label
+								$len.append('<div><input type="checkbox" class="gcviz-dg-selall" id="cb_seletAllFeat-' + id + '">' +
+											'<label for="cb_seletAllFeat" class="form-checkbox gcviz-dg-lblselall">' + _self.lblSelectAll + '</label></div>');
+								$len.children().addClass('gcviz-dg-pad');
+							}
 
 							// add the clear filter button and class on label
 							elem = $filter.prepend('<button class="gcviz-dg-filterclear"></button>');
@@ -252,19 +271,22 @@
 							$viz('#' + idTable + '_wrapper .dataTables_scrollHead th').each(gcvizFunc.closureFunc(function(id, colIdx) {
 								var elem;
 
-								if (colIdx === 1) {
+								if (colIdx === 0) {
 									// add zoom to selected
 									elem = $viz(this).append('<button id=zoomsel-' + id + '" class="gcviz-dg-zoomsel"></button>');
 									gcvizFunc.addTooltip(elem, { content: _self.lblZoomSelect });
-								} else if (colIdx === 2) {
+								} else if (colIdx === 1) {
 									// add clear zoom
 									elem = $viz(this).append('<button class="gcviz-dg-zoomclear"></button>');
 									gcvizFunc.addTooltip(elem, { content: _self.lblClearZoom });
-								} else {
+								} else if (!$viz(this).hasClass('gcviz-dg-link')){
 									// add filter
 									$viz(this).append('<input type="text" class="gcviz-dg-search" placeholder="' + _self.search + ' ' + this.innerHTML +'"></text>');
 								}
 							}, id));
+
+							// call finish init with the position of the table in the array
+							_self.finishInit(id);
 						},
 						'language': {
 							'processing': _self.processing,
@@ -295,8 +317,23 @@
 								val = data.gcvizcheck;
 							item.prop('checked', val === true);
 							_self.highlightRow(item, val);
+						},
+						createdRow: function(row, data, index) {
+							// add id on the row instead of in a columns. We have to do this because we cant hide the column
+							// it creates display problems with IE
+							row.id = data.gcvizid;
 						}
 					});
+
+					// if there is a link, set the title, sub title and fields value to the column header
+					if (link) {
+						var linkCol = $viz(dataTB.column(2).header());
+						linkCol.attr('gcviz-title', layer.linktable.title);
+						linkCol.attr('gcviz-subtitle', layer.linktable.subtitle);
+						linkCol.attr('gcviz-fields', $viz.map(layer.linktable.fields, function(value) {
+							return '{"' + value.data + '":"' + value.title + '"}';
+						}));
+					}
 
 					// Apply the search by field
 					dataTB.columns().eq(0).each(function(colIdx) {
@@ -304,7 +341,7 @@
 							dataTB.column(colIdx).search(this.value).draw();
 						});
 					});
-
+					
 					// FIXED COLUMNS
 					// we cant use fixed column because of 2 main reasons. First it is not WCAG. When we tab, there is
 					// hidden object (the checkbox and button under the freeze columns). Second, it is really hard to make
@@ -314,7 +351,7 @@
 					//new $viz.fn.dataTable.FixedColumns($viz('#table-' + mapid + '-' + table), { leftColumns: 2 });
 
 					// order the first row after select and zoom by default to remove the arrow on select column
-					dataTB.order([3, 'asc']).draw();
+					dataTB.order([searchInd, 'asc']).draw();
 
 					// add the datatable and data to a global array so we can access it later
 					// reverse the data to have then in the same order as the id. It will easier to find later.
@@ -331,7 +368,7 @@
 					}
 				};
 
-				_self.createFields = function(layer) {
+				_self.createFields = function(layer, link) {
 					var field,
 						fields = layer.fields,
 						lenFields = fields.length;
@@ -353,6 +390,17 @@
 								return data;
 							}
 						};
+					}
+
+					if (link) {
+						fields.unshift({
+							data: null,
+							className: 'gcviz-dg-link',
+							searchable: false,
+							orderable: false,
+							defaultContent: '',
+							width: '10px'
+						});
 					}
 
 					// add zoom and select column
@@ -386,16 +434,6 @@
 								}
 					});
 
-					// add unique id column. We cant use visible false because the column is not added to the table
-					// we add a class and set display none to have the info there but invisible.
-					fields.unshift({
-						data: 'gcvizid',
-						className: 'gcviz-dg-id',
-						title: 'id',
-						searchable: false,
-						orderable: false
-					});
-
 					return fields;
 				};
 
@@ -415,7 +453,7 @@
 
 								while (len--) {
 									objDataTable[len].draw();
-								}
+								}						
 							}
 						});
 						$datagrid.accordion('refresh');
@@ -429,7 +467,6 @@
 						// stop propagation of event on search by column field
 						$viz('.gcviz-dg-search').on('click', function(event) {
 							event.preventDefault();
-
 							event.stopPropagation();
 							return false;
 						});
@@ -502,11 +539,12 @@
 						gisDG.unselectFeature('zoom');
 					});
 
+					// set clear filters event
 					$tabs.on('click', '.gcviz-dg-filterclear', function(e) {
 						var $elems = $viz(e.target.parentElement.parentElement).find('.gcviz-dg-search'),
 							id = parseInt(e.target.id.split('-')[1], 10);
 
-						// reset value then trigger a "change" event. We need to reset the 
+						// reset value then trigger a "change" event.
 						$elems.val('');
 						objDataTable[id].search('').columns().search('').draw();
 					});
@@ -564,6 +602,86 @@
 						// cancel system double-click event
 						e.preventDefault();
 					});
+
+					// set opening and closing details link info event
+					// https://datatables.net/examples/api/row_details.html
+					$table.on('click', 'td.gcviz-dg-link', function() {
+						var col, title, subtitle, fields,
+							tr = $viz(this).closest('tr'),
+							layer = parseInt(tr[0].id.split('-')[0]),
+							row = objDataTable[layer].row(tr);
+
+						if (row.child.isShown()) {
+							// close row
+							row.child.hide();
+							tr.removeClass('shown');
+						} else {
+							// open row
+							col = $viz(this).closest('table').find('.gcviz-dg-link');
+							title = col.attr('gcviz-title');
+							subtitle = col.attr('gcviz-subtitle');
+							fields = col.attr('gcviz-fields').split(',').reverse();
+							row.child(_self.formatLink(row.data(), title, subtitle, fields)).show();
+							tr.addClass('shown');
+						}
+
+						event.preventDefault();
+						event.stopPropagation();
+						return false;
+					});
+				};
+
+				// formatting function for row details (link info)
+				_self.formatLink = function(data, title, subtitle, fields) {
+					// data is the original data object for the row
+					var attrNames, attrValues, lenFields,
+						link, fieldName,
+						fieldObj = [],
+						node = '',
+						links = data.link,
+						lenLink = links.length,
+						lenTitle = fields.length;
+
+					// add title and subtitle then start table
+					node += '<span class="gcviz-dg-linktitle">' + title + '</span>' +
+							'<span class="gcviz-dg-linksubtitle">' + subtitle + '</span>' +
+							'<table class="gcviz-dg-linktable"><thead><tr role="row">';
+
+					// get fields name from data then create header
+					attrNames = $viz.map(links[0], function(value, index) {
+						return [index];
+					});
+
+					lenFields = Object.keys(attrNames).length;
+					while (lenFields--) {
+						// get the title to put for the field and create node
+						fieldName = JSON.parse(fields[lenFields])[attrNames[lenFields]];
+						node += '<th class="dt-body-center sorting_disabled" rowspan="1" colspan="1" aria-label="' + fieldName +
+									'" title="' + fieldName + '">' + fieldName + '</th>';
+					}
+					node += '</tr></thead><tbody>';
+
+					// loop trought item and add them to table
+					while (lenLink--) {
+						// get the feature attribute names and values
+						link = links[lenLink];
+						
+						attrValues = $viz.map(link, function(value) {
+							return [value];
+						});
+						
+						lenFields = Object.keys(attrNames).length;
+						node += '<tr role="row">';
+						while (lenFields--) {
+							node += '<td>' + attrValues[lenFields] + '</td>';
+						}
+						node += '</tr>';
+					}
+
+					// close table
+					node += '</tbody></table>';
+					
+					return node;
 				};
 
 				_self.getInfo = function(e, type) {
@@ -572,9 +690,9 @@
 						info;
 
 					if (type === 'row') {
-						str = $viz(e.target.parentNode).find('.gcviz-dg-id').html();
+						str = e.target.parentElement.id;
 					} else if (type === 'control') {
-						str = $viz(e.target.parentNode.parentNode).find('.gcviz-dg-id').html();
+						str = e.target.parentElement.parentElement.id;
 					}
 
 					info = str.split('-');
@@ -670,7 +788,7 @@
 					if (val) {
 						// if select, do it for filtered feartures
 						while (lenRows--) {
-							id = parseInt($viz('.gcviz-dg-id', rows[lenRows])[0].innerHTML.split('-')[1], 10);
+							id = parseInt(rows[lenRows].id.split('-')[1], 10);
 							info.feat = id;
 							table[id].gcvizcheck = true;
 							gisDG.selectFeature(table[id].geometry, info);
@@ -735,6 +853,11 @@
 						}
 					}
 
+					// disable next button if less then 2 element
+					if (allIdFeatures.length < 2) {
+						_self.isEnableNext(false);
+					}
+						
 					// make sure array of layer is unique for select
 					if (isFeatures) {
 						_self.layerName(ko.utils.arrayGetDistinctValues(_self.layerNameHolder()));
@@ -743,11 +866,12 @@
 				};
 
 				_self.displayFeature = function(currentFeature) {
-					var info,
-						attrNames,
-						attrValues,
+					var info, linkInfo,
+						attrNames, attrValues,
 						field, fields, lenFields,
 						layer, popups,
+						staticFields = 1,
+						linkNode = '',
 						layerName = gcvizFunc.getLookup(lookPopups, currentFeature.layerName),
 						feature = currentFeature.feature,
 						attributes = feature.attributes,
@@ -777,8 +901,16 @@
 							fields = layer.fields;
 							lenFields = fields.length - 1;
 
-							// the last 3 fields are for id, select and zoom
-							while (lenFields > 2) {
+							// check if there is a link table and get data
+							linkInfo = layer.linktable;
+							if (linkInfo.enable) {
+								staticFields = 2;
+								
+								linkNode = _self.getLinkNode(linkInfo, layer.layerinfo.id, attributes.OBJECTID);
+							}
+
+							// the last 2 fields are for select and zoom
+							while (lenFields > staticFields) {
 								field = fields[lenFields];
 								lenFields--;
 
@@ -792,12 +924,63 @@
 							}
 
 							// update content
-							$popContent.html(info);
+							$popContent.html(info + linkNode);
 						}
 					}
 
 					// highlight the feature
 					gisDG.selectFeaturePop(feature.geometry);
+				};
+
+				_self.getLinkNode = function(linkInfo, layerId, objectID) {
+					 var links, link,
+					 	linkAttrNames, linkAttrValues,
+					 	lenLink, lenFields,
+					 	fieldName,
+					 	node = '';
+
+					// get the feature attribute names and values
+					links = gisDG.getRelRecords(layerId, objectID);
+					linkAttrNames = $viz.map(links[0], function(value, index) {
+						return [index];
+					});
+
+					// create table header	
+					node = '<span class="gcviz-dg-linktitle">' + linkInfo.title + '</span>' +
+							'<span class="gcviz-dg-linksubtitle">' + linkInfo.subtitle + '</span>' +
+							'<table class="gcviz-dg-linktable"><thead><tr role="row">';
+
+					lenLink = linkAttrNames.length;
+					while (lenLink--) {
+						// get the title to put for the field and create node
+						fieldName = linkAttrNames[lenLink];
+						node += '<th class="dt-body-center sorting_disabled" rowspan="1" colspan="1" aria-label="' + fieldName +
+								'" title="' + fieldName + '">' + fieldName + '</th>';
+					}
+					node += '</tr></thead><tbody>';
+	
+					// loop trought item and add them to table
+					lenLink = links.length;
+					while (lenLink--) {
+						// get the feature attribute names and values
+						link = links[lenLink];
+						
+						linkAttrValues = $viz.map(link, function(value) {
+							return [value];
+						});
+						
+						lenFields = Object.keys(linkAttrValues).length;
+						node += '<tr role="row">';
+						while (lenFields--) {
+							node += '<td>' + linkAttrValues[lenFields] + '</td>';
+						}
+						node += '</tr>';
+					}
+
+					// close table
+					node += '</tbody></table>';
+
+					return node;
 				};
 
 				_self.dialogPopupClose = function() {
@@ -851,6 +1034,8 @@
 					// check if we enable next button
 					if (totalFeatures > 1) {
 						_self.isEnableNext(true);
+					} else {
+						_self.isEnableNext(false);
 					}
 				};
 

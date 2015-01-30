@@ -23,7 +23,7 @@
 			checkMatch,
 			getLookup,
 			getRandomColor,
-			getArrayLen,
+			getObjectIds,
 			getElemValueVM,
 			setElemValueVM,
 			setVM,
@@ -203,12 +203,12 @@
 			return [c(), c(), c() ,255];
 		};
 
-		getArrayLen = function(len) {
-			var arr = [];
+		getObjectIds = function(data) {
+			var arr = [],
+				len = data.length;
 
-			len += 1;
 			while (len--) {
-				arr.push(len);
+				arr.push(data[len].attributes.OBJECTID);
 			}
 
 			return arr;
@@ -374,7 +374,7 @@
 			checkMatch: checkMatch,
 			getLookup: getLookup,
 			getRandomColor: getRandomColor,
-			getArrayLen: getArrayLen,
+			getObjectIds: getObjectIds,
 			getElemValueVM: getElemValueVM,
 			setElemValueVM: setElemValueVM,
 			setVM: setVM,

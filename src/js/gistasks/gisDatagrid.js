@@ -40,6 +40,8 @@
 			createIdTask,
 			executeIdTask,
 			returnIdResults,
+			setRelRecords,
+			getRelRecords,
 			removeEvtPop,
 			addEvtPop,
 			wkid,
@@ -48,6 +50,7 @@
 			symbLine,
 			symbPoly,
 			mymap,
+			relRecords = {},
 			idTask,
 			idTasksArr = [],
 			idTaskIndex = 0,
@@ -114,26 +117,41 @@
 				load: function(response) {
 					var relatedQuery, featLayer,
 						layerInfo = layer.layerinfo,
+						linkFields, lenLinkFields, strLinkFields,
 						pos = layerInfo.pos,
 						linkInfo = layer.linktable,
 						id = layerInfo.id,
 						sr = response.spatialReference,
 						data = [],
 						features = response.features,
-						len = 30; //features.length - 1;
+						len = features.length - 1;
 
 					// if there is a link table to retrieve info from, set it here.
 					// it only work with feature layer who have a valid OBJECTID field
 					if (linkInfo.enable) {
-						featLayer = mymap.getLayer(id);
-						relatedQuery = new esriRelRequest();
-						relatedQuery.outFields = ["*"]; //TODO: linkInfo.fields;
-						relatedQuery.relationshipId = 0; //TODO: linkInfo.relationship;
-						relatedQuery.objectIds = gcvizFunc.getArrayLen(len);
+						// get the link field to query
+						linkFields = linkInfo.fields;
+						lenLinkFields = linkFields.length;
 
+						strLinkFields = '';
+						while (lenLinkFields--) {
+							strLinkFields += linkFields[lenLinkFields].data + ',';
+						}
+
+						// create the query
+						relatedQuery = new esriRelRequest();
+						relatedQuery.outFields = [strLinkFields.slice(0, -1)];
+						relatedQuery.relationshipId = linkInfo.relationshipId;
+						relatedQuery.objectIds = gcvizFunc.getObjectIds(response.features);
+
+						// query the link table
+						featLayer = mymap.getLayer(id);
 						featLayer.queryRelatedFeatures(relatedQuery, function(relatedRecords) {
 							data = createDataArray(features, len, sr, id, pos, relatedRecords);
 							closeGetData(data, layer, success);
+							
+							// keep related records to be access later by popups
+							setRelRecords(id, relatedRecords);
 						});
 					} else {
 						data = createDataArray(features, len, sr, id, pos);
@@ -175,14 +193,14 @@
 
 				// if present, add the related records from a link table
 				if (flag) {
-					// we add + 1 because it is not zero index based
-					linkFeats = relRecords[len].features;
+					// Get the right data from OBJECTID
+					linkFeats = relRecords[geometry.attributes.OBJECTID].features;
 					linkLen = linkFeats.length;
 
-					geometry.link = [];
+					geometry.attributes.link = [];
 					while (linkLen--) {
 						linkFeat = linkFeats[linkLen];
-						geometry.link.push(linkFeat.attributes);
+						geometry.attributes.link.push(linkFeat.attributes);
 					}
 				}
 
@@ -344,6 +362,7 @@
 			idParams.mapExtent = mymap.extent;
 			idParams.width = mymap.width;
 			idParams.height = mymap.height;
+			idParams.tolerance = 10;
 
 			// define all deferred functions
 			while (lenDef--) {
@@ -364,6 +383,22 @@
 		returnIdResults = function(response) {
 			// send the resonse to the calling view model
 			idRtnFunc(response);
+		};
+
+		setRelRecords = function(id, data) {
+			relRecords[id] = data;
+		};
+
+		getRelRecords = function(layerID, objectID) {
+			var outArr = [],
+				items = relRecords[layerID][objectID].features,
+				len = items.length;
+
+			while (len--) {
+				outArr.push(items[len].attributes);
+			}
+					
+			return outArr;
 		};
 
 		removeEvtPop = function() {
@@ -389,6 +424,7 @@
 			selectFeaturePop: selectFeaturePop,
 			unselectFeature: unselectFeature,
 			createIdTask: createIdTask,
+			getRelRecords: getRelRecords,
 			removeEvtPop: removeEvtPop,
 			addEvtPop: addEvtPop
 		};

@@ -29,15 +29,24 @@
 		// we dont use the drag and drop because it is not WCAG but we use the way they
 		// add CSV info on map
 		addCSV = function(map, data, uuid, fileName) {
-			var latFields = ['lat', 'latitude', 'y', 'ycenter'], // list of lat field strings
+			var firstLine, separator, csvStore,
+				latFields = ['lat', 'latitude', 'y', 'ycenter'], // list of lat field strings
 				longFields = ['lon', 'long', 'longitude', 'x', 'xcenter'], // list of lon field strings
-				firstLine = (window.browserOS === 'win') ? data.substr(0, data.indexOf('\n')) : data.substr(0, data.indexOf('\r')),
-				separator = getSeparator(firstLine),
-				csvStore = new esriCSVStore({
-					data: data,
-					separator: separator
-				}),
 				def = $viz.Deferred();
+			
+			// there is 2 end of line character. If the first one doesnt work, use the other
+			firstLine = data.substr(0, data.indexOf('\r'));
+			if (firstLine === '') {
+				firstLine = data.substr(0, data.indexOf('\n'));
+			}
+
+			// get the separator and start process
+			separator = getSeparator(firstLine),
+			csvStore = new esriCSVStore({
+				data: data,
+				separator: separator
+			}),
+			
 
 			csvStore.fetch({
 				onComplete: function (items) {
