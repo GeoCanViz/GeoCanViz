@@ -30,7 +30,7 @@
 					inwkid = configNorth.inwkid,
 					outwkid = configMouse.outwkid,
 					$section = $viz('#section' + mapid),
-					heightData = 659; // height of datatable whn open
+					heightData = 659; // height of datatable when open
 
 				// viewmodel mapid to be access in tooltip custom binding
 				_self.mapid = mapid;

@@ -71,6 +71,9 @@
 		};
 
 		// http://stackoverflow.com/questions/5033861/pass-additional-parameters-to-jquery-each-callback
+		//gcvizFunc.closureFunc(function(id, colIdx) {
+			// ...
+		//}, id));
 		closureFunc = function(fn, varArgs) {
 			var args = Array.prototype.slice.call(arguments, 1);
 			return function() {

@@ -32,7 +32,6 @@
 			createDataArray,
 			closeGetData,
 			createGraphic,
-			zoomFeature,
 			zoomFeatures,
 			selectFeature,
 			selectFeaturePop,
@@ -268,22 +267,6 @@
 			return graphic;
 		};
 
-		zoomFeature = function(geometry) {
-			var graphic = createGraphic(geometry, 'zoom');
-
-			// clear previous graphics
-			unselectFeature('zoom');
-
-			// add graphic
-			selectLayer.add(graphic);
-
-			// zoom graphic
-			gisMap.zoomFeature(mymap, graphic);
-
-			// focus the map
-			gcvizFunc.focusMap(mymap);
-		};
-
 		zoomFeatures = function(geometries) {
 			var extent,
 				graphic,
@@ -418,7 +401,6 @@
 		return {
 			initialize: initialize,
 			getData: getData,
-			zoomFeature: zoomFeature,
 			zoomFeatures: zoomFeatures,
 			selectFeature: selectFeature,
 			selectFeaturePop: selectFeaturePop,

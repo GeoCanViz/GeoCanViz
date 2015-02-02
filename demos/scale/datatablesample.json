@@ -1,82 +1,90 @@
-{"layerinfo": { "id": "6f798c6b-aaa5-4e24-78dd-9bfa5a9bc59e",
-						"type": 5,
-						"index": 0
-					},
-			"title": "Link",
-			"fields": [
-					{"title": "Prov code", "width": "60px", "data": "PROV_CODE"}
-			],
-			"linktable": {
-						"enable": true,
-						"fields": ["DATE_AGRMT_SIGNED", "AGREEMENTS_STATUS", "AGRMNT_NOTES"],
-						"relationship": 0
-					}	
-		},
-		{"layerinfo": { "id": "6f798c6b-aaa5-4e24-78dd-9bfa5a9bc59e",
-						"type": 5,
-						"index": 0
-					},
-			"title": "Not Link",
-			"fields": [
-					{"title": "Prov code", "width": "60px", "data": "PROV_CODE"}
-			],
-			"linktable": {
-						"enable": false
-					}		
-		}
-		
-
-{"layerinfo": { 
-								"id": "6f798c6b-f369-4e24-78dd-9bfa5a9bc59e",
-								"type": 5,
-								"index": 0
-               },
-               "title": "Geochronology Géochronologie",
-               "fields": [
-                    	{"title": "Age (Million years)", "width": "90px", "data": "AGE"},
-                    	{"title": "Age Method", "width": "60px", "data": "AGE_METHOD"},
-                    	{"title": "Error Plus", "width": "60px", "data": "ERR_PLUS"},
-                    	{"title": "Error Minus", "width": "60px", "data": "ERR_MINUS"},
-                    	{"title": "Age Interpretation", "width": "90px", "data": "AGE_INTERP"},
-                    	{"title": "Age Note", "width": "60px", "data": "AGE_NOTE"}
-								],
-								"linktable": {
-									"enable": false
-								},
-								"popups": {
-									"enable": true
-								},
-								"hover": {
-									"enable": false,
-									"hoverfield": "AGE"
-								}
-				},
-				
+Ajour, manque les type de champ pour configOri
 , {
                 "layerinfo": {
-                    "id": "6f798c6b-aaa3-4e24-78dd-9bfa5a9bc59e",
+                    "id": "6f798c6b-aaa1-4e24-78dd-9bfa5a9bc59e",
                     "type": 5,
-                    "index": 0
+                    "index": 27
                 },
-                "title": "Polygon",
+                "title": "Point",
                 "fields": [{
-                    "title": "Id",
+                    "title": "OBJECTID",
                     "width": "60px",
-                    "data": "OBJECTID"
+                    "data": "OBJECTID",
+                    "dataalias": "OBJECTID"
                 }, {
-                    "title": "ENTITYNAME",
+                    "title": "Species",
                     "width": "60px",
-                    "data": "ENTITYNAME"
+                    "data": "SPECIES",
+                    "dataalias": "SPECIES"
+                }, {
+                    "title": "Rank",
+                    "width": "50px",
+                    "data": "RANK",
+                    "dataalias": "RANK"
                 }],
                 "linktable": {
                     "enable": false
                  },
                  "popups": {
                     "enable": true,
-                    "title": "Poly"
+                    "layeralias": "Rare Plants"
                  },
                  "hover": {
                      "enable": false,
                      "hoverfield": "Community Well-Being"
                  }
-            }
+            }, {
+                "layerinfo": {
+                    "id": "6f798c6b-aaa2-4e24-78dd-9bfa5a9bc59e",
+                    "type": 5,
+                    "index": 11
+                },
+                "title": "Line",
+                "fields": [{
+                    "title": "Id",
+                    "width": "60px",
+                    "data": "OBJECTID",
+                    "dataalias": "SHAPE_FID"
+                }],
+                "linktable": {
+                    "enable": false
+                 },
+                 "popups": {
+                    "enable": true,
+                    "layeralias": "Canada - Political Boundaries"
+                 },
+                 "hover": {
+                     "enable": false,
+                     "hoverfield": "Community Well-Being"
+                 }
+            }, {
+                "layerinfo": {
+                    "id": "6f798c6b-aaa4-4e24-78dd-9bfa5a9bc59e",
+                    "type": 4,
+                    "index": 0
+                },
+                "title": "Dynamic Non Metal Mines",
+                "fields": [{
+                    "title": "OperationE",
+                    "width": "260px",
+                    "data": "OperationE",
+                    "dataalias": "OperationE"
+                }, {
+                    "title": "CityE",
+                    "width": "600px",
+                    "data": "CityE",
+                    "dataalias": "CityE"
+                }],
+                "linktable": {
+                    "enable": false
+                 },
+                 "popups": {
+                    "enable": true,
+                    "layeralias": "Metal mines"
+                 },
+                 "hover": {
+                     "enable": false,
+                     "hoverfield": "Community Well-Being"
+                 }
+            }, 
+            

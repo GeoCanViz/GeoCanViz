@@ -516,6 +516,7 @@
         },
         "datagrid": {
             "enable": true,
+            "expand": true,
             "layers": [{
                 "layerinfo": {
                     "id": "6f798c6b-0001-4e24-78dd-9bfa5a9bc59e",
@@ -555,93 +556,6 @@
                  "popups": {
                     "enable": true,
                     "layeralias": "Geology - Major Rock Categories"
-                 },
-                 "hover": {
-                     "enable": false,
-                     "hoverfield": "Community Well-Being"
-                 }
-            }, {
-                "layerinfo": {
-                    "id": "6f798c6b-aaa1-4e24-78dd-9bfa5a9bc59e",
-                    "type": 5,
-                    "index": 27
-                },
-                "title": "Point",
-                "fields": [{
-                    "title": "OBJECTID",
-                    "width": "60px",
-                    "data": "OBJECTID",
-                    "dataalias": "OBJECTID"
-                }, {
-                    "title": "Species",
-                    "width": "60px",
-                    "data": "SPECIES",
-                    "dataalias": "SPECIES"
-                }, {
-                    "title": "Rank",
-                    "width": "50px",
-                    "data": "RANK",
-                    "dataalias": "RANK"
-                }],
-                "linktable": {
-                    "enable": false
-                 },
-                 "popups": {
-                    "enable": true,
-                    "layeralias": "Rare Plants"
-                 },
-                 "hover": {
-                     "enable": false,
-                     "hoverfield": "Community Well-Being"
-                 }
-            }, {
-                "layerinfo": {
-                    "id": "6f798c6b-aaa2-4e24-78dd-9bfa5a9bc59e",
-                    "type": 5,
-                    "index": 11
-                },
-                "title": "Line",
-                "fields": [{
-                    "title": "Id",
-                    "width": "60px",
-                    "data": "OBJECTID",
-                    "dataalias": "SHAPE_FID"
-                }],
-                "linktable": {
-                    "enable": false
-                 },
-                 "popups": {
-                    "enable": true,
-                    "layeralias": "Canada - Political Boundaries"
-                 },
-                 "hover": {
-                     "enable": false,
-                     "hoverfield": "Community Well-Being"
-                 }
-            }, {
-                "layerinfo": {
-                    "id": "6f798c6b-aaa4-4e24-78dd-9bfa5a9bc59e",
-                    "type": 4,
-                    "index": 0
-                },
-                "title": "Dynamic Non Metal Mines",
-                "fields": [{
-                    "title": "OperationE",
-                    "width": "60px",
-                    "data": "OperationE",
-                    "dataalias": "OperationE"
-                }, {
-                    "title": "CityE",
-                    "width": "60px",
-                    "data": "CityE",
-                    "dataalias": "CityE"
-                }],
-                "linktable": {
-                    "enable": false
-                 },
-                 "popups": {
-                    "enable": true,
-                    "layeralias": "Metal mines"
                  },
                  "hover": {
                      "enable": false,

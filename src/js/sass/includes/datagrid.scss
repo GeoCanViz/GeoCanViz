@@ -4,10 +4,18 @@
 	margin-top: (0.2 * $rembase) + rem;
 }
 
-.gcviz-dg-search {
+.gcviz-dg-searchstr {
 	display: block;
 	margin: auto;
 	width: 80%;
+}
+
+.gcviz-dg-searchnum {
+	display: inline-block;
+	margin: auto;
+	width: 30%;
+	margin-left: (1 * $rembase) + rem;
+	margin-right: (1 * $rembase) + rem;
 }
 
 .gcviz-dg-pad {
@@ -19,12 +27,6 @@
 // buttons zoom selected, clear zoom and clear filter
 .gcviz-dg-zoomsel {
 	@include sprite($img-spritebtn, -1516, -2);
-	display: block;
-	margin: auto;
-}
-
-.gcviz-dg-zoomclear {
-	@include sprite($img-spritebtn, -1553, -2);
 	display: block;
 	margin: auto;
 }
@@ -149,10 +151,23 @@ table.dataTable.no-footer {
 .gcviz-dg-wait {
 	display: none!important;
 }
+
+// add the resizable icon to jqueryui popup
+.ui-dialog .ui-resizable-se {
+	width: 17px!important;
+	height: 17px!important;
+	right: 1px!important;
+	bottom: 1px!important;
+	background-position: -80px -224px!important;
+}
  
 // popups
 .gcviz-popup {
 	overflow: hidden!important;
+}
+
+.ui-resizable {
+	min-height: 340px!important; // set it here because jqueyui doesn t work
 }
 
 .gcviz-popup-counter {
@@ -188,7 +203,6 @@ table.dataTable.no-footer {
 
 .gcviz-popup-content {
 	overflow: auto;
-	height: 200px!important;
 }
 
 .gcviz-popup-previous {

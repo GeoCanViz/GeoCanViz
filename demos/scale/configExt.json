@@ -35,54 +35,78 @@
 "insetframe": {"enable": false},
 "datagrid": {
 	"enable": true,
+	"expand": true,
 	"layers": [
-				{"layerinfo": { 
-								"id": "6f798c6b-0001-4e24-78dd-9bfa5a9bc59e",
-								"type": 4,
-								"index": 0
-               },
-               "title": "GMRC",
-               "fields": [
-                    	{"title": "Desc English", "width": "90px", "data": "GEO_EDESC", "dataalias": "GEO_EDESC"},
-                    	{"title": "Desc French", "width": "60px", "data": "GEO_FDESC", "dataalias": "GEO_FDESC"}
-								],
-								"linktable": {
-									"enable": false
-								},
-								"popups": {
-									"enable": true,
-									"layeralias": "Geology - Major Rock Categories"
-								},
-								"hover": {
-									"enable": false,
-									"hoverfield": "GEO_EDESC"
-								}
-				},
-				{"layerinfo": { 
-								"id": "6f798c6b-f369-4e24-78dd-9bfa5a9bc59e",
-								"type": 4,
-								"index": 0
-               },
-               "title": "Geochronology Géochronologie",
-               "fields": [
-                    	{"title": "Age (Million years)", "width": "90px", "data": "AGE", "dataalias": "Age"},
-                    	{"title": "Age Method", "width": "60px", "data": "AGE_METHOD", "dataalias": "Method"},
-                    	{"title": "Error Plus", "width": "60px", "data": "ERR_PLUS", "dataalias": "Error Plus"},
-                    	{"title": "Error Minus", "width": "60px", "data": "ERR_MINUS", "dataalias": "Error Minus"},
-                    	{"title": "Age Note", "width": "60px", "data": "AGE_NOTE",  "dataalias": "Note"}
-								],
-								"linktable": {
-									"enable": false
-								},
-								"popups": {
-									"enable": true,
-									"layeralias": "Geochronology Géochronologie"
-								},
-								"hover": {
-									"enable": false,
-									"hoverfield": "AGE"
-								}
-				}
+				{
+				    "layerinfo": {
+				        "id": "6f798c6b-f369-4e24-78dd-9bfa5a9bc59e",
+				        "type": 4,
+				        "index": 0
+				    },
+				    "title": "Geochronology Géochronologie",
+				    "fields": [{
+				        "title": "Age (Million years)",
+				        "width": "150px",
+				        "data": "AGE",
+				        "dataalias": "Age",
+				        "type": {
+				        	"field": "field",
+				        	"value": "number"
+				        },
+				        "searchable": true
+				    }, {
+				        "title": "Age Method",
+				        "width": "100px",
+				        "data": "AGE_METHOD",
+				        "dataalias": "Method",
+				        "type": {
+				        	"field": "field",
+				        	"value": "string"
+				        },
+				        "searchable": true
+				    }, {
+				        "title": "Error Plus",
+				        "width": "170px",
+				        "data": "ERR_PLUS",
+				        "dataalias": "Error Plus",
+				        "type": {
+				        	"field": "field",
+				        	"value": "number"
+				        },
+				        "searchable": true
+				    }, {
+				        "title": "Error Minus",
+				        "width": "150px",
+				        "data": "ERR_MINUS",
+				        "dataalias": "Error Minus",
+				        "type": {
+				        	"field": "field",
+				        	"value": "number"
+				        },
+				        "searchable": true
+				    }, {
+				        "title": "Age Note",
+				        "width": "250px",
+				        "data": "AGE_NOTE",
+				        "dataalias": "Note",
+				        "type": {
+				        	"field": "field",
+				        	"value": "string"
+				        },
+				        "searchable": false
+				    }],
+				    "linktable": {
+				        "enable": false
+				    },
+				    "popups": {
+				        "enable": true,
+				        "layeralias": "Geochronology Géochronologie"
+				    },
+				    "hover": {
+				        "enable": false,
+				        "hoverfield": "AGE"
+				    }
+			}
 		]
 },
 "customwidgets": []}}

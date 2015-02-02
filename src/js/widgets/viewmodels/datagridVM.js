@@ -63,7 +63,6 @@
 				_self.sortDescending = i18n.getDict('%datagrid-sortDescending');
 				_self.lblAllLayer = i18n.getDict('%datagrid-popalllayers');
 				_self.lblSelectLayer = i18n.getDict('%datagrid-popselect');
-				_self.lblClearZoom = i18n.getDict('%datagrid-clearzoom');
 				_self.lblClearFilters = i18n.getDict('%datagrid-clearfilters');
 
 				// text for popup
@@ -216,13 +215,13 @@
 					var dataTB, fields,
 						deferRender = false,
 						link = false,
-						searchInd = 2,
+						searchInd = 1,
 						$table = $viz('#table-' + mapid + '-' + pos);
 
 					// check if we need to add a columns to open/close link info
 					if (typeof data[0].link !== 'undefined') {
 						link = true;
-						searchInd = 3;
+						searchInd = 2;
 					}
 
 					// if there is too much data on the page we need to use defer render to speed up the process
@@ -250,7 +249,8 @@
 								idxTable = idTable.split('-'),
 								id = idxTable[idxTable.length - 1],
 								$filter = $viz('#' + idTable + '_filter'),
-								$len = $viz('#' + idTable + '_wrapper .dataTables_length');
+								$len = $viz('#' + idTable + '_wrapper .dataTables_length'),
+								columns = inTable.aoColumns;
 
 							// if defer render is true, do not add the select all because it wont work
 							// properly. The rows are not created until user navigate to them.
@@ -266,24 +266,28 @@
 							gcvizFunc.addTooltip(elem, { content: _self.lblClearFilters });
 							$filter.children().addClass('gcviz-dg-pad').attr('id', 'clearfilter-' + id);
 
-							// setup - add a text input to each header cell (for search capabilities)
-							// for the first 2 columns add zoom to selected and clear zoom.
-							$viz('#' + idTable + '_wrapper .dataTables_scrollHead th').each(gcvizFunc.closureFunc(function(id, colIdx) {
-								var elem;
+							// setup - add a text input to each header cell (for search capabilities) is searchable == true
+							// for the first column add zoom to selected.
+							$viz('#' + idTable + '_wrapper .dataTables_scrollHead th').each(gcvizFunc.closureFunc(function(id, columns, colIdx) {
+								var elem, valueType,
+									column = columns[colIdx];
 
 								if (colIdx === 0) {
 									// add zoom to selected
 									elem = $viz(this).append('<button id=zoomsel-' + id + '" class="gcviz-dg-zoomsel"></button>');
 									gcvizFunc.addTooltip(elem, { content: _self.lblZoomSelect });
-								} else if (colIdx === 1) {
-									// add clear zoom
-									elem = $viz(this).append('<button class="gcviz-dg-zoomclear"></button>');
-									gcvizFunc.addTooltip(elem, { content: _self.lblClearZoom });
-								} else if (!$viz(this).hasClass('gcviz-dg-link')){
-									// add filter
-									$viz(this).append('<input type="text" class="gcviz-dg-search" placeholder="' + _self.search + ' ' + this.innerHTML +'"></text>');
+								} else if (column.bSearchable) {
+									valueType = column.type.value;
+
+									// add string filter
+									if (valueType === 'string') {
+										$viz(this).append('<input type="text" class="gcviz-dg-search gcviz-dg-searchstr" placeholder="' + _self.search + ' ' + this.innerHTML + '"></text>');
+									} else if (valueType === 'number') {
+										$viz(this).append('<div><input type="text" class="gcviz-dg-search gcviz-dg-searchnum" placeholder="Min"></text>' +
+															'<input type="text" class="gcviz-dg-search gcviz-dg-searchnum" placeholder="Max"></text></div>');
+									}
 								}
-							}, id));
+							}, id, columns));
 
 							// call finish init with the position of the table in the array
 							_self.finishInit(id);
@@ -327,7 +331,7 @@
 
 					// if there is a link, set the title, sub title and fields value to the column header
 					if (link) {
-						var linkCol = $viz(dataTB.column(2).header());
+						var linkCol = $viz(dataTB.column(1).header());
 						linkCol.attr('gcviz-title', layer.linktable.title);
 						linkCol.attr('gcviz-subtitle', layer.linktable.subtitle);
 						linkCol.attr('gcviz-fields', $viz.map(layer.linktable.fields, function(value) {
@@ -392,6 +396,7 @@
 						};
 					}
 
+					// if there is alink table, add link column
 					if (link) {
 						fields.unshift({
 							data: null,
@@ -403,22 +408,7 @@
 						});
 					}
 
-					// add zoom and select column
-					fields.unshift({
-						data: null,
-						className: 'dt-body-center',
-						title: 'Zoom',
-						width: '45px',
-						searchable: false,
-						orderable: false,
-						render: function (data, type) {
-									if (type === 'display') {
-										return '<button class="gcviz-dg-zoom">Zoom</button>';
-									}
-									return data;
-								}
-					});
-
+					// add select column
 					fields.unshift({
 						data: 'gcvizcheck',
 						className: 'dt-body-center',
@@ -457,6 +447,14 @@
 							}
 						});
 						$datagrid.accordion('refresh');
+
+						// check if we need to open the table by default
+						if (config.expand) {
+							$datagrid.accordion('option', 'active', 0);
+							setTimeout(function() {
+								objDataTable[0].draw();
+							}, 250);
+						}
 
 						// remove progress dialog
 						_self.isWait(false);
@@ -518,25 +516,10 @@
 						_self.selectAll(e);
 					});
 
-					// set zoom event
-					$table.on('click', '.gcviz-dg-zoom', function(e) {
-						// get the id from the table
-						var info = _self.getInfo(e, 'control');
-
-						// zoom to feature
-						_self.zoom(info);
-					});
-
 					// set zoom selected event
 					$tabs.on('click', '.gcviz-dg-zoomsel', function(e) {
 						// zoom to features
 						_self.zoomSelect(e);
-					});
-
-					// set clear zoom event
-					$tabs.on('click', '.gcviz-dg-zoomclear', function() {
-						// clear zoom features
-						gisDG.unselectFeature('zoom');
 					});
 
 					// set clear filters event
@@ -707,11 +690,11 @@
 				};
 
 				_self.zoom = function(info) {
-					var geom;
+					var geom = [];
 
 					// get feature geometry, then call gisDatagrid to create graphic and zoom
-					geom = objData[info.table][info.feat].geometry;
-					gisDG.zoomFeature(geom);
+					geom.push(objData[info.table][info.feat].geometry);
+					gisDG.zoomFeatures(geom);
 				};
 
 				_self.zoomSelect = function(e) {
@@ -883,7 +866,7 @@
 						layer = layers[len];
 						popups = layer.popups;
 
-						if (popups && layerName === layer.title) {
+						if (popups.enable && layerName === layer.title) {
 
 							// get the feature attribute names and values
 							attrNames = $viz.map(attributes, function(value, index) {
@@ -904,13 +887,14 @@
 							// check if there is a link table and get data
 							linkInfo = layer.linktable;
 							if (linkInfo.enable) {
+								// set to 2 because the 2 last field are for select and link 
 								staticFields = 2;
 								
 								linkNode = _self.getLinkNode(linkInfo, layer.layerinfo.id, attributes.OBJECTID);
 							}
 
-							// the last 2 fields are for select and zoom
-							while (lenFields > staticFields) {
+							// the last field is for select
+							while (lenFields >= staticFields) {
 								field = fields[lenFields];
 								lenFields--;
 
@@ -937,6 +921,7 @@
 					 	linkAttrNames, linkAttrValues,
 					 	lenLink, lenFields,
 					 	fieldName,
+					 	fieldsInfo = linkInfo.fields.reverse(),
 					 	node = '';
 
 					// get the feature attribute names and values
@@ -953,7 +938,7 @@
 					lenLink = linkAttrNames.length;
 					while (lenLink--) {
 						// get the title to put for the field and create node
-						fieldName = linkAttrNames[lenLink];
+						fieldName = fieldsInfo[lenLink].title;
 						node += '<th class="dt-body-center sorting_disabled" rowspan="1" colspan="1" aria-label="' + fieldName +
 								'" title="' + fieldName + '">' + fieldName + '</th>';
 					}
@@ -1090,6 +1075,16 @@
 						gisDG.unselectFeature('popup');
 						gisDG.selectFeaturePop(currentFeature.feature.geometry);
 					}
+				};
+
+				_self.setPopupHeight = function(event, ui) {
+					var height = ui.size.height - 140;
+
+					if (height < 200) {
+						height = 200;
+					}
+
+					$popContent.css('height', height + 'px');
 				};
 
 				_self.init();
