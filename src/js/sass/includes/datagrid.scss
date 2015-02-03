@@ -24,7 +24,7 @@
 	display: inline;
 }
 
-// buttons zoom selected, clear zoom and clear filter
+// buttons zoom selected, clear filter, export csv
 .gcviz-dg-zoomsel {
 	@include sprite($img-spritebtn, -1516, -2);
 	display: block;
@@ -33,6 +33,12 @@
 
 .gcviz-dg-filterclear {
 	@include sprite($img-spritebtn, -1589, -2);
+	margin-top: (0.4 * $rembase) + rem;
+	vertical-align: middle;
+}
+
+.gcviz-dg-exportcsv {
+	@include sprite($img-spritebtn, -976, -2);
 	margin-top: (0.4 * $rembase) + rem;
 	vertical-align: middle;
 }
@@ -164,6 +170,7 @@ table.dataTable.no-footer {
 // popups
 .gcviz-popup {
 	overflow: hidden!important;
+	width: 97%!important;
 }
 
 .ui-resizable {

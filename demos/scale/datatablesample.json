@@ -86,5 +86,58 @@ Ajour, manque les type de champ pour configOri
                      "enable": false,
                      "hoverfield": "Community Well-Being"
                  }
+            },
+
+
+
+	{
+                "layerinfo": {
+                    "id": "6f798c6b-0001-4e24-78dd-9bfa5a9bc59e",
+                    "type": 4,
+                    "index": 0
+                },
+                "title": "GMRC",
+                "fields": [{
+                    "title": "Object Id",
+                    "width": "160px",
+                    "data": "OBJECTID",
+                    "dataalias": "OBJECTID",
+                    "type": {
+				        	"field": "field",
+				        	"value": "number"
+				        },
+				        "searchable": true
+                }, {
+                    "title": "Geo Id",
+                    "width": "160px",
+                    "data": "GEO_ID",
+                    "dataalias": "GEO_ID",
+                    "type": {
+				        	"field": "field",
+				        	"value": "number"
+				        },
+				        "searchable": true
+                }, {
+                    "title": "Geo FDESC",
+                    "width": "250px",
+                    "data": "GEO_FDESC",
+                    "dataalias": "GEO_FDESC",
+                    "type": {
+				        	"field": "field",
+				        	"value": "string"
+				        },
+				        "searchable": true
+                }],
+                "linktable": {
+                    "enable": false
+                 },
+                 "popups": {
+                    "enable": true,
+                    "layeralias": "Geology - Major Rock Categories"
+                 },
+                 "hover": {
+                     "enable": false,
+                     "hoverfield": "Community Well-Being"
+                 }
             }, 
             

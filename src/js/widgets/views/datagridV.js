@@ -19,6 +19,10 @@
 				node = '',
 				side = $mapElem.header.side === 1 ? 'left' : 'right'; //popup side from menu side
 
+			// add the url for dowload page to config
+			config.urldownload = $mapElem.mapframe.map.urldownload;
+
+			// find the footer to add the node to
 			$footer = $mapElem.find('.gcviz-foot');
 
 			// datatable and popup holder
@@ -32,7 +36,7 @@
 
 						// popup
 						'<div id="gcviz-popup' + mapid + '" class="gcviz-popup" data-bind="uiDialog: { title: popupDialogTitle, minWidth: 350, minHeigth: 325, close: dialogPopupClose, openDialog: \'isPopupDialogOpen\', ' +
-																										'modal: false, resizable: true, draggable: true, resizeStop: setPopupHeight, ' +
+																										'modal: false, resizable: true, draggable: true, resizeStop: setPopupSize, ' +
 																										'position: { within: \'#' + mapid + '_holder\', at: \'' + side + ' bottom\' } }">' +
 							'<select id="popupSelect' + mapid + '" class="gcviz-popup-select" data-bind="options: layerName, value: selectedLayer, event: { change: changeSelectLayer }, ' +
 																											'attr: { title: lblSelectLayer }" tabindex="0"></select>' +

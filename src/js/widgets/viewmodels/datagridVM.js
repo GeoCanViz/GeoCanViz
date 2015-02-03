@@ -132,6 +132,50 @@
 					});
 				};
 
+				_self.exportCSV = function(data) {
+					var row, line, fieldsLen,
+						gcvizInd = 0,
+						fields = [],
+						header = '',
+						output = '',
+						rtnCarr = String.fromCharCode(13),
+						dataLen = data.length;
+					
+					// get the row title
+					row = data[0];
+					for (var field in row) {
+						if (row.hasOwnProperty(field)) {
+							// if field value is gcvizid, stop the for we are now in the internal field
+							if (field !== 'gcvizid') {
+								fields.push(field);
+								header += '"' + field + '",';
+								gcvizInd++;
+							} else {
+								break;
+							}
+						}
+					}
+					output = header.slice(0, -1) + rtnCarr;
+
+					// loop trough the data
+					while (dataLen--) {
+						fieldsLen = fields.length;
+						row = data[dataLen];
+						line = '';
+
+						while (fieldsLen--) {
+							line += '"' + row[fields[fieldsLen]] + '",';
+						}
+						output += line.slice(0, -1) + rtnCarr;
+					}
+
+					$viz.generateFile({
+						filename	: 'exportCSV.csv',
+						content		: output,
+						script		: config.urldownload
+					});
+				};
+
 				_self.openWait = function(event) {
 					$(event.target.parentElement).find('.ui-dialog-titlebar-close').addClass('gcviz-dg-wait');
 				};
@@ -146,19 +190,28 @@
 				};
 
 				_self.getData = function(layer, pos) {
-					var tmpLook, urlFull,
+					var tmpLook, urlFull, strField,
 						layerInfo = layer.layerinfo,
 						layerIndex = layerInfo.index,
 						type = layerInfo.type,
 						url = mymap.getLayer(layerInfo.id).url,
-						popup = layer.popups;
+						popup = layer.popups,
+						fields = layer.fields,
+						fieldsLen = fields.length;
 
 					// set position in the array too be able to create unique id later
 					layerInfo.pos = pos;
 
+					// get list of fields to query
+					strField = '';
+					while (fieldsLen--) {
+						strField += fields[fieldsLen].data + ',';
+					}
+					strField = strField.slice(0, -1);
+						
 					if (type === 4) {
 						// datatable (dynamic layer, need layer index to select one layer in the dynamic service)
-						urlFull = url + layerIndex + '/query?where=OBJECTID+>+0&outFields=*&dirty=' + (new Date()).getTime();
+						urlFull = url + layerIndex + '/query?where=OBJECTID+>+0&outFields=' + strField + '&dirty=' + (new Date()).getTime();
 						gisDG.getData(urlFull, layer, _self.createTab);
 
 						// popup
@@ -170,7 +223,7 @@
 						}
 					} else if (type === 5) {
 						// datatable (feature layer)
-						urlFull = url + '/query?where=OBJECTID+>+0&outFields=*&dirty=' + (new Date()).getTime();
+						urlFull = url + '/query?where=OBJECTID+>+0&outFields=' + strField + '&dirty=' + (new Date()).getTime();
 						gisDG.getData(urlFull, layer, _self.createTab);
 
 						// popup (remove layer index)
@@ -244,7 +297,7 @@
 						'processing': true,
 						'columns': fields,
 						'initComplete': function(inTable) {
-							var elem,
+							var $elemFilter, $elemCSV,
 								idTable = inTable.sTableId,
 								idxTable = idTable.split('-'),
 								id = idxTable[idxTable.length - 1],
@@ -262,9 +315,19 @@
 							}
 
 							// add the clear filter button and class on label
-							elem = $filter.prepend('<button class="gcviz-dg-filterclear"></button>');
-							gcvizFunc.addTooltip(elem, { content: _self.lblClearFilters });
-							$filter.children().addClass('gcviz-dg-pad').attr('id', 'clearfilter-' + id);
+							$filter.append('<button class="gcviz-dg-filterclear"></button>');
+							$elemFilter = $viz('.gcviz-dg-filterclear');
+							gcvizFunc.addTooltip($elemFilter, { content: _self.lblClearFilters });
+							$elemFilter.addClass('gcviz-dg-pad').attr('id', 'clearfilter-' + id);
+							
+							// add export csv button
+							$filter.prepend('<button class="gcviz-dg-exportcsv"></button>');
+							$elemCSV = $viz('.gcviz-dg-exportcsv');
+							gcvizFunc.addTooltip($elemCSV, { content: _self.lblClearFilters });
+							$elemCSV.addClass('gcviz-dg-pad').attr('id', 'exportcsv-' + id);
+
+							// add a class to label search to have table and button on one line
+							$filter.find('label').addClass('gcviz-dg-pad');
 
 							// setup - add a text input to each header cell (for search capabilities) is searchable == true
 							// for the first column add zoom to selected.
@@ -340,11 +403,50 @@
 					}
 
 					// Apply the search by field
-					dataTB.columns().eq(0).each(function(colIdx) {
-						$viz('input', dataTB.column(colIdx).header()).on('keyup change', function() {
-							dataTB.column(colIdx).search(this.value).draw();
-						});
-					});
+					dataTB.columns().eq(0).each(gcvizFunc.closureFunc(function(fields, colIdx) {
+						var fieldValue = fields[colIdx].type.value;
+
+						if (fieldValue === 'string') {
+							$viz('input', dataTB.column(colIdx).header()).on('keyup change', function() {
+								// put the draw in a timeout if not, the processing will not be shown
+								var $process = $viz('.dataTables_processing'),
+									value = this.value;
+								$process.css('display', 'block');
+								setTimeout(gcvizFunc.closureFunc(function(value) {
+									dataTB.column(colIdx).search(value).draw();
+									$process.css('display', 'none');
+								}, value), 250);
+							});
+						} else if (fieldValue === 'number') {
+							var inputs = $viz('input', dataTB.column(colIdx).header());
+
+							// add the range filter search
+							$.fn.dataTable.ext.search.push(gcvizFunc.closureFunc(function(inputs, settings, data, dataIndex) {
+       							var flag = false,
+       								min = parseFloat(inputs[0].value, 10),
+									max = parseFloat(inputs[1].value, 10),
+									val = parseFloat( data[colIdx] ) || 0; // use data for the the column
+ 
+								if ((isNaN(min) && isNaN(max)) ||
+									(isNaN(min) && val <= max) ||
+									(min <= val && isNaN(max)) ||
+									(min <= val && val <= max)) {
+									flag = true;
+								}
+								return flag;
+						    }, inputs));
+
+							$viz('input', dataTB.column(colIdx).header()).on('keyup change', function() {
+								// put the draw in a timeout if not, the processing will not be shown
+								var $process = $viz('.dataTables_processing');
+								$process.css('display', 'block');
+								setTimeout(function() {
+									dataTB.draw();
+									$process.css('display', 'none');
+								}, 250);
+							});
+						}
+					}, fields));
 					
 					// FIXED COLUMNS
 					// we cant use fixed column because of 2 main reasons. First it is not WCAG. When we tab, there is
@@ -401,10 +503,14 @@
 						fields.unshift({
 							data: null,
 							className: 'gcviz-dg-link',
+							title: null,
+							width: '30px',
 							searchable: false,
 							orderable: false,
+							type: {
+								value: 'button'
+							},
 							defaultContent: '',
-							width: '10px'
 						});
 					}
 
@@ -416,6 +522,9 @@
 						width: '45px',
 						searchable: false,
 						orderable: false,
+						type: {
+							value: 'check'
+						},
 						render: function (data, type) {
 									if (type === 'display') {
 										return '<input type="checkbox" class="gcviz-dg-select"></input>';
@@ -522,14 +631,28 @@
 						_self.zoomSelect(e);
 					});
 
+					// export csv
+					$tabs.on('click', '.gcviz-dg-exportcsv', function(e) {
+						var id = parseInt(e.target.id.split('-')[1], 10),
+							table = objDataTable[id],
+							filterRows = table.rows({ filter: 'applied' }).data().toArray().reverse();
+						_self.exportCSV(filterRows);
+					});
+
 					// set clear filters event
 					$tabs.on('click', '.gcviz-dg-filterclear', function(e) {
 						var $elems = $viz(e.target.parentElement.parentElement).find('.gcviz-dg-search'),
+							$process = $viz('.dataTables_processing'),
 							id = parseInt(e.target.id.split('-')[1], 10);
 
-						// reset value then trigger a "change" event.
+						// reset value then trigger a "change" event. Put the draw in
+						// a timeout if not, the processing will not be shown
+						$process.css( 'display', 'block' );
 						$elems.val('');
-						objDataTable[id].search('').columns().search('').draw();
+						setTimeout(function() {
+							objDataTable[id].search('').columns().search('').draw();
+							$process.css('display', 'none');
+						}, 250);
 					});
 
 					// set click and double click on row
@@ -1077,9 +1200,11 @@
 					}
 				};
 
-				_self.setPopupHeight = function(event, ui) {
-					var height = ui.size.height - 140;
+				_self.setPopupSize = function(event, ui) {
+					var height = ui.size.height - 140; // 140 is the height of header
 
+					// do not let the user set to height to low. For width, we dont have
+					// to do it because minWidth works.
 					if (height < 200) {
 						height = 200;
 					}
