@@ -28,8 +28,9 @@ var locationPath;
 			'gcviz-v-tbdraw',
 			'gcviz-v-tbnav',
 			'gcviz-v-tblegend',
-			'gcviz-v-tbdata'
-	], function($viz, mp, jqui, i18n, gcvizFunc, map, inset, help, wcag, datagrid, header, footer, tbdraw, tbnav, tblegend, tbdata) {
+			'gcviz-v-tbdata',
+			'gcviz-v-print'
+	], function($viz, mp, jqui, i18n, gcvizFunc, map, inset, help, wcag, datagrid, header, footer, tbdraw, tbnav, tblegend, tbdata, print) {
 		var initialize,
 			readConfig,
 			execConfig,
@@ -172,6 +173,11 @@ var locationPath;
 			if (config.insetframe.enable) {
 				vmArray.insets = inset.initialize($mapSection);
 			}
+
+			// add print
+			
+			vmArray.print = print.initialize($mapSection);
+			
 
 			// create the help for the map instance
 			vmArray.help = help.initialize($mapSection);

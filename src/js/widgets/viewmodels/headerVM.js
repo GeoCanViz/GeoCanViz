@@ -16,8 +16,10 @@
 			'gcviz-ko',
 			'gcviz-func',
 			'gcviz-gismap',
-			'gcviz-vm-help'
-	], function($viz, ko, media, gisPrint, i18n, binding, gcvizFunc, gisM, helpVM) {
+			'gcviz-vm-help',
+			'gcviz-vm-print'
+
+	], function($viz, ko, media, gisPrint, i18n, binding, gcvizFunc, gisM, helpVM, printVM) {
 		var initialize,
 			printSimple,
 			getRotationDegrees,
@@ -169,7 +171,11 @@
 					//gisPrint.printMap(vmArray[mapid].map.map, _self.printInfo);
 
 					// This is the simple print. It doesn't use esri print task
-					printSimple(map, _self.printInfo.template);
+					//printSimple(map, _self.printInfo.template);
+					 //printVM.togglePrint();
+					// console.log(map);
+					printVM.togglePrint();
+
 				};
 
 				_self.insetClick = function() {
