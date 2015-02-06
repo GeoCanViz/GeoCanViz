@@ -132,7 +132,8 @@
                 "link": false,
                 "zoombar": {
                     "bar": true,
-                    "zoom": true
+                    "zoom": true,
+                    "zoomfull": true
                 },
                 "bases": [{
                     "label": "CBMT3978",
@@ -636,6 +637,36 @@
             "expand": false,
             "pos": 1,
             "basemaps": [ {
+                "expand": false,
+                "last": true,
+                "type": 2,
+                "id": "",
+                "graphid": "762eb7ed-cccc-242f-6fcf-af08f5605eb1",
+                "displayfields": false,
+                "label": {
+                    "value": "Sans carte de fond",
+                    "alttext": "Sans carte de fond"
+                },
+                "metadata": {
+                    "enable": false
+                },
+                "opacity": {
+                    "enable": false
+                },
+                "visibility": {
+                    "enable": true,
+                    "initstate": false,
+                    "type": 2,
+                    "radioid": 5
+                },
+                "displaychild": {
+                    "enable": false
+                },
+                "customimage": {
+                    "enable": false
+                },
+                "items": []
+            }, {
                 "expand": false,
                 "last": true,
                 "type": 2,
@@ -2171,7 +2202,7 @@
         "toolbardata": {
             "enable": true,
             "expand": false,
-            "pos": 3,
+            "pos": 4,
             "data": {
                 "enable": true
             }
@@ -2179,7 +2210,52 @@
         "toolbarextract": {
             "enable": true,
             "expand": false,
-            "pos": 4
+            "pos": 3,
+            "grid": "bbbb469d-aaa1-c8f5-175c-645200a6b6fe",
+            "items": [{
+            	"title": "Cartes (matrice): ",
+            	"subtitle": "Toporama, CanMatrix prêt à être imprimé et géoréférencé.",
+            	"scale": -1,
+            	"url": "http://geogratis.gc.ca/api/fr/nrcan-rncan/ess-sst/-/OR/(urn:iso:series)toporama/(urn:iso:series)canmatrix-georeferenced",
+            	"query": [{
+            		"control": "button",
+            		"type": "nts",
+            		"param": "?q=XXX",
+            		"label": "Obtenir un SNRC"
+            		}, {
+            		"control": "link",
+            		"type": "extent",
+            		"param": "?bbox=XXX",
+            		"label": "Obtenir les cartes pour l'étendue"
+            		}]
+            	}, {
+            	"title": "Données (vecteur): ",
+            	"subtitle": "CanVec+.",
+	            "scale": -1,
+	            "url": "http://geogratis.gc.ca/api/fr/nrcan-rncan/ess-sst/-/(urn:iso:series)canvec-plus",
+	            "query": [{
+	           	  "control": "button",
+            		"type": "nts",
+            		"param": "?q=XXX",
+            		"label": "Obtenir un SNRC"
+            		}, {
+            		"control": "link",
+            		"type": "extent",
+            		"param": "?bbox=XXX&sort-field=spatial",
+            		"label": "Obtenir les données pour l'étendue"
+            		}]
+	            }, {
+	            "title": "Données: ",
+	            "subtitle": "CanVec (vecteur) et des données d'élevation (matrice) en utilisant un étendu géographique.",
+	            "scale": -1,
+            	"url": "http://geogratis.gc.ca/site/fra/extraction",
+            	"query": [{
+            		"control": "link",
+            		"type": "extent",
+            		"param": "?bbox=XXX",
+            		"label": "Obtenir à l'aide de l'outil d'extraction"
+            		}]
+	           }]
         },
         "insetframe": {
             "enable": false

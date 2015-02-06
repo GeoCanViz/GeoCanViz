@@ -67,6 +67,11 @@ svg {
 	@include app-border(0.1, solid, #c1c5be);
 }
 
+.gcviz-disable {
+	opacity: 0.5;
+	pointer-events: none;
+}
+
 .gcviz-mapholder {
 	background: #FFF;
 }

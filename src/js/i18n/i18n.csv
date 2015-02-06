@@ -30,7 +30,8 @@ Global sys value#%gisurlalti#http://geogratis.gc.ca/services/elevation/cdem/alti
 #%wcag-msgy#Value needs to be between 40 and 80#La valeur doit être entre 40 et 80.
 #%wcag-addcoords#Add a new coordinate to the list#Ajouter une coordonnée à la liste
 #%wcag-remove#Remove#Enlever
-#%map-tpzoomfull#Zoom to full extent#Zoom à l`étendue maximum
+#%map-tpzoomfull#Zoom to full extent#Zoom à l'étendue maximum
+#%map-tpzoom#Draw extent to zoom ont he map#Dessiner l'étendue du zoom sur la carte
 #%header-tools#Menu#Menu
 #%header-abouttitle#about this map #À propos de cette carte 
 #%header-aboutread#Read #Lire 
@@ -42,7 +43,7 @@ Global sys value#%gisurlalti#http://geogratis.gc.ca/services/elevation/cdem/alti
 #%footer-tpgithub#Get GeoCanViz on GitHub#Obtenir GéoCanViz de GitHub
 #%footer-urlgcvizrepo#https://github.com/GeoCanViz/GeoCanViz#https://github.com/GeoCanViz/GeoCanViz
 #%footer-tpNorth#North Arrow#Flèche du nord
-#%footer-tpdatagrid#Open/Close datagrid#Ouvrir ou fermer le tableau des données
+#%footer-tpdatagrid#Hide/Show data tables#Ouvrir ou fermer les tableaux des données
 #%footer-tpformat#Toggle between decimal degree and degree minute second format#Basculer entre le format degré décimal et degré minute seconde
 #%datagrid-processing#Processing...#Traitement en cours...
 #%datagrid-search#Search:#Rechercher&nbsp;:
@@ -64,6 +65,8 @@ Global sys value#%gisurlalti#http://geogratis.gc.ca/services/elevation/cdem/alti
 #%datagrid-selectall#Select All#Sélectionner tout
 #%datagrid-zoomselect#Zoom to selected#Zoom sélection
 #%datagrid-clearfilters#Clear all searchs#Effacer toutes les recherches
+#%datagrid-exportselcsv#Export Selection to CSV#Exporter la sélection au format CSV
+#%datagrid-exporttblcsv#Export table to CSV#Exporter la table au format CSV
 #%datagrid-poptitle#Information#Information
 #%datagrid-popalllayers#All layers#Toutes les couches
 #%datagrid-popselect#Select the features from the following layer#Sélectionnez une couche dans les suivantes
@@ -139,8 +142,8 @@ Global sys value#%gisurlalti#http://geogratis.gc.ca/services/elevation/cdem/alti
 #%toolbardata-err3#Presence of element(s) with invalid latitude and/or longitude.#Présence d'élément(s) dont les valeurs de latitude et/ou de longitude sont invalides.
 #%toolbardata-err4#Error fetching items from CSV file: #Erreur de récupération des items du fichier CSV : 
 #%toolbardata-ie9#This tool is not available in Internet Explorer version 9. You need Internet Explorer version 10 and higher or another browser (Chrome, FireFox or Safari).#Cet outil n'est pas disponible dans Internet Explorer 9. Vous devez avoir la version 10 et plus ou un autre navigateur (Chrome, Firefox ou Safari).
-#%toolbarextract-alt#Download Topographic Maps and Data - Help#Téléchager cartes et données - Aide
-#%toolbarextract-name#Download Topographic Maps and Data#Téléchager cartes et données
+#%toolbarextract-alt#Download Maps and Data - Help#Téléchager cartes et données - Aide
+#%toolbarextract-name#Download Maps and Data#Téléchager cartes et données
 #%toolbarextract-btnget#Get Data#Obtenir les données
 #%inset-tplight#Open the content in a lightbox#Ouvrir le contenu dans un lightbox
 #%inset-tpplayvideo#Play video#Jouer la vidéo
@@ -260,6 +263,7 @@ Global sys value#%gisurlalti#http://geogratis.gc.ca/services/elevation/cdem/alti
 #%help-data-sampletitle#Added Layer Information#Information sur une couche ajoutée
 #%help-data-sample#This is an example of an imported CSV file. A visibility checkbox and the symbology used to render the layer is displayed.#Voici un exemple de fichier CSV importé. Une case à cocher de visibilité et la symbolique utilisée pour représenter la couche sont affichées.
 #%help-data-remove#Button to remove the imported data layer from the map.#Bouton pour retirer la couche des données importées de la carte.
+#%help-extract-title#Download Maps and Data#Télécharger cartes et données
 #%help-dev-title#Developer's Corner#Le coin du développeur
 #%help-dev-logoalt#Get GeoCanViz on GitHub#Obtenir GéoCanViz de GitHub
 #%help-dev-logo#Click to view the latest GeoCanViz development source code on GitHub.#Cliquez pour voir le tout dernier code source de développement de GéoCanViz sur GitHub.

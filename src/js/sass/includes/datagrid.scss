@@ -109,6 +109,10 @@ table.dataTable.no-footer {
 	border-bottom: 0!important;
 }
 
+.gcviz-datatable th {
+	background-color: white!important; // safari bugs where backgroound is not always white after scroll x
+}
+
 .gcviz-datagrid {
 	width: 100%;
 	margin-top: (0.2 * $rembase) + rem!important;

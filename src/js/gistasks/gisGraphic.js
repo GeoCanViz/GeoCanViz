@@ -26,6 +26,7 @@
 			importGraphics,
 			exportGraphics,
 			createGraphic,
+			drawBox,
 			callbackCG,
 			addUndoStack,
 			privateMap,
@@ -67,7 +68,7 @@
 					isWCAG = false;
 
 				_self.init = function() {
-					// add the graphic layers tot he map
+					// add the graphic layers to the map
 					mymap.addLayer(new esriGraphLayer({ id: 'gcviz-symbol' }));
 					symbLayer = map.getLayer('gcviz-symbol');
 
@@ -823,11 +824,40 @@
 			privateMap = '';
 		};
 
+		drawBox = function(map, success) {
+			// there is a problem with the define. the gcviz-gissymbol is not able to be set. The weird thing
+			// is if I replace gisgeo with gissymbol in the define, gisgeo will be set as gissymbol but I can't
+			// have access to gisgeo anymore. With the require, we set the reference to gissymbol (hard way)
+			require(['gcviz-gissymbol'], function(gissymb) {
+				// create esri toolbar
+				var clickEvt,
+					tool = new esriTools(map, { showTooltips: false });
+				dojoOn(tool, 'DrawEnd', gcvizFunc.closureFunc(function(tool, geometry) {
+					// deactivate then call the retrun function
+					tool.deactivate();
+					success(geometry);
+				}, tool));
+
+				// if user click instead of draw
+				clickEvt = map.on('click', function(event) {
+					success();
+
+					// remove event
+					clickEvt.remove();
+				});
+
+				// set fill and activate
+				tool.setFillSymbol(gissymb.getSymbErase());
+				tool.activate(esriTools.EXTENT);
+			});
+		};
+
 		return {
 			initialize: initialize,
 			importGraphics: importGraphics,
 			exportGraphics: exportGraphics,
-			createGraphic: createGraphic
+			createGraphic: createGraphic,
+			drawBox: drawBox
 		};
 	});
 }());

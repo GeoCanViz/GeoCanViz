@@ -64,6 +64,8 @@
 				_self.lblAllLayer = i18n.getDict('%datagrid-popalllayers');
 				_self.lblSelectLayer = i18n.getDict('%datagrid-popselect');
 				_self.lblClearFilters = i18n.getDict('%datagrid-clearfilters');
+				_self.lblExportSelCSV = i18n.getDict('%datagrid-exportselcsv');
+				_self.lblExportTableCSV = i18n.getDict('%datagrid-exporttblcsv');
 
 				// text for popup
 				_self.lblSelectAll = i18n.getDict('%datagrid-selectall');
@@ -147,7 +149,7 @@
 						if (row.hasOwnProperty(field)) {
 							// if field value is gcvizid, stop the for we are now in the internal field
 							if (field !== 'gcvizid') {
-								fields.push(field);
+								fields.unshift(field);
 								header += '"' + field + '",';
 								gcvizInd++;
 							} else {
@@ -207,7 +209,9 @@
 					while (fieldsLen--) {
 						strField += fields[fieldsLen].data + ',';
 					}
-					strField = strField.slice(0, -1);
+
+					// add the objectid
+					strField += 'OBJECTID';
 						
 					if (type === 4) {
 						// datatable (dynamic layer, need layer index to select one layer in the dynamic service)
@@ -269,7 +273,8 @@
 						deferRender = false,
 						link = false,
 						searchInd = 1,
-						$table = $viz('#table-' + mapid + '-' + pos);
+						$table = $viz('#table-' + mapid + '-' + pos),
+						dom = 'irtp';
 
 					// check if we need to add a columns to open/close link info
 					if (typeof data[0].link !== 'undefined') {
@@ -278,56 +283,61 @@
 					}
 
 					// if there is too much data on the page we need to use defer render to speed up the process
-					if (data.length > 2500) {
+					// if more then 1000 add paging
+					if (data.length > 1000) {
 						deferRender = true;
+					}
+
+					if (layer.globalsearch) {
+						dom = 'ifrtp';
 					}
 
 					// create fields
 					fields = _self.createFields(layer, link);
 
+					// we need to define dom because we cant move the info part after the table is created
+					// we set search always to true and hide it later beacause if set it to false filter searc is disable.
+					// paging always true and hide later because if we say paging false table doesnt load.
 					dataTB = $table.DataTable({
 						'data': data,
+						'dom': dom,
 						'deferRender': deferRender,
 						'autoWidth': false,
-						'serverSide': false,
 						'scrollY': 400,
 						'scrollX': true,
+						'pageLength': 1000,
 						'scrollCollapse': true,
-						'pagingType': 'full',
 						'processing': true,
+						'lengthChange': false,
+						'pagingType': 'simple_numbers',
 						'columns': fields,
 						'initComplete': function(inTable) {
 							var $elemFilter, $elemCSV,
 								idTable = inTable.sTableId,
 								idxTable = idTable.split('-'),
 								id = idxTable[idxTable.length - 1],
-								$filter = $viz('#' + idTable + '_filter'),
-								$len = $viz('#' + idTable + '_wrapper .dataTables_length'),
+								$info = $viz('#' + idTable + '_info'),
 								columns = inTable.aoColumns;
 
-							// if defer render is true, do not add the select all because it wont work
-							// properly. The rows are not created until user navigate to them.
-							if (!deferRender) {
-								// add a select all checkbox and class on label
-								$len.append('<div><input type="checkbox" class="gcviz-dg-selall" id="cb_seletAllFeat-' + id + '">' +
-											'<label for="cb_seletAllFeat" class="form-checkbox gcviz-dg-lblselall">' + _self.lblSelectAll + '</label></div>');
-								$len.children().addClass('gcviz-dg-pad');
-							}
-
 							// add the clear filter button and class on label
-							$filter.append('<button class="gcviz-dg-filterclear"></button>');
+							$info.after('<button id="clearfilter-' + id + '" class="gcviz-dg-filterclear gcviz-dg-pad"></button>');
 							$elemFilter = $viz('.gcviz-dg-filterclear');
 							gcvizFunc.addTooltip($elemFilter, { content: _self.lblClearFilters });
-							$elemFilter.addClass('gcviz-dg-pad').attr('id', 'clearfilter-' + id);
 							
 							// add export csv button
-							$filter.prepend('<button class="gcviz-dg-exportcsv"></button>');
+							$info.after('<button id="exportcsv-' + id +'" class="gcviz-dg-exportcsv gcviz-dg-pad"></button>');
 							$elemCSV = $viz('.gcviz-dg-exportcsv');
-							gcvizFunc.addTooltip($elemCSV, { content: _self.lblClearFilters });
-							$elemCSV.addClass('gcviz-dg-pad').attr('id', 'exportcsv-' + id);
+							gcvizFunc.addTooltip($elemCSV, { content: _self.lblExportTableCSV });
 
-							// add a class to label search to have table and button on one line
-							$filter.find('label').addClass('gcviz-dg-pad');
+							// add a select all checkbox and class on label
+							$info.after('<div id="gcviz-dg-sel' + mapid + id + '"><input type="checkbox" class="gcviz-dg-selall gcviz-dg-pad" id="cb_seletAllFeat-' + id + '">' +
+										'<label for="cb_seletAllFeat" class="form-checkbox gcviz-dg-lblselall">' + _self.lblSelectAll + '</label></div>');
+
+							// if defer render is false remove page
+							if (!deferRender) {
+								// no page, set visibility hidden
+								$viz('#table-' + mapid + '-' + id + '_paginate').css('visibility', 'hidden');
+							}
 
 							// setup - add a text input to each header cell (for search capabilities) is searchable == true
 							// for the first column add zoom to selected.
@@ -459,6 +469,18 @@
 					// order the first row after select and zoom by default to remove the arrow on select column
 					dataTB.order([searchInd, 'asc']).draw();
 
+					// aply event to enable/disable select all option if selection is less then 1000
+					dataTB.on('search.dt', function() {
+						var len = dataTB.rows({ filter: 'applied' }).data().length,
+							$select = $viz('#gcviz-dg-sel' + mapid + '0');
+
+						if (len < 1000) {
+							$select.removeClass('gcviz-disable');
+						} else {
+							$select.addClass('gcviz-disable');
+						}
+					});
+
 					// add the datatable and data to a global array so we can access it later
 					// reverse the data to have then in the same order as the id. It will easier to find later.
 					// we set the table at the right position to ensure a good link. If not, table with item 1-1
@@ -503,7 +525,7 @@
 						fields.unshift({
 							data: null,
 							className: 'gcviz-dg-link',
-							title: null,
+							title: '',
 							width: '30px',
 							searchable: false,
 							orderable: false,
@@ -518,7 +540,7 @@
 					fields.unshift({
 						data: 'gcvizcheck',
 						className: 'dt-body-center',
-						title: 'Select',
+						title: '',
 						width: '45px',
 						searchable: false,
 						orderable: false,
@@ -1234,17 +1256,23 @@
 
 			// setup fields
 			while (lenField--) {
+				// add the filed only if it is not a internal field
 				field = fieldsOri[lenField];
-				delete field.type;
-				delete field.render;
-				delete field.editable;
-				delete field.domain;
-				field.title = field.alias;
-				delete field.alias;
-				field.data = field.name;
-				delete field.name;
-
-				fields.push(field);
+				if (field.name.indexOf('OBJECTID') === -1) {
+					delete field.type;
+					delete field.render;
+					delete field.editable;
+					delete field.domain;
+					field.title = field.alias;
+					delete field.alias;
+					field.data = field.name;
+					delete field.name;
+					field.type = {
+						value: 'string'
+					};
+	
+					fields.push(field);
+				}
 			}
 
 			// setup data

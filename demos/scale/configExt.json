@@ -1,6 +1,6 @@
 {"gcviz": {"mapframe": {"size": {"height": 500,"width": 1000},"map": {"urlgeomserv": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/Utilities/Geometry/GeometryServer","urlproxy": "http://localhost:8888/php/proxy.php","urldownload": "http://geoappext.nrcan.gc.ca/php/download.php","sr": {"wkid": 3978},"extentmax": {"xmin": 285943.61143,"ymin": -939879.94851,"xmax": 2667198.37394,"ymax": 647623.2265},"extentinit": {"xmin": 1370441.55201,"ymin": -271020.01467,"xmax": 1656192.12351,"ymax": -80519.63367},"lods": {"enable": false,"values": [{"level":0,"resolution":38364.660062653464,"scale":145000000,"check":true},{"level":1,"resolution":22489.62831258996,"scale":85000000,"check":true},{"level":2,"resolution":13229.193125052918,"scale":50000000,"check":true},{"level":3,"resolution":7937.5158750317505,"scale":30000000,"check":true},{"level":4,"resolution":4630.2175937685215,"scale":17500000,"check":true},{"level":5,"resolution":2645.8386250105837,"scale":10000000,"check":true},{"level":6,"resolution":1587.5031750063501,"scale":6000000,"check":true},{"level":7,"resolution":926.0435187537042,"scale":3500000,"check":true},{"level":8,"resolution":529.1677250021168,"scale":2000000,"check":true},{"level":9,"resolution":317.50063500127004,"scale":1200000,"check":true},{"level":10,"resolution":185.20870375074085,"scale":700000,"check":true},{"level":11,"resolution":111.12522225044451,"scale":420000,"check":true},{"level":12,"resolution":66.1459656252646,"scale":250000,"check":true},{"level":13,"resolution":38.36466006265346,"scale":145000,"check":true},{"level":14,"resolution":22.48962831258996,"scale":85000,"check":true},{"level":15,"resolution":13.229193125052918,"scale":50000,"check":true},{"level":16,"resolution":7.9375158750317505,"scale":30000,"check":true},{"level":17,"resolution":4.6302175937685215,"scale":17500,"check":true}]},
 "link": false,
-"zoombar": {"bar": true, "zoom": true},
+"zoombar": {"bar": false, "zoom": true, "zoomfull": true},
 "bases": [{"label":"CBCT3978","id":"380a923d-466f-4e97-88af-7e6d66f2570a","type":2,"url":"http://geoappext.nrcan.gc.ca/arcgis/rest/services/BaseMaps/CBCT3978/MapServer", "scale":{"min":0,"max":0}}],
 "layers": [{"label":"GMRC","id":"6f798c6b-0001-4e24-78dd-9bfa5a9bc59e","type":4,"url":"http://geoappext.nrcan.gc.ca/arcgis/rest/services/MMS/GMRC_E/MapServer/","scale":{"min":20000000,"max":10},"cluster":{"enable":false,"distance":50,"label":false,"symbol":true,"maxsizeprop":50,"maxdataprop":1000}},
 			{"label":"Geochron","id":"6f798c6b-f369-4e24-78dd-9bfa5a9bc59e","type":4,"url":"http://geoappext.nrcan.gc.ca/arcgis/rest/services/GSCC/Geochronology/MapServer/","scale":{"min":20000000,"max":10},"cluster":{"enable":true,"distance":50,"label":false,"symbol":true,"maxsizeprop":50,"maxdataprop":1000}}
@@ -44,6 +44,7 @@
 				        "index": 0
 				    },
 				    "title": "Geochronology Géochronologie",
+				    "globalsearch": false,
 				    "fields": [{
 				        "title": "Age (Million years)",
 				        "width": "150px",
@@ -89,6 +90,26 @@
 				        "width": "250px",
 				        "data": "AGE_NOTE",
 				        "dataalias": "Note",
+				        "type": {
+				        	"field": "field",
+				        	"value": "string"
+				        },
+				        "searchable": false
+				    }, {
+				        "title": "Longitude",
+				        "width": "50px",
+				        "data": "LONGITUDE",
+				        "dataalias": "Longitude",
+				        "type": {
+				        	"field": "field",
+				        	"value": "string"
+				        },
+				        "searchable": false
+				    }, {
+				        "title": "Latitude",
+				        "width": "50px",
+				        "data": "LATITUDE",
+				        "dataalias": "Latitude",
 				        "type": {
 				        	"field": "field",
 				        	"value": "string"

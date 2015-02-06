@@ -25,7 +25,8 @@
 			'esri/tasks/RelationshipQuery',
 			'dojo/DeferredList',
 			'esri/tasks/IdentifyTask',
-			'esri/tasks/IdentifyParameters'
+			'esri/tasks/IdentifyParameters',
+			'gcviz-gissymbol'
 	], function($viz, gisMap, gisGeo, gcvizFunc, esriGraphLayer, esriLine, esriFill, esriMarker, esriPoint, esriPoly, esriPolyline, esriSR, esriGraph, esriRequest, esriRelRequest, dojoDefList, esriIdTask, esriIdParams) {
 		var initialize,
 			getData,
@@ -60,11 +61,7 @@
 
 		initialize = function(map) {
 			var color = [255,255,102,125],
-				outline = { 'type': 'esriSLS',
-						'style': 'esriSLSSolid',
-						'color': [255,255,0,255],
-						'width': 1
-				};
+				colorOut = [255,255,0,255];
 
 			wkid = map.vWkid;
 			mymap = map;
@@ -79,32 +76,15 @@
 			mymap.addLayer(new esriGraphLayer({ id: 'gcviz-datagrid' }));
 			selectLayer = map.getLayer('gcviz-datagrid');
 
-			// set symbologies
-			symbPoint = new esriMarker({
-								'type': 'esriSMS',
-								'style': 'esriSMSCircle',
-								'color': color,
-								'size': 18,
-								'angle': 0,
-								'xoffset': 0,
-								'yoffset': 0,
-								'outline': outline
-							});
-
-			symbLine = new esriLine({
-								'type': 'esriSLS',
-								'style': 'esriSLSSolid',
-								'color': color,
-								'width': 5,
-								'outline': outline
-							});
-
-			symbPoly = new esriFill({
-								'type': 'esriSFS',
-								'style': 'esriSFSSolid',
-								'color': color,
-								'outline': outline
-							});
+			// there is a problem with the define. the gcviz-gissymbol is not able to be set. The weird thing
+			// is if I replace gisgeo with gissymbol in the define, gisgeo will be set as gissymbol but I can't
+			// have access to gisgeo anymore. With the require, we set the reference to gissymbol (hard way)
+			require(['gcviz-gissymbol'], function(gissymb) {
+				// set symbologies
+				symbPoint = gissymb.getSymbPoint(color, 18, colorOut, 1);
+ 				symbLine = gissymb.getSymbLine(color, 5 , colorOut);
+				symbPoly = gissymb.getSymbPoly(colorOut, color, 1);
+			});
 		};
 
 		getData = function(url, layer, success) {
@@ -273,19 +253,22 @@
 				graphics = [],
 				len = geometries.length;
 
-			// create an array of graphics to get extent. Do not add them
-			// to the map because it is already there from the selection
-			while (len--) {
-				graphic = createGraphic(geometries[len], 'zoom');
-				graphics.push(graphic);
+			// if only one lement, zoom feature instead
+			if (len === 1) {
+				graphic = createGraphic(geometries[0], 'zoom');
+				gisMap.zoomFeature(mymap, graphic);
+			} else {
+				// create an array of graphics to get extent. Do not add them
+				// to the map because it is already there from the selection
+				while (len--) {
+					graphic = createGraphic(geometries[len], 'zoom');
+					graphics.push(graphic);
+				}
+	
+				// get the extent then zoom
+				extent = esri.graphicsExtent(graphics); // can't load AMD
+				mymap.setExtent(extent.expand(1.75));
 			}
-
-			// clear previous graphics
-			unselectFeature('zoom');
-
-			// get the extent then zoom
-			extent = esri.graphicsExtent(graphics); // can't load AMD
-			mymap.setExtent(extent.expand(1.75));
 
 			// focus the map
 			gcvizFunc.focusMap(mymap);

@@ -45,7 +45,7 @@
 
 				// hold the larger scale. It will help to do the reprojection on map-extent
 				// only when we need it. Hold the map scale as well.
-				_self.largeScale = 0;
+				_self.largeScale = -1;
 				_self.mapScale = 0;
 
 				// hold the map wkid
@@ -66,7 +66,7 @@
 					item.isReady = ko.observable(false);
 
 					// set the larger scale
-					if (_self.largeScale < item.scale) {
+					if (_self.largeScale < item.scale || item.scale === -1) {
 						_self.largeScale = item.scale;
 					}
 				}
@@ -93,12 +93,13 @@
 				_self.init = function() {
 					mymap.on('extent-change', function(values) {
 						var len,
+							largeScale = _self.largeScale, 
 							extent = values.extent;
 
 						// set map scale. It will be use in the callback function
 						_self.mapScale = mymap.getScale();
 
-						if (_self.mapScale <= _self.largeScale) {
+						if (_self.mapScale <= largeScale || largeScale === -1) {
 							gisgeo.projectCoords([[extent.xmin, extent.ymin], [extent.xmax, extent.ymax]], _self.mapWkid, 4326, _self.createURL);
 						} else {
 							len = _self.itemsArray().length;
@@ -113,14 +114,15 @@
 
 				_self.createURL = function(extent) {
 					var item, query, lenQuery, type,
-						scale = _self.mapScale,
+						itemScale,
 						len = _self.itemsArray().length;
 
 					while (len--) {
 						item = _self.itemsArray()[len];
+						itemScale = item.scale;
 						lenQuery = item.query.length;
 
-						if (scale <= item.scale) {
+						if (_self.mapScale <= itemScale || itemScale === -1) {
 							item.isReady(true);
 
 							// loop trought query to set href

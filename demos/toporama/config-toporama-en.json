@@ -132,7 +132,8 @@
                 "link": false,
                 "zoombar": {
                     "bar": true,
-                    "zoom": true
+                    "zoom": true,
+                    "zoomfull": true
                 },
                 "bases": [{
                     "label": "CBMT3978",
@@ -568,7 +569,7 @@
                 },{
                 	"label": "toporama_NTS_Index",
                 	"id":"bbbb469d-aaa1-c8f5-175c-645200a6b6fe",
-                	"type": 3,
+                	"type": 4,
                 	"url": "http://ows.geobase.ca/wms/geobase_en",                    					
                 	"options": {
                 		"layerinfos": [{
@@ -587,6 +588,22 @@
 						"maxdataprop":1000
 						}
           			}
+                }, {
+                	"label": "toporama_NTS_Index_download",
+                	"id":"bbbb469d-zzz1-c8f5-175c-645200a6b6fe",
+                	"type": 4,
+                	"url": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/test/NTS_Index/MapServer/",                    					
+                	"scale":{"min":0,"max":0},
+					"cluster":
+						{
+						"enable":false,
+						"distance":50,
+						"label":false,
+						"symbol":false,
+						"maxsizeprop":50,
+						"maxdataprop":1000
+						}
+          			
                 }]
             }
         },
@@ -635,7 +652,37 @@
             "enable": true,
             "expand": false,
             "pos": 1,
-            "basemaps": [ {
+            "basemaps": [  {
+                "expand": false,
+                "last": true,
+                "type": 2,
+                "id": "",
+                "graphid": "762eb7ed-cccc-242f-6fcf-af08f5605eb1",
+                "displayfields": false,
+                "label": {
+                    "value": "No Base",
+                    "alttext": "No Base"
+                },
+                "metadata": {
+                    "enable": false
+                },
+                "opacity": {
+                    "enable": false
+                },
+                "visibility": {
+                    "enable": true,
+                    "initstate": false,
+                    "type": 2,
+                    "radioid": 5
+                },
+                "displaychild": {
+                    "enable": false
+                },
+                "customimage": {
+                    "enable": false
+                },
+                "items": []
+            }, {
                 "expand": false,
                 "last": true,
                 "type": 2,
@@ -2180,11 +2227,11 @@
             "enable": true,
             "expand": false,
             "pos": 3,
-            "grid": "bbbb469d-aaa1-c8f5-175c-645200a6b6fe",
+            "grid": "bbbb469d-zzz1-c8f5-175c-645200a6b6fe",
             "items": [{
             	"title": "Maps (raster): ",
-            	"subtitle": "Toporama, CanMatrix Print-ready and Georeferenced",
-            	"scale": 1200000,
+            	"subtitle": "Toporama, CanMatrix Print-ready and Georeferenced.",
+            	"scale": -1,
             	"url": "http://geogratis.gc.ca/api/en/nrcan-rncan/ess-sst/-/OR/(urn:iso:series)toporama/(urn:iso:series)canmatrix-georeferenced",
             	"query": [{
             		"control": "button",
@@ -2199,9 +2246,9 @@
             		}]
             	}, {
             	"title": "Data (vector): ",
-            	"subtitle": "CanVec+, Canvec and National Topographic Data Base (NTDB)",
-	            "scale": 1200000,
-	            "url": "http://geogratis.gc.ca/api/en/nrcan-rncan/ess-sst/-/OR/(urn:iso:series)national-topographic-data-base-ntdb/(urn:iso:series)canvec-plus",
+            	"subtitle": "CanVec+.",
+	            "scale": -1,
+	            "url": "http://geogratis.gc.ca/api/en/nrcan-rncan/ess-sst/-/(urn:iso:series)canvec-plus",
 	            "query": [{
 	           	  "control": "button",
             		"type": "nts",
@@ -2215,8 +2262,8 @@
             		}]
 	            }, {
 	            "title": "Data: ",
-	            "subtitle": "CanVec (vector) and Elevation (raster) data using custom geographic extent",
-	            "scale": 350000,
+	            "subtitle": "CanVec (vector) and Elevation (raster) data using custom geographic extent.",
+	            "scale": -1,
             	"url": "http://geogratis.gc.ca/site/eng/extraction",
             	"query": [{
             		"control": "link",
