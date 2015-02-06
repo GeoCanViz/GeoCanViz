@@ -28,13 +28,12 @@
 			getLayoutElements,
 			printCustomMap,
 			printCustomResult,
-			printCustomError;
-
-		 var gp = null;
+			printCustomError,
+			gp = null;
 
 		getMxdElements = function(url, templateName) {
+			var params = {'TemplateName':templateName};
 			gp = new esriGeoProcessor(url);
-			var params = {'TemplateName' : templateName};
 			gp.submitJob(params, gpJobComplete, gpJobStatus, gpJobFailed);
 		};
 
@@ -42,11 +41,10 @@
 			gp.getResultData(jobinfo.jobId, 'MXDElements', getMxdElementsSuccess, printError);
 		};
 
-		getMxdElementsSuccess = function(results) {	
-			var parametersAll = results.value;
-			var parameters = parametersAll.split(',');
-			
-			var elementType = '',
+		getMxdElementsSuccess = function(results) {
+			var parametersAll = results.value,
+				parameters = parametersAll.split(','),
+				elementType = '',
 				elementLabel = '',
 				newElement = '',
 			    printTextElements = document.getElementById('gcviz-printTextElements'),
@@ -62,19 +60,18 @@
 				 elementType = pair[1];
 				 elementLabel = pair[0];
 
-				 if (elementType == 'TEXT_ELEMENT') {
-				 		newElement = ('<div class="gcviz-printRow"><div class="gcviz-printColLabel"><span class="gcviz-printLabel">'+ elementLabel +'</span></div><div class="gcviz-printCol"><input type="text" id="gcviz-print' + elementLabel.replace(/ /g,'') + '" name="'+ elementLabel +'"></input></div>');
-						$viz(printTextElements).append(newElement);
+				 if (elementType === 'TEXT_ELEMENT') {
+				        newElement = ('<div class="gcviz-printRow"><div class="gcviz-printColLabel"><span class="gcviz-printLabel">' + elementLabel + '</span></div><div class="gcviz-printCol"><input type="text" id="gcviz-print' + elementLabel.replace(/ /g,'') + '" name="' + elementLabel + '"></input></div>');
+                        $viz(printTextElements).append(newElement);
 				 }
-				 else if (elementType == 'MAPSURROUND_ELEMENT'  || elementType == 'LEGEND_ELEMENT') {
-				 		newElement = ('<div class="gcviz-printRow"><div class="gcviz-printColLabel"><span class="gcviz-printLabel">'+ elementLabel +'</span></div><div class="gcviz-printCol"><input type="checkbox" id="gcviz-print' + elementLabel.replace(/ /g,'') + '" name="'+ elementLabel + '"></input><div>');
+				 else if (elementType === 'MAPSURROUND_ELEMENT' || elementType === 'LEGEND_ELEMENT') {
+				        newElement = ('<div class="gcviz-printRow"><div class="gcviz-printColLabel"><span class="gcviz-printLabel">' + elementLabel + '</span></div><div class="gcviz-printCol"><input type="checkbox" id="gcviz-print' + elementLabel.replace(/ /g,'') + '" name="' + elementLabel + '"></input><div>');
 						$viz(printMapSurroundElements).append(newElement);
 				 }
-				 else if(elementType == 'PICTURE_ELEMENT') {
-				 		newElement = ('<div class="gcviz-printRow"><div class="gcviz-printColLabel"><span class="gcviz-printLabel">'+ elementLabel +'</span></div><div class="gcviz-printCol"><input type="text" id="gcviz-print' + elementLabel.replace(/ /g,'') + '" name="'+ elementLabel + '"></input><div>');
-				 		$viz(printPictureElements).append(newElement);
+				 else if(elementType === 'PICTURE_ELEMENT') {
+                        newElement = ('<div class="gcviz-printRow"><div class="gcviz-printColLabel"><span class="gcviz-printLabel">' + elementLabel + '</span></div><div class="gcviz-printCol"><input type="text" id="gcviz-print' + elementLabel.replace(/ /g,'') + '" name="' + elementLabel + '"></input><div>');
+                        $viz(printPictureElements).append(newElement);
 				 }
-
 			});
 			
 		};
@@ -93,67 +90,75 @@
 
 		getMapCenter = function(map) {
 			var e =  map.extent.getCenter();
-			return e.x + ':' + e.y; //e['x']+':'+ e['y']
+			return e.x + ':' + e.y;
 		};
 
 		getLayoutElements = function() {
-
 			var printTextElements = document.getElementById('gcviz-printTextElements'),
 			    printPictureElements = document.getElementById('gcviz-printPictureElements'),
 			    printMapSurroundElements = document.getElementById('gcviz-printMapSurroundElements'),
-			    layoutElements = {};
+			    layoutElements = {},
+			    elementName = '',
+			    elementValue = '';
+
 
 			$viz(printTextElements).find('input').each(function () {
-				if(this.value.trim().length > 0) 
-					layoutElements[String(this.name)] = this.value;
-				else
-					layoutElements[String(this.name)] = ' '; //need at least a blank space for arcpy mapping text elements, can't set to ""
+				elementName = this.name;
+				elementValue = this.value;
+				if(elementValue.trim().length > 0) {
+					layoutElements[String(elementName)] = elementValue;
+				}
+				else {
+					layoutElements[String(elementName)] = ' '; //need at least a blank space for arcpy mapping text elements, can't set to ""
+				}
 			});
 
 			$viz(printMapSurroundElements).find('input').each(function () {
-				 layoutElements[String(this.name)] = String(this.checked);
+				elementName = this.name;
+				layoutElements[String(elementName)] = String(this.checked);
 			});
 
 			$viz(printPictureElements).find('input').each(function () {
-				 layoutElements[String(this.name)] = this.value;
+				elementName = this.name;
+				elementValue = this.value;
+				layoutElements[String(elementName)] = elementValue;
 			});
 
 			return JSON.stringify(layoutElements);
-			
 		};
 
-		printCustomMap = function (map, url, templateName, preserve, DPIValue) {
-			
-			var printTask = new esriPrintTask(url, {async: true}),
+		printCustomMap = function(map, url, templateName, preserve, DPIValue) {
+			var printTask = new esriPrintTask(url, { async: true }),
 				params = new esriPrintParams(),
 				template = new esriPrintTemp();
 		
 			template.exportOptions = { dpi: DPIValue };
 			template.format = 'PDF';
 			template.layout = templateName;
-			if (preserve == 'extent') {
+			if (preserve === 'extent') {
 				template.preserveScale = false;
-			} else { template.preserveScale = true; }
+			} else { 
+				template.preserveScale = true; 
+			}
 
 			params.template = template;
 			params.map = map;
 			
-			if(preserve != 'extent') {
-				params.extraParameters = {'Lang': 'EN',
-									      'Scale': String(map.getScale()),
-									      'CenterPoint': getMapCenter(map),
-									      'Layout_Elements': getLayoutElements()
-				}; 		
+			if (preserve !== 'extent') {
+				params.extraParameters = { 'Lang': 'EN',
+									       'Scale': String(map.getScale()),
+									       'CenterPoint': getMapCenter(map),
+									       'Layout_Elements': getLayoutElements()
+                };		
 			}
 			else {
-				params.extraParameters = {'Lang': 'EN',
-									      'Scale': String(map.getScale()),
-									      'Layout_Elements': getLayoutElements()
-				}; 		
+				params.extraParameters = { 'Lang': 'EN',
+									       'Scale': String(map.getScale()),
+									       'Layout_Elements': getLayoutElements()
+                };		
 			}
 			
 			printTask.execute(params, printCustomResult, printCustomError);
-
 		};
 
 		printCustomResult = function(result) {
@@ -212,7 +217,7 @@
 		return {
 			printMap: printMap,
 			getMxdElements: getMxdElements,
-			printCustomMap:printCustomMap
+			printCustomMap: printCustomMap
 		};
 	});
 }());

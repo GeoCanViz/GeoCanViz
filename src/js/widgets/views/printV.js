@@ -11,7 +11,6 @@
 	], function(printVM) {
 		var initialize;
 			
-
 		initialize = function($mapElem) {
 			var $print,
 				mapid = $mapElem.mapframe.id,
@@ -29,17 +28,17 @@
 							'<select id="printSelect" data-bind="value: selectedValue, optionsText: \'Name\', optionsValue:\'Name\', options: availableTemplates "></select>' +
 						'<div id="gcviz-PrintMapScaleDiv"><span class="gcviz-subtitle" data-bind="text: lblMapScaleExtent"></span>' +
 							'<div><span  data-bind="text: lblPreserve" /> <input type="radio" name="scaleExtentGroup" value="extent" data-bind="checked: preserve" /><span  data-bind="text: lblMapExtent" />' +
-    						'<input type="radio" name="scaleExtentGroup" value="scale" data-bind="checked: preserve" /><span  data-bind="text: lblMapScale" /></div>' +
-    					'</div>' + 
-    					'<span class="gcviz-subtitle" data-bind="text: lblPrintDPI"></span>' +
-    						'<select id="printDPI" data-bind="value: selectedDPIValue, optionsText: \'Name\', optionsValue:\'Name\', options: DPIs "></select>';
+                                '<input type="radio" name="scaleExtentGroup" value="scale" data-bind="checked: preserve" /><span  data-bind="text: lblMapScale" /></div>' +
+                        '</div>' + 
+                        '<span class="gcviz-subtitle" data-bind="text: lblPrintDPI"></span>' +
+                        '<select id="printDPI" data-bind="value: selectedDPIValue, optionsText: \'Name\', optionsValue:\'Name\', options: DPIs"></select>';
 
 			node += '<div id="printParameters">' +
 						'<span class="gcviz-subtitle" data-bind="text: lblPrintParameters"></span>' +
 						 '<div id="printParametersDetails">' +	
-						 	'<div id ="gcviz-printTextElements" class="gcviz-PrintElementGroup" />' +
-						 	'<div id ="gcviz-printPictureElements" class="gcviz-PrintElementGroup" />' +
-						 	'<div id ="gcviz-printMapSurroundElements" class="gcviz-PrintElementGroup" />' +
+                            '<div id ="gcviz-printTextElements" class="gcviz-PrintElementGroup" />' +
+                            '<div id ="gcviz-printPictureElements" class="gcviz-PrintElementGroup" />' +
+                            '<div id ="gcviz-printMapSurroundElements" class="gcviz-PrintElementGroup" />' +
 						 '</div>' +
 					'</div>';
 		

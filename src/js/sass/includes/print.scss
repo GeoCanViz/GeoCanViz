@@ -1,37 +1,31 @@
 @import "includes/gcviz-mixin";
 
 .gcviz-printDiv {
-	display:table;
-    width:90%;
-    
-    border-collapse:collapse;
+	display: table;
+	width: 90%;
+	border-collapse: collapse;
 }
 
 .gcviz-PrintElementGroup {
 	border: none;
 }
 
-.gcviz-printRow {  
-     display:table-row;
-     text-align: left;
+.gcviz-printRow {
+    display: table-row;
+	text-align: left;
 }
 
-.gcviz-printColLabel { 
- 	display:table-cell;
- 	border: 0;
- 	
+.gcviz-printColLabel {
+	display: table-cell;
+	border: 0;
 }
-.gcviz-printCol { 
- 	display:table-cell;
- 	border: 0;
- 	
+
+.gcviz-printCol {
+	@extend .gcviz-printColLabel;
 }
 
 .gcviz-printLabel {
- 	padding-left: 2px;
- 	padding-right: 2px;
+	padding-left: 2px;
+	padding-right: 2px;
 }
 
-.gcviz-printTextBox {
- 	
-}

@@ -20,9 +20,7 @@
 			gblDialog,
 			vm;
 
-
 		initialize = function($mapElem, mapid, printOption, mapframe) {
-
 			// data model				
 			var printViewModel = function($mapElem, mapid, printOption) {
 
@@ -30,8 +28,14 @@
 					$btnPrint = $mapElem.find('.gcviz-head-print'),
 					$dialog = $mapElem.find('#print-' + mapid),
 					templates = [],
-					DPIValues = [];
-						
+					DPIValues = [],
+				    TemplateItem = function(name) {
+                        this.Name = name;
+                    },
+                    DPIValueItem = function(name) {
+                        this.Name = name;
+                    };
+
 				// viewmodel mapid to be access in tooltip custom binding
 				_self.mapid = mapid;
 
@@ -44,40 +48,29 @@
 				_self.lblMapExtent = i18n.getDict('%print-dialogMapExtent');
 				_self.lblPreserve = i18n.getDict('%print-dialogPreserve');
 				_self.lblPrintDPI = i18n.getDict('%print-dialogDPI');
-				
 				_self.mymap = gcvizFunc.getElemValueVM(mapid, ['map', 'map'], 'js');
 
-				var TemplateItem = function(name) {
-   					this.Name = name;
-   				};
-
-   				var DPIValueItem = function(name) {
-   					this.Name = name;
-   				};
-
-				printOption.template.forEach(function (value) {
+				printOption.template.forEach(function(value) {
 					templates.push(new TemplateItem(value));
 				});
 
-				printOption.DPI.forEach(function (value) {
+				printOption.DPI.forEach(function(value) {
 					DPIValues.push(new DPIValueItem(value));
 				});
 
 				_self.isPrintDialogOpen = ko.observable(false);
-				_self.availableTemplates =ko.observableArray(templates);
-				_self.DPIs =ko.observableArray(DPIValues);
-				_self.printUrl =  mapframe.map.urlprint;
-				_self.printUrlElements =  mapframe.map.urlprintElements;
+				_self.availableTemplates = ko.observableArray(templates);
+				_self.DPIs = ko.observableArray(DPIValues);
+				_self.printUrl = mapframe.map.urlprint;
+				_self.printUrlElements = mapframe.map.urlprintElements;
 				_self.selectedValue = ko.observable();
 				_self.selectedDPIValue = ko.observable();
-				_self.preserve= ko.observable('extent');
-
-				_self.selectedValue.subscribe(function (templateName) {
+				_self.preserve = ko.observable('extent');
+				_self.selectedValue.subscribe(function(templateName) {
 					gisprint.getMxdElements(_self.printUrlElements, templateName);
-    			});
+				});
 
-    			_self.init = function() {
-					
+                _self.init = function() {
 					// set global dialog to be able to open help from
 					// outisede the view model. This way, it is easy
 					// for header VM to open help dialog
@@ -115,7 +108,6 @@
 		return {
 			initialize: initialize,
 			togglePrint: togglePrint
-			
 		};
 	});
 }).call(this);
