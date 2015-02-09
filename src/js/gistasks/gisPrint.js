@@ -32,7 +32,7 @@
 			gp = null;
 
 		getMxdElements = function(url, templateName) {
-			var params = {'TemplateName':templateName};
+			var params = { 'TemplateName':templateName };
 			gp = new esriGeoProcessor(url);
 			gp.submitJob(params, gpJobComplete, gpJobStatus, gpJobFailed);
 		};
