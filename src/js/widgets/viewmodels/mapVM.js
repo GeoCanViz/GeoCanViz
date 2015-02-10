@@ -129,7 +129,6 @@
 
 					// set draw box cursor
 					$container.css('cursor', 'zoom-in');
-					//$container.addClass('gcviz-draw-cursor-erase');
 
 					// close mneu
 					$menu.accordion('option', 'active', false);
@@ -144,11 +143,10 @@
 					var $container = $viz('#' + mapid + '_holder_layers'),
 						$menu = $viz('#gcviz-menu' + mapid);
 
-					// remove draw boxx cursor
+					// remove draw box cursor
 					$container.css('cursor', '');
-					//$container.removeClass('gcviz-draw-cursor-erase');
 
-					// pup back popup clickt event and apply zoom
+					// pup back popup click event and apply zoom
 					// if geometry is empty a click was made instead of draw
 					// do a zoom in.
 					gisDG.addEvtPop();

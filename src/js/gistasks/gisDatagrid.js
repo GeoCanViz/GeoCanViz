@@ -26,10 +26,13 @@
 			'dojo/DeferredList',
 			'esri/tasks/IdentifyTask',
 			'esri/tasks/IdentifyParameters',
+			'esri/tasks/QueryTask',
+			'esri/tasks/query',
 			'gcviz-gissymbol'
-	], function($viz, gisMap, gisGeo, gcvizFunc, esriGraphLayer, esriLine, esriFill, esriMarker, esriPoint, esriPoly, esriPolyline, esriSR, esriGraph, esriRequest, esriRelRequest, dojoDefList, esriIdTask, esriIdParams) {
+	], function($viz, gisMap, gisGeo, gcvizFunc, esriGraphLayer, esriLine, esriFill, esriMarker, esriPoint, esriPoly, esriPolyline, esriSR, esriGraph, esriRequest, esriRelRequest, dojoDefList, esriIdTask, esriIdParams, esriQueryTsk, esriQuery) {
 		var initialize,
 			getData,
+			getSelection,
 			createDataArray,
 			closeGetData,
 			createGraphic,
@@ -141,18 +144,40 @@
 			});
 		};
 
+		getSelection = function(url, wkid, geometry, success) {
+			var query,
+				queryTask = new esriQueryTsk('http://geoappext.nrcan.gc.ca/arcgis/rest/services/GSCC/Geochronology/MapServer/0');
+			
+			// define query
+			query = new esriQuery();
+			query.returnGeometry = false;
+			query.outFields = ['OBJECTID'];
+			query.outSpatialReference = {
+				'wkid': wkid
+			};
+			query.geometry = geometry;
+			query.spatialRelationship = esriQuery.SPATIAL_REL_INTERSECTS;
+			queryTask.execute(query);
+
+			// call the success function with the result
+			queryTask.on('complete', function(evt) {
+				success(evt.featureSet.features);
+			});
+		};
+
 		createDataArray = function(features, len, sr, id, pos, relRecords) {
 			var linkLen, linkFeats, linkFeat,
 				feat, geom, geometry,
-				data = [],
-				flag = false;
+				data = new Array(len),
+				flag = false,
+				i = 0;
 
 			if (typeof relRecords !== 'undefined') {
 				flag = true;
 			}
 
-			while (len--) {
-				feat = features[len];
+			while (i !== len) {
+				feat = features[i];
 				geom = feat.geometry;
 
 				// select geometry type then create geometry 
@@ -184,15 +209,18 @@
 				}
 
 				// push geometry to array of data
-				data.push(geometry);
+				data[i] = geometry;
+				i++;
 			}
 
 			return data;
 		};
 
 		closeGetData = function(data, layer, success) {
-			var feat, len,
-				features = [],
+			var feat,
+				i = 0,
+				len = data.length,
+				features = new Array(len),
 				item = data[0],
 				mapWkid = mymap.vWkid;
 
@@ -207,16 +235,13 @@
 				item.attributes.layer = layer;
 				gisGeo.projectGeoms(data, mapWkid, success);
 			} else {
-				len = data.length;
-				data = data.reverse();
-
 				// put the attributes on first level
-				while (len--) {
+				while (i !== len) {
 					feat = { };
-					feat = data[len].attributes;
-					delete data[len].attributes;
-					feat.geometry = data[len];
-					features.push(feat);
+					feat = data[i].attributes;
+					feat.geometry = data[i];
+					features[i] = feat;
+					i++;
 				}
 				features[0].layer = layer;
 				success(features);
@@ -250,19 +275,21 @@
 		zoomFeatures = function(geometries) {
 			var extent,
 				graphic,
-				graphics = [],
-				len = geometries.length;
+				i = 0,
+				len = geometries.length,
+				graphics = new Array(len);
 
-			// if only one lement, zoom feature instead
+			// if only one element, zoom feature instead
 			if (len === 1) {
 				graphic = createGraphic(geometries[0], 'zoom');
 				gisMap.zoomFeature(mymap, graphic);
 			} else {
 				// create an array of graphics to get extent. Do not add them
 				// to the map because it is already there from the selection
-				while (len--) {
-					graphic = createGraphic(geometries[len], 'zoom');
-					graphics.push(graphic);
+				while (i !== len) {
+					graphic = createGraphic(geometries[i], 'zoom');
+					graphics[i] = graphic;
+					i++;
 				}
 	
 				// get the extent then zoom
@@ -356,12 +383,14 @@
 		};
 
 		getRelRecords = function(layerID, objectID) {
-			var outArr = [],
+			var i = 0,
 				items = relRecords[layerID][objectID].features,
-				len = items.length;
+				len = items.length,
+				outArr = new Array(len);
 
-			while (len--) {
-				outArr.push(items[len].attributes);
+			while (i !== len) {
+				outArr[i](items[i].attributes);
+				i++;
 			}
 					
 			return outArr;
@@ -384,6 +413,7 @@
 		return {
 			initialize: initialize,
 			getData: getData,
+			getSelection: getSelection,
 			zoomFeatures: zoomFeatures,
 			selectFeature: selectFeature,
 			selectFeaturePop: selectFeaturePop,

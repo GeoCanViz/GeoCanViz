@@ -1,7 +1,8 @@
 @import "gcviz-mixin";
 
-%marg-button {
-	margin-top: (0.2 * $rembase) + rem;
+%buttonhead {
+	margin-top: (0.4 * $rembase) + rem;
+	vertical-align: middle;
 }
 
 .gcviz-dg-searchstr {
@@ -33,14 +34,17 @@
 
 .gcviz-dg-filterclear {
 	@include sprite($img-spritebtn, -1589, -2);
-	margin-top: (0.4 * $rembase) + rem;
-	vertical-align: middle;
+	@extend %buttonhead;
 }
 
 .gcviz-dg-exportcsv {
 	@include sprite($img-spritebtn, -976, -2);
-	margin-top: (0.4 * $rembase) + rem;
-	vertical-align: middle;
+	@extend %buttonhead;
+}
+
+.gcviz-dg-selfeat {
+	@include sprite($img-spritebtn, -1625, -2);
+	@extend %buttonhead;
 }
 
 //  ****** link info section ******
@@ -141,6 +145,10 @@ table.dataTable.no-footer {
 
 .gcviz-backYellow {
 	background-color: $yellow-select!important;
+
+	.sorting_1 {
+		background-color: $yellow-select!important;
+	}
 }
 
 .gcviz-dg-lblselall {
