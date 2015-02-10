@@ -27,8 +27,11 @@
 						'<span class="gcviz-subtitle" data-bind="text: lblPrintTemplate"></span>' +
 							'<select id="printSelect" data-bind="value: selectedValue, optionsText: \'Name\', optionsValue:\'Name\', options: availableTemplates "></select>' +
 						'<div id="gcviz-PrintMapScaleDiv"><span class="gcviz-subtitle" data-bind="text: lblMapScaleExtent"></span>' +
-							'<div><span  data-bind="text: lblPreserve"></span> <input type="radio" name="scaleExtentGroup" value="extent" data-bind="checked: preserve" /><span  data-bind="text: lblMapExtent" ></input>' +
-                                '<input type="radio" name="scaleExtentGroup" value="scale" data-bind="checked: preserve" /><span  data-bind="text: lblMapScale" ></input></div>' +
+							'<div><span  data-bind="text: lblPreserve"></span>' +
+								  '<input type="radio" name="scaleExtentGroup" value="extent" data-bind="checked: preserve"></input>' +
+								  '<span  data-bind="text: lblMapExtent"></span>' +
+                                  '<input type="radio" name="scaleExtentGroup" value="scale" data-bind="checked: preserve"></input>' +
+                                  '<span  data-bind="text: lblMapScale"></span></div>' +
                         '</div>' + 
                         '<span class="gcviz-subtitle" data-bind="text: lblPrintDPI"></span>' +
                         '<select id="printDPI" data-bind="value: selectedDPIValue, optionsText: \'Name\', optionsValue:\'Name\', options: DPIs"></select>';
