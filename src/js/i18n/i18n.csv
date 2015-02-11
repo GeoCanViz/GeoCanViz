@@ -256,3 +256,11 @@ Global sys value#%gisurlutm#http://geogratis.gc.ca/services/delimitation/en/utmz
 #%help-dev-logoalt#Get GeoCanViz on GitHub#Obtenir GéoCanViz de GitHub
 #%help-dev-logo#Click to view the latest GeoCanViz development source code on GitHub.#Cliquez pour voir le tout dernier code source de développement de GéoCanViz sur GitHub.
 #%help-dev-desc#This map was created using the GeoCanViz Viewer framework, an open source tool created by Natural Resources Canada Canadian Center Mapping and Earth Observation group. The viewer can be configured to use some or all of the tools and toolbars - for information and to get the latest development source code, go to GeoCanViz on GitHub (https://github.com/GeoCanViz/GeoCanViz).#Cette carte a été créée en utilisant le visualisateur GéoCanViz, un logiciel libre créé par le groupe Centre canadien de cartographie et d'observation de la terre de Ressources naturelles Canada. Le visualisateur peut être configuré pour utiliser une partie ou l'ensemble des outils et des barres d'outils - pour de l'information et pour obtenir la dernière version du code source, aller à GeoCanViz sur GitHub (https://github.com/GeoCanViz/GeoCanViz).
+#%print-dialogtitle#Print#Print_FR
+#%print-dialogtemplate#Template#Template_FR
+#%print-dialogParameters#Parameters#Parameters_FR
+#%print-dialogScaleExtent#Map Scale/Extent#Map Scale/Extent FR
+#%print-dialogPreserve#Preserve:#Preserve_FR:
+#%print-dialogMapScale#Map Scale#Map Scale_FR
+#%print-dialogMapExtent#Map Extent#Map Extent_FR
+#%print-dialogDPI#DPI#DPI_FR

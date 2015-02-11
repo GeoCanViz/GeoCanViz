@@ -347,6 +347,14 @@
 				name: 'gcviz-vm-datagrid',
 				location: locationPath + 'src/js/widgets/viewmodels',
 				main: 'datagridVM'
+			}, {
+				name: 'gcviz-v-print',
+				location: locationPath + 'src/js/widgets/views',
+				main: 'printV'
+			}, {
+				name: 'gcviz-vm-print',
+				location: locationPath + 'src/js/widgets/viewmodels',
+				main: 'printVM'
 			}
 		]
 	});
