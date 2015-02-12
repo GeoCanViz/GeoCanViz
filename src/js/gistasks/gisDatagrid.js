@@ -146,7 +146,7 @@
 
 		getSelection = function(url, wkid, geometry, success) {
 			var query,
-				queryTask = new esriQueryTsk('http://geoappext.nrcan.gc.ca/arcgis/rest/services/GSCC/Geochronology/MapServer/0');
+				queryTask = new esriQueryTsk(url);
 			
 			// define query
 			query = new esriQuery();
@@ -191,8 +191,8 @@
 
 				// add a unique id and wkid
 				geometry.attributes = feat.attributes;
-				geometry.attributes.gcvizid = pos + '-' + len;
-				geometry.attributes.gcvizcheck = false;
+				geometry.attributes.gcvizid = pos + '-' + i;
+				geometry.attributes.gcvizcheck = 0;
 				geometry.attributes.layerid = id;
 
 				// if present, add the related records from a link table
@@ -389,7 +389,7 @@
 				outArr = new Array(len);
 
 			while (i !== len) {
-				outArr[i](items[i].attributes);
+				outArr[i] = (items[i].attributes);
 				i++;
 			}
 					

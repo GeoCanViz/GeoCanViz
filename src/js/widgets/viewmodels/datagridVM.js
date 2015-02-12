@@ -28,7 +28,7 @@
 			// data model				
 			var datagridViewModel = function($mapElem, mapid, config) {
 				var _self = this,
-					objDataTable, objData,
+					objDataTable,
 					delay = 400, clicks = 0, timer = null,
 					activeTable = -1,
 					arrLayerInfo = { },
@@ -123,7 +123,6 @@
 						// initialize array length to position the data at the right place later.
 						// if a table initialize slower then next one, position can be messed up.
 						objDataTable = new Array(lenLayers);
-						objData = new Array(lenLayers);
 
 						// loop all layers inside an interval to make sure there is no mess up with the index
 						// When they start at the same time, index can be switch to another table and the geometries
@@ -136,54 +135,6 @@
 								clearInterval(interval);
 							}
 						}, 1000);
-					});
-				};
-
-				_self.exportCSV = function(data) {
-					var row, line, fieldsLen, j,
-						i = 0,
-						gcvizInd = 0,
-						fields = [],
-						header = '',
-						output = '',
-						rtnCarr = String.fromCharCode(13),
-						dataLen = data.length;
-					
-					// get the row title
-					row = data[0];
-					for (var field in row) {
-						if (row.hasOwnProperty(field)) {
-							// if field value is gcvizid, stop the for we are now in the internal field
-							if (field !== 'gcvizid') {
-								fields.unshift(field);
-								header = '"' + field + '",' + header;
-								gcvizInd++;
-							} else {
-								break;
-							}
-						}
-					}
-					output = header.slice(0, -1) + rtnCarr;
-
-					// loop trough the data
-					while (i !== dataLen) {
-						fieldsLen = fields.length;
-						row = data[i];
-						line = '';
-						j = 0;
-
-						while (j !== fieldsLen) {
-							line += '"' + row[fields[j]] + '",';
-							j++;
-						}
-						output += line.slice(0, -1) + rtnCarr;
-						i++;
-					}
-
-					$viz.generateFile({
-						filename	: 'exportCSV.csv',
-						content		: output,
-						script		: config.urldownload
 					});
 				};
 
@@ -429,25 +380,22 @@
 						}));
 					}
 
-					// Apply the search by field
+					// apply the search by field
 					dataTB.columns().eq(0).each(gcvizFunc.closureFunc(function(fields, colIdx) {
 						var fieldValue = fields[colIdx].type.value;
 
 						if (colIdx === 0) {
-							$.fn.dataTableExt.afnFiltering.push(function(settings, data, dataIndex) {
-								if (typeof objDataTable[0] !== 'undefined') {
-									var check = objDataTable[0].data()[dataIndex].gcvizcheck;
-									if (check) {
-										return true;
-									} else {
-										return false;
-									}
+							$.fn.dataTable.ext.search.push(function(settings, data, dataIndex) {
+								if (activeTable !== -1) {
+									// even if we modify data in datatable, it is not modified in the callback event
+									// we need to get the real data from settings.
+									return settings.aoData[dataIndex]._aData.gcvizcheck;
 								} else {
 									return true;
 								}
 							});
 						} else if (fieldValue === 'string') {
-							$viz('input', dataTB.column(colIdx).header()).on('keyup change', function() {
+							$viz('input', dataTB.column(colIdx).header()).on('change', function() {
 								// put the draw in a timeout if not, the processing will not be shown
 								var $process = $viz('.dataTables_processing'),
 									value = this.value;
@@ -476,7 +424,7 @@
 								return flag;
 						    }, inputs));
 
-							$viz('input', dataTB.column(colIdx).header()).on('keyup change', function() {
+							$viz('input', dataTB.column(colIdx).header()).on('change', function() {
 								// put the draw in a timeout if not, the processing will not be shown
 								var $process = $viz('.dataTables_processing');
 								$process.css('display', 'block');
@@ -504,7 +452,7 @@
 						var len = dataTB.rows({ filter: 'applied' }).data().length,
 							$select = $viz('#gcviz-dg-sel' + mapid + '0');
 
-						if (len < 2500) {
+						if (len <= 1000) {
 							$select.removeClass('gcviz-disable');
 						} else {
 							$select.addClass('gcviz-disable');
@@ -518,11 +466,9 @@
 					// geometry.
 					if (typeof layer.layerinfo !== 'undefined') {
 						objDataTable[pos] = dataTB;
-						objData[pos] = data;
 					} else {
 						// table added with data toolbar
 						objDataTable.push(dataTB);
-						objData.push(data);
 					}
 				};
 
@@ -572,11 +518,9 @@
 						className: 'dt-body-center',
 						title: '',
 						width: '45px',
-						searchable: true,
-						orderable: true,
-						type: {
-							value: 'check'
-						},
+						searchable: false,
+						orderable: false,
+						type: 'num',
 						render: function (data, type) {
 									if (type === 'display') {
 										return '<input type="checkbox" class="gcviz-dg-select"></input>';
@@ -598,13 +542,10 @@
 						// set tabs and refresh accordion
 						$datatab.tabs({
 							heightStyle: 'auto',
-							activate: function() {
-								// order the first row after select and zoom to align header and column
-								var len = objDataTable.length;
-
-								while (len--) {
-									objDataTable[len].draw();
-								}						
+							activate: function(e, ui) {
+								// redraw to align header and column
+								var tableId = parseInt(ui.newPanel.selector.split('-')[2], 10);
+								objDataTable[tableId].draw();				
 							}
 						});
 						$datagrid.accordion('refresh');
@@ -612,9 +553,6 @@
 						// check if we need to open the table by default
 						if (config.expand) {
 							$datagrid.accordion('option', 'active', 0);
-							setTimeout(function() {
-								objDataTable[0].draw();
-							}, 250);
 						}
 
 						// remove progress dialog
@@ -639,12 +577,6 @@
 								objDataTable[len].draw();
 							}
 						});
-						
-						// subscribe to the open datagrid event. The firts time we need to redraw
-						// the table
-						gcvizFunc.subscribeTo(mapid, 'footer', 'isOpenDG', function() {
-							objDataTable[0].draw();
-						});
 					}
 
 					// new table have been added
@@ -660,23 +592,24 @@
 
 					// set checkbox event
 					$table.on('change', '.gcviz-dg-select', function(e) {
-						var $checkbox = $viz(e.target.parentNode.parentNode).find('.gcviz-dg-select'),
-							info = _self.getInfo(e, 'control');
-
 						// select or unselect feature on map
-						_self.select($checkbox, info);
+						var target = e.target,
+							info = _self.getInfo(target, 'control');
+						_self.select(target, info);
 					});
 
 					// set select/unselect all event
 					$tabs.on('change', '.gcviz-dg-selall', function(e) {
 						// select or unselect all features
-						_self.selectAll(e);
+						var target = e.target;
+						_self.selectAll(target);
 					});
 
 					// set zoom selected event
 					$tabs.on('click', '.gcviz-dg-zoomsel', function(e) {
 						// zoom to features
-						_self.zoomSelect(e);
+						var target = e.target;
+						_self.zoomSelect(target);
 					});
 
 					// export csv
@@ -689,18 +622,8 @@
 
 					// set clear filters event
 					$tabs.on('click', '.gcviz-dg-filterclear', function(e) {
-						var $elems = $viz(e.target.parentElement.parentElement).find('.gcviz-dg-search'),
-							$process = $viz('.dataTables_processing'),
-							id = parseInt(e.target.id.split('-')[1], 10);
-
-						// reset value then trigger a "change" event. Put the draw in
-						// a timeout if not, the processing will not be shown
-						$process.css( 'display', 'block' );
-						$elems.val('');
-						setTimeout(function() {
-							objDataTable[id].search('').columns().search('').draw();
-							$process.css('display', 'none');
-						}, 250);
+						var target = e.target;
+						_self.clearFilter(target);
 					});
 
 					// set select item on map event
@@ -723,11 +646,35 @@
 						gcvizFunc.focusMap(mymap);	
 					});
 
+					// set opening and closing details link info event
+					// https://datatables.net/examples/api/row_details.html
+					$table.on('click', 'td.gcviz-dg-link', function() {
+						var col,
+							tr = $viz(this).closest('tr'),
+							layer = parseInt(tr[0].id.split('-')[0]),
+							row = objDataTable[layer].row(tr);
+
+						if (row.child.isShown()) {
+							// close row
+							row.child.hide();
+							tr.removeClass('shown');
+						} else {
+							// open row
+							col = $viz(this).closest('table').find('.gcviz-dg-link');
+							row.child(_self.formatLink(row.data(), col)).show();
+							tr.addClass('shown');
+						}
+
+						event.preventDefault();
+						event.stopPropagation();
+						return false;
+					});
+
 					// set click and double click on row
 					// code for this section as been taken from the first answer
 					// http://stackoverflow.com/questions/6330431/jquery-bind-double-click-and-single-click-separately
 					$table.on('click', 'tr', function(e) {
-						var info, $checkbox,
+						var info, checkbox,
 							target = e.target,
 							targetType = target.type;
 
@@ -740,19 +687,19 @@
 							if (clicks === 1) {
 								timer = setTimeout(function() {
 									// perform single-click action
-									$checkbox = $viz(target.parentNode).find('.gcviz-dg-select');
+									checkbox = $viz(target.parentNode).find('.gcviz-dg-select')[0];
 
 									// get the id from the table
-									info = _self.getInfo(e, 'row');
+									info = _self.getInfo(target, 'row');
 
 									// select or unselect feature on map
 									// check or uncheck select then select feature on map
-									if ($checkbox.prop('checked')) {
-										$checkbox.prop('checked', false);
+									if (checkbox.checked) {
+										checkbox.checked = false;
 									} else {
-										$checkbox.prop('checked', true);
+										checkbox.checked = true;
 									}
-									_self.select($checkbox, info);
+									_self.select(checkbox, info);
 
 									// after action performed, reset counter
 									clicks = 0;
@@ -763,7 +710,7 @@
 
 								// perform double-click action
 								// get the id from the table
-								info = _self.getInfo(e, 'row');
+								info = _self.getInfo(target, 'row');
 
 								// zoom to feature
 								_self.zoom(info);
@@ -776,62 +723,40 @@
 						// cancel system double-click event
 						e.preventDefault();
 					});
-
-					// set opening and closing details link info event
-					// https://datatables.net/examples/api/row_details.html
-					$table.on('click', 'td.gcviz-dg-link', function() {
-						var col, title, subtitle, fields,
-							tr = $viz(this).closest('tr'),
-							layer = parseInt(tr[0].id.split('-')[0]),
-							row = objDataTable[layer].row(tr);
-
-						if (row.child.isShown()) {
-							// close row
-							row.child.hide();
-							tr.removeClass('shown');
-						} else {
-							// open row
-							col = $viz(this).closest('table').find('.gcviz-dg-link');
-							title = col.attr('gcviz-title');
-							subtitle = col.attr('gcviz-subtitle');
-							fields = col.attr('gcviz-fields').split(',').reverse();
-							row.child(_self.formatLink(row.data(), title, subtitle, fields)).show();
-							tr.addClass('shown');
-						}
-
-						event.preventDefault();
-						event.stopPropagation();
-						return false;
-					});
 				};
 
 				// formatting function for row details (link info)
-				_self.formatLink = function(data, title, subtitle, fields) {
+				_self.formatLink = function(data, col) {
 					// data is the original data object for the row
 					var attrNames, attrValues, lenFields,
 						link, fieldName,
+						i = 0,
 						fieldObj = [],
 						node = '',
+						title = col.attr('gcviz-title'),
+						subtitle = col.attr('gcviz-subtitle'),
+						fields = col.attr('gcviz-fields').split(','),
 						links = data.link,
 						lenLink = links.length,
 						lenTitle = fields.length;
-
+	
 					// add title and subtitle then start table
 					node += '<span class="gcviz-dg-linktitle">' + title + '</span>' +
 							'<span class="gcviz-dg-linksubtitle">' + subtitle + '</span>' +
 							'<table class="gcviz-dg-linktable"><thead><tr role="row">';
 
-					// get fields name from data then create header
+					// get fields name from data then create header (reverse to have in the right order)
 					attrNames = $viz.map(links[0], function(value, index) {
 						return [index];
-					});
+					}).reverse();
 
 					lenFields = Object.keys(attrNames).length;
-					while (lenFields--) {
+					while (i !== lenFields) {
 						// get the title to put for the field and create node
-						fieldName = JSON.parse(fields[lenFields])[attrNames[lenFields]];
+						fieldName = JSON.parse(fields[i])[attrNames[i]];
 						node += '<th class="dt-body-center sorting_disabled" rowspan="1" colspan="1" aria-label="' + fieldName +
 									'" title="' + fieldName + '">' + fieldName + '</th>';
+						i++;
 					}
 					node += '</tr></thead><tbody>';
 
@@ -858,15 +783,13 @@
 					return node;
 				};
 
-				_self.getInfo = function(e, type) {
-					var objInfo,
-						str,
-						info;
+				_self.getInfo = function(target, type) {
+					var objInfo, str, info;
 
 					if (type === 'row') {
-						str = e.target.parentElement.id;
+						str = target.parentElement.id;
 					} else if (type === 'control') {
-						str = e.target.parentElement.parentElement.id;
+						str = target.parentElement.parentElement.id;
 					}
 
 					info = str.split('-');
@@ -880,17 +803,62 @@
 					return objInfo;
 				};
 
+				_self.select = function(checkbox, info) {
+					var feat = objDataTable[info.table].data()[info.feat],
+						row = $viz(checkbox).closest('tr')[0],
+						check = checkbox.checked;
+
+					// check or uncheck select checkbox
+					// get the geometry then call gisDatagrid to select feature on map (create graphic)
+					// or unselect the feature (remove graphic)
+					feat.gcvizcheck = check;
+					_self.highlightRow(row, check);
+					if (checkbox.checked) {
+						gisDG.selectFeature(feat.geometry, info);
+					} else {
+						gisDG.unselectFeature('sel' + '-' + info.table + '-' + info.feat);
+					}
+				};
+
+				_self.selectAll = function(target) {
+					var row, rows, len, tableId,
+						i = 0,
+						info = { },
+						val = target.checked;
+
+					// it comes from the checkbox, we grab the table id (we will need it later)
+					tableId = parseInt(target.id.split('-')[1], 10);
+					info.table = tableId;
+
+					rows = objDataTable[tableId].rows({ filter: 'applied' }).data();
+					len = rows.length;
+					while (i !== len) {
+						row = rows[i];
+						row.gcvizcheck = val;
+						info.feat = parseInt(row.gcvizid.split('-')[1]);
+
+						if (val) {
+							gisDG.selectFeature(row.geometry, info);
+						} else {
+							gisDG.unselectFeature('sel' + '-' + tableId + '-' + info.feat);
+						}
+						i++;
+					}
+
+					objDataTable[tableId].draw();
+				};
+
 				_self.zoom = function(info) {
 					// get feature geometry, then call gisDatagrid to create graphic and zoom
-					var geom = [objData[info.table][info.feat].geometry];
+					var geom = [objDataTable[info.table].data()[info.feat].geometry];
 					gisDG.zoomFeatures(geom);
 				};
 
-				_self.zoomSelect = function(e) {
+				_self.zoomSelect = function(target) {
 					var feat,
 						i = 0,
-						tableId = parseInt(e.target.id.split('-')[1], 10),
-						data = objData[tableId],
+						tableId = parseInt(target.id.split('-')[1], 10),
+						data = objDataTable[tableId].data(),
 						len = data.length,
 						features = [];
 
@@ -912,13 +880,77 @@
 					}
 				};
 
+				_self.exportCSV = function(data) {
+					var row, line, fieldsLen, j,
+						i = 0,
+						gcvizInd = 0,
+						fields = [],
+						header = '',
+						output = '',
+						rtnCarr = String.fromCharCode(13),
+						dataLen = data.length;
+					
+					// get the row title
+					row = data[0];
+					for (var field in row) {
+						if (row.hasOwnProperty(field)) {
+							// if field value is gcvizid, stop the for we are now in the internal field
+							if (field !== 'gcvizid') {
+								fields.unshift(field);
+								header = '"' + field + '",' + header;
+								gcvizInd++;
+							} else {
+								break;
+							}
+						}
+					}
+					output = header.slice(0, -1) + rtnCarr;
+
+					// loop trough the data
+					while (i !== dataLen) {
+						fieldsLen = fields.length;
+						row = data[i];
+						line = '';
+						j = 0;
+
+						while (j !== fieldsLen) {
+							line += '"' + row[fields[j]] + '",';
+							j++;
+						}
+						output += line.slice(0, -1) + rtnCarr;
+						i++;
+					}
+
+					$viz.generateFile({
+						filename	: 'exportCSV.csv',
+						content		: output,
+						script		: config.urldownload
+					});
+				};
+
+				_self.clearFilter = function(target) {
+					var $elems = $viz(target.parentElement.parentElement).find('.gcviz-dg-search'),
+						$process = $viz('.dataTables_processing'),
+						id = parseInt(target.id.split('-')[1], 10);
+
+					// reset value then trigger a "change" event. Put the draw in
+					// a timeout if not, the processing will not be shown
+					$process.css( 'display', 'block' );
+					$elems.val('');
+					setTimeout(function() {
+						activeTable = -1;
+						objDataTable[id].search('').columns().search('').draw();
+						$process.css('display', 'none');
+					}, 250);
+				};
+
 				_self.selExtent = function(geometry) {
 					var info, url;
 
 					// remove draw box cursor
 					$container.css('cursor', '');
 
-					// pup back popup clict event
+					// pup back popup click event
 					gisDG.addEvtPop();
 					if (typeof geometry !== 'undefined') {
 						// get layerinfo
@@ -942,9 +974,16 @@
 						lenFeats = features.length,
 						featIds = new Array(lenFeats);
 
-					// reset active table
-					activeTable = -1;
 
+
+
+						// reset value then trigger a "change" event. Put the draw in
+						// a timeout if not, the processing will not be shown
+var $elems = $viz('.gcviz-dg-search');
+$elems.val('');
+objDataTable[tableId].search('').columns().search('').draw();
+
+						
 					// create an array with all the objectid to select
 					while (i !== lenFeats) {
 						featIds[i] = features[i].attributes.OBJECTID;
@@ -973,60 +1012,13 @@
 					objDataTable[tableId].draw();
 				};
 
-				_self.select = function(checkbox, info) {
-					var feat = objDataTable[info.table].data()[info.feat],
-						row = checkbox.closest('tr');
-
-					// check or uncheck select checkbox
-					// get the geometry then call gisDatagrid to select feature on map (create graphic)
-					// or unselect the feature (remove graphic)
-					if (checkbox.prop('checked')) {
-						feat.gcvizcheck = true;
-						_self.highlightRow(row, true);
-						gisDG.selectFeature(feat.geometry, info);
-					} else {
-						feat.gcvizcheck = false;
-						_self.highlightRow(row, false);
-						gisDG.unselectFeature('sel' + '-' + info.table + '-' + info.feat);
-					}
-				};
-
-				_self.selectAll = function(e) {
-					var row, rows, len, tableId,
-						i = 0,
-						target = e.target,
-						info = { },
-						val = target.checked;
-
-					// it comes from the checkbox, we grab the table id (we will need it later)
-					tableId = parseInt(target.id.split('-')[1], 10);
-					info.table = tableId;
-
-					rows = objDataTable[tableId].rows({ filter: 'applied' }).data();
-					len = rows.length;
-					while (i !== len) {
-						row = rows[i];
-						row.gcvizcheck = val;
-						info.feat = parseInt(row.gcvizid.split('-')[1]);
-
-						if (val) {
-							gisDG.selectFeature(row.geometry, info);
-						} else {
-							gisDG.unselectFeature('sel' + '-' + tableId + '-' + info.feat);
-						}
-						i++;
-					}
-
-					objDataTable[tableId].draw();
-				};
-
 				_self.highlightRow = function(row, check) {
 					// set class to row if selected. We also have to set it to column with
 					// sorting class. If not, the color is not applied.
 					if (check) {
 						row.className += ' gcviz-backYellow';
 					} else {
-						row.className = row.className.replace(' gcviz-backYellow', '');
+						row.className = row.className.replace(/ gcviz-backYellow/g, '');
 					}
 				};
 
