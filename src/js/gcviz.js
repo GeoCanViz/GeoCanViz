@@ -29,8 +29,9 @@ var locationPath;
 			'gcviz-v-tbnav',
 			'gcviz-v-tblegend',
 			'gcviz-v-tbdata',
-			'gcviz-v-tbextract'
-	], function($viz, mp, jqui, i18n, gcvizFunc, map, inset, help, wcag, datagrid, header, footer, tbdraw, tbnav, tblegend, tbdata, tbextract) {
+			'gcviz-v-tbextract',
+			'gcviz-v-print'
+	], function($viz, mp, jqui, i18n, gcvizFunc, map, inset, help, wcag, datagrid, header, footer, tbdraw, tbnav, tblegend, tbdata, tbextract, print) {
 		var initialize,
 			readConfig,
 			execConfig,
@@ -179,6 +180,9 @@ var locationPath;
 				vmArray.insets = inset.initialize($mapSection);
 			}
 
+			// add print
+			vmArray.print = print.initialize($mapSection);
+		
 			// create the help for the map instance
 			vmArray.help = help.initialize($mapSection);
 

@@ -11,12 +11,163 @@
 			'gcviz-func',
 			'esri/tasks/PrintTemplate',
 			'esri/tasks/PrintTask',
-			'esri/tasks/PrintParameters'
-	], function($viz, func, esriPrintTemp, esriPrintTask, esriPrintParams) {
+			'esri/tasks/PrintParameters',
+			'esri/tasks/Geoprocessor'
+	], function($viz, func, esriPrintTemp, esriPrintTask, esriPrintParams, esriGeoProcessor) {
 		var printMap,
 			printResult,
 			printError,
-			htmlPage;
+			htmlPage,
+			getMxdElements,
+			gpJobComplete,
+			getMxdElementsSuccess,
+			gpJobStatus,
+			gpJobFailed,
+			loopLayoutInputs,
+			getMapCenter,
+			getLayoutElements,
+			printCustomMap,
+			printCustomResult,
+			printCustomError,
+			gp = null;
+
+		getMxdElements = function(url, templateName) {
+			var params = { 'TemplateName':templateName };
+			gp = new esriGeoProcessor(url);
+			gp.submitJob(params, gpJobComplete, gpJobStatus, gpJobFailed);
+		};
+
+		gpJobComplete = function(jobinfo) {
+			gp.getResultData(jobinfo.jobId, 'MXDElements', getMxdElementsSuccess, printError);
+		};
+
+		getMxdElementsSuccess = function(results) {
+			var parametersAll = results.value,
+				parameters = parametersAll.split(','),
+				elementType = '',
+				elementLabel = '',
+				newElement = '',
+			    printTextElements = document.getElementById('gcviz-printTextElements'),
+			    printPictureElements = document.getElementById('gcviz-printPictureElements'),
+			    printMapSurroundElements = document.getElementById('gcviz-printMapSurroundElements');
+
+			$viz(printTextElements).empty();
+			$viz(printPictureElements).empty();
+			$viz(printMapSurroundElements).empty();
+
+			parameters.forEach(function(pair) {
+				 pair = pair.split(':');
+				 elementType = pair[1];
+				 elementLabel = pair[0];
+
+				 if (elementType === 'TEXT_ELEMENT') {
+				        newElement = ('<div class="gcviz-printRow"><div class="gcviz-printColLabel"><span class="gcviz-printLabel">' + elementLabel + '</span></div><div class="gcviz-printCol"><input type="text" id="gcviz-print' + elementLabel.replace(/ /g,'') + '" name="' + elementLabel + '"></input></div>');
+                        $viz(printTextElements).append(newElement);
+				 }
+				 else if (elementType === 'MAPSURROUND_ELEMENT' || elementType === 'LEGEND_ELEMENT') {
+				        newElement = ('<div class="gcviz-printRow"><div class="gcviz-printColLabel"><span class="gcviz-printLabel">' + elementLabel + '</span></div><div class="gcviz-printCol"><input type="checkbox" id="gcviz-print' + elementLabel.replace(/ /g,'') + '" name="' + elementLabel + '"></input><div>');
+						$viz(printMapSurroundElements).append(newElement);
+				 }
+				 else if(elementType === 'PICTURE_ELEMENT') {
+                        newElement = ('<div class="gcviz-printRow"><div class="gcviz-printColLabel"><span class="gcviz-printLabel">' + elementLabel + '</span></div><div class="gcviz-printCol"><input type="text" id="gcviz-print' + elementLabel.replace(/ /g,'') + '" name="' + elementLabel + '"></input><div>');
+                        $viz(printPictureElements).append(newElement);
+				 }
+			});
+			
+		};
+
+		gpJobStatus = function(jobinfo) {
+			//console.log(jobinfo);
+		};
+
+		gpJobFailed = function(error) {
+			//console.log(error);
+		};
+
+		loopLayoutInputs = function() {
+		
+		};
+
+		getMapCenter = function(map) {
+			var e =  map.extent.getCenter();
+			return e.x + ':' + e.y;
+		};
+
+		getLayoutElements = function() {
+			var printTextElements = document.getElementById('gcviz-printTextElements'),
+			    printPictureElements = document.getElementById('gcviz-printPictureElements'),
+			    printMapSurroundElements = document.getElementById('gcviz-printMapSurroundElements'),
+			    layoutElements = {},
+			    elementName = '',
+			    elementValue = '';
+
+
+			$viz(printTextElements).find('input').each(function () {
+				elementName = this.name;
+				elementValue = this.value;
+				if(elementValue.trim().length > 0) {
+					layoutElements[String(elementName)] = elementValue;
+				}
+				else {
+					layoutElements[String(elementName)] = ' '; //need at least a blank space for arcpy mapping text elements, can't set to ""
+				}
+			});
+
+			$viz(printMapSurroundElements).find('input').each(function () {
+				elementName = this.name;
+				layoutElements[String(elementName)] = String(this.checked);
+			});
+
+			$viz(printPictureElements).find('input').each(function () {
+				elementName = this.name;
+				elementValue = this.value;
+				layoutElements[String(elementName)] = elementValue;
+			});
+
+			return JSON.stringify(layoutElements);
+		};
+
+		printCustomMap = function(map, url, templateName, preserve, DPIValue) {
+			var printTask = new esriPrintTask(url, { async: true }),
+				params = new esriPrintParams(),
+				template = new esriPrintTemp();
+		
+			template.exportOptions = { dpi: DPIValue };
+			template.format = 'PDF';
+			template.layout = templateName;
+			if (preserve === 'extent') {
+				template.preserveScale = false;
+			} else { 
+				template.preserveScale = true; 
+			}
+
+			params.template = template;
+			params.map = map;
+			
+			if (preserve !== 'extent') {
+				params.extraParameters = { 'Lang': 'EN',
+									       'Scale': String(map.getScale()),
+									       'CenterPoint': getMapCenter(map),
+									       'Layout_Elements': getLayoutElements()
+                };		
+			}
+			else {
+				params.extraParameters = { 'Lang': 'EN',
+									       'Scale': String(map.getScale()),
+									       'Layout_Elements': getLayoutElements()
+                };		
+			}
+			
+			printTask.execute(params, printCustomResult, printCustomError);
+		};
+
+		printCustomResult = function(result) {
+			window.open(result.url);
+		};
+
+		printCustomError = function(response) {
+			console.log(response);
+		};
 
 		printMap = function(map, printInfo) {
 			// We cant use the print task for certain type now because it is not able to deal with
@@ -64,7 +215,9 @@
 
 
 		return {
-			printMap: printMap
+			printMap: printMap,
+			getMxdElements: getMxdElements,
+			printCustomMap: printCustomMap
 		};
 	});
 }());
