@@ -113,14 +113,44 @@
 	right: (0.75 * $rembase) + rem!important;
 }
 
+// zoom full extent
+%zoombox {
+	@include sprite($img-spritebtn, -1625, -2);
+	position: absolute!important;
+	top: (4 * $rembase) + rem!important;
+	z-index: 30;
+}
+
+.gcviz-map-zooml {
+	@extend %zoombox;
+	left: (0.75 * $rembase) + rem!important;
+}
+
+.gcviz-map-zoomr {
+	@extend %zoombox;
+	right: (0.75 * $rembase) + rem!important;
+}
+
+.gcviz-map-zoomposl {
+	top: (22.5 * $rembase) + rem!important;
+}
+
+.gcviz-map-zoomposh {
+	top: (7.5 * $rembase) + rem!important;
+}
+
 // to be by the help
 .gcviz-map-zoommax {
 	@include sprite($img-spritebtn, -1012, -2);
 }
 
-// hide zoom max and zoombar when print
+.gcviz-map-zoom {
+	@include sprite($img-spritebtn, -1012, -2);
+}
+
+// hide zoom max, zoom extent and zoombar when print
 @media print {
-	.gcviz-map-zoommaxl, .gcviz-map-zoommaxr, .esriLargeSlider {
+	.gcviz-map-zoommaxl, .gcviz-map-zoommaxr, .gcviz-map-zooml, .gcviz-map-zoomr, .esriLargeSlider {
 		display: none!important;
 	}
 }

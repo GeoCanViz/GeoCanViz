@@ -210,10 +210,6 @@
 						_self.isDialogWCAG(true);
 						_self.enableOkWCAG('disable');
 					}
-
-					// focus the map. We need to specify this because when you use the keyboard to
-					// activate ta tool, the focus sometimes doesnt go to the map.
-					gcvizFunc.focusMap(mymap);
 				};
 
 				_self.textClick = function() {

@@ -18,8 +18,6 @@
 			'gcviz-gisgraphic'
 	], function($viz, ko, i18n, gcvizFunc, gisMap, gisGeo, gisNav, gisDG, gisGraph) {
 		var initialize,
-			calcDDtoDMS,
-			getDMS,
 			gblOVMap = false,
 			vm;
 
@@ -38,7 +36,7 @@
 					$container = $viz('#' + mapid + '_holder_layers'),
 					$ovMap = $viz('#ovmapcont' + mapid),
 					$menu = $viz('#gcviz-menu' + mapid),
-					$panel = $mapElem.find('#gcviz-menu-cont' + mapid),
+					$panel = $viz('#gcviz-menu-cont' + mapid),
 					$posDiag = $mapElem.find('#gcviz-pos' + mapid),
 					mymap = gcvizFunc.getElemValueVM(mapid, ['map', 'map'], 'js'),
 					autoCompleteArray = [{ minx: 0 , miny: 0, maxx: 0, maxy: 0, title: 'ddd' }];
@@ -61,7 +59,6 @@
 				_self.infoLabel = i18n.getDict('%toolbarnav-lblinfo');
 				_self.info = i18n.getDict('%toolbarnav-info');
 				_self.infoAltitude = i18n.getDict('%toolbarnav-infoaltitude');
-				_self.infoAltitudeUrl = i18n.getDict('%toolbarnav-infoaltitudeurl');
 				_self.infoDecDeg = i18n.getDict('%toolbarnav-infodecdeg');
 				_self.infoDMS = i18n.getDict('%toolbarnav-infodms');
 				_self.infoLat = i18n.getDict('%lat');
@@ -118,6 +115,7 @@
 				// url for position info box
 				_self.urlNTS = i18n.getDict('%gisurlnts');
 				_self.urlUTM = i18n.getDict('%gisurlutm');
+				_self.urlAlti = i18n.getDict('%gisurlalti');
 
 				// projection objects
 				_self.outSR = gisGeo.getOutSR(config.mapwkid);
@@ -258,7 +256,7 @@
 								maxx = pt2 + bufVal;
 
 								// add dms and dd representation
-								add = gcvizFunc.convertDdToDms(pt2, pt1);
+								add = gcvizFunc.convertDdToDms(pt2, pt1, 0);
 								value = add.y.join().replace(/,/g,'') + ' ' + add.x.join().replace(/,/g,'');
 								value += ' | ' + pt1.toFixed(3) + ' ' + pt2.toFixed(3);
 								autoCompleteArray.push({ minx: minx, miny: miny, maxx: maxx, maxy: maxy, coords: lonlat, title: value });
@@ -348,7 +346,7 @@
 
 								if (geolocation.info) {
 									setTimeout(function() {
-										gisMap.showInfoWindow(mymap, 'Location', infotitle, 'location');
+										gisMap.showInfoWindow(mymap, 'Location', infotitle, 'location', 12, 0);
 									}, 1000);
 								}
 							}
@@ -411,7 +409,7 @@
 					var x = _self.xValue() * -1,
 						y = _self.yValue();
 
-					gisGeo.projectCoords([[x, y]], 4326, _self.displayInfo);
+					gisGeo.projectCoords([[x, y]], mymap.vWkid, 4326, _self.displayInfo);
 					_self.isDialogWCAG(false);
 					_self.wcagok = true;
 				};
@@ -432,7 +430,7 @@
 				};
 
 				_self.displayInfo = function(outPoint) {
-					var DMS, alti,
+					var dms, alti,
 						utmZone = '',
 						lati = outPoint[0].y,
 						longi = outPoint[0].x;
@@ -442,9 +440,9 @@
 					_self.infoLongDD(' ' + longi);
 
 					// Calculate lat/long in DMS
-					DMS = calcDDtoDMS(lati, longi, _self.lblWest);
-					_self.infoLatDMS(' ' + DMS.latitude.format);
-					_self.infoLongDMS(' ' + DMS.longitude.format);
+					dms = gcvizFunc.convertDdToDms(longi, lati, 3);
+					_self.infoLatDMS(' ' + dms.y.join(' '));
+					_self.infoLongDMS(' ' + dms.x.join(' '));
 
 					// Get the NTS location using a deferred object and listen for completion
 					gisNav.getNTS(lati, longi, _self.urlNTS)
@@ -480,7 +478,7 @@
 					});
 
 					// Get the altitude
-					gisNav.getAltitude(lati, longi, _self.infoAltitudeUrl)
+					gisNav.getAltitude(lati, longi, _self.urlAlti)
 						.done(function(data) {
 							alti = '0';
 							if (data.altitude !== null) {
@@ -531,46 +529,6 @@
 			vm = new toolbarnavViewModel($mapElem, mapid);
 			ko.applyBindings(vm, $mapElem[0]); // This makes Knockout get to work
 			return vm;
-		};
-
-		calcDDtoDMS = function(lati, longi, lblWest) {
-			var DMS = {},
-				nswe,
-				latReal = parseFloat(lati),
-				longReal = parseFloat(longi);
-
-			// set latitude
-			if (latReal < 0.0) {
-				nswe = 'S';
-				latReal = latReal * -1.0;
-			} else {
-				nswe = 'N';
-			}
-			DMS.latitude = getDMS(latReal, nswe);
-
-			// set longitude
-			if (longReal < 0.0) {
-				nswe = lblWest;
-				longReal = longReal * -1.0;
-			} else {
-				nswe = 'E';
-			}
-			DMS.longitude = getDMS(longReal, nswe);
-
-			return DMS;
-		};
-
-		// TODO use the function in gcviz-function
-		getDMS = function(val, nsew) {
-			var deg = parseInt(val, 10),
-				tmp = (val - deg) * 60,
-				min = parseInt(tmp, 10),
-				sec = Math.round(((tmp - min) * 60) * 1000) / 1000,
-				out = { d: deg,
-						m: min,
-						s: sec,
-						format: deg + '° ' + min + '\' ' + sec + '\" ' + nsew };
-			return out;
 		};
 
 		return {

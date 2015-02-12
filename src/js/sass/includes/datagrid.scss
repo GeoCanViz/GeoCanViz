@@ -1,8 +1,108 @@
 @import "gcviz-mixin";
 
-%marg-button {
-	margin-top: (0.2 * $rembase) + rem;
+%buttonhead {
+	margin-top: (0.4 * $rembase) + rem;
+	vertical-align: middle;
 }
+
+.gcviz-dg-searchstr {
+	display: block;
+	margin: auto;
+	width: 80%;
+}
+
+.gcviz-dg-searchnum {
+	display: inline-block;
+	margin: auto;
+	width: 30%;
+	margin-left: (1 * $rembase) + rem;
+	margin-right: (1 * $rembase) + rem;
+}
+
+.gcviz-dg-pad {
+	margin-bottom: 0!important;
+	padding: (0.5 * $rembase) + rem;
+	display: inline;
+}
+
+// buttons zoom selected, clear filter, export csv
+.gcviz-dg-zoomsel {
+	@include sprite($img-spritebtn, -1516, -2);
+	display: block;
+	margin: auto;
+}
+
+.gcviz-dg-filterclear {
+	@include sprite($img-spritebtn, -1589, -2);
+	@extend %buttonhead;
+}
+
+.gcviz-dg-exportcsv {
+	@include sprite($img-spritebtn, -976, -2);
+	@extend %buttonhead;
+}
+
+.gcviz-dg-selfeat {
+	@include sprite($img-spritebtn, -1625, -2);
+	@extend %buttonhead;
+}
+
+//  ****** link info section ******
+// the open close buttons for link info
+td.gcviz-dg-link {
+	background: url($img-root + 'dgLinkOpen.png') no-repeat center center;
+	cursor: pointer;
+}
+tr.shown td.gcviz-dg-link {
+	background: url($img-root + 'dgLinkClose.png') no-repeat center center;
+}
+
+.gcviz-dg-linktitle {
+	@include app-text(1.2, bold);
+	display: block;
+}
+
+.gcviz-dg-linksubtitle {
+	@include app-text(1.2);
+}
+
+.gcviz-dg-linktable {
+	border: 1px solid black;
+}
+//****** end link info section ********
+
+/* tooltip for string element more then 40 characters. This one is
+   activated on focus to solve the wcag issue */
+.gcviz-datagrid-stringbtn {
+	width: 12px;
+	border: none;
+	display: inline-block;
+	background: none;
+	margin: 0;
+	padding: 0;
+	cursor: initial!important;
+}
+
+.gcviz-datagrid-stringtp {
+	z-index: 10;
+	display: none;
+	padding: 14px 20px;
+	margin-left: -300px;
+	width: 300px;
+	border-radius: 4px;
+	box-shadow: 5px 5px 8px #CCC;
+}
+
+.gcviz-datagrid-stringbtn:focus + .gcviz-datagrid-stringtp {
+	display: inline;
+	position: absolute;
+	color: $black;
+	border: 1px solid $black;
+	background: $yellow-light;
+	visibility: visible;
+	opacity: 1;
+}
+/* end tooltip section */
 
 table.display {
  table-layout: fixed;
@@ -13,6 +113,10 @@ table.dataTable.no-footer {
 	border-bottom: 0!important;
 }
 
+.gcviz-datatable th {
+	background-color: white!important; // safari bugs where backgroound is not always white after scroll x
+}
+
 .gcviz-datagrid {
 	width: 100%;
 	margin-top: (0.2 * $rembase) + rem!important;
@@ -21,7 +125,7 @@ table.dataTable.no-footer {
 .gcviz-datagrid-hold {
 	background: url($img-head) no-repeat!important;
 	background-size: 100% 100%!important;
-	color: #000000!important;
+	color: $black!important;
 	border-radius: 0rem!important;
 	padding-top: (0.5 * $rembase) + rem!important;
 	padding-left: (0.5 * $rembase) + rem!important;
@@ -30,31 +134,59 @@ table.dataTable.no-footer {
 }
 
 .gcviz-datagrid-tab {
-	color: #000000!important;
+	color: $black!important;
 }
 
 .gcviz-datagrid-ul {
-	background: #929292!important;
-	border: 1px solid #585858!important;
+	background: $grey-green!important;
+	border-radius: 0!important;
+	border: 1px solid #677!important;
 }
 
-// hide the id row
-.gcviz-dg-id {
-	display: none;
-}
+.gcviz-backYellow {
+	background-color: $yellow-select!important;
 
-.gcviz-dg-zoomsel {
-	margin: (1 * $rembase) + rem!important;
+	.sorting_1 {
+		background-color: $yellow-select!important;
+	}
 }
 
 .gcviz-dg-lblselall {
 	padding-left: (0.5 * $rembase) + rem!important;
+	padding-right: (3 * $rembase) + rem!important;
 }
 
+// overrides
+.ui-tabs .ui-tabs-panel {
+	padding: 0 1em!important;
+}
 
+.dataTables_wrapper .dataTables_length {
+  margin: 5px;
+}
+
+// overrides jqueryui dialog to remove the close button for the progress window
+.gcviz-dg-wait {
+	display: none!important;
+}
+
+// add the resizable icon to jqueryui popup
+.ui-dialog .ui-resizable-se {
+	width: 17px!important;
+	height: 17px!important;
+	right: 1px!important;
+	bottom: 1px!important;
+	background-position: -80px -224px!important;
+}
+ 
 // popups
 .gcviz-popup {
 	overflow: hidden!important;
+	width: 97%!important;
+}
+
+.ui-resizable {
+	min-height: 340px!important; // set it here because jqueyui doesn t work
 }
 
 .gcviz-popup-counter {
@@ -65,6 +197,7 @@ table.dataTable.no-footer {
 	width: 325px;
 	margin-top: 5px;
 	margin-bottom: 5px;
+	display: block;
 }
 
 .gcviz-popup-separator {
@@ -89,7 +222,6 @@ table.dataTable.no-footer {
 
 .gcviz-popup-content {
 	overflow: auto;
-	height: 200px!important;
 }
 
 .gcviz-popup-previous {

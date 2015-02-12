@@ -43,6 +43,7 @@
 					$helpNav = $helpSect.find('.gcviz-help-tbnav'),
 					$helpLeg = $helpSect.find('.gcviz-help-tbleg'),
 					$helpData = $helpSect.find('.gcviz-help-tbdata'),
+					$helpExtract = $helpSect.find('.gcviz-help-tbextract'),
 					$helpDev = $helpSect.find('.gcviz-help-dev');
 
 				// viewmodel mapid to be access in tooltip custom binding
@@ -187,6 +188,9 @@
 				_self.dataSample = i18n.getDict('%help-data-sample');
 				_self.dataRemove = i18n.getDict('%help-data-remove');
 
+				// extract text
+				_self.extractTitle = i18n.getDict('%help-extract-title');
+
 				// developer's corner text
 				_self.devTitle = i18n.getDict('%help-dev-title');
 				_self.devLogoAlt = i18n.getDict('%help-dev-logoalt');
@@ -208,6 +212,7 @@
 					_self.noNav = ($helpNav.length > 0) ? false : true;
 					_self.noLeg = ($helpLeg.length > 0) ? false : true;
 					_self.noData = ($helpData.length > 0) ? false : true;
+					_self.noExtract = ($helpExtract.length > 0) ? false : true;
 
 					// set global dialog to be able to open help from
 					// outisede the view model. This way, it is easy
@@ -250,6 +255,8 @@
 						$helpSect.scrollTo($helpLeg);
 					} else if (section === 'data') {
 						$helpSect.scrollTo($helpData);
+					} else if (section === 'extract') {
+						$helpSect.scrollTo($helpExtract);
 					} else if (section === 'dev') {
 						$helpSect.scrollTo($helpDev);
 					}

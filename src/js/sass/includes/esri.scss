@@ -60,6 +60,36 @@
 	display: none; 
 }
 
+.esriPopup .outerPointer.left {
+	display: block;
+	left: 8px;
+	margin-top: -8px;
+	top: 50%;
+}
+
+.esriPopup .outerPointer.right {
+	display: block;
+	right: 8px;
+	margin-top: -8px;
+	top: 50%;
+}
+
+.esriPopup .pointer, .esriPopup .outerPointer {
+	background: #F7F7F7;
+	display: none;
+	height: 16px;
+	position: absolute;
+	width: 16px;
+	z-index: 0;
+	transform: rotate(45deg);
+	-moz-transform: rotate(45deg);
+	-ms-transform: rotate(45deg);
+	-o-transform: rotate(45deg);
+	-webkit-transform: rotate(45deg);
+	box-shadow: 0 0 0.75em #777777;
+	-webkit-box-shadow: 0 0 0.75em #777777;
+}
+
 .gcviz-wcag-close {
 	position: absolute!important;
 	right: 2px!important;

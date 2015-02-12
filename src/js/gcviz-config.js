@@ -92,7 +92,27 @@
 		}
 	},
 	dataBrowser: [
-		{
+		{ // for mobile device (phone and tablet)
+			string: navigator.userAgent,
+			subString: 'Mobile',
+			identity: 'Mobile',
+			versionSearch: ''
+		}, { // for IE mobile device
+			string: navigator.userAgent,
+			subString: 'IEMobile',
+			identity: 'Mobile',
+			versionSearch: ''
+		}, { // for Kindle mobile device
+			string: navigator.userAgent,
+			subString: 'Silk',
+			identity: 'Mobile',
+			versionSearch: ''
+		}, { // for Blackberry Playbook
+			string: navigator.userAgent,
+			subString: 'Tablet',
+			identity: 'Mobile',
+			versionSearch: ''
+		}, {
 			string: navigator.userAgent,
 			subString: 'Chrome',
 			identity: 'Chrome'
@@ -318,10 +338,18 @@
 				name: 'gcviz-v-tbdata',
 				location: locationPath + 'gcviz/js/views',
 				main: 'toolbardataV-min'
-			},{
+			}, {
 				name: 'gcviz-vm-tbdata',
 				location: locationPath + 'gcviz/js/viewmodels',
 				main: 'toolbardataVM-min'
+			}, {
+				name: 'gcviz-v-tbextract',
+				location: locationPath + 'gcviz/js/views',
+				main: 'toolbarextractV-min'
+			}, {
+				name: 'gcviz-vm-tbextract',
+				location: locationPath + 'gcviz/js/viewmodels',
+				main: 'toolbarextractVM-min'
 			}, {
 				name: 'gcviz-v-map',
 				location: locationPath + 'gcviz/js/views',

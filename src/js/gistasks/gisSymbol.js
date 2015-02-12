@@ -18,12 +18,13 @@
 			getSymbText,
 			getSymbErase;
 
-		getSymbLine = function(color, width) {
+		getSymbLine = function(color, width, outline) {
 			return new esriLine({
 						'type': 'esriSLS',
 						'style': 'esriSLSSolid',
 						'color': color,
-						'width': width
+						'width': width,
+						'outline': outline
 					});
 		};
 
@@ -82,16 +83,16 @@
 						});
 		};
 
-		getSymbErase = function(polyFill) {
+		getSymbErase = function() {
 			return new esriFill({
 						'type': 'esriSFS',
 						'style': 'esriSFSSolid',
-						'color': polyFill,
+						'color': [205,197,197,125],
 						'outline':
 						{
 							'type': 'esriSLS',
 							'style': 'esriSLSSolid',
-							'color': [205,197,197,255],
+							'color': [229,79,6,255],
 							'width': 2
 						}
 					});

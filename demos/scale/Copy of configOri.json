@@ -121,8 +121,7 @@
                 "link": false,
                 "zoombar": {
                     "bar": true,
-                    "zoom": true,
-                    "zoomfull": true
+                    "zoom": true
                 },
                 "bases": [{
                     "label": "CBCT3978",
@@ -454,7 +453,7 @@
             }]
         },
         "toolbardraw": {
-            "enable": true,
+            "enable": false,
             "expand": false,
             "pos": 1,
             "drawline": {
@@ -525,8 +524,17 @@
                     "index": 0
                 },
                 "title": "GMRC",
-                "globalsearch": true,
                 "fields": [{
+                    "title": "Object Id",
+                    "width": "160px",
+                    "data": "OBJECTID",
+                    "dataalias": "OBJECTID",
+				     "type": {
+				      	"field": "field",
+				      	"value": "string"
+				     },
+				     "searchable": false
+                }, {
                     "title": "Geo Id",
                     "width": "160px",
                     "data": "GEO_ID",
@@ -535,7 +543,7 @@
 				      	"field": "field",
 				      	"value": "string"
 				     },
-				     "searchable": true
+				     "searchable": false
                 }, {
                     "title": "Geo Sym",
                     "width": "250px",
@@ -561,7 +569,7 @@
                     "width": "250px",
                     "data": "GEO_FDESC",
                     "dataalias": "GEO_FDESC",
-                    "type": {
+				     "type": {
 				      	"field": "field",
 				      	"value": "string"
 				     },
@@ -585,7 +593,6 @@
                     "index": 0
                 },
                 "title": "Link tables",
-                "globalsearch": false,
                 "fields": [{
                     "title": "Comp. Name.",
                     "width": "250px",
@@ -595,7 +602,7 @@
 				      "field": "field",
 				      "value": "string"
 				     },
-				    "searchable": true
+				    "searchable": false
                 }, {
                     "title": "Project Status",
                     "width": "250px",
@@ -605,7 +612,7 @@
 				      	"field": "field",
 				      	"value": "string"
 				     },
-				     "searchable": true
+				     "searchable": false
                 }],
                 "linktable": {
                     "enable": true,

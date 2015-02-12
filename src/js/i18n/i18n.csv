@@ -8,8 +8,9 @@ Global sys value#%github-urlgcvizrepo#https://github.com/GeoCanViz/GeoCanViz#htt
 Global sys value#%msg-configread#Configuration file read#Fichier de configuration lu
 Global sys value#%msg-configerr#Configuration file error#Erreur fichier de configuration
 Global sys value#%gisurllocate#http://geogratis.gc.ca/services/geolocation/en/locate?#http://geogratis.gc.ca/services/geolocation/fr/locate?
-Global sys value#%gisurlnts#http://geogratis.gc.ca/services/delimitation/en/nts?bbox=#http://geogratis.gc.ca/services/delimitation/fr/nts?bbox=
-Global sys value#%gisurlutm#http://geogratis.gc.ca/services/delimitation/en/utmzone?bbox=#http://geogratis.gc.ca/services/delimitation/fr/utmzone?bbox=
+Global sys value#%gisurlnts#http://geogratis.gc.ca/services/delimitation/en/nts?#http://geogratis.gc.ca/services/delimitation/fr/nts?
+Global sys value#%gisurlutm#http://geogratis.gc.ca/services/delimitation/en/utmzone?#http://geogratis.gc.ca/services/delimitation/fr/utmzone?
+Global sys value#%gisurlalti#http://geogratis.gc.ca/services/elevation/cdem/altitude?#http://geogratis.gc.ca/services/elevation/cdem/altitude?
 #%cancel#Cancel#Annuler
 #%close#Close#Fermer
 #%linkopens#This link opens in a new browser window, browser tab or is downloaded, depending on your setting.#Ce lien s'ouvre dans une nouvelle fenêtre, onglet du navigateur ou est téléchargé, selon vos réglages.
@@ -17,6 +18,7 @@ Global sys value#%gisurlutm#http://geogratis.gc.ca/services/delimitation/en/utmz
 #%west#W#O
 #%lat#Latitude: #Latitude : 
 #%long#Longitude: #Longitude : 
+#%position#Position: #Position : 
 #%wcag-instrtitle#Instructions: Keyboard Navigation#Instruction: Naviguer dans la carte à l'aide du clavier
 #%wcag-instrtitlealt#Instructions: Keyboard Navigation - Help#Instruction: Naviguer dans la carte à l'aide du clavier - aide
 #%wcag-instr#Keyboard user: When the map is in focus, use the arrow keys to pan the map and the shift+plus and shift+minus keys to zoom. Setup your keyboard to control the mouse or enable the accessibility mode to have coordinates input box.#Utilisateur du clavier : Lorsque la carte a l'attention, utiliser les touches flèches pour déplacer la carte et utiliser les touches shift+plus et shift+négatif pour faire un zoom. Configurer votre clavier pour contrôler la souris ou activer le mode accessibilité afin d'avoir les boîtes d'entrée pour les coordonnées.
@@ -28,7 +30,8 @@ Global sys value#%gisurlutm#http://geogratis.gc.ca/services/delimitation/en/utmz
 #%wcag-msgy#Value needs to be between 40 and 80#La valeur doit être entre 40 et 80.
 #%wcag-addcoords#Add a new coordinate to the list#Ajouter une coordonnée à la liste
 #%wcag-remove#Remove#Enlever
-#%map-tpzoomfull#Zoom to full extent#Zoom à l`étendue maximum
+#%map-tpzoomfull#Zoom to full extent#Zoom à l'étendue maximum
+#%map-tpzoom#Draw extent to zoom ont he map#Dessiner l'étendue du zoom sur la carte
 #%header-tools#Menu#Menu
 #%header-abouttitle#about this map #À propos de cette carte 
 #%header-aboutread#Read #Lire 
@@ -40,7 +43,8 @@ Global sys value#%gisurlutm#http://geogratis.gc.ca/services/delimitation/en/utmz
 #%footer-tpgithub#Get GeoCanViz on GitHub#Obtenir GéoCanViz de GitHub
 #%footer-urlgcvizrepo#https://github.com/GeoCanViz/GeoCanViz#https://github.com/GeoCanViz/GeoCanViz
 #%footer-tpNorth#North Arrow#Flèche du nord
-#%footer-tpdatagrid#Open/Close datagrid#Ouvrir ou fermer le tableau des données
+#%footer-tpdatagrid#Hide/Show data tables#Ouvrir ou fermer les tableaux des données
+#%footer-tpformat#Toggle between decimal degree and degree minute second format#Basculer entre le format degré décimal et degré minute seconde
 #%datagrid-processing#Processing...#Traitement en cours...
 #%datagrid-search#Search:#Rechercher&nbsp;:
 #%datagrid-lengthMenu#Show _MENU_ entries#Afficher _MENU_ éléments
@@ -59,10 +63,16 @@ Global sys value#%gisurlutm#http://geogratis.gc.ca/services/delimitation/en/utmz
 #%datagrid-sortAscending#: activate to sort column ascending#: activer pour trier la colonne par ordre croissant
 #%datagrid-sortDescending#: activate to sort column descending#: activer pour trier la colonne par ordre décroissant
 #%datagrid-selectall#Select All#Sélectionner tout
-#%datagrid-zoomselect#Zoom Selected#Zoom sélectionné
-#%datagrid-poptitle#Data Window#Fenêtre données
+#%datagrid-zoomselect#Zoom to selected#Zoom sélection
+#%datagrid-clearfilters#Clear all searchs#Effacer toutes les recherches
+#%datagrid-exportselcsv#Export Selection to CSV#Exporter la sélection au format CSV
+#%datagrid-exporttblcsv#Export table to CSV#Exporter la table au format CSV
+#%datagrid-selfeat#Select features on map#Sélectionner les élements sur la carte
+#%datagrid-poptitle#Information#Information
 #%datagrid-popalllayers#All layers#Toutes les couches
 #%datagrid-popselect#Select the features from the following layer#Sélectionnez une couche dans les suivantes
+#%datagrid-protitle#Table Creation#Création des tables
+#%datagrid-prodesc#Please wait until all tables are created. This operation could take a while if there is a lot of data.#S'il vous plaît, attendre que les toutes tables soient créées. Cette opération peut prendre du temps si il y a beacoup de données.
 #%toolbardraw-alt#Measuring and Drawing Tools - Help#Mesures et outils de dessin - Aide
 #%toolbardraw-name#Measuring and Drawing Tools#Mesures et outils de dessin
 #%toolbardraw-insinputbox#Enter text, click OK and then click the map location where the text should be placed.#Cliquez sur OK pour placer le texte sur la carte ou cliquez sur Annuler pour abandonner.
@@ -118,7 +128,6 @@ Global sys value#%gisurlutm#http://geogratis.gc.ca/services/delimitation/en/utmz
 #%toolbarnav-infoutmz#Zone: #Zone : 
 #%toolbarnav-infonts#NTS Mapsheet#Carte du SNRC
 #%toolbarnav-infoaltitude#Elevation#Élévation
-#%toolbarnav-infoaltitudeurl#http://geogratis.gc.ca/services/elevation/cdem/altitude?#http://geogratis.gc.ca/services/elevation/cdem/altitude?
 #%toolbarnav-lblov#Overview Map#Carte aperçu
 #%toolbarnav-lblovdisplay#Show on map#Afficher sur la carte
 #%toolbarnav-ovdrag#Drag to change map extent#Glisser pour changer l'étendue de la carte
@@ -134,6 +143,9 @@ Global sys value#%gisurlutm#http://geogratis.gc.ca/services/delimitation/en/utmz
 #%toolbardata-err3#Presence of element(s) with invalid latitude and/or longitude.#Présence d'élément(s) dont les valeurs de latitude et/ou de longitude sont invalides.
 #%toolbardata-err4#Error fetching items from CSV file: #Erreur de récupération des items du fichier CSV : 
 #%toolbardata-ie9#This tool is not available in Internet Explorer version 9. You need Internet Explorer version 10 and higher or another browser (Chrome, FireFox or Safari).#Cet outil n'est pas disponible dans Internet Explorer 9. Vous devez avoir la version 10 et plus ou un autre navigateur (Chrome, Firefox ou Safari).
+#%toolbarextract-alt#Download Maps and Data - Help#Téléchager cartes et données - Aide
+#%toolbarextract-name#Download Maps and Data#Téléchager cartes et données
+#%toolbarextract-btnget#Get Data#Obtenir les données
 #%inset-tplight#Open the content in a lightbox#Ouvrir le contenu dans un lightbox
 #%inset-tpplayvideo#Play video#Jouer la vidéo
 #%mp-close#Close (Esc)#Fermer (Esc)
@@ -184,7 +196,7 @@ Global sys value#%gisurlutm#http://geogratis.gc.ca/services/delimitation/en/utmz
 #%help-draw-line2#2. Click on the map, keeping the left mouse button depressed#2. Cliquez sur la carte en maintenant enfoncé le bouton gauche de la souris.
 #%help-draw-line3#3. Draw any shape of line.#3. Tracez une ligne de n'importe quelle forme.
 #%help-draw-line4#4. When finished, release the left mouse button.#4. Lorsque vous avez terminé, relâchez le bouton gauche de la souris.
-#%help-draw-line5#5. When finished, press the ESC key on your keyboard (when focus is on the map) or click on the Menu title.#5. Lorsque vous avez terminé, appuyez sur la touche ESC sur votre clavier (lorsque que la carte a l'attention) ou cliquez sur le titre du menu.
+#%help-draw-line5#5. When finished, press the ESC key on your keyboard (when focus is on the map) or click on the Menu title.#5. Lorsque vous avez terminé, appuyez sur la touche ESC sur votre clavier (lorsque la carte a l'attention) ou cliquez sur le titre du menu.
 #%help-draw-line6#6. The menu will re-open.#6. Le menu se rouvrira.
 #%help-draw-text#Use the text tool to add text to the map:#Utilisez l'outil texte pour ajouter du texte à la carte :
 #%help-draw-text1#1. Click the text tool, the menu will then close.#1. Cliquez sur l'outil texte. Le menu se fermera.
@@ -196,23 +208,23 @@ Global sys value#%gisurlutm#http://geogratis.gc.ca/services/delimitation/en/utmz
 #%help-draw-length#Use the Measure a Path tool to measure single or multiple connected distances on the map (it is possible to measure multiple distances).#Utilisez l'outil Mesurer une longueur sur la carte pour mesurer une ou plusieurs distances reliées sur la carte (il est possible de mesurer plusieurs distances).
 #%help-draw-length1#1. Click the Measure a Path tool, the menu will then close.#1. Cliquez sur l'outil Mesurer une longueur sur la carte. Le menu se fermera.
 #%help-draw-length2#2. Click the start location on the map.#2. Cliquez sur l'emplacement de départ sur la carte.
-#%help-draw-length3#3. If a single path is measured, either double click the second location on the map or single click the second location followed by pressing the ESC key on your keyboard (when focus is on the map). The total distance will be displayed.#3. Si une longueur unique est mesurée, double cliquez sur le second emplacement sur la carte ou cliquez une fois sur le second emplacement et appuyez ensuite sur la touche ESC sur votre clavier (lorsque que la carte a l'attention). La distance totale s'affichera.
-#%help-draw-length4#4. If multiple connected paths are measured, click all locations on the map ensuring the last location is either a double click or a single click followed by pressing the ESC key on your keyboard (when focus is on the map). The total distance will be displayed.#4. Si plusieurs distances reliées sont mesurées, cliquez sur tous les emplacements de la carte en prenant soin de double cliquer sur le dernier emplacement ou de faire un simple clic et d'appuyer ensuite sur la touche ESC sur votre clavier (lorsque que la carte a l'attention). La distance totale s'affichera.
-#%help-draw-length5#5. When finished, press the ESC key on your keyboard (when focus is on the map) or click on the Menu title and the menu will reopen.#5. Lorsque vous avez terminé, appuyer sur la touche ESC sur votre clavier (lorsque que la carte a l'attention) ou cliquez sur le titre du menu et le menu se rouvrira.
+#%help-draw-length3#3. If a single path is measured, either double click the second location on the map or single click the second location followed by pressing the ESC key on your keyboard (when focus is on the map). The total distance will be displayed.#3. Si une longueur unique est mesurée, double cliquez sur le second emplacement sur la carte ou cliquez une fois sur le second emplacement et appuyez ensuite sur la touche ESC sur votre clavier (lorsque la carte a l'attention). La distance totale s'affichera.
+#%help-draw-length4#4. If multiple connected paths are measured, click all locations on the map ensuring the last location is either a double click or a single click followed by pressing the ESC key on your keyboard (when focus is on the map). The total distance will be displayed.#4. Si plusieurs distances reliées sont mesurées, cliquez sur tous les emplacements de la carte en prenant soin de double cliquer sur le dernier emplacement ou de faire un simple clic et d'appuyer ensuite sur la touche ESC sur votre clavier (lorsque la carte a l'attention). La distance totale s'affichera.
+#%help-draw-length5#5. When finished, press the ESC key on your keyboard (when focus is on the map) or click on the Menu title and the menu will reopen.#5. Lorsque vous avez terminé, appuyer sur la touche ESC sur votre clavier (lorsque la carte a l'attention) ou cliquez sur le titre du menu et le menu se rouvrira.
 #%help-draw-lengtherase#* To erase one or all measured distances, click on the Menu title and use the Erase annotations or Erase selected annotations tools.#* Pour effacer une des distances mesurées ou toutes les distances, cliquez sur le titre du menu et utilisez les outils Effacer les annotations ou Effacer les annotations sélectionnées.
 #%help-draw-area#Use the Measure an Area tool to measure areas on the map (it is possible to measure multiple areas).#Utilisez l'outil Mesurer une surface sur la carte pour mesurer des surfaces sur la carte (il est possible de mesurer plusieurs surfaces).
 #%help-draw-area1#1. Click the Measure an Area tool, the menu will then close.#1. Cliquez sur l'outil Mesurer une surface sur la carte. Le menu se fermera.
 #%help-draw-area2#2. Click the start location on the map.#2. Cliquez sur l'emplacement de départ sur la carte.
 #%help-draw-area3#3. Click at least three or more other locations on the map to create a polygon.#3. Cliquez sur au moins trois autres emplacements sur la carte pour créer un polygone.
-#%help-draw-area4#4. When the polygon on the map covers the desired area, either double click the final location or single click it, followed by pressing the ESC key on your keyboard (when focus is on the map). The area will be shown.#4. Lorsque le polygone couvre la surface désirée sur la carte, double cliquez sur le dernier emplacement ou faites un simple clic sur celui-ci et appuyez ensuite sur la touche ESC sur votre clavier (lorsque que la carte a l'attention). La surface s'affichera.
-#%help-draw-area5#5. When finished, press the ESC key on your keyboard (when focus is on the map) or click on the Menu title and the menu will reopen.#5. Lorsque vous avez terminé, appuyez sur la touche ESC sur votre clavier (lorsque que la carte a l'attention) ou cliquez sur le titre du menu et le menu se rouvrira.
+#%help-draw-area4#4. When the polygon on the map covers the desired area, either double click the final location or single click it, followed by pressing the ESC key on your keyboard (when focus is on the map). The area will be shown.#4. Lorsque le polygone couvre la surface désirée sur la carte, double cliquez sur le dernier emplacement ou faites un simple clic sur celui-ci et appuyez ensuite sur la touche ESC sur votre clavier (lorsque la carte a l'attention). La surface s'affichera.
+#%help-draw-area5#5. When finished, press the ESC key on your keyboard (when focus is on the map) or click on the Menu title and the menu will reopen.#5. Lorsque vous avez terminé, appuyez sur la touche ESC sur votre clavier (lorsque la carte a l'attention) ou cliquez sur le titre du menu et le menu se rouvrira.
 #%help-draw-areaerase#* To erase one or all measured areas, click on the Menu title and use the Erase annotations or Erase selected annotations tools.#* Pour effacer une des surfaces mesurées ou toutes, cliquez sur le titre du menu et utilisez les outils Effacer les annotations ou Effacer les annotations sélectionnées.
 #%help-draw-eraseall#Click the Erase annotations tool to erase all lines, text and distances on the map.#Cliquez sur l'outil Effacer les annotations pour effacer toutes les lignes, le texte et les distances sur la carte.
 #%help-draw-eraseselect#Click the Erase selected annotations tool to erase selected lines, text and distances on the map.#Cliquez sur l'outil Effacer les annotations sélectionnées pour effacer les lignes, le texte et les distances sélectionnés sur la carte.
 #%help-draw-eraseselect1#1. Click the Erase selected annotations tool, the menu will then close.#1. Cliquez sur l'outil Effacer les annotations sélectionnées. Le menu se fermera.
 #%help-draw-eraseselect2#2. Click on the map, keeping the left mouse button depressed and draw a polygon over the feature(s) to be erased.#2. Cliquez sur la carte en maintenant enfoncé le bouton gauche de la souris et dessinez un polygone sur le ou les éléments à effacer.
 #%help-draw-eraseselect3#3. Release the left mouse button and the feature(s) will disappear.#3. Relâchez le bouton gauche de la souris et le ou les éléments disparaîtront.
-#%help-draw-eraseselect4#4. When finished, press the ESC key on your keyboard (when focus is on the map) or click on the Menu title and the menu will reopen.#4. Lorsque vous avez terminé, appuyez sur la touche ESC sur votre clavier (lorsque que la carte a l'attention) ou cliquez sur le titre du menu et le menu se rouvrira.
+#%help-draw-eraseselect4#4. When finished, press the ESC key on your keyboard (when focus is on the map) or click on the Menu title and the menu will reopen.#4. Lorsque vous avez terminé, appuyez sur la touche ESC sur votre clavier (lorsque la carte a l'attention) ou cliquez sur le titre du menu et le menu se rouvrira.
 #%help-draw-undo#Use the Undo tool to undo past actions such as adding lines, text and distance measurements.#Utilisez l'outil Annuler la dernière opération pour annuler les actions antérieures comme l'ajout de lignes ou de texte et la mesure des distances.
 #%help-draw-redo#Use the Redo tool to redo actions such as adding lines, text and distance measurements after they have been deleted.#Utilisez l'outil Refaire la dernière opération pour refaire les actions comme l'ajout de lignes ou de texte et la mesure des distances après qu'elles aient été annulées.
 #%help-draw-import#Use the Import File tool to import a file that contains drawings that were previously saved. This file must be in JavaScript Object Notation (JSON) format.#Utilisez l'outil Importer des annotations pour importer un fichier qui contient des dessins qui ont été sauvegardés auparavant. Ce fichier doit être en format JavaScript Object Notation (JSON).
@@ -236,9 +248,9 @@ Global sys value#%gisurlutm#http://geogratis.gc.ca/services/delimitation/en/utmz
 #%help-nav-pos2#2. Click a specific location on the map.#2. Cliquez sur un lieu en particulier sur la carte.
 #%help-nav-pos3#3. A pop-up window will appear showing the map location information.#3. Une fenêtre contextuelle contenant l'information de localisation de la carte apparaîtra.
 #%help-nav-pos4#4. When finished, click “Ok” or press the ESC key on your keyboard. It will close the window.#4. Lorsque vous avez terminé, cliquez sur « Ok » ou appuyez sur la touche ESC sur votre clavier. La fenêtre se fermera.
-#%help-nav-pos5#5. Repeat steps 2 to 4 to view information of another specific map location. Press the ESC key on your keyboard (when focus is on the map) or click on the Menu title to finish.#5. Répétez les étapes 2 à 4 pour voir l'information sur un autre lieu sur la carte. Appuyez sur la touche ESC sur votre clavier (lorsque que la carte a l'attention) ou cliquez sur le titre du menu pour terminer.
+#%help-nav-pos5#5. Repeat steps 2 to 4 to view information of another specific map location. Press the ESC key on your keyboard (when focus is on the map) or click on the Menu title to finish.#5. Répétez les étapes 2 à 4 pour voir l'information sur un autre lieu sur la carte. Appuyez sur la touche ESC sur votre clavier (lorsque la carte a l'attention) ou cliquez sur le titre du menu pour terminer.
 #%help-nav-ovalt#Overview Map#Carte aperçu
-#%help-nav-ov#The Overview Map Window shows a red rectangle identifying your current map extent in a regional context. Click, hold and drag this rectangle to quickly pan the map to a different location.#La fenêtre de la Carte apeçu montre un rectangle rouge qui indique l'étendue actuelle de votre carte dans un contexte régional. Cliquez sur ce rectangle et faites-le glisser pour parcourir rapidement la carte et atteindre un autre lieu.
+#%help-nav-ov#The Overview Map Window shows a red rectangle identifying your current map extent in a regional context. Click, hold and drag this rectangle to quickly pan the map to a different location.#La fenêtre de la Carte aperçu montre un rectangle rouge qui indique l'étendue actuelle de votre carte dans un contexte régional. Cliquez sur ce rectangle et faites-le glisser pour parcourir rapidement la carte et atteindre un autre lieu.
 #%help-nav-scaletitle#Approximate map scale:#Échelle approximative de la carte :
 #%help-nav-scale#The map scale number displays the relationship or ratio between a distance on the map and the same distance on the ground. Note: the distance is approximate.#L'échelle de la carte représente la relation ou le rapport entre une distance sur la carte et la même distance sur le terrain. Note : la distance est approximative.
 #%help-leg-title#Map Layers and Legend(s)#Couches de la carte et légende(s)
@@ -248,10 +260,11 @@ Global sys value#%gisurlutm#http://geogratis.gc.ca/services/delimitation/en/utmz
 #%help-leg-slider#The slider on the left of the layer name can be used to change the opacity. Sliding it to the left will make the layer less opaque. sliding it to the right will make the layer more opaque.#La barre coulissante à la gauche du nom de la couche peut être utilisée pour changer l'opacité. Faites-la glisser vers la droite ou la gauche pour rendre la couche plus ou moins opaque.
 #%help-leg-exp#To view a legend, click on the right pointing black triangle displayed at the left end of the layer. It will point down and change colour from black to red. Depending on how the layers are structured, it might be necessary to click more than one black triangle to view the legend.#Pour voir une légende, cliquez sur le triangle noir qui pointe vers la droite à l'extrémité gauche de la couche. Il pointera alors vers le bas et passera du noir au rouge. Selon la façon dont les couches sont structurées, il pourrait être nécessaire de cliquer sur plus d'un triangle noir pour voir la légende.
 #%help-data-title#Import Data#Importer des données
-#%help-data-add#Use the Import Data tool to import a Comma Separated Values (CSV) file that contains geolocation information and to display it on the map. This file must contain geolocation fields that hold the geometry. The fields names should be (latitude, lat, y, or ycenter) for y coordinates, and (longitude, long, x, or xcenter) for x coordinates. The field separator must be one of these characters (, ; |).#Utilisez l'outil Importer des données pour importer un fichier Comma Separated Values (CSV) contenant de l'information de géolocalisation et l'afficher sur la carte. Ce fichier doit comprendre des champs de géolocalisation qui contiennent la géométrie. Les noms des champs doivent être (latitude, lat, y, ou ycenter) pour les coordonnées y et (longitude, long, x, ou xcenter) pour les coordonnées x. Le séparateur doit être l'un des caractères suivants : (, ; |).
+#%help-data-add#Use the Import Data tool to import a Comma Separated Values (CSV) file that contains geolocation information and to display it on the map. This file must contain geolocation fields that hold the geometry. The fields names should be (latitude, lat, y, or ycenter) for y coordinates, and (longitude, long, x, or xcenter) for x coordinates. The data must be in NAD 83 geographical coordinates. The field separator must be one of these characters (, ; |).#Utilisez l'outil Importer des données pour importer un fichier Comma Separated Values (CSV) contenant de l'information de géolocalisation et l'afficher sur la carte. Ce fichier doit comprendre des champs de géolocalisation qui contiennent la géométrie. Les noms des champs doivent être (latitude, lat, y, ou ycenter) pour les coordonnées y et (longitude, long, x, ou xcenter) pour les coordonnées x. Les données doivent être en coordonnées géographiques NAD 83. Le séparateur doit être l'un des caractères suivants : (, ; |).
 #%help-data-sampletitle#Added Layer Information#Information sur une couche ajoutée
 #%help-data-sample#This is an example of an imported CSV file. A visibility checkbox and the symbology used to render the layer is displayed.#Voici un exemple de fichier CSV importé. Une case à cocher de visibilité et la symbolique utilisée pour représenter la couche sont affichées.
 #%help-data-remove#Button to remove the imported data layer from the map.#Bouton pour retirer la couche des données importées de la carte.
+#%help-extract-title#Download Maps and Data#Télécharger cartes et données
 #%help-dev-title#Developer's Corner#Le coin du développeur
 #%help-dev-logoalt#Get GeoCanViz on GitHub#Obtenir GéoCanViz de GitHub
 #%help-dev-logo#Click to view the latest GeoCanViz development source code on GitHub.#Cliquez pour voir le tout dernier code source de développement de GéoCanViz sur GitHub.

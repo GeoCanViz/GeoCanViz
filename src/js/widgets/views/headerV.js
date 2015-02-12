@@ -84,7 +84,7 @@
 													'</div>');
 				menu = '<div id="gcviz-menu' + mapid + '" class="gcviz-menu" data-bind="uiAccordion: { heightStyle: \'content\', collapsible: true }, attr: { style: xheightToolsOuter }">' +
 							'<h3 class="gcviz-menu-title gcviz-menu-title' + ext + '" data-bind="panelBlur"><span data-bind="text: lblMenu"></span></h3>' +
-							'<div id="gcviz-menu-cont' + mapid + '" class="gcviz-menu-cont" data-bind="uiAccordion: { heightStyle: \'content\', collapsible: true, active: false }, attr: { style: xheightToolsInner }">' +
+							'<div id="gcviz-menu-cont' + mapid + '" class="gcviz-menu-cont" data-bind="uiAccordion: { heightStyle: \'content\', collapsible: true, active: false, activate: function(event, ui) { showExtractGrid(event, ui); } }, attr: { style: xheightToolsInner }">' +
 								addToolbars($mapElem, mapid) +
 							'</div>' +
 						'</div>';
@@ -100,7 +100,8 @@
 				cfgNav = config.toolbarnav,
 				cfgLeg = config.toolbarlegend,
 				cfgData = config.toolbardata,
-				tools = ['','','',''];
+				cfgExtract = config.toolbarextract,
+				tools = ['', '', '', '', ''];
 
 			// check what toolbar is enable, the order and the index of the expand one.
 			// add the contextual help
@@ -127,6 +128,12 @@
 										'<span data-bind="contextHelp: { text: dataTitle; alt: dataAlt; img: imgHelpBubble; id: \'tbdata' + mapid + '\'; link: \'gcviz-help-tbdata\' }"></span>' +
 									'</h3>' +
 									'<div class="gcviz-tbdata-content gcviz-tbcontent" gcviz-exp="' + cfgData.expand + '" tabindex="-1"></div>';
+			}
+			if (cfgExtract.enable) {
+				tools[cfgExtract.pos] = '<h3 class="gcviz-panel-title" data-bind="panelBlur">' +
+										'<span data-bind="contextHelp: { text: extractTitle; alt: extractAlt; img: imgHelpBubble; id: \'tbextract' + mapid + '\'; link: \'gcviz-help-tbextract\' }"></span>' +
+									'</h3>' +
+									'<div class="gcviz-tbextract-content gcviz-tbcontent" gcviz-exp="' + cfgExtract.expand + '" tabindex="-1"></div>';
 			}
 
 			// remove coma between toolbars. Make sure to keep inner coma.

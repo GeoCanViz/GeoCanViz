@@ -16,10 +16,10 @@
 			'gcviz-ko',
 			'gcviz-func',
 			'gcviz-gismap',
-			'gcviz-vm-help',
-			'gcviz-vm-print'
-
-	], function($viz, ko, media, gisPrint, i18n, binding, gcvizFunc, gisM, helpVM, printVM) {
+			'gcviz-vm-tbextract',
+			'gcviz-vm-print',
+			'gcviz-vm-help'
+	], function($viz, ko, media, gisPrint, i18n, binding, gcvizFunc, gisM, extractVM, printVM, helpVM) {
 		var initialize,
 			printSimple,
 			getRotationDegrees,
@@ -70,6 +70,8 @@
 				_self.navAlt = i18n.getDict('%toolbarnav-alt');
 				_self.dataTitle = i18n.getDict('%toolbardata-name');
 				_self.dataAlt = i18n.getDict('%toolbardata-alt');
+				_self.extractTitle = i18n.getDict('%toolbarextract-name');
+				_self.extractAlt = i18n.getDict('%toolbarextract-alt');
 
 				// about dialog box
 				_self.lblAboutTitle = i18n.getDict('%header-tpabout');
@@ -146,6 +148,16 @@
 
 				_self.showBubble = function(key, shift, keyType, id) {
 					return helpVM.toggleHelpBubble(key, id);
+				};
+
+				_self.showExtractGrid = function(event, ui) {
+					var panel = ui.newPanel;
+
+					if (panel.hasClass('gcviz-tbextract-content')) {
+						extractVM.showGrid(map, true);
+					} else {
+						extractVM.showGrid(map, false);
+					}
 				};
 
 				_self.fullscreenClick = function() {
@@ -375,7 +387,7 @@
 			zoomMax.addClass('gcviz-hidden');
 			zoomBar.addClass('gcviz-hidden');
 
-			// get rotation, substract 90 degree and update. Remove decimal part before
+			// get rotation and remove decimal part
 			rotation = getRotationDegrees(arrow);
 			style = arrow.attr('style');
 
@@ -385,7 +397,7 @@
 			reg4 = new RegExp(rotation + 1, 'g'),
 			ind1 = style.indexOf('.');
 			ind2 = style.indexOf('deg');
-			
+
 			// check if we need to remove decimal part
 			if (ind1 !== -1) {
 				sub = style.substring(ind1, ind2);
@@ -396,9 +408,9 @@
 			}
 
 			// because it was round we need to check minus 1 value and plus one
-			style = style.replace(reg2, rotation - 90);
-			style = style.replace(reg3, rotation - 90);
-			style = style.replace(reg4, rotation - 90);
+			style = style.replace(reg2, rotation);
+			style = style.replace(reg3, rotation);
+			style = style.replace(reg4, rotation);
 
 			// set the local storage (modify arrow because it wont print... it is an image background)
 			setTimeout(function() {

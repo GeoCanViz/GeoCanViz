@@ -150,7 +150,7 @@
                     "beforebase": false,
                     "scale": {
                         "min": 25000000,
-                        "max": 6000000
+                        "max": 2000000
                     },
                     "cluster": {
                         "enable": false,
@@ -237,6 +237,60 @@
                     "id": "86e32318-5204-fdcc-5520-ec7737fe7bf9",
                     "type": 5,
                     "url": "http://s-bsc-geoappint.nrn.nrcan.gc.ca/arcgis/rest/services/Secure/services/MapServer/7",
+                    "beforebase": false,
+                    "scale": {
+                        "min": 0,
+                        "max": 0
+                    },
+                    "cluster": {
+                        "enable": false,
+                        "distance": 50,
+                        "label": false,
+                        "symbol": false,
+                        "maxsizeprop": 50,
+                        "maxdataprop": 1000
+                    }
+                }, {
+                    "label": "services***Proposed Roads",
+                    "id": "d8aa9533-5068-54a8-8bd1-8d12079c2c23",
+                    "type": 5,
+                    "url": "http://s-bsc-geoappint.nrn.nrcan.gc.ca/arcgis/rest/services/Secure/services/MapServer/15",
+                    "beforebase": false,
+                    "scale": {
+                        "min": 0,
+                        "max": 0
+                    },
+                    "cluster": {
+                        "enable": false,
+                        "distance": 50,
+                        "label": false,
+                        "symbol": false,
+                        "maxsizeprop": 50,
+                        "maxdataprop": 1000
+                    }
+                }, {
+                    "label": "services***Proposed Ports",
+                    "id": "4d1819ef-e037-2bed-4b55-62d65cb9028d",
+                    "type": 5,
+                    "url": "http://s-bsc-geoappint.nrn.nrcan.gc.ca/arcgis/rest/services/Secure/services/MapServer/14",
+                    "beforebase": false,
+                    "scale": {
+                        "min": 0,
+                        "max": 0
+                    },
+                    "cluster": {
+                        "enable": false,
+                        "distance": 50,
+                        "label": false,
+                        "symbol": false,
+                        "maxsizeprop": 50,
+                        "maxdataprop": 1000
+                    }
+                }, {
+                    "label": "services***Ports",
+                    "id": "861a9396-1fb4-e9f6-1498-a926fe6f4490",
+                    "type": 5,
+                    "url": "http://s-bsc-geoappint.nrn.nrcan.gc.ca/arcgis/rest/services/Secure/services/MapServer/13",
                     "beforebase": false,
                     "scale": {
                         "min": 0,
@@ -363,6 +417,24 @@
                     "id": "273cff73-8dfb-f031-740b-a4322cc10000",
                     "type": 5,
                     "url": "http://s-bsc-geoappint.nrn.nrcan.gc.ca/arcgis/rest/services/Secure/services/MapServer/1",
+                    "beforebase": false,
+                    "scale": {
+                        "min": 0,
+                        "max": 0
+                    },
+                    "cluster": {
+                        "enable": false,
+                        "distance": 50,
+                        "label": false,
+                        "symbol": false,
+                        "maxsizeprop": 50,
+                        "maxdataprop": 1000
+                    }
+                },{
+                    "label": "ProducingMines_E",
+                    "id": "23225c21-e251-af42-417c-360a73162cf7",
+                    "type": 4,
+                    "url": "http://s-bsc-geoappint.nrn.nrcan.gc.ca/arcgis/rest/services/MMS/ProducingMines_E/MapServer",
                     "beforebase": false,
                     "scale": {
                         "min": 0,
@@ -572,7 +644,7 @@
                     "radioid": 0
                 },
                 "displaychild": {
-                    "enable": true
+                    "enable": false
                 },
                 "customimage": {
                     "enable": false
@@ -612,6 +684,175 @@
                     "enable": false
                 },
                 "items": []
+            },{
+                "expand": false,
+                "last": false,
+                "type": 4,
+                "id": "23225c21-e251-af42-417c-360a73162cf7",
+                "graphid": "d9a724e4-dbcf-7294-ef1e-538329a7315d",
+                "displayfields": false,
+                "label": {
+                    "value": "Producing Mines",
+                    "alttext": "Producing Mines"
+                },
+                "metadata": {
+                    "enable": false
+                },
+                "opacity": {
+                    "enable": false,
+                    "min": 0,
+                    "max": 1,
+                    "initstate": 1
+                },
+                "visibility": {
+                    "enable": true,
+                    "initstate": false,
+                    "type": 1,
+                    "radioid": 0
+                },
+                "displaychild": {
+                    "enable": true
+                },
+                "customimage": {
+                    "enable": false
+                },
+                "items": [{
+                    "expand": true,
+                    "last": true,
+                    "type": 4,
+                    "id": "23225c21-e251-af42-417c-360a73162cf7",
+                    "graphid": "5bf3be41-47b0-b481-1353-043b6b705206",
+                    "displayfields": false,
+                    "label": {
+                        "value": "Metal mines",
+                        "alttext": "Metal mines"
+                    },
+                    "metadata": {
+                        "enable": false
+                    },
+                    "opacity": {
+                        "enable": false,
+                        "min": 0,
+                        "max": 1,
+                        "initstate": 1
+                    },
+                    "visibility": {
+                        "enable": false,
+                        "initstate": true,
+                        "type": 1,
+                        "radioid": 0
+                    },
+                    "displaychild": {
+                        "enable": true,
+                        "symbol": "{\"type\":\"uniqueValue\",\"field1\":\"\",\"field2\":null,\"field3\":null,\"fieldDelimiter\":\", \",\"defaultSymbol\":null,\"defaultLabel\":null,\"uniqueValueInfos\":[{\"symbol\":{\"type\":\"esriPMS\",\"url\":\"3061aac81ae4c1e7d07aa2199a3d67ae\",\"imageData\":\"iVBORw0KGgoAAAANSUhEUgAAABoAAAAaCAYAAACpSkzOAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAA9FJREFUSInN1ltoHFUYwPH/mdndzKwzs6l7Iy1N25S+FCLaF69gg5cHq6S2FUSaS5OqD6YxASklgUpTCgqCIki1uTRF0QcDIlJpaWpES4UgrljBh7RRqsVmN5fNbpo52ezO+JBkcZtkk2gRv9fznfObc77vHMbDfxSe/wUkZWoriDdx3eIfJMQPmmZ2/CNIyltbcJ0BYCOIog4u1dJOr9N0s3VNkJRTmxeQcxPf8vFU/7JGSLE4Eq4n4gu2SDutaLr56qog254qx3UHgE3nJy5xJn2+6Gai6jpOJHpojzQQ8QabpZ0Wmm42F4VsO71R4A4Amy8kL9GbPgeAgoKDswjxCpUDwWqybo7TY59RH9xN1Bs6JO2U0HTr0JLQ9HRqg4ABoKI/eZme1Bxycv1hLI/JaGacLya/pt+O5SfPujnab77P65EGmiIv8F78E+ruribqCzXNY00FkOv+6Z2RYgDYejH5Hd2pL/OLWR4DBUHEF+RAeA+bkmUF4zNkmHYkURGmLljNG/FejoTrifpCr0g7Pa7p5tE8ZNuBEkXktg3L63SlzhYcTyIzTtQXmj9CwUR2Mj9WIry0hWqxVIPmG2+xz3iUR7RKTiR6eHfDYcC9Z8kaZZzZRXX4PPkVByPPoSBwcLDdmQKk1GPRMdJN0pmiK3WWJ/T7SDq3Fq2z4sswIH+ifKKMdG6KHA7Ph3bhjDo8bOyg1GNyPN7NmJPK51+wY3iFunYIKGhxBUFd+FnGZpN0xDtJ5FJFZq4RWogS4WWHsZ2J7CR+tYQtnrI7D3mFSluoFkO5i6M3T3Gvr4IXQ3sg0cdgZujOQB6h0h6qw1INjsd7GHfSXJQ/MjuWozG8FyfxKd9nrv07yCNU2oI1WKrBsfhcdy3EN/IK2dEsjeG95BJ9xDLDxSHHcRxFxSnX1iuV3nKuzF7PJ1R6N+FXdY6NdDPpLm7byzO/kE1k2R2oIpaYg2rNJ+cGhcjfFw+AYRjTUqYb/Ire0xLdr7wz8lEei2WGiY2cLLrrwcwQg4m5OjVaT/F46UOA+ysorxVAAJpmnpEyLfyKv7slul95e+RDfp79vShwexy0dvFY6YMAwy5Kla4Z+aMpqJGmmb0LWGu0RqwFe8l6mqrSBwCuuVCl60bBxEXNoGnmaWmnFb/i71wt9nLgGXYG7ge4OoeYf9yes2TXabrZLe2U8Cv+U63RGvGbvLEsoiklVGjlAFcd193p91tLJi/b3ppudc1jH2z3b1vhp4Ehx3WrlkOKQvNYp5STfUKoi1/Jv4WUualAICCL5ax4YTUtMLFSzmriL1z5gWQ67XYNAAAAAElFTkSuQmCC\",\"contentType\":\"image/png\",\"width\":19,\"height\":19,\"angle\":0,\"xoffset\":0,\"yoffset\":0},\"value\":\"Base metals\",\"label\":\"Base metals\",\"description\":\"\"},{\"symbol\":{\"type\":\"esriPMS\",\"url\":\"632a9c03bc7a632355da75b6deca06d2\",\"imageData\":\"iVBORw0KGgoAAAANSUhEUgAAABoAAAAaCAYAAACpSkzOAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAA8FJREFUSInN1k9sFFUcwPHve7NlZ7YzuymlJQpVKkrin2C8SA+orQc0WmKVg3axjfFgINJ/0YMnDx4UIyieVNraViISxH9cjAoUTEUSEw5WUmOpWKHxIi2d2d15bXfnedjSP+52tzXG+K7vN7/PvPn93i8T4j9aof8FpJS7EcTraF34hYQ4b5rOK/8IUipZjQ76gSoQBR00jynfKzMtp2NFkFKJDdeREwNJPj89taSx2ha0NEWpKDfale9J03LalgX5fuImtO4Hbj75XZJjp5ZGAMrLJG8fcmlrjlKx2mhVvidMy2ktCPm+VyXQ/cCGU2eTfHwyiwgBWud5Swnx7TbptObD4wni220qy40W5bvCtKIteaFUyl0noB+45fS5FEdPZJG9HTGituTqeMBX3yYZGEzPPZwO4LWDk7zwjMNzTzp0HvVorC+lsjy0ZxbbswjS+o+SKSX6gY1nzqU48rWaSxa1JVIIKsoN4g0O62/wF+1Pp8Gf0qwtETTW2xz4wKW9yaFyTeh55XvjpuW8PAf5fiwsRea23y5P89GCJAB/Xs1QuSZ7cCkEE5PB/OcwoG2njVMqeemta9RvDbPlrhIOHPJ4taMM0Jvz1mh6JrcOX55J0fSEgxSCQGumpvQc0v60Tcwx2NfjkvA1R75RbN0cwk3mFrToZPj+Qpp1a1N4SY3Wmh2P2GSCBDX3hIk5kjf7XCYXJB74MU1I5uZZ1gha2OKCJPEGh/GJDPt7Xca9PO2YZ61o1oUMuPuOVVybzGBZgqpKybiX+XehkMzWpDQi2dvlcme1QfPjDr2feQyOFMeWBRlyvrv293i4vubsT2lm0gmaGxx6P/W4cKkwVhQyJLQ2ZpE3ejwS/nxNfvg5TSbjZU/2icfQ6NJYCCAIgkAaBFU3huSm9ZJfrszflU1VBpYl2NfrkVC5hT8/nGHmC49Hay2G+hIA7HgwnN0UYu7ChABs204p5T1rmfL9XfGofPewO4cNjWYY6vIKnnpwJMPgSBZ5aptJbU0E0JdAvrgIAjBNp08pT0RM2b2rMSrfOewyPBbkZi2wGreZPFATAfhVI+ss0/49B5rFepXyRMSS3bvjUbESLP6Qyf1bIgAjGuosy768cD+nGUzT6VG+JyOW7FwutvNhk/vujQBczCLOlb/H5O0603K6le+KiCUP7o5HxehYniF4PTYsqK5aBXAx0Lo2EomO5Ytbsr1NK9o1i713+63hIj8NDAda1y2FFIRmsU6lJo8JYRiF4pTKJGKxmCoUU/TCmmZsoljMctZfxj+CWesB/SsAAAAASUVORK5CYII=\",\"contentType\":\"image/png\",\"width\":19,\"height\":19,\"angle\":0,\"xoffset\":0,\"yoffset\":0},\"value\":\"Precious metals\",\"label\":\"Precious metals\",\"description\":\"\"},{\"symbol\":{\"type\":\"esriPMS\",\"url\":\"560f9b44fc4d6144cafb86064824fe10\",\"imageData\":\"iVBORw0KGgoAAAANSUhEUgAAABoAAAAaCAYAAACpSkzOAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAA8pJREFUSInN1ltvVFUUwPH/Pp3LPoeZTqeitEBL27ESyy0hCEpLQxslqSZCFb+AMb4IqInPPvjmRxDEywsRWtPEBI21MJgUWpH40IuJnelFnE4pFQtz2jm7nc5sHzoO1JlOixLjft3rrN8+a62zc1z8R8v1v4CUSoRAfIjWxQ8kxE9S+j/4R5BS87XoTBioAlHUQXNUOXZQmv53HwpSaq7mL2Tgh0l+7r+9quHd4KL11ScJBM13lGMb0vS/vS7Iceaq0ToMbBu4Hme4b3UEwPK7udwZofV4PYGgeUo5tpCm/1RRyHHsKoEOAzWDP8YZvjYNLBdOF0CEgGePbCOdztDf/SsHjlRTFrROKichpFl6siCUTCa2CAgDdUM34gxdXUZefqMBa4OHxF3FQF+c2Egi97DW0H1uhNbXQhw+GuL7r0bZ/3w1ZeXWiSx2YgWk9ZR7QYkwEBq+McVg73QumbnBgxCCQNCkqa2O4SdW7qeXMiwupHG5S9j/QjXhjlFajocoK7feUo79hzT97+cgxwl4DZGun44nGOi9taI8iVmHsnIrWypB0l7M7RmGoLm9Bmm56To9xNPPbGTr9gCXO6O88uZuQO8u2KOlVCavDwPX4hx6KYQQgozWpLIxy0gtls9Dz/kIqYU0A73TbH2qlEUnnZdnzZthMmozeD2OSqbQGg601qDTE4R2Pobl83CpI8Kiup84NpJAFPjs1nUFPTjiAmhsq2PunuK78yMsJPNPX2g91F1nGILq7UHmEwt4pIvARsntm/OPFhICmttrkdLNt+d+4fEqi8a2WnovjjETSz4aSJBFLDc9HVFSKs1kxKY/PUHji3X0fj3K7zHn30ECOHSsBtNyc+lClNTC/Z5Mjc3R1z3OwbY6rl4c4058dcwFkMlkMkYJmY0VPiNYIZm9pXIB5ZtNPNJFz4VRlhbzGz89MU/fN+Pseq6SK1+OAbDj4KbsKUVqBeTz+ZJK2a97va5PWtrrjXBXJIfdiTv0fBEt+tYzsSRXYsvIrqZN7Ny3GdDjYLy3AgKQ0v+5Urbwel1nW47VG5e7ItydVvlZi6zdTRXs2FcJMKYxWkzpu5kHZbHPlLKFV7rOtrbXi4fB9jRX0LC3EmBUQ4tp+n57cD9vGKT0f6oc2/BK15n1YnuaK2nYWwEQXUb8sb/HFJw6afrPKichvNJ1urW9XsxM2asibk8Jm7aUAkQzWh+2rNLJQnGrjrc0Sz/OYh9trQ2u8dNAJKN1y2pIUSiLnVHqXqcQJSXF4pRKzwUCgaL1XfODlTIwu1bMetaf2oeCdyg77RQAAAAASUVORK5CYII=\",\"contentType\":\"image/png\",\"width\":19,\"height\":19,\"angle\":0,\"xoffset\":0,\"yoffset\":0},\"value\":\"Base metals, Precious metals\",\"label\":\"Base metals, Precious metals\",\"description\":\"\"},{\"symbol\":{\"type\":\"esriPMS\",\"url\":\"f6b3c9726ac47a91ef2eb78855c77e1e\",\"imageData\":\"iVBORw0KGgoAAAANSUhEUgAAABoAAAAaCAYAAACpSkzOAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAA+xJREFUSInN1ltMHFUYwPH/Gdgws7uzi0CBiNgLijYaTdTWC71IWlGJSbNYAyWSJqYRwk1ri2lBfdBQVC6NNRrbihYfSKGrRNNiwASildJaow+NaQJYKVKsVUB2kRlgd8aHxU23wALaGM/r9835nTnfOd9MJP/RiPxfQLruSQHxBqYZfkFCfCfL6qv/CNL1P1diGp1AMoiwDiZbdM17g6yoO5cE6fr4ir+R0x0nOP3pO/MatugkniypJCYu/nld80qyoj63KEjTxm/GNDuB5Wc6Wul2V4d9GTU2GfeBPWwtrSImLqFU17xCVtTSsJCmeZMFZiew4pvOVk653wwEpEgwfLMQYbGSkZuP3+ejvfFdMrYVErMsoUTXPEJWHCVzQhMTniQBncCqs1+20XUsgOyoasHucDI6/DvdbW56upqDD5vTEzS+XsJTL9SwZUcZn9XXsjmngNhlCcUzWHEIZJq/WCZ10QmkfPtVO183VQUnszmcCCERExdPZm4B8TelhMR90+NMahqW+CgeySng2IFytpZUEhufWKRr3hFZUV8JQprmjJKE/9ZLF/s4eXRfyPaM/naF2PjEwFYJifHR4WBMsqi4SquxqQ4OVWxnbeZ2bluTgfvtPeS/dgQw75qzRtOTU7PqcKrNzRNPFyKEhGEaTE1qVyE12J3RNNWVMekd4mRTFalp2WieK7PmWbAz9HW7OZO0Es0zhmH62ZSVh+H3cccD6aiOaJrfehH9j4Fgfk9XE8JiXToEhBxxISQey32WsZFhmvbvZmK4fzFTLK3XSRaV1LvX4hkdQVYU4pJWM3C9IWGx4iqtQbHZaazeSfLq+8nMK+T4RwaD59quExQRhau4FpvqoLmuDN0zSG/3AH6fj8y8IlobDAZ/+OJfQhFRuErqsKoOmmp3MekdCoYunG2h3TfN43lFnGjwM3S+IzxkGIYhRWAkJi+XElPTuNzTFUy4MTWNKMVK8/5dTHkvz5qg//vjfO6b5sHMbD6egR5yzXQfIaZDILvdPqHr3mdkxfaBK79cajm4L4gNne/gaJiVAgyeawvWaV32XtZsfBQwfwJpdwgEIMtqg657hazY6l35e6VP3qvk197usMC1Y31OOfdtyAC4YCKlK7I9eMFCaiTL6pEAZq/PKqgQS8E2bHuJe9dvBvjRhHRFsf98dXzWYZBl9cPAB8x+eLHYxtyXuWfdJoC+AKIOXpsz56mTFbU+0Obth7IKKsTQxf55kShZJmnFLQB9hmk+bLU6Ls2VN+/xlhXH+zPYwVW337nATwO9hmmmz4eEhWaww7o+5hYiIiJcnq77x51Opx4uZ8ELK8vO0YVyFjP+AkHCgu+lKysbAAAAAElFTkSuQmCC\",\"contentType\":\"image/png\",\"width\":19,\"height\":19,\"angle\":0,\"xoffset\":0,\"yoffset\":0},\"value\":\"Iron ore\",\"label\":\"Iron ore\",\"description\":\"\"},{\"symbol\":{\"type\":\"esriPMS\",\"url\":\"d28c91850da326cbea6474ccc9b17b16\",\"imageData\":\"iVBORw0KGgoAAAANSUhEUgAAABoAAAAaCAYAAACpSkzOAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAA+xJREFUSInN1l1QVGUYwPH/e3Zlz1l2l6WRxWJQEJ1xnJHJHL3og4BGAm+avAhw6EIyqPgoR6aLSoSYLpxKayhLDTMvanKcnCFpoYZ25AJLDchhGmYiMc0JP0DZRc4Lu3tOF+DWurCKOU3P7fuc5/d+PO87x8p/FNb/BSSlPwvETkwz/oSE6FFV55t3BUl5IxPT8AHpIOI6mDwl9UCyqjm3zguScjzjJtLZ205r38E5jWTNQ1XhdlLcKa9IPaComvPlO4J0fXwxpukDlnT2tvNVz764i7nP/gDN3kZqiupJcXtqpR4QquasjQvpeiBdYPqADF9fRwQRQsE0jdhZKgmU5pQTDof4oquFkpzn8Lg9NVL3C1Vz1cwKTUz40wT4gKXHz3zHkZ/2AvBWyQFcdhcjYyN09BzlxFB75OOQMcXO1lfZWtTElidraOn4gOKczXjcqdUzWHUUZJp/LpiUwgdkdZ3p5PCpjyLFXHYXilBIcaewKW8L6Qszo8aDYYkM6iRYF1GcU06zt4mawjfwJKdWST0wqmrO+gik60k2RYSXnxs+y5enPozanqvXr+BJTgVAEQrXAqN/b4dFpaagAYfm5PXPX2JDdjFrM3Jp9jbStGkPYGbPekZTwcmYc2jvOUpZfgWKUDBMg8mQjCC1BQ247G52t9UzPjXC4dN7eDizCP/kaEyd274MP577lrS+DAITY5imwcZHSjHCIdatyCEp0c37bTsYk5cj+d1DXqxKwvwhIKrFhVAoyS9n1D/Ce8fqGdWH76TE/N46q0Ule+kargeuYbdppLmX3XvIqiRQW9CAQ3XwdutrrFy0mmfzn+dQp0H/cPe9gSzCSvVMd+3+Zgd+eYUT5zoIhkOU5VVw6HuDXy798O8gi7BStb4Rp+Zi17Hp7roZpy90Eu4KUZZfwaFOg4HLJ+NDhmEYigUjPXWJsmzhgwxe7YskLE95CM2msattOzemrsUU6L14nKAvyIY1GxnwTkNPr948PShEMApyOBwTUgbKtQT7gRcKtykft78bwQYun2Tg67lnCtA/3E2/d/qcnln7Io9nrwfMIVDqoiAAVXV+JmVAaLbElsrCbcpe7zsMjvwcF7g1itdWkZP9BMBZEyVPUx3nY6AZ7KCUAWG3JbZUFtWJ+WAl66p5bFU+wG8m5Gma48I/x2OaQVWdn0o9oNhtifvvFCtdV8ujq3IBBqcR5x+35szadarmbJG6X9htifsqi+rE+Uu/z4moC2xk3J8FMGiYZq7d7ro4W96c7a1qrk9msL0rFq+8zU8DvxqmmTcXEheawfZLOXZECIslXp6U4fGkpCQZL+e2F1ZVk2Ivz13EX4xYhJl/dA2bAAAAAElFTkSuQmCC\",\"contentType\":\"image/png\",\"width\":19,\"height\":19,\"angle\":0,\"xoffset\":0,\"yoffset\":0},\"value\":\"Uranium\",\"label\":\"Uranium\",\"description\":\"\"},{\"symbol\":{\"type\":\"esriPMS\",\"url\":\"a8baecde85c5ba5d91771c5774c69376\",\"imageData\":\"iVBORw0KGgoAAAANSUhEUgAAABoAAAAaCAYAAACpSkzOAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAA7JJREFUSInN1k1vG0UYwPH/rB3vromzThXIIXGb0oKa9yC11K1dx4mPHIgEn4ArbQGJMwdufAQo4eWO4MABUtuxaVBaekDEdlMhCkg4CXmPYjveiR3vcmiyInXiJFAhnus8M795Zp5ZrZv/KNz/C0jKwjkQH2DbjTckxI+a5nv/H0FSbp3FtlJAAERDB5tXpVls1XTfOyeCpCx17SEzmSyzsz8faqiqh9hoFMNoeVuaRUXTfW8dCzLN0mlsOwWcyWRz5HIPGxbj9T5DIpkiFoviN4yb0iwKTffdbAiZZjEgsFNAVyabI5udBUAIgW3bdYiiKASDF7FqFvfu3ScYfBm/YdyQZkFoesuNA6FyudAhIAU8n83NOsjY2Ct4dS+FQpGZTJZ8ft6ZbFkWExNJYrFhRqIRUukpgsFL+A3j+i52fR9k2382bUuRAs49ePCQTCbnLKbrOkIIDKOFa+Gr5J4YtyyLarWK2+0mGLxEMvkdsdEIfr//TWkW1zXd954DmaahKqL2wtLSMj/NZPcdT2GzgN/vd46wXC47Yy6Xi0jkKpqm8eVXX9N94UUCgU4SyTSvvzYG2AMH3tFObafuHmYyOSLXQgghsGyLnZ0dBxkeDqHrOvF4ikqlwkwmRyDQQbVav86RX4a5uQUy2RxSbmPbFpcvX8SybM6fP4vX6yUen6RSqTj5+fw8iqKcHAL2tbhAEA4HKRVLTNxOsr1daTDzhNBeuFwuznSdZqu0hUf14PcbLC2tPF1IURSGh0Noqso33yZob3+WcOgKU99Ps7y8+nQgIQTDkRCaphFPpKlUKuTz89RqNcKhK9yZmmZ1de3fQUKIxy2sayR2kb1YWFhk+u59wuEgU1N3WVtbbwxZlmUpLqy2tjaltdVgY2PTSTh1qhXVo5JIpKlWq3ULLC4uMT39A4ODfUxO3gGgr697b5fOBDdAc3NzWcriG6rH80ksFlWSybSDra2tczs+2bDq5eVVBxkY6KO/rwewfwfl3X0QgKb5PpeyKFSPOh4bjSrJyfS+yo4TQ4P99PZ2A/xmo4zoWvMfddAu9pmURaGq6nhsNCpOgg0N9dPb0w3wqw0jut6c//t4XTNomu9TaRYVVVVvHRd7aWiAnp4LAI8eI765J3MO7DpN941LsyBUVf0oNhoVKyuHv5Ompiba258DeGTZdtTrbZk/KO/Q9tb0lo93sQ87OzuO+GngF8u2Rw5DGkK72C0pN78QwuVqlCdlrWQYhmyUc+SD1TRj46ic48Rfv8GHVWaJyoEAAAAASUVORK5CYII=\",\"contentType\":\"image/png\",\"width\":19,\"height\":19,\"angle\":0,\"xoffset\":0,\"yoffset\":0},\"value\":\"Other metals\",\"label\":\"Other metals\",\"description\":\"\"}]}"
+                    },
+                    "customimage": {
+                        "enable": false
+                    },
+                    "items": []
+                }, {
+                    "expand": true,
+                    "last": true,
+                    "type": 4,
+                    "id": "23225c21-e251-af42-417c-360a73162cf7",
+                    "graphid": "cad306d9-7ce7-0d46-9d14-d593336750c7",
+                    "displayfields": false,
+                    "label": {
+                        "value": "Nonmetal mines",
+                        "alttext": "Nonmetal mines"
+                    },
+                    "metadata": {
+                        "enable": false
+                    },
+                    "opacity": {
+                        "enable": false,
+                        "min": 0,
+                        "max": 1,
+                        "initstate": 1
+                    },
+                    "visibility": {
+                        "enable": false,
+                        "initstate": true,
+                        "type": 1,
+                        "radioid": 0
+                    },
+                    "displaychild": {
+                        "enable": true,
+                        "symbol": "{\"type\":\"uniqueValue\",\"field1\":\"\",\"field2\":null,\"field3\":null,\"fieldDelimiter\":\", \",\"defaultSymbol\":null,\"defaultLabel\":null,\"uniqueValueInfos\":[{\"symbol\":{\"type\":\"esriPMS\",\"url\":\"6e93fa9e35fcbdaaa47b318b230de556\",\"imageData\":\"iVBORw0KGgoAAAANSUhEUgAAABoAAAAaCAYAAACpSkzOAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAA79JREFUSInN1ktMXFUYwPH/uVxmzoV5tBUGDe+SGmnwFWVBqQHUhYmJxo1xKZg2Pmh91IVJFWx140JXTapC62NtoombYmgHmoZQSUxUKDVWpuVheQ2tzAz3zMDc42KmIAwMUBvjtz3f/X7nnu87N9fkPwrzfwEpNV8F4iO0zr4hIX6S0nv8tiClYpVoJwiUgsjqoHlW2ZGd0vK+uS1IqWjFLWRy8Azhy19vaOS4A1Q0HEX6Ct9QdsSQlvf1LUG2HS1D6yBQPjnURXi4M+vLmHn3EOo5TmXje0hf4LCyI0Ja3sNZIduOlAp0EKiYvNRF+FJHakEYoJ1MRbgoqW1GJ5cYHzhNSW0L0hc4pOx5IS3foXWhhYX5YgFBYPfUcDfhoRSy5+lOci0f8UiYqcHviE50rTytE4ycfYeKhmNU7G/l2oUTFD/ajPQXtaax1lWQ1tdz40oEgaqp4bPMDn66XCvX8iGEgfQVUlb3EtOXK1et66QiuWhjmHdTXNtCqOdDKhuOIv1Fryk7Mictb9syZNt+tyGSe6LTI8wOnlx1OvH5GaS/KHVSwmApNrdycoakpL4N0+3lt+9b2XXv8/hKGgj1fkD1MycA/cC6PUomExltmPz1W8rrDyKEgdYOySW1jJTubyPX2kEo+D7OYpjZoZN4ip/CScxl1Nn0yxC73s3UUAVJNY/WSUpqX2DMWWJX1WMppOcYTmJ6OT86cQaEa/sQsGbEDcr3NROPzjFyrh0nPrmVEtv71glD4i9/hHjsBjkuidu3G3vmTkPCleqJ28NI97vkFTxEad0BRvsc1Gz/HYKESWl9O6bbm278LNE/f2DixyXK6g4y2qdR4Yv/EhImJfvayZVervakputWxCbPMX5xidK6A4z1Oai5geyQ4ziOkYOTf1eZ4drxIImbPy8nyJ0PY7osQr3t6MUbGQUWps8z1p8gUPMco+dTUMHeF9ObFIurII/Hs6BUpMV05Z2ubHjLCPV+soypuQGuBjfeKYCa7Wf0fKpPBTUvU1T9JKBDYLy9CgKQ0vuVUhFhuvJPpbCPSdz8JSuwNgpqXqGo+gmAEY3RZEnPaAaUxr5cwY6I7WCFNa8SqH4c4A8NTZblGfvnesYwSOn9QtkRw3Tld2wVK7y/lcB9jQBXUoh3fG3OulMnLe8pZc8L05X/eWXDERGbubYhkpPrxhOoArjiaN2Yl+ebWC9vw/GWlq8zjX3mL967yU8DvztaN22EZIXSWIdSf30jRE5OtjylklG/36+y5Wx6YaX0Z16e24i/AWg1hRJKTWppAAAAAElFTkSuQmCC\",\"contentType\":\"image/png\",\"width\":19,\"height\":19,\"angle\":0,\"xoffset\":0,\"yoffset\":0},\"value\":\"Industrial minerals\",\"label\":\"Industrial minerals\",\"description\":\"\"},{\"symbol\":{\"type\":\"esriPMS\",\"url\":\"d7c3b3f0f1f53dd9da5a4c59d4be770e\",\"imageData\":\"iVBORw0KGgoAAAANSUhEUgAAABoAAAAaCAYAAACpSkzOAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAA+dJREFUSInN1mtoHFUUwPH/nSS7M5udfcRHs0qbNq/iB5O+EwUxIZampEWhgq+IEqUV7Ms2KPqhaMGICIVCBNNaHyiCUE3bTaHYyBakTdImaQp+MI+2qNU0TR9pNsncNLtz/ZB1Tdxks9Ui3q/nzPnNnXvuYdL5j1b6/wKScjgPxPsolfyFhOjUdXP3P4KkHF2EskPAfBBJHRSPSyvs1w3ztduCpBxZ+CfS2NHNjs7zsxrLXA4+rCoh22dul1ZY0w1zW0qQZY0sQKkQkHOos5tn2vuSbmZRpsGmYBsN60vI9plbpRUWumFuTQpZVni+QIWAhYc7u3n6zCTiFIJxpRKQgCaoLSsiErX54MQ5asuKCfjMLdIaFrrh2TIjNDY2fL+AEJDbdLaHp2LI79Xl+FwGV26O8FV7N2+dH4g/3G8rnvj2JF+vL+GdypW8faydnY8+SMDv2RzDNk+DlOrPGJciBOQd7erlydO98WI+l4EmBNk+k+0Vyym8a3p8IGozemuC+zLS2VlWxCvBNj5at4qA3/OqtMLXdcPcFYcsy+vURLSgp/8qG9p6pn2egaEwAb8HAE0IBkdlPJaTJmhcuwKf4WTNl83sKMplQ+48Nja1EXx+NaCKZjyj8Ug04Ry+OPMTtatXogmBrRSjE5FpSFamwYtHWjglI5w63cN7+fP4UU4k1JlzMuy6OEhBZw9D1jhRpdj4SDERW7HmgQVkuXReDrZywvqr8Jt9AwS0xHuX0gia2uIagm0Vy7g6PErN4RaOj91KpcTtzbqcNMHDeQGuhcdwOR0s8bs5Pnb9zkIBbfJMPIaT6saTrA74ef2xZUS/62BP/407A2UJQVPlZHe9cKSVH+QEJy5cYTx6bhJr7mBv/9C/g7KE4FjlcrwuB9XBVk7JSDy2++dBIqEu3qhYSrT5LPWXZ8fSAWzbtrU07Nx7/dqme0waBsPxhGfnecl0ZvBcsI228UhCgbpL15Dfd1GzooD6pjMA7F2RPxkUIt6O6QBut3tMynBNptPxSV1VqcbR1jhWf3mI+kMtSXe9p/8Ge2LIwVUFrFtaCKiLoNVOgwB03fxcyrDIdDoOvFtVqqmjreybsrNU1jclhVQtKQC4oNDKDd39SwIUwz6TMizcTseBuqpSwW1gjaWLWVucD3BeQblhuH+dGk9oBl03P5VWWHM7HftTxQ49tJjKonyAvknEvPT3nBm7TjfMA9IaFm6nY19dVal46fK1WRHDkUFh4G6APlupMpfL89tMebO2t254Po5hDcU5gTl+Gui1lSqfDUkKxbD9Ut48KERaWrI8KaMjXq9XJsuZ88Lqunfu+ZLC+gMXBoFQwegmtwAAAABJRU5ErkJggg==\",\"contentType\":\"image/png\",\"width\":19,\"height\":19,\"angle\":0,\"xoffset\":0,\"yoffset\":0},\"value\":\"Diamonds\",\"label\":\"Diamonds\",\"description\":\"\"}]}"
+                    },
+                    "customimage": {
+                        "enable": false
+                    },
+                    "items": []
+                }, {
+                    "expand": true,
+                    "last": true,
+                    "type": 4,
+                    "id": "23225c21-e251-af42-417c-360a73162cf7",
+                    "graphid": "36d38a19-5948-e1d2-db91-0d0881d557ab",
+                    "displayfields": false,
+                    "label": {
+                        "value": "Coal mines",
+                        "alttext": "Coal mines"
+                    },
+                    "metadata": {
+                        "enable": false
+                    },
+                    "opacity": {
+                        "enable": false,
+                        "min": 0,
+                        "max": 1,
+                        "initstate": 1
+                    },
+                    "visibility": {
+                        "enable": false,
+                        "initstate": true,
+                        "type": 1,
+                        "radioid": 0
+                    },
+                    "displaychild": {
+                        "enable": true,
+                        "symbol": "{\"type\":\"uniqueValue\",\"field1\":\"\",\"field2\":null,\"field3\":null,\"fieldDelimiter\":\", \",\"defaultSymbol\":null,\"defaultLabel\":null,\"uniqueValueInfos\":[{\"symbol\":{\"type\":\"esriPMS\",\"url\":\"9ece9367381b10f6549da83cc0ba3a16\",\"imageData\":\"iVBORw0KGgoAAAANSUhEUgAAABoAAAAaCAYAAACpSkzOAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAA+hJREFUSInN1n9MVWUYwPHvOfeC51zvubeQiwtDCS37sZxbP5YaKbVqaw1W/DKCQiaEBfYD19ZabrlaMp0tNREItJBoDabWrC2pK1qbxXRMmoMwDav1R8GFe4DzAvee0x/iTbpwuZRrPf++z/t8znPe57w7dv6jsP8vICH8i0GqxLIiP5AknVYUbcs/goQYvgHL9AJJIEV0sMgQhn6tomovzgoSYij5MnLU20bzkc+nNeKucfNSaQme+HkvCEOXFVV7PirIMIYWYlleYFHrsTaaDn8asRlPXBzbqqrZtKGEhPj4jcLQJUXVNkaEDENPkrC8QPKXbcf58NAlRJJlLNMMQ2LsdvJzMgkGgjR83ExBThYJ8fHlwvBLiuoqnxIaGfEvkMALpHx14gSNBz8BYMeW13BpGn19Pj472krbt+2hzeOBAFt27OSVslJKCwuo3t/Ak9mZzPd4yiawskmQZf0WMyokL7D42IlvONByOFTMpWnIkownfh4Fa7NJuj5x0vr42BgjQpAQm0B+Thbb99RQsaGY+R7Pc8LQ+xVV2xyCDMM9R5aCN17o7eWDloOTXs/vf/Qx3+MBQJZkfL7B0Fqs3U7FsyW4nE5efv1N0h96gBV3LGdbVQ3bN78KWMumPKOxsfGwczjyRSuFebnIkoxpmYyOjU5C3C4XW3dVMajrNLQcYvU9d6H79bA6M94MX7efIikxEb+uY1om2RnpBIImK+++E7fLReW7exkY/KvLtpPtxNjDy0Z1BV054rIkU5CbRX+/j7d2V9Hf74umxOzuuli7neW334ZvYBBVVViUeN3Vh2ImzsQ5dy5vvL2LZUuXsO6JHKzGj+g423V1IJvNRkXpelxOJ5W79zLg93P8u1OMBYKsy8ul7kATZ7p++HeQzWaj4pn1aJoWmq7LcfJ0B8FAgMK8texrbKKzuycyZJqmKdswFyYtkG9OSabr/E+hhFuXpKCqClt37kEfHg4r0H7me8YDAR59+MEQlJP+yKVFSQp9L3YAp9M5IoRepCpqfVlxkby7tj6EdXb30Nn9TsSuO852hc4pPzOD+1NTAesCyJsmQQCKor0vhC45VEddWXGRvKu2nu4rOosmnsp8jDWpqwDOW8hpquK8GAZNYPsvY+XFRdJssKezHmf1vSsBfrQgTVWdP1+5HjYMiqLtE4YuO1RHbbRYYXYm961aAXDuEqL98vecKadOUbU6Yfglh+qoKS8uknovhu0LxRwllpRFyQDnTMta43C4fp0qb9rxVlTXexNY9S1Lb5rhp4Ee07LSpkMiQhNYrRCDzZJks0XKEyI45Ha7RaScGT9YRXFHd5nNEH8C+eGD9m6tNTgAAAAASUVORK5CYII=\",\"contentType\":\"image/png\",\"width\":19,\"height\":19,\"angle\":0,\"xoffset\":0,\"yoffset\":0},\"value\":\"Coal\",\"label\":\"Coal\",\"description\":\"\"}]}"
+                    },
+                    "customimage": {
+                        "enable": false
+                    },
+                    "items": []
+                }, {
+                    "expand": true,
+                    "last": true,
+                    "type": 4,
+                    "id": "23225c21-e251-af42-417c-360a73162cf7",
+                    "graphid": "81ed2c7d-1a00-c0b9-fe3a-34f9713936d8",
+                    "displayfields": false,
+                    "label": {
+                        "value": "Oil sands mines",
+                        "alttext": "Oil sands mines"
+                    },
+                    "metadata": {
+                        "enable": false
+                    },
+                    "opacity": {
+                        "enable": false,
+                        "min": 0,
+                        "max": 1,
+                        "initstate": 1
+                    },
+                    "visibility": {
+                        "enable": false,
+                        "initstate": true,
+                        "type": 1,
+                        "radioid": 0
+                    },
+                    "displaychild": {
+                        "enable": true,
+                        "symbol": "{\"type\":\"uniqueValue\",\"field1\":\"\",\"field2\":null,\"field3\":null,\"fieldDelimiter\":\", \",\"defaultSymbol\":null,\"defaultLabel\":null,\"uniqueValueInfos\":[{\"symbol\":{\"type\":\"esriPMS\",\"url\":\"66ba4ab93a75aad93a313b9c914e22b8\",\"imageData\":\"iVBORw0KGgoAAAANSUhEUgAAABoAAAAaCAYAAACpSkzOAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAA9VJREFUSInN1l9QVFUcwPHvucDuucveXZqCHXOkZakexFkcmHypRon+PFYPNT1UY0zAiEBKJmjiKDqF04zUWA+IWk0PvTiNNtWI5hDj+CCwFskb/8JyKvk37gL3uLD39sC2hguLmNN0Xn+/+/ucP79z5qbzH430/wWkVDgfxCFsO/WEhLgspdF0V5BS03nYVgewBkRKB5vnlRm5T+rG9hVBSk35/0b6v23natsXSxoZq7Ip2r8bd072NmVGNKkbb90RZJpTudh2B/BQ/3ftjHx8POVinA+u4vKeAxQd3IM7J6dWmREhdaM2JWSakTUCuwPwD5xpZ+RIHNE0sKwkRDgdFFRuJjY3R1/rCdZVlOH25dQoMyyk7qlZFJqZCa8W0AEEBs9+zy8fzSOPf3kU6fUwPTrOwFenGTt9NvGxfTNKV+0uij7YR1FdNT+2fMLa8s0YPl91HKteANn27xk3legA8ofOnWe45WiimPR6EELDnZNNYWUZQwH/gritbjJrKtKdTgrK3+By43sUHdiF2+fbqszIhNSNvQnINL1OTcQeGR8cYuhw64Ltmb4+itvnm98qoaHGJ25tnS4Jvr8H6THoLKsh99WXeKD0SULvHmTjsSOAHVz0jGLRaNI59J88xfqqcoTQsG2LmKluIc2N6FleeuqbiI1OMNzSSvYLzzE3NplUZ9mXYfyb8wz4/UTDN8CyKXjtFey5GKs3PYHMyiK0u4m5P64n8kdPtSOcjpVDwMIWFxCs2Iw5NkF3wz5mr/15JyVW9tYJXeJ7rBhzYpJ0l8T1aIAb9xoSTgfB5kachpuut/eStaGQYNWb9FoW4c5L9wjKSCfY3Ij0GITqm5i7PsbY1+foi85SWFXOT5ZF5EL3v4TiiNNj0LNzH7HRW+09eeYH+mIxglXl/GzZRC72pIYsy7K0NKwsf66WuaGQ6a7eRIKxYT0ZLp3Qzv3ExpPbdvLcBa5EowRefpHeOOTf8vp8UIjZBZDb7Z5RKlLm0F0niuu3aaFDHyawyMUeQilmChDuvERv/JzytleQ/+zTgD0M2o4FEICUxudKRYTDlXm8uH6bFmo+zHT3lZTA7SNQV0ngmVKAIRutRJfuq0lQHPssgTXUiZVggR1bCJSWAAzaUKLr7l//GU9qBimNT5UZ0RyuzLY7xfLf2UreUxsBBuYR47fbcxbtOqkbx5UZFg5X5tHihjoxOTSyJJIundz/cD7AgGXbm1wuz7VF85YqIHXPsTjW6lu3dpmfBvot2y5ZCkkJxbE2pW6cFCItLVWeUrEpr9erUuUse2Gl9CZfnrsYfwFqWYQCxROHDQAAAABJRU5ErkJggg==\",\"contentType\":\"image/png\",\"width\":19,\"height\":19,\"angle\":0,\"xoffset\":0,\"yoffset\":0},\"value\":\"Oil\",\"label\":\"Upgraded crude oil\",\"description\":\"\"}]}"
+                    },
+                    "customimage": {
+                        "enable": false
+                    },
+                    "items": []
+                }]
             }, {
                 "expand": false,
                 "last": true,
@@ -890,6 +1131,141 @@
                 "expand": false,
                 "last": false,
                 "type": 0,
+                "id": "72d5fdd7-bbc0-7d5a-83c4-991b7d9d42c9",
+                "graphid": "483acacf-9700-c493-4b23-c2b2575d69e5",
+                "displayfields": false,
+                "label": {
+                    "value": "Infrastructure",
+                    "alttext": "Infrastructure"
+                },
+                "metadata": {
+                    "enable": false
+                },
+                "opacity": {
+                    "enable": false,
+                    "min": 0,
+                    "max": 1,
+                    "initstate": 1
+                },
+                "visibility": {
+                    "enable": true,
+                    "initstate": false,
+                    "type": 1,
+                    "radioid": 0
+                },
+                "displaychild": {
+                    "enable": true
+                },
+                "customimage": {
+                    "enable": false
+                },
+                "items": [{
+                    "expand": false,
+                    "last": false,
+                    "type": 5,
+                    "id": "861a9396-1fb4-e9f6-1498-a926fe6f4490",
+                    "graphid": "68476006-521a-e366-6eed-db00d9b15346",
+                    "displayfields": false,
+                    "label": {
+                        "value": "Ports",
+                        "alttext": "Ports"
+                    },
+                    "metadata": {
+                        "enable": false
+                    },
+                    "opacity": {
+                        "enable": false,
+                        "min": 0,
+                        "max": 1,
+                        "initstate": 1
+                    },
+                    "visibility": {
+                        "enable": true,
+                        "initstate": true,
+                        "type": 1,
+                        "radioid": 0
+                    },
+                    "displaychild": {
+                        "enable": true,
+                        "symbol": "{\"type\":\"simple\",\"symbol\":{\"type\":\"esriPMS\",\"url\":\"db7e21a19ddafa0c4887b2679e800096\",\"imageData\":\"iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAflJREFUOI2lkz9oE2EYxn8JV696rX8+aoPRoQ2c3U7h6uRUZ6vbddIMguHglpszaA8OuxyIS0gPFLcbJdluKHEoOOSWEx1KBQdpYwsf/plSizp4ORKT4uC7Pjy/9/2+930U/rOUkwQhhCmlNFVVLff7/T0hRCKlTP4JyIxN27ZNwzAQQiClJE1TfN9PhBC1YdDfgFXbtlvVahVd10cEy7JwHMd0XbcbRVEN2BwBCCFM27Zbq3fXePJ8F9gFoFiAi+dUbt9a5OaNRcIwBGjGcZxIKZMcIKVsVqtVZs6WePHuPQCPVkp8+f6Dje1DNrYP+fBslsrCHJ7nEUVRE1hWhrqbuq6z//lbPvYD6xqXL53n7cNXbB0c8Wn/K5WFOXRdp16vm41Gw1Sy7qZhGGObeP3mI8fHP9k6OAKgND+Ta4ZhIKX8A1BVtSyEGAPce7kDwPVZhcf3l7hamR/eFqqqlhWAfr+/J6UcA+w8XeFK+QLqKYVisTCm51sQQiRpmmJZ1og4rU5xenpqorHT6aBpWnvwB4nv+4njOCaFMxMNw9XtdvF9PwGS4Tuoua7bDcOQX621E829Xo8gCADW8ycMpsgurOl53tglDjoHQUAURXeA9gggq804jpMoipr1ej3PwuDN2djrA/MkAFlQlhuNRp5GAE3T2sBYGn8DbqPF3pp5VH0AAAAASUVORK5CYII=\",\"contentType\":\"image/png\",\"width\":12,\"height\":12,\"angle\":0,\"xoffset\":0,\"yoffset\":0},\"label\":\"Port\",\"description\":\"\"}"
+                    },
+                    "customimage": {
+                        "enable": false
+                    },
+                    "items": []
+                }, {
+                    "expand": false,
+                    "last": true,
+                    "type": 5,
+                    "id": "4d1819ef-e037-2bed-4b55-62d65cb9028d",
+                    "graphid": "22c1ff45-ca0b-c83a-a4db-4fc96c503a64",
+                    "displayfields": false,
+                    "label": {
+                        "value": "Proposed Ports",
+                        "alttext": "Proposed Ports"
+                    },
+                    "metadata": {
+                        "enable": false
+                    },
+                    "opacity": {
+                        "enable": false,
+                        "min": 0,
+                        "max": 1,
+                        "initstate": 1
+                    },
+                    "visibility": {
+                        "enable": true,
+                        "initstate": true,
+                        "type": 1,
+                        "radioid": 0
+                    },
+                    "displaychild": {
+                        "enable": true,
+                        "symbol": "{\"type\":\"simple\",\"symbol\":{\"type\":\"esriPMS\",\"url\":\"499c71fa67d267f3336687b492967d7f\",\"imageData\":\"iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAedJREFUOI2lk79P20AUx79xTS/UYXkVog2oQyQzWkhm418gHb0hq2KILHnx7AGwZJHFs2U8sN4Mm4co7LnFbEhsCCJUnZiKTCPSAcdK6qAOfeN9733ebxX/aep7AhGZUkqTMdYuiuKeiISUUvwTUDomjuOYhmGAiCClRJ7nCMNQEFFvHvQ3oOs4zoVt29B1fUGwLAuu65qe54045z0AZwsAIjIdx7n40e1i7fQUj+V7Q1GgrK+jub+PL3t7SNMUAJIsy4SUUlQAKWVi2za+tVr4eX4OAPh4dITp0xNe+n289PtQb2/R6nQQBAE45wmAXXUuuqnrOn4/PFRprx0eYmVzE4/X13gdDDC5uwPrdKDrOnzfN+M4NtUyumkYRm0Sz1dXeJ5M8DoYAAA+bGxUmmEYkFK+ARhjbSKqAX4dHLz1YWcHn46P0dzenp8WGGNtFQCKoriXUtYAdHODla0tNBhDQ1FqejUFIhJ5nsOyrAWx0WxCWV1d6jgcDqFp2uWsByIMQ+G6rvl56fdFG41GCMNQABDze9DzPG+Upim+TqfvOo/HY0RRBAAnVQmzLMoNS4IgqG3iLHIUReCcfwdwuQAo7SzLMsE5T3zfr25hVnOZ9snMeRkA5aHsxnFcXSMAaJp2CaB2jX8AZT/FRMa8H5cAAAAASUVORK5CYII=\",\"contentType\":\"image/png\",\"width\":12,\"height\":12,\"angle\":0,\"xoffset\":0,\"yoffset\":0},\"label\":\"Proposed Port\",\"description\":\"\"}"
+                    },
+                    "customimage": {
+                        "enable": false
+                    },
+                    "items": []
+                }, {
+                    "expand": false,
+                    "last": true,
+                    "type": 5,
+                    "id": "d8aa9533-5068-54a8-8bd1-8d12079c2c23",
+                    "graphid": "5798980c-9f99-24f9-0065-8fe655c57a31",
+                    "displayfields": false,
+                    "label": {
+                        "value": "Proposed Roads",
+                        "alttext": "Proposed Roads"
+                    },
+                    "metadata": {
+                        "enable": false
+                    },
+                    "opacity": {
+                        "enable": false,
+                        "min": 0,
+                        "max": 1,
+                        "initstate": 1
+                    },
+                    "visibility": {
+                        "enable": true,
+                        "initstate": true,
+                        "type": 1,
+                        "radioid": 0
+                    },
+                    "displaychild": {
+                        "enable": true,
+                        "symbol": "{\"type\":\"simple\",\"symbol\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[233,0,0,255],\"width\":2},\"label\":\"Proposed Road\",\"description\":\"\"}"
+                    },
+                    "customimage": {
+                        "enable": false
+                    },
+                    "items": []
+                }]
+            }, {
+                "expand": false,
+                "last": false,
+                "type": 0,
                 "id": "1192f832-332e-29c2-2b54-cc94c5194042",
                 "graphid": "a98dee79-9061-03e0-cb07-1d6606e87106",
                 "displayfields": false,
@@ -1147,17 +1523,12 @@
                 "enable": false
             }
         },
-        "toolbarextract": {
-            "enable": false,
-            "expand": false,
-            "pos": 4,
-            "items": []
-        },
         "insetframe": {
             "enable": false
         },
         "datagrid": {
             "enable": true,
+
             "layers": [
 
                 {
@@ -1171,12 +1542,17 @@
                         "title": "Project Name",
                         "width": "90px",
                         "data": "Short_Name",
-                        "dataalias": "Short_Name"
+                        "datapop": "Short_Name"
                     }, {
                         "title": "AMPI Classification",
-                        "width": "60px",
+                        "width": "120px",
                         "data": "AMPI_Classification",
-                        "dataalias": "AMPI_Classification"
+                        "datapop": "AMPI_Classification"
+                    }, {
+                        "title": "Prime Commodities",
+                        "width": "120px",
+                        "data": "Prime_Commodities",
+                        "datapop": "Prime_Commodities"
                     }],
                     "linktable": {
                         "enable": false
@@ -1187,7 +1563,7 @@
                     },
                     "hover": {
                         "enable": false,
-                        "hoverfield": "AMPI"
+                        "hoverfield": "Advanced Mineral Potential Inventory (AMPI)"
                     }
                 },{
                     "layerinfo": {
@@ -1195,72 +1571,162 @@
                         "type": 5,
                         "index": 1
                     },
-                    "title": "Unlocking Northern Resource Potential (UNRP) Cluster",
+                    "title": "UNRP Clusters",
                     "fields": [{
-                        "title": "Total S (Scores)",
+                        "title": "Cluster Name",
                         "width": "90px",
                         "data": "NAME",
-                        "dataalias": "NAME"
+                        "datapop": "NAME"
                     }, {
                         "title": "Type",
                         "width": "90px",
                         "data": "TYPE",
-                        "dataalias": "TYPE"
+                        "datapop": "TYPE"
                     }, {
                         "title": "Measure: probability of construction jobs",
                         "width": "90px",
                         "data": "M_1",
-                        "dataalias": "M_1"
+                        "datapop": "M_1"
                     }, {
                         "title": "Measure: In Ground Value (physical volume of resource) x commodity price ",
-                        "width": "60px",
+                        "width": "120px",
                         "data": "M_2",
-                        "dataalias": "M_2"
+                        "datapop": "M_2"
                     }, {
                         "title": "Criteria: Economic Output (EO) Total S (Scores)",
-                        "width": "60px",
+                        "width": "120px",
                         "data": "EO_S",
-                        "dataalias": "EO_S"
+                        "datapop": "EO_S"
                     }, {
                         "title": "Measure: Project Diversity (new commodities added, pr-weighted for minerals)",
-                        "width": "60px",
+                        "width": "120px",
                         "data": "M_3",
-                        "dataalias": "M_3"
+                        "datapop": "M_3"
                     }, {
                         "title": "Measure: Employment Duration (P/Y)",
-                        "width": "60px",
+                        "width": "120px",
                         "data": "M_4",
-                        "dataalias": "M_4"
+                        "datapop": "M_4"
                     }, {
                         "title": "Measure: Anchor Projects (# existing mines with ~ 200 jobs or more)",
-                        "width": "60px",
+                        "width": "120px",
                         "data": "M_5",
-                        "dataalias": "M_5"
+                        "datapop": "M_5"
                     }, {
                         "title": "Criteria: Cluster Resilience (CR) Total S (Scores)",
-                        "width": "60px",
+                        "width": "120px",
                         "data": "CR_S",
-                        "dataalias": "CR_S"
+                        "datapop": "CR_S"
                     }, {
                         "title": "Measure: distance from nearest transportation infrastructure (km)",
-                        "width": "60px",
+                        "width": "120px",
                         "data": "M_6",
-                        "dataalias": "M_6"
+                        "datapop": "M_6"
                     }, {
                         "title": "Measure: total electricity generation capacity (kW)",
-                        "width": "60px",
+                        "width": "120px",
                         "data": "M_7",
-                        "dataalias": "M_7"
+                        "datapop": "M_7"
                     }, {
                         "title": "Measure: access to broadband  (% of population unserved)",
-                        "width": "60px",
+                        "width": "120px",
                         "data": "M_8",
-                        "dataalias": "M_8"
+                        "datapop": "M_8"
                     }, {
                         "title": "Measure: number of communities",
-                        "width": "60px",
+                        "width": "120px",
                         "data": "M_9",
-                        "dataalias": "M_9"
+                        "datapop": "M_9"
+                    }, {
+                        "title": "Criteria: Leveraging Infrastructure for Public Benefit (LIPB) Total S (Scores)",
+                        "width": "120px",
+                        "data": "LIPB_S",
+                        "datapop": "LIPB_S"
+                    }, {
+                        "title": "Measure: community income well being index (  / 100)",
+                        "width": "120px",
+                        "data": "M_10",
+                        "datapop": "M_10"
+                    }, {
+                        "title": "Measure: community education well being index  (  / 100)",
+                        "width": "120px",
+                        "data": "M_11",
+                        "datapop": "M_11"
+                    }, {
+                        "title": "Measure: community housing well being index  (  / 100)",
+                        "width": "120px",
+                        "data": "M_12",
+                        "datapop": "M_12"
+                    }, {
+                        "title": "Measure:  community labour force activity well being index (  / 100)",
+                        "width": "120px",
+                        "data": "M_13",
+                        "datapop": "M_13"
+                    }, {
+                        "title": "Measure: number of species at risk habitats in cluster",
+                        "width": "120px",
+                        "data": "M_14",
+                        "datapop": "M_14"
+                    }, {
+                        "title": "Measure: minimum distance to protected area  (km)",
+                        "width": "120px",
+                        "data": "M_15",
+                        "datapop": "M_15"
+                    }, {
+                        "title": "Criteria: Community Well-Being (CWB)  Total S (Scores)",
+                        "width": "120px",
+                        "data": "EWB_S",
+                        "datapop": "EWB_S"
+                    }, {
+                        "title": "Measure: number of modern treaty areas in cluster",
+                        "width": "120px",
+                        "data": "M_16",
+                        "datapop": "M_16"
+                    }, {
+                        "title": "Measure: proportion of AMPI (10 km buffer or 314.2 sq. km) on land claim; proportion of land claims in cluster",
+                        "width": "150px",
+                        "data": "M_17",
+                        "datapop": "M_17"
+                    }, {
+                        "title": "Criteria: Access to Land  (AL)  Total S (Scores)",
+                        "width": "120px",
+                        "data": "AL_S",
+                        "datapop": "AL_S"
+                    }, {
+                        "title": "Measure: percentage of working age population (20-64yrs) with certificate, diploma and degree",
+                        "width": "150px",
+                        "data": "M_18",
+                        "datapop": "M_18"
+                    }, {
+                        "title": "Measure: expected jobs ( % of working age population)",
+                        "width": "120px",
+                        "data": "M_19",
+                        "datapop": "M_19"
+                    }, {
+                        "title": "Measure: expected jobs ( % of Aboriginal working age population)",
+                        "width": "120px",
+                        "data": "M_20",
+                        "datapop": "M_20"
+                    }, {
+                        "title": "Criteria: Availability of Northern Labour (ANL)  Total S (Scores)",
+                        "width": "120px",
+                        "data": "ANL_S",
+                        "datapop": "ANL_S"
+                    }, {
+                        "title": "Measure: Social and Physical Determinant of Health:  Violent Crime and Property Crime  (%)",
+                        "width": "150px",
+                        "data": "M_21",
+                        "datapop": "M_21"
+                    }, {
+                        "title": "Criteria: Public Health (PH) Total S (Scores)",
+                        "width": "120px",
+                        "data": "PH_S",
+                        "datapop": "PH_S"
+                    }, {
+                        "title": "Total Un-Weighted S Scores",
+                        "width": "120px",
+                        "data": "TOTAL_S",
+                        "datapop": "TOTAL_S"
                     }],
                     "linktable": {
                         "enable": false
@@ -1271,7 +1737,101 @@
                     },
                     "hover": {
                         "enable": false,
-                        "hoverfield": "AGE"
+                        "hoverfield": "Clusters"
+                    }
+                },{
+                    "layerinfo": {
+                        "id": "89883991-d5de-6476-c176-b4df4357d822",
+                        "type": 5,
+                        "index": 2
+                    },
+                    "title": "Community Well-Being",
+                    "fields": [{
+                        "title": "Community Name",
+                        "width": "90px",
+                        "data": "OFFNAME",
+                        "datapop": "OFFNAME"
+                    }, {
+                        "title": "Type of Community",
+                        "width": "120px",
+                        "data": "CSD_TYPE",
+                        "datapop": "CSD_TYPE"
+                    }, {
+                        "title": "2006 Population",
+                        "width": "120px",
+                        "data": "POP_06",
+                        "datapop": "POP_06"
+                    }, {
+                        "title": "Community Well Being Index - Income (%)",
+                        "width": "120px",
+                        "data": "CWB_INCOME",
+                        "datapop": "CWB_INCOME"
+                    }, {
+                        "title": "Community Well Being Index - Education (%)",
+                        "width": "120px",
+                        "data": "CWB_EDUCATION",
+                        "datapop": "CWB_EDUCATION"
+                    }, {
+                        "title": "Community Well Being Index - Housing (%)",
+                        "width": "120px",
+                        "data": "CWB_HOUSING",
+                        "datapop": "CWB_HOUSING"
+                    }, {
+                        "title": "Community Well Being Index - Overall (%)",
+                        "width": "120px",
+                        "data": "CWB_TOTAL",
+                        "datapop": "CWB_TOTAL"
+                    }, {
+                        "title": "Highest Educational Attainment (high school and higher): aged 20-24",
+                        "width": "120px",
+                        "data": "H_ED_AGE_20_24",
+                        "datapop": "H_ED_AGE_20_24"
+                    }, {
+                        "title": "Highest Educational Attainment (high school and higher): aged 25-34",
+                        "width": "120px",
+                        "data": "H_ED_AGE_25_34",
+                        "datapop": "H_ED_AGE_25_34"
+                    }, {
+                        "title": "Highest Educational Attainment (high school and higher): aged 35-44",
+                        "width": "120px",
+                        "data": "H_ED_AGE_35_44",
+                        "datapop": "H_ED_AGE_35_44"
+                    }, {
+                        "title": "Highest Educational Attainment (high school and higher): aged 45-54",
+                        "width": "120px",
+                        "data": "H_ED_AGE_45_54",
+                        "datapop": "H_ED_AGE_45_54"
+                    }, {
+                        "title": "Highest Educational Attainment (high school and higher): aged 55-64",
+                        "width": "120px",
+                        "data": "H_ED_AGE_55_64",
+                        "datapop": "H_ED_AGE_55_64"
+                    }, {
+                        "title": "North American Indian Population",
+                        "width": "120px",
+                        "data": "NAINDIAN",
+                        "datapop": "NAINDIAN"
+                    }, {
+                        "title": "Métis Population",
+                        "width": "120px",
+                        "data": "METIS",
+                        "datapop": "METIS"
+                    }, {
+                        "title": "Inuit Population",
+                        "width": "120px",
+                        "data": "INUIT",
+                        "datapop": "INUIT"
+                    }],
+                    "linktable": {
+                        "enable": false
+                    },
+                    "popups": {
+                        "enable": true,
+                        "title": "Community Well-Being for Northern Communities"
+                    },
+                    "hover": {
+                        "enable": false,
+                        "hoverfield": "Community Well-Being"
                     }
                 } 
 				]

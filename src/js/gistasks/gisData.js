@@ -11,31 +11,42 @@
 			'gcviz-func',
 			'gcviz-gisgeo',
 			'gcviz-gislegend',
+			'gcviz-vm-datagrid',
+			'gcviz-vm-tbdata',
 			'dojox/data/CsvStore',
 			'esri/layers/FeatureLayer',
 			'esri/SpatialReference',
 			'esri/geometry/Point'
-	], function($viz, gcvizFunc, gisGeo, gisLegend, esriCSVStore, esriFeatLayer, esriSR, esriPoint) {
+	], function($viz, gcvizFunc, gisGeo, gisLegend, vmDatagrid, vmTbData, esriCSVStore, esriFeatLayer, esriSR, esriPoint) {
 		var addCSV,
 			createLayer,
 			getSeparator,
 			getFeatCollectionTemplateCSV,
-			featCollection, guuid,
+			featCollection, guuid, gfileName,
 			mymap;
 
 		// https://developers.arcgis.com/javascript/jssamples/exp_dragdrop.html
 		// we dont use the drag and drop because it is not WCAG but we use the way they
 		// add CSV info on map
-		addCSV = function(map, data, uuid) {
-			var latFields = ['lat', 'latitude', 'y', 'ycenter'], // list of lat field strings
+		addCSV = function(map, data, uuid, fileName) {
+			var firstLine, separator, csvStore,
+				latFields = ['lat', 'latitude', 'y', 'ycenter'], // list of lat field strings
 				longFields = ['lon', 'long', 'longitude', 'x', 'xcenter'], // list of lon field strings
-				firstLine = (window.browserOS === 'win') ? data.substr(0, data.indexOf('\n')) : data.substr(0, data.indexOf('\r')),
-				separator = getSeparator(firstLine),
-				csvStore = new esriCSVStore({
-					data: data,
-					separator: separator
-				}),
 				def = $viz.Deferred();
+			
+			// there is 2 end of line character. If the first one doesnt work, use the other
+			firstLine = data.substr(0, data.indexOf('\r'));
+			if (firstLine === '') {
+				firstLine = data.substr(0, data.indexOf('\n'));
+			}
+
+			// get the separator and start process
+			separator = getSeparator(firstLine),
+			csvStore = new esriCSVStore({
+				data: data,
+				separator: separator
+			}),
+			
 
 			csvStore.fetch({
 				onComplete: function (items) {
@@ -52,6 +63,7 @@
 					// set global because they will be use in a callback after projection
 					featCollection = getFeatCollectionTemplateCSV(csvStore, items);
 					guuid = uuid;
+					gfileName = fileName;
 					mymap = map;
 
 					// get lat long field name
@@ -139,12 +151,22 @@
 			mymap.addLayer(featureLayer);
 
 			// add to user array so knockout will generate legend
-			// we cant add it from the VM because the projection can take few second and the symbole is not define before.
+			// we cant add it from the VM because the projection can take few second and the symbol is not define before.
 			// to avoid this, we add the layer only when it is done.
 			//gArray.push({ label: gReader.fileName, id: guuid });
 
 			// set legend symbol
 			gisLegend.getFeatureLayerSymbol(JSON.stringify(featureLayer.renderer.toJson()), $viz('#symbol' + guuid)[0], guuid);
+
+			// add the data to the datagrid
+			vmDatagrid.addTab(mymap.vIdName, featCollection, gfileName, guuid);
+
+			// there is a problem with the define. the gcviz-vm-tbdata is not able to be set.
+			// With the require, we set the reference to gcviz-vm-tbdata (hard way)
+			require(['gcviz-vm-tbdata'], function(vmTbData) {
+				// notify toolbar data the new layer is finish
+				vmTbData.notifyAdd();
+			});
 		};
 
 		getSeparator = function(string) {

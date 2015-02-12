@@ -25,14 +25,17 @@
 			'esri/tasks/RelationshipQuery',
 			'dojo/DeferredList',
 			'esri/tasks/IdentifyTask',
-			'esri/tasks/IdentifyParameters'
-	], function($viz, gisMap, gisGeo, gcvizFunc, esriGraphLayer, esriLine, esriFill, esriMarker, esriPoint, esriPoly, esriPolyline, esriSR, esriGraph, esriRequest, esriRelRequest, dojoDefList, esriIdTask, esriIdParams) {
+			'esri/tasks/IdentifyParameters',
+			'esri/tasks/QueryTask',
+			'esri/tasks/query',
+			'gcviz-gissymbol'
+	], function($viz, gisMap, gisGeo, gcvizFunc, esriGraphLayer, esriLine, esriFill, esriMarker, esriPoint, esriPoly, esriPolyline, esriSR, esriGraph, esriRequest, esriRelRequest, dojoDefList, esriIdTask, esriIdParams, esriQueryTsk, esriQuery) {
 		var initialize,
 			getData,
+			getSelection,
 			createDataArray,
 			closeGetData,
 			createGraphic,
-			zoomFeature,
 			zoomFeatures,
 			selectFeature,
 			selectFeaturePop,
@@ -40,6 +43,8 @@
 			createIdTask,
 			executeIdTask,
 			returnIdResults,
+			setRelRecords,
+			getRelRecords,
 			removeEvtPop,
 			addEvtPop,
 			wkid,
@@ -48,22 +53,18 @@
 			symbLine,
 			symbPoly,
 			mymap,
+			relRecords = {},
 			idTask,
 			idTasksArr = [],
 			idTaskIndex = 0,
 			layerIndex,
 			idParams = new esriIdParams(),
 			idFeatures,
-			idRtnFunc,
-			table = 0;
+			idRtnFunc;
 
 		initialize = function(map) {
 			var color = [255,255,102,125],
-				outline = { 'type': 'esriSLS',
-						'style': 'esriSLSSolid',
-						'color': [255,255,0,255],
-						'width': 1
-				};
+				colorOut = [255,255,0,255];
 
 			wkid = map.vWkid;
 			mymap = map;
@@ -78,36 +79,18 @@
 			mymap.addLayer(new esriGraphLayer({ id: 'gcviz-datagrid' }));
 			selectLayer = map.getLayer('gcviz-datagrid');
 
-			// set symbologies
-			symbPoint = new esriMarker({
-								'type': 'esriSMS',
-								'style': 'esriSMSCircle',
-								'color': color,
-								'size': 18,
-								'angle': 0,
-								'xoffset': 0,
-								'yoffset': 0,
-								'outline': outline
-							});
-
-			symbLine = new esriLine({
-								'type': 'esriSLS',
-								'style': 'esriSLSSolid',
-								'color': color,
-								'width': 5,
-								'outline': outline
-							});
-
-			symbPoly = new esriFill({
-								'type': 'esriSFS',
-								'style': 'esriSFSSolid',
-								'color': color,
-								'outline': outline
-							});
+			// there is a problem with the define. the gcviz-gissymbol is not able to be set. The weird thing
+			// is if I replace gisgeo with gissymbol in the define, gisgeo will be set as gissymbol but I can't
+			// have access to gisgeo anymore. With the require, we set the reference to gissymbol (hard way)
+			require(['gcviz-gissymbol'], function(gissymb) {
+				// set symbologies
+				symbPoint = gissymb.getSymbPoint(color, 18, colorOut, 1);
+ 				symbLine = gissymb.getSymbLine(color, 5 , colorOut);
+				symbPoly = gissymb.getSymbPoly(colorOut, color, 1);
+			});
 		};
 
 		getData = function(url, layer, success) {
-
 			esriRequest({
 				url: url,
 				content: { f: 'json' },
@@ -116,28 +99,44 @@
 				load: function(response) {
 					var relatedQuery, featLayer,
 						layerInfo = layer.layerinfo,
+						linkFields, lenLinkFields, strLinkFields,
+						pos = layerInfo.pos,
 						linkInfo = layer.linktable,
 						id = layerInfo.id,
 						sr = response.spatialReference,
 						data = [],
 						features = response.features,
-						len = features.length;
+						len = features.length - 1;
 
 					// if there is a link table to retrieve info from, set it here.
 					// it only work with feature layer who have a valid OBJECTID field
 					if (linkInfo.enable) {
-						featLayer = mymap.getLayer(id);
-						relatedQuery = new esriRelRequest();
-						relatedQuery.outFields = linkInfo.fields;
-						relatedQuery.relationshipId = linkInfo.relationship;
-						relatedQuery.objectIds = gcvizFunc.getArrayLen(len);
+						// get the link field to query
+						linkFields = linkInfo.fields;
+						lenLinkFields = linkFields.length;
 
+						strLinkFields = '';
+						while (lenLinkFields--) {
+							strLinkFields += linkFields[lenLinkFields].data + ',';
+						}
+
+						// create the query
+						relatedQuery = new esriRelRequest();
+						relatedQuery.outFields = [strLinkFields.slice(0, -1)];
+						relatedQuery.relationshipId = linkInfo.relationshipId;
+						relatedQuery.objectIds = gcvizFunc.getObjectIds(response.features);
+
+						// query the link table
+						featLayer = mymap.getLayer(id);
 						featLayer.queryRelatedFeatures(relatedQuery, function(relatedRecords) {
-							data = createDataArray(features, len, sr, id, relatedRecords);
+							data = createDataArray(features, len, sr, id, pos, relatedRecords);
 							closeGetData(data, layer, success);
+							
+							// keep related records to be access later by popups
+							setRelRecords(id, relatedRecords);
 						});
 					} else {
-						data = createDataArray(features, len, sr, id);
+						data = createDataArray(features, len, sr, id, pos);
 						closeGetData(data, layer, success);
 					}
 				},
@@ -145,18 +144,40 @@
 			});
 		};
 
-		createDataArray = function(features, len, sr, id, relRecords) {
+		getSelection = function(url, wkid, geometry, success) {
+			var query,
+				queryTask = new esriQueryTsk(url);
+			
+			// define query
+			query = new esriQuery();
+			query.returnGeometry = false;
+			query.outFields = ['OBJECTID'];
+			query.outSpatialReference = {
+				'wkid': wkid
+			};
+			query.geometry = geometry;
+			query.spatialRelationship = esriQuery.SPATIAL_REL_INTERSECTS;
+			queryTask.execute(query);
+
+			// call the success function with the result
+			queryTask.on('complete', function(evt) {
+				success(evt.featureSet.features);
+			});
+		};
+
+		createDataArray = function(features, len, sr, id, pos, relRecords) {
 			var linkLen, linkFeats, linkFeat,
 				feat, geom, geometry,
-				data = [],
-				flag = false;
+				data = new Array(len),
+				flag = false,
+				i = 0;
 
 			if (typeof relRecords !== 'undefined') {
 				flag = true;
 			}
 
-			while (len--) {
-				feat = features[len];
+			while (i !== len) {
+				feat = features[i];
 				geom = feat.geometry;
 
 				// select geometry type then create geometry 
@@ -170,42 +191,61 @@
 
 				// add a unique id and wkid
 				geometry.attributes = feat.attributes;
-				geometry.attributes.gcvizid = table + '-' + len;
+				geometry.attributes.gcvizid = pos + '-' + i;
+				geometry.attributes.gcvizcheck = 0;
 				geometry.attributes.layerid = id;
 
 				// if present, add the related records from a link table
 				if (flag) {
-					// we add + 1 because it is not zero index based
-					linkFeats = relRecords[len + 1].features;
+					// Get the right data from OBJECTID
+					linkFeats = relRecords[geometry.attributes.OBJECTID].features;
 					linkLen = linkFeats.length;
 
-					geometry.link = [];
+					geometry.attributes.link = [];
 					while (linkLen--) {
 						linkFeat = linkFeats[linkLen];
-						geometry.link.push(linkFeat.attributes);
+						geometry.attributes.link.push(linkFeat.attributes);
 					}
 				}
 
 				// push geometry to array of data
-				data.push(geometry);
+				data[i] = geometry;
+				i++;
 			}
 
 			return data;
 		};
 
 		closeGetData = function(data, layer, success) {
-			// add layer info to first element. This way we will be able to get back to it
-			// after the reprojection.
+			var feat,
+				i = 0,
+				len = data.length,
+				features = new Array(len),
+				item = data[0],
+				mapWkid = mymap.vWkid;
+
 			// set mapid to layer to make the function more global for data added with
 			// data toolbar
-			layer.mapid = mymap.vIdName,
-			data[0].attributes.layer = layer;
+			layer.mapid = mymap.vIdName;
 
 			// check if we need to reproject geometries
-			gisGeo.projectGeoms(data, wkid, success);
-
-			// increment table
-			table += 1;
+			// add layer info to first element. This way we will be able to get back to it
+			// after the reprojection.
+			if (mapWkid !== item.spatialReference.wkid) {
+				item.attributes.layer = layer;
+				gisGeo.projectGeoms(data, mapWkid, success);
+			} else {
+				// put the attributes on first level
+				while (i !== len) {
+					feat = { };
+					feat = data[i].attributes;
+					feat.geometry = data[i];
+					features[i] = feat;
+					i++;
+				}
+				features[0].layer = layer;
+				success(features);
+			}
 		};
 
 		createGraphic = function(geometry, key) {
@@ -232,42 +272,37 @@
 			return graphic;
 		};
 
-		zoomFeature = function(geometry) {
-			var graphic = createGraphic(geometry, 'zoom');
-
-			// clear previous graphics
-			unselectFeature('zoom');
-
-			// add graphic
-			selectLayer.add(graphic);
-
-			// zoom graphic
-			gisMap.zoomFeature(mymap, graphic);
-		};
-
 		zoomFeatures = function(geometries) {
 			var extent,
 				graphic,
-				graphics = [],
-				len = geometries.length;
+				i = 0,
+				len = geometries.length,
+				graphics = new Array(len);
 
-			// create an array of graphics to get extent. Do not add them
-			// to the map because it is already there from the selection
-			while (len--) {
-				graphic = createGraphic(geometries[len], 'zoom');
-				graphics.push(graphic);
+			// if only one element, zoom feature instead
+			if (len === 1) {
+				graphic = createGraphic(geometries[0], 'zoom');
+				gisMap.zoomFeature(mymap, graphic);
+			} else {
+				// create an array of graphics to get extent. Do not add them
+				// to the map because it is already there from the selection
+				while (i !== len) {
+					graphic = createGraphic(geometries[i], 'zoom');
+					graphics[i] = graphic;
+					i++;
+				}
+	
+				// get the extent then zoom
+				extent = esri.graphicsExtent(graphics); // can't load AMD
+				mymap.setExtent(extent.expand(1.75));
 			}
 
-			// clear previous graphics
-			unselectFeature('zoom');
-
-			// get the extent then zoom
-			extent = esri.graphicsExtent(graphics); // can't load AMD
-			mymap.setExtent(extent.expand(1.75));
+			// focus the map
+			gcvizFunc.focusMap(mymap);
 		};
 
 		selectFeature = function(geometry, info) {
-			var graphic = createGraphic(geometry, 'sel' + info.table + '-' + info.feat);
+			var graphic = createGraphic(geometry, 'sel' + '-' + info.table + '-' + info.feat);
 
 			// add graphic
 			selectLayer.add(graphic);
@@ -320,6 +355,7 @@
 			idParams.mapExtent = mymap.extent;
 			idParams.width = mymap.width;
 			idParams.height = mymap.height;
+			idParams.tolerance = 10;
 
 			// define all deferred functions
 			while (lenDef--) {
@@ -342,6 +378,24 @@
 			idRtnFunc(response);
 		};
 
+		setRelRecords = function(id, data) {
+			relRecords[id] = data;
+		};
+
+		getRelRecords = function(layerID, objectID) {
+			var i = 0,
+				items = relRecords[layerID][objectID].features,
+				len = items.length,
+				outArr = new Array(len);
+
+			while (i !== len) {
+				outArr[i] = (items[i].attributes);
+				i++;
+			}
+					
+			return outArr;
+		};
+
 		removeEvtPop = function() {
 			if (typeof idFeatures !== 'undefined') {
 				idFeatures.remove();
@@ -359,12 +413,13 @@
 		return {
 			initialize: initialize,
 			getData: getData,
-			zoomFeature: zoomFeature,
+			getSelection: getSelection,
 			zoomFeatures: zoomFeatures,
 			selectFeature: selectFeature,
 			selectFeaturePop: selectFeaturePop,
 			unselectFeature: unselectFeature,
 			createIdTask: createIdTask,
+			getRelRecords: getRelRecords,
 			removeEvtPop: removeEvtPop,
 			addEvtPop: addEvtPop
 		};

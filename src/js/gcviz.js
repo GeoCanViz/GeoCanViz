@@ -29,8 +29,9 @@ var locationPath;
 			'gcviz-v-tbnav',
 			'gcviz-v-tblegend',
 			'gcviz-v-tbdata',
+			'gcviz-v-tbextract',
 			'gcviz-v-print'
-	], function($viz, mp, jqui, i18n, gcvizFunc, map, inset, help, wcag, datagrid, header, footer, tbdraw, tbnav, tblegend, tbdata, print) {
+	], function($viz, mp, jqui, i18n, gcvizFunc, map, inset, help, wcag, datagrid, header, footer, tbdraw, tbnav, tblegend, tbdata, tbextract, print) {
 		var initialize,
 			readConfig,
 			execConfig,
@@ -169,6 +170,11 @@ var locationPath;
 				vmArray.data = tbdata.initialize($mapSection);
 			}
 
+			// add data extraction
+			if (config.toolbarextract.enable) {
+				vmArray.extract = tbextract.initialize($mapSection);
+			}
+
 			// add inset
 			if (config.insetframe.enable) {
 				vmArray.insets = inset.initialize($mapSection);
@@ -183,47 +189,55 @@ var locationPath;
 			// set the global vm to retreive link vm together
 			gcvizFunc.setVM(mapid, vmArray);
 
+			// notify the map is ready and increment
+			$mapElem.trigger('gcviz-ready');
 			mapsNum += 1;
 
 			if (mapsNum === mapsTotal) {
 				// TODO have resize by map!
 				// set the resize event
 				window.onresize = gcvizFunc.debounce(function(event) {
-					var applyW, actualW, oriW, leftMarg, maxWidth,
+					var applyW, actualW, oriW,
+						leftMarg, maxWidth,
+						$section;
+
+					// check if the event is trigger by ui-dialog window. If not, set resize
+					if (event.target.classList[0] !== 'ui-dialog') {
 						$section = $(event.target.document.getElementsByClassName('gcviz-section')),
 						$mapholder = $section.find('.gcviz'),
 						$map = $section.find('.gcviz-map'),
 						$maproot = $section.find('.gcviz-root'),
 						isFullScreen = $mapholder.hasClass('gcviz-sectionfs');
 
-					// check if in full screen
-					if (isFullScreen) {
-						maxWidth = window.innerWidth;
-					} else {
-						// set parameters
-						actualW = parseInt($mapSection.css('width'), 10), // actual map width
-						oriW = parseInt($map.attr('gcviz-size').split(';')[1], 10), // original from config map width
-						leftMarg = $section.position().left, //containter left margin
-						maxWidth = parseInt($section.parent().css('width'), 10) - (2 * leftMarg); // get container width
+						// check if in full screen
+						if (isFullScreen) {
+							maxWidth = window.innerWidth;
+						} else {
+							// set parameters
+							actualW = parseInt($mapSection.css('width'), 10), // actual map width
+							oriW = parseInt($map.attr('gcviz-size').split(';')[1], 10), // original from config map width
+							leftMarg = $section.position().left, //containter left margin
+							maxWidth = parseInt($section.parent().css('width'), 10) - (2 * leftMarg); // get container width
+						}
+	
+						// map cant be smaller then 360px (tools panel width)
+						if (maxWidth < 360) {
+							maxWidth = 360;
+						}
+	
+						// check if we should apply the original width or the maximum possible width
+						if (oriW > maxWidth || isFullScreen) {
+							applyW = maxWidth;
+						} else if (actualW < oriW && maxWidth > oriW) {
+							applyW = oriW;
+						}
+	
+						// set size
+						gcvizFunc.setStyle($section[0], { 'width': applyW + 'px' });
+						gcvizFunc.setStyle($mapholder[0], { 'width': applyW + 'px' });
+						gcvizFunc.setStyle($map[0], { 'width': applyW + 'px' });
+						gcvizFunc.setStyle($maproot[0], { 'width': applyW + 'px' });
 					}
-
-					// map cant be smaller then 360px (tools panel width)
-					if (maxWidth < 360) {
-						maxWidth = 360;
-					}
-
-					// check if we should apply the original width or the maximum possible width
-					if (oriW > maxWidth || isFullScreen) {
-						applyW = maxWidth;
-					} else if (actualW < oriW && maxWidth > oriW) {
-						applyW = oriW;
-					}
-
-					// set size
-					gcvizFunc.setStyle($section[0], { 'width': applyW + 'px' });
-					gcvizFunc.setStyle($mapholder[0], { 'width': applyW + 'px' });
-					gcvizFunc.setStyle($map[0], { 'width': applyW + 'px' });
-					gcvizFunc.setStyle($maproot[0], { 'width': applyW + 'px' });
 
 				}, 200, false);
 			}

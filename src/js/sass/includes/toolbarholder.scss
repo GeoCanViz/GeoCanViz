@@ -8,7 +8,7 @@
 	padding-left: (1 * $rembase) + rem;
 	padding-bottom: (1 * $rembase) + rem;
 	z-index: 101;
-	background-color: $lightyellow;
+	background-color: $yellow-light;
 	overflow:	hidden!important;
 }
 
@@ -67,8 +67,8 @@
 
 	.gcviz-panel-title {
 		@extend %panel;
-		background-color: $greyPanel;
-		@include app-border(0.2, solid, $greyPanel);
+		background-color: $grey-panel;
+		@include app-border(0.2, solid, $grey-panel);
 		padding-left: (3.5 * $rembase) + rem!important;
 		
 		span {
@@ -97,7 +97,7 @@
 // separator in toolbar draw
 .gcviz-tbseparator {
 	display: inline-block;
-	@include app-border(0.1, solid, $palegrey);
+	@include app-border(0.1, solid, $grey-pale);
 	height: (2 * $rembase) + rem;
 	margin-right: (0.75 * $rembase) + rem;
 	margin-left: (0.75 * $rembase) + rem;

@@ -7,28 +7,19 @@ $img-head: $img-root + "headGreybar.png";
 $img-menur: $img-root + "headGreybarMenu.png";
 
 $font: Verdana, Arial, Helvetica, sans-serif;
+$white: #FFF;
+$black: #000;
 $orange: #EFA23E;
 $orange-dark: #E54F06;
 $orange-darkborder: #892f03;
-$orange-light: #FADFBB;
 $yellow: #FAFA0A;
-$red: #EF300A;
+$yellow-select: #F0F782;
+$yellow-light: #FAFAF5;
 $grey: #666;
-$lightgrey: #BFBFBF;
-$palegrey: #E8E8E8;
-$logogrey: #D1D3D4;
-$logogreydark: #636466;
-$white: #FFF;
-$black: #000;
-$lightyellow: #FAFAF5;
-$app-strong: #98B8CC;
-$app-light: #D2EDFF;
-$tb-strong: #FADDB6;
-$tb-light: #FFF;
-$disabled-light: #98B8CC;
-$disabled-strong: #728A99;
-$text-color: #000 !default;
-$greyPanel: #dce0db;
+$grey-pale: #E8E8E8;
+$grey-panel: #DCE0DB;
+$grey-green: #A4B2B2;
+$text-color: #000!default;
 
 $base-classname: "gcviz";
 
@@ -81,7 +72,7 @@ $one_col: (100% - ($gutter * ($cols - 1))) / $cols;
 	
 	&:disabled {
 		background-position: $x + px $y - 72 + px;
-		cursor: none;
+		cursor: default;
 	}
 }
 

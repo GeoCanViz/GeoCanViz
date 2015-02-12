@@ -36,23 +36,10 @@
 
 			// add button to open datagrid
 			if (configDatagrid.enable) {
-				node += '<button class="gcviz-foot-data" tabindex="0" data-bind="buttonBlur, click: datagridClick, tooltip: { content: tpDatagrid }, enable: isTableReady"></button>';
+				node += '<button tabindex="0" data-bind="buttonBlur, click: datagridClick, tooltip: { content: tpDatagrid, position: { my: \'right+30 top-65\', collision: \'fit\' } },' +
+							'enable: isTableReady, css: { \'gcviz-foot-data\': isTableReady(), \'gcviz-foot-loaddata\': !isTableReady() }"></button>';
 			}
 
-			node += '</div>';
-
-			// set scalebar
-			node += '<div class="span2">';
-			if (configScalebar) {
-				node += '<div id="scalebar' + mapid + '" class="unselectable"></div>';
-			}
-			node += '</div>';
-
-			// set mouse coordinates
-			node += '<div class="span4">';
-			if (config.mousecoords.enable) {
-				node += '<span id="mousecoord_' + mapid + '" class="gcviz-foot-coords-values unselectable" data-bind="text: coords"></span>';
-			}
 			node += '</div>';
 
 			// set north arrow
@@ -64,6 +51,21 @@
 																												'\'OTransform\': rotateArrow(), ' +
 																												'\'transform\': rotateArrow() }, ' +
 																												'attr: { alt: tpArrow }"></div>';
+			}
+			node += '</div>';
+
+			// set mouse coordinates
+			node += '<div class="span4">';
+			if (config.mousecoords.enable && window.browser !== 'Mobile') {
+				node += '<div id="mousecoord_' + mapid + '1" class="gcviz-foot-coords-values unselectable" data-bind="text: coords1, style: { marginTop: dualCoords() < 1 ? \'13px\' : \'7px\' }"></div>';
+				node += '<div id="mousecoord_' + mapid + '2" class="gcviz-foot-coords-values unselectable" data-bind="text: coords2"></div>';
+			}
+			node += '</div>';
+
+			// set scalebar
+			node += '<div class="span2">';
+			if (configScalebar) {
+				node += '<div id="scalebar' + mapid + '" class="unselectable"></div>';
 			}
 			node += '</div>';
 

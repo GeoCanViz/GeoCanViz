@@ -449,18 +449,22 @@
 				factor = 0.25;
 
 			if (type === 'point') {
-
-				// if lods is define, do not use level
+				// if lods is define, use level
 				lods = map._params.lods,
 				len = lods.length;
 				if (len > 0) {
-					factor = lods[len - 1].level;
+					factor = lods[len - 5].resolution;
+					map.setLevel(factor);
+				} else {
+					map.setZoom(factor);
 				}
 
+				// there is a bug with the API with centerAtZoom. It only work the first few times.
+				// to avoid this, we use centerAt then zoom to the geometry.
 				pt = new esriPoint(geom.x, geom.y, map.vWkid);
-				map.centerAndZoom(pt, factor);
+				map.centerAt(pt);
 			} else {
-				map.setExtent(geom.getExtent().expand(1.5));
+				map.setExtent(geom.getExtent().expand(2));
 			}
 		};
 
@@ -584,9 +588,9 @@
 			return extent;
 		};
 
-		showInfoWindow = function(map, title, content, geom) {
+		showInfoWindow = function(map, title, content, geom, offX, offY) {
 			// check if we need to set the anchor to left (see where is the menu)
-			var layer, graphics, graphic, len, point,
+			var layer, graphics, graphic, len, point, screenPnt,
 				btn = $viz('.esriPopupWrapper').find('.gcviz-wcag-close'),
 				anchor = (map.vSideMenu !== 1) ? 'upperright' : 'upperleft';
 
@@ -614,7 +618,12 @@
 			map.infoWindow.setTitle(title);
 			map.infoWindow.setContent('<span>' + content + '</span>');
 			map.infoWindow.anchor = anchor;
-			map.infoWindow.show(point, map.getInfoWindowAnchor(point));
+
+			// move a little the window
+			screenPnt = map.toScreen(point);
+			screenPnt.x = (anchor === 'upperright') ? screenPnt.x + offX : screenPnt.x - offX;
+			screenPnt.y += offY;
+			map.infoWindow.show(screenPnt);
 
 			// set focus on close button
 			btn.focus();

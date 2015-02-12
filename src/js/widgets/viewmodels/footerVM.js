@@ -22,13 +22,15 @@
 
 			// data model				
 			var footerViewModel = function($mapElem, mapid, config) {
-				var _self = this,
+				var _self = this, coordEvt,
 					pathGCVizPNG = locationPath + 'gcviz/images/GCVizLogo.png',
 					configMouse = config.mousecoords,
 					configNorth = config.northarrow,
 					scalebar = config.scalebar,
 					inwkid = configNorth.inwkid,
-					outwkid = configMouse.outwkid;
+					outwkid = configMouse.outwkid,
+					$section = $viz('#section' + mapid),
+					heightData = 659; // height of datatable when open
 
 				// viewmodel mapid to be access in tooltip custom binding
 				_self.mapid = mapid;
@@ -36,29 +38,48 @@
 				// images path
 				_self.imgLogoPNG = pathGCVizPNG;
 
-				// text
+				// tooltip, text strings
+				_self.tpFormat = i18n.getDict('%footer-tpformat');
 				_self.urlLogo = i18n.getDict('%footer-urlgcvizrepo');
 				_self.urlLogoAlt = i18n.getDict('%footer-tpgithub');
 				_self.lblWest = i18n.getDict('%west');
-				_self.lblLong = i18n.getDict('%long');
-				_self.lblLat = i18n.getDict('%lat');
+				_self.lblPosition = i18n.getDict('%position');
 				_self.tpDatagrid = i18n.getDict('%footer-tpdatagrid');
 				_self.tpArrow = i18n.getDict('%footer-tpNorth');
 
 				// coords and arrow
-				_self.coords = ko.observable('');
+				_self.coords1 = ko.observable('');
+				_self.coords2 = ko.observable('');
+				_self.dualCoords = ko.observable(0);
 				_self.rotateArrow = ko.observable('');
 
 				// enable button table (will be set true by datagridVM when
 				// datatable is ready)
 				_self.isTableReady = ko.observable(false);
 
+				// to notify datagridVM open datagrid button has been pushed
+				_self.isOpenDG = ko.observable(false);
+
 				_self.init = function() {
 					var mymap = gcvizFunc.getElemValueVM(mapid, ['map', 'map'], 'js');
 
 					if (configMouse.enable) {
-						mymap.on('mouse-move', function(evt) {
+						coordEvt = mymap.on('mouse-move', function(evt) {
 							_self.showCoordinates(evt);
+						});
+						
+						$viz('#map2').on('gcviz-ready', function() {
+							// subscribe to the open add data event. When data is added we need to stop the
+							// show coordinate event because it corrupts the projection and creates errors
+							gcvizFunc.subscribeTo(mapid, 'data', 'isAddData', function(val) {
+								if (val) {
+									coordEvt.remove();
+								} else {
+									coordEvt = mymap.on('mouse-move', function(evt) {
+										_self.showCoordinates(evt);
+									});
+								}
+							});
 						});
 					}
 
@@ -88,27 +109,42 @@
 				};
 
 				_self.updateCoordinates = function(projectedPoints) {
-					var strPointX, strPointY,
-						point = projectedPoints[0];
+					var strPointX, strPointY, dms,
+						strPointX2 = '',
+						strPointY2 = '',
+						point = projectedPoints[0],
+						x = point.x,
+						y = point.y;
 
+					// if lat/long, set dd and dms
 					if (outwkid === 4326) {
-						if (point.x < 0) {
-							strPointX = (-1 * point.x.toFixed(3)).toString() + _self.lblWest;
+						_self.dualCoords(1);
+
+						// dms
+						dms = gcvizFunc.convertDdToDms(x, y, 0);
+						strPointY = dms.y.join(' ');
+						strPointX = dms.x.join(' ');
+
+						// dd
+						if (x < 0) {
+							strPointX2 = (-1 * x.toFixed(3)).toString() + ' ' + _self.lblWest;
 						} else {
-							strPointX = point.x.toFixed(3).toString() + 'E';
+							strPointX2 = x.toFixed(3).toString() + ' E';
 						}
 
-						if (point.y < 0) {
-							strPointY = (-1 * point.y.toFixed(3)).toString() + 'S';
+						if (y < 0) {
+							strPointY2 = (-1 * y.toFixed(3)).toString() + ' S';
 						} else {
-							strPointY = point.y.toFixed(3).toString() + 'N';
+							strPointY2 = y.toFixed(3).toString() + ' N';
 						}
+
+						_self.coords2(strPointY2 + ' | ' + strPointX2);
 					} else {
-						strPointX = point.x.toFixed(0).toString();
-						strPointY = point.y.toFixed(0).toString();
+						strPointX = 'X= ' + x.toFixed(3).toString();
+						strPointY = 'Y= ' + y.toFixed(3).toString();
 					}
 
-					_self.coords(_self.lblLat + strPointY + '   ' + _self.lblLong + strPointX);
+					_self.coords1(_self.lblPosition + strPointY + ' | ' + strPointX);
 				};
 
 				_self.showNorthArrow = function(evt) {
@@ -134,12 +170,19 @@
 				};
 
 				_self.datagridClick = function() {
-					var $datagrid = $viz('#gcviz-datagrid' + mapid);
+					var $datagrid = $viz('#gcviz-datagrid' + mapid),
+						heightSect = parseInt($section.css('height'), 10);
 
+					// refresh accordion and set the section height. If we dont set the height when datatable is
+					// open, there is overlap in Safari.
 					if ($datagrid.accordion('option', 'active') === 0) {
 						$datagrid.accordion({ active: false }).click();
+						gcvizFunc.setStyle($section[0], { 'height': (heightSect - heightData) + 'px' });
+						_self.isOpenDG(false);
 					} else {
 						$datagrid.accordion({ active: 0 }).click();
+						gcvizFunc.setStyle($section[0], { 'height': (heightSect + heightData) + 'px' });
+						_self.isOpenDG(true);
 					}
 					return false;
 				};

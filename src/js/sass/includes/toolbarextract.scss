@@ -1,0 +1,17 @@
+@import "includes/gcviz-mixin";
+
+.gcviz-ext-urldis {
+	pointer-events: none;
+	color: $grey!important;
+}
+
+.gcviz-ext-url {
+	list-style-type: disc;
+}
+
+// nts select button
+.gcviz-ext-nts {
+	@include sprite($img-spritebtn, -1049, -2);
+	display: inline-block;
+	vertical-align: middle;
+}

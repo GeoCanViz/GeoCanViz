@@ -13,8 +13,10 @@
 			'gcviz-func',
 			'gcviz-gismap',
 			'gcviz-gisgeo',
-			'gcviz-gisnav'
-	], function($viz, ko, i18n, gcvizFunc, gisM, gisGeo, gisNav) {
+			'gcviz-gisnav',
+			'gcviz-gisgraphic',
+			'gcviz-gisdatagrid'
+	], function($viz, ko, i18n, gcvizFunc, gisM, gisGeo, gisNav, gisGraphic, gisDG) {
 		var initialize,
 			vm;
 
@@ -23,13 +25,14 @@
 			// data model				
 			var mapViewModel = function($mapElem, side) {
 				var _self = this,
+					map,
 					mapframe = $mapElem.mapframe,
 					mapid = mapframe.id,
-					config = mapframe.map,
-					map;
+					config = mapframe.map;
 
 				// text
 				_self.tpZoomFull = i18n.getDict('%map-tpzoomfull');
+				_self.tpZoom = i18n.getDict('%map-tpzoom');
 
 				// viewmodel mapid to be access in tooltip custom binding
 				_self.mapid = mapid;
@@ -117,6 +120,44 @@
 
 				_self.extentClick = function() {
 					gisNav.zoomFullExtent(map);
+				};
+
+				_self.zoomClick = function() {
+					// set cursor (remove default cursor first and all other cursors)
+					var $container = $viz('#' + mapid + '_holder_layers'),
+						$menu = $viz('#gcviz-menu' + mapid);
+
+					// set draw box cursor
+					$container.css('cursor', 'zoom-in');
+
+					// close mneu
+					$menu.accordion('option', 'active', false);
+
+					// remove popup click event if it is there to avoid conflict then
+					// call graphic class to draw on map.
+					gisDG.removeEvtPop();
+					gisGraphic.drawBox(_self.map, _self.zoomExtent);				
+				};
+
+				_self.zoomExtent = function(geometry) {
+					var $container = $viz('#' + mapid + '_holder_layers'),
+						$menu = $viz('#gcviz-menu' + mapid);
+
+					// remove draw box cursor
+					$container.css('cursor', '');
+
+					// pup back popup click event and apply zoom
+					// if geometry is empty a click was made instead of draw
+					// do a zoom in.
+					gisDG.addEvtPop();
+					if (typeof geometry !== 'undefined') {
+						_self.map.setExtent(geometry);
+					} else {
+						gisM.zoomIn(_self.map);
+					}
+
+					// open mneu
+					$menu.accordion('option', 'active', 0);
 				};
 
 				_self.enterMouse = function() {

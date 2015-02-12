@@ -18,6 +18,7 @@
 			getNavHelp,
 			getLegHelp,
 			getDataHelp,
+			getExtractHelp,
 			getDevHelp;
 
 		initialize = function($mapElem) {
@@ -30,6 +31,7 @@
 				tbLeg = $mapElem.toolbarlegend,
 				tbNav = $mapElem.toolbarnav,
 				tbData = $mapElem.toolbardata,
+				tbExtract = $mapElem.toolbarextract,
 				node = '';
 
 			// find the help dialog box
@@ -50,6 +52,7 @@
 								'<li data-bind="css: { \'gcviz-hidden\': noNav }"><a href="#gcviz-help-tbnav" data-bind="text: navTitle, click: function() { scrollTo(\'nav\') }"></a></li>' +
 								'<li data-bind="css: { \'gcviz-hidden\': noLeg }"><a href="#gcviz-help-tbleg" data-bind="text: legTitle, click: function() { scrollTo(\'leg\') }"></a></li>' +
 								'<li data-bind="css: { \'gcviz-hidden\': noData }"><a href="#gcviz-help-tbdata" data-bind="text: dataTitle, click: function() { scrollTo(\'data\') }"></a></li>' +
+								'<li data-bind="css: { \'gcviz-hidden\': noExtract }"><a href="#gcviz-help-tbextract" data-bind="text: extractTitle, click: function() { scrollTo(\'extract\') }"></a></li>' +
 								'<li><a href="#gcviz-help-dev" data-bind="text: devTitle, click: function() { scrollTo(\'dev\') }"></a></li>' +
 							'</ul>' +
 						'</section>';
@@ -77,6 +80,9 @@
 
 			// toolbar data
 			node += getDataHelp(tbData);
+
+			// toolbar extract
+			node += getExtractHelp(tbExtract);
 
 			// developer's corner
 			node += getDevHelp(foot);
@@ -538,6 +544,20 @@
 								'</div>' +
 							'</div>';
 				}
+
+				node += '</section>';
+			}
+
+			return node;
+		};
+
+		getExtractHelp = function(config) {
+			var enable = config.enable,
+				node = '';
+
+			if (enable) {
+				node = '<section id="gcviz-help-tbextract" class="gcviz-help gcviz-help-tbextract">' +
+						'<div class="row"><span class="gcviz-help-tbtitle" data-bind="text: extractTitle"></span></div>';
 
 				node += '</section>';
 			}

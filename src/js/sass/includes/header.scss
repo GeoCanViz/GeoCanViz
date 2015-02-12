@@ -79,30 +79,6 @@
 	@extend %marg-button;
 }
 
-// full screen lightbox
-.gcviz-fs-overlay {
-	display: none;
-	position: absolute;
-	top: 0%;
-	left: 0%;
-	width: 100%;
-	height: 100%;
-	background-color: black;
-	z-index: 1001;
-	-moz-opacity: 0.8;
-	opacity: .80;
-	filter: alpha(opacity=80);
-}
-
-.gcviz-fs-content {
-	display: none;
-	position: absolute;
-	margin: 5px;
-	z-index: 1002;
-	overflow-y: auto;
-	overflow-x: hidden;
-}
-
 .gcviz-sectionfs {
 	position: fixed;
 	z-index: 750;

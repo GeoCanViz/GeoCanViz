@@ -9,7 +9,8 @@
 	@include sprite($img-spritebtn, -1122, -3, 3);
 	@extend %marg-button;
 	float: right;
-	margin-right:	(1 * $rembase) + rem;
+	margin-right:	-40%;
+	margin-top: (0.5 * $rembase) + rem;
 	-webkit-transform: rotate(90deg); /* Safari & Chrome */
 	-moz-transform: rotate(90deg); /* Firefox */
 	-ms-transform: rotate(90deg); /* Internet Explorer */
@@ -22,10 +23,17 @@
 	background-image: url($img-head);
 
 	.gcviz-foot-coords-values {
-		@include app-text(1.2, normal, $black);
-		margin-top: (1 * $rembase) + rem;
-		float: right;
+		@include app-text(1.1, normal, $black);
+		text-align: right;
+		line-height: 1.3;
+		margin-right: 20px;
 	}
+}
+
+@media (max-width: 960px) {
+  .gcviz-foot-coords-values {
+    display: none;
+  }
 }
 
 .gcviz-foot-arrow {
@@ -38,8 +46,16 @@
 
 // the header button sprite (need to use background-position because FF is not able to set x and y)
 .gcviz-foot-data {
-	@include sprite($img-spritebtn, -976, -2);
+	@include sprite($img-spritebtn, -1481, -2);
 	margin-top: (0.4 * $rembase) + rem;
+}
+
+.gcviz-foot-loaddata {
+	background: url("images/footLoadData.gif") no-repeat;
+	height: 32px;
+	width: 32px;
+	border: none;
+	margin: (0.4 * $rembase) + rem;
 }
 
 .gcviz-foot-logo {
@@ -51,17 +67,79 @@
 /* Classes from esri.css for scalebar */
 .esriScalebar {
 	z-index:30;
-	width: 0px;
-	height:20px;
+	float: right;
+	height: 20px;
+	margin-top: 15px;
+	margin-right: 30px;
 }
 
-.esriScaleLabelDiv {
+.esriScalebarLine {
+	overflow: hidden;
 	position: relative;
 	width: 100%;
+	height: 6px;
+	border: 2px solid #444444;
+}
+
+.esriScalebarMetricLine {
+	border-top-style: none;
+}
+
+.esriScalebarRuler {
+	overflow: hidden;
+	position: relative;
+	width: 100%;
+	height: 3px;
+	border: 1px solid #444;
+}
+
+.esriScalebarRulerBlock {
+	overflow: hidden;
+	position: absolute;
+	height: 50%;
+	background-color: #444;
+}
+
+.scaleLabelDiv {
+	position: relative;
+	width: 100%;
+	height: 5px;
 }
 
 .esriScalebarLabel {
 	@include app-text(0.9);
+	position: absolute;
+	width: 10%;
+	height: 5px;
+	top: -1px;
+}
+
+.upper_firstpiece {
+	top: 0%;
+	left: 0%;
+	width: 25%;
+	display: none;
+}
+
+.upper_secondpiece {
+	top: 0%;
+	left: 50%;
+	width: 25%;
+	display: none;
+}
+
+.lower_firstpiece {
+	top: 0%;
+	left: 25%;
+	width: 25%;
+	height: 100%;
+}
+
+.lower_secondpiece {
+	top: 0%;
+	left: 75%;
+	width: 30%;
+	height: 100%;
 }
 
 .esriScalebarLineLabel {
@@ -76,15 +154,4 @@
 	left: 85%;
 }
 
-.esriScalebarLine {
-	overflow: hidden;
-	position: relative;
-	width: 100%;
-	height: 6px;
-	border:2px solid #444444;
-}
-
-.esriScalebarMetricLine {
-	border-top-style: none;
-}
 /* End of classes from esri.css for scalebar */

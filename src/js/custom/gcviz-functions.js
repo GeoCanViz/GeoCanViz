@@ -12,6 +12,8 @@
 	], function($viz, i18n) {
 		var debounce,
 			debounceClick,
+			closureFunc,
+			addTooltip,
 			setStyle,
 			getFullscreenParam,
 			checkObjectValue,
@@ -19,8 +21,9 @@
 			setProgressBar,
 			destroyProgressBar,
 			checkMatch,
+			getLookup,
 			getRandomColor,
-			getArrayLen,
+			getObjectIds,
 			getElemValueVM,
 			setElemValueVM,
 			setVM,
@@ -65,6 +68,51 @@
 			}
 
 			timer = setTimeout(func, threshold);
+		};
+
+		// http://stackoverflow.com/questions/5033861/pass-additional-parameters-to-jquery-each-callback
+		//gcvizFunc.closureFunc(function(id, colIdx) {
+			// ...
+		//}, id));
+		closureFunc = function(fn, varArgs) {
+			var args = Array.prototype.slice.call(arguments, 1);
+			return function() {
+				// Clone the array (with slice()) and append additional arguments
+				// to the existing arguments.
+				var newArgs = args.slice();
+				newArgs.push.apply(newArgs, arguments);
+				return fn.apply(this, newArgs);
+			};
+		};
+
+		addTooltip = function($element, userOpts) {
+			var options = {
+					show: {
+						effect: 'fadeIn',
+						delay: 600
+					},
+					hide: {
+						effect: 'fadeOut',
+						delay: 100
+					},
+					position: {
+						my: 'left+30 top-15',
+						collision: 'fit'
+					},
+					tooltipClass: 'gcviz-tooltip',
+					trigger: 'hover, focus'
+				};
+
+			// sest options and title
+			$viz.extend(options, userOpts);
+			$element.attr('title', options.content);
+
+			// if mobile device, do not show tooltip
+			if (window.browser === 'Mobile') {
+				options.tooltipClass = options.tooltipClass + ', gcviz-hidden';
+			}
+
+			$element.tooltip(options);
 		};
 
 		setStyle = function(elem, propertyObject) {
@@ -137,6 +185,20 @@
 			return false;
 		};
 
+		getLookup = function(array, val) {
+			var item,
+				len = array.length;
+
+			while (len--) {
+				item = array[len];
+				if (item[0] === val) {
+					return item[1];
+				}
+			}
+
+			return false;
+		};
+
 		getRandomColor = function() {
 			function c() {
 				return Math.floor(Math.random() * 256);
@@ -144,12 +206,12 @@
 			return [c(), c(), c() ,255];
 		};
 
-		getArrayLen = function(len) {
-			var arr = [];
+		getObjectIds = function(data) {
+			var arr = [],
+				len = data.length;
 
-			len += 1;
 			while (len--) {
-				arr.push(len);
+				arr.push(data[len].attributes.OBJECTID);
 			}
 
 			return arr;
@@ -198,11 +260,21 @@
 		};
 
 		focusMap = function(map) {
-			document.getElementById(map.vIdName + '_holder').focus();
+			var element = document.getElementById(map.vIdName + '_holder');
+
+			element.focus();
+			element.scrollIntoView(true);
 		};
 
 		padDigits = function(number, digits) {
-			return Array(Math.max(digits - String(number).length + 1, 0)).join(0) + number;
+			var split = String(number).split('.'),
+				pad = Array(Math.max(digits - split[0].length + 1, 0)).join(0) + split[0];
+
+			if (split.length === 2) {
+				pad += '.' + split[1];
+			}
+
+			return pad;
 		};
 
 		parseLonLat = function(input) {
@@ -252,27 +324,27 @@
 		};
 
 		parseDMS = function(degres, minutes, seconds, decimal) {
-			var dd = Number(degres) + Number(minutes)/60;
+			var dd = Number(degres) + Number(minutes) / 60;
 			if (seconds) {
 				if (decimal) {
 					seconds += '.' + decimal;
 				}
-				dd += (Number(seconds)/3600);
+				dd += (Number(seconds) / 3600);
 			}
 
 			return dd;
 		};
 
-		convertDdToDms = function(degX, degY) {
+		convertDdToDms = function(degX, degY, digit) {
 			var yLabel, xLabel,
 				dx = parseInt(degX, 10),
 				mdx = Math.abs(degX - dx) * 60,
 				mx = padDigits(parseInt(mdx, 10), 2),
-				sdx = padDigits(parseInt((mdx - mx) * 60, 10), 2),
+				sdx = padDigits(parseFloat((mdx - mx) * 60, 10).toFixed(digit), 2),
 				dy = parseInt(degY, 10),
 				mdy = Math.abs(degY - dy) * 60,
 				my = padDigits(parseInt(mdy, 10), 2),
-				sdy = padDigits(parseInt((mdy - my) * 60, 10), 2),
+				sdy = padDigits(parseFloat((mdy - my) * 60, 10).toFixed(digit), 2),
 				degreeSymbol = String.fromCharCode(176);
 
 			if (dy > 0) {
@@ -294,6 +366,8 @@
 		return {
 			debounce: debounce,
 			debounceClick: debounceClick,
+			closureFunc: closureFunc,
+			addTooltip: addTooltip,
 			setStyle: setStyle,
 			getFullscreenParam: getFullscreenParam,
 			checkObjectValue: checkObjectValue,
@@ -301,8 +375,9 @@
 			setProgressBar: setProgressBar,
 			destroyProgressBar: destroyProgressBar,
 			checkMatch: checkMatch,
+			getLookup: getLookup,
 			getRandomColor: getRandomColor,
-			getArrayLen: getArrayLen,
+			getObjectIds: getObjectIds,
 			getElemValueVM: getElemValueVM,
 			setElemValueVM: setElemValueVM,
 			setVM: setVM,

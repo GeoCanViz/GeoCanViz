@@ -93,7 +93,27 @@
 		}
 	},
 	dataBrowser: [
-		{
+		{ // for mobile device (phone and tablet)
+			string: navigator.userAgent,
+			subString: 'Mobile',
+			identity: 'Mobile',
+			versionSearch: ''
+		}, { // for IE mobile device
+			string: navigator.userAgent,
+			subString: 'IEMobile',
+			identity: 'Mobile',
+			versionSearch: ''
+		}, { // for Kindle mobile device
+			string: navigator.userAgent,
+			subString: 'Silk',
+			identity: 'Mobile',
+			versionSearch: ''
+		}, { // for Blackberry Playbook
+			string: navigator.userAgent,
+			subString: 'Tablet',
+			identity: 'Mobile',
+			versionSearch: ''
+		}, {
 			string: navigator.userAgent,
 			subString: 'Chrome',
 			identity: 'Chrome'
@@ -143,7 +163,7 @@
 	browserDetect.init();
 
 	// if browser not supported, redirect
-	if (window.browser !== 'Explorer' && window.browser !== 'Firefox' && window.browser !== 'Chrome' && window.browser !== 'Safari') {
+	if (window.browser !== 'Explorer' && window.browser !== 'Firefox' && window.browser !== 'Chrome' && window.browser !== 'Safari' && window.browser !== 'Mobile') {
 		if (language === 'en-min') {
 			alert('Browser not supported: needs to be Chrome, Firefox, Safari or Explorer. You will be redirected to project page.');
 		} else {
@@ -153,7 +173,7 @@
 		window.location = redirectPath;
 	} else if (window.browser === 'Explorer' && window.browserversion <= 8) {
 		if (language === 'en-min') {
-			alert('Browser not supported: Explorer needs to be version 9 or higher. You will be redirected to project page.' + ' ' + window.browserversion);
+			alert('Browser not supported: Explorer needs to be version 9 or higher. You will be redirected to project page.');
 		} else {
 			alert('Navigateur non pris en charge: Explorer doit être version 9 ou supérieur. Vous serez redirigé vers la page de projet.');
 		}
@@ -323,6 +343,14 @@
 				name: 'gcviz-vm-tbdata',
 				location: locationPath + 'src/js/widgets/viewmodels',
 				main: 'toolbardataVM'
+			}, {
+				name: 'gcviz-v-tbextract',
+				location: locationPath + 'src/js/widgets/views',
+				main: 'toolbarextractV'
+			},{
+				name: 'gcviz-vm-tbextract',
+				location: locationPath + 'src/js/widgets/viewmodels',
+				main: 'toolbarextractVM'
 			}, {
 				name: 'gcviz-v-map',
 				location: locationPath + 'src/js/widgets/views',

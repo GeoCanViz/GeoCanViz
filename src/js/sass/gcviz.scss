@@ -67,6 +67,11 @@ svg {
 	@include app-border(0.1, solid, #c1c5be);
 }
 
+.gcviz-disable {
+	opacity: 0.5;
+	pointer-events: none;
+}
+
 .gcviz-mapholder {
 	background: #FFF;
 }
@@ -109,6 +114,42 @@ svg {
 	}
 }
 
+// remove tooltip on mobile device
+/* #### Mobile Phones Portrait #### */
+@media screen and (max-device-width: 480px) and (orientation: portrait){
+  .gcviz-tooltip {
+		display: none!important;
+	}
+}
+
+/* #### Mobile Phones Landscape #### */
+@media screen and (max-device-width: 640px) and (orientation: landscape){
+  .gcviz-tooltip {
+		display: none!important;
+	}
+}
+
+/* #### Mobile Phones Portrait or Landscape #### */
+@media screen and (max-device-width: 640px){
+  .gcviz-tooltip {
+		display: none!important;
+	}
+}
+
+/* #### iPhone 4+ Portrait or Landscape #### */
+@media screen and (max-device-width: 480px) and (-webkit-min-device-pixel-ratio: 2){
+  .gcviz-tooltip {
+		display: none!important;
+	}
+}
+
+/* #### Tablets Portrait or Landscape #### */
+@media screen and (min-device-width: 768px) and (max-device-width: 1280px){
+ .gcviz-tooltip {
+		display: none!important;
+	}
+}
+
 .gcviz-message-wcag {
 	@include app-text(1.1, normal, black);
 	display: inline-block;
@@ -137,6 +178,10 @@ svg {
 
 .gcviz-hidden {
 	display: none!important;
+}
+
+.gcviz-bold {
+	font-weight: bold!important;
 }
 
 /* hide the input type */
@@ -226,7 +271,7 @@ h3:not(.ui-title) {
 
 // set 100% for IE only
 .Explorer .ui-dialog-content {
-	width: 100%!important;
+	width: 96%!important;
 }
 
 // overwrite zoom slider to set a focus state
