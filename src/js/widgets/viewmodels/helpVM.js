@@ -84,6 +84,7 @@
 
 				// map tools
 				_self.mapTitle = i18n.getDict('%help-map-title');
+				_self.mapZoomFull = i18n.getDict('%help-map-zoomfull');
 				_self.mapZoom = i18n.getDict('%help-map-zoom');
 				_self.mapZoombar = i18n.getDict('%help-map-zoombar');
 

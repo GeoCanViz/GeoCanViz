@@ -298,7 +298,7 @@
 			}
 
 			// focus the map
-			gcvizFunc.focusMap(mymap);
+			gcvizFunc.focusMap(mymap, true);
 		};
 
 		selectFeature = function(geometry, info) {

@@ -145,11 +145,6 @@ var locationPath;
 			vmArray.header = header.initialize($mapSection);
 			vmArray.footer = footer.initialize($mapSection);
 
-			// add datatable, popup and hover
-			if (config.datagrid.enable) {
-				vmArray.datagrid = datagrid.initialize($mapSection);
-			}
-
 			// add draw toolbar
 			if (config.toolbardraw.enable) {
 				vmArray.draw = tbdraw.initialize($mapSection);
@@ -180,6 +175,11 @@ var locationPath;
 				vmArray.insets = inset.initialize($mapSection);
 			}
 
+			// add datatable, popup and hover
+			if (config.datagrid.enable) {
+				vmArray.datagrid = datagrid.initialize($mapSection);
+			}
+
 			// add print
 			vmArray.print = print.initialize($mapSection);
 		
@@ -199,11 +199,14 @@ var locationPath;
 				window.onresize = gcvizFunc.debounce(function(event) {
 					var applyW, actualW, oriW,
 						leftMarg, maxWidth,
-						$section;
+						$section, $mapholder,
+						$map, $maproot,
+						isFullScreen,
+						target = event.target;
 
 					// check if the event is trigger by ui-dialog window. If not, set resize
-					if (event.target.classList[0] !== 'ui-dialog') {
-						$section = $(event.target.document.getElementsByClassName('gcviz-section')),
+					if (target.toString().indexOf('Window') !== -1) {
+						$section = $(target.document.getElementsByClassName('gcviz-section')),
 						$mapholder = $section.find('.gcviz'),
 						$map = $section.find('.gcviz-map'),
 						$maproot = $section.find('.gcviz-root'),
@@ -248,7 +251,7 @@ var locationPath;
 			var metas = document.getElementsByTagName('meta'),
 			i = metas.length;
 
-			while(i--) {
+			while (i--) {
 				if (metas[i].getAttribute('property') === 'location') {
 					locationPath = metas[i].getAttribute('content');
 				}

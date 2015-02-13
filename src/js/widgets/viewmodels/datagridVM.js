@@ -643,7 +643,7 @@
 						gisGraphic.drawBox(mymap, _self.selExtent);
 
 						// focus the map
-						gcvizFunc.focusMap(mymap);	
+						gcvizFunc.focusMap(mymap, true);	
 					});
 
 					// set opening and closing details link info event

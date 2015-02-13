@@ -142,8 +142,9 @@
 
 		getMapTools = function(config) {
 			var zoom = config.zoombar,
-				zoommax = zoom.zoom,
+				zoommax = zoom.zoomfull,
 				zoombar = zoom.bar,
+				zoom = zoom.zoom,
 				node = '';
 
 			if (zoommax || zoombar) {
@@ -155,7 +156,7 @@
 								'<div class="span1">' +
 									'<button class="gcviz-map-zoommax" tabindex="-1"</button>' +
 								'</div>' +
-								'<span class="span11" data-bind="text: mapZoom"></span>' +
+								'<span class="span11" data-bind="text: mapZoomFull"></span>' +
 							'</div>';
 				}
 
@@ -167,6 +168,15 @@
 								'<span class="span11" data-bind="text: mapZoombar"></span>' +
 							'</div>';
 				}
+
+				if (zoom) {
+					node += '<div class="row">' +
+								'<div class="span1">' +
+									'<button class="gcviz-map-zoom" tabindex="-1"</button>' +
+								'</div>' +
+								'<span class="span11" data-bind="text: mapZoom"></span>' +
+							'</div>';
+				}	
 
 				node += '</section>';
 			}

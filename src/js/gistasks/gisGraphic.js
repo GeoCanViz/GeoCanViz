@@ -659,7 +659,7 @@
 
 							// focus the map. We need to specify this because when you use the keyboard to
 							// activate ta tool, the focus sometimes doesnt go to the map.
-							gcvizFunc.focusMap(mymap);
+							gcvizFunc.focusMap(mymap, false);
 						} else if (geomType === 'point') {
 							symbol = gissymbols.getSymbText(gColor, gText, 10, 0, 0, 0, 'normal', 'left');
 							graphic = new esriGraph(geometry, symbol);

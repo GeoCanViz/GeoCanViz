@@ -139,13 +139,13 @@
 	top: (7.5 * $rembase) + rem!important;
 }
 
-// to be by the help
+// to be used by the help
 .gcviz-map-zoommax {
 	@include sprite($img-spritebtn, -1012, -2);
 }
 
 .gcviz-map-zoom {
-	@include sprite($img-spritebtn, -1012, -2);
+	@include sprite($img-spritebtn, -1625, -2);
 }
 
 // hide zoom max, zoom extent and zoombar when print

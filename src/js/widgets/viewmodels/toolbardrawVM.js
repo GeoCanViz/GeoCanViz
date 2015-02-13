@@ -250,7 +250,7 @@
 
 					// focus the map. We need to specify this because when you use the keyboard to
 					// activate ta tool, the focus sometimes doesnt go to the map.
-					gcvizFunc.focusMap(mymap);
+					gcvizFunc.focusMap(mymap, false);
 				};
 
 				_self.undoClick = function() {
@@ -314,7 +314,7 @@
 
 					// focus the map. We need to specify this because when you use the keyboard to
 					// activate ta tool, the focus sometimes doesnt go to the map.
-					gcvizFunc.focusMap(mymap);
+					gcvizFunc.focusMap(mymap, false);
 				};
 
 				_self.endMeasureLength = function() {
@@ -359,7 +359,7 @@
 
 					// focus the map. We need to specify this because when you use the keyboard to
 					// activate ta tool, the focus sometimes doesnt go to the map.
-					gcvizFunc.focusMap(mymap);
+					gcvizFunc.focusMap(mymap, false);
 				};
 
 				_self.endMeasureArea = function() {

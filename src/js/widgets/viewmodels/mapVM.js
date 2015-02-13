@@ -160,12 +160,9 @@
 					$menu.accordion('option', 'active', 0);
 				};
 
-				_self.enterMouse = function() {
+				// click mouse set focus to map.
+				_self.clickMouse = function() {
 					_self.mapholder.focus();
-				};
-
-				_self.leaveMouse = function() {
-					_self.mapholder.blur();
 				};
 
 				_self.applyKey = function(key, shift) {

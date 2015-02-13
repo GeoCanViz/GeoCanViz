@@ -68,7 +68,7 @@
 							_self.showCoordinates(evt);
 						});
 						
-						$viz('#map2').on('gcviz-ready', function() {
+						$viz('#' + mapid).on('gcviz-ready', function() {
 							// subscribe to the open add data event. When data is added we need to stop the
 							// show coordinate event because it corrupts the projection and creates errors
 							gcvizFunc.subscribeTo(mapid, 'data', 'isAddData', function(val) {

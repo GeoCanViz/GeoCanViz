@@ -25,9 +25,9 @@
 			getRotationDegrees,
 			vm;
 
-		initialize = function($mapElem, mapid, config) {
+		initialize = function($mapElem, mapid, config, isDataTbl) {
 			// data model				
-			var headerViewModel = function($mapElem, mapid, config) {
+			var headerViewModel = function($mapElem, mapid, config, isDataTbl) {
 				var _self = this,
 					configAbout = config.about,
 					pathPrint = locationPath + 'gcviz/print/toporamaPrint-' + window.langext + '.html',
@@ -236,7 +236,8 @@
 				};
 
 				_self.cancelFullScreen = function() {
-					var sectH = _self.heightSection,
+					var resizeEvt,
+						sectH = _self.heightSection,
 						sectW = _self.widthSection,
 						mapH = _self.heightMap,
 						mapW = _self.widthMap;
@@ -244,78 +245,93 @@
 					// set style back for the map
 					gcvizFunc.setStyle($mapholder[0], { 'width': sectW + 'px', 'height': (sectH - instrHeight) + 'px' }); // remove the keyboard instruction height
 					gcvizFunc.setStyle($map[0], { 'width': mapW + 'px', 'height': mapH + 'px' });
-					gcvizFunc.setStyle($maproot[0], { 'width': mapW + 'px', 'height': mapH + 'px' });
 					$mapholder.removeClass('gcviz-sectionfs');
+
+					// if datatable is enable, remove a class to have an overflow
+					if (isDataTbl) {
+						$mapholder.removeClass('gcviz-sectionfs-dg');
+					}
 
 					// trigger the fullscreen custom binding and set state
 					_self.isFullscreen(false);
 					_self.fullscreenState = 0;
 
-					// resize map and keep the extent
-					gisM.manageScreenState(map, 500, false);
-
-					// set the toolbar container height and focus
-					setTimeout(function() {
+					// set on resize event to know when to adjust menu height,
+					// put back focus on fs and reset tab
+					resizeEvt = map.on('resize', function() {
 						_self.adjustContainerHeight();
 						$btnFull.focus();
-					}, 500);
 
-					// remove the event that keeps tab in map section
-					$mapholder.off('keydown.fs');
+						// create keydown event to keep tab in the map section
+						// remove the event that keeps tab in map section
+						$mapholder.off('keydown.fs');
 
-					// need to set it to 40px. Link to the bug where we have a workaround in the request
-					// full screen function.
-					gcvizFunc.setStyle($ovMap[0], { 'bottom': '40px' });
+						// remove event
+						resizeEvt.remove();
+					});
+
+					// resize map and keep the extent
+					gisM.manageScreenState(map, 500, false);
 				};
 
 				_self.requestFullScreen = function() {
 					// get maximal height and width from browser window and original height and width for the map
-					var param = gcvizFunc.getFullscreenParam(),
-						w = param.width,
+					var resizeEvt,
+						param = gcvizFunc.getFullscreenParam(),
 						h = param.height,
 						array = $mapholder.find('[tabindex = 0]'),
-						height = (h - (2 * _self.headerHeight));
+						height = (h - (2 * _self.headerHeight) - 2); // minus 2 for the border
 
 					// set style for the map
-					gcvizFunc.setStyle($mapholder[0], { 'width': w + 'px', 'height': h + 'px' });
-					gcvizFunc.setStyle($map[0], { 'width': (w - 15) + 'px', 'height': height + 'px' });
-					gcvizFunc.setStyle($maproot[0], { 'width': (w - 15) + 'px', 'height': height + 'px' });
+					gcvizFunc.setStyle($mapholder[0], { 'width': '100%', 'height': '100%' });
+					gcvizFunc.setStyle($map[0], { 'width': '100%', 'height': height + 'px' });
 					$mapholder.addClass('gcviz-sectionfs');
+
+					// if datatable is enable, add a class to have an overflow
+					if (isDataTbl) {
+						$mapholder.addClass('gcviz-sectionfs-dg');
+					}
 
 					// trigger the fullscreen custom binding and set state
 					_self.isFullscreen(true);
 					_self.fullscreenState = 1;
 
-					// resize map and keep the extent
-					gisM.manageScreenState(map, 1000, true);
-
-					// Set the toolbar container height
-					setTimeout(function() {
+					// set on resize event to know when to adjust menu height,
+					// put back focus on fs and set tab
+					resizeEvt = map.on('resize', function() {
 						_self.adjustContainerHeight();
-
-						// set focus (cant cache because the class doesn't exist at init)
-						// put in a timeout because FireFox wont focus if not.
 						$mapElem.find('.gcviz-head-reg').focus();
-					}, 500);
 
-					// create keydown event to keep tab in the map section
-					_self.first = array[0];
-					_self.last = array[array.length - 1];
-					$mapholder.on('keydown.fs', function(event) {
-						_self.manageTabbingOrder(event);
+						// create keydown event to keep tab in the map section
+						_self.first = array[0];
+						_self.last = array[array.length - 1];
+						$mapholder.on('keydown.fs', function(event) {
+							_self.manageTabbingOrder(event);
+						});
+
+						// remove event
+						resizeEvt.remove();
 					});
 
-					// this is a workaround. The div for the overview map change when
-					// we first got to full screen. To correct this we reset the bottom value.
-					// after the first time it is ok. In the future we can trap the first full
-					// screen and then do not do this. Or we can try to find the problem.
-					gcvizFunc.setStyle($ovMap[0], { 'bottom': '40px' });
+					// resize map and keep the extent
+					gisM.manageScreenState(map, 500, true);
 				};
 
 				_self.adjustContainerHeight = function() {
-					var toolbarheight = parseInt(map.height, 10) - 5;
-					_self.xheightToolsOuter('max-height:' + toolbarheight + 'px!important');
+					var active = $menu.accordion('option', 'active'),
+						toolbarheight = parseInt(map.height, 10) - 5;
+
+					// set height
 					_self.xheightToolsInner('max-height:' + (toolbarheight - instrHeight) + 'px!important'); // remove the keyboard instruction height
+					_self.xheightToolsOuter('max-height:' + toolbarheight + 'px!important');
+
+					// if menu was close we need to open it. Because the panel open automatically when we set the height,
+					// we need to open it from the accorriodn. We use === false because active === 0.
+					// we decide to have it open so you can choose back your tool. e.g. if you draw, goin to fs will stop the draw
+					// and reopn the menu so we can choose draw again.
+					if (active === false) {
+						$menu.accordion('option', 'active', 0);
+					}
 				};
 
 				_self.manageTabbingOrder = function(evt) {
@@ -350,7 +366,7 @@
 				_self.init();
 			};
 
-			vm = new headerViewModel($mapElem, mapid, config);
+			vm = new headerViewModel($mapElem, mapid, config, isDataTbl);
 			ko.applyBindings(vm, $mapElem[0]); // This makes Knockout get to work
 			return vm;
 		};
