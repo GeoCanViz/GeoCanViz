@@ -824,7 +824,7 @@
 			privateMap = '';
 		};
 
-		drawBox = function(map, success) {
+		drawBox = function(map, densify, success) {
 			// there is a problem with the define. the gcviz-gissymbol is not able to be set. The weird thing
 			// is if I replace gisgeo with gissymbol in the define, gisgeo will be set as gissymbol but I can't
 			// have access to gisgeo anymore. With the require, we set the reference to gissymbol (hard way)
@@ -833,9 +833,29 @@
 				var clickEvt,
 					tool = new esriTools(map, { showTooltips: false });
 				dojoOn(tool, 'DrawEnd', gcvizFunc.closureFunc(function(tool, geometry) {
+					var polyJson, poly, arr;
+
 					// deactivate then call the retrun function
 					tool.deactivate();
-					success(geometry);
+
+					// check if we need to densify extent
+					if (!densify) {
+						success(geometry);
+					} else {
+						// create a polygon from extent
+						arr = new Array(5);
+						arr[0] = [geometry.xmin, geometry.ymin];
+						arr[1] = [geometry.xmin, geometry.ymax];
+						arr[2] = [geometry.xmax, geometry.ymax];
+						arr[3] = [geometry.xmax, geometry.ymin];
+						arr[4] = [geometry.xmin, geometry.ymin];
+						polyJson = { 'rings': [arr],
+										'spatialReference': { 'wkid': map.vWkid } };
+						poly = new esriPoly(polyJson);
+	
+						// densify extent
+						gisgeo.densifyGeom(poly, success);
+					}
 				}, tool));
 
 				// if user click instead of draw

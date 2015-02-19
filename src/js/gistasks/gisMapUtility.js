@@ -411,9 +411,9 @@
 				bLayer = new esriTiled(configoverviewurl);
 			} else if (configoverviewtype === 4) { // dynamic service
 				bLayer = new esriDyna(configoverviewurl);
-			// } else if (configoverviewtype === 7) { // image service
-				// bLayer = new esriImage(configoverviewurl);
-			// } else if (configoverviewtype === 8) { // Virtual Earth service
+			} else if (configoverviewtype === 7) { // image service
+				bLayer = new esriImage(configoverviewurl);
+			} else if (configoverviewtype === 8) { // Virtual Earth service
 				// bLayer = new esriImage(configoverviewurl);
 			// } else if (configoverviewtype === 9) { // Open Street Map service
 				// bLayer = new esriImage(configoverviewurl);
@@ -453,7 +453,7 @@
 				lods = map._params.lods,
 				len = lods.length;
 				if (len > 0) {
-					factor = lods[len - 5].resolution;
+					factor = lods[len - 5].level;
 					map.setLevel(factor);
 				} else {
 					map.setZoom(factor);

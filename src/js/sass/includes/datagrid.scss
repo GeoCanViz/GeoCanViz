@@ -5,6 +5,12 @@
 	vertical-align: middle;
 }
 
+.gcviz-dg-searchdrop {
+	display: block;
+	margin: auto;
+	width: 80%;
+}
+
 .gcviz-dg-searchstr {
 	display: block;
 	margin: auto;
@@ -15,8 +21,8 @@
 	display: inline-block;
 	margin: auto;
 	width: 30%;
-	margin-left: (1 * $rembase) + rem;
-	margin-right: (1 * $rembase) + rem;
+	margin-left: (0.5 * $rembase) + rem;
+	margin-right: (0.5 * $rembase) + rem;
 }
 
 .gcviz-dg-pad {
@@ -43,7 +49,7 @@
 }
 
 .gcviz-dg-selfeat {
-	@include sprite($img-spritebtn, -1625, -2);
+	@include sprite($img-spritebtn, -1661, -2);
 	@extend %buttonhead;
 }
 

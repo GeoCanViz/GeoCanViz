@@ -100,6 +100,7 @@
 					var relatedQuery, featLayer,
 						layerInfo = layer.layerinfo,
 						linkFields, lenLinkFields, strLinkFields,
+						fields = layer.fields,
 						pos = layerInfo.pos,
 						linkInfo = layer.linktable,
 						id = layerInfo.id,
@@ -129,14 +130,14 @@
 						// query the link table
 						featLayer = mymap.getLayer(id);
 						featLayer.queryRelatedFeatures(relatedQuery, function(relatedRecords) {
-							data = createDataArray(features, len, sr, id, pos, relatedRecords);
+							data = createDataArray(features, len, fields, sr, id, pos, relatedRecords);
 							closeGetData(data, layer, success);
 							
 							// keep related records to be access later by popups
 							setRelRecords(id, relatedRecords);
 						});
 					} else {
-						data = createDataArray(features, len, sr, id, pos);
+						data = createDataArray(features, len, fields, sr, id, pos);
 						closeGetData(data, layer, success);
 					}
 				},
@@ -165,10 +166,14 @@
 			});
 		};
 
-		createDataArray = function(features, len, sr, id, pos, relRecords) {
+		createDataArray = function(features, len, fields, sr, id, pos, relRecords) {
 			var linkLen, linkFeats, linkFeat,
 				feat, geom, geometry,
+				field, fieldType,
+				datesLen, tmpDate, attDate, attFormat, attTmp,
 				data = new Array(len),
+				fieldsLen = fields.length,
+				dates = [],
 				flag = false,
 				i = 0;
 
@@ -176,6 +181,20 @@
 				flag = true;
 			}
 
+			// check is there field date. If so, keep name and output format
+			while (i !== fieldsLen) {
+				field = fields[i];
+				fieldType = field.type;
+
+				if (fieldType.informat === 'esri' && fieldType.value === 'date') {
+					dates.push(field.data + ';' + fieldType.outformat);
+				}
+				i++;
+			}
+			datesLen = dates.length;
+
+			// loop trought data
+			i = 0;
 			while (i !== len) {
 				feat = features[i];
 				geom = feat.geometry;
@@ -189,10 +208,32 @@
 					geometry = new esriPoly({ 'rings': geom.rings, 'spatialReference': sr });
 				}
 
-				// add a unique id and wkid
-				geometry.attributes = feat.attributes;
+				// if there is esri date field, we need to reformat them
+				if (datesLen === 0) {
+					geometry.attributes = feat.attributes;
+				} else {
+					attTmp = dates[0].split(';');
+					attDate = attTmp[0];
+					attFormat = attTmp[1];
+					tmpDate = feat.attributes[attDate];
+					if (tmpDate !== null) {
+						tmpDate = new Date(tmpDate).toISOString();
+						
+						if (attFormat === 'long') {
+							tmpDate = tmpDate.replace('T', ' - ');
+						} else {
+							tmpDate = tmpDate.substring(0, 10);
+						}
+						feat.attributes[attDate] = tmpDate;
+					} else {
+						feat.attributes[attDate] = '';
+					}
+					geometry.attributes = feat.attributes;
+				}
+
+				// add a unique id, the select checkbox and layerid
 				geometry.attributes.gcvizid = pos + '-' + i;
-				geometry.attributes.gcvizcheck = 0;
+				geometry.attributes.gcvizcheck = false;
 				geometry.attributes.layerid = id;
 
 				// if present, add the related records from a link table

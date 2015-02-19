@@ -63,11 +63,14 @@ Global sys value#%gisurlalti#http://geogratis.gc.ca/services/elevation/cdem/alti
 #%datagrid-sortAscending#: activate to sort column ascending#: activer pour trier la colonne par ordre croissant
 #%datagrid-sortDescending#: activate to sort column descending#: activer pour trier la colonne par ordre décroissant
 #%datagrid-selectall#Select All#Sélectionner tout
-#%datagrid-zoomselect#Zoom to selected#Zoom sélection
-#%datagrid-clearfilters#Clear all searchs#Effacer toutes les recherches
-#%datagrid-exportselcsv#Export Selection to CSV#Exporter la sélection au format CSV
-#%datagrid-exporttblcsv#Export table to CSV#Exporter la table au format CSV
-#%datagrid-selfeat#Select features on map#Sélectionner les élements sur la carte
+#%datagrid-zoomselect#Zoom to selected#Zoom à la sélection
+#%datagrid-tpclearfilters#Clear all searchs#Effacer toutes les recherches
+#%datagrid-lblclearfilters#Clear searchs#Effacer recherches
+#%datagrid-tpexportselcsv#Export Selection to CSV#Exporter la sélection au format CSV
+#%datagrid-tpexporttblcsv#Export table to CSV#Exporter la table au format CSV
+#%datagrid-lblexporttblcsv#Export CSV#Exporter en CSV
+#%datagrid-tpselfeat#Select features on map#Sélectionner les élements sur la carte
+#%datagrid-lblselfeat#Select features#Sélectionner élements
 #%datagrid-poptitle#Information#Information
 #%datagrid-popalllayers#All layers#Toutes les couches
 #%datagrid-popselect#Select the features from the following layer#Sélectionnez une couche dans les suivantes

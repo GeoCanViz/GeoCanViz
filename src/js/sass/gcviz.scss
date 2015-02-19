@@ -170,6 +170,9 @@ svg {
 
 .gcviz-label {
 	@include app-text();
+	display: inline-block;
+	margin-right: (1 * $rembase) + rem;
+	vertical-align: sub;
 }
 
 .gcviz-subtitle {

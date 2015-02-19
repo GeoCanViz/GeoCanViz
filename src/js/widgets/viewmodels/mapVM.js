@@ -25,7 +25,7 @@
 			// data model				
 			var mapViewModel = function($mapElem, side) {
 				var _self = this,
-					map,
+					map, menuState,
 					mapframe = $mapElem.mapframe,
 					mapid = mapframe.id,
 					config = mapframe.map;
@@ -130,13 +130,16 @@
 					// set draw box cursor
 					$container.css('cursor', 'zoom-in');
 
-					// close mneu
-					$menu.accordion('option', 'active', false);
+					// get meu state and close it if open
+					menuState = $menu.accordion('option', 'active');
+					if (menuState !== false) {
+						$menu.accordion('option', 'active', false);
+					}
 
 					// remove popup click event if it is there to avoid conflict then
 					// call graphic class to draw on map.
 					gisDG.removeEvtPop();
-					gisGraphic.drawBox(_self.map, _self.zoomExtent);				
+					gisGraphic.drawBox(_self.map, false, _self.zoomExtent);				
 				};
 
 				_self.zoomExtent = function(geometry) {
@@ -156,8 +159,10 @@
 						gisM.zoomIn(_self.map);
 					}
 
-					// open mneu
-					$menu.accordion('option', 'active', 0);
+					// open menu if it was open
+					if (menuState !== false) {
+						$menu.accordion('option', 'active', 0);
+					}
 				};
 
 				_self.enterMouse = function() {

@@ -14,8 +14,9 @@
 			'esri/tasks/GeometryService',
 			'esri/SpatialReference',
 			'esri/geometry/Point',
-			'esri/geometry/Extent'
-	], function(esriConfig, esriProj, esriDist, esriArea, esriGeom, esriSR, esriPoint, esriExtent) {
+			'esri/geometry/Extent',
+			'esri/tasks/DensifyParameters'
+	], function(esriConfig, esriProj, esriDist, esriArea, esriGeom, esriSR, esriPoint, esriExtent, esriDensParam) {
 		var setGeomServ,
 			getOutSR,
 			getNorthAngle,
@@ -26,6 +27,7 @@
 			projectPoints,
 			projectCoords,
 			projectGeoms,
+			densifyGeom,
 			getUTMEastNorth,
 			params = new esriProj();
 
@@ -198,6 +200,19 @@
 			geomServUnique.project(paramsUnique);
 		};
 
+		densifyGeom = function(geom, success) {
+			var geomServ = esriConfig.defaults.io.geometryService,
+				param = new esriDensParam();
+			param.geodesic = true;
+			param.geometries = [geom];
+			param.lengthUnit = esriGeom.UNIT_KILOMETER;
+			param.maxSegmentLength = 10;
+
+			geomServ.densify(param, function(geoms) {
+				success(geoms[0]);
+			});
+		};
+
 		getUTMEastNorth = function(lati, longi, utmZone, spnUTMeast, spnUTMnorth) {
 			// Get the UTM easting/northing information using a geometry service
 			var geomServ = esriConfig.defaults.io.geometryService,
@@ -228,6 +243,7 @@
 			projectPoints: projectPoints,
 			projectCoords: projectCoords,
 			projectGeoms: projectGeoms,
+			densifyGeom: densifyGeom,
 			getUTMEastNorth: getUTMEastNorth
 		};
 	});

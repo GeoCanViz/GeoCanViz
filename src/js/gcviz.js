@@ -181,7 +181,7 @@ var locationPath;
 			}
 
 			// add print
-			vmArray.print = print.initialize($mapSection);
+			//vmArray.print = print.initialize($mapSection);
 		
 			// create the help for the map instance
 			vmArray.help = help.initialize($mapSection);
