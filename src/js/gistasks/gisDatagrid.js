@@ -85,7 +85,7 @@
 			require(['gcviz-gissymbol'], function(gissymb) {
 				// set symbologies
 				symbPoint = gissymb.getSymbPoint(color, 18, colorOut, 1);
- 				symbLine = gissymb.getSymbLine(color, 5 , colorOut);
+				symbLine = gissymb.getSymbLine(color, 5 , colorOut);
 				symbPoly = gissymb.getSymbPoly(colorOut, color, 1);
 			});
 		};
@@ -131,7 +131,7 @@
 						featLayer.queryRelatedFeatures(relatedQuery, function(relatedRecords) {
 							data = createDataArray(features, len, sr, id, pos, relatedRecords);
 							closeGetData(data, layer, success);
-							
+
 							// keep related records to be access later by popups
 							setRelRecords(id, relatedRecords);
 						});
@@ -147,7 +147,7 @@
 		getSelection = function(url, wkid, geometry, success) {
 			var query,
 				queryTask = new esriQueryTsk(url);
-			
+
 			// define query
 			query = new esriQuery();
 			query.returnGeometry = false;
@@ -291,7 +291,7 @@
 					graphics[i] = graphic;
 					i++;
 				}
-	
+
 				// get the extent then zoom
 				extent = esri.graphicsExtent(graphics); // can't load AMD
 				mymap.setExtent(extent.expand(1.75));
@@ -392,7 +392,7 @@
 				outArr[i] = (items[i].attributes);
 				i++;
 			}
-					
+
 			return outArr;
 		};
 

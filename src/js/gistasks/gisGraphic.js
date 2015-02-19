@@ -836,10 +836,15 @@
 					// deactivate then call the retrun function
 					tool.deactivate();
 					success(geometry);
+
+					// remove event
+					clickEvt.remove();
 				}, tool));
 
 				// if user click instead of draw
-				clickEvt = map.on('click', function(event) {
+				clickEvt = map.on('click', function() {
+					// deactivate then call the retrun function
+					tool.deactivate();
 					success();
 
 					// remove event

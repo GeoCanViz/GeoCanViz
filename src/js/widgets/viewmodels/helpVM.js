@@ -176,6 +176,7 @@
 
 				// legend text
 				_self.legTitle = i18n.getDict('%help-leg-title');
+				_self.legAbout = i18n.getDict('%help-leg-about');
 				_self.legDesc1 = i18n.getDict('%help-leg-desc1');
 				_self.legDesc2 = i18n.getDict('%help-leg-desc2');
 				_self.legDesc3 = i18n.getDict('%help-leg-desc3');
@@ -191,6 +192,10 @@
 
 				// extract text
 				_self.extractTitle = i18n.getDict('%help-extract-title');
+				_self.extDesc1 = i18n.getDict('%help-extract-desc1');
+				_self.extClick = i18n.getDict('%help-extract-click');
+				_self.extLink = i18n.getDict('%help-extract-link');
+				_self.extDesc2 = i18n.getDict('%help-extract-desc2');
 
 				// developer's corner text
 				_self.devTitle = i18n.getDict('%help-dev-title');
@@ -261,6 +266,10 @@
 					} else if (section === 'dev') {
 						$helpSect.scrollTo($helpDev);
 					}
+				};
+
+				_self.aboutClick = function() {
+					console.log('dd');//_self.isAboutDialogOpen(true);
 				};
 
 				_self.init();

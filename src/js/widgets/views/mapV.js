@@ -36,7 +36,7 @@
 			// add zoom in with box extent
 			if (zoom.zoom) {
 				zoomClass = (zoom.bar) ? 'gcviz-map-zoomposl' : 'gcviz-map-zoomposh';
-				holder.prepend('<button class="gcviz-map-zm gcviz-map-zoom' + ext + ' ' + zoomClass + '" tabindex="0" data-bind="buttonBlur, click: zoomClick, tooltip: { content: tpZoom }"></button>');
+				holder.prepend('<button id="map-zmextent-' + mapid + '" class="gcviz-map-zm gcviz-map-zoom' + ext + ' ' + zoomClass + '" tabindex="0" data-bind="buttonBlur, click: zoomClick, tooltip: { content: tpZoom }"></button>');
 			}
 
 			// add zoom full extent

@@ -35,11 +35,9 @@
 					$section = $viz('#section' + mapid),
 					$mapholder = $viz('#' + mapid),
 					$map = $viz('#' + mapid + '_holder'),
-					$maproot = $viz('#' + mapid + '_holder_root'),
 					$btnAbout = $mapElem.find('.gcviz-head-about'),
 					$menu = $mapElem.find('#gcviz-menu' + mapid),
 					$btnFull = $mapElem.find('.gcviz-head-pop'),
-					$ovMap = $viz('#ovmapcont' + mapid),
 					map = gcvizFunc.getElemValueVM(mapid, ['map', 'map'], 'js'),
 					instrHeight = 36;
 
@@ -183,11 +181,8 @@
 					//gisPrint.printMap(vmArray[mapid].map.map, _self.printInfo);
 
 					// This is the simple print. It doesn't use esri print task
-					//printSimple(map, _self.printInfo.template);
-					 //printVM.togglePrint();
-					// console.log(map);
-					printVM.togglePrint();
-
+					printSimple(map, _self.printInfo.template);
+					//printVM.togglePrint();
 				};
 
 				_self.insetClick = function() {

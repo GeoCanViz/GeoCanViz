@@ -12,10 +12,6 @@
 	height: 40px!important;
 }
 
-%marg-button {
-	margin-top: (0.4 * $rembase) + rem;
-}
-
 .gcviz-head {
 	@include app-head-foot;
 	background-repeat: repeat-x;
@@ -46,37 +42,37 @@
 // the header button sprite (need to use background-position because FF is not able to set x and y)
 .gcviz-head-help {
 	@include sprite($img-spritebtn, -110, -2);
-	@extend %marg-button;
+	@include marg-button;
 }
 
 .gcviz-head-about {
 	@include sprite($img-spritebtn, -145, -2);
-	@extend %marg-button;
+	@include marg-button;
 }
 
 .gcviz-head-inset {
 	@include sprite($img-spritebtn, -37, -2);
-	@extend %marg-button;
+	@include marg-button;
 }
 
 .gcviz-head-link {
 	@include sprite($img-spritebtn, -75, -2);
-	@extend %marg-button;
+	@include marg-button;
 }
 
 .gcviz-head-print {
 	@include sprite($img-spritebtn, -3, -2);
-	@extend %marg-button;
+	@include marg-button;
 }
 
 .gcviz-head-fs {
 	@include sprite($img-spritebtn, -219, -2);
-	@extend %marg-button;
+	@include marg-button;
 }
 
 .gcviz-head-reg {
 	@include sprite($img-spritebtn, -255, -2);
-	@extend %marg-button;
+	@include marg-button;
 }
 
 .gcviz-sectionfs {

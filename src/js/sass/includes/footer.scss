@@ -1,13 +1,9 @@
 @import "gcviz-mixin";
 
-%marg-button {
-	margin-top: (0.4 * $rembase) + rem;
-}
-
 %arrow {
 	cursor: default!important;
 	@include sprite($img-spritebtn, -1122, -3, 3);
-	@extend %marg-button;
+	@include marg-button;
 	float: right;
 	margin-right:	-40%;
 	margin-top: (0.5 * $rembase) + rem;
@@ -47,7 +43,7 @@
 // the header button sprite (need to use background-position because FF is not able to set x and y)
 .gcviz-foot-data {
 	@include sprite($img-spritebtn, -1481, -2);
-	margin-top: (0.4 * $rembase) + rem;
+	@include marg-button;
 }
 
 .gcviz-foot-loaddata {

@@ -181,8 +181,8 @@ var locationPath;
 			}
 
 			// add print
-			vmArray.print = print.initialize($mapSection);
-		
+			//vmArray.print = print.initialize($mapSection);
+
 			// create the help for the map instance
 			vmArray.help = help.initialize($mapSection);
 
@@ -222,19 +222,19 @@ var locationPath;
 							leftMarg = $section.position().left, //containter left margin
 							maxWidth = parseInt($section.parent().css('width'), 10) - (2 * leftMarg); // get container width
 						}
-	
+
 						// map cant be smaller then 360px (tools panel width)
 						if (maxWidth < 360) {
 							maxWidth = 360;
 						}
-	
+
 						// check if we should apply the original width or the maximum possible width
 						if (oriW > maxWidth || isFullScreen) {
 							applyW = maxWidth;
 						} else if (actualW < oriW && maxWidth > oriW) {
 							applyW = oriW;
 						}
-	
+
 						// set size
 						gcvizFunc.setStyle($section[0], { 'width': applyW + 'px' });
 						gcvizFunc.setStyle($mapholder[0], { 'width': applyW + 'px' });

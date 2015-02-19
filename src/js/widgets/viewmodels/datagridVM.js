@@ -139,7 +139,7 @@
 				};
 
 				_self.openWait = function(event) {
-					$(event.target.parentElement).find('.ui-dialog-titlebar-close').addClass('gcviz-dg-wait');
+					$viz(event.target.parentElement).find('.ui-dialog-titlebar-close').addClass('gcviz-dg-wait');
 				};
 
 				_self.closeWait = function() {
@@ -152,7 +152,7 @@
 				};
 
 				_self.getData = function(layer, pos) {
-					var tmpLook, urlFull, strField,
+					var urlFull, strField,
 						layerInfo = layer.layerinfo,
 						layerIndex = layerInfo.index,
 						type = layerInfo.type,
@@ -172,7 +172,7 @@
 
 					// add the objectid
 					strField += 'OBJECTID';
-						
+
 					if (type === 4) {
 						// datatable (dynamic layer, need layer index to select one layer in the dynamic service)
 						urlFull = url + layerIndex + '/query?where=OBJECTID+>+0&outFields=' + strField + '&dirty=' + (new Date()).getTime();
@@ -291,7 +291,7 @@
 							$info.after('<button id="clearfilter-' + id + '" class="gcviz-dg-filterclear gcviz-dg-pad"></button>');
 							$elemFilter = $viz('.gcviz-dg-filterclear');
 							gcvizFunc.addTooltip($elemFilter, { content: _self.lblClearFilters });
-							
+
 							// add export csv button
 							$info.after('<button id="exportcsv-' + id +'" class="gcviz-dg-exportcsv gcviz-dg-pad"></button>');
 							$elemCSV = $viz('.gcviz-dg-exportcsv');
@@ -363,7 +363,7 @@
 							row.getElementsByClassName('gcviz-dg-select')[0].checked = val;
 							_self.highlightRow(row, val);
 						},
-						createdRow: function(row, data, index) {
+						createdRow: function(row, data) {
 							// add id on the row instead of in a columns. We have to do this because we cant hide the column
 							// it creates display problems with IE
 							row.id = data.gcvizid;
@@ -385,7 +385,7 @@
 						var fieldValue = fields[colIdx].type.value;
 
 						if (colIdx === 0) {
-							$.fn.dataTable.ext.search.push(function(settings, data, dataIndex) {
+							$viz.fn.dataTable.ext.search.push(function(settings, data, dataIndex) {
 								if (activeTable !== -1) {
 									// even if we modify data in datatable, it is not modified in the callback event
 									// we need to get the real data from settings.
@@ -409,12 +409,12 @@
 							var inputs = $viz('input', dataTB.column(colIdx).header());
 
 							// add the range filter search
-							$.fn.dataTable.ext.search.push(gcvizFunc.closureFunc(function(inputs, settings, data, dataIndex) {
-       							var flag = false,
-       								min = parseFloat(inputs[0].value, 10),
+							$viz.fn.dataTable.ext.search.push(gcvizFunc.closureFunc(function(inputs, settings, data) {
+								var flag = false,
+									min = parseFloat(inputs[0].value, 10),
 									max = parseFloat(inputs[1].value, 10),
 									val = parseFloat(data[colIdx]) || 0; // use data for the the column
- 
+
 								if ((isNaN(min) && isNaN(max)) ||
 									(isNaN(min) && val <= max) ||
 									(min <= val && isNaN(max)) ||
@@ -422,7 +422,7 @@
 									flag = true;
 								}
 								return flag;
-						    }, inputs));
+							}, inputs));
 
 							$viz('input', dataTB.column(colIdx).header()).on('change', function() {
 								// put the draw in a timeout if not, the processing will not be shown
@@ -435,7 +435,7 @@
 							});
 						}
 					}, fields));
-					
+
 					// FIXED COLUMNS
 					// we cant use fixed column because of 2 main reasons. First it is not WCAG. When we tab, there is
 					// hidden object (the checkbox and button under the freeze columns). Second, it is really hard to make
@@ -508,7 +508,7 @@
 							type: {
 								value: 'button'
 							},
-							defaultContent: '',
+							defaultContent: ''
 						});
 					}
 
@@ -545,7 +545,7 @@
 							activate: function(e, ui) {
 								// redraw to align header and column
 								var tableId = parseInt(ui.newPanel.selector.split('-')[2], 10);
-								objDataTable[tableId].draw();				
+								objDataTable[tableId].draw();
 							}
 						});
 						$datagrid.accordion('refresh');
@@ -630,20 +630,20 @@
 					$tabs.on('click', '.gcviz-dg-selfeat', function(e) {
 						// set draw box cursor
 						$container.css('cursor', 'zoom-in');
-	
+
 						// close mneu
 						$menu.accordion('option', 'active', false);
 
 						// set active table
 						activeTable = e.target.id.split('-')[1];
-						
+
 						// remove popup click event if it is there to avoid conflict then
 						// call graphic class to draw on map.
 						gisDG.removeEvtPop();
 						gisGraphic.drawBox(mymap, _self.selExtent);
 
 						// focus the map
-						gcvizFunc.focusMap(mymap, true);	
+						gcvizFunc.focusMap(mymap, true);
 					});
 
 					// set opening and closing details link info event
@@ -651,7 +651,7 @@
 					$table.on('click', 'td.gcviz-dg-link', function() {
 						var col,
 							tr = $viz(this).closest('tr'),
-							layer = parseInt(tr[0].id.split('-')[0]),
+							layer = parseInt(tr[0].id.split('-')[0], 10),
 							row = objDataTable[layer].row(tr);
 
 						if (row.child.isShown()) {
@@ -731,15 +731,13 @@
 					var attrNames, attrValues, lenFields,
 						link, fieldName,
 						i = 0,
-						fieldObj = [],
 						node = '',
 						title = col.attr('gcviz-title'),
 						subtitle = col.attr('gcviz-subtitle'),
 						fields = col.attr('gcviz-fields').split(','),
 						links = data.link,
-						lenLink = links.length,
-						lenTitle = fields.length;
-	
+						lenLink = links.length;
+
 					// add title and subtitle then start table
 					node += '<span class="gcviz-dg-linktitle">' + title + '</span>' +
 							'<span class="gcviz-dg-linksubtitle">' + subtitle + '</span>' +
@@ -764,11 +762,11 @@
 					while (lenLink--) {
 						// get the feature attribute names and values
 						link = links[lenLink];
-						
+
 						attrValues = $viz.map(link, function(value) {
 							return [value];
 						});
-						
+
 						lenFields = Object.keys(attrNames).length;
 						node += '<tr role="row">';
 						while (lenFields--) {
@@ -779,7 +777,7 @@
 
 					// close table
 					node += '</tbody></table>';
-					
+
 					return node;
 				};
 
@@ -835,7 +833,7 @@
 					while (i !== len) {
 						row = rows[i];
 						row.gcvizcheck = val;
-						info.feat = parseInt(row.gcvizid.split('-')[1]);
+						info.feat = parseInt(row.gcvizid.split('-')[1], 10);
 
 						if (val) {
 							gisDG.selectFeature(row.geometry, info);
@@ -889,7 +887,7 @@
 						output = '',
 						rtnCarr = String.fromCharCode(13),
 						dataLen = data.length;
-					
+
 					// get the row title
 					row = data[0];
 					for (var field in row) {
@@ -967,7 +965,6 @@
 					var dataId, item,
 						info = { },
 						i = 0,
-						j = 0,
 						tableId = parseInt(activeTable, 10),
 						data = objDataTable[tableId].data(),
 						lenData = data.length,
@@ -983,7 +980,7 @@ var $elems = $viz('.gcviz-dg-search');
 $elems.val('');
 objDataTable[tableId].search('').columns().search('').draw();
 
-						
+
 					// create an array with all the objectid to select
 					while (i !== lenFeats) {
 						featIds[i] = features[i].attributes.OBJECTID;
@@ -1063,7 +1060,7 @@ objDataTable[tableId].search('').columns().search('').draw();
 					if (allIdFeatures.length < 2) {
 						_self.isEnableNext(false);
 					}
-						
+
 					// make sure array of layer is unique for select
 					if (isFeatures) {
 						_self.layerName(ko.utils.arrayGetDistinctValues(_self.layerNameHolder()));
@@ -1112,7 +1109,7 @@ objDataTable[tableId].search('').columns().search('').draw();
 							if (linkInfo.enable) {
 								// set to 2 because the 2 last field are for select and link 
 								staticFields = 2;
-								
+
 								linkNode = _self.getLinkNode(linkInfo, layer.layerinfo.id, attributes.OBJECTID);
 							}
 
@@ -1140,12 +1137,12 @@ objDataTable[tableId].search('').columns().search('').draw();
 				};
 
 				_self.getLinkNode = function(linkInfo, layerId, objectID) {
-					 var links, link,
-					 	linkAttrNames, linkAttrValues,
-					 	lenLink, lenFields,
-					 	fieldName,
-					 	fieldsInfo = linkInfo.fields.reverse(),
-					 	node = '';
+					var links, link,
+						linkAttrNames, linkAttrValues,
+						lenLink, lenFields,
+						fieldName,
+						fieldsInfo = linkInfo.fields.reverse(),
+						node = '';
 
 					// get the feature attribute names and values
 					links = gisDG.getRelRecords(layerId, objectID);
@@ -1166,17 +1163,17 @@ objDataTable[tableId].search('').columns().search('').draw();
 								'" title="' + fieldName + '">' + fieldName + '</th>';
 					}
 					node += '</tr></thead><tbody>';
-	
+
 					// loop trought item and add them to table
 					lenLink = links.length;
 					while (lenLink--) {
 						// get the feature attribute names and values
 						link = links[lenLink];
-						
+
 						linkAttrValues = $viz.map(link, function(value) {
 							return [value];
 						});
-						
+
 						lenFields = Object.keys(linkAttrValues).length;
 						node += '<tr role="row">';
 						while (lenFields--) {
@@ -1348,7 +1345,7 @@ objDataTable[tableId].search('').columns().search('').draw();
 					field.type = {
 						value: 'string'
 					};
-	
+
 					fields.push(field);
 				}
 			}

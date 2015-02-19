@@ -11,10 +11,11 @@
 			'knockout',
 			'genfile',
 			'gcviz-i18n',
+			'gcviz-vm-map',
 			'gcviz-func',
 			'gcviz-gisgraphic',
 			'gcviz-gisdatagrid'
-	], function($viz, ko, generateFile, i18n, gcvizFunc, gisGraphic, gisDG) {
+	], function($viz, ko, generateFile, i18n, mapVM, gcvizFunc, gisGraphic, gisDG) {
 		var initialize,
 			vm;
 
@@ -122,6 +123,9 @@
 				_self.endDraw = function() {
 					// set popup event
 					gisDG.addEvtPop();
+
+					// enable zoom extent button on map
+					mapVM.disableZoomExtent(false);
 
 					// remove cursor and event only if WCAG mode is not enable
 					if (!_self.isWCAG()) {
@@ -436,6 +440,9 @@
 
 					// remove popup event
 					gisDG.removeEvtPop();
+
+					// disable zoom extent button on map
+					mapVM.disableZoomExtent(true);
 
 					_self.activeTool(tool);
 				};

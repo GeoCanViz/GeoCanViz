@@ -2221,7 +2221,7 @@
             		}, {
             		"control": "link",
             		"type": "extent",
-            		"param": "?bbox=XXX",
+            		"param": "?bbox=XXX&sort-field=spatial",
             		"label": "Get all maps for area shown"
             		}]
             	}, {

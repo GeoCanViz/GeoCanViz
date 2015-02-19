@@ -33,7 +33,7 @@
 				latFields = ['lat', 'latitude', 'y', 'ycenter'], // list of lat field strings
 				longFields = ['lon', 'long', 'longitude', 'x', 'xcenter'], // list of lon field strings
 				def = $viz.Deferred();
-			
+
 			// there is 2 end of line character. If the first one doesnt work, use the other
 			firstLine = data.substr(0, data.indexOf('\r'));
 			if (firstLine === '') {
@@ -46,7 +46,6 @@
 				data: data,
 				separator: separator
 			}),
-			
 
 			csvStore.fetch({
 				onComplete: function (items) {

@@ -149,7 +149,7 @@
 
 					// focus back on add to keep focus
 					$btnCSV.focus();
-					
+
 					// remove table if datagrid is enable
 					if (typeof vmDatagrid !== 'undefined') {
 						vmDatagrid.removeTab(selectedItem.id);
