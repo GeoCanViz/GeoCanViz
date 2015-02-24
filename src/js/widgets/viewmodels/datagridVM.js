@@ -29,7 +29,9 @@
 			// data model				
 			var datagridViewModel = function($mapElem, mapid, config) {
 				var _self = this,
-					objDataTable, menuState, activeTableId, triggerTableId,
+					objDataTable, menuState,
+					triggerTableId = [],
+					activeTableId = -1,
 					delay = 400, clicks = 0, timer = null,
 					arrLayerInfo = { },
 					lookPopups = [],
@@ -102,9 +104,9 @@
 					$datagrid.accordion({
 						collapsible: true,
 						active: false,
-						activate: function() {
+						activate: function(e, ui) {
 							// redraw to align header and column
-							activeTableId = $datatab.tabs('option', 'active');
+							activeTableId = objDataTable.length - 1;
 							objDataTable[activeTableId].draw();
 						}
 					});
@@ -360,25 +362,29 @@
 				};
 
 				_self.initCompl = function(inTable, deferRender) {
-					var $elemFilter, $elemCSV,
+					var $elemFilter, $elemCSV, $tools,
 						idTable = inTable.sTableId,
 						idxTable = idTable.split('-'),
 						id = idxTable[idxTable.length - 1],
 						$info = $viz('#' + idTable + '_info'),
 						columns = inTable.aoColumns;
 
+					// add the tools holder and link to it
+					$info.after('<div class="gcviz-dg-tools"></div>');
+					$tools = $viz($info[0].parentElement.getElementsByClassName('gcviz-dg-tools'));
+					
 					// add the select on map button
-					$info.after('<button id="selFeat-' + id + '" class="gcviz-dg-selfeat gcviz-dg-pad"></button><label class="gcviz-label" for="selFeat-' + id + '">' + _self.lblSelectFeatures + '</label>');
+					$tools.append('<button id="selFeat-' + id + '" class="gcviz-dg-selfeat gcviz-dg-pad"></button><label class="gcviz-label" for="selFeat-' + id + '">' + _self.lblSelectFeatures + '</label>');
 					$elemFilter = $viz('.gcviz-dg-selfeat');
 					gcvizFunc.addTooltip($elemFilter, { content: _self.tpSelectFeatures });
 
 					// add the clear filter button
-					$info.after('<button id="clearfilter-' + id + '" class="gcviz-dg-filterclear gcviz-dg-pad"></button><label class="gcviz-label" for="clearfilter-' + id + '">' + _self.lblClearFilters + '</label>');
+					$tools.append('<button id="clearfilter-' + id + '" tableid="' + idTable + '" class="gcviz-dg-filterclear gcviz-dg-pad"></button><label class="gcviz-label" for="clearfilter-' + id + '">' + _self.lblClearFilters + '</label>');
 					$elemFilter = $viz('.gcviz-dg-filterclear');
 					gcvizFunc.addTooltip($elemFilter, { content: _self.tpClearFilters });
 
 					// add export csv button
-					$info.after('<button id="exportcsv-' + id +'" class="gcviz-dg-exportcsv gcviz-dg-pad"></button><label class="gcviz-label" for="exportcsv-' + id + '">' + _self.lblExportTableCSV + '</label>');
+					$tools.append('<button id="exportcsv-' + id +'" class="gcviz-dg-exportcsv gcviz-dg-pad"></button><label class="gcviz-label" for="exportcsv-' + id + '">' + _self.lblExportTableCSV + '</label>');
 					$elemCSV = $viz('.gcviz-dg-exportcsv');
 					gcvizFunc.addTooltip($elemCSV, { content: _self.tpExportTableCSV });
 
@@ -419,19 +425,25 @@
 
 				_self.addSearcFields = function(table, fields) {
 					// apply the search by field
-					table.columns().eq(0).each(gcvizFunc.closureFunc(function(fields, colIdx) {
-						var fieldValue = fields[colIdx].type.value;
+					table.columns().eq(0).each(gcvizFunc.closureFunc(function(fields, table, colIdx) {
+						var fieldValue = fields[colIdx].type.value,
+							tableId = table.settings()[0].sTableId;
 
 						if (colIdx === 0) { // select checkbox
-							$.fn.dataTable.ext.search.push(function(settings, data, dataIndex) {
-								if (activeTableId !== -1) {
+							$.fn.dataTable.ext.search.push(gcvizFunc.closureFunc(function(tableId, settings, data, dataIndex) {
+								var dataId = settings.sTableId,
+									index = dataId.split('-')[2];
+
+								// if it is active table and spatial filter trigger, filter data. If not return all data
+								if (tableId === dataId && triggerTableId.indexOf(index) !== -1) {
 									// even if we modify data in datatable, it is not modified in the callback event
 									// we need to get the real data from settings.
-									return true;//return settings.aoData[dataIndex]._aData.gcvizcheck;
+									return settings.aoData[dataIndex]._aData.gcvizcheck;
 								} else {
 									return true;
 								}
-							});
+								return true;
+							}, tableId));
 						} else if (fieldValue === 'string' && fields[colIdx].bSearchable) {
 							$viz('input', table.column(colIdx).header()).on('change', function() {
 								// put the draw in a timeout if not, the processing will not be shown
@@ -441,24 +453,24 @@
 								setTimeout(gcvizFunc.closureFunc(function(value) {
 									table.column(colIdx).search(value).draw();
 									$process.css('display', 'none');
-								}, value), 250);
+								}, value), 100);
 							});
 						} else if (fieldValue === 'number' && fields[colIdx].bSearchable) {
 							// https://datatables.net/examples/plug-ins/range_filtering.html
 							var $inputs = $viz('input', table.column(colIdx).header());
 
 							// add the range filter search
-							$.fn.dataTable.ext.search.push(gcvizFunc.closureFunc(function(inputs, settings, data, dataIndex) {
-								var min, max, val,
+							$.fn.dataTable.ext.search.push(gcvizFunc.closureFunc(function(inputs, tableId, settings, data, dataIndex) {
+								var min, max, val, index,
 									flag = false,
-									tableId = parseInt(settings.sTableId.split('-')[2], 10);
+									dataId = settings.sTableId;
 
 								// if it is active table filter data, if not return all data
-								if (tableId === triggerTableId) {
+								if (tableId === dataId) {
 									min = parseFloat(inputs[0].value, 10),
 									max = parseFloat(inputs[1].value, 10),
 									val = parseFloat(data[colIdx]) || 0; // use data for the the column
- 
+
 									if ((isNaN(min) && isNaN(max)) ||
 										(isNaN(min) && val <= max) ||
 										(min <= val && isNaN(max)) ||
@@ -470,17 +482,17 @@
 								}
 
 								return flag;
-						    }, $inputs));
+						    }, $inputs, tableId));
 
 							$inputs.on('change', function(e) {
 								// put the draw in a timeout if not, the processing will not be shown
 								var $process = $viz('.dataTables_processing');
+
 								$process.css('display', 'block');
-								setTimeout(gcvizFunc.closureFunc(function($inputs) {
-									triggerTableId = parseInt($inputs.closest('th').attr('aria-controls').split('-')[2], 10);
+								setTimeout(function() {
 									table.draw();
 									$process.css('display', 'none');
-								}, $inputs), 250);
+								}, 250);
 							});
 						} else if (fieldValue === 'select') {
 							// http://datatables.net/examples/api/multi_filter_select.html
@@ -499,7 +511,7 @@
 								setTimeout(function() {
 									table.column(colIdx).search(val ? '^' + val + '$' : '', true, false).draw();
 									$process.css('display', 'none');
-								}, 250);
+								}, 100);
 							});
 						} else if (fieldValue === 'date') {
 							var $inputs = $viz('input', table.column(colIdx).header()),
@@ -517,58 +529,59 @@
 							$viz($inputs[0]).datepicker(opts);
 							$viz($inputs[1]).datepicker(opts);
 
+							// add the column index to access it from filter. We need to do this because filter
+							// are global to all table and field
+							$inputs.closest('th').attr('col-index', colIdx);
+
 							// add the date range filter search
-							$.fn.dataTable.ext.search.push(gcvizFunc.closureFunc(function(inputs, settings, data, dataIndex) {
-       							var min, max, val,
+							$.fn.dataTable.ext.search.push(gcvizFunc.closureFunc(function(inputs, tableId, settings, data, dataIndex) {
+       							var min, max, val, index,
        								isMinDate, isMaxDate, isValDate,
        								flag = false,
-       								tableId = parseInt(settings.sTableId.split('-')[2], 10);
+       								dataId = settings.sTableId;
 
 								// if it is active table filter data, if not return all data
-								if (tableId === triggerTableId) {
+								if (tableId === dataId) {
 									min = new Date(inputs[0].value),
 									max = new Date(inputs[1].value),
 									val = new Date(data[colIdx].substring(0, 10)), // use data for the the column
 									isMinDate = !isNaN(min.getYear()),
 									isMaxDate = !isNaN(max.getYear()),
-									isValDate = !isNaN(val.getYear()); 
- 
-	 								// test if dates are valid and compare 
-	 								if (!isMinDate && !isMaxDate) {
-	 									// if no filter return true
-	 									flag = true;
-	 								} else if ((isMinDate || isMaxDate) && !isValDate) {
-	 									// if dates are provided and the data is not a date, return false.
-	 									flag = false;
-	 								} else if (val >= min && !isMaxDate) {
-	 									flag = true;
-	 							
-	 								} else if (!isMinDate && val <= max) {
-	 									flag = true;
-	 							
-	 								} else if (val >= min && val <= max) {
-	 									flag = true;
-	 								}
+									isValDate = !isNaN(val.getYear());
+
+		 							// test if dates are valid and compare 
+		 							if (!isMinDate && !isMaxDate) {
+		 								// if no filter return true
+		 								flag = true;
+		 							} else if ((isMinDate || isMaxDate) && !isValDate) {
+		 								// if dates are provided and the data is not a date, return false.
+		 								flag = false;
+		 							} else if (val >= min && !isMaxDate) {
+		 								flag = true;
+		 							} else if (!isMinDate && val <= max) {
+		 								flag = true;
+		 							} else if (val >= min && val <= max) {
+		 								flag = true;
+		 							}
 								} else {
 									flag = true;
 								}
 
 								return flag;
-								
-						    }, $inputs));
+						    }, $inputs, tableId));
 
 							$inputs.on('change', function() {
 								// put the draw in a timeout if not, the processing will not be shown
 								var $process = $viz('.dataTables_processing');
+
 								$process.css('display', 'block');
 								setTimeout(function() {
-									triggerTableId = parseInt($inputs.closest('th').attr('aria-controls').split('-')[2], 10);
 									table.draw();
 									$process.css('display', 'none');
-								}, 250);
+								}, 100);
 							});
 						}
-					}, fields));
+					}, fields, table));
 				};
 
 				_self.createFields = function(layer, link) {
@@ -643,7 +656,7 @@
 							heightStyle: 'auto',
 							activate: function(e, ui) {
 								// redraw to align header and column
-								activeTableId = $datatab.tabs('option', 'active');
+								activeTableId = parseInt(ui.newPanel[0].id.split('-')[2], 10);
 								objDataTable[activeTableId].draw();				
 							}
 						});
@@ -688,10 +701,6 @@
 				_self.setEvents = function(pos) {
 					var $table = $viz('#table-' + mapid + '-' + pos),
 						$tabs = $viz('#tabs-' + mapid + '-' + pos);
-
-					$table.on('search.dt', function(e, settings) {
-					//	triggerTableId = parseInt(settings.sTableId.split('-')[2], 10);
-					});
 					
 					// set checkbox event
 					$table.on('change', '.gcviz-dg-select', function(e) {
@@ -921,7 +930,7 @@
 
 					info.table = activeTableId;
 
-					rows = objDataTable[activeTableId].rows({ filter: 'applied' }).data();
+					rows = objDataTable[activeTableId].rows().data();
 					len = rows.length;
 					while (i !== len) {
 						row = rows[i];
@@ -1020,8 +1029,14 @@
 
 				_self.clearFilter = function(target) {
 					var $elems = $viz(target.parentElement.parentElement).find('.gcviz-dg-search'),
-						$process = $viz('.dataTables_processing');
-					
+						$process = $viz('.dataTables_processing'),
+						index = triggerTableId.indexOf($viz(target).attr('tableid').split('-')[2]);
+
+					// remove table from spatial filter array.
+					if (index !== -1) {
+						triggerTableId.splice(index, 1);
+					}
+
 					// reset value then trigger a "change" event. Put the draw in
 					// a timeout if not, the processing will not be shown
 					$process.css( 'display', 'block' );
@@ -1093,9 +1108,16 @@
 							gisDG.selectFeature(item.geometry, info);
 						} else if (item.gcvizcheck) {
 							item.gcvizcheck = false;
-							gisDG.unselectFeature('sel' + '-' + tableId + '-' + i);
+							gisDG.unselectFeature('sel' + '-' + activeTableId + '-' + i);
 						}
 						i++;
+					}
+
+					// if a spatial filter is applied to the table, add it
+					// to the array of spatial filter. It will be use in the
+					// search to apply only to table who are filtered
+					if (triggerTableId.indexOf(activeTableId) === -1) {
+						triggerTableId.push(activeTableId.toString());
 					}
 
 					// clear search then trigger the spatial one with draw
@@ -1108,7 +1130,7 @@
 					if (check) {
 						row.className += ' gcviz-backYellow';
 					} else {
-						row.className = row.className.replace(/ gcviz-backYellow/g, '');
+						row.className = row.className.replace(/gcviz-backYellow/g, '');
 					}
 				};
 

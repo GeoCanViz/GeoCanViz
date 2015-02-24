@@ -31,7 +31,7 @@
 	display: inline;
 }
 
-// buttons zoom selected, clear filter, export csv
+// buttons zoom selected, clear filter, export csv and holder
 .gcviz-dg-zoomsel {
 	@include sprite($img-spritebtn, -1516, -2);
 	display: block;
@@ -51,6 +51,10 @@
 .gcviz-dg-selfeat {
 	@include sprite($img-spritebtn, -1661, -2);
 	@extend %buttonhead;
+}
+
+.gcviz-dg-tools {
+	float: right;
 }
 
 //  ****** link info section ******

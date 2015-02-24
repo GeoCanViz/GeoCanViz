@@ -48,9 +48,9 @@ Global sys value#%gisurlalti#http://geogratis.gc.ca/services/elevation/cdem/alti
 #%datagrid-processing#Processing...#Traitement en cours...
 #%datagrid-search#Search:#Rechercher&nbsp;:
 #%datagrid-lengthMenu#Show _MENU_ entries#Afficher _MENU_ éléments
-#%datagrid-info#Showing _START_ to _END_ of _TOTAL_ entries#Affichage de l'élément _START_ à _END_ sur _TOTAL_ éléments
-#%datagrid-infoEmpty#Showing 0 to 0 of 0 entries#Affichage de l'élement 0 à 0 sur 0 éléments
-#%datagrid-infoFiltered#(filtered from _MAX_ total entries)#(filtré de _MAX_ éléments au total)
+#%datagrid-info#Showing _START_ to _END_ of _TOTAL_#Affichage de _START_ à _END_ sur _TOTAL_
+#%datagrid-infoEmpty#Showing 0 to 0 of 0#Affichage de 0 à 0 sur 0
+#%datagrid-infoFiltered#(filtered from _MAX_)#(filtré de _MAX_)
 #%datagrid-infoThousands#,#
 #%datagrid-infoPostFix# # 
 #%datagrid-loadingRecords#Loading...#Chargement en cours...
