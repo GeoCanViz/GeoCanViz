@@ -76,7 +76,7 @@
 			node += getNavHelp(tbNav);
 
 			// toolbar legend
-			node += getLegHelp(tbLeg);
+			node += getLegHelp(tbLeg, head.about.enable);
 
 			// toolbar data
 			node += getDataHelp(tbData);
@@ -141,9 +141,10 @@
 		};
 
 		getMapTools = function(config) {
-			var zoom = config.zoombar,
-				zoommax = zoom.zoom,
-				zoombar = zoom.bar,
+			var zoomCfg = config.zoombar,
+				zoommax = zoomCfg.zoomfull,
+				zoombar = zoomCfg.bar,
+				zoom = zoomCfg.zoom,
 				node = '';
 
 			if (zoommax || zoombar) {
@@ -153,9 +154,9 @@
 				if (zoommax) {
 					node +='<div class="row">' +
 								'<div class="span1">' +
-									'<button class="gcviz-map-zoommax" tabindex="-1"</button>' +
+									'<button class="gcviz-help-zoommax" tabindex="-1"</button>' +
 								'</div>' +
-								'<span class="span11" data-bind="text: mapZoom"></span>' +
+								'<span class="span11" data-bind="text: mapZoomFull"></span>' +
 							'</div>';
 				}
 
@@ -165,6 +166,15 @@
 									'<img class="gcviz-foot-logo" data-bind="attr: { src: imgHelpZoombar, alt: devLogoAlt }" tabindex="-1"></img>' +
 								'</div>' +
 								'<span class="span11" data-bind="text: mapZoombar"></span>' +
+							'</div>';
+				}
+
+				if (zoom) {
+					node += '<div class="row">' +
+								'<div class="span1">' +
+									'<button class="gcviz-help-zoomext" tabindex="-1"</button>' +
+								'</div>' +
+								'<span class="span11" data-bind="text: mapZoom"></span>' +
 							'</div>';
 				}
 
@@ -185,7 +195,7 @@
 						'<div class="row"><span class="gcviz-help-tbtitle" data-bind="text: headTitle"></span></div>' +
 						'<div class="row">' +
 							'<div class="span1">' +
-								'<button class="gcviz-head-help" tabindex="-1"</button>' +
+								'<button class="gcviz-help-help" tabindex="-1"</button>' +
 							'</div>' +
 							'<span class="span11 gcviz-help-textbtn" data-bind="text: headHelp"></span>' +
 						'</div>';
@@ -193,7 +203,7 @@
 			if (about) {
 				node += '<div class="row">' +
 							'<div class="span1">' +
-								'<button class="gcviz-head-about" tabindex="-1"</button>' +
+								'<button class="gcviz-help-about" tabindex="-1"</button>' +
 							'</div>' +
 							'<span class="span11 gcviz-help-textbtn" data-bind="text: headAbout"></span>' +
 						'</div>';
@@ -202,7 +212,7 @@
 			if (print) {
 				node += '<div class="row">' +
 							'<div class="span1">' +
-								'<button class="gcviz-head-print" tabindex="-1"</button>' +
+								'<button class="gcviz-help-print" tabindex="-1"</button>' +
 							'</div>' +
 							'<span class="span11 gcviz-help-textbtn" data-bind="text: headPrint"></span>' +
 						'</div>';
@@ -211,13 +221,13 @@
 			if (fullscreen) {
 				node += '<div class="row">' +
 							'<div class="span1">' +
-								'<button class="gcviz-head-fs" tabindex="-1"</button>' +
+								'<button class="gcviz-help-fs" tabindex="-1"</button>' +
 							'</div>' +
 							'<span class="span11 gcviz-help-textbtn" data-bind="text: headGoFS"></span>' +
 						'</div>' +
 						'<div class="row">' +
 							'<div class="span1">' +
-								'<button class="gcviz-head-reg" tabindex="-1"</button>' +
+								'<button class="gcviz-help-reg" tabindex="-1"</button>' +
 							'</div>' +
 							'<span class="span11 gcviz-help-textbtn" data-bind="text: headExitFS"></span>' +
 						'</div>';
@@ -288,12 +298,12 @@
 						'<div class="row"><span class="gcviz-help-tbtitle" data-bind="text: drawTitle"></span></div>' +
 						'<div class="row">' +
 							'<div class="span4 gcviz-draw-cholder">' +
-								'<button class="gcviz-draw-black" tabindex="-1"</button>' +
-								'<button class="gcviz-draw-blue" tabindex="-1"></button>' +
-								'<button class="gcviz-draw-green" tabindex="-1"></button>' +
-								'<button class="gcviz-draw-red" tabindex="-1"></button>' +
-								'<button class="gcviz-draw-yellow" tabindex="-1"></button>' +
-								'<button class="gcviz-draw-white" tabindex="-1"></button>' +
+								'<button class="gcviz-help-black" tabindex="-1"</button>' +
+								'<button class="gcviz-help-blue" tabindex="-1"></button>' +
+								'<button class="gcviz-help-green" tabindex="-1"></button>' +
+								'<button class="gcviz-help-red" tabindex="-1"></button>' +
+								'<button class="gcviz-help-yellow" tabindex="-1"></button>' +
+								'<button class="gcviz-help-white" tabindex="-1"></button>' +
 							'</div>' +
 							'<span class="span8" data-bind="text: drawColorSelect"></span>' +
 						'</div>';
@@ -301,7 +311,7 @@
 				if (drawline) {
 					node += '<div class="row">' +
 								'<div class="span1">' +
-									'<button class="gcviz-draw-line" tabindex="-1"</button>' +
+									'<button class="gcviz-help-line" tabindex="-1"</button>' +
 								'</div>' +
 								'<div class="span11">' +
 									'<span data-bind="text: drawLine"></span>' +
@@ -318,7 +328,7 @@
 				if (drawtext) {
 					node += '<div class="row">' +
 								'<div class="span1">' +
-									'<button class="gcviz-draw-text" tabindex="-1"</button>' +
+									'<button class="gcviz-help-text" tabindex="-1"</button>' +
 								'</div>' +
 								'<div class="span11">' +
 									'<span data-bind="text: drawText"></span>' +
@@ -335,7 +345,7 @@
 				if (measline) {
 					node += '<div class="row">' +
 								'<div class="span1">' +
-									'<button class="gcviz-draw-length" tabindex="-1"</button>' +
+									'<button class="gcviz-help-length" tabindex="-1"</button>' +
 								'</div>' +
 								'<div class="span11">' +
 									'<span data-bind="text: drawLength"></span>' +
@@ -352,7 +362,7 @@
 				if (measarea) {
 					node += '<div class="row">' +
 								'<div class="span1">' +
-									'<button class="gcviz-draw-area" tabindex="-1"</button>' +
+									'<button class="gcviz-help-area" tabindex="-1"</button>' +
 								'</div>' +
 								'<div class="span11">' +
 									'<span data-bind="text: drawArea"></span>' +
@@ -368,13 +378,13 @@
 
 				node +=	'<div class="row">' +
 							'<div class="span1">' +
-								'<button class="gcviz-draw-del" tabindex="-1"</button>' +
+								'<button class="gcviz-help-del" tabindex="-1"</button>' +
 							'</div>' +
 							'<span class="span11" data-bind="text: drawEraseAll"></span>' +
 						'</div>' +
 						'<div class="row">' +
 							'<div class="span1">' +
-								'<button class="gcviz-draw-delsel" tabindex="-1"</button>' +
+								'<button class="gcviz-help-delsel" tabindex="-1"</button>' +
 							'</div>' +
 							'<div class="span11">' +
 								'<span data-bind="text: drawEraseSel"></span>' +
@@ -386,13 +396,13 @@
 						'</div>' +
 						'<div class="row">' +
 							'<div class="span1">' +
-								'<button class="gcviz-draw-undo" tabindex="-1"</button>' +
+								'<button class="gcviz-help-undo" tabindex="-1"</button>' +
 							'</div>' +
 							'<span class="span11" data-bind="text: drawUndo"></span>' +
 						'</div>' +
 						'<div class="row">' +
 							'<div class="span1">' +
-								'<button class="gcviz-draw-redo" tabindex="-1"</button>' +
+								'<button class="gcviz-help-redo" tabindex="-1"</button>' +
 							'</div>' +
 							'<span class="span11" data-bind="text: drawRedo"></span>' +
 						'</div>';
@@ -400,13 +410,13 @@
 				if (impexp) {
 					node += '<div class="row">' +
 								'<div class="span1">' +
-									'<button class="gcviz-draw-imp" tabindex="-1"</button>' +
+									'<button class="gcviz-help-imp" tabindex="-1"</button>' +
 								'</div>' +
 								'<span class="span11" data-bind="text: drawImport"></span>' +
 							'</div>' +
 							'<div class="row">' +
 								'<div class="span1">' +
-									'<button class="gcviz-draw-exp" tabindex="-1"</button>' +
+									'<button class="gcviz-help-exp" tabindex="-1"</button>' +
 								'</div>' +
 								'<span class="span11" data-bind="text: drawExport"></span>' +
 							'</div>';
@@ -418,13 +428,23 @@
 			return node;
 		};
 
-		getLegHelp = function(config) {
+		getLegHelp = function(config, about) {
 			var node = '';
 
 			if (config.enable) {
 				node = '<section id="gcviz-help-tbleg" class="gcviz-help gcviz-help-tbleg">' +
-						'<span class="gcviz-help-tbtitle" data-bind="text: legTitle"></span>' +
-						'<div class="row"><span class="span12" data-bind="text: legDesc1"></span></div>' +
+						'<span class="gcviz-help-tbtitle" data-bind="text: legTitle"></span>';
+
+				if (about) {
+					node += '<div class="row">' +
+							'<div class="span1">' +
+								'<button class="gcviz-help-about" tabindex="-1"</button>' +
+							'</div>' +
+							'<span class="span11 gcviz-help-textbtn" data-bind="text: legAbout"></span>' +
+						'</div>';
+				}
+
+				node +=	'<div class="row"><span class="span12" data-bind="text: legDesc1"></span></div>' +
 						'<div class="row"><span class="span12" data-bind="text: legDesc2"></span></div>' +
 						'<div class="row"><span class="span12" data-bind="text: legDesc3"></span></div>' +
 						'<div class="row"><span class="span12" data-bind="text: legSlider"></span></div>' +
@@ -473,7 +493,7 @@
 					node += '<div class="row"><span class="gcviz-help-textsub" data-bind="text: navMapInfoTitle"></span></div>' +
 							'<div class="row">' +
 								'<div class="span1">' +
-									'<button class="gcviz-nav-pos" tabindex="-1"</button>' +
+									'<button class="gcviz-help-pos" tabindex="-1"</button>' +
 								'</div>' +
 								'<div class="span11">' +
 									'<span data-bind="text: navPos"></span>' +
@@ -521,7 +541,7 @@
 				if (data) {
 					node += '<div class="row">' +
 								'<div class="span1">' +
-									'<button class="gcviz-data-add" tabindex="-1"</button>' +
+									'<button class="gcviz-help-adddata" tabindex="-1"</button>' +
 								'</div>' +
 								'<span class="span11" data-bind="text: dataAdd"></span>' +
 							'</div>' +
@@ -537,7 +557,7 @@
 									'</div>' +
 									'<div class="row">' +
 										'<div class="span2">' +
-											'<button class="gcviz-data-del" tabindex="-1"</button>' +
+											'<button class="gcviz-help-deldata" tabindex="-1"</button>' +
 										'</div>' +
 										'<span class="span9" data-bind="text: dataRemove"></span>' +
 								'</div>' +
@@ -557,7 +577,20 @@
 
 			if (enable) {
 				node = '<section id="gcviz-help-tbextract" class="gcviz-help gcviz-help-tbextract">' +
-						'<div class="row"><span class="gcviz-help-tbtitle" data-bind="text: extractTitle"></span></div>';
+						'<div class="row">' +
+							'<span class="gcviz-help-tbtitle" data-bind="text: extractTitle"></span>' +
+							'<div class="row"><span class="span12" data-bind="text: extDesc1"></span></div>' +
+							'<div class="row">' +
+								'<div class="span1">' +
+									'<button class="gcviz-help-pos" tabindex="-1"</button>' +
+								'</div>' +
+								'<span class="span11 gcviz-help-textbtn" data-bind="text: extClick"></span>' +
+							'</div>' +
+							'<div class="row">' +
+								'<span class="span11" data-bind="text: extLink"></span>' +
+							'</div>' +
+							'<div class="row"><span class="span12" data-bind="text: extDesc2"></span></div>' +
+						'</div>';
 
 				node += '</section>';
 			}

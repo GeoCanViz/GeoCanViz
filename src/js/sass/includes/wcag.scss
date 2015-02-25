@@ -9,4 +9,6 @@
 // overwrite the display for accordion to make sure dislay is not none
 .gcviz-wcag-head {
 	display: block!important;
+	@include app-text(1.2, bold, $black);
+	@include unselectable;
 }

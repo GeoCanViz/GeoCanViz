@@ -82,30 +82,17 @@
 			var xdr,
 				def = $viz.Deferred(); // Use a deferred object to call the service
 
-			if (window.browser !== 'Explorer' || (window.browser === 'Explorer' && window.browserversion > 10)) {
-				$viz.ajax({
-					url: urlNTS,
-					cache: false,
-					data: { bbox: longi + ',' + lati + ',' + longi + ',' + lati },
-					dataType: 'jsonp', // jsonp because it is cross domain
-					success: function(data) {
-						def.resolve({
-							nts: data.features
-						});
-					}
-				});
-			} else {
-				xdr = new XDomainRequest();
-				xdr.open('get', urlNTS + '&dirty=' + (new Date()).getTime());
-				xdr.onload = function() {
-					var data = xdr.responseText;
-					data = $viz.parseJSON(data);
+			$viz.ajax({
+				url: urlNTS,
+				cache: false,
+				data: { bbox: longi + ',' + lati + ',' + longi + ',' + lati },
+				dataType: 'jsonp', // jsonp because it is cross domain
+				success: function(data) {
 					def.resolve({
 						nts: data.features
 					});
-				};
-				xdr.send();
-			}
+				}
+			});
 
 			// return the deferred object for listening
 			return def;
@@ -115,30 +102,17 @@
 			var xdr,
 				def = $viz.Deferred(); // Use a deferred object to call the service
 
-			if (window.browser !== 'Explorer' || (window.browser === 'Explorer' && window.browserversion > 10)) {
-				$viz.ajax({
-					url: urlUTM,
-					cache: false,
-					data: { bbox: longi + ',' + lati + ',' + longi + ',' + lati },
-					dataType: 'jsonp', // jsonp because it is cross domain
-					success: function(data) {
-						def.resolve({
-							zone: data.features[0].properties.identifier
-						});
-					}
-				});
-			} else {
-				xdr = new XDomainRequest();
-				xdr.open('get', urlUTM + '&dirty=' + (new Date()).getTime());
-				xdr.onload = function() {
-					var data = xdr.responseText;
-					data = $viz.parseJSON(data);
+			$viz.ajax({
+				url: urlUTM,
+				cache: false,
+				data: { bbox: longi + ',' + lati + ',' + longi + ',' + lati },
+				dataType: 'jsonp', // jsonp because it is cross domain
+				success: function(data) {
 					def.resolve({
 						zone: data.features[0].properties.identifier
 					});
-				};
-				xdr.send();
-			}
+				}
+			});
 
 			// return the deferred object for listening
 			return def;
@@ -148,30 +122,17 @@
 			var xdr,
 				def = $viz.Deferred(); // Use a deferred object to call the service
 
-			if (window.browser !== 'Explorer' || (window.browser === 'Explorer' && window.browserversion > 10)) {
-				$viz.ajax({
-					url: urlAlti,
-					cache: false,
-					data: { lat: lati, lon: longi },
-					dataType: 'jsonp', // jsonp because it is cross domain
-					success: function(data) {
-						def.resolve({
-							altitude: data.altitude
-						});
-					}
-				});
-			} else {
-				xdr = new XDomainRequest();
-				xdr.open('get', urlAlti + '&dirty=' + (new Date()).getTime());
-				xdr.onload = function() {
-					var data = xdr.responseText;
-					data = $viz.parseJSON(data);
+			$viz.ajax({
+				url: urlAlti,
+				cache: false,
+				data: { lat: lati, lon: longi },
+				dataType: 'jsonp', // jsonp because it is cross domain
+				success: function(data) {
 					def.resolve({
 						altitude: data.altitude
 					});
-				};
-				xdr.send();
-			}
+				}
+			});
 
 			// return the deferred object for listening
 			return def;

@@ -93,7 +93,7 @@
 				_self.init = function() {
 					mymap.on('extent-change', function(values) {
 						var len,
-							largeScale = _self.largeScale, 
+							largeScale = _self.largeScale,
 							extent = values.extent;
 
 						// set map scale. It will be use in the callback function
@@ -150,7 +150,7 @@
 				_self.setQueryExtent = function(item, url, query, extent) {
 					var min = extent[0],
 						max = extent[1],
-						extentVal = max.x + ',' + max.y + ','+ min.x + ',' + min.y;
+						extentVal = min.x + ',' + min.y + ','+ max.x + ',' + max.y;
 
 					item.hrefData(url + query.replace('XXX', extentVal));
 				};
@@ -191,7 +191,7 @@
 
 					// focus the map. We need to specify this because when you use the keyboard to
 					// activate the tool, the focus sometimes doesnt go to the map.
-					gcvizFunc.focusMap(mymap);
+					gcvizFunc.focusMap(mymap, false);
 				};
 
 				_self.dialogWCAGOk = function() {
@@ -277,7 +277,7 @@
 		showGrid = function(map, val) {
 			var chk,
 				control = $viz('#checkbox' + gridId)[0];
-			
+
 			// to see if control exist
 			if (typeof control !== 'undefined') {
 				// if layer is already selected, do nothing

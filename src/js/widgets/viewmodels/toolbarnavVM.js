@@ -10,13 +10,14 @@
 	define(['jquery-private',
 			'knockout',
 			'gcviz-i18n',
+			'gcviz-vm-map',
 			'gcviz-func',
 			'gcviz-gismap',
 			'gcviz-gisgeo',
 			'gcviz-gisnav',
 			'gcviz-gisdatagrid',
 			'gcviz-gisgraphic'
-	], function($viz, ko, i18n, gcvizFunc, gisMap, gisGeo, gisNav, gisDG, gisGraph) {
+	], function($viz, ko, i18n, mapVM, gcvizFunc, gisMap, gisGeo, gisNav, gisDG, gisGraph) {
 		var initialize,
 			gblOVMap = false,
 			vm;
@@ -206,6 +207,9 @@
 					// set popup event
 					gisDG.addEvtPop();
 
+					// enable zoom extent button on map
+					mapVM.disableZoomExtent(false);
+
 					// remove click event
 					if (typeof clickPosition !== 'undefined') {
 						clickPosition.remove();
@@ -389,6 +393,9 @@
 						// remove popup event
 						gisDG.removeEvtPop();
 
+						// disable zoom extent button on map
+						mapVM.disableZoomExtent(true);
+
 						// Get user to click on map and capture event
 						clickPosition = mymap.on('click', function(evt) {
 							gisGeo.projectPoints([evt.mapPoint], 4326, _self.displayInfo);
@@ -402,7 +409,7 @@
 
 					// focus the map. We need to specify this because when you use the keyboard to
 					// activate the tool, the focus sometimes doesnt go to the map.
-					gcvizFunc.focusMap(mymap);
+					gcvizFunc.focusMap(mymap, false);
 				};
 
 				_self.dialogWCAGOk = function() {

@@ -259,11 +259,13 @@
 			return metric.width;
 		};
 
-		focusMap = function(map) {
+		focusMap = function(map, scroll) {
 			var element = document.getElementById(map.vIdName + '_holder');
 
 			element.focus();
-			element.scrollIntoView(true);
+			if (scroll) {
+				element.scrollIntoView();
+			}
 		};
 
 		padDigits = function(number, digits) {

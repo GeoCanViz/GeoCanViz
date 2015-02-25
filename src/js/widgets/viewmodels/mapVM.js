@@ -18,6 +18,8 @@
 			'gcviz-gisdatagrid'
 	], function($viz, ko, i18n, gcvizFunc, gisM, gisGeo, gisNav, gisGraphic, gisDG) {
 		var initialize,
+			disableZoomExtent,
+			$zmExtent,
 			vm;
 
 		initialize = function($mapElem, side) {
@@ -25,7 +27,7 @@
 			// data model				
 			var mapViewModel = function($mapElem, side) {
 				var _self = this,
-					map,
+					map, menuState,
 					mapframe = $mapElem.mapframe,
 					mapid = mapframe.id,
 					config = mapframe.map;
@@ -39,6 +41,9 @@
 
 				// map focus observable
 				_self.mapfocus = ko.observable();
+
+				// set zoom extent button to be able to enable/disable
+				$zmExtent = $viz('#map-zmextent-' + mapid);
 
 				_self.init = function() {
 					var layer, base, panel,
@@ -130,13 +135,16 @@
 					// set draw box cursor
 					$container.css('cursor', 'zoom-in');
 
-					// close mneu
-					$menu.accordion('option', 'active', false);
+					// get active menu and close it if open
+					menuState = $menu.accordion('option', 'active');
+					if (menuState !== false) {
+						$menu.accordion('option', 'active', false);
+					}
 
 					// remove popup click event if it is there to avoid conflict then
 					// call graphic class to draw on map.
 					gisDG.removeEvtPop();
-					gisGraphic.drawBox(_self.map, _self.zoomExtent);				
+					gisGraphic.drawBox(_self.map, _self.zoomExtent);
 				};
 
 				_self.zoomExtent = function(geometry) {
@@ -156,16 +164,15 @@
 						gisM.zoomIn(_self.map);
 					}
 
-					// open mneu
-					$menu.accordion('option', 'active', 0);
+					// open menu if it was open
+					if (menuState !== false) {
+						$menu.accordion('option', 'active', 0);
+					}
 				};
 
-				_self.enterMouse = function() {
+				// click mouse set focus to map.
+				_self.clickMouse = function() {
 					_self.mapholder.focus();
-				};
-
-				_self.leaveMouse = function() {
-					_self.mapholder.blur();
 				};
 
 				_self.applyKey = function(key, shift) {
@@ -178,13 +185,13 @@
 							gisM.panLeft(map);
 							prevent = true;
 						} else if (key === 38) {
-							gisM.panUp(map);
+							gisM.panDown(map);
 							prevent = true;
 						} else if (key === 39) {
 							gisM.panRight(map);
 							prevent = true;
 						} else if (key === 40) {
-							gisM.panDown(map);
+							gisM.panUp(map);
 							prevent = true;
 
 						// chrome/safari is different then firefox. Need to check for both.
@@ -234,8 +241,17 @@
 			return vm;
 		};
 
+		disableZoomExtent = function(val) {
+			if (val) {
+				$zmExtent.addClass('gcviz-disable');
+			} else {
+				$zmExtent.removeClass('gcviz-disable');
+			}
+		};
+
 		return {
-			initialize: initialize
+			initialize: initialize,
+			disableZoomExtent: disableZoomExtent
 		};
 	});
 }).call(this);

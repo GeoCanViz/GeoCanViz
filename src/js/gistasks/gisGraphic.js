@@ -659,7 +659,7 @@
 
 							// focus the map. We need to specify this because when you use the keyboard to
 							// activate ta tool, the focus sometimes doesnt go to the map.
-							gcvizFunc.focusMap(mymap);
+							gcvizFunc.focusMap(mymap, false);
 						} else if (geomType === 'point') {
 							symbol = gissymbols.getSymbText(gColor, gText, 10, 0, 0, 0, 'normal', 'left');
 							graphic = new esriGraph(geometry, symbol);
@@ -736,6 +736,8 @@
 		importGraphics = function(map, graphics, isGraphics) {
 			var item,
 				graphic,
+				extent,
+				extents = [],
 				key = gcvizFunc.getUUID(),
 				layer = map.getLayer('gcviz-symbol'),
 				len = graphics.length;
@@ -748,9 +750,14 @@
 			while (len--) {
 				item = graphics[len];
 				graphic = new esriGraph(item);
+				extents.push(graphic);
 				graphic.key = key;
 				layer.add(graphic);
 			}
+
+			// get the extent then zoom
+			extent = esri.graphicsExtent(extents); // can't load AMD
+			map.setExtent(extent.expand(1.75));
 
 			// add undo stack
 			addUndoStack(key);
@@ -836,10 +843,15 @@
 					// deactivate then call the retrun function
 					tool.deactivate();
 					success(geometry);
+
+					// remove event
+					clickEvt.remove();
 				}, tool));
 
 				// if user click instead of draw
-				clickEvt = map.on('click', function(event) {
+				clickEvt = map.on('click', function() {
+					// deactivate then call the retrun function
+					tool.deactivate();
 					success();
 
 					// remove event

@@ -18,6 +18,7 @@
 				config = $mapElem.header,
 				configTools = config.tools,
 				configAbout = config.about,
+				isDatatable = $mapElem.datagrid.enable,
 				mapid = $mapElem.mapframe.id,
 				title = config.title.value,
 				node = '',
@@ -92,7 +93,7 @@
 				$mapElem.find('.gcviz-toolsholder').append(menu);
 			}
 
-			return (headerVM.initialize($header, mapid, config));
+			return (headerVM.initialize($header, mapid, config, isDatatable));
 		};
 
 		addToolbars = function(config, mapid) {

@@ -84,6 +84,7 @@
 
 				// map tools
 				_self.mapTitle = i18n.getDict('%help-map-title');
+				_self.mapZoomFull = i18n.getDict('%help-map-zoomfull');
 				_self.mapZoom = i18n.getDict('%help-map-zoom');
 				_self.mapZoombar = i18n.getDict('%help-map-zoombar');
 
@@ -175,6 +176,7 @@
 
 				// legend text
 				_self.legTitle = i18n.getDict('%help-leg-title');
+				_self.legAbout = i18n.getDict('%help-leg-about');
 				_self.legDesc1 = i18n.getDict('%help-leg-desc1');
 				_self.legDesc2 = i18n.getDict('%help-leg-desc2');
 				_self.legDesc3 = i18n.getDict('%help-leg-desc3');
@@ -190,6 +192,10 @@
 
 				// extract text
 				_self.extractTitle = i18n.getDict('%help-extract-title');
+				_self.extDesc1 = i18n.getDict('%help-extract-desc1');
+				_self.extClick = i18n.getDict('%help-extract-click');
+				_self.extLink = i18n.getDict('%help-extract-link');
+				_self.extDesc2 = i18n.getDict('%help-extract-desc2');
 
 				// developer's corner text
 				_self.devTitle = i18n.getDict('%help-dev-title');
@@ -262,6 +268,10 @@
 					}
 				};
 
+				_self.aboutClick = function() {
+					console.log('dd');//_self.isAboutDialogOpen(true);
+				};
+
 				_self.init();
 			};
 
@@ -271,7 +281,9 @@
 		};
 
 		toggleHelp = function() {
+			// open main help and close bubble help if open
 			gblDialogOpen(true);
+			gblDialogBubbleOpen(false);
 		};
 
 		toggleHelpBubble = function(key, section) {
@@ -284,7 +296,9 @@
 			gblDialogBubble.append(gblDialog.find('#' + section).clone());
 
 			if (key === 32) {
+				// open bubble help and close main help if open
 				gblDialogBubbleOpen(true);
+				gblDialogOpen(false);
 				prevent = true;
 			}
 
