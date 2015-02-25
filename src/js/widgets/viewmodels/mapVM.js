@@ -185,13 +185,13 @@
 							gisM.panLeft(map);
 							prevent = true;
 						} else if (key === 38) {
-							gisM.panUp(map);
+							gisM.panDown(map);
 							prevent = true;
 						} else if (key === 39) {
 							gisM.panRight(map);
 							prevent = true;
 						} else if (key === 40) {
-							gisM.panDown(map);
+							gisM.panUp(map);
 							prevent = true;
 
 						// chrome/safari is different then firefox. Need to check for both.

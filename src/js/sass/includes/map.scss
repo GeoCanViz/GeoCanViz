@@ -72,6 +72,10 @@
 	height: (15 * $rembase) + rem!important;
 }
 
+html[data-useragent*='IE10'] .esriLargeSliderVertical {
+	height: (12 * $rembase) + rem!important;
+}
+
 .esriLargeSliderTL {
 	@extend %zoombar;
 	left: (1.5 * $rembase) + rem!important;
@@ -113,7 +117,7 @@
 	right: (0.75 * $rembase) + rem!important;
 }
 
-// zoom full extent
+// zoom select extent
 %zoombox {
 	@include sprite($img-spritebtn, -1625, -2);
 	position: absolute!important;

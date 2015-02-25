@@ -736,6 +736,8 @@
 		importGraphics = function(map, graphics, isGraphics) {
 			var item,
 				graphic,
+				extent,
+				extents = [],
 				key = gcvizFunc.getUUID(),
 				layer = map.getLayer('gcviz-symbol'),
 				len = graphics.length;
@@ -748,9 +750,14 @@
 			while (len--) {
 				item = graphics[len];
 				graphic = new esriGraph(item);
+				extents.push(graphic);
 				graphic.key = key;
 				layer.add(graphic);
 			}
+
+			// get the extent then zoom
+			extent = esri.graphicsExtent(extents); // can't load AMD
+			map.setExtent(extent.expand(1.75));
 
 			// add undo stack
 			addUndoStack(key);

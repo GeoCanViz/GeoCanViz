@@ -45,6 +45,8 @@
 
 .gcviz-toolsholder {
 	@include unselectable;
+	border-bottom-left-radius: (0.5 * $rembase) + rem;
+	border-bottom-right-radius: (0.5 * $rembase) + rem;
 	background-color: rgb(140,140,140);
 
 	.gcviz-menu {

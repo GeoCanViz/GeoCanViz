@@ -281,7 +281,9 @@
 		};
 
 		toggleHelp = function() {
+			// open main help and close bubble help if open
 			gblDialogOpen(true);
+			gblDialogBubbleOpen(false);
 		};
 
 		toggleHelpBubble = function(key, section) {
@@ -294,7 +296,9 @@
 			gblDialogBubble.append(gblDialog.find('#' + section).clone());
 
 			if (key === 32) {
+				// open bubble help and close main help if open
 				gblDialogBubbleOpen(true);
+				gblDialogOpen(false);
 				prevent = true;
 			}
 
