@@ -46,7 +46,7 @@ Global sys value#%gisurlalti#http://geogratis.gc.ca/services/elevation/cdem/alti
 #%footer-tpdatagrid#Hide/Show data tables#Ouvrir ou fermer les tableaux des données
 #%footer-tpformat#Toggle between decimal degree and degree minute second format#Basculer entre le format degré décimal et degré minute seconde
 #%datagrid-processing#Processing...#Traitement en cours...
-#%datagrid-search#Search:#Rechercher&nbsp;:
+#%datagrid-search#Search...#Rechercher...:
 #%datagrid-lengthMenu#Show _MENU_ entries#Afficher _MENU_ éléments
 #%datagrid-info#Showing _START_ to _END_ of _TOTAL_#Affichage de _START_ à _END_ sur _TOTAL_
 #%datagrid-infoEmpty#Showing 0 to 0 of 0#Affichage de 0 à 0 sur 0
@@ -64,8 +64,8 @@ Global sys value#%gisurlalti#http://geogratis.gc.ca/services/elevation/cdem/alti
 #%datagrid-sortDescending#: activate to sort column descending#: activer pour trier la colonne par ordre décroissant
 #%datagrid-selectall#Select All#Sélectionner tout
 #%datagrid-zoomselect#Zoom to selected#Zoom à la sélection
-#%datagrid-tpclearfilters#Clear all searchs#Effacer toutes les recherches
-#%datagrid-lblclearfilters#Clear searchs#Effacer recherches
+#%datagrid-tpclearfilters#Clear all search#Effacer toutes les recherches
+#%datagrid-lblclearfilters#Clear search#Effacer recherche
 #%datagrid-tpexportselcsv#Export Selection to CSV#Exporter la sélection au format CSV
 #%datagrid-tpexporttblcsv#Export table to CSV#Exporter la table au format CSV
 #%datagrid-lblexporttblcsv#Export CSV#Exporter en CSV

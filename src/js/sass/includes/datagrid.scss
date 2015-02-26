@@ -31,6 +31,9 @@
 	display: inline;
 }
 
+.gcviz-gd-zoomlbl {
+	@include app-text(1.2, bold);
+}
 // buttons zoom selected, clear filter, export csv and holder
 .gcviz-dg-zoomsel {
 	@include sprite($img-spritebtn, -1516, -2);

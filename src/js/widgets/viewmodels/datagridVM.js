@@ -100,6 +100,8 @@
 				_self.isWait = ko.observable(false);
 
 				_self.init = function() {
+					var intervalModal;
+
 					// init accordion and hide header
 					$datagrid.accordion({
 						collapsible: true,
@@ -113,9 +115,16 @@
 					$viz('.ui-accordion-header').hide();
 
 					// start progress dialog. Put in a timer if not, the variable is not initialize
-					setTimeout(function() {
-						_self.isWait(true);
-					}, 0);
+					intervalModal = setInterval(function() {
+						// check if identity manager window is open. If so wait until finish before show modal
+						var id = $viz('.esriSignInDialog');
+
+						// if no id or id is display, show modal
+						if (id.length === 0 || id[0].style.display === 'none') {
+							_self.isWait(true);
+							clearInterval(intervalModal);
+						}
+					}, 2000);
 
 					// wait for the map to load
 					mymap.on('load', function() {
@@ -396,14 +405,14 @@
 
 						if (colIdx === 0) {
 							// add zoom to selected
-							elem = $viz(this).append('<button id=zoomsel-' + id + '" class="gcviz-dg-zoomsel"></button>');
+							elem = $viz(this).append('<label class="gcviz-gd-zoomlbl" for="zoomSel-' + id + '">Zoom</label><button id="zoomSel-' + id + '" class="gcviz-dg-zoomsel"></button>');
 							gcvizFunc.addTooltip(elem, { content: _self.lblZoomSelect });
 						} else if (column.bSearchable) {
 							valueType = column.type.value;
 
 							if (valueType === 'string') {
 								// add string filter
-								$viz(this).append('<input type="text" class="gcviz-dg-search gcviz-dg-searchstr" placeholder="' + _self.search + ' ' + this.innerHTML + '"></input>');
+								$viz(this).append('<input type="text" class="gcviz-dg-search gcviz-dg-searchstr" placeholder="' + _self.search + '"></input>');
 							} else if (valueType === 'number') {
 								// add numeric filter
 								$viz(this).append('<div><input type="text" class="gcviz-dg-search gcviz-dg-searchnum" placeholder="Min"></input>' +
@@ -445,7 +454,7 @@
 								return true;
 							}, tableId));
 						} else if (fieldValue === 'string' && fields[colIdx].bSearchable) {
-							$viz('input', table.column(colIdx).header()).on('change', function() {
+							$viz('input', table.column(colIdx).header()).on('keyup', function() {
 								// put the draw in a timeout if not, the processing will not be shown
 								var $process = $viz('.dataTables_processing'),
 									value = this.value;
@@ -484,7 +493,7 @@
 								return flag;
 						    }, $inputs, tableId));
 
-							$inputs.on('change', function(e) {
+							$inputs.on('keyup', function(e) {
 								// put the draw in a timeout if not, the processing will not be shown
 								var $process = $viz('.dataTables_processing');
 
@@ -957,9 +966,10 @@
 				_self.zoomSelect = function(target) {
 					var feat,
 						i = 0,
-						data = objDataTable[activeTableId].data(),
+						data = objDataTable[activeTableId].rows({ filter: 'applied' }).data(),
 						len = data.length,
-						features = [];
+						features = [],
+						allFeatures = [];
 
 					// loop trought all the data for this table and keep all the features
 					// selected
@@ -969,13 +979,18 @@
 						if (feat.gcvizcheck) {
 							features.push(feat.geometry);
 						}
+
+						// keep all the features so if no selection use all extent
+						allFeatures.push(feat.geometry);
 						i++;
 					}
 
 					// if there is 1 feature or more, call gisDatagrid to zoom to extent
-					// of selection.
+					// of selection. If not, call it with all filtered features
 					if (features.length > 0) {
 						gisDG.zoomFeatures(features);
+					} else {
+						gisDG.zoomFeatures(allFeatures);
 					}
 				};
 

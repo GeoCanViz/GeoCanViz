@@ -570,9 +570,9 @@
                     "dataalias": "GEO_EDESC",
 				     "type": {
 				      	"field": "field",
-				      	"value": "string"
+				      	"value": "select"
 				     },
-				     "searchable": false
+				     "searchable": true
                 }, {
                     "title": "Geo FDESC",
                     "width": "250px",
