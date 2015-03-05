@@ -21,3 +21,6 @@ csslint.out.xml
 *.tmp
 *.log
 node_modules/
+
+# Aptana generated file
+.externalToolBuilders

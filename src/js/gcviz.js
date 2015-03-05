@@ -252,7 +252,7 @@ var locationPath;
 			i = metas.length;
 
 			while (i--) {
-				if (metas[i].getAttribute('property') === 'location') {
+				if (metas[i].getAttribute('name') === 'gcviz-location') {
 					locationPath = metas[i].getAttribute('content');
 				}
 			}

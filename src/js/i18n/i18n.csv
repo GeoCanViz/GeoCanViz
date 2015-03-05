@@ -114,10 +114,10 @@ Global sys value#%gisurlalti#http://geogratis.gc.ca/services/elevation/cdem/alti
 #%toolbarnav-alt#Search and Map Information - Help#Recherche et information sur la carte - Aide
 #%toolbarnav-name#Search and Map Information#Recherche et information sur la carte
 #%toolbarnav-zoomgrp#Find a Location#Trouver un lieu
-#%toolbarnav-lblgeoloc#Enter and select a geographical name, topographic map number, postal code or latitude longitude coordinate#Entrez et sélectionnez un nom géographique ou topographique, un numéro de carte, un code postal ou une coordonnée (latitude longitude).
+#%toolbarnav-lblgeoloc#Enter and select a geographical name, topographic map number, postal code or latitude and longitude coordinate#Entrez et sélectionnez un nom géographique ou topographique, un numéro de carte, un code postal ou une coordonnée (latitude et longitude).
 #%toolbarnav-inskeyboard#When entering a geographic location suggested names will appear in the auto-fill list below the text entry box. Suggestions will start appearing after you type 3 characters.#Lorsque vous spécifiez un lieu géographique, des suggestions apparaissent dans la liste d'auto-remplissage en dessous de la zone de texte. Les suggestions commenceront à apparaître après avoir tapé 3 caractères.
 #%toolbarnav-mapinfogrp#Map Information#Information sur la carte
-#%toolbarnav-lblinfo#Get coordinates information#Information sur les coordonnées
+#%toolbarnav-lblinfo#Get coordinates from map#Obtenir les coordonnées de la carte
 #%toolbarnav-info#Map location information#Information de localisation sur la carte
 #%toolbarnav-infotopocoord#Geographic Coordinates#Coordonnées géographiques 
 #%toolbarnav-infodecdeg#Degrees Decimal#Degrés décimaux

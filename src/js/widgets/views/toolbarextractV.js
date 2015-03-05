@@ -30,8 +30,8 @@
 					node += '<li><div>';
 						node += '<span class="gcviz-label gcviz-bold" data-bind="text: title"></span><span class="gcviz-label" data-bind="text: subtitle"></span>';
 						node +=	'<ul class="gcviz-ext-url" data-bind="foreach: query">';
-							node += '<div data-bind="if: control === \'link\'"><li><a target="_blank" data-bind="attr: { href: hrefData }, text: label, css: { \'gcviz-ext-urldis\': !$parent.isReady() }"></a></li></div>';
-							node += '<div data-bind="if: control === \'button\'">';
+							node += '<div data-bind="if: type === 2"><li><a target="_blank" data-bind="attr: { href: hrefData }, text: label, css: { \'gcviz-ext-urldis\': !$parent.isReady() }"></a></li></div>';
+							node += '<div data-bind="if: type === 1">';
 								node += '<li><button class="gcviz-ext-nts" tabindex="0" data-bind="buttonBlur, click: function() { $root.clickNTS(hrefData()) }, attr: { alt: label, id: \'selnts\' + $parentContext.$index() + $index() }, enable: $parent.isReady()"></button>';
 								node += '<label class="gcviz-label gcviz-nav-lblpos gcviz-inlineblock" data-bind="text: label, attr: { for: \'selnts\' + $parentContext.$index() + $index() }, css: { \'gcviz-ext-urldis\': !$parent.isReady() }"></label></li>';
 							node += '</div>';

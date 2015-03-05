@@ -135,7 +135,7 @@
 							// need to be in timeout. If not, doesnt work
 							setTimeout(function(){
 								$menu.accordion('option', 'active', false);
-							}, 0);
+							}, 500);
 						}
 
 						$menuCont.off('accordioncreate');
