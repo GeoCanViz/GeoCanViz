@@ -2211,16 +2211,14 @@
             "items": [{
             	"title": "Maps (raster): ",
             	"subtitle": "Toporama, CanMatrix Print-ready and Georeferenced.",
-            	"scale": -1,
+            	"scale": 50000,
             	"url": "http://geogratis.gc.ca/api/en/nrcan-rncan/ess-sst/-/OR/(urn:iso:series)toporama/(urn:iso:series)canmatrix-georeferenced",
             	"query": [{
-            		"control": "button",
-            		"type": "nts",
+            		"type": 1,
             		"param": "?q=XXX",
             		"label": "Get single NTS area"
             		}, {
-            		"control": "link",
-            		"type": "extent",
+            		"type": 2,
             		"param": "?bbox=XXX&sort-field=spatial",
             		"label": "Get all maps for area shown"
             		}]
@@ -2230,24 +2228,21 @@
 	            "scale": -1,
 	            "url": "http://geogratis.gc.ca/api/en/nrcan-rncan/ess-sst/-/(urn:iso:series)canvec-plus",
 	            "query": [{
-	           	  "control": "button",
-            		"type": "nts",
+            		"type": 1,
             		"param": "?q=XXX",
             		"label": "Get single NTS area"
             		}, {
-            		"control": "link",
-            		"type": "extent",
+            		"type": 2,
             		"param": "?bbox=XXX&sort-field=spatial",
             		"label": "Get all data for area shown"
             		}]
 	            }, {
 	            "title": "Data: ",
 	            "subtitle": "CanVec (vector) and Elevation (raster) data using custom geographic extent.",
-	            "scale": -1,
+	            "scale": 0,
             	"url": "http://geogratis.gc.ca/site/eng/extraction",
             	"query": [{
-            		"control": "link",
-            		"type": "extent",
+            		"type": 2,
             		"param": "?bbox=XXX",
             		"label": "Get data using the Data Extraction Tool"
             		}]

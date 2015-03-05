@@ -45,7 +45,7 @@
 
 				// hold the larger scale. It will help to do the reprojection on map-extent
 				// only when we need it. Hold the map scale as well.
-				_self.largeScale = -1;
+				_self.largeScale = 0;
 				_self.mapScale = 0;
 
 				// hold the map wkid
@@ -65,8 +65,13 @@
 					// set the is ready observable to know if we are in the scale range
 					item.isReady = ko.observable(false);
 
+					// the scale cant be negative in the config file. If it is 0, set it to -1
+					if (item.scale === 0) {
+						item.scale = -1;
+					}
+
 					// set the larger scale
-					if (_self.largeScale < item.scale || item.scale === -1) {
+					if (_self.largeScale !== -1 && (_self.largeScale < item.scale || item.scale === -1)) {
 						_self.largeScale = item.scale;
 					}
 				}
@@ -130,9 +135,9 @@
 								query = item.query[lenQuery];
 								type = query.type;
 
-								if (type === 'extent') {
+								if (type === 2) {
 									_self.setQueryExtent(query, item.url, query.param, extent);
-								} else if (type === 'nts') {
+								} else if (type === 1) {
 									_self.setQueryNTS(query, item.url, query.param);
 								}
 							}
