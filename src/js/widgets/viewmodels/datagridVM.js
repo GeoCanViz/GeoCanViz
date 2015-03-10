@@ -155,7 +155,7 @@
 				};
 
 				_self.openWait = function(event) {
-					$(event.target.parentElement).find('.ui-dialog-titlebar-close').addClass('gcviz-dg-wait');
+					$viz(event.target.parentElement).find('.ui-dialog-titlebar-close').addClass('gcviz-dg-wait');
 				};
 
 				_self.closeWait = function() {
@@ -168,7 +168,7 @@
 				};
 
 				_self.getData = function(layer, pos) {
-					var tmpLook, urlFull, strField,
+					var urlFull, strField,
 						layerInfo = layer.layerinfo,
 						layerIndex = layerInfo.index,
 						type = layerInfo.type,
@@ -192,7 +192,7 @@
 					} else {
 						strField = strField.slice(0, -1);
 					}
-						
+
 					if (type === 4) {
 						// datatable (dynamic layer, need layer index to select one layer in the dynamic service)
 						urlFull = url + layerIndex + '/query?where=OBJECTID+>+0&outFields=' + strField + '&dirty=' + (new Date()).getTime();
@@ -329,7 +329,7 @@
 							row.getElementsByClassName('gcviz-dg-select')[0].checked = val;
 							_self.highlightRow(row, val);
 						},
-						createdRow: function(row, data, index) {
+						createdRow: function(row, data) {
 							// add id on the row instead of in a columns. We have to do this because we cant hide the column
 							// it creates display problems with IE
 							row.id = data.gcvizid;
@@ -503,6 +503,7 @@
 									$process.css('display', 'none');
 								}, 250);
 							});
+
 						} else if (fieldValue === 'select') {
 							// http://datatables.net/examples/api/multi_filter_select.html
 							var $select = $viz('select', table.column(colIdx).header());
@@ -629,7 +630,7 @@
 							type: {
 								value: 'button'
 							},
-							defaultContent: '',
+							defaultContent: ''
 						});
 					}
 
@@ -658,7 +659,7 @@
 					_self.setEvents(pos);
 
 					// if all tables have been initialize
-					if (table === tables) {
+					if (table >= tables) {
 
 						// set tabs and refresh accordion
 						$datatab.tabs({
@@ -749,7 +750,7 @@
 						if (menuState !== false) {
 							$menu.accordion('option', 'active', false);
 						}
-						
+
 						// remove popup click event if it is there to avoid conflict then
 						// call graphic class to draw on map.
 						gisDG.removeEvtPop();
@@ -843,15 +844,13 @@
 					var attrNames, attrValues, lenFields,
 						link, fieldName,
 						i = 0,
-						fieldObj = [],
 						node = '',
 						title = col.attr('gcviz-title'),
 						subtitle = col.attr('gcviz-subtitle'),
 						fields = col.attr('gcviz-fields').split(','),
 						links = data.link,
-						lenLink = links.length,
-						lenTitle = fields.length;
-	
+						lenLink = links.length;
+
 					// add title and subtitle then start table
 					node += '<span class="gcviz-dg-linktitle">' + title + '</span>' +
 							'<span class="gcviz-dg-linksubtitle">' + subtitle + '</span>' +
@@ -876,11 +875,11 @@
 					while (lenLink--) {
 						// get the feature attribute names and values
 						link = links[lenLink];
-						
+
 						attrValues = $viz.map(link, function(value) {
 							return [value];
 						});
-						
+
 						lenFields = Object.keys(attrNames).length;
 						node += '<tr role="row">';
 						while (lenFields--) {
@@ -891,7 +890,7 @@
 
 					// close table
 					node += '</tbody></table>';
-					
+
 					return node;
 				};
 
@@ -944,7 +943,7 @@
 					while (i !== len) {
 						row = rows[i];
 						row.gcvizcheck = val;
-						info.feat = parseInt(row.gcvizid.split('-')[1]);
+						info.feat = parseInt(row.gcvizid.split('-')[1], 10);
 
 						if (val) {
 							gisDG.selectFeature(row.geometry, info);
@@ -1003,7 +1002,7 @@
 						output = '',
 						rtnCarr = String.fromCharCode(13),
 						dataLen = data.length;
-					
+
 					// get the row title
 					row = data[0];
 					for (var field in row) {
@@ -1068,7 +1067,9 @@
 				};
 
 				_self.selExtent = function(geometry) {
-					var info, url, layerInfo;
+					var info, url, layerInfo,
+						type,
+						len, i, graphic, graphics, features;
 
 					// remove draw box cursor
 					$container.css('cursor', '');
@@ -1079,13 +1080,38 @@
 						// get layerinfo
 						info = arrLayerInfo[activeTableId];
 						layerInfo = info.layerinfo;
-						url = mymap.getLayer(layerInfo.id).url;
+						type = layerInfo.type;
+						
 
-						// add index if dynamic
-						if (layerInfo.type === 4) {
-							url += '/' + layerInfo.index;
+						// if it as an added layer, the type is 7 and it is a graphic layer.
+						// graphic layer are process differently then other layers
+						if (type !== 7) {
+							url = mymap.getLayer(layerInfo.id).url;
+
+							// add index if dynamic
+							if (layerInfo.type === 4) {
+								url += '/' + layerInfo.index;
+							}
+
+							// call query task to get selection
+							gisDG.getSelection(url, mymap.vWkid, geometry, _self.setSelection);
+						} else {
+							graphics = mymap.getLayer(layerInfo.id).graphics;
+							features = [];
+							len = graphics.length - 1;
+							i = 0;
+
+							// loop trought graphics, add them to array and call setSelection
+							while (i <= len) {
+								graphic = graphics[i];
+							 	if (geometry.contains(graphic.geometry)) {
+							 		features.push(graphic);
+							 	}
+								i++;
+							}
+						
+							_self.setSelection(features);
 						}
-						gisDG.getSelection(url, mymap.vWkid, geometry, _self.setSelection);
 					}
 
 					// open menu if it was open
@@ -1151,7 +1177,16 @@
 
 				// keep _self outiside initialize to be able to call it from outside
 				// in this case we will need it to add a new tab for csv data or remove one
-				innerAddTab = _self.createTab;
+				innerAddTab = function(datas, title, layer) {
+					// add the popup title to lookup table
+					lookPopups.push([title, title]);
+
+					// add layer definition to config file
+					config.layers.push(layer);
+
+					// add tab and table
+					_self.createTab(datas);
+				};
 				innerRemoveTab = _self.removeTab;
 
 				// ********* popup section **********
@@ -1190,7 +1225,7 @@
 					if (allIdFeatures.length < 2) {
 						_self.isEnableNext(false);
 					}
-						
+
 					// make sure array of layer is unique for select
 					if (isFeatures) {
 						_self.layerName(ko.utils.arrayGetDistinctValues(_self.layerNameHolder()));
@@ -1239,7 +1274,7 @@
 							if (linkInfo.enable) {
 								// set to 2 because the 2 last field are for select and link 
 								staticFields = 2;
-								
+
 								linkNode = _self.getLinkNode(linkInfo, layer.layerinfo.id, attributes.OBJECTID);
 							}
 
@@ -1267,12 +1302,12 @@
 				};
 
 				_self.getLinkNode = function(linkInfo, layerId, objectID) {
-					 var links, link,
-					 	linkAttrNames, linkAttrValues,
-					 	lenLink, lenFields,
-					 	fieldName,
-					 	fieldsInfo = linkInfo.fields.reverse(),
-					 	node = '';
+					var links, link,
+						linkAttrNames, linkAttrValues,
+						lenLink, lenFields,
+						fieldName,
+						fieldsInfo = linkInfo.fields.reverse(),
+						node = '';
 
 					// get the feature attribute names and values
 					links = gisDG.getRelRecords(layerId, objectID);
@@ -1293,17 +1328,17 @@
 								'" title="' + fieldName + '">' + fieldName + '</th>';
 					}
 					node += '</tr></thead><tbody>';
-	
+
 					// loop trought item and add them to table
 					lenLink = links.length;
 					while (lenLink--) {
 						// get the feature attribute names and values
 						link = links[lenLink];
-						
+
 						linkAttrValues = $viz.map(link, function(value) {
 							return [value];
 						});
-						
+
 						lenFields = Object.keys(linkAttrValues).length;
 						node += '<tr role="row">';
 						while (lenFields--) {
@@ -1461,7 +1496,7 @@
 
 			// setup fields
 			while (lenField--) {
-				// add the filed only if it is not a internal field
+				// add the field only if it is not a internal field
 				field = fieldsOri[lenField];
 				if (field.name.indexOf('OBJECTID') === -1) {
 					delete field.type;
@@ -1471,11 +1506,15 @@
 					field.title = field.alias;
 					delete field.alias;
 					field.data = field.name;
+					field.dataalias = field.name;
 					delete field.name;
+					field.width = '80px';
+					field.searchable = true;
 					field.type = {
+						field: 'field',
 						value: 'string'
 					};
-	
+
 					fields.push(field);
 				}
 			}
@@ -1498,14 +1537,22 @@
 			layer.title = title;
 			layer.mapid = mapid;
 			layer.fields = fields;
+			layer.globalsearch = false;
+			layer.popups = { 'enable': true,
+							'layeralias': title };
+			layer.linktable = { 'enable': false };
 
 			// add layer info to first element
-			layer.layerinfo = { 'pos': table };
+			layer.layerinfo = { 
+								'pos': table,
+								'id': layerId,
+								'type': 7
+							};
 			datas[0].layer = layer;
-
+							
 			// call the inner create tab function (if datagrid is enable)
 			if (typeof innerAddTab !== 'undefined') {
-				innerAddTab(datas);
+				innerAddTab(datas, title, layer);
 			}
 		};
 

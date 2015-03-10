@@ -18,10 +18,10 @@
 		var initialize,
 			vm;
 
-		initialize = function($mapElem, mapid, config) {
+		initialize = function($mapElem, mapid, config, dataToolbar) {
 
 			// data model				
-			var footerViewModel = function($mapElem, mapid, config) {
+			var footerViewModel = function($mapElem, mapid, config, dataToolbar) {
 				var _self = this, coordEvt,
 					pathGCVizPNG = locationPath + 'gcviz/images/GCVizLogo.png',
 					configMouse = config.mousecoords,
@@ -67,19 +67,21 @@
 						coordEvt = mymap.on('mouse-move', function(evt) {
 							_self.showCoordinates(evt);
 						});
-						
-						$viz('#map2').on('gcviz-ready', function() {
+
+						$viz('#' + mapid).on('gcviz-ready', function() {
 							// subscribe to the open add data event. When data is added we need to stop the
 							// show coordinate event because it corrupts the projection and creates errors
-							gcvizFunc.subscribeTo(mapid, 'data', 'isAddData', function(val) {
-								if (val) {
-									coordEvt.remove();
-								} else {
-									coordEvt = mymap.on('mouse-move', function(evt) {
-										_self.showCoordinates(evt);
-									});
-								}
-							});
+							if (dataToolbar) {
+								gcvizFunc.subscribeTo(mapid, 'data', 'isAddData', function(val) {
+									if (val) {
+										coordEvt.remove();
+									} else {
+										coordEvt = mymap.on('mouse-move', function(evt) {
+											_self.showCoordinates(evt);
+										});
+									}
+								});
+							}
 						});
 					}
 
@@ -196,7 +198,7 @@
 				_self.init();
 			};
 
-			vm = new footerViewModel($mapElem, mapid, config);
+			vm = new footerViewModel($mapElem, mapid, config, dataToolbar);
 			ko.applyBindings(vm, $mapElem[0]); // This makes Knockout get to work
 			return vm;
 		};

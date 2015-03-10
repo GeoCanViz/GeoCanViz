@@ -53,6 +53,10 @@ $one_col: (100% - ($gutter * ($cols - 1))) / $cols;
 }
 
 // buttons sprite
+@mixin marg-button {
+	margin-top: (0.4 * $rembase) + rem;
+}
+
 @mixin sprite($url, $x, $y, $size: 3.2, $repeat: no-repeat) {
 	background: url($url) $x + px $y + px $repeat;
 	display: inline;
@@ -77,20 +81,14 @@ $one_col: (100% - ($gutter * ($cols - 1))) / $cols;
 }
 
 @mixin spritenohover($url, $x, $y, $size: 3.2, $repeat: no-repeat) {
-	@include sprite($url, $x, $y, $size: 3.2, $repeat: no-repeat);
-
-	&:hover {
-		background-position: $x + px $y + px;
-	}
-
-	&:focus {
-		background-position: $x + px $y + px;
-	}
-
-	&:disabled {
-		background-position: $x + px $y + px;
-		cursor: none;
-	}
+	background: url($url) $x + px $y + px $repeat;
+	display: inline;
+	cursor: default;
+	border: none;
+	height: ($size * 10) + px;
+	width: ($size * 10) + px;
+	position: relative;
+	@include unselectable;
 }
 
 @mixin content-border-radius($radius: 0.5, $type: full) {

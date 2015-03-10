@@ -29,6 +29,7 @@
 			projectGeoms,
 			densifyGeom,
 			getUTMEastNorth,
+			createExtent,
 			params = new esriProj();
 
 		setGeomServ = function(url) {
@@ -141,12 +142,16 @@
 			params.outSR = new esriSR({ 'wkid': outwkid });
 
 			geomServ.project(params, function(projectedPoints) {
-				var geom = params.geometries,
+				var i = 0,
+					geom = params.geometries,
 					len = geom.length;
 
 				// put back the attributes
-				while (len--) {
-					projectedPoints[len].attributes = geom[len].attributes;
+				if (typeof geom[i].attributes !== 'undefined') {
+					while (i !== len) {
+						projectedPoints[i].attributes = geom[i].attributes;
+						i++;
+					}
 				}
 				success(projectedPoints);
 			});
@@ -154,13 +159,15 @@
 
 		projectCoords = function(coords, inwkid, outwkid, success) {
 			var point,
-				points = [],
+				i = 0,
 				len = coords.length,
+				points = new Array(len),
 				inSR = new esriSR({ 'wkid': inwkid });
 
-			while (len--) {
-				point = coords[len];
-				points.push(new esriPoint(point[0], point[1], inSR));
+			while (i !== len) {
+				point = coords[i];
+				points[i] = new esriPoint(point[0], point[1], inSR);
+				i++;
 			}
 
 			// call projection function
@@ -183,16 +190,19 @@
 			// callback because we have more info this way. We will be able to link back to the
 			// geometries original attributes.
 			geomServUnique.on('project-complete', function(projected) {
-				var feat, features = [],
+				var feat,
+					i = 0,
 					geom = projected.target.geom,
-					len = geom.length;
+					len = geom.length,
+					features = new Array(len);
 
 				// put back the attributes
-				while (len--) {
+				while (i !== len) {
 					feat = {};
-					feat = geom[len].attributes;
-					feat.geometry = projected.geometries[len];
-					features.push(feat);
+					feat = geom[i].attributes;
+					feat.geometry = projected.geometries[i];
+					features[i] = feat;
+					i++;
 				}
 				success(features.reverse());
 			});
@@ -232,6 +242,18 @@
 			});
 		};
 
+		createExtent = function(point, map, tolerancePx) {
+			var pixelWidth = map.extent.getWidth() / map.width,
+				toleranceMapCoords = tolerancePx * pixelWidth,
+				extent = esriExtent(point.x - toleranceMapCoords,
+									point.y - toleranceMapCoords,
+									point.x + toleranceMapCoords,
+									point.y + toleranceMapCoords,
+									map.spatialReference);
+
+			return extent;
+		};
+
 		return {
 			setGeomServ: setGeomServ,
 			getOutSR: getOutSR,
@@ -244,7 +266,8 @@
 			projectCoords: projectCoords,
 			projectGeoms: projectGeoms,
 			densifyGeom: densifyGeom,
-			getUTMEastNorth: getUTMEastNorth
+			getUTMEastNorth: getUTMEastNorth,
+			createExtent: createExtent
 		};
 	});
 }());

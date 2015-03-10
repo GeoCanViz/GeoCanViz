@@ -29,6 +29,8 @@
 %panel {
 	display: block!important;
 	border-radius: 0!important;
+	@include app-text(1.2, bold, $black);
+	@include unselectable;
 }
 
 .gcviz-tbcontainer-l {
@@ -43,6 +45,8 @@
 
 .gcviz-toolsholder {
 	@include unselectable;
+	border-bottom-left-radius: (0.5 * $rembase) + rem;
+	border-bottom-right-radius: (0.5 * $rembase) + rem;
 	background-color: rgb(140,140,140);
 
 	.gcviz-menu {
@@ -114,4 +118,11 @@
 .ui-corner-all, .ui-btn-corner-all {
 	-webkit-background-clip: border-box!important;
 	background-clip: border-box!important;
+}
+
+// override wet theme
+.ui-accordion-header {
+	margin-left: 0!important;
+	margin-right: 0!important;
+	margin-bottom: 0!important;
 }

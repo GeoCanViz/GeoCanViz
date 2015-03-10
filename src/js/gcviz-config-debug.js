@@ -61,6 +61,11 @@
 			window.browser = this.searchString(this.dataBrowser) || 'unknown';
 			window.browserversion = this.searchVersion(navigator.userAgent) || this.searchVersion(navigator.appVersion) || 'unknown';
 			window.browserOS = navigator.platform.match(/(Win)/i) ? 'win' : 'mac';
+
+			// add a class to document to specify it is IE 10
+			if (window.browser === 'Explorer' && window.browserversion <= 10) {
+				document.documentElement.setAttribute('data-useragent', 'IE10');
+			}
 	},
 	searchString: function(data) {
 		var length = data.length,

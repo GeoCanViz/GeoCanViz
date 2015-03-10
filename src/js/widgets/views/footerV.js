@@ -17,6 +17,7 @@
 				mapid = $mapElem.mapframe.id,
 				configDatagrid = $mapElem.datagrid,
 				configScalebar = config.scalebar.enable,
+				dataToolbar = $mapElem.toolbardata.enable,
 				node = '';
 
 			$mapElem.find('#' + mapid).append('<div id="foot' + mapid + '" class="gcviz-foot"></div>');
@@ -73,7 +74,7 @@
 			node += '</div>';
 
 			$footer.append(node);
-			return(footerVM.initialize($footer, mapid, config));
+			return(footerVM.initialize($footer, mapid, config, dataToolbar));
 		};
 
 		return {

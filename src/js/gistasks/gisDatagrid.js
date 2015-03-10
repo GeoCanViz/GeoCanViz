@@ -13,7 +13,8 @@
 			'gcviz-gisgeo',
 			'gcviz-func',
 			'esri/layers/GraphicsLayer',
-			'esri/symbols/SimpleLineSymbol',
+			'esri/layers/FeatureLayer'
+,			'esri/symbols/SimpleLineSymbol',
 			'esri/symbols/SimpleFillSymbol',
 			'esri/symbols/SimpleMarkerSymbol',
 			'esri/geometry/Point',
@@ -29,7 +30,7 @@
 			'esri/tasks/QueryTask',
 			'esri/tasks/query',
 			'gcviz-gissymbol'
-	], function($viz, gisMap, gisGeo, gcvizFunc, esriGraphLayer, esriLine, esriFill, esriMarker, esriPoint, esriPoly, esriPolyline, esriSR, esriGraph, esriRequest, esriRelRequest, dojoDefList, esriIdTask, esriIdParams, esriQueryTsk, esriQuery) {
+	], function($viz, gisMap, gisGeo, gcvizFunc, esriGraphLayer, esriFeatLayer, esriLine, esriFill, esriMarker, esriPoint, esriPoly, esriPolyline, esriSR, esriGraph, esriRequest, esriRelRequest, dojoDefList, esriIdTask, esriIdParams, esriQueryTsk, esriQuery) {
 		var initialize,
 			getData,
 			getSelection,
@@ -59,6 +60,7 @@
 			idTaskIndex = 0,
 			layerIndex,
 			idParams = new esriIdParams(),
+			deferredGraph,
 			idFeatures,
 			idRtnFunc;
 
@@ -85,7 +87,7 @@
 			require(['gcviz-gissymbol'], function(gissymb) {
 				// set symbologies
 				symbPoint = gissymb.getSymbPoint(color, 18, colorOut, 1);
- 				symbLine = gissymb.getSymbLine(color, 5 , colorOut);
+				symbLine = gissymb.getSymbLine(color, 5 , colorOut);
 				symbPoly = gissymb.getSymbPoly(colorOut, color, 1);
 			});
 		};
@@ -132,7 +134,7 @@
 						featLayer.queryRelatedFeatures(relatedQuery, function(relatedRecords) {
 							data = createDataArray(features, len, fields, sr, id, pos, relatedRecords);
 							closeGetData(data, layer, success);
-							
+
 							// keep related records to be access later by popups
 							setRelRecords(id, relatedRecords);
 						});
@@ -148,7 +150,7 @@
 		getSelection = function(url, wkid, geometry, success) {
 			var query,
 				queryTask = new esriQueryTsk(url);
-			
+
 			// define query
 			query = new esriQuery();
 			query.returnGeometry = false;
@@ -332,14 +334,18 @@
 					graphics[i] = graphic;
 					i++;
 				}
-	
+
 				// get the extent then zoom
 				extent = esri.graphicsExtent(graphics); // can't load AMD
 				mymap.setExtent(extent.expand(1.75));
 			}
 
+			// there is a bug when in full screen and do a zoom to select. There is an offset in y
+			// so popup is not available. To resolve this, resize map.
+			mymap.resize();
+
 			// focus the map
-			gcvizFunc.focusMap(mymap);
+			gcvizFunc.focusMap(mymap, true);
 		};
 
 		selectFeature = function(geometry, info) {
@@ -412,9 +418,23 @@
 				idParams.layerIds = [idTasksArr[lenTask].layerIndex];
 				idTasksArr[lenTask].execute(idParams, deferred[lenTask].callback);
 			}
+			
+			var query = new esriQuery();
+			query.geometry = gisGeo.createExtent(event.mapPoint, mymap, 10);
+			deferredGraph = mymap.getLayer(mymap.graphicsLayerIds[2]).selectFeatures(query, esriFeatLayer.SELECTION_NEW);
+			
 		};
 
 		returnIdResults = function(response) {
+			// add items from graphic layer added to map
+			var item = { 0: true,
+						1: [{ 'layerName': deferredGraph.results[0][0][0]._layer.name,
+						'feature': {
+							'attributes': deferredGraph.results[0][0][0].attributes,
+							'geometry': deferredGraph.results[0][0][0].geometry
+						}
+					}]};
+			response.push(item);
 			// send the resonse to the calling view model
 			idRtnFunc(response);
 		};
@@ -433,7 +453,7 @@
 				outArr[i] = (items[i].attributes);
 				i++;
 			}
-					
+
 			return outArr;
 		};
 

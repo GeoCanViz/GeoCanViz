@@ -145,11 +145,6 @@ var locationPath;
 			vmArray.header = header.initialize($mapSection);
 			vmArray.footer = footer.initialize($mapSection);
 
-			// add datatable, popup and hover
-			if (config.datagrid.enable) {
-				vmArray.datagrid = datagrid.initialize($mapSection);
-			}
-
 			// add draw toolbar
 			if (config.toolbardraw.enable) {
 				vmArray.draw = tbdraw.initialize($mapSection);
@@ -180,9 +175,14 @@ var locationPath;
 				vmArray.insets = inset.initialize($mapSection);
 			}
 
+			// add datatable, popup and hover
+			if (config.datagrid.enable) {
+				vmArray.datagrid = datagrid.initialize($mapSection);
+			}
+
 			// add print
 			//vmArray.print = print.initialize($mapSection);
-		
+
 			// create the help for the map instance
 			vmArray.help = help.initialize($mapSection);
 
@@ -199,11 +199,14 @@ var locationPath;
 				window.onresize = gcvizFunc.debounce(function(event) {
 					var applyW, actualW, oriW,
 						leftMarg, maxWidth,
-						$section;
+						$section, $mapholder,
+						$map, $maproot,
+						isFullScreen,
+						target = event.target;
 
 					// check if the event is trigger by ui-dialog window. If not, set resize
-					if (event.target.classList[0] !== 'ui-dialog') {
-						$section = $(event.target.document.getElementsByClassName('gcviz-section')),
+					if (target.toString().indexOf('Window') !== -1) {
+						$section = $(target.document.getElementsByClassName('gcviz-section')),
 						$mapholder = $section.find('.gcviz'),
 						$map = $section.find('.gcviz-map'),
 						$maproot = $section.find('.gcviz-root'),
@@ -219,19 +222,19 @@ var locationPath;
 							leftMarg = $section.position().left, //containter left margin
 							maxWidth = parseInt($section.parent().css('width'), 10) - (2 * leftMarg); // get container width
 						}
-	
+
 						// map cant be smaller then 360px (tools panel width)
 						if (maxWidth < 360) {
 							maxWidth = 360;
 						}
-	
+
 						// check if we should apply the original width or the maximum possible width
 						if (oriW > maxWidth || isFullScreen) {
 							applyW = maxWidth;
 						} else if (actualW < oriW && maxWidth > oriW) {
 							applyW = oriW;
 						}
-	
+
 						// set size
 						gcvizFunc.setStyle($section[0], { 'width': applyW + 'px' });
 						gcvizFunc.setStyle($mapholder[0], { 'width': applyW + 'px' });
@@ -248,7 +251,7 @@ var locationPath;
 			var metas = document.getElementsByTagName('meta'),
 			i = metas.length;
 
-			while(i--) {
+			while (i--) {
 				if (metas[i].getAttribute('name') === 'gcviz-location') {
 					locationPath = metas[i].getAttribute('content');
 				}

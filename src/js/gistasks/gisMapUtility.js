@@ -423,6 +423,7 @@
 
 		resizeMap = function(map) {
 			map.resize();
+			map.reposition();
 		};
 
 		resizeCenterMap = function(map, options) {
@@ -486,12 +487,16 @@
 
 			// set no link to true to avoid link inset on extent-change
 			// after the resize if fullscreen
-			if (fullscreen) { noLink = true; }
+			if (fullscreen) {
+				noLink = true;
+			}
 			resizeMap(map);
 
 			// wait for the resize to finish then set extent 
 			// (cant use resize event because it is trigger before it is finish)
-			setTimeout(function() { map.setExtent(extent); }, interval);
+			setTimeout(function() {
+				map.setExtent(extent);
+			}, interval);
 		};
 
 		// USE JQUERY.UI-contextmenu INSTEAD OF DOJO!!!
@@ -651,7 +656,7 @@
 			map.infoWindow.hide();
 
 			// focus the map
-			func.focusMap(map);
+			func.focusMap(map, false);
 		};
 
 		return {

@@ -62,3 +62,120 @@
 .gcviz-help-img {
 	margin-top: (1 * $rembase) + rem!important;
 }
+
+// buttons in the help
+.gcviz-help-zoommax {
+	@include spritenohover($img-spritebtn, -1012, -2);
+}
+
+.gcviz-help-zoomext {
+	@include spritenohover($img-spritebtn, -1625, -2);
+}
+
+.gcviz-help-help {
+	@include spritenohover($img-spritebtn, -110, -2);
+}
+
+.gcviz-help-about {
+	@include spritenohover($img-spritebtn, -145, -2);
+}
+
+.gcviz-help-inset {
+	@include spritenohover($img-spritebtn, -37, -2);
+}
+
+.gcviz-help-link {
+	@include spritenohover($img-spritebtn, -75, -2);
+}
+
+.gcviz-help-print {
+	@include spritenohover($img-spritebtn, -3, -2);
+}
+
+.gcviz-help-fs {
+	@include spritenohover($img-spritebtn, -219, -2);
+}
+
+.gcviz-help-reg {
+	@include spritenohover($img-spritebtn, -255, -2);
+}
+
+.gcviz-help-data {
+	@include spritenohover($img-spritebtn, -1481, -2);
+}
+
+.gcviz-help-black {
+	@include spritenohover($img-spritebtn, -289, -14, 2);
+}
+
+.gcviz-help-blue {
+	@include spritenohover($img-spritebtn, -325, -14, 2);
+}
+
+.gcviz-help-red {
+	@include spritenohover($img-spritebtn, -398, -14, 2);
+}
+
+.gcviz-help-green {
+	@include spritenohover($img-spritebtn, -362, -14, 2);
+}
+
+.gcviz-help-yellow {
+	@include spritenohover($img-spritebtn, -433, -14, 2);
+}
+
+.gcviz-help-white {
+	@include spritenohover($img-spritebtn, -469, -14, 2);
+}
+
+.gcviz-help-line {
+	@include spritenohover($img-spritebtn, -542, -2);
+}
+
+.gcviz-help-text {
+	@include spritenohover($img-spritebtn, -578, -2);
+}
+
+.gcviz-help-length {
+	@include spritenohover($img-spritebtn, -614, -2);
+}
+
+.gcviz-help-area {
+	@include spritenohover($img-spritebtn, -650, -2);
+}
+
+.gcviz-help-del {
+	@include spritenohover($img-spritebtn, -795, -2);
+}
+
+.gcviz-help-delsel {
+	@include spritenohover($img-spritebtn, -831, -2);
+}
+
+.gcviz-help-undo {
+	@include spritenohover($img-spritebtn, -867, -2);
+}
+
+.gcviz-help-redo {
+	@include spritenohover($img-spritebtn, -903, -2);
+}
+
+.gcviz-help-imp {
+	@include spritenohover($img-spritebtn, -939, -2);
+}
+
+.gcviz-help-exp {
+	@include spritenohover($img-spritebtn, -976, -2);
+}
+
+.gcviz-help-pos {
+	@include spritenohover($img-spritebtn, -1049, -2);
+}
+
+.gcviz-help-adddata {
+	@include spritenohover($img-spritebtn, -939, -2);
+}
+
+.gcviz-help-deldata {
+	@include spritenohover($img-spritebtn, -795, -2);
+}

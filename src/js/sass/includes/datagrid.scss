@@ -132,7 +132,7 @@ table.dataTable.no-footer {
 
 .gcviz-datagrid {
 	width: 100%;
-	margin-top: (0.2 * $rembase) + rem!important;
+	border-top: $white solid (0.2 * $rembase) + rem!important;
 }
 
 .gcviz-datagrid-hold {

@@ -567,28 +567,6 @@
 						}
           			}
                 },{
-                	"label": "toporama_NTS_Index",
-                	"id":"bbbb469d-aaa1-c8f5-175c-645200a6b6fe",
-                	"type": 4,
-                	"url": "http://ows.geobase.ca/wms/geobase_en",                    					
-                	"options": {
-                		"layerinfos": [{
-                			"name": "reference:nts",
-                			"title": "reference:nts"
-                		}],
-                		"visiblelayers": ["reference:nts"],
-	          			"scale":{"min":0,"max":0},
-						"cluster":
-						{
-						"enable":false,
-						"distance":50,
-						"label":false,
-						"symbol":false,
-						"maxsizeprop":50,
-						"maxdataprop":1000
-						}
-          			}
-                }, {
                 	"label": "toporama_NTS_Index_download",
                 	"id":"bbbb469d-zzz1-c8f5-175c-645200a6b6fe",
                 	"type": 4,
@@ -626,7 +604,9 @@
             },
             "print": {
                 "enable": true,
-                "type": 1
+                "type": 1,
+                "template": [],
+                "DPI": [100, 300]
             },
             "fullscreen": true
         },
@@ -671,7 +651,7 @@
                 },
                 "visibility": {
                     "enable": true,
-                    "initstate": false,
+                    "initstate": true,
                     "type": 2,
                     "radioid": 5
                 },
@@ -704,7 +684,7 @@
                 },
                 "visibility": {
                     "enable": true,
-                    "initstate": true,
+                    "initstate": false,
                     "type": 2,
                     "radioid": 5
                 },
@@ -2136,7 +2116,7 @@
                 "expand":false,
             	"last":false,
             	"type":3,
-            	"id":"bbbb469d-aaa1-c8f5-175c-645200a6b6fe",
+            	"id":"bbbb469d-zzz1-c8f5-175c-645200a6b6fe",
             	"graphid":"e5511402-0028-5cbe-0d3c-f537c612b7df",
             	"displayfields":false,
             	"label":{
@@ -2231,17 +2211,15 @@
             "items": [{
             	"title": "Maps (raster): ",
             	"subtitle": "Toporama, CanMatrix Print-ready and Georeferenced.",
-            	"scale": -1,
+            	"scale": 50000,
             	"url": "http://geogratis.gc.ca/api/en/nrcan-rncan/ess-sst/-/OR/(urn:iso:series)toporama/(urn:iso:series)canmatrix-georeferenced",
             	"query": [{
-            		"control": "button",
-            		"type": "nts",
+            		"type": 1,
             		"param": "?q=XXX",
             		"label": "Get single NTS area"
             		}, {
-            		"control": "link",
-            		"type": "extent",
-            		"param": "?bbox=XXX",
+            		"type": 2,
+            		"param": "?bbox=XXX&sort-field=spatial",
             		"label": "Get all maps for area shown"
             		}]
             	}, {
@@ -2250,24 +2228,21 @@
 	            "scale": -1,
 	            "url": "http://geogratis.gc.ca/api/en/nrcan-rncan/ess-sst/-/(urn:iso:series)canvec-plus",
 	            "query": [{
-	           	  "control": "button",
-            		"type": "nts",
+            		"type": 1,
             		"param": "?q=XXX",
             		"label": "Get single NTS area"
             		}, {
-            		"control": "link",
-            		"type": "extent",
+            		"type": 2,
             		"param": "?bbox=XXX&sort-field=spatial",
             		"label": "Get all data for area shown"
             		}]
 	            }, {
 	            "title": "Data: ",
 	            "subtitle": "CanVec (vector) and Elevation (raster) data using custom geographic extent.",
-	            "scale": -1,
+	            "scale": 0,
             	"url": "http://geogratis.gc.ca/site/eng/extraction",
             	"query": [{
-            		"control": "link",
-            		"type": "extent",
+            		"type": 2,
             		"param": "?bbox=XXX",
             		"label": "Get data using the Data Extraction Tool"
             		}]

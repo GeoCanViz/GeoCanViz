@@ -30,13 +30,13 @@
 			ext = side === 1 ? 'l' : 'r';
 
 			// add a wrapper around the map (keep original height and witdh on the element for resize event)
-			$div.prepend('<div id="' + mapid + '_holder' + '" name="map" class="gcviz-mapholder" gcviz-size="' + height + ';' + width + '" data-bind="event: { mouseover: enterMouse, mouseout: leaveMouse }, enterkey: { func: \'applyKey\', keyType: \'keydown\' }" tabindex="0"><div class="gcviz-loading gcviz-loading-' + ext + '"><div class="gcviz-loadingLabel"></div></div></div>');
+			$div.prepend('<div id="' + mapid + '_holder' + '" name="map" class="gcviz-mapholder" gcviz-size="' + height + ';' + width + '" data-bind="event: { click: clickMouse }, enterkey: { func: \'applyKey\', keyType: \'keydown\' }" tabindex="0"><div class="gcviz-loading gcviz-loading-' + ext + '"><div class="gcviz-loadingLabel"></div></div></div>');
 			holder = $mapElem.find('#' + mapid + '_holder');
 
 			// add zoom in with box extent
 			if (zoom.zoom) {
 				zoomClass = (zoom.bar) ? 'gcviz-map-zoomposl' : 'gcviz-map-zoomposh';
-				holder.prepend('<button class="gcviz-map-zm gcviz-map-zoom' + ext + ' ' + zoomClass + '" tabindex="0" data-bind="buttonBlur, click: zoomClick, tooltip: { content: tpZoom }"></button>');
+				holder.prepend('<button id="map-zmextent-' + mapid + '" class="gcviz-map-zm gcviz-map-zoom' + ext + ' ' + zoomClass + '" tabindex="0" data-bind="buttonBlur, click: zoomClick, tooltip: { content: tpZoom }"></button>');
 			}
 
 			// add zoom full extent
