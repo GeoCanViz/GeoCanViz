@@ -172,7 +172,8 @@
 						layerInfo = layer.layerinfo,
 						layerIndex = layerInfo.index,
 						type = layerInfo.type,
-						url = mymap.getLayer(layerInfo.id).url,
+						id = layerInfo.id,
+						url = mymap.getLayer(id).url,
 						popup = layer.popups,
 						fields = layer.fields,
 						fieldsLen = fields.length;
@@ -200,7 +201,7 @@
 
 						// popup
 						if (popup.enable) {
-							gisDG.createIdTask(url, layerIndex, _self.returnIdTask);
+							gisDG.createIdTask(url, layerIndex, id, _self.returnIdTask);
 
 							// add title and layer name alias to a lookup table for popups
 							lookPopups.push([popup.layeralias, layer.title]);
@@ -213,7 +214,7 @@
 						// popup (remove layer index)
 						if (popup.enable) {
 							url = url.substring(0, url.indexOf('MapServer/') + 10);
-							gisDG.createIdTask(url, layerIndex, _self.returnIdTask);
+							gisDG.createIdTask(url, layerIndex, id, _self.returnIdTask);
 
 							// add title and layer name alias to a lookup table for popups
 							lookPopups.push([popup.layeralias, layer.title]);
@@ -604,7 +605,12 @@
 						field = fields[lenFields];
 
 						field.render = function(data, type) {
-							if (data !== null) {
+							if (data !== null && typeof data !== 'undefined') {
+								// remove double quote
+								if (typeof data === 'string') {
+									data = data.replace(/"/g, '');
+								}
+
 								// for wcag we add a text input read only. This element is focusable so we can have
 								// the tooltip. Wrap in a relative position div to have the tooltip at the right
 								// after a scroll
@@ -994,7 +1000,7 @@
 				};
 
 				_self.exportCSV = function(data) {
-					var row, line, fieldsLen, j,
+					var row, line, fieldsLen, j, content,
 						i = 0,
 						gcvizInd = 0,
 						fields = [],
@@ -1007,8 +1013,8 @@
 					row = data[0];
 					for (var field in row) {
 						if (row.hasOwnProperty(field)) {
-							// if field value is gcvizid, stop the for we are now in the internal field
-							if (field !== 'gcvizid') {
+							// skip internal field
+							if (field !== 'gcvizid' && field !== 'layerid' && field !== 'geometry' && field.indexOf('OBJECTID') === -1) {
 								fields.unshift(field);
 								header = '"' + field + '",' + header;
 								gcvizInd++;
@@ -1027,7 +1033,14 @@
 						j = 0;
 
 						while (j !== fieldsLen) {
-							line += '"' + row[fields[j]] + '",';
+							content = row[fields[j]];
+
+							// remove double quotes
+							if (typeof content === 'string') {
+								content = content.replace(/"/g, '');
+							}
+
+							line += '"' + content + '",';
 							j++;
 						}
 						output += line.slice(0, -1) + rtnCarr;
@@ -1036,6 +1049,7 @@
 
 					$viz.generateFile({
 						filename	: 'exportCSV.csv',
+						filetype		: 'text/csv',
 						content		: output,
 						script		: config.urldownload
 					});
@@ -1486,6 +1500,7 @@
 			var field, feat,
 				data = { },
 				fields = [],
+				i = 0,
 				datas = [],
 				fieldsOri = featColl.layerDefinition.fields,
 				lenField = fieldsOri.length,
@@ -1495,9 +1510,9 @@
 				table = innerTable;
 
 			// setup fields
-			while (lenField--) {
+			while (i < lenField) {
 				// add the field only if it is not a internal field
-				field = fieldsOri[lenField];
+				field = fieldsOri[i];
 				if (field.name.indexOf('OBJECTID') === -1) {
 					delete field.type;
 					delete field.render;
@@ -1517,6 +1532,7 @@
 
 					fields.push(field);
 				}
+				i++;
 			}
 
 			// setup data

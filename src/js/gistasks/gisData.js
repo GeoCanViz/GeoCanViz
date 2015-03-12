@@ -69,10 +69,10 @@
 					while (lenNames--) {
 						field = fieldNames[lenNames];
 
-						if (gcvizFunc.checkMatch(latFields, field)) {
+						if (gcvizFunc.returnIndexMatch(latFields, field) !== -1) {
 							latField = field;
 						}
-						if (gcvizFunc.checkMatch(longFields, field)) {
+						if (gcvizFunc.returnIndexMatch(longFields, field) !== -1) {
 							longField = field;
 						}
 					}
@@ -87,7 +87,7 @@
 					// add feature
 					while (lenItems--) {
 						item = items[lenItems];
-						attrs = csvStore.getAttributes(item);
+						attrs = csvStore.getAttributes(item).reverse();
 						attributes = {};
 						lenAttrs = attrs.length;
 

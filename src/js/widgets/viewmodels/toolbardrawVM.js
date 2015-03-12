@@ -423,6 +423,7 @@
 
 					$viz.generateFile({
 						filename	: 'graphics.json',
+						filetype	: 'application/json',
 						content		: graphics,
 						script		: config.urldownload
 					});

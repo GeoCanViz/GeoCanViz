@@ -43,6 +43,7 @@
 			unselectFeature,
 			createIdTask,
 			executeIdTask,
+			setFileLayerTask,
 			returnIdResults,
 			setRelRecords,
 			getRelRecords,
@@ -60,7 +61,7 @@
 			idTaskIndex = 0,
 			layerIndex,
 			idParams = new esriIdParams(),
-			deferredGraph,
+			deferredGraph = [],
 			idFeatures,
 			idRtnFunc;
 
@@ -376,7 +377,7 @@
 			}
 		};
 
-		createIdTask = function(url, index, success) {
+		createIdTask = function(url, index, id, success) {
 			// set return function
 			idRtnFunc = success;
 
@@ -384,18 +385,24 @@
 			layerIndex = index;
 
 			// create id task (set the layer index on the task to retrieve it later)
+			// keep layer id to set on and off popup in function of visibility
 			idTask = new esriIdTask(url);
 			idTask.layerIndex = index;
+			idTask.layerId = id;
 			idTasksArr[idTaskIndex] = idTask;
 			idTaskIndex++;
 		};
 
 		executeIdTask = function(event) {
-			var dlTasks,
+			var dlTasks, idTask,
+				i = 0,
 				deferred = [],
 				defList = [],
 				lenTask = idTasksArr.length,
 				lenDef = lenTask;
+
+			// reset task for file layer
+			deferredGraph = [];
 
 			// identify tasks setup parameters
 			idParams.geometry = event.mapPoint;
@@ -404,37 +411,77 @@
 			idParams.height = mymap.height;
 			idParams.tolerance = 10;
 
-			// define all deferred functions
-			while (lenDef--) {
-				deferred[lenDef] = new dojo.Deferred(); // bug, use the real object instead of AMD because it wont work!!!
-				defList.push(deferred[lenDef]);
+			// returnIdentifyResults will be called after all tasks have completed
+			while (i < lenTask) {
+				// set layer to query then excute (if layer is visible)
+				idTask = idTasksArr[i];
+				if (mymap.getLayer(idTask.layerId).visible) {
+					// define deferred functions
+					deferred[i] = new dojo.Deferred(); // bug, use the real object instead of AMD because it wont work!!!
+					defList.push(deferred[i]);
+
+					// set task parameters
+					idParams.layerIds = [idTask.layerIndex];
+					idTask.execute(idParams, deferred[i].callback);
+				}
+				i++;
 			}
+
+			// launch task
 			dlTasks = new dojoDefList(defList);
 			dlTasks.then(returnIdResults);
 
-			// returnIdentifyResults will be called after all tasks have completed
-			while (lenTask--) {
-				// set layer to query then excute
-				idParams.layerIds = [idTasksArr[lenTask].layerIndex];
-				idTasksArr[lenTask].execute(idParams, deferred[lenTask].callback);
-			}
-			
-			var query = new esriQuery();
+			// set all the info for added file layer
+			setFileLayerTask(event);
+		};
+
+		setFileLayerTask = function(event) {
+			var task, results, item, layer,
+				query = new esriQuery(),
+				graphId = mymap.graphicsLayerIds,
+				index = gcvizFunc.returnIndexMatch(graphId, 'gcviz-datagrid') + 1,
+				len = graphId.length;
+
+			// loop trought all the file layer added with add data
 			query.geometry = gisGeo.createExtent(event.mapPoint, mymap, 10);
-			deferredGraph = mymap.getLayer(mymap.graphicsLayerIds[2]).selectFeatures(query, esriFeatLayer.SELECTION_NEW);
-			
+			while (index < len) {
+				layer = mymap.getLayer(graphId[index]);
+
+				// do it only for visible layer
+				if (layer.visible) {
+					task = layer.selectFeatures(query, esriFeatLayer.SELECTION_NEW);
+	
+					// use same syntax as id task for url layer
+					results = task.results[0][0][0];
+	
+					// if there is no item, the results will be undefined
+					if (typeof results !== 'undefined') {
+						item = {
+								0: true,
+								1: [{
+									'layerName': results._layer.name,
+									'feature': {
+										'attributes': results.attributes,
+										'geometry': results.geometry
+									}
+									}]
+						};
+						deferredGraph.push(item);
+					}
+				}
+
+				index++;
+			}
 		};
 
 		returnIdResults = function(response) {
+			var len = deferredGraph.length;
+
 			// add items from graphic layer added to map
-			var item = { 0: true,
-						1: [{ 'layerName': deferredGraph.results[0][0][0]._layer.name,
-						'feature': {
-							'attributes': deferredGraph.results[0][0][0].attributes,
-							'geometry': deferredGraph.results[0][0][0].geometry
-						}
-					}]};
-			response.push(item);
+			while (len--) {
+				response.push(deferredGraph[len]);
+			}
+
 			// send the resonse to the calling view model
 			idRtnFunc(response);
 		};

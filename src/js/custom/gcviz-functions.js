@@ -20,7 +20,7 @@
 			getUUID,
 			setProgressBar,
 			destroyProgressBar,
-			checkMatch,
+			returnIndexMatch,
 			getLookup,
 			getRandomColor,
 			getObjectIds,
@@ -171,18 +171,20 @@
 			$viz('.gcviz-loading').addClass('gcviz-hidden');
 		};
 
-		checkMatch = function(array, val) {
+		returnIndexMatch = function(array, val) {
 			var item,
+				i = 0,
 				len = array.length;
 
-			while (len--) {
-				item = array[len];
+			while (i < len) {
+				item = array[i];
 				if (item.toUpperCase() === val.toUpperCase()) {
-					return true;
+					return i;
 				}
+				i++;
 			}
 
-			return false;
+			return -1;
 		};
 
 		getLookup = function(array, val) {
@@ -376,7 +378,7 @@
 			getUUID: getUUID,
 			setProgressBar: setProgressBar,
 			destroyProgressBar: destroyProgressBar,
-			checkMatch: checkMatch,
+			returnIndexMatch: returnIndexMatch,
 			getLookup: getLookup,
 			getRandomColor: getRandomColor,
 			getObjectIds: getObjectIds,

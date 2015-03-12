@@ -635,6 +635,16 @@
 				      	"value": "number"
 				     },
 				     "searchable": true
+                }, {
+                    "title": "long",
+                    "width": "110px",
+                    "data": "LONG_DD",
+                    "dataalias": "LONG_DD",
+				     "type": {
+				      	"field": "field",
+				      	"value": "number"
+				     },
+				     "searchable": true
                 }],
                 "linktable": {
                     "enable": true,
