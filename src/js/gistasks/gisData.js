@@ -16,9 +16,14 @@
 			'dojox/data/CsvStore',
 			'esri/layers/FeatureLayer',
 			'esri/SpatialReference',
-			'esri/geometry/Point'
-	], function($viz, gcvizFunc, gisGeo, gisLegend, vmDatagrid, vmTbData, esriCSVStore, esriFeatLayer, esriSR, esriPoint) {
+			'esri/geometry/Point',
+			'esri/layers/KMLLayer',
+			'esri/layers/GeoRSSLayer',
+			'dojo/_base/array'
+	], function($viz, gcvizFunc, gisGeo, gisLegend, vmDatagrid, vmTbData, esriCSVStore, esriFeatLayer, esriSR, esriPoint, esriKML, esriGeoRSS, array) {
 		var addCSV,
+			addKML,
+			addGeoRSS,
 			createLayer,
 			getSeparator,
 			getFeatCollectionTemplateCSV,
@@ -159,7 +164,7 @@
 			gisLegend.getFeatureLayerSymbol(JSON.stringify(featureLayer.renderer.toJson()), $viz('#symbol' + guuid)[0], guuid);
 
 			// add the data to the datagrid
-			vmDatagrid.addTab(mymap.vIdName, featCollection, gfileName, guuid);
+			//vmDatagrid.addTab(mymap.vIdName, featCollection, gfileName, guuid);
 
 			// there is a problem with the define. the gcviz-vm-tbdata is not able to be set.
 			// With the require, we set the reference to gcviz-vm-tbdata (hard way)
@@ -255,8 +260,88 @@
 			return featCollection;
 		};
 
+		addKML = function(map, url, uuid, fileName) {
+			var layer;
+			layer = new esriKML(url, { outSR: new esri.SpatialReference({ wkid: map.vWkid }) });
+			layer.name = fileName;
+			layer.id = uuid;
+			map.addLayer(layer);
+
+			layer.on('load', function(input) {
+				// remove info template to disable default esri popup
+				input.layer.getLayers()[0].setInfoTemplate(null);
+
+				var featureInfos = input.layer.folders[0].featureInfos;
+				  array.forEach(featureInfos,function(info){
+				    var feature = input.layer.getFeature(info);
+				    //do something with the feature here...
+				    //input.layer.getFeature(input.layer.getFeature(info).featureInfos[0])
+				  });
+			});
+
+			// add the data to the datagrid
+			//vmDatagrid.addTab(mymap.vIdName, featCollection, fileName, uuid);
+			
+			return layer;
+		};
+
+		addGeoRSS = function(map, url, uuid, fileName) {
+			var layer;
+			layer = new esriGeoRSS(url, { outSR: new esri.SpatialReference({ wkid: map.vWkid }) });
+			layer.name = fileName;
+			layer.id = uuid;
+			map.addLayer(layer);
+
+			// the GeoRSS layer contains one feature layer for each geometry type
+			// TODO: loop trought getFEatureLayers
+			layer.on('load', function(input) {
+				var field, graph, atts, lenAtts,
+					newFields = [],
+					featLayer = input.layer.getFeatureLayers()[0],
+					fields = featLayer.fields,
+					lenFields = fields.length,
+					graphics = featLayer.graphics,
+					lenGraphs = graphics.length,
+					featColl = { 'layerDefinition': {
+										'fields': [],
+										},
+										'featureSet': {
+											'features': [],
+										}
+									};
+
+				// There hiddend key on the fields (e.g. constructor, inhireted, ...) that screw up datatable
+				// to solve this, create a new array of field only for what we need.
+				while (lenFields--) {
+					field = fields[lenFields];
+					delete field.length;
+					delete field.nullable;
+					if (field.name === 'id' || field.name === 'visibility') {
+						fields.splice(lenFields,1);
+					} else {
+						newFields.push({
+										'name': field.name,
+										'alias': field.name,
+										'type': '',
+										});	
+					}
+				}
+				
+				featColl.layerDefinition.fields = newFields;
+				featColl.featureSet.features = graphics;
+
+				// add the data to the datagrid
+				vmDatagrid.addTab(input.layer._map.vIdName, featColl, 'test georss', input.layer.id);
+
+				// remove info template to disable default esri popup
+				input.layer.getLayers()[0].setInfoTemplate(null);
+			});
+		};
+
 		return {
-			addCSV: addCSV
+			addCSV: addCSV,
+			addKML: addKML,
+			addGeoRSS: addGeoRSS
 		};
 	});
 }());

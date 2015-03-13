@@ -84,7 +84,7 @@
 						_self.isAddData(true);
 						// put the add in a timeout to let time to footer vm to remove the showCoord event
 						// The problem comes from the reprojection that interfere with the new data to be
-						// added projection. We set back the event after.
+						// added projection. We put back the event after.
 						setTimeout(function() {
 							_self.add(vm, event);
 						}, 1000);
@@ -132,7 +132,13 @@
 										}
 									}
 								});
+
+							// add KML
+							//gisData.addKML(mymap, 'http://geoscan.nrcan.gc.ca/star/download/xml1507213410628212.kml', gcvizFunc.getUUID(), fileName);
+							// add GeoRSS
+							gisData.addGeoRSS(mymap, 'http://geoscan.ess.nrcan.gc.ca/rss/newpub_e.rss', gcvizFunc.getUUID(), fileName);
 						};
+					
 						reader.readAsText(file);
 					}
 

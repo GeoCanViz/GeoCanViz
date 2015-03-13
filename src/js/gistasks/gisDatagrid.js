@@ -404,6 +404,9 @@
 			// reset task for file layer
 			deferredGraph = [];
 
+			// set all the info for added file layer
+			setFileLayerTask(event);
+
 			// identify tasks setup parameters
 			idParams.geometry = event.mapPoint;
 			idParams.mapExtent = mymap.extent;
@@ -427,12 +430,11 @@
 				i++;
 			}
 
-			// launch task
-			dlTasks = new dojoDefList(defList);
-			dlTasks.then(returnIdResults);
-
-			// set all the info for added file layer
-			setFileLayerTask(event);
+			// launch task (put a time out to let the file layer be executed before)
+			setTimeout(function() {
+				dlTasks = new dojoDefList(defList);
+				dlTasks.then(returnIdResults);
+			}, 100);
 		};
 
 		setFileLayerTask = function(event) {
@@ -447,8 +449,8 @@
 			while (index < len) {
 				layer = mymap.getLayer(graphId[index]);
 
-				// do it only for visible layer
-				if (layer.visible) {
+				// do it only for visible layer and not a internal esri graphic layer
+				if (layer.visible && layer.id.search('graphicsLayer') !== 0) {
 					task = layer.selectFeatures(query, esriFeatLayer.SELECTION_NEW);
 	
 					// use same syntax as id task for url layer
@@ -476,6 +478,15 @@
 
 		returnIdResults = function(response) {
 			var len = deferredGraph.length;
+
+			// clean response if all layer are not visible
+			if (response[0] === 0) {
+				response.shift();
+			}
+
+			if (response[0].length === 0) {
+				response.shift();
+			}
 
 			// add items from graphic layer added to map
 			while (len--) {
