@@ -42,6 +42,7 @@
 			resizeCenterMap,
 			zoomPoint,
 			zoomFeature,
+			zoomGraphics,
 			getMapCenter,
 			createMapMenu,
 			zoomIn,
@@ -383,8 +384,8 @@
 
 				// set scale class. We need to do this because the event
 				// scale-visibility havent been fired.
-				if (min !== 0 && max !== 0) {
-					if (min > mapScale && mapScale < max) {
+				if (min !== 0 || max !== 0) {
+					if (min < mapScale && mapScale > max) {
 						$leg = $viz('#' + layerInfo.id);
 						$leg.addClass('gcviz-leg-dis');
 					}
@@ -467,6 +468,12 @@
 			} else {
 				map.setExtent(geom.getExtent().expand(2));
 			}
+		};
+
+		zoomGraphics = function(map, graphics) {
+			// get the extent then zoom
+			var extent = esri.graphicsExtent(graphics); // can't load AMD
+			map.setExtent(extent.expand(1.75));
 		};
 
 		getMapCenter = function(map) {
@@ -669,6 +676,7 @@
 			resizeCenterMap: resizeCenterMap,
 			zoomPoint: zoomPoint,
 			zoomFeature: zoomFeature,
+			zoomGraphics: zoomGraphics,
 			getOverviewLayer: getOverviewLayer,
 			getMapCenter: getMapCenter,
 			manageScreenState: manageScreenState,

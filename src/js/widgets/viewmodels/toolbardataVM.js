@@ -136,7 +136,7 @@
 							// add KML
 							//gisData.addKML(mymap, 'http://geoscan.nrcan.gc.ca/star/download/xml1507213410628212.kml', gcvizFunc.getUUID(), fileName);
 							// add GeoRSS
-							gisData.addGeoRSS(mymap, 'http://geoscan.ess.nrcan.gc.ca/rss/newpub_e.rss', gcvizFunc.getUUID(), fileName);
+							//gisData.addGeoRSS(mymap, 'http://geoscan.ess.nrcan.gc.ca/rss/newpub_e.rss', gcvizFunc.getUUID(), fileName);
 						};
 					
 						reader.readAsText(file);
@@ -169,6 +169,10 @@
 
 					// Knockout doesn't prevent the default click action.
 					return true;
+				};
+
+				_self.changeServiceOpacity = function(layerid, opacityValue) {
+					gisLegend.setLayerOpacity(mymap, layerid, opacityValue);
 				};
 
 				_self.notifyAdd = function() {

@@ -10,6 +10,7 @@
 	define(['jquery-private',
 			'gcviz-func',
 			'gcviz-gisgeo',
+			'gcviz-gismap',
 			'gcviz-gislegend',
 			'gcviz-vm-datagrid',
 			'gcviz-vm-tbdata',
@@ -20,7 +21,7 @@
 			'esri/layers/KMLLayer',
 			'esri/layers/GeoRSSLayer',
 			'dojo/_base/array'
-	], function($viz, gcvizFunc, gisGeo, gisLegend, vmDatagrid, vmTbData, esriCSVStore, esriFeatLayer, esriSR, esriPoint, esriKML, esriGeoRSS, array) {
+	], function($viz, gcvizFunc, gisGeo, gisMap, gisLegend, vmDatagrid, vmTbData, esriCSVStore, esriFeatLayer, esriSR, esriPoint, esriKML, esriGeoRSS, array) {
 		var addCSV,
 			addKML,
 			addGeoRSS,
@@ -155,6 +156,9 @@
 			featureLayer.name = gfileName;
 			mymap.addLayer(featureLayer);
 
+			// get the extent then zoom
+			gisMap.zoomGraphics(mymap, featureLayer.graphics);
+				
 			// add to user array so knockout will generate legend
 			// we cant add it from the VM because the projection can take few second and the symbol is not define before.
 			// to avoid this, we add the layer only when it is done.
@@ -164,7 +168,7 @@
 			gisLegend.getFeatureLayerSymbol(JSON.stringify(featureLayer.renderer.toJson()), $viz('#symbol' + guuid)[0], guuid);
 
 			// add the data to the datagrid
-			//vmDatagrid.addTab(mymap.vIdName, featCollection, gfileName, guuid);
+			vmDatagrid.addTab(mymap.vIdName, featCollection, gfileName, guuid);
 
 			// there is a problem with the define. the gcviz-vm-tbdata is not able to be set.
 			// With the require, we set the reference to gcviz-vm-tbdata (hard way)

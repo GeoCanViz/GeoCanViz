@@ -169,7 +169,7 @@
             "about": {
                 "enable": false,
                 "type": 1,
-                "value": ""
+                "value": "This is use to explain specific information about map and/or data."
             },
             "print": {
                 "enable": true,
@@ -210,7 +210,8 @@
                     "alttext": "CBCT3978"
                 },
                 "metadata": {
-                    "enable": false
+                    "enable": false,
+                    "value": "http://s-bsc-geoappint.nrn.nrcan.gc.ca/arcgis/rest/services/Test/msMiningAgree/MapServer/0"
                 },
                 "opacity": {
                     "enable": false,
@@ -230,7 +231,8 @@
                     "symbol": "{\"type\":\"simple\",\"symbol\":{\"type\":\"esriSFS\",\"style\":\"esriSFSSolid\",\"color\":[0,0,0,0],\"outline\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[0,0,0,0],\"width\":0.4}},\"label\":\"\",\"description\":\"\"}"
                 },
                 "customimage": {
-                    "enable": false
+                    "enable": false,
+                    "images": []
                 },
                 "items": []
             }],
@@ -264,7 +266,8 @@
                     "enable": false
                 },
                 "customimage": {
-                    "enable": false
+                    "enable": false,
+                    "images": []
                 },
                 "items": []
             }]
@@ -323,9 +326,13 @@
             }
         },
         "toolbarextract": {
-            "enable": false,
+            "enable": true,
             "expand": false,
             "pos": 4,
+            "grid": {
+            	"enable": false,
+            	"id": ""
+            },
             "items": []
         },
         "insetframe": {

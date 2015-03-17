@@ -12,6 +12,7 @@
 			'gcviz-func',
 			'gcviz-gissymbol',
 			'gcviz-gisgeo',
+			'gcviz-gismap',
 			'esri/layers/GraphicsLayer',
 			'esri/toolbars/draw',
 			'esri/symbols/SimpleLineSymbol',
@@ -21,7 +22,7 @@
 			'esri/geometry/Polyline',
 			'esri/graphic',
 			'dojo/on'
-	], function($viz, ko, gcvizFunc, gissymb, gisgeo, esriGraphLayer, esriTools, esriLine, esriScreenPt, esriPt, esriPoly, esriPolyline, esriGraph, dojoOn) {
+	], function($viz, ko, gcvizFunc, gissymb, gisgeo, gisMap, esriGraphLayer, esriTools, esriLine, esriScreenPt, esriPt, esriPoly, esriPolyline, esriGraph, dojoOn) {
 		var initialize,
 			importGraphics,
 			exportGraphics,
@@ -181,6 +182,9 @@
 					} else if (symbLayer.graphics.length === 1 && symbLayer.graphics[0]._extent.xmax === 0) {
 						isGraphics(false);
 					}
+
+					// focus map
+					gcvizFunc.focusMap(mymap, false);
 				};
 
 				_self.eraseUnfinish = function() {
@@ -756,8 +760,7 @@
 			}
 
 			// get the extent then zoom
-			extent = esri.graphicsExtent(extents); // can't load AMD
-			map.setExtent(extent.expand(1.75));
+			gisMap.zoomGraphics(map, extents);
 
 			// add undo stack
 			addUndoStack(key);

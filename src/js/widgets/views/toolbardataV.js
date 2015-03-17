@@ -35,6 +35,7 @@
 			node += '<script id="userTmpl" type="text/html">';
 				node += '<li class="gcviz-data-li"><div class="gcviz-data-item">';
 					node += '<input class="gcviz-data-itemchild" type="checkbox" data-bind="event: { click: $root.changeItemsVisibility }, attr: { alt: $root.tpVisible, id: \'checkbox\' + id }, checked: true"/>';
+					node += '<div class="gcviz-data-itemchild" data-bind="HorizontalSliderDijit: { widget: $root.HorizontalSlider, extent: [0, 1], value: 1, visible: true, enable: true }"></div>';
 					node += '<span class="gcviz-data-itemchild" data-bind="text: label, attr: { id: \'span\' + id }"></span>';
 					node += '<div class="gcviz-data-itemchild" data-bind="attr: { id: \'symbol\' + id }"></div>';
 					node += '<button class="gcviz-data-itemchild gcviz-data-del" tabindex="0" data-bind="click: function($data) { $root.removeClick($data) }, tooltip: { content: $root.tpDelete }"></button>';

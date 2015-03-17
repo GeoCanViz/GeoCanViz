@@ -13,8 +13,8 @@
 			'gcviz-gisgeo',
 			'gcviz-func',
 			'esri/layers/GraphicsLayer',
-			'esri/layers/FeatureLayer'
-,			'esri/symbols/SimpleLineSymbol',
+			'esri/layers/FeatureLayer',
+			'esri/symbols/SimpleLineSymbol',
 			'esri/symbols/SimpleFillSymbol',
 			'esri/symbols/SimpleMarkerSymbol',
 			'esri/geometry/Point',
@@ -110,7 +110,7 @@
 						sr = response.spatialReference,
 						data = [],
 						features = response.features,
-						len = features.length - 1;
+						len = features.length;
 
 					// if there is a link table to retrieve info from, set it here.
 					// it only work with feature layer who have a valid OBJECTID field
@@ -127,7 +127,7 @@
 						// create the query
 						relatedQuery = new esriRelRequest();
 						relatedQuery.outFields = [strLinkFields.slice(0, -1)];
-						relatedQuery.relationshipId = linkInfo.relationshipId;
+						relatedQuery.relationshipId = linkInfo.relationshipid;
 						relatedQuery.objectIds = gcvizFunc.getObjectIds(response.features);
 
 						// query the link table
@@ -317,8 +317,7 @@
 		};
 
 		zoomFeatures = function(geometries) {
-			var extent,
-				graphic,
+			var graphic,
 				i = 0,
 				len = geometries.length,
 				graphics = new Array(len);
@@ -337,8 +336,7 @@
 				}
 
 				// get the extent then zoom
-				extent = esri.graphicsExtent(graphics); // can't load AMD
-				mymap.setExtent(extent.expand(1.75));
+				gisMap.zoomGraphics(mymap, graphics);
 			}
 
 			// there is a bug when in full screen and do a zoom to select. There is an offset in y
@@ -438,7 +436,8 @@
 		};
 
 		setFileLayerTask = function(event) {
-			var task, results, item, layer,
+			var task, results, item, layer, featLen,
+				feature, features,
 				query = new esriQuery(),
 				graphId = mymap.graphicsLayerIds,
 				index = gcvizFunc.returnIndexMatch(graphId, 'gcviz-datagrid') + 1,
@@ -452,21 +451,30 @@
 				// do it only for visible layer and not a internal esri graphic layer
 				if (layer.visible && layer.id.search('graphicsLayer') !== 0) {
 					task = layer.selectFeatures(query, esriFeatLayer.SELECTION_NEW);
-	
+
+					// reset feature
+					features = [];
+
 					// use same syntax as id task for url layer
-					results = task.results[0][0][0];
-	
-					// if there is no item, the results will be undefined
-					if (typeof results !== 'undefined') {
+					results = task.results[0][0];
+					featLen = results.length;
+
+					while (featLen--) {
+						feature = results[featLen];
+						features.push({
+								'layerName': feature._layer.name,
+								'feature': {
+									'attributes': feature.attributes,
+									'geometry': feature.geometry
+								}
+						});
+					}
+
+					// if there is features, create the deferred object
+					if (features.length > 0) {
 						item = {
 								0: true,
-								1: [{
-									'layerName': results._layer.name,
-									'feature': {
-										'attributes': results.attributes,
-										'geometry': results.geometry
-									}
-									}]
+								1: features
 						};
 						deferredGraph.push(item);
 					}

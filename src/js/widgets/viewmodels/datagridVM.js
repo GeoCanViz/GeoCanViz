@@ -41,6 +41,7 @@
 					allIdFeatures = [],
 					currFeatIndex = 0,
 					totalFeatures = 0,
+					tableReady = false,
 					mymap = gcvizFunc.getElemValueVM(mapid, ['map', 'map'], 'js'),
 					$datagrid = $viz('#gcviz-datagrid' + mapid),
 					$datatab = $viz('#gcviz-datatab' + mapid),
@@ -108,8 +109,7 @@
 						active: false,
 						activate: function(e, ui) {
 							// redraw to align header and column
-							activeTableId = objDataTable.length - 1;
-							objDataTable[activeTableId].draw();
+							objDataTable[0].draw();
 						}
 					});
 					$viz('.ui-accordion-header').hide();
@@ -119,12 +119,16 @@
 						// check if identity manager window is open. If so wait until finish before show modal
 						var id = $viz('.esriSignInDialog');
 
-						// if no id or id is display, show modal
-						if (id.length === 0 || id[0].style.display === 'none') {
-							_self.isWait(true);
+						// if table are created, do not show modal
+						if (tableReady) {
+							_self.isWait(false);
 							clearInterval(intervalModal);
+						} else if (id.length === 0 || id[0].style.display === 'none') { // if no id or id is display, show modal
+							_self.isWait(true);
+						} else {
+							_self.isWait(false);
 						}
-					}, 2000);
+					}, 1000);
 
 					// wait for the map to load
 					mymap.on('load', function() {
@@ -150,7 +154,7 @@
 							if (i === lenLayers) {
 								clearInterval(interval);
 							}
-						}, 2000);
+						}, 1000);
 					});
 				};
 
@@ -683,8 +687,9 @@
 							$datagrid.accordion('option', 'active', 0);
 						}
 
-						// remove progress dialog
+						// remove progress dialog and notify all table are created
 						_self.isWait(false);
+						tableReady = true;
 
 						// enable datagrid button in footerVM
 						gcvizFunc.setElemValueVM(mapid, 'footer', 'isTableReady', true);

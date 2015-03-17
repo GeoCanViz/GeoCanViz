@@ -208,8 +208,13 @@
 					showButtons: false
 				}).placeAt(element);
 
+				// if it is file added with import data mimic viewmodel
+				if (typeof viewModel.items === 'undefined') {
+					viewModel.items = [];
+				}
+
 				// set initstate opacity
-				if(viewModel.items.length === 0) {
+				if (viewModel.items.length === 0) {
 					bindingContext.$root.changeServiceOpacity(id, options.value);
 				} else {
 					loopChildren(viewModel, options.value, loopChildren);
@@ -218,8 +223,12 @@
 				dojo.addClass(widget.domNode, 'gcviz-leg-slider');
 
 				widget.on('Change', function(e) {
+					// if it is file added with import data mimic viewmodel
+					if (typeof viewModel.items === 'undefined') {
+						viewModel.items = [];
+					}
 
-					if(viewModel.items.length === 0) {
+					if (viewModel.items.length === 0) {
 						bindingContext.$root.changeServiceOpacity(id, e);
 					} else {
 						loopChildren(viewModel, e, loopChildren);

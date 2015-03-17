@@ -30,6 +30,7 @@
 					item, lenQuery,
 					clickNTS,
 					len = config.items.length,
+					grid = config.grid,
 					$menu = $viz('#gcviz-menu' + mapid),
 					$container = $viz('#' + mapid + '_holder_layers'),
 					mymap = gcvizFunc.getElemValueVM(mapid, ['map', 'map'], 'js');
@@ -41,7 +42,11 @@
 				_self.btnLabel = i18n.getDict('%toolbarextract-btnget');
 
 				// set the grid id if specified
-				gridId = config.grid;
+				if (grid.enable) {
+					gridId = grid.id;
+				} else {
+					gridId = '';
+				}
 
 				// hold the larger scale. It will help to do the reprojection on map-extent
 				// only when we need it. Hold the map scale as well.
