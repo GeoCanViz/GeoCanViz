@@ -305,11 +305,14 @@
 							// add last point then close
 							_self.graphic.addMeasure(_self.measureHolder, globalKey, 0, 'km', _self.selectedColor(), event);
 
+							// remove mouse mouve event that shows distance after the element is finish
+							_self.graphic.removeMouseMove();
+
 							// add a small time out to let the last point to go in. If not,
 							// the last point is not in the sum length
 							setTimeout(function() {
 								_self.endMeasureLength();
-							}, 250);
+							}, 200);
 						});
 					} else {
 						_self.isDialogWCAG(true);

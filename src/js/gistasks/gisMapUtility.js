@@ -24,10 +24,11 @@
 			'esri/layers/WebTiledLayer',
 			'esri/layers/WMSLayer',
 			'esri/layers/WMSLayerInfo',
+			'esri/layers/ImageParameters',
 			'esri/geometry/Extent',
 			'esri/geometry/Point',
 			'esri/IdentityManager'
-	], function($viz, kpan, func, menu, menuItem, menupopup, gisLegend, gisCluster, esriConfig, esriMap, esriFL, esriTiled, esriDyna, esriImage, webTiled, wms, wmsInfo, esriExt, esriPoint) {
+	], function($viz, kpan, func, menu, menuItem, menupopup, gisLegend, gisCluster, esriConfig, esriMap, esriFL, esriTiled, esriDyna, esriImage, webTiled, wms, wmsInfo, esriDynaLD, esriExt, esriPoint) {
 		var mapArray = {},
 			setProxy,
 			createMap,
@@ -319,7 +320,7 @@
 		};
 
 		addLayer = function(map, layerInfo) {
-			var layer,
+			var layer, layerDef,
 				options,
 				resourceInfo,
 				type = layerInfo.type;
@@ -341,7 +342,11 @@
 					'id': layerInfo.id
 				});
 			} else if (type === 4) {
-				layer = new esriDyna(layerInfo.url, { 'id': layerInfo.id });
+				// create empty definition query to use for tables
+				layerDef = new esriDynaLD();
+				layerDef.layerDefinitions = [];
+
+				layer = new esriDyna(layerInfo.url, { 'id': layerInfo.id, 'imageParameters': layerDef });
 			} else if (type === 5) {
 				layer = new esriFL(layerInfo.url, {
 					mode: esriFL.MODE_ONDEMAND,

@@ -358,6 +358,11 @@
 					}
 				};
 
+				_self.removeMouseMove = function() {
+					// remove mouse move event
+					mouseMeasureLength.remove();
+				};
+
 				_self.addMeasureSumLength = function(array, key, unit) {
 					var pt, text, offx, offy,
 						dist = 0,

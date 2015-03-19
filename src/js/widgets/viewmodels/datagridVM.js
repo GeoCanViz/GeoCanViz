@@ -154,7 +154,7 @@
 							if (i === lenLayers) {
 								clearInterval(interval);
 							}
-						}, 1000);
+						}, 500);
 					});
 				};
 
@@ -386,7 +386,12 @@
 					// add the tools holder and link to it
 					$info.after('<div class="gcviz-dg-tools"></div>');
 					$tools = $viz($info[0].parentElement.getElementsByClassName('gcviz-dg-tools'));
-					
+
+					// add the select on map button
+					$tools.append('<button id="applyfilter-' + id + '" class="gcviz-dg-applyfilter gcviz-dg-pad"></button><label class="gcviz-label" for="applyfilter-' + id + '">' + _self.lblSelectFeatures + '</label>');
+					$elemFilter = $viz('.gcviz-dg-applyfilter');
+					gcvizFunc.addTooltip($elemFilter, { content: _self.tpSelectFeatures });
+
 					// add the select on map button
 					$tools.append('<button id="selFeat-' + id + '" class="gcviz-dg-selfeat gcviz-dg-pad"></button><label class="gcviz-label" for="selFeat-' + id + '">' + _self.lblSelectFeatures + '</label>');
 					$elemFilter = $viz('.gcviz-dg-selfeat');
@@ -417,18 +422,18 @@
 
 							if (valueType === 'string') {
 								// add string filter
-								$viz(this).append('<input type="text" class="gcviz-dg-search gcviz-dg-searchstr" placeholder="' + _self.search + '"></input>');
+								$viz(this).append('<input type="text" class="gcviz-dg-search gcviz-dg-searchstr" gcviz-name="' + column.data + '" placeholder="' + _self.search + '"></input>');
 							} else if (valueType === 'number') {
 								// add numeric filter
-								$viz(this).append('<div><input type="text" class="gcviz-dg-search gcviz-dg-searchnum" placeholder="Min"></input>' +
-													'<input type="text" class="gcviz-dg-search gcviz-dg-searchnum" placeholder="Max"></input></div>');
+								$viz(this).append('<div><input type="text" class="gcviz-dg-search gcviz-dg-searchnum" gcviz-name="' + column.data + '" placeholder="Min"></input>' +
+													'<input type="text" class="gcviz-dg-search gcviz-dg-searchnum" gcviz-name="' + column.data + '" placeholder="Max"></input></div>');
 							} else if (valueType === 'select') {
 								// dropdowm select box
-								$viz(this).append('<select class="gcviz-dg-search gcviz-dg-searchdrop"><option value=""></option></select>');
+								$viz(this).append('<select class="gcviz-dg-search gcviz-dg-searchdrop gcviz-name="' + column.data + '"><option value=""></option></select>');
 							} else if (valueType === 'date') {
 								// date picker
-								$viz(this).append('<div><input type="text" class="gcviz-dg-search gcviz-dg-searchdate" placeholder="Date Min"></text>' +
-													'<input type="text" class="gcviz-dg-search gcviz-dg-searchdate" placeholder="Date Max"></text></div>');
+								$viz(this).append('<div><input type="text" class="gcviz-dg-search gcviz-dg-searchdate" gcviz-name="' + column.data + '" placeholder="Date Min"></text>' +
+													'<input type="text" class="gcviz-dg-search gcviz-dg-searchdate" gcviz-name="' + column.data + '" placeholder="Date Max"></text></div>');
 							}
 						}
 					}, id, columns));
@@ -459,7 +464,8 @@
 								return true;
 							}, tableId));
 						} else if (fieldValue === 'string' && fields[colIdx].bSearchable) {
-							$viz('input', table.column(colIdx).header()).on('keyup', function() {
+							// set a debounce functiojn to apply filter only after 1 second of inactivity
+							$viz('input', table.column(colIdx).header()).on('keyup', gcvizFunc.debounce(function() {
 								// put the draw in a timeout if not, the processing will not be shown
 								var $process = $viz('.dataTables_processing'),
 									value = this.value;
@@ -468,7 +474,7 @@
 									table.column(colIdx).search(value).draw();
 									$process.css('display', 'none');
 								}, value), 100);
-							});
+							}, 750, false));
 						} else if (fieldValue === 'number' && fields[colIdx].bSearchable) {
 							// https://datatables.net/examples/plug-ins/range_filtering.html
 							var $inputs = $viz('input', table.column(colIdx).header());
@@ -498,7 +504,8 @@
 								return flag;
 						    }, $inputs, tableId));
 
-							$inputs.on('keyup', function(e) {
+							// set a debounce functiojn to apply filter only after 1 second of inactivity
+							$inputs.on('keyup', gcvizFunc.debounce(function(e) {
 								// put the draw in a timeout if not, the processing will not be shown
 								var $process = $viz('.dataTables_processing');
 
@@ -507,7 +514,7 @@
 									table.draw();
 									$process.css('display', 'none');
 								}, 250);
-							});
+							}, 750, false));
 
 						} else if (fieldValue === 'select') {
 							// http://datatables.net/examples/api/multi_filter_select.html
@@ -682,6 +689,9 @@
 						});
 						$datagrid.accordion('refresh');
 
+						// set active table id the first table
+						activeTableId = 0;
+
 						// check if we need to open the table by default
 						if (config.expand) {
 							$datagrid.accordion('option', 'active', 0);
@@ -769,6 +779,12 @@
 
 						// focus the map
 						gcvizFunc.focusMap(mymap, true);	
+					});
+
+					// set apply filters on map event
+					$tabs.on('click', '.gcviz-dg-applyfilter', function(e) {
+						var target = e.target;
+						_self.applyFilterMap(target);
 					});
 
 					// set opening and closing details link info event
@@ -1085,6 +1101,48 @@
 					}, 250);
 				};
 
+				_self.applyFilterMap = function(target) {
+					var input, val, name,
+						defs = [],
+						definition = '',
+						table = objDataTable[activeTableId],
+						info = arrLayerInfo[activeTableId].layerinfo,
+						layerType = info.type,
+						layerId = info.id,
+						inputs = $viz(target).parent().parent().find('.gcviz-dg-search'),
+						len = inputs.length;
+
+					while (len--) {
+						input = $viz(inputs[len]);
+						val = input.val();
+						name = input.attr('gcviz-name');
+
+						if (val !== '') {
+							if (input.hasClass('gcviz-dg-searchstr')) {
+								defs.push('UPPER(' + name + ') LIKE \'%' + val.toUpperCase() + '%\'');
+							} else if (input.hasClass('gcviz-dg-searchnum')) {
+								if (input.attr('placeholder') === 'Min') {
+									defs.push(name + ' >= ' + val);
+								} else if (input.attr('placeholder') === 'Max') {
+									defs.push(name + ' <= ' + val);
+								}
+							} else if (input.hasClass('gcviz-dg-searchdrop')) {
+								defs.push('UPPER(' + name + ') LIKE \'%' + val.toUpperCase() + '%\'');
+							}
+						}
+					}
+
+					// stringnify the array
+					definition = defs.join(' AND ');
+
+					if (layerType === 4) {
+						mymap.getLayer(layerId).setLayerDefinitions([definition]);
+					} else if (layerType === 5) {
+						mymap.getLayer(layerId).setDefinitionExpression(definition);
+					}
+					
+				};
+
 				_self.selExtent = function(geometry) {
 					var info, url, layerInfo,
 						type,
@@ -1093,14 +1151,14 @@
 					// remove draw box cursor
 					$container.css('cursor', '');
 
-					// pup back popup click event
+					// put back popup click event
 					gisDG.addEvtPop();
+
 					if (typeof geometry !== 'undefined') {
 						// get layerinfo
 						info = arrLayerInfo[activeTableId];
 						layerInfo = info.layerinfo;
 						type = layerInfo.type;
-						
 
 						// if it as an added layer, the type is 7 and it is a graphic layer.
 						// graphic layer are process differently then other layers

@@ -252,3 +252,21 @@ table.dataTable.no-footer {
 .gcviz-popup-zoom {
 	@include sprite($img-spritepopupbtn, -110, -2);
 }
+
+/*
+ *  Overwite the jQuery datatable plugin
+ */
+.dataTables_processing {
+	top: 3.5%!important;
+	height: 20px!important;
+	border: none!important;
+}
+
+// set datatable min width so if you have one element you are able to see link info
+.dataTables_scrollBody {
+	min-height: 350px!important;
+	
+	.gcviz-datatable {
+		min-height: 350px!important;
+	}
+}

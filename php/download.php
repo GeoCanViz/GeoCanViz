@@ -6,10 +6,11 @@ if(empty($_POST['filename']) || empty($_POST['content']) || empty($_POST['filety
 
 $filename = preg_replace('/[^a-z0-9\-\_\.]/i','',$_POST['filename']);
 $filetype = $_POST['filetype'];
+$data = $_POST['content'];
 
 header('Cache-Control: ');
 header('Content-type: '.$filetype.'; charset=utf-8');
 header('Content-Disposition: attachment; filename="'.$filename.'"');
 
-echo $_POST['content'];
+echo $data;
 ?>
