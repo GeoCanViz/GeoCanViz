@@ -344,7 +344,7 @@
 			} else if (type === 4) {
 				// create empty definition query to use for tables
 				layerDef = new esriDynaLD();
-				layerDef.layerDefinitions = [];
+				layerDef.layerDefinitions = [''];
 
 				layer = new esriDyna(layerInfo.url, { 'id': layerInfo.id, 'imageParameters': layerDef });
 			} else if (type === 5) {

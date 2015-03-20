@@ -237,6 +237,7 @@
 				// add a unique id, the select checkbox and layerid
 				geometry.attributes.gcvizid = pos + '-' + i;
 				geometry.attributes.gcvizcheck = false;
+				geometry.attributes.gcvizspatial = false;
 				geometry.attributes.layerid = id;
 
 				// if present, add the related records from a link table
@@ -375,7 +376,7 @@
 			}
 		};
 
-		createIdTask = function(url, index, id, success) {
+		createIdTask = function(url, index, id, type, success) {
 			// set return function
 			idRtnFunc = success;
 
@@ -387,12 +388,15 @@
 			idTask = new esriIdTask(url);
 			idTask.layerIndex = index;
 			idTask.layerId = id;
+			idTask.layerType = type;
 			idTasksArr[idTaskIndex] = idTask;
 			idTaskIndex++;
 		};
 
 		executeIdTask = function(event) {
 			var dlTasks, idTask,
+				info, layerType, layerIndex, lyrDef,
+				layer, arrDef,
 				i = 0,
 				deferred = [],
 				defList = [],
@@ -405,23 +409,43 @@
 			// set all the info for added file layer
 			setFileLayerTask(event);
 
-			// identify tasks setup parameters
-			idParams.geometry = event.mapPoint;
-			idParams.mapExtent = mymap.extent;
-			idParams.width = mymap.width;
-			idParams.height = mymap.height;
-			idParams.tolerance = 10;
-
 			// returnIdentifyResults will be called after all tasks have completed
 			while (i < lenTask) {
+				info = idTasksArr[i];
+				layerType = info.layerType;
+				layerIndex = info.layerIndex;
+				layer = mymap.getLayer(info.layerId);
+				
+				// identify tasks setup parameters
+				idParams.geometry = event.mapPoint;
+				idParams.mapExtent = mymap.extent;
+				idParams.width = mymap.width;
+				idParams.height = mymap.height;
+				idParams.tolerance = 10;
+	
+				// set definition query
+				if (layerType === 4) {
+					arrDef = layer.layerDefinitions;
+					arrDef[layerIndex] = lyrDef;
+				} else if (layerType === 5) {
+					lyrDef = layer.getDefinitionExpression();
+					if (typeof lyrDef === 'undefined') {
+						lyrDef = '';
+					};
+
+					arrDef = new Array(layerIndex + 1);
+				}
+				arrDef[layerIndex] = lyrDef;
+				idParams.layerDefinitions = arrDef;
+			
 				// set layer to query then excute (if layer is visible)
 				idTask = idTasksArr[i];
-				if (mymap.getLayer(idTask.layerId).visible) {
+				if (layer.visible) {
 					// define deferred functions
 					deferred[i] = new dojo.Deferred(); // bug, use the real object instead of AMD because it wont work!!!
 					defList.push(deferred[i]);
 
-					// set task parameters
+					// set task parameters and execute
 					idParams.layerIds = [idTask.layerIndex];
 					idTask.execute(idParams, deferred[i].callback);
 				}

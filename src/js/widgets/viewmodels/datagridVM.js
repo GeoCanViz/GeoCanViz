@@ -205,7 +205,7 @@
 
 						// popup
 						if (popup.enable) {
-							gisDG.createIdTask(url, layerIndex, id, _self.returnIdTask);
+							gisDG.createIdTask(url, layerIndex, id, 4, _self.returnIdTask);
 
 							// add title and layer name alias to a lookup table for popups
 							lookPopups.push([popup.layeralias, layer.title]);
@@ -218,7 +218,7 @@
 						// popup (remove layer index)
 						if (popup.enable) {
 							url = url.substring(0, url.indexOf('MapServer/') + 10);
-							gisDG.createIdTask(url, layerIndex, id, _self.returnIdTask);
+							gisDG.createIdTask(url, layerIndex, id, 5, _self.returnIdTask);
 
 							// add title and layer name alias to a lookup table for popups
 							lookPopups.push([popup.layeralias, layer.title]);
@@ -260,14 +260,14 @@
 					var dataTB, fields,
 						deferRender = false,
 						link = false,
-						searchInd = 1,
+						searchInd = 2,
 						$table = $viz('#table-' + mapid + '-' + pos),
 						dom = 'irtp';
 
 					// check if we need to add a columns to open/close link info
 					if (typeof data[0].link !== 'undefined') {
 						link = true;
-						searchInd = 2;
+						searchInd = 3;
 					}
 
 					// if there is too much data on the page we need to use defer render to speed up the process
@@ -343,7 +343,7 @@
 
 					// if there is a link, set the title, sub title and fields value to the column header
 					if (link) {
-						var linkCol = $viz(dataTB.column(1).header());
+						var linkCol = $viz(dataTB.column(2).header());
 						linkCol.attr('gcviz-title', layer.linktable.title);
 						linkCol.attr('gcviz-subtitle', layer.linktable.subtitle);
 						linkCol.attr('gcviz-fields', $viz.map(layer.linktable.fields, function(value) {
@@ -381,22 +381,27 @@
 						idxTable = idTable.split('-'),
 						id = idxTable[idxTable.length - 1],
 						$info = $viz('#' + idTable + '_info'),
-						columns = inTable.aoColumns;
+						columns = inTable.aoColumns,
+						type = arrLayerInfo[parseInt(id, 10)].layerinfo.type;
 
 					// add the tools holder and link to it
 					$info.after('<div class="gcviz-dg-tools"></div>');
 					$tools = $viz($info[0].parentElement.getElementsByClassName('gcviz-dg-tools'));
 
-					// add the select on map button
-					$tools.append('<button id="applyfilter-' + id + '" class="gcviz-dg-applyfilter gcviz-dg-pad"></button><label class="gcviz-label" for="applyfilter-' + id + '">' + _self.lblSelectFeatures + '</label>');
-					$elemFilter = $viz('.gcviz-dg-applyfilter');
-					gcvizFunc.addTooltip($elemFilter, { content: _self.tpSelectFeatures });
-
-					// add the select on map button
-					$tools.append('<button id="selFeat-' + id + '" class="gcviz-dg-selfeat gcviz-dg-pad"></button><label class="gcviz-label" for="selFeat-' + id + '">' + _self.lblSelectFeatures + '</label>');
-					$elemFilter = $viz('.gcviz-dg-selfeat');
-					gcvizFunc.addTooltip($elemFilter, { content: _self.tpSelectFeatures });
-
+					// disable spatial and on map for not type 4 or 5
+					// FeatureLayer: layer created by value (from a feature collection) does not support definition expressions and time definitions
+					if (type === 4 || type === 5) {
+						// add the show selection on map button
+						$tools.append('<button id="applyfilter-' + id + '" class="gcviz-dg-applyfilter gcviz-dg-pad"></button><label class="gcviz-label" for="applyfilter-' + id + '">' + _self.lblSelectFeatures + '</label>');
+						$elemFilter = $viz('.gcviz-dg-applyfilter');
+						gcvizFunc.addTooltip($elemFilter, { content: _self.tpSelectFeatures });
+	
+						// add the select on map button
+						$tools.append('<button id="selFeat-' + id + '" class="gcviz-dg-selfeat gcviz-dg-pad"></button><label class="gcviz-label" for="selFeat-' + id + '">' + _self.lblSelectFeatures + '</label>');
+						$elemFilter = $viz('.gcviz-dg-selfeat');
+						gcvizFunc.addTooltip($elemFilter, { content: _self.tpSelectFeatures });
+					}
+					
 					// add the clear filter button
 					$tools.append('<button id="clearfilter-' + id + '" tableid="' + idTable + '" class="gcviz-dg-filterclear gcviz-dg-pad"></button><label class="gcviz-label" for="clearfilter-' + id + '">' + _self.lblClearFilters + '</label>');
 					$elemFilter = $viz('.gcviz-dg-filterclear');
@@ -413,7 +418,7 @@
 						var elem, valueType,
 							column = columns[colIdx];
 
-						if (colIdx === 0) {
+						if (colIdx === 1) {
 							// add zoom to selected
 							elem = $viz(this).append('<label class="gcviz-gd-zoomlbl" for="zoomSel-' + id + '">Zoom</label><button id="zoomSel-' + id + '" class="gcviz-dg-zoomsel"></button>');
 							gcvizFunc.addTooltip(elem, { content: _self.lblZoomSelect });
@@ -429,7 +434,7 @@
 													'<input type="text" class="gcviz-dg-search gcviz-dg-searchnum" gcviz-name="' + column.data + '" placeholder="Max"></input></div>');
 							} else if (valueType === 'select') {
 								// dropdowm select box
-								$viz(this).append('<select class="gcviz-dg-search gcviz-dg-searchdrop gcviz-name="' + column.data + '"><option value=""></option></select>');
+								$viz(this).append('<select class="gcviz-dg-search gcviz-dg-searchdrop" gcviz-name="' + column.data + '"><option value=""></option></select>');
 							} else if (valueType === 'date') {
 								// date picker
 								$viz(this).append('<div><input type="text" class="gcviz-dg-search gcviz-dg-searchdate" gcviz-name="' + column.data + '" placeholder="Date Min"></text>' +
@@ -454,10 +459,10 @@
 									index = dataId.split('-')[2];
 
 								// if it is active table and spatial filter trigger, filter data. If not return all data
-								if (tableId === dataId && triggerTableId.indexOf(index) !== -1) {
+								if (tableId === dataId && triggerTableId[index] !== '') {
 									// even if we modify data in datatable, it is not modified in the callback event
 									// we need to get the real data from settings.
-									return settings.aoData[dataIndex]._aData.gcvizcheck;
+									return settings.aoData[dataIndex]._aData.gcvizspatial;
 								} else {
 									return true;
 								}
@@ -635,7 +640,7 @@
 						};
 					}
 
-					// if there is alink table, add link column
+					// if there is a link table, add link column
 					if (link) {
 						fields.unshift({
 							data: null,
@@ -663,6 +668,23 @@
 						render: function (data, type) {
 									if (type === 'display') {
 										return '<input type="checkbox" class="gcviz-dg-select"></input>';
+									}
+									return data;
+								}
+					});
+
+					// add spatial select column
+					fields.unshift({
+						data: 'gcvizspatial',
+						className: 'dt-body-center',
+						title: '',
+						width: '5px',
+						searchable: false,
+						orderable: false,
+						type: 'num',
+						render: function (data, type) {
+									if (type === 'display') {
+										return '<div class="gcviz-dg-spatial"></div>';
 									}
 									return data;
 								}
@@ -727,6 +749,9 @@
 						$datatab.tabs('refresh');
 						$datagrid.accordion('refresh');
 					}
+
+					// increment triggerTableId
+					triggerTableId.push('');
 				};
 
 				_self.setEvents = function(pos) {
@@ -775,6 +800,11 @@
 						// remove popup click event if it is there to avoid conflict then
 						// call graphic class to draw on map.
 						gisDG.removeEvtPop();
+
+						// there is a bug when in full screen and do a zoom to select. There is an offset in y
+						// so popup is not available. To resolve this, resize map.
+						mymap.resize();
+
 						gisGraphic.drawBox(mymap, true, _self.selExtent);
 
 						// focus the map
@@ -958,7 +988,7 @@
 					}
 				};
 
-				_self.selectAll = function(val) {
+				_self.selectAll = function(field, val, graphic) {
 					var row, rows, len, tableId,
 						i = 0,
 						info = { };
@@ -969,10 +999,10 @@
 					len = rows.length;
 					while (i !== len) {
 						row = rows[i];
-						row.gcvizcheck = val;
+						row[field] = val;
 						info.feat = parseInt(row.gcvizid.split('-')[1], 10);
 
-						if (val) {
+						if (val && graphic) {
 							gisDG.selectFeature(row.geometry, info);
 						} else {
 							gisDG.unselectFeature('sel' + '-' + activeTableId + '-' + info.feat);
@@ -1079,12 +1109,19 @@
 				_self.clearFilter = function(target) {
 					var $elems = $viz(target.parentElement.parentElement).find('.gcviz-dg-search'),
 						$process = $viz('.dataTables_processing'),
-						index = triggerTableId.indexOf($viz(target).attr('tableid').split('-')[2]);
+						index = triggerTableId.indexOf($viz(target).attr('tableid').split('-')[2]),
+						infoLayer = arrLayerInfo[activeTableId].layerinfo;
 
 					// remove table from spatial filter array.
 					if (index !== -1) {
-						triggerTableId.splice(index, 1);
+						triggerTableId[index] = '';
 					}
+
+					// remove spatial selection
+					_self.selectAll('gcvizspatial', false, false);
+
+					// clear definition query
+					_self.applyDefQuery(infoLayer, '');
 
 					// reset value then trigger a "change" event. Put the draw in
 					// a timeout if not, the processing will not be shown
@@ -1092,9 +1129,6 @@
 					$elems.val('');
 					$elems.prop('selectedIndex', 0);
 					setTimeout(function() {
-						// remove spatial selection
-						_self.selectAll(false);
-
 						// remove search
 						objDataTable[activeTableId].search('').columns().search('').draw();
 						$process.css('display', 'none');
@@ -1102,12 +1136,11 @@
 				};
 
 				_self.applyFilterMap = function(target) {
-					var input, val, name,
+					var input, val, name, lyrDef,
 						defs = [],
 						definition = '',
 						table = objDataTable[activeTableId],
 						info = arrLayerInfo[activeTableId].layerinfo,
-						layerType = info.type,
 						layerId = info.id,
 						inputs = $viz(target).parent().parent().find('.gcviz-dg-search'),
 						len = inputs.length;
@@ -1132,15 +1165,83 @@
 						}
 					}
 
-					// stringnify the array
+					// stringnify the array and set query
 					definition = defs.join(' AND ');
 
+					// concat if there is an existing query and set query
+					definition = _self.concatDefQuery(info, definition, false);
+					_self.applyDefQuery(info, definition);
+				};
+
+				_self.applyDefQuery = function(layerInfo, defQuery) {
+					var arrDef,
+						layerType = layerInfo.type,
+						layerId = layerInfo.id;
+
 					if (layerType === 4) {
-						mymap.getLayer(layerId).setLayerDefinitions([definition]);
+						arrDef = mymap.getLayer(layerId).layerDefinitions;
+						arrDef[layerInfo.index] = defQuery;
+						mymap.getLayer(layerId).setLayerDefinitions(arrDef);
 					} else if (layerType === 5) {
-						mymap.getLayer(layerId).setDefinitionExpression(definition);
+						mymap.getLayer(layerId).setDefinitionExpression(defQuery);
+					}
+				};
+
+				_self.concatDefQuery = function(layerInfo, defQuery, spatial) {
+					var iStart, iEnd, tmpStr, tmpStrLen,
+						lyrDef = '',
+						layerType = layerInfo.type,
+						layerId = layerInfo.id;
+
+					// get actual def query
+					if (layerType === 4) {
+						lyrDef = mymap.getLayer(layerId).layerDefinitions[layerInfo.index];
+					} else if (layerType === 5) {
+						lyrDef = mymap.getLayer(layerId).getDefinitionExpression();
+					}
+
+					// check if query never been initialize
+					if (typeof lyrDef === 'undefined') {
+						lyrDef = '';
+					};
+
+					// if it is a statial query remove spatial part then concat
+					// If not, add the spatial part then concat.
+					if (lyrDef !== '') {
+						// extract spatial part
+						iStart = lyrDef.indexOf('OBJECTID IN (');
+						if (iStart !== -1) {
+							tmpStr = lyrDef.substring(iStart, lyrDef.length);
+							iEnd = tmpStr.indexOf(')') + 1;
+							tmpStr = lyrDef.substring(iStart, iStart + iEnd);
+						} else {
+							tmpStr = '';
+						}
+
+						if (spatial) {
+							// remove spatial part and leading and ending AND
+							tmpStr = lyrDef.replace(tmpStr, '');
+							tmpStrLen = tmpStr.length;
+							if (tmpStr.indexOf(' AND ') === 0) {
+								tmpStr = tmpStr.substring(5, tmpStrLen);
+							}
+							if (tmpStr.indexOf(' AND ') === tmpStrLen - 5) {
+								tmpStr = tmpStr.substring(0, tmpStrLen - 5);
+							}
+
+							// combine query
+							if (tmpStr !== '') {
+								defQuery += ' AND ' + tmpStr;
+							}
+						} else {
+							// combine query
+							if (tmpStr !== '') {
+								defQuery += ' AND ' + tmpStr;
+							}
+						}
 					}
 					
+					return defQuery;
 				};
 
 				_self.selExtent = function(geometry) {
@@ -1198,10 +1299,12 @@
 				};
 
 				_self.setSelection = function(features) {
-					var dataId, item,
+					var dataId, item, definition, lyrDef,
 						info = { },
 						i = 0,
 						j = 0,
+						info = arrLayerInfo[activeTableId].layerinfo,
+						layerId = info.id,
 						data = objDataTable[activeTableId].data(),
 						lenData = data.length,
 						lenFeats = features.length,
@@ -1215,18 +1318,14 @@
 
 					// loop data to see if we need to select
 					i = 0;
-					info.table = activeTableId;
 					while (i !== lenData) {
 						item = data[i];
 						dataId = item.OBJECTID;
 
 						if (featIds.indexOf(dataId) !== -1) {
-							item.gcvizcheck = true;
-							info.feat = i;
-							gisDG.selectFeature(item.geometry, info);
+							item.gcvizspatial = true;
 						} else if (item.gcvizcheck) {
-							item.gcvizcheck = false;
-							gisDG.unselectFeature('sel' + '-' + activeTableId + '-' + i);
+							item.gcvizspatial = false;
 						}
 						i++;
 					}
@@ -1234,12 +1333,19 @@
 					// if a spatial filter is applied to the table, add it
 					// to the array of spatial filter. It will be use in the
 					// search to apply only to table who are filtered
-					if (triggerTableId.indexOf(activeTableId) === -1) {
-						triggerTableId.push(activeTableId.toString());
+					if (triggerTableId[activeTableId] === '') {
+						triggerTableId[activeTableId] = activeTableId.toString();
 					}
 
 					// clear search then trigger the spatial one with draw
 					objDataTable[activeTableId].draw();
+
+					// stringnify the array
+					definition = 'OBJECTID IN (' + featIds.join(',') + ')';
+
+					// concat if there is an existing query and set query
+					definition = _self.concatDefQuery(info, definition, true);
+					_self.applyDefQuery(info, definition);
 				};
 
 				_self.highlightRow = function(row, check) {
@@ -1315,7 +1421,7 @@
 						attrNames, attrValues,
 						field, fields, lenFields,
 						layer, popups,
-						staticFields = 1,
+						staticFields = 2,
 						linkNode = '',
 						layerName = gcvizFunc.getLookup(lookPopups, currentFeature.layerName),
 						feature = currentFeature.feature,
@@ -1349,8 +1455,8 @@
 							// check if there is a link table and get data
 							linkInfo = layer.linktable;
 							if (linkInfo.enable) {
-								// set to 2 because the 2 last field are for select and link 
-								staticFields = 2;
+								// set to 3 because the 3 last field are for select (spatial and graphic) and link 
+								staticFields = 3;
 
 								linkNode = _self.getLinkNode(linkInfo, layer.layerinfo.id, attributes.OBJECTID);
 							}

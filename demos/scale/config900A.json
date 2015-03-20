@@ -625,7 +625,7 @@
                 },
                 "visibility": {
                     "enable": true,
-                    "initstate": true,
+                    "initstate": false,
                     "type": 1,
                     "radioid": 0
                 },
@@ -662,7 +662,7 @@
                 },
                 "visibility": {
                     "enable": true,
-                    "initstate": true,
+                    "initstate": false,
                     "type": 1,
                     "radioid": 0
                 },
@@ -675,7 +675,7 @@
                     "images": []
                 },
                 "items": [{
-                    "expand": true,
+                    "expand": false,
                     "last": true,
                     "type": 5,
                     "id": "1ea1f1db-5b0f-b960-42df-90cecedfad10",
@@ -696,7 +696,7 @@
                     },
                     "visibility": {
                         "enable": true,
-                        "initstate": true,
+                        "initstate": false,
                         "type": 1,
                         "radioid": 0
                     },
@@ -732,7 +732,7 @@
                     },
                     "visibility": {
                         "enable": true,
-                        "initstate": true,
+                        "initstate": false,
                         "type": 1,
                         "radioid": 0
                     },
@@ -804,7 +804,7 @@
                     },
                     "visibility": {
                         "enable": true,
-                        "initstate": true,
+                        "initstate": false,
                         "type": 1,
                         "radioid": 0
                     },
@@ -1020,7 +1020,7 @@
                 },
                 "visibility": {
                     "enable": true,
-                    "initstate": true,
+                    "initstate": false,
                     "type": 1,
                     "radioid": 0
                 },
