@@ -46,8 +46,8 @@
 						   'Layout': layout},
 				dfd = $viz.Deferred();
 			gpFolders = new esriGeoProcessor(url);
-			gpFolders.submitJob(params, function(jobinfo){
-				gpFolders.getResultData(jobinfo.jobId, 'Templates', function(results){
+			gpFolders.submitJob(params, function(jobinfo) {
+				gpFolders.getResultData(jobinfo.jobId, 'Templates', function(results) {
 					dfd.resolve(results.value);
 				});
 			}, gpJobStatus, gpJobFailed);
@@ -56,7 +56,8 @@
 		};
 
 		getMxdElements = function(url, templateName) {
-			var params = { 'TemplateName': templateName};
+			var params = { 'TemplateName': templateName,
+						   'Lang': lang };
 			gp = new esriGeoProcessor(url);
 			gp.submitJob(params, gpJobComplete, gpJobStatus, gpJobFailed);
 		};
@@ -111,7 +112,7 @@
 		};
 
 		gpJobFailed = function(error) {
-			console.log("gpJobFailed" + error);
+			console.log('gpJobFailed' + error);
 		};
 
 		getMapCenter = function(map) {
@@ -127,10 +128,10 @@
 			    elementName = '',
 			    elementValue = '';
 
-			$viz(printTextElements).find('input').each(function () {
+			$viz(printTextElements).find('input').each(function() {
 				elementName = this.name;
 				elementValue = this.value;
-				if(elementValue.trim().length > 0) {
+				if (elementValue.trim().length > 0) {
 					layoutElements[String(elementName)] = elementValue;
 				}
 				else {
@@ -143,7 +144,7 @@
 				layoutElements[String(elementName)] = String(this.checked);
 			});
 
-			$viz(printPictureElements).find('input').each(function () {
+			$viz(printPictureElements).find('input').each(function() {
 				elementName = this.name;
 				elementValue = this.value;
 				layoutElements[String(elementName)] = elementValue;
@@ -220,42 +221,44 @@
 		};
 
 		printCustomError = function(response) {
-			console.log("printCustomError" + response);
+			console.log('printCustomError' + response);
 		};
 
 		printHTMLError = function(response) {
-			console.log("printHTMLError" + response);
+			console.log('printHTMLError' + response);
 		};
 
 		printBasicMap = function(map, url, templateName, preserve, forcedScale) {
-
 			var win,
 				orig,
 				map,
 				mapholder,
 				updatedHTML,
 				mapholderWidth,
-				mapholderHeight;
+				mapholderHeight,
+				printTask,
+				params,
+				template;
 
-			$viz.get( templateName, function( data ) {
+			$viz.get(templateName, function(data) {
 					orig = $('<div />').html(data);
 					mapholder = orig.find('[id^=gcviz-print]');
 					mapholderWidth = $(mapholder).width();
 					mapholderHeight = $(mapholder).height();
 
-					var printTask = new esriPrintTask(url,  { async: true }),
-						params = new esriPrintParams(),
-						template = new esriPrintTemp();
+					printTask = new esriPrintTask(url,  { async: true }),
+					params = new esriPrintParams(),
+					template = new esriPrintTemp();
 
 					template.format = 'png8';
 					template.layout = 'MAP_ONLY';
 					template.layoutOptions = {
 						'scalebarUnit': 'Kilometers'
 					};
-					if (mapholderWidth > 0 ) {
+					if (mapholderWidth > 0)  {
 						template.exportOptions.width = mapholderWidth;
 					}
-					if (mapholderHeight > 0 ) {
+					if (mapholderHeight > 0) {
 						template.exportOptions.height = mapholderHeight;
 					}
 					template.exportOptions.dpi = 96;
@@ -264,23 +267,22 @@
 						template.preserveScale = false;
 					} else { 
 						template.preserveScale = true; 
-						if(preserve === 'force')
+						if (preserve === 'force') {
 							template.outScale = forcedScale;
-						else
+						} else {
 							template.outScale = map.getScale();
+						}
 					}
 
 					params.template = template;
 					params.map = map;
-
 					printTask.execute(params, function(response) {
 		
 						var elements = getHTMLLayoutElements(),
 						element,
 						obj;
-						console.log(response.url);
 						$viz(mapholder).append('<img src="' + response.url + '"></img>');
-						obj  = jQuery.parseJSON( elements );
+						obj  = jQuery.parseJSON(elements);
 						$viz.each(obj, function(key, value) {
 							orig.find('[id^=' + key + ']').each( function() {
 								$(this).text(value);
@@ -291,11 +293,7 @@
 						win = window.open('');
 						win.document.write(updatedHTML);
 					}, printError);
-
-				
 			});
-
-			
 		}; 
 
 		printMap = function(map, printInfo) {

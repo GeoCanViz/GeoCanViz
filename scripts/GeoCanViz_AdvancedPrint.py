@@ -10,7 +10,7 @@
 import arcpy, os, datetime, logging, numpy, json, uuid, urllib2
 import GeoCanViz_Print_Settings as settings
 
-logFileName ="GeoCanViz_AdvPrint"
+logFileName = 'GeoCanViz_AdvPrint'
 
 # error handling classes
 class folderNotExist(Exception):
@@ -37,10 +37,8 @@ class duplicateElementNameError(Exception):
 
 def getTemplateElement(mapElements, elementName):
     mapElement = [x for x in mapElements if x.name.strip().upper() == elementName]
-    # if len(mapElement) > 1:
-    #     raise duplicateElementNameError(elementName, "Template has the following element name that is not unique : {0}".format(elementName))
     if len(mapElement) == 0:
-        raise elementNotExist(elementName, "Element {0} does not exist in template".format(elementName))
+        raise elementNotExist(elementName, 'Element {0} does not exist in template'.format(elementName))
     if mapElement:
         return mapElement[0]
     else:
@@ -53,22 +51,22 @@ def moveMapSurroundElement(mapElements, elementName):
         foundElement.elementPositionX = -10 - foundElement.elementWidth
         foundElement.elementPositionY = -10 - foundElement.elementHeight
     else:
-        raise elementNotExist(elementName, "Element {0} does not exist in template".format(elementName))
+        raise elementNotExist(elementName, 'Element {0} does not exist in template'.format(elementName))
 
 def removeMapElement(mapElements, elementName):
     foundElement = getTemplateElement(mapElements, elementName)
     if(foundElement):
         foundElement.remove()
     else:
-        raise elementNotExist(elementName, "Element {0} does not exist in template".format(elementName))
+        raise elementNotExist(elementName, 'Element {0} does not exist in template'.format(elementName))
 
 def main():
 
     startTimeFull = datetime.datetime.now().strftime('%y-%m-%d-%H-%M')
     startTime = datetime.datetime.now().strftime('%y-%m-%d')
-    log = open(os.path.join(settings.LOGLOCATION,"{0}_{1}.{2}".format(logFileName,startTime,"txt")),"a")
-    log.write("----------------------------\n")
-    log.write("Process Started: {0}\n".format(startTimeFull))
+    log = open(os.path.join(settings.LOGLOCATION, '{0}_{1}.{2}'.format(logFileName, startTime, 'txt')), 'a')
+    log.write('----------------------------\n')
+    log.write('Process Started: {0}\n'.format(startTimeFull))
     log.write('Map: {0}\n'.format(arcpy.GetParameterAsText(0)))
     log.write('Format: {0}\n'.format(arcpy.GetParameterAsText(1)))
     log.write('TemplateName: {0}\n'.format(arcpy.GetParameterAsText(2)))
@@ -79,27 +77,6 @@ def main():
 
     try:
 
-##        Web_Map_as_JSON = '{"mapOptions":{"showAttribution":false,"extent":{"xmin":-8344271.65541982,"ymin":5616761.263257239,"xmax":-8301466.9195801793,"ymax":5639692.3717427608,"spatialReference":{"wkid":3857}},"spatialReference":{"wkid":3857}},"operationalLayers":[{"id":"013f40e0-e2f0-a8db-2377-966b05914123","title":"013f40e0-e2f0-a8db-2377-966b05914123","opacity":1,"minScale":144447.638572,"maxScale":4513.988705,"url":"http://nrcan/arcgis/rest/services/TestCache/MapServer"},{"id":"6be26697-4d66-6003-4382-4b1aa327a3d3","title":"6be26697-4d66-6003-4382-4b1aa327a3d3","opacity":1,"minScale":144447.638572,"maxScale":4513.988705,"url":"http://nrcan/arcgis/rest/services/testdata/MapServer"},{"id":"gcviz-symbol","opacity":1,"minScale":0,"maxScale":0,"featureCollection":{"layers":[]}},{"id":"map3_holder_graphics","opacity":1,"minScale":0,"maxScale":0,"featureCollection":{"layers":[]}}],"exportOptions":{"outputSize":[null,null],"dpi":96}}'
-##        Web_Map_Decode = json.loads(Web_Map_as_JSON)
-##        templateName = "A4 Portrait"
-##        lang = "EN"
-##        preserve_centerPoint =" "#"-8328684.938:5626421.593"#"-9996438.076:6965545.390"#"-8319825.306:5626829.433"
-##        scale = "5000"
-##        outputType = "PDF"
-##        layoutElements1 = '{"2#Sub Title":"dddd","1#Title":" ","4#Scale Bar":"false","9999#North Arrow":"false"}';
-##        log.write('Map: {0}\n'.format(Web_Map_as_JSON))
-
-##        Web_Map_as_JSON = '{"mapOptions":{"showAttribution":false,"extent":{"xmin":-8317543.8623287827,"ymin":5629365.8564837528,"xmax":-8312193.2703486793,"ymax":5632232.2450445229,"spatialReference":{"wkid":3857}},"spatialReference":{"wkid":3857}},"operationalLayers":[{"id":"013f40e0-e2f0-a8db-2377-966b05914123","title":"013f40e0-e2f0-a8db-2377-966b05914123","opacity":1,"minScale":144447.638572,"maxScale":4513.988705,"url":"http://nrcan/arcgis/rest/services/TestCache/MapServer"},{"id":"6be26697-4d66-6003-4382-4b1aa327a3d3","title":"6be26697-4d66-6003-4382-4b1aa327a3d3","opacity":1,"minScale":144447.638572,"maxScale":4513.988705,"url":"http://nrcan/arcgis/rest/services/testdata/MapServer"},{"id":"gcviz-symbol","opacity":1,"minScale":0,"maxScale":0,"featureCollection":{"layers":[]}},{"id":"map3_holder_graphics","opacity":1,"minScale":0,"maxScale":0,"featureCollection":{"layers":[]}}],"exportOptions":{"outputSize":[null,null],"dpi":300}}'
-##        Web_Map_Decode = json.loads(Web_Map_as_JSON)
-##        templateName = "A3 Landscape Small"
-##        lang = "EN"
-##        preserve_centerPoint ="-8314868.566338731:5630799.050764138"#"-8328684.938:5626421.593"#"-9996438.076:6965545.390"#"-8319825.306:5626829.433"
-##        scale = "5000"
-##        outputType = "PDF"
-##       #layoutElements1 = '{"Title":" ","North Arrow":"true"}' #{"Title":"asdfasdf","North Arrow":"false"}
-##        layoutElements1 = '{"Sub Title":" ","Title":" ","Author":" ","Map Document Credits":" ","Date":" ","Service Layer Credits":" ","Scale Bar":"false","Scale Text":"false","North Arrow":"false","Logo":""}';
-##        log.write('Map: {0}\n'.format(Web_Map_as_JSON))
-
         Web_Map_as_JSON = arcpy.GetParameterAsText(0)
         Web_Map_Decode = json.loads(arcpy.GetParameterAsText(0))
         templateName = arcpy.GetParameterAsText(2)
@@ -109,40 +86,40 @@ def main():
         outputType = arcpy.GetParameterAsText(1)
         layoutElements1 = arcpy.GetParameterAsText(6)
 
-        layoutElements= json.loads(layoutElements1)
+        layoutElements = json.loads(layoutElements1)
         exportOptions = Web_Map_Decode['exportOptions']
-        extent= Web_Map_Decode['mapOptions']['extent']
+        extent = Web_Map_Decode['mapOptions']['extent']
         outputDPI = Web_Map_Decode['exportOptions']['dpi']
-        log.write("Output DPI: {0}\n".format(outputDPI))
+        log.write('Output DPI: {0}\n'.format(outputDPI))
 
         #Access template
-        log.write("Accessing template\n")
+        log.write('Accessing template\n')
         mxdPath = os.path.join(settings.MXDTEMPLATEFOLDER, lang)
         if not os.path.isdir(mxdPath):
-              raise folderNotExist(mxdPath,'Folder does not exist on server: {0}\n'.format(mxdPath))
-        mxdTemplate = os.path.join(mxdPath, templateName) # + ".mxd")
+              raise folderNotExist(mxdPath, 'Folder does not exist on server: {0}\n'.format(mxdPath))
+        mxdTemplate = os.path.join(mxdPath, templateName)
         if not os.path.exists(mxdTemplate):
-                raise fileNotExist(mxdTemplate,'File does not exist on server: {0}\n'.format(mxdTemplate))
+                raise fileNotExist(mxdTemplate, 'File does not exist on server: {0}\n'.format(mxdTemplate))
 
         # Convert the WebMap to a map document
         result = arcpy.mapping.ConvertWebMapToMapDocument(Web_Map_as_JSON, mxdTemplate)
         mapDocument = result.mapDocument
 
         #access the data frame, ConvertWebMapToMapDocument changes dataframe name to WebMap
-        log.write("Accessing the Data Frame\n")
+        log.write('Accessing the Data Frame\n')
         dataFrame = arcpy.mapping.ListDataFrames(mapDocument, 'Webmap')[0]
 
         #if force extent is used, get centerpoint, create small extent then add scale.
         if len(preserve_centerPoint.strip()) > 0:
-            split_center = preserve_centerPoint.split(":")
-            log.write("Accessing the Center Point\n")
+            split_center = preserve_centerPoint.split(':')
+            log.write('Accessing the Center Point\n')
             newExtent = dataFrame.extent
             newExtent.XMin =  float(split_center[0]) - 10
             newExtent.YMin = float(split_center[1]) - 10
             newExtent.XMax = float(split_center[0]) + 10
             newExtent.YMax  = float(split_center[1]) + 10
             dataFrame.extent = newExtent
-            log.write("Setting scale\n")
+            log.write('Setting scale\n')
             dataFrame.scale = long(scale)
 
         # handle layout elements
@@ -151,39 +128,36 @@ def main():
             for mapElement in mapElements:
                 elementName = mapElement.name.strip()
                 if elementName in layoutElements:
-                    if mapElement.type == "TEXT_ELEMENT":
+                    if mapElement.type == 'TEXT_ELEMENT':
                         mapElement.text = layoutElements[elementName]
-                    if mapElement.type == "MAPSURROUND_ELEMENT" or mapElement.type == "LEGEND_ELEMENT":
+                    if mapElement.type == 'MAPSURROUND_ELEMENT' or mapElement.type == 'LEGEND_ELEMENT':
                         if (layoutElements[elementName] == 'false'):
                             mapElement.elementPositionX = -10 - mapElement.elementWidth
                             mapElement.elementPositionY = -10 - mapElement.elementHeight
-                    if mapElement.type == "PICTURE_ELEMENT":
+                    if mapElement.type == 'PICTURE_ELEMENT':
                         imgDetails = layoutElements[elementName]
                         if(imgDetails == ''):
                             mapElement.elementPositionX = -10 - mapElement.elementWidth
                             mapElement.elementPositionY = -10 - mapElement.elementHeight
                         else:
                             mapElement.sourceImage = imgDetails
-                #else:
-                        #raise elementNotExist(elementName, "Element {0} does not exist in template".format(elementName))
-
 
         serviceLayersNames = [slyr.name for slyr in arcpy.mapping.ListLayers(mapDocument, data_frame=dataFrame)
                       if slyr.isServiceLayer and slyr.visible and not slyr.isGroupLayer]
 
-        print "service"
+        print 'service'
         print serviceLayersNames
 
         vectorLayersNames = [vlyr.name for vlyr in arcpy.mapping.ListLayers(mapDocument, data_frame=dataFrame)
                      if not vlyr.isServiceLayer and not vlyr.isGroupLayer and vlyr.name != "polylineLayer"]
 
-        print "vector"
+        print 'vector'
         print vectorLayersNames
 
         removeLayerNameList = [vlyrName for vlyrName in vectorLayersNames
                        if vlyrName not in serviceLayersNames]
 
-        print "remove"
+        print 'remove'
         print removeLayerNameList
 
         # Remove all vector layers that don't have a corresponding service layer
@@ -201,8 +175,8 @@ def main():
         for slyr in arcpy.mapping.ListLayers(mapDocument, data_frame=dataFrame):
             if slyr.isServiceLayer:
              if slyr.isGroupLayer:
-                url = [item["url"] for item in Web_Map_Decode["operationalLayers"]
-                         if item["id"] == slyr.name]
+                url = [item['url'] for item in Web_Map_Decode['operationalLayers']
+                         if item['id'] == slyr.name]
                 if url:
                     response = urllib2.urlopen(url[0] + '?f=json')
                     result = json.loads(response.read())
@@ -220,11 +194,11 @@ def main():
 
         arcpy.RefreshTOC()
         arcpy.RefreshActiveView()
-        log.write("exporting to pdf at specified resolution\n")
+        log.write('exporting to pdf at specified resolution\n')
 
         output = 'ap_{}'.format(str(uuid.uuid1()))
         Output_File = os.path.join(arcpy.env.scratchFolder, output)
-        Output_File = Output_File + ".pdf"
+        Output_File = Output_File + '.pdf'
         arcpy.mapping.ExportToPDF(mapDocument, Output_File, resolution=int(outputDPI))
         print Output_File
         #parameter from server job needs to be the created file
@@ -236,7 +210,7 @@ def main():
         os.remove(filePath)
 
         endTime = datetime.datetime.now().strftime('%y-%m-%d-%H-%M')
-        log.write("Process Ended: {0}\n".format(endTime))
+        log.write('Process Ended: {0}\n'.format(endTime))
 
     except folderNotExist as ex:
         log.write(ex.Message)

@@ -10,9 +10,9 @@ import arcpy, os, datetime, logging, numpy, collections, sys
 import GeoCanViz_Print_Settings as settings
 from collections import OrderedDict
 
-logFileName ="GeoCanViz_GetMapElements"
-configurableElements = ["TEXT_ELEMENT", "MAPSURROUND_ELEMENT", "PICTURE_ELEMENT", "LEGEND_ELEMENT"]
-elementOrderDefault = "9999#"
+logFileName = 'GeoCanViz_GetMapElements'
+configurableElements = ['TEXT_ELEMENT', 'MAPSURROUND_ELEMENT', 'PICTURE_ELEMENT', 'LEGEND_ELEMENT']
+elementOrderDefault = '9999#'
 
 # error handling classes
 class folderNotExist(Exception):
@@ -26,32 +26,32 @@ class fileNotExist(Exception):
 
 def validateElementOrder(elements):
        for i,value in enumerate(elements):
-            if value.find("#") != 1 :
+            if value.find('#') != 1 :
                 elements[i] = elementOrderDefault+value
        return elements
 
 def main():
     startTimeFull = datetime.datetime.now().strftime('%y-%m-%d-%H-%M')
     startTime = datetime.datetime.now().strftime('%y-%m-%d')
-    log = open(os.path.join(settings.LOGLOCATION,"{0}_{1}.{2}".format(logFileName,startTime,"txt")),"a")
-    log.write("----------------------------\n")
-    log.write("Process Started: {0}\n".format(startTimeFull))
+    log = open(os.path.join(settings.LOGLOCATION, '{0}_{1}.{2}'.format(logFileName, startTime, 'txt')), 'a')
+    log.write('----------------------------\n')
+    log.write('Process Started: {0}\n'.format(startTimeFull))
     templateName = arcpy.GetParameterAsText(1)
-    lang = "EN"
-    log.write("Accessing template\n")
+    lang = arcpy.GetParameterAsText(3)
+    log.write('Accessing template\n')
 
     try:
         mxdPath = os.path.join(settings.MXDTEMPLATEFOLDER, lang)
         if not os.path.isdir(mxdPath):
-            raise folderNotExist(mxdPath,'Folder does not exist on server: {0}\n'.format(mxdPath))
-        mxdTemplate = os.path.join(mxdPath, templateName) # + ".mxd")
+            raise folderNotExist(mxdPath, 'Folder does not exist on server: {0}\n'.format(mxdPath))
+        mxdTemplate = os.path.join(mxdPath, templateName)
         if not os.path.exists(mxdTemplate):
-            raise fileNotExist(mxdTemplate,'File does not exist on server: {0}\n'.format(mxdTemplate))
+            raise fileNotExist(mxdTemplate, 'File does not exist on server: {0}\n'.format(mxdTemplate))
 
         mapDocument = arcpy.mapping.MapDocument(mxdTemplate)
         mapElements = arcpy.mapping.ListLayoutElements(mapDocument)
 
-        mapElement = [element.name + ":" + element.type for element in mapElements if element.type in configurableElements]
+        mapElement = [element.name + ':' + element.type for element in mapElements if element.type in configurableElements]
         mapElement = validateElementOrder(mapElement)
         mapElement.sort(key=lambda x: int(x[0:x.index('#')]))
 
@@ -61,7 +61,7 @@ def main():
 
         del mapDocument
         endTime = datetime.datetime.now().strftime('%y-%m-%d-%H-%M-%S')
-        log.write("Process Ended: {0}\n".format(endTime))
+        log.write('Process Ended: {0}\n'.format(endTime))
 
     except folderNotExist as ex:
         log.write(ex.Message)

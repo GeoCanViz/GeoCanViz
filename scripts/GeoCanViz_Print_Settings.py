@@ -6,11 +6,11 @@
 #-------------------------------------------------------------------------------
 
 #ALL
-LOGLOCATION = "C:\AdvancedPrint\Templates"
+LOGLOCATION = 'C:\AdvancedPrint\Templates'
 
 #HTML
-HTMLTEMPLATEFOLDER = "C:\Users\lmccallum\Documents\GeoCanViz\gcviz\print\html"
+HTMLTEMPLATEFOLDER = 'C:\Users\lmccallum\Documents\GeoCanViz\gcviz\print\html'
 
 #MXD
-MXDTEMPLATEFOLDER = "C:\Users\lmccallum\Documents\GeoCanViz\gcviz\print\MXD"
+MXDTEMPLATEFOLDER = 'C:\Users\lmccallum\Documents\GeoCanViz\gcviz\print\MXD'
 

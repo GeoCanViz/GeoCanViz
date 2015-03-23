@@ -83,11 +83,12 @@
 				_self.forceScaleValue = ko.observable().extend({ numeric: { precision: 0, validation: { min: 0 } } });
 				_self.urlhtmltemplates = mapframe.map.urlhtmltemplates;
 				_self.layoutValue.subscribe(function(layout) {
-					if(printType === 1) 
+					if (printType === 1) {
 						printTypeString = 'html';
-					else
+					} else {
 						printTypeString = 'mxd';
-					gisprint.getTemplates(_self.urlhtmltemplates, layout, printTypeString).done(function( templates ) {
+					}
+					gisprint.getTemplates(_self.urlhtmltemplates, layout, printTypeString).done(function(templates) {
 						_self.availableTemplates.removeAll();
 						template = templates.split(',');
 						template.forEach(function(value) {
@@ -103,8 +104,8 @@
 
 			 	_self.selectedValue.subscribe(function(templateName) {
 			 		clearElements();
-			 		if(templateName !== _self.noTemplateMessage && templateName !== undefined) {
-				 		if(printType === 1) {
+			 		if (templateName !== _self.noTemplateMessage && templateName !== undefined) {
+				 		if (printType === 1) {
 				 			getHTMLElements(templateName, _self.layoutValue().toString());
 				 		}
 				 		else {
@@ -129,8 +130,10 @@
 				};
 
 				_self.dialogHelpOk = function() {
-					if(printType === 1) {
-						var templatepath = locationPath + "gcviz/print/" + lang + "/" + _self.selectedValue().toString()
+					var templatepath;
+
+					if (printType === 1) {
+						templatepath = locationPath + 'gcviz/print/' + lang + '/' + _self.selectedValue().toString();
 						gisprint.printBasicMap(_self.mymap, _self.printUrl, templatepath, _self.preserve().toString(), _self.forceScaleValue().toString().trim());
 					}
 					else {
@@ -179,7 +182,7 @@
 			$viz(printTextElements).empty();
 			$viz(printPictureElements).empty();
 						
-			$viz.get( url, function( data ) {
+			$viz.get(url, function(data) {
 				var $html = $(data),
 					id, 
 					label,
@@ -191,7 +194,7 @@
                         this.NewElement = newElement;
                     };
  				
-				$html.find('[id^=gcviz-label]').andSelf().filter('[id^=gcviz-label]').each( function() {
+				$html.find('[id^=gcviz-label]').andSelf().filter('[id^=gcviz-label]').each(function() {
 					id = this.id;
 					label = $(this).text();
 					newElement = ('<div class="gcviz-printRow"><div class="gcviz-printColLabel"><span class="gcviz-printLabel">' + label+ '</span></div><div class="gcviz-printCol"><input type="text" id="' + id + '" name="' + label + '"></input></div>');
@@ -204,7 +207,7 @@
 
 				orderedElements = [];
 
-				$html.find('[id^=gcviz-lblimgx]').andSelf().filter('[id^=gcviz-lblimgx]').each( function() {
+				$html.find('[id^=gcviz-lblimgx]').andSelf().filter('[id^=gcviz-lblimgx]').each(function() {
 					id = this.id;
 					label = $(this).text();
 					newElement = ('<div class="gcviz-printRow"><div class="gcviz-printColLabel"><span class="gcviz-printLabel">' + label + '</span></div><div class="gcviz-printCol"><input type="text" id="gcviz-print' + id + '" name="' + label + '"></input><div>');
@@ -220,8 +223,8 @@
 		};
 		
 		sortElements = function(elements) {
-				return elements.sort(function(a, b){
- 					return a.Position-b.Position;
+				return elements.sort(function(a, b) {
+ 					return a.Position - b.Position;
 				});
 		};
 		
