@@ -38,7 +38,7 @@
 					$btnDelsel = $mapElem.find('.gcviz-draw-delsel'),
 					$menu = $viz('#gcviz-menu' + mapid);
 
-				// viewmodel mapid to be access in tooltip custom binding
+				// viewmodel mapid to be access in tooltip and wcag custom binding
 				_self.mapid = mapid;
 
 				// tooltip
@@ -105,7 +105,7 @@
 				_self.lblWCAGmsgy = i18n.getDict('%wcag-msgy');
 				_self.lblWCAGadd = i18n.getDict('%wcag-addcoords');
 				_self.lblWCAGAddPoint = i18n.getDict('%wcag-add');
-				_self.xValue = ko.observable().extend({ numeric: { precision: 3, validation: { min: 50, max: 130 } } });
+				_self.xValue = ko.observable().extend({ numeric: { precision: 3, validation: { min: 50, max: 140 } } });
 				_self.yValue = ko.observable().extend({ numeric: { precision: 3, validation: { min: 40, max: 80 } } });
 				_self.WCAGcoords = ko.observableArray([]);
 				_self.isWCAG = ko.observable(false);
@@ -305,11 +305,14 @@
 							// add last point then close
 							_self.graphic.addMeasure(_self.measureHolder, globalKey, 0, 'km', _self.selectedColor(), event);
 
+							// remove mouse mouve event that shows distance after the element is finish
+							_self.graphic.removeMouseMove();
+
 							// add a small time out to let the last point to go in. If not,
 							// the last point is not in the sum length
 							setTimeout(function() {
 								_self.endMeasureLength();
-							}, 250);
+							}, 200);
 						});
 					} else {
 						_self.isDialogWCAG(true);
@@ -423,6 +426,7 @@
 
 					$viz.generateFile({
 						filename	: 'graphics.json',
+						filetype	: 'application/json',
 						content		: graphics,
 						script		: config.urldownload
 					});

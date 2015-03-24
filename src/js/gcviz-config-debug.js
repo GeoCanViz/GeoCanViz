@@ -187,6 +187,7 @@
 	}
 
 	// load the require libraries
+	define.amd = { },
 	define.amd.jQuery = true;
 	require({
 		async: true,
@@ -236,6 +237,10 @@
 				name: 'gcviz-i18n',
 				location: locationPath + 'gcviz/js',
 				main: language
+			}, {
+				name: 'jqueryui-i18n',
+				location: locationPath + 'gcviz/dependencies',
+				main: 'datepicker-fr.min'
 			}, {
 				name: 'gcviz-ko',
 				location: locationPath + 'src/js/custom',

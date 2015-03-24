@@ -10,15 +10,21 @@
 	define(['jquery-private',
 			'gcviz-func',
 			'gcviz-gisgeo',
+			'gcviz-gismap',
 			'gcviz-gislegend',
 			'gcviz-vm-datagrid',
 			'gcviz-vm-tbdata',
 			'dojox/data/CsvStore',
 			'esri/layers/FeatureLayer',
 			'esri/SpatialReference',
-			'esri/geometry/Point'
-	], function($viz, gcvizFunc, gisGeo, gisLegend, vmDatagrid, vmTbData, esriCSVStore, esriFeatLayer, esriSR, esriPoint) {
+			'esri/geometry/Point',
+			'esri/layers/KMLLayer',
+			'esri/layers/GeoRSSLayer',
+			'dojo/_base/array'
+	], function($viz, gcvizFunc, gisGeo, gisMap, gisLegend, vmDatagrid, vmTbData, esriCSVStore, esriFeatLayer, esriSR, esriPoint, esriKML, esriGeoRSS, array) {
 		var addCSV,
+			addKML,
+			addGeoRSS,
 			createLayer,
 			getSeparator,
 			getFeatCollectionTemplateCSV,
@@ -69,10 +75,10 @@
 					while (lenNames--) {
 						field = fieldNames[lenNames];
 
-						if (gcvizFunc.checkMatch(latFields, field)) {
+						if (gcvizFunc.returnIndexMatch(latFields, field) !== -1) {
 							latField = field;
 						}
-						if (gcvizFunc.checkMatch(longFields, field)) {
+						if (gcvizFunc.returnIndexMatch(longFields, field) !== -1) {
 							longField = field;
 						}
 					}
@@ -87,7 +93,7 @@
 					// add feature
 					while (lenItems--) {
 						item = items[lenItems];
-						attrs = csvStore.getAttributes(item);
+						attrs = csvStore.getAttributes(item).reverse();
 						attributes = {};
 						lenAttrs = attrs.length;
 
@@ -147,8 +153,12 @@
 			}
 
 			featureLayer = new esriFeatLayer(featCollection, { 'id': guuid });
+			featureLayer.name = gfileName;
 			mymap.addLayer(featureLayer);
 
+			// get the extent then zoom
+			gisMap.zoomGraphics(mymap, featureLayer.graphics);
+				
 			// add to user array so knockout will generate legend
 			// we cant add it from the VM because the projection can take few second and the symbol is not define before.
 			// to avoid this, we add the layer only when it is done.
@@ -254,8 +264,88 @@
 			return featCollection;
 		};
 
+		addKML = function(map, url, uuid, fileName) {
+			var layer;
+			layer = new esriKML(url, { outSR: new esri.SpatialReference({ wkid: map.vWkid }) });
+			layer.name = fileName;
+			layer.id = uuid;
+			map.addLayer(layer);
+
+			layer.on('load', function(input) {
+				// remove info template to disable default esri popup
+				input.layer.getLayers()[0].setInfoTemplate(null);
+
+				var featureInfos = input.layer.folders[0].featureInfos;
+				  array.forEach(featureInfos,function(info){
+				    var feature = input.layer.getFeature(info);
+				    //do something with the feature here...
+				    //input.layer.getFeature(input.layer.getFeature(info).featureInfos[0])
+				  });
+			});
+
+			// add the data to the datagrid
+			//vmDatagrid.addTab(mymap.vIdName, featCollection, fileName, uuid);
+			
+			return layer;
+		};
+
+		addGeoRSS = function(map, url, uuid, fileName) {
+			var layer;
+			layer = new esriGeoRSS(url, { outSR: new esri.SpatialReference({ wkid: map.vWkid }) });
+			layer.name = fileName;
+			layer.id = uuid;
+			map.addLayer(layer);
+
+			// the GeoRSS layer contains one feature layer for each geometry type
+			// TODO: loop trought getFEatureLayers
+			layer.on('load', function(input) {
+				var field, graph, atts, lenAtts,
+					newFields = [],
+					featLayer = input.layer.getFeatureLayers()[0],
+					fields = featLayer.fields,
+					lenFields = fields.length,
+					graphics = featLayer.graphics,
+					lenGraphs = graphics.length,
+					featColl = { 'layerDefinition': {
+										'fields': [],
+										},
+										'featureSet': {
+											'features': [],
+										}
+									};
+
+				// There hiddend key on the fields (e.g. constructor, inhireted, ...) that screw up datatable
+				// to solve this, create a new array of field only for what we need.
+				while (lenFields--) {
+					field = fields[lenFields];
+					delete field.length;
+					delete field.nullable;
+					if (field.name === 'id' || field.name === 'visibility') {
+						fields.splice(lenFields,1);
+					} else {
+						newFields.push({
+										'name': field.name,
+										'alias': field.name,
+										'type': '',
+										});	
+					}
+				}
+				
+				featColl.layerDefinition.fields = newFields;
+				featColl.featureSet.features = graphics;
+
+				// add the data to the datagrid
+				vmDatagrid.addTab(input.layer._map.vIdName, featColl, 'test georss', input.layer.id);
+
+				// remove info template to disable default esri popup
+				input.layer.getLayers()[0].setInfoTemplate(null);
+			});
+		};
+
 		return {
-			addCSV: addCSV
+			addCSV: addCSV,
+			addKML: addKML,
+			addGeoRSS: addGeoRSS
 		};
 	});
 }());

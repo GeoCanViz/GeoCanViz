@@ -236,6 +236,23 @@
                         "maxsizeprop": 50,
                         "maxdataprop": 1000
                     }
+                }, {
+                    "label": "aero date",
+                    "id": "6f798c6b-gggg1-4e24-78dd-9bfa5a9bc59e",
+                    "type": 5,
+                    "url": "http://s-bsc-geoappint.nrn.nrcan.gc.ca/arcgis/rest/services/Test/Aerodromes/MapServer/0",
+                    "scale": {
+                        "min": 0,
+                        "max": 0
+                    },
+                    "cluster": {
+                        "enable": false,
+                        "distance": 50,
+                        "label": false,
+                        "symbol": true,
+                        "maxsizeprop": 50,
+                        "maxdataprop": 1000
+                    }
                 }]
             }
         },
@@ -535,7 +552,7 @@
                     "dataalias": "GEO_ID",
 				     "type": {
 				      	"field": "field",
-				      	"value": "string"
+				      	"value": "number"
 				     },
 				     "searchable": true
                 }, {
@@ -555,9 +572,9 @@
                     "dataalias": "GEO_EDESC",
 				     "type": {
 				      	"field": "field",
-				      	"value": "string"
+				      	"value": "select"
 				     },
-				     "searchable": false
+				     "searchable": true
                 }, {
                     "title": "Geo FDESC",
                     "width": "250px",
@@ -605,7 +622,27 @@
                     "dataalias": "PROJ_STATUS_EN",
 				     "type": {
 				      	"field": "field",
-				      	"value": "string"
+				      	"value": "select"
+				     },
+				     "searchable": true
+                }, {
+                    "title": "lat",
+                    "width": "110px",
+                    "data": "LAT_DD",
+                    "dataalias": "LAT_DD",
+				     "type": {
+				      	"field": "field",
+				      	"value": "number"
+				     },
+				     "searchable": true
+                }, {
+                    "title": "long",
+                    "width": "110px",
+                    "data": "LONG_DD",
+                    "dataalias": "LONG_DD",
+				     "type": {
+				      	"field": "field",
+				      	"value": "number"
 				     },
 				     "searchable": true
                 }],
@@ -637,6 +674,48 @@
                  "popups": {
                     "enable": true,
                     "layeralias": "Mining Project Status"
+                 },
+                 "hover": {
+                     "enable": false,
+                     "hoverfield": "Community Well-Being"
+                 }
+            }, {
+                "layerinfo": {
+                    "id": "6f798c6b-gggg1-4e24-78dd-9bfa5a9bc59e",
+                    "type": 5,
+                    "index": 0
+                },
+                "title": "Aero",
+                "globalsearch": false,
+                "fields": [{
+                    "title": "Location",
+                    "width": "120px",
+                    "data": "LOCATION",
+                    "dataalias": "LOCATION",
+				    "type": {
+				      "field": "field",
+				      "value": "string"
+				     },
+				    "searchable": true
+                }, {
+                    "title": "Date",
+                    "width": "150px",
+                    "data": "EDIT_DATE",
+                    "dataalias": "EDIT_DATE",
+				     "type": {
+				      	"field": "field",
+				      	"value": "date",
+				      	"informat": "esri",
+				      	"outformat": "long"
+				     },
+				     "searchable": true
+                }],
+                "linktable": {
+                    "enable": false
+                 },
+                 "popups": {
+                    "enable": true,
+                    "layeralias": "TM_EN.LG_Aerodrome"
                  },
                  "hover": {
                      "enable": false,

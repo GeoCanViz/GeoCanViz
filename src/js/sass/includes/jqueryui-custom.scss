@@ -251,8 +251,9 @@ button.ui-button::-moz-focus-inner {
 	color: #000;
 }
 .ui-widget-header {
-	border: 1px solid #333333;
-	background: #333333 url(images/ui-bg_gloss-wave_25_333333_500x100.png) 50% 50% repeat-x;
+	border: 1px solid $grey-green;
+	background-repeat: repeat-x;
+  background-image: url($img-head);
 	color: #ffffff;
 	font-weight: bold;
 }

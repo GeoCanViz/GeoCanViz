@@ -13,6 +13,7 @@
 			'gcviz-gisgeo',
 			'gcviz-func',
 			'esri/layers/GraphicsLayer',
+			'esri/layers/FeatureLayer',
 			'esri/symbols/SimpleLineSymbol',
 			'esri/symbols/SimpleFillSymbol',
 			'esri/symbols/SimpleMarkerSymbol',
@@ -29,7 +30,7 @@
 			'esri/tasks/QueryTask',
 			'esri/tasks/query',
 			'gcviz-gissymbol'
-	], function($viz, gisMap, gisGeo, gcvizFunc, esriGraphLayer, esriLine, esriFill, esriMarker, esriPoint, esriPoly, esriPolyline, esriSR, esriGraph, esriRequest, esriRelRequest, dojoDefList, esriIdTask, esriIdParams, esriQueryTsk, esriQuery) {
+	], function($viz, gisMap, gisGeo, gcvizFunc, esriGraphLayer, esriFeatLayer, esriLine, esriFill, esriMarker, esriPoint, esriPoly, esriPolyline, esriSR, esriGraph, esriRequest, esriRelRequest, dojoDefList, esriIdTask, esriIdParams, esriQueryTsk, esriQuery) {
 		var initialize,
 			getData,
 			getSelection,
@@ -42,6 +43,7 @@
 			unselectFeature,
 			createIdTask,
 			executeIdTask,
+			setFileLayerTask,
 			returnIdResults,
 			setRelRecords,
 			getRelRecords,
@@ -59,6 +61,7 @@
 			idTaskIndex = 0,
 			layerIndex,
 			idParams = new esriIdParams(),
+			deferredGraph = [],
 			idFeatures,
 			idRtnFunc;
 
@@ -100,13 +103,14 @@
 					var relatedQuery, featLayer,
 						layerInfo = layer.layerinfo,
 						linkFields, lenLinkFields, strLinkFields,
+						fields = layer.fields,
 						pos = layerInfo.pos,
 						linkInfo = layer.linktable,
 						id = layerInfo.id,
 						sr = response.spatialReference,
 						data = [],
 						features = response.features,
-						len = features.length - 1;
+						len = features.length;
 
 					// if there is a link table to retrieve info from, set it here.
 					// it only work with feature layer who have a valid OBJECTID field
@@ -123,20 +127,20 @@
 						// create the query
 						relatedQuery = new esriRelRequest();
 						relatedQuery.outFields = [strLinkFields.slice(0, -1)];
-						relatedQuery.relationshipId = linkInfo.relationshipId;
+						relatedQuery.relationshipId = linkInfo.relationshipid;
 						relatedQuery.objectIds = gcvizFunc.getObjectIds(response.features);
 
 						// query the link table
 						featLayer = mymap.getLayer(id);
 						featLayer.queryRelatedFeatures(relatedQuery, function(relatedRecords) {
-							data = createDataArray(features, len, sr, id, pos, relatedRecords);
+							data = createDataArray(features, len, fields, sr, id, pos, relatedRecords);
 							closeGetData(data, layer, success);
 
 							// keep related records to be access later by popups
 							setRelRecords(id, relatedRecords);
 						});
 					} else {
-						data = createDataArray(features, len, sr, id, pos);
+						data = createDataArray(features, len, fields, sr, id, pos);
 						closeGetData(data, layer, success);
 					}
 				},
@@ -165,10 +169,14 @@
 			});
 		};
 
-		createDataArray = function(features, len, sr, id, pos, relRecords) {
+		createDataArray = function(features, len, fields, sr, id, pos, relRecords) {
 			var linkLen, linkFeats, linkFeat,
 				feat, geom, geometry,
+				field, fieldType,
+				datesLen, tmpDate, attDate, attFormat, attTmp,
 				data = new Array(len),
+				fieldsLen = fields.length,
+				dates = [],
 				flag = false,
 				i = 0;
 
@@ -176,6 +184,20 @@
 				flag = true;
 			}
 
+			// check is there field date. If so, keep name and output format
+			while (i !== fieldsLen) {
+				field = fields[i];
+				fieldType = field.type;
+
+				if (fieldType.informat === 'esri' && fieldType.value === 'date') {
+					dates.push(field.data + ';' + fieldType.outformat);
+				}
+				i++;
+			}
+			datesLen = dates.length;
+
+			// loop trought data
+			i = 0;
 			while (i !== len) {
 				feat = features[i];
 				geom = feat.geometry;
@@ -189,10 +211,33 @@
 					geometry = new esriPoly({ 'rings': geom.rings, 'spatialReference': sr });
 				}
 
-				// add a unique id and wkid
-				geometry.attributes = feat.attributes;
+				// if there is esri date field, we need to reformat them
+				if (datesLen === 0) {
+					geometry.attributes = feat.attributes;
+				} else {
+					attTmp = dates[0].split(';');
+					attDate = attTmp[0];
+					attFormat = attTmp[1];
+					tmpDate = feat.attributes[attDate];
+					if (tmpDate !== null) {
+						tmpDate = new Date(tmpDate).toISOString();
+						
+						if (attFormat === 'long') {
+							tmpDate = tmpDate.replace('T', ' - ');
+						} else {
+							tmpDate = tmpDate.substring(0, 10);
+						}
+						feat.attributes[attDate] = tmpDate;
+					} else {
+						feat.attributes[attDate] = '';
+					}
+					geometry.attributes = feat.attributes;
+				}
+
+				// add a unique id, the select checkbox and layerid
 				geometry.attributes.gcvizid = pos + '-' + i;
-				geometry.attributes.gcvizcheck = 0;
+				geometry.attributes.gcvizcheck = false;
+				geometry.attributes.gcvizspatial = false;
 				geometry.attributes.layerid = id;
 
 				// if present, add the related records from a link table
@@ -273,8 +318,7 @@
 		};
 
 		zoomFeatures = function(geometries) {
-			var extent,
-				graphic,
+			var graphic,
 				i = 0,
 				len = geometries.length,
 				graphics = new Array(len);
@@ -293,9 +337,12 @@
 				}
 
 				// get the extent then zoom
-				extent = esri.graphicsExtent(graphics); // can't load AMD
-				mymap.setExtent(extent.expand(1.75));
+				gisMap.zoomGraphics(mymap, graphics);
 			}
+
+			// there is a bug when in full screen and do a zoom to select. There is an offset in y
+			// so popup is not available. To resolve this, resize map.
+			mymap.resize();
 
 			// focus the map
 			gcvizFunc.focusMap(mymap, true);
@@ -329,7 +376,7 @@
 			}
 		};
 
-		createIdTask = function(url, index, success) {
+		createIdTask = function(url, index, id, type, success) {
 			// set return function
 			idRtnFunc = success;
 
@@ -337,43 +384,146 @@
 			layerIndex = index;
 
 			// create id task (set the layer index on the task to retrieve it later)
+			// keep layer id to set on and off popup in function of visibility
 			idTask = new esriIdTask(url);
 			idTask.layerIndex = index;
+			idTask.layerId = id;
+			idTask.layerType = type;
 			idTasksArr[idTaskIndex] = idTask;
 			idTaskIndex++;
 		};
 
 		executeIdTask = function(event) {
-			var dlTasks,
+			var dlTasks, idTask,
+				info, layerType, layerIndex, lyrDef,
+				layer, arrDef,
+				i = 0,
 				deferred = [],
 				defList = [],
 				lenTask = idTasksArr.length,
 				lenDef = lenTask;
 
-			// identify tasks setup parameters
-			idParams.geometry = event.mapPoint;
-			idParams.mapExtent = mymap.extent;
-			idParams.width = mymap.width;
-			idParams.height = mymap.height;
-			idParams.tolerance = 10;
+			// reset task for file layer
+			deferredGraph = [];
 
-			// define all deferred functions
-			while (lenDef--) {
-				deferred[lenDef] = new dojo.Deferred(); // bug, use the real object instead of AMD because it wont work!!!
-				defList.push(deferred[lenDef]);
-			}
-			dlTasks = new dojoDefList(defList);
-			dlTasks.then(returnIdResults);
+			// set all the info for added file layer
+			setFileLayerTask(event);
 
 			// returnIdentifyResults will be called after all tasks have completed
-			while (lenTask--) {
-				// set layer to query then excute
-				idParams.layerIds = [idTasksArr[lenTask].layerIndex];
-				idTasksArr[lenTask].execute(idParams, deferred[lenTask].callback);
+			while (i < lenTask) {
+				info = idTasksArr[i];
+				layerType = info.layerType;
+				layerIndex = info.layerIndex;
+				layer = mymap.getLayer(info.layerId);
+				
+				// identify tasks setup parameters
+				idParams.geometry = event.mapPoint;
+				idParams.mapExtent = mymap.extent;
+				idParams.width = mymap.width;
+				idParams.height = mymap.height;
+				idParams.tolerance = 10;
+	
+				// set definition query
+				if (layerType === 4) {
+					arrDef = layer.layerDefinitions;
+				} else if (layerType === 5) {
+					lyrDef = layer.getDefinitionExpression();
+					if (typeof lyrDef === 'undefined') {
+						lyrDef = '';
+					};
+
+					arrDef = new Array(layerIndex + 1);
+					arrDef[layerIndex] = lyrDef;
+				}
+				idParams.layerDefinitions = arrDef;
+			
+				// set layer to query then excute (if layer is visible)
+				idTask = idTasksArr[i];
+				if (layer.visible) {
+					// define deferred functions
+					deferred[i] = new dojo.Deferred(); // bug, use the real object instead of AMD because it wont work!!!
+					defList.push(deferred[i]);
+
+					// set task parameters and execute
+					idParams.layerIds = [idTask.layerIndex];
+					idTask.execute(idParams, deferred[i].callback);
+				}
+				i++;
+			}
+
+			// launch task (put a time out to let the file layer be executed before)
+			setTimeout(function() {
+				dlTasks = new dojoDefList(defList);
+				dlTasks.then(returnIdResults);
+			}, 100);
+		};
+
+		setFileLayerTask = function(event) {
+			var task, results, item, layer, featLen,
+				feature, features,
+				query = new esriQuery(),
+				graphId = mymap.graphicsLayerIds,
+				index = gcvizFunc.returnIndexMatch(graphId, 'gcviz-datagrid') + 1,
+				len = graphId.length;
+
+			// loop trought all the file layer added with add data
+			query.geometry = gisGeo.createExtent(event.mapPoint, mymap, 10);
+			while (index < len) {
+				layer = mymap.getLayer(graphId[index]);
+
+				// do it only for visible layer and not a internal esri graphic layer
+				if (layer.visible && layer.id.search('graphicsLayer') !== 0) {
+					task = layer.selectFeatures(query, esriFeatLayer.SELECTION_NEW);
+
+					// reset feature
+					features = [];
+
+					// use same syntax as id task for url layer
+					results = task.results[0][0];
+					featLen = results.length;
+
+					while (featLen--) {
+						feature = results[featLen];
+						features.push({
+								'layerName': feature._layer.name,
+								'feature': {
+									'attributes': feature.attributes,
+									'geometry': feature.geometry
+								}
+						});
+					}
+
+					// if there is features, create the deferred object
+					if (features.length > 0) {
+						item = {
+								0: true,
+								1: features
+						};
+						deferredGraph.push(item);
+					}
+				}
+
+				index++;
 			}
 		};
 
 		returnIdResults = function(response) {
+			var len = deferredGraph.length;
+
+			// clean response if all layer are not visible
+			if (response[0] === 0) {
+				response.shift();
+			}
+
+			if (response[0].length === 0) {
+				response.shift();
+			}
+
+			// add items from graphic layer added to map
+			while (len--) {
+				response.push(deferredGraph[len]);
+			}
+
 			// send the resonse to the calling view model
 			idRtnFunc(response);
 		};

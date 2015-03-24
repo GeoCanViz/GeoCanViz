@@ -14,8 +14,9 @@
 			'esri/tasks/GeometryService',
 			'esri/SpatialReference',
 			'esri/geometry/Point',
-			'esri/geometry/Extent'
-	], function(esriConfig, esriProj, esriDist, esriArea, esriGeom, esriSR, esriPoint, esriExtent) {
+			'esri/geometry/Extent',
+			'esri/tasks/DensifyParameters'
+	], function(esriConfig, esriProj, esriDist, esriArea, esriGeom, esriSR, esriPoint, esriExtent, esriDensParam) {
 		var setGeomServ,
 			getOutSR,
 			getNorthAngle,
@@ -26,7 +27,9 @@
 			projectPoints,
 			projectCoords,
 			projectGeoms,
+			densifyGeom,
 			getUTMEastNorth,
+			createExtent,
 			params = new esriProj();
 
 		setGeomServ = function(url) {
@@ -187,7 +190,7 @@
 			// callback because we have more info this way. We will be able to link back to the
 			// geometries original attributes.
 			geomServUnique.on('project-complete', function(projected) {
-				var feat,
+				var feat, att,
 					i = 0,
 					geom = projected.target.geom,
 					len = geom.length,
@@ -195,8 +198,11 @@
 
 				// put back the attributes
 				while (i !== len) {
-					feat = {};
-					feat = geom[i].attributes;
+					feat = { };
+					att = geom[i].attributes;
+					if (typeof att !== 'undefined') {
+						feat = geom[i].attributes;
+					}
 					feat.geometry = projected.geometries[i];
 					features[i] = feat;
 					i++;
@@ -205,6 +211,25 @@
 			});
 
 			geomServUnique.project(paramsUnique);
+		};
+
+		densifyGeom = function(geom, unit, success) {
+			var geomServ = esriConfig.defaults.io.geometryService,
+				param = new esriDensParam();
+			param.geodesic = true;
+			param.geometries = [geom];
+
+			if (unit === 'degree') {
+				param.lengthUnit = esriGeom.UNIT_DEGREE;
+				param.maxSegmentLength = 1;
+			} else if (unit === 'km') {
+				param.lengthUnit = esriGeom.UNIT_KILOMETER;
+				param.maxSegmentLength = 1;
+			}
+
+			geomServ.densify(param, function(geoms) {
+				success(geoms[0]);
+			});
 		};
 
 		getUTMEastNorth = function(lati, longi, utmZone, spnUTMeast, spnUTMnorth) {
@@ -226,6 +251,18 @@
 			});
 		};
 
+		createExtent = function(point, map, tolerancePx) {
+			var pixelWidth = map.extent.getWidth() / map.width,
+				toleranceMapCoords = tolerancePx * pixelWidth,
+				extent = esriExtent(point.x - toleranceMapCoords,
+									point.y - toleranceMapCoords,
+									point.x + toleranceMapCoords,
+									point.y + toleranceMapCoords,
+									map.spatialReference);
+
+			return extent;
+		};
+
 		return {
 			setGeomServ: setGeomServ,
 			getOutSR: getOutSR,
@@ -237,7 +274,9 @@
 			projectPoints: projectPoints,
 			projectCoords: projectCoords,
 			projectGeoms: projectGeoms,
-			getUTMEastNorth: getUTMEastNorth
+			densifyGeom: densifyGeom,
+			getUTMEastNorth: getUTMEastNorth,
+			createExtent: createExtent
 		};
 	});
 }());

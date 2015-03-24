@@ -7,22 +7,22 @@
             },
             "map": {
                 "urlgeomserv": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/Utilities/Geometry/GeometryServer",
-                "urlproxy": "http://localhost:8888/php/proxy.php",
-                "urldownload": "http://localhost:8888/php/download.php",
+                "urlproxy": "http://geoappext.nrcan.gc.ca/php/proxy.php",
+                "urldownload": "http://geoappext.nrcan.gc.ca/php/download.php",
                 "sr": {
                     "wkid": 3978
                 },
                 "extentmax": {
-                    "xmin": 285943.61143,
-                    "ymin": -939879.94851,
-                    "xmax": 2667198.37394,
-                    "ymax": 647623.2265
+                    "xmin": -3744824.40769,
+                    "ymin": -1233258.60581,
+                    "xmax": 4192691.46735,
+                    "ymax": 4323002.50671
                 },
                 "extentinit": {
-                    "xmin": 1370441.55201,
-                    "ymin": -271020.01467,
-                    "xmax": 1656192.12351,
-                    "ymax": -80519.63367
+                    "xmin": -3657511.73306,
+                    "ymin": -590319.81993,
+                    "xmax": 3486252.55447,
+                    "ymax": 4172189.70508
                 },
                 "lods": {
                     "enable": false,
@@ -121,7 +121,8 @@
                 "link": false,
                 "zoombar": {
                     "bar": true,
-                    "zoom": true
+                    "zoom": true,
+                    "zoomfull": true
                 },
                 "bases": [{
                     "label": "CBCT3978",
@@ -134,92 +135,7 @@
                     }
                 }],
                 "layers": [{
-                    "label": "GMRC",
-                    "id": "6f798c6b-0001-4e24-78dd-9bfa5a9bc59e",
-                    "type": 4,
-                    "url": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/MMS/GMRC_E/MapServer/",
-                    "scale": {
-                        "min": 0,
-                        "max": 0
-                    },
-                    "cluster": {
-                        "enable": false,
-                        "distance": 50,
-                        "label": false,
-                        "symbol": true,
-                        "maxsizeprop": 50,
-                        "maxdataprop": 1000
-                    }
-                }, {
-                    "label": "Point",
-                    "id": "6f798c6b-aaa1-4e24-78dd-9bfa5a9bc59e",
-                    "type": 5,
-                    "url": "http://apps.geomatics.gov.nt.ca/arcgis/rest/services/GNWT/BiologicEcologic_LCC/MapServer/27",
-                    "scale": {
-                        "min": 0,
-                        "max": 0
-                    },
-                    "cluster": {
-                        "enable": false,
-                        "distance": 50,
-                        "label": false,
-                        "symbol": true,
-                        "maxsizeprop": 50,
-                        "maxdataprop": 1000
-                    }
-                }, {
-                    "label": "Line",
-                    "id": "6f798c6b-aaa2-4e24-78dd-9bfa5a9bc59e",
-                    "type": 5,
-                    "url": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/GSCA/basin_e/MapServer/11",
-                    "scale": {
-                        "min": 0,
-                        "max": 0
-                    },
-                    "cluster": {
-                        "enable": false,
-                        "distance": 50,
-                        "label": false,
-                        "symbol": true,
-                        "maxsizeprop": 50,
-                        "maxdataprop": 1000
-                    }
-                }, {
-                    "label": "Polygon",
-                    "id": "6f798c6b-aaa3-4e24-78dd-9bfa5a9bc59e",
-                    "type": 5,
-                    "url": "http://apps.geomatics.gov.nt.ca/arcgis/rest/services/GNWT/BiologicEcologic_LCC/MapServer/3",
-                    "scale": {
-                        "min": 0,
-                        "max": 0
-                    },
-                    "cluster": {
-                        "enable": false,
-                        "distance": 50,
-                        "label": false,
-                        "symbol": true,
-                        "maxsizeprop": 50,
-                        "maxdataprop": 1000
-                    }
-                }, {
-                    "label": "dynamic",
-                    "id": "6f798c6b-aaa4-4e24-78dd-9bfa5a9bc59e",
-                    "type": 4,
-                    "url": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/MMS/PM_E/MapServer/",
-                    "scale": {
-                        "min": 0,
-                        "max": 0
-                    },
-                    "cluster": {
-                        "enable": false,
-                        "distance": 50,
-                        "label": false,
-                        "symbol": true,
-                        "maxsizeprop": 50,
-                        "maxdataprop": 1000
-                    }
-                }, {
-                    "label": "link table",
+                    "label": "mining",
                     "id": "6f798c6b-dddd1-4e24-78dd-9bfa5a9bc59e",
                     "type": 5,
                     "url": "http://s-bsc-geoappint.nrn.nrcan.gc.ca/arcgis/rest/services/Test/msMiningAgree/MapServer/0",
@@ -239,9 +155,9 @@
             }
         },
         "header": {
-            "side": 2,
+            "side": 1,
             "title": {
-                "value": "",
+                "value": "Mining Agreement",
                 "alttext": ""
             },
             "tools": {
@@ -253,10 +169,10 @@
             "about": {
                 "enable": false,
                 "type": 1,
-                "value": ""
+                "value": "This is use to explain specific information about map and/or data."
             },
             "print": {
-                "enable": false,
+                "enable": true,
                 "type": 1
             },
             "fullscreen": true
@@ -294,7 +210,8 @@
                     "alttext": "CBCT3978"
                 },
                 "metadata": {
-                    "enable": false
+                    "enable": false,
+                    "value": "http://s-bsc-geoappint.nrn.nrcan.gc.ca/arcgis/rest/services/Test/msMiningAgree/MapServer/0"
                 },
                 "opacity": {
                     "enable": false,
@@ -310,57 +227,25 @@
                     "radioid": 0
                 },
                 "displaychild": {
-                    "enable": true,
+                    "enable": false,
                     "symbol": "{\"type\":\"simple\",\"symbol\":{\"type\":\"esriSFS\",\"style\":\"esriSFSSolid\",\"color\":[0,0,0,0],\"outline\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[0,0,0,0],\"width\":0.4}},\"label\":\"\",\"description\":\"\"}"
                 },
                 "customimage": {
-                    "enable": false
+                    "enable": false,
+                    "images": []
                 },
                 "items": []
             }],
             "items": [{
                 "expand": false,
                 "last": false,
-                "type": 4,
-                "id": "6f798c6b-0001-4e24-78dd-9bfa5a9bc59e",
-                "graphid": "68865be1-0001-7faf-9521-029baa08899a",
-                "displayfields": false,
-                "label": {
-                    "value": "GMRC",
-                    "alttext": "Geochronology Cluster"
-                },
-                "metadata": {
-                    "enable": false
-                },
-                "opacity": {
-                    "enable": true,
-                    "min": 0,
-                    "max": 1,
-                    "initstate": 0.25
-                },
-                "visibility": {
-                    "enable": true,
-                    "initstate": false,
-                    "type": 1,
-                    "radioid": 0
-                },
-                "displaychild": {
-                    "enable": true
-                },
-                "customimage": {
-                    "enable": false
-                },
-                "items": []
-            }, {
-                "expand": false,
-                "last": false,
                 "type": 5,
-                "id": "6f798c6b-aaa1-4e24-78dd-9bfa5a9bc59e",
+                "id": "6f798c6b-dddd1-4e24-78dd-9bfa5a9bc59e",
                 "graphid": "68865be1-aaa1-7faf-9521-029baa08899a",
                 "displayfields": false,
                 "label": {
-                    "value": "Point",
-                    "alttext": "Geochronology Cluster"
+                    "value": "Mining Agreement",
+                    "alttext": "Mining Agreement"
                 },
                 "metadata": {
                     "enable": false
@@ -378,82 +263,17 @@
                     "radioid": 0
                 },
                 "displaychild": {
-                    "enable": true
+                    "enable": false
                 },
                 "customimage": {
-                    "enable": false
-                },
-                "items": []
-            }, {
-                "expand": false,
-                "last": false,
-                "type": 5,
-                "id": "6f798c6b-aaa2-4e24-78dd-9bfa5a9bc59e",
-                "graphid": "68865be1-aaa2-7faf-9521-029baa08899a",
-                "displayfields": false,
-                "label": {
-                    "value": "Line",
-                    "alttext": "Geochronology Cluster"
-                },
-                "metadata": {
-                    "enable": false
-                },
-                "opacity": {
-                    "enable": true,
-                    "min": 0,
-                    "max": 1,
-                    "initstate": 1
-                },
-                "visibility": {
-                    "enable": true,
-                    "initstate": true,
-                    "type": 1,
-                    "radioid": 0
-                },
-                "displaychild": {
-                    "enable": true
-                },
-                "customimage": {
-                    "enable": false
-                },
-                "items": []
-            }, {
-                "expand": false,
-                "last": false,
-                "type": 5,
-                "id": "6f798c6b-aaa3-4e24-78dd-9bfa5a9bc59e",
-                "graphid": "68865be1-aaa3-7faf-9521-029baa08899a",
-                "displayfields": false,
-                "label": {
-                    "value": "Polygon",
-                    "alttext": "Geochronology Cluster"
-                },
-                "metadata": {
-                    "enable": false
-                },
-                "opacity": {
-                    "enable": true,
-                    "min": 0,
-                    "max": 1,
-                    "initstate": 1
-                },
-                "visibility": {
-                    "enable": true,
-                    "initstate": false,
-                    "type": 1,
-                    "radioid": 0
-                },
-                "displaychild": {
-                    "enable": true
-                },
-                "customimage": {
-                    "enable": false
+                    "enable": false,
+                    "images": []
                 },
                 "items": []
             }]
         },
         "toolbardraw": {
-            "enable": false,
+            "enable": true,
             "expand": false,
             "pos": 1,
             "drawline": {
@@ -475,7 +295,7 @@
             }
         },
         "toolbarnav": {
-            "enable": false,
+            "enable": true,
             "expand": false,
             "pos": 2,
             "mapwkid": 3978,
@@ -506,10 +326,28 @@
             }
         },
         "toolbarextract": {
-            "enable": false,
+            "enable": true,
             "expand": false,
             "pos": 4,
-            "items": []
+            "grid": {
+            	"enable": false,
+            	"id": ""
+            },
+            "items": [{
+                "title": "Maps (raster): ",
+                "subtitle": "Toporama, CanMatrix Print-ready and Georeferenced.",
+                "scale": -1,
+                "url": "http://geogratis.gc.ca/api/en/nrcan-rncan/ess-sst/-/OR/(urn:iso:series)toporama/(urn:iso:series)canmatrix-georeferenced",
+                "query": [{
+                    "type": 1,
+                    "param": "?q=XXX",
+                    "label": "Get single map"
+                }, {
+                    "type": 2,
+                    "param": "?bbox=XXX&sort-field=spatial",
+                    "label": "Get all maps for area shown"
+                }]
+            }]
         },
         "insetframe": {
             "enable": false
@@ -519,124 +357,90 @@
             "expand": true,
             "layers": [{
                 "layerinfo": {
-                    "id": "6f798c6b-0001-4e24-78dd-9bfa5a9bc59e",
-                    "type": 4,
-                    "index": 0
-                },
-                "title": "GMRC",
-                "fields": [{
-                    "title": "Object Id",
-                    "width": "160px",
-                    "data": "OBJECTID",
-                    "dataalias": "OBJECTID",
-				     "type": {
-				      	"field": "field",
-				      	"value": "string"
-				     },
-				     "searchable": false
-                }, {
-                    "title": "Geo Id",
-                    "width": "160px",
-                    "data": "GEO_ID",
-                    "dataalias": "GEO_ID",
-				     "type": {
-				      	"field": "field",
-				      	"value": "string"
-				     },
-				     "searchable": false
-                }, {
-                    "title": "Geo Sym",
-                    "width": "250px",
-                    "data": "GEO_SYM",
-                    "dataalias": "GEO_SYM",
-				     "type": {
-				      	"field": "field",
-				      	"value": "string"
-				     },
-				     "searchable": false
-                }, {
-                    "title": "Geo EDESC",
-                    "width": "250px",
-                    "data": "GEO_EDESC",
-                    "dataalias": "GEO_EDESC",
-				     "type": {
-				      	"field": "field",
-				      	"value": "string"
-				     },
-				     "searchable": false
-                }, {
-                    "title": "Geo FDESC",
-                    "width": "250px",
-                    "data": "GEO_FDESC",
-                    "dataalias": "GEO_FDESC",
-				     "type": {
-				      	"field": "field",
-				      	"value": "string"
-				     },
-				     "searchable": false
-                }],
-                "linktable": {
-                    "enable": false
-                 },
-                 "popups": {
-                    "enable": true,
-                    "layeralias": "Geology - Major Rock Categories"
-                 },
-                 "hover": {
-                     "enable": false,
-                     "hoverfield": "Community Well-Being"
-                 }
-            }, {
-                "layerinfo": {
                     "id": "6f798c6b-dddd1-4e24-78dd-9bfa5a9bc59e",
                     "type": 5,
                     "index": 0
                 },
-                "title": "Link tables",
+                "title": "Mining Agreement",
+                "globalsearch": false,
                 "fields": [{
-                    "title": "Comp. Name.",
+                    "title": "Project Satus",
                     "width": "250px",
-                    "data": "MINING_COMP_NAME",
-                    "dataalias": "MINING_COMP_NAME",
+                    "data": "PROJ_STATUS_EN",
+                    "dataalias": "PROJ_STATUS_EN",
 				    "type": {
 				      "field": "field",
 				      "value": "string"
 				     },
-				    "searchable": false
+				    "searchable": true
                 }, {
-                    "title": "Project Status",
+                    "title": "Commodities",
                     "width": "250px",
-                    "data": "PROJ_STATUS_EN",
-                    "dataalias": "PROJ_STATUS_EN",
+                    "data": "COM_EN",
+                    "dataalias": "COM_EN",
 				     "type": {
 				      	"field": "field",
-				      	"value": "string"
+				      	"value": "select"
 				     },
-				     "searchable": false
+				     "searchable": true
+                }, {
+                    "title": "latitude",
+                    "width": "110px",
+                    "data": "LAT_DD",
+                    "dataalias": "LAT_DD",
+				     "type": {
+				      	"field": "field",
+				      	"value": "number"
+				     },
+				     "searchable": true
+                }, {
+                    "title": "longitude",
+                    "width": "110px",
+                    "data": "LONG_DD",
+                    "dataalias": "LONG_DD",
+				     "type": {
+				      	"field": "field",
+				      	"value": "number"
+				     },
+				     "searchable": true
+                },{
+                    "title": "Company Name",
+                    "width": "250px",
+                    "data": "PROJECT_NAME_EN",
+                    "dataalias": "PROJECT_NAME_EN",
+				    "type": {
+				      "field": "field",
+				      "value": "string"
+				     },
+				    "searchable": true
+                },{
+                    "title": "Old Company Name",
+                    "width": "250px",
+                    "data": "PAST_MINING_COMP_NAME",
+                    "dataalias": "PAST_MINING_COMP_NAME",
+				    "type": {
+				      "field": "field",
+				      "value": "string"
+				     },
+				    "searchable": true
                 }],
                 "linktable": {
                     "enable": true,
-                    "relationshipId": 0,
-                    "title": "Mining link section",
-                    "subtitle": "Mining sub section",
+                    "relationshipid": 0,
+                    "title": "Agreements",
+                    "subtitle": "",
                     "fields": [{
-                    	"title": "Date Signed",
+                    	"title": "Date",
                     	"data": "DATE_AGRMT_SIGNED"
                     }, {
-                    	"title": "Type Entente",
+                    	"title": "Type",
                     	"data": "AGRMNT_TYPE_EN"
                     }, {
                     	"title": "Note",
                     	"data": "AGRMNT_NOTES"
-                    },{
-                    	"title": "Agreement Status",
-                    	"data": "AGREEMENTS_STATUS"
                     }, {
-                    	"title": "Agreement Type Code",
-                    	"data": "AGRMNT_TYPE_CODE_EN"
-                    }, {
-                    	"title": "Agreement Type Code FR",
-                    	"data": "TYPE_ENTENTE_CODE_FR"
+                    	"title": "Signatories",
+                    	"data": "FN_EN"
                     }]
                  },
                  "popups": {

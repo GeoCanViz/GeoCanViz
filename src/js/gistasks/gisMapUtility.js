@@ -24,10 +24,11 @@
 			'esri/layers/WebTiledLayer',
 			'esri/layers/WMSLayer',
 			'esri/layers/WMSLayerInfo',
+			'esri/layers/ImageParameters',
 			'esri/geometry/Extent',
 			'esri/geometry/Point',
 			'esri/IdentityManager'
-	], function($viz, kpan, func, menu, menuItem, menupopup, gisLegend, gisCluster, esriConfig, esriMap, esriFL, esriTiled, esriDyna, esriImage, webTiled, wms, wmsInfo, esriExt, esriPoint) {
+	], function($viz, kpan, func, menu, menuItem, menupopup, gisLegend, gisCluster, esriConfig, esriMap, esriFL, esriTiled, esriDyna, esriImage, webTiled, wms, wmsInfo, esriDynaLD, esriExt, esriPoint) {
 		var mapArray = {},
 			setProxy,
 			createMap,
@@ -42,6 +43,7 @@
 			resizeCenterMap,
 			zoomPoint,
 			zoomFeature,
+			zoomGraphics,
 			getMapCenter,
 			createMapMenu,
 			zoomIn,
@@ -318,7 +320,7 @@
 		};
 
 		addLayer = function(map, layerInfo) {
-			var layer,
+			var layer, layerDef,
 				options,
 				resourceInfo,
 				type = layerInfo.type;
@@ -340,7 +342,11 @@
 					'id': layerInfo.id
 				});
 			} else if (type === 4) {
-				layer = new esriDyna(layerInfo.url, { 'id': layerInfo.id });
+				// create empty definition query to use for tables
+				layerDef = new esriDynaLD();
+				layerDef.layerDefinitions = [''];
+
+				layer = new esriDyna(layerInfo.url, { 'id': layerInfo.id, 'imageParameters': layerDef });
 			} else if (type === 5) {
 				layer = new esriFL(layerInfo.url, {
 					mode: esriFL.MODE_ONDEMAND,
@@ -383,8 +389,8 @@
 
 				// set scale class. We need to do this because the event
 				// scale-visibility havent been fired.
-				if (min !== 0 && max !== 0) {
-					if (min > mapScale && mapScale < max) {
+				if (min !== 0 || max !== 0) {
+					if (min < mapScale && mapScale > max) {
 						$leg = $viz('#' + layerInfo.id);
 						$leg.addClass('gcviz-leg-dis');
 					}
@@ -411,9 +417,9 @@
 				bLayer = new esriTiled(configoverviewurl);
 			} else if (configoverviewtype === 4) { // dynamic service
 				bLayer = new esriDyna(configoverviewurl);
-			// } else if (configoverviewtype === 7) { // image service
-				// bLayer = new esriImage(configoverviewurl);
-			// } else if (configoverviewtype === 8) { // Virtual Earth service
+			} else if (configoverviewtype === 7) { // image service
+				bLayer = new esriImage(configoverviewurl);
+			} else if (configoverviewtype === 8) { // Virtual Earth service
 				// bLayer = new esriImage(configoverviewurl);
 			// } else if (configoverviewtype === 9) { // Open Street Map service
 				// bLayer = new esriImage(configoverviewurl);
@@ -454,7 +460,7 @@
 				lods = map._params.lods,
 				len = lods.length;
 				if (len > 0) {
-					factor = lods[len - 5].resolution;
+					factor = lods[len - 5].level;
 					map.setLevel(factor);
 				} else {
 					map.setZoom(factor);
@@ -467,6 +473,12 @@
 			} else {
 				map.setExtent(geom.getExtent().expand(2));
 			}
+		};
+
+		zoomGraphics = function(map, graphics) {
+			// get the extent then zoom
+			var extent = esri.graphicsExtent(graphics); // can't load AMD
+			map.setExtent(extent.expand(1.75));
 		};
 
 		getMapCenter = function(map) {
@@ -669,6 +681,7 @@
 			resizeCenterMap: resizeCenterMap,
 			zoomPoint: zoomPoint,
 			zoomFeature: zoomFeature,
+			zoomGraphics: zoomGraphics,
 			getOverviewLayer: getOverviewLayer,
 			getMapCenter: getMapCenter,
 			manageScreenState: manageScreenState,

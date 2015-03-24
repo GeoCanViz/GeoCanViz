@@ -40,7 +40,6 @@ wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licenc
 <!--<![endif]-->
 
 <!-- CustomCSSStart -->
-<link rel="stylesheet" href="../demos.css">
 <!-- CustomCSSEnd -->
 </head>
 
@@ -100,14 +99,16 @@ wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licenc
 <div id="header">
     <object data="../images/GCViz.svg" style="margin-left:10px;" width="200" height="45" role="img" aria-label="GCViz logo" type="image/svg+xml"><img class="gcviz-head-logo" src="../images/geocanviz.png"></img></object>
 	<h1 class="gcviz-head-h1">Demos map</h1>
-	<div style="background-color: black; height: 10px;"></div>
+	<div style="background-color: black; height: 2px;"></div>
 </div>
 	<script>
  dojoConfig= {
         parseOnLoad: true
      };
 </script>
-	<div id="map2" class="gcviz" data-gcviz="configOri.json"></div>
+<div style="overflow: visible; margin: 10px; width: 100%;">
+	<div id="map2" class="gcviz" data-gcviz="configDemosFGP.json"></div>
+</div>
 <dl id="gcwu-date-mod" role="contentinfo">
 <dt>Date modified:</dt><dd><span><time>2014-07-17</time></span></dd>
 </dl>
@@ -193,8 +194,8 @@ wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licenc
 </script>
 <script src="http://js.arcgis.com/3.12/"></script>
 <!-- <script src="http://geoappext.nrcan.gc.ca/arcgis_js_api/library/3.11/3.11compact/init.js"></script> -->
-<script src="../../gcviz/gcviz-config-min.js"></script>
-<!-- <script src="../../src/js/gcviz-config-debug.js"></script>  -->
+<!-- <script src="../../gcviz/gcviz-config-min.js"></script> -->
+<script src="../../src/js/gcviz-config-debug.js"></script>
 <link rel="stylesheet" href="../../gcviz/gcviz-min.css">
 <!-- bootstrapper script end -->
 <!-- CustomScriptsEnd -->

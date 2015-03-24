@@ -237,6 +237,10 @@
 				location: locationPath + 'gcviz/js',
 				main: language
 			}, {
+				name: 'jqueryui-i18n',
+				location: locationPath + 'gcviz/dependencies',
+				main: 'datepicker-fr.min'
+			}, {
 				name: 'gcviz-ko',
 				location: locationPath + 'gcviz/js/custom',
 				main: 'gcviz-ko-binding-min'
@@ -380,6 +384,14 @@
 				name: 'gcviz-vm-datagrid',
 				location: locationPath + 'gcviz/js/viewmodels',
 				main: 'datagridVM-min'
+			}, {
+				name: 'gcviz-v-print',
+				location: locationPath + 'gcviz/js/views',
+				main: 'printV-min'
+			}, {
+				name: 'gcviz-vm-print',
+				location: locationPath + 'gcviz/js/viewmodels',
+				main: 'printVM-min'
 			}
 		]
 	});

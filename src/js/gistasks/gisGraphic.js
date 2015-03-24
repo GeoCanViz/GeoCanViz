@@ -12,6 +12,7 @@
 			'gcviz-func',
 			'gcviz-gissymbol',
 			'gcviz-gisgeo',
+			'gcviz-gismap',
 			'esri/layers/GraphicsLayer',
 			'esri/toolbars/draw',
 			'esri/symbols/SimpleLineSymbol',
@@ -21,12 +22,13 @@
 			'esri/geometry/Polyline',
 			'esri/graphic',
 			'dojo/on'
-	], function($viz, ko, gcvizFunc, gissymb, gisgeo, esriGraphLayer, esriTools, esriLine, esriScreenPt, esriPt, esriPoly, esriPolyline, esriGraph, dojoOn) {
+	], function($viz, ko, gcvizFunc, gissymb, gisgeo, gisMap, esriGraphLayer, esriTools, esriLine, esriScreenPt, esriPt, esriPoly, esriPolyline, esriGraph, dojoOn) {
 		var initialize,
 			importGraphics,
 			exportGraphics,
 			createGraphic,
 			drawBox,
+			drawWCAGBox,
 			callbackCG,
 			addUndoStack,
 			privateMap,
@@ -181,6 +183,9 @@
 					} else if (symbLayer.graphics.length === 1 && symbLayer.graphics[0]._extent.xmax === 0) {
 						isGraphics(false);
 					}
+
+					// focus map
+					gcvizFunc.focusMap(mymap, false);
 				};
 
 				_self.eraseUnfinish = function() {
@@ -352,6 +357,11 @@
 							measureArea(array);
 						}
 					}
+				};
+
+				_self.removeMouseMove = function() {
+					// remove mouse move event
+					mouseMeasureLength.remove();
 				};
 
 				_self.addMeasureSumLength = function(array, key, unit) {
@@ -756,8 +766,7 @@
 			}
 
 			// get the extent then zoom
-			extent = esri.graphicsExtent(extents); // can't load AMD
-			map.setExtent(extent.expand(1.75));
+			gisMap.zoomGraphics(map, extents);
 
 			// add undo stack
 			addUndoStack(key);
@@ -831,7 +840,7 @@
 			privateMap = '';
 		};
 
-		drawBox = function(map, success) {
+		drawBox = function(map, densify, success) {
 			// there is a problem with the define. the gcviz-gissymbol is not able to be set. The weird thing
 			// is if I replace gisgeo with gissymbol in the define, gisgeo will be set as gissymbol but I can't
 			// have access to gisgeo anymore. With the require, we set the reference to gissymbol (hard way)
@@ -840,9 +849,29 @@
 				var clickEvt,
 					tool = new esriTools(map, { showTooltips: false });
 				dojoOn(tool, 'DrawEnd', gcvizFunc.closureFunc(function(tool, geometry) {
+					var polyJson, poly, arr;
+
 					// deactivate then call the retrun function
 					tool.deactivate();
-					success(geometry);
+
+					// check if we need to densify extent
+					if (!densify) {
+						success(geometry);
+					} else {
+						// create a polygon from extent
+						arr = new Array(5);
+						arr[0] = [geometry.xmin, geometry.ymin];
+						arr[1] = [geometry.xmin, geometry.ymax];
+						arr[2] = [geometry.xmax, geometry.ymax];
+						arr[3] = [geometry.xmax, geometry.ymin];
+						arr[4] = [geometry.xmin, geometry.ymin];
+						polyJson = { 'rings': [arr],
+										'spatialReference': { 'wkid': map.vWkid } };
+						poly = new esriPoly(polyJson);
+	
+						// densify extent
+						gisgeo.densifyGeom(poly, 'km', success);
+					}
 
 					// remove event
 					clickEvt.remove();
@@ -864,12 +893,22 @@
 			});
 		};
 
+		drawWCAGBox = function(coords, inwkid, outwkid, success) {
+			var polyJson = { 'rings': [coords],
+								'spatialReference': { 'wkid': inwkid } },
+				poly = new esriPoly(polyJson);
+
+			// densify extent
+			gisgeo.projectGeoms([poly], outwkid, success);
+		};
+
 		return {
 			initialize: initialize,
 			importGraphics: importGraphics,
 			exportGraphics: exportGraphics,
 			createGraphic: createGraphic,
-			drawBox: drawBox
+			drawBox: drawBox,
+			drawWCAGBox: drawWCAGBox
 		};
 	});
 }());

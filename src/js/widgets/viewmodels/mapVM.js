@@ -144,7 +144,7 @@
 					// remove popup click event if it is there to avoid conflict then
 					// call graphic class to draw on map.
 					gisDG.removeEvtPop();
-					gisGraphic.drawBox(_self.map, _self.zoomExtent);
+					gisGraphic.drawBox(_self.map, false, _self.zoomExtent);				
 				};
 
 				_self.zoomExtent = function(geometry) {

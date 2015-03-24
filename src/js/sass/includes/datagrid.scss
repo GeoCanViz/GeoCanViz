@@ -5,6 +5,12 @@
 	vertical-align: middle;
 }
 
+.gcviz-dg-searchdrop {
+	display: block;
+	margin: auto;
+	width: 80%;
+}
+
 .gcviz-dg-searchstr {
 	display: block;
 	margin: auto;
@@ -15,8 +21,8 @@
 	display: inline-block;
 	margin: auto;
 	width: 30%;
-	margin-left: (1 * $rembase) + rem;
-	margin-right: (1 * $rembase) + rem;
+	margin-left: (0.5 * $rembase) + rem;
+	margin-right: (0.5 * $rembase) + rem;
 }
 
 .gcviz-dg-pad {
@@ -25,7 +31,10 @@
 	display: inline;
 }
 
-// buttons zoom selected, clear filter, export csv
+.gcviz-gd-zoomlbl {
+	@include app-text(1.2, bold);
+}
+// buttons zoom selected, clear filter, export csv and holder
 .gcviz-dg-zoomsel {
 	@include sprite($img-spritebtn, -1516, -2);
 	display: block;
@@ -43,8 +52,17 @@
 }
 
 .gcviz-dg-selfeat {
-	@include sprite($img-spritebtn, -1625, -2);
+	@include sprite($img-spritebtn, -1661, -2);
 	@extend %buttonhead;
+}
+
+.gcviz-dg-applyfilter {
+	@include sprite($img-spritebtn, -1769, -2);
+	@extend %buttonhead;
+}
+
+.gcviz-dg-tools {
+	float: right;
 }
 
 //  ****** link info section ******
@@ -238,4 +256,22 @@ table.dataTable.no-footer {
 
 .gcviz-popup-zoom {
 	@include sprite($img-spritepopupbtn, -110, -2);
+}
+
+/*
+ *  Overwite the jQuery datatable plugin
+ */
+.dataTables_processing {
+	top: 3.5%!important;
+	height: 20px!important;
+	border: none!important;
+}
+
+// set datatable min width so if you have one element you are able to see link info
+.dataTables_scrollBody {
+	min-height: 350px!important;
+	
+	.gcviz-datatable {
+		min-height: 350px!important;
+	}
 }
