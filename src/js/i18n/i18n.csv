@@ -26,7 +26,7 @@ Global sys value#%gisurlalti#http://geogratis.gc.ca/services/elevation/cdem/alti
 #%wcag-xlong#Longitude West (x): #Longitude ouest (x) : 
 #%wcag-ylat#Latitude North (y): #Latitude nord (y) : 
 #%wcag-title#Accessibility mode coordinates input#Entrée des coordonnées en mode accessibilité
-#%wcag-msgx#Value needs to be between 50 and 130#La valeur doit être entre 50 et 130.
+#%wcag-msgx#Value needs to be between 50 and 140#La valeur doit être entre 50 et 140.
 #%wcag-msgy#Value needs to be between 40 and 80#La valeur doit être entre 40 et 80.
 #%wcag-addcoords#Add a new coordinate to the list#Ajouter une coordonnée à la liste
 #%wcag-remove#Remove#Enlever
@@ -71,6 +71,8 @@ Global sys value#%gisurlalti#http://geogratis.gc.ca/services/elevation/cdem/alti
 #%datagrid-lblexporttblcsv#Export CSV#Exporter en CSV
 #%datagrid-tpselfeat#Select features on map#Sélectionner les élements sur la carte
 #%datagrid-lblselfeat#Select features#Sélectionner élements
+#%datagrid-tpapplyfilters#Apply filters on map#Appliquer les filtres sur la carte
+#%datagrid-lblapplyfilters#Apply filters#Appliquer les filtres
 #%datagrid-poptitle#Information#Information
 #%datagrid-popalllayers#All layers#Toutes les couches
 #%datagrid-popselect#Select the features from the following layer#Sélectionnez une couche dans les suivantes

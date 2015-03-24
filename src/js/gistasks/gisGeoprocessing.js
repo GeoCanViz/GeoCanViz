@@ -190,7 +190,7 @@
 			// callback because we have more info this way. We will be able to link back to the
 			// geometries original attributes.
 			geomServUnique.on('project-complete', function(projected) {
-				var feat,
+				var feat, att,
 					i = 0,
 					geom = projected.target.geom,
 					len = geom.length,
@@ -198,8 +198,11 @@
 
 				// put back the attributes
 				while (i !== len) {
-					feat = {};
-					feat = geom[i].attributes;
+					feat = { };
+					att = geom[i].attributes;
+					if (typeof att !== 'undefined') {
+						feat = geom[i].attributes;
+					}
 					feat.geometry = projected.geometries[i];
 					features[i] = feat;
 					i++;
@@ -210,13 +213,19 @@
 			geomServUnique.project(paramsUnique);
 		};
 
-		densifyGeom = function(geom, success) {
+		densifyGeom = function(geom, unit, success) {
 			var geomServ = esriConfig.defaults.io.geometryService,
 				param = new esriDensParam();
 			param.geodesic = true;
 			param.geometries = [geom];
-			param.lengthUnit = esriGeom.UNIT_KILOMETER;
-			param.maxSegmentLength = 10;
+
+			if (unit === 'degree') {
+				param.lengthUnit = esriGeom.UNIT_DEGREE;
+				param.maxSegmentLength = 1;
+			} else if (unit === 'km') {
+				param.lengthUnit = esriGeom.UNIT_KILOMETER;
+				param.maxSegmentLength = 1;
+			}
 
 			geomServ.densify(param, function(geoms) {
 				success(geoms[0]);

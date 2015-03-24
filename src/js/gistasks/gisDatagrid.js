@@ -426,7 +426,6 @@
 				// set definition query
 				if (layerType === 4) {
 					arrDef = layer.layerDefinitions;
-					arrDef[layerIndex] = lyrDef;
 				} else if (layerType === 5) {
 					lyrDef = layer.getDefinitionExpression();
 					if (typeof lyrDef === 'undefined') {
@@ -434,8 +433,8 @@
 					};
 
 					arrDef = new Array(layerIndex + 1);
+					arrDef[layerIndex] = lyrDef;
 				}
-				arrDef[layerIndex] = lyrDef;
 				idParams.layerDefinitions = arrDef;
 			
 				// set layer to query then excute (if layer is visible)

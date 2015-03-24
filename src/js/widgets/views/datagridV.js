@@ -54,6 +54,30 @@
 																				'beforeClose: closeWait, open: openWait, position: { at: \'center\', of: \'#' + mapid + '_holder\' } }">' +
 							'<div><span data-bind="text: progressDesc"></span></div>' +
 						'</div>' +
+
+						// WCAG dialog window
+						'<div id="gcviz-dg-wcag' + mapid + '" data-bind="wcag: { }, uiDialog: { title: WCAGTitle, width: 490, height: 210, ok: dialogWCAGOk, cancel: dialogWCAGCancel, close: dialogWCAGClose, openDialog: \'isDialogWCAG\' }">' +
+							'<div>' +
+								'<label for="gcviz-xvalue" class="gcviz-label gcviz-label-wcag" data-bind="text: lblWCAGx"></label>' +
+								'<input id="gcviz-xvalue" class="text ui-widget-content ui-corner-all gcviz-input-wcag" data-bind="value: xValueMin"/>' +
+								'<span class="gcviz-message-wcag" data-bind="text: lblWCAGmsgx"></span>' +
+							'</div>' +
+							'<div>' +
+								'<label for="gcviz-yvalue" class="gcviz-label gcviz-label-wcag" data-bind="text: lblWCAGy"></label>' +
+								'<input id="gcviz-yvalue" class="text ui-widget-content ui-corner-all gcviz-input-wcag" data-bind="value: yValueMin"/>' +
+								'<span class="gcviz-message-wcag" data-bind="text: lblWCAGmsgy"></span>' +
+							'</div>' +
+							'<div>' +
+								'<label for="gcviz-xvalue" class="gcviz-label gcviz-label-wcag" data-bind="text: lblWCAGx"></label>' +
+								'<input id="gcviz-xvalue" class="text ui-widget-content ui-corner-all gcviz-input-wcag" data-bind="value: xValueMax"/>' +
+								'<span class="gcviz-message-wcag" data-bind="text: lblWCAGmsgx"></span>' +
+							'</div>' +
+							'<div>' +
+								'<label for="gcviz-yvalue" class="gcviz-label gcviz-label-wcag" data-bind="text: lblWCAGy"></label>' +
+								'<input id="gcviz-yvalue" class="text ui-widget-content ui-corner-all gcviz-input-wcag" data-bind="value: yValueMax"/>' +
+								'<span class="gcviz-message-wcag" data-bind="text: lblWCAGmsgy"></span>' +
+							'</div>' +
+						'</div>' +
 					'</div>';
 
 			$footer.after(node);

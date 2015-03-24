@@ -28,6 +28,7 @@
 			exportGraphics,
 			createGraphic,
 			drawBox,
+			drawWCAGBox,
 			callbackCG,
 			addUndoStack,
 			privateMap,
@@ -869,7 +870,7 @@
 						poly = new esriPoly(polyJson);
 	
 						// densify extent
-						gisgeo.densifyGeom(poly, success);
+						gisgeo.densifyGeom(poly, 'km', success);
 					}
 
 					// remove event
@@ -892,12 +893,22 @@
 			});
 		};
 
+		drawWCAGBox = function(coords, inwkid, outwkid, success) {
+			var polyJson = { 'rings': [coords],
+								'spatialReference': { 'wkid': inwkid } },
+				poly = new esriPoly(polyJson);
+
+			// densify extent
+			gisgeo.projectGeoms([poly], outwkid, success);
+		};
+
 		return {
 			initialize: initialize,
 			importGraphics: importGraphics,
 			exportGraphics: exportGraphics,
 			createGraphic: createGraphic,
-			drawBox: drawBox
+			drawBox: drawBox,
+			drawWCAGBox: drawWCAGBox
 		};
 	});
 }());

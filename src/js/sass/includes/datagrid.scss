@@ -56,6 +56,11 @@
 	@extend %buttonhead;
 }
 
+.gcviz-dg-applyfilter {
+	@include sprite($img-spritebtn, -1769, -2);
+	@extend %buttonhead;
+}
+
 .gcviz-dg-tools {
 	float: right;
 }

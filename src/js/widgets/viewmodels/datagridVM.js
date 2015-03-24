@@ -14,8 +14,8 @@
 			'gcviz-gismap',
 			'gcviz-gisdatagrid',
 			'gcviz-gisgraphic',
-			'jqueryui-i18n'
-	], function($viz, ko, i18n, gcvizFunc, gisMap, gisDG, gisGraphic, jqi18n) {
+			'gcviz-gisgeo'
+	], function($viz, ko, i18n, gcvizFunc, gisMap, gisDG, gisGraphic, gisgeo) {
 		var initialize,
 			addTab,
 			removeTab,
@@ -50,6 +50,9 @@
 					$container = $viz('#' + mapid + '_holder_layers'),
 					$menu = $viz('#gcviz-menu' + mapid);
 
+				// viewmodel mapid to be access in tooltip and wcag custom binding
+				_self.mapid = mapid;
+
 				// text for datatable
 				_self.processing = i18n.getDict('%datagrid-processing');
 				_self.search = i18n.getDict('%datagrid-search');
@@ -74,9 +77,11 @@
 				_self.tpExportSelCSV = i18n.getDict('%datagrid-tpexportselcsv');
 				_self.tpExportTableCSV = i18n.getDict('%datagrid-tpexporttblcsv');
 				_self.tpSelectFeatures = i18n.getDict('%datagrid-tpselfeat');
+				_self.tpApplyFilters = i18n.getDict('%datagrid-tpapplyfilters');
 				_self.lblClearFilters = i18n.getDict('%datagrid-lblclearfilters');
 				_self.lblExportTableCSV = i18n.getDict('%datagrid-lblexporttblcsv');
 				_self.lblSelectFeatures = i18n.getDict('%datagrid-lblselfeat');
+				_self.lblApplyfilters = i18n.getDict('%datagrid-lblapplyfilters');
 
 				// text for popup
 				_self.lblSelectAll = i18n.getDict('%datagrid-selectall');
@@ -86,6 +91,19 @@
 				// text for progress dialog
 				_self.progressTitle = i18n.getDict('%datagrid-protitle');
 				_self.progressDesc = i18n.getDict('%datagrid-prodesc');
+
+				// WCAG
+				_self.WCAGTitle = i18n.getDict('%wcag-title');
+				_self.lblWCAGx = i18n.getDict('%wcag-xlong');
+				_self.lblWCAGy = i18n.getDict('%wcag-ylat');
+				_self.lblWCAGmsgx = i18n.getDict('%wcag-msgx');
+				_self.lblWCAGmsgy = i18n.getDict('%wcag-msgy');
+				_self.xValueMin = ko.observable(140).extend({ numeric: { precision: 3, validation: { min: 50, max: 140 } } });
+				_self.yValueMin = ko.observable(40).extend({ numeric: { precision: 3, validation: { min: 40, max: 80 } } });
+				_self.xValueMax = ko.observable(50).extend({ numeric: { precision: 3, validation: { min: 50, max: 140 } } });
+				_self.yValueMax = ko.observable(80).extend({ numeric: { precision: 3, validation: { min: 40, max: 80 } } });
+				_self.isWCAG = ko.observable(false);
+				_self.isDialogWCAG = ko.observable(false);
 
 				// observable for popup
 				_self.layerNameHolder = ko.observableArray([]);
@@ -260,14 +278,14 @@
 					var dataTB, fields,
 						deferRender = false,
 						link = false,
-						searchInd = 2,
+						searchInd = 1,
 						$table = $viz('#table-' + mapid + '-' + pos),
 						dom = 'irtp';
 
 					// check if we need to add a columns to open/close link info
 					if (typeof data[0].link !== 'undefined') {
 						link = true;
-						searchInd = 3;
+						searchInd = 2;
 					}
 
 					// if there is too much data on the page we need to use defer render to speed up the process
@@ -343,7 +361,7 @@
 
 					// if there is a link, set the title, sub title and fields value to the column header
 					if (link) {
-						var linkCol = $viz(dataTB.column(2).header());
+						var linkCol = $viz(dataTB.column(1).header());
 						linkCol.attr('gcviz-title', layer.linktable.title);
 						linkCol.attr('gcviz-subtitle', layer.linktable.subtitle);
 						linkCol.attr('gcviz-fields', $viz.map(layer.linktable.fields, function(value) {
@@ -392,9 +410,9 @@
 					// FeatureLayer: layer created by value (from a feature collection) does not support definition expressions and time definitions
 					if (type === 4 || type === 5) {
 						// add the show selection on map button
-						$tools.append('<button id="applyfilter-' + id + '" class="gcviz-dg-applyfilter gcviz-dg-pad"></button><label class="gcviz-label" for="applyfilter-' + id + '">' + _self.lblSelectFeatures + '</label>');
+						$tools.append('<button id="applyfilter-' + id + '" class="gcviz-dg-applyfilter gcviz-dg-pad"></button><label class="gcviz-label" for="applyfilter-' + id + '">' + _self.lblApplyfilters + '</label>');
 						$elemFilter = $viz('.gcviz-dg-applyfilter');
-						gcvizFunc.addTooltip($elemFilter, { content: _self.tpSelectFeatures });
+						gcvizFunc.addTooltip($elemFilter, { content: _self.tpApplyFilters });
 	
 						// add the select on map button
 						$tools.append('<button id="selFeat-' + id + '" class="gcviz-dg-selfeat gcviz-dg-pad"></button><label class="gcviz-label" for="selFeat-' + id + '">' + _self.lblSelectFeatures + '</label>');
@@ -418,7 +436,7 @@
 						var elem, valueType,
 							column = columns[colIdx];
 
-						if (colIdx === 1) {
+						if (colIdx === 0) {
 							// add zoom to selected
 							elem = $viz(this).append('<label class="gcviz-gd-zoomlbl" for="zoomSel-' + id + '">Zoom</label><button id="zoomSel-' + id + '" class="gcviz-dg-zoomsel"></button>');
 							gcvizFunc.addTooltip(elem, { content: _self.lblZoomSelect });
@@ -673,23 +691,6 @@
 								}
 					});
 
-					// add spatial select column
-					fields.unshift({
-						data: 'gcvizspatial',
-						className: 'dt-body-center',
-						title: '',
-						width: '5px',
-						searchable: false,
-						orderable: false,
-						type: 'num',
-						render: function (data, type) {
-									if (type === 'display') {
-										return '<div class="gcviz-dg-spatial"></div>';
-									}
-									return data;
-								}
-					});
-
 					return fields;
 				};
 
@@ -788,27 +789,32 @@
 
 					// set select item on map event
 					$tabs.on('click', '.gcviz-dg-selfeat', function(e) {
-						// set draw box cursor
-						$container.css('cursor', 'crosshair');
+						// check if WCAG mode is enable, if so use dialog box instead)
+						if (!_self.isWCAG()) {
+							// set draw box cursor
+							$container.css('cursor', 'crosshair');
+		
+							// get active menu and close it if open
+							menuState = $menu.accordion('option', 'active');
+							if (menuState !== false) {
+								$menu.accordion('option', 'active', false);
+							}
 	
-						// get active menu and close it if open
-						menuState = $menu.accordion('option', 'active');
-						if (menuState !== false) {
-							$menu.accordion('option', 'active', false);
+							// remove popup click event if it is there to avoid conflict then
+							// call graphic class to draw on map.
+							gisDG.removeEvtPop();
+	
+							// there is a bug when in full screen and do a zoom to select. There is an offset in y
+							// so popup is not available. To resolve this, resize map.
+							mymap.resize();
+	
+							gisGraphic.drawBox(mymap, true, _self.selExtent);
+	
+							// focus the map
+							gcvizFunc.focusMap(mymap, true);
+						} else {
+							_self.isDialogWCAG(true);
 						}
-
-						// remove popup click event if it is there to avoid conflict then
-						// call graphic class to draw on map.
-						gisDG.removeEvtPop();
-
-						// there is a bug when in full screen and do a zoom to select. There is an offset in y
-						// so popup is not available. To resolve this, resize map.
-						mymap.resize();
-
-						gisGraphic.drawBox(mymap, true, _self.selExtent);
-
-						// focus the map
-						gcvizFunc.focusMap(mymap, true);	
 					});
 
 					// set apply filters on map event
@@ -1244,10 +1250,73 @@
 					return defQuery;
 				};
 
+				_self.dialogWCAGOk = function() {
+					var arr,
+						minY = _self.yValueMin(),
+						minX = _self.xValueMin(),
+						maxY = _self.yValueMax(),
+						maxX = _self.xValueMax();
+
+					// create a polygon from extent
+					arr = new Array(5);
+					arr[0] = [-minX, minY];
+					arr[1] = [-minX, maxY];
+					arr[2] = [-maxX, maxY];
+					arr[3] = [-maxX, minY];
+					
+					arr[4] = [-60, minY];
+					arr[5] = [-70, minY];
+					arr[6] = [-80, minY];
+					arr[7] = [-90, minY];
+					arr[8] = [-100, minY];
+					arr[9] = [-110, minY];
+					arr[10] = [-120, minY];
+					arr[11] = [-130, minY];
+					
+					arr[12] = [-minX, minY];
+					
+					// draw box
+					gisGraphic.drawWCAGBox(arr, 4326, mymap.vWkid, _self.selExtent);
+
+					// close window
+					_self.isDialogWCAG(false);
+				};
+
+				_self.drawWCAGbox = function(geom) {
+					var tmp,
+						arr = new Array(5);
+
+					// create array with projected coord
+					tmp = geom[0];
+					arr[0] = [tmp.x, tmp.y];
+					tmp = geom[1];
+					arr[1] = [tmp.x, tmp.y];
+					tmp = geom[2];
+					arr[2] = [tmp.x, tmp.y];
+					tmp = geom[3];
+					arr[3] = [tmp.x, tmp.y];
+					tmp = geom[4];
+					arr[4] = [tmp.x, tmp.y];
+
+					// draw box
+					gisGraphic.drawWCAGBox(arr, mymap.vWkid, _self.selExtent);
+				};
+
+				_self.dialogWCAGCancel = function() {
+					_self.isDialogWCAG(false);
+				};
+
+				_self.dialogWCAGClose = function() {
+					_self.isDialogWCAG(false);
+				};
+
 				_self.selExtent = function(geometry) {
 					var info, url, layerInfo,
 						type,
 						len, i, graphic, graphics, features;
+			
+			var aa = {table: 0, feat: 0};
+gisDG.selectFeature(geometry[0].geometry, aa);
 
 					// remove draw box cursor
 					$container.css('cursor', '');
