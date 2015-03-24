@@ -283,3 +283,6 @@ Global sys value#%gisurlalti#http://geogratis.gc.ca/services/elevation/cdem/alti
 #%print-dialogMapScale#Map Scale#Map Scale_FR
 #%print-dialogMapExtent#Map Extent#Map Extent_FR
 #%print-dialogDPI#DPI#DPI_FR
+#%print-dialogForceScale#Force Scale:#Force Scale_FR:
+#%print-dialogLayout#Layout#Layout_FR
+#%print-dialogNoTemplates#No Templates Found#No Templates Found FR
