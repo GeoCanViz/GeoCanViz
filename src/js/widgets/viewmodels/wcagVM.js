@@ -40,7 +40,7 @@
 				_self.lblWCAGy = i18n.getDict('%wcag-ylat');
 				_self.lblWCAGmsgx = i18n.getDict('%wcag-msgx');
 				_self.lblWCAGmsgy = i18n.getDict('%wcag-msgy');
-				_self.xValue = ko.observable().extend({ numeric: { precision: 3, validation: { min: 50, max: 130 } } });
+				_self.xValue = ko.observable().extend({ numeric: { precision: 3, validation: { min: 40, max: 150 } } });
 				_self.yValue = ko.observable().extend({ numeric: { precision: 3, validation: { min: 40, max: 80 } } });
 				_self.lblWCAGTitle = i18n.getDict('%wcag-instrtitle');
 

@@ -55,6 +55,11 @@
 							'<div><span data-bind="text: progressDesc"></span></div>' +
 						'</div>' +
 
+						// add modal dialog to notify export csv length
+						'<div id="gcviz-expcsv' + mapid + '" data-bind="uiDialog: { title: exportTitle, width: 490, height: 350, modal: true, ok: dialogExportOk, openDialog: \'isExport\' }">' +
+							'<div><span data-bind="text: exportDesc"></span></div>' +
+						'</div>' +
+
 						// WCAG dialog window
 						'<div id="gcviz-dg-wcag' + mapid + '" data-bind="wcag: { }, uiDialog: { title: WCAGTitle, width: 490, height: 210, ok: dialogWCAGOk, cancel: dialogWCAGCancel, close: dialogWCAGClose, openDialog: \'isDialogWCAG\' }">' +
 							'<div>' +

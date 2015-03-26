@@ -134,7 +134,11 @@
 								});
 
 							// add KML
-							//gisData.addKML(mymap, 'http://geoscan.nrcan.gc.ca/star/download/xml1507213410628212.kml', gcvizFunc.getUUID(), fileName);
+							var uu = gcvizFunc.getUUID();
+							var path2 = 'http://geoscan.nrcan.gc.ca/star/download/xml150841558124753.kml';
+							gisData.addKML(mymap, path2, uu, 'myKML');
+							_self.userArray.push({ label: 'myKML', id: uu + '0' });
+							
 							// add GeoRSS
 							//gisData.addGeoRSS(mymap, 'http://geoscan.ess.nrcan.gc.ca/rss/newpub_e.rss', gcvizFunc.getUUID(), fileName);
 						};

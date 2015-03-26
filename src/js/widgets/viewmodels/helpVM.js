@@ -44,6 +44,7 @@
 					$helpLeg = $helpSect.find('.gcviz-help-tbleg'),
 					$helpData = $helpSect.find('.gcviz-help-tbdata'),
 					$helpExtract = $helpSect.find('.gcviz-help-tbextract'),
+					$helpDatagrid = $helpSect.find('.gcviz-help-datagrid'),
 					$helpDev = $helpSect.find('.gcviz-help-dev');
 
 				// viewmodel mapid to be access in tooltip custom binding
@@ -197,6 +198,9 @@
 				_self.extLink = i18n.getDict('%help-extract-link');
 				_self.extDesc2 = i18n.getDict('%help-extract-desc2');
 
+				// datagrid text
+				_self.datagridTitle = i18n.getDict('%help-datagrid-title');
+
 				// developer's corner text
 				_self.devTitle = i18n.getDict('%help-dev-title');
 				_self.devLogoAlt = i18n.getDict('%help-dev-logoalt');
@@ -219,6 +223,7 @@
 					_self.noLeg = ($helpLeg.length > 0) ? false : true;
 					_self.noData = ($helpData.length > 0) ? false : true;
 					_self.noExtract = ($helpExtract.length > 0) ? false : true;
+					_self.noDatagrid = ($helpDatagrid.length > 0) ? false : true;
 
 					// set global dialog to be able to open help from
 					// outisede the view model. This way, it is easy
@@ -263,6 +268,8 @@
 						$helpSect.scrollTo($helpData);
 					} else if (section === 'extract') {
 						$helpSect.scrollTo($helpExtract);
+					} else if (section === 'datagrid') {
+						$helpSect.scrollTo($helpDatagrid);
 					} else if (section === 'dev') {
 						$helpSect.scrollTo($helpDev);
 					}

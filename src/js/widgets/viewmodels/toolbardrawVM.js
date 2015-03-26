@@ -105,7 +105,7 @@
 				_self.lblWCAGmsgy = i18n.getDict('%wcag-msgy');
 				_self.lblWCAGadd = i18n.getDict('%wcag-addcoords');
 				_self.lblWCAGAddPoint = i18n.getDict('%wcag-add');
-				_self.xValue = ko.observable().extend({ numeric: { precision: 3, validation: { min: 50, max: 140 } } });
+				_self.xValue = ko.observable().extend({ numeric: { precision: 3, validation: { min: 40, max: 150 } } });
 				_self.yValue = ko.observable().extend({ numeric: { precision: 3, validation: { min: 40, max: 80 } } });
 				_self.WCAGcoords = ko.observableArray([]);
 				_self.isWCAG = ko.observable(false);

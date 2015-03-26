@@ -841,13 +841,14 @@
 		};
 
 		drawBox = function(map, densify, success) {
+			// create esri toolbar
+			var clickEvt,
+				tool = new esriTools(map, { showTooltips: false });
+
 			// there is a problem with the define. the gcviz-gissymbol is not able to be set. The weird thing
 			// is if I replace gisgeo with gissymbol in the define, gisgeo will be set as gissymbol but I can't
 			// have access to gisgeo anymore. With the require, we set the reference to gissymbol (hard way)
 			require(['gcviz-gissymbol'], function(gissymb) {
-				// create esri toolbar
-				var clickEvt,
-					tool = new esriTools(map, { showTooltips: false });
 				dojoOn(tool, 'DrawEnd', gcvizFunc.closureFunc(function(tool, geometry) {
 					var polyJson, poly, arr;
 
@@ -891,14 +892,41 @@
 				tool.setFillSymbol(gissymb.getSymbErase());
 				tool.activate(esriTools.EXTENT);
 			});
+
+			// return tools with clisk event to be able to deactivate from caller
+			return [tool, clickEvt];
 		};
 
-		drawWCAGBox = function(coords, inwkid, outwkid, success) {
-			var polyJson = { 'rings': [coords],
-								'spatialReference': { 'wkid': inwkid } },
-				poly = new esriPoly(polyJson);
+		drawWCAGBox = function(xmin, ymin, xmax, ymax, inwkid, outwkid, success) {
+			var polyJson, poly,
+				arr =  new Array(22),
+				i = 1,
+				len = 10,
+				delta = (xmin - xmax) / len;
 
-			// densify extent
+			// add lower left corner and upeer left corner
+			arr[0] = [-xmin, ymin];
+			arr[1] = [-xmin, ymax];
+
+			// densify coords in x for upper limit
+			while (i <= len) {
+				arr[i + 1] = [-xmin + (delta * i), ymax];
+				i++;
+			}
+
+			// densify coords in x for lower limit
+			i = 1;
+			while (i <= len) {
+				arr[i + 11] = [-xmax - (delta * i), ymin];
+				i++;
+			}
+
+			// create a polygon from extent
+			polyJson = { 'rings': [arr],
+							'spatialReference': { 'wkid': inwkid } };
+			poly = new esriPoly(polyJson);
+				
+			// project extent
 			gisgeo.projectGeoms([poly], outwkid, success);
 		};
 

@@ -22,7 +22,8 @@
 			'esri/layers/GeoRSSLayer',
 			'dojo/_base/array'
 	], function($viz, gcvizFunc, gisGeo, gisMap, gisLegend, vmDatagrid, vmTbData, esriCSVStore, esriFeatLayer, esriSR, esriPoint, esriKML, esriGeoRSS, array) {
-		var addCSV,
+		var reorderGraphicLayer,
+			addCSV,
 			addKML,
 			addGeoRSS,
 			createLayer,
@@ -30,6 +31,14 @@
 			getFeatCollectionTemplateCSV,
 			featCollection, guuid, gfileName,
 			mymap;
+
+		reorderGraphicLayer = function(map, layerId, position) {
+			// check position
+			if (position === -1) {
+				position = map.graphicsLayerIds.length - 1;
+			}
+			map.reorderLayer(map.getLayer(layerId), position);
+		};
 
 		// https://developers.arcgis.com/javascript/jssamples/exp_dragdrop.html
 		// we dont use the drag and drop because it is not WCAG but we use the way they
@@ -156,6 +165,10 @@
 			featureLayer.name = gfileName;
 			mymap.addLayer(featureLayer);
 
+			// reoder layers to make sure symbol and datagrid are on top
+			reorderGraphicLayer(mymap, 'gcviz-symbol', -1);
+			reorderGraphicLayer(mymap, 'gcviz-datagrid', -1);
+
 			// get the extent then zoom
 			gisMap.zoomGraphics(mymap, featureLayer.graphics);
 				
@@ -267,26 +280,76 @@
 		addKML = function(map, url, uuid, fileName) {
 			var layer;
 			layer = new esriKML(url, { outSR: new esri.SpatialReference({ wkid: map.vWkid }) });
-			layer.name = fileName;
-			layer.id = uuid;
+			layer.id = 'tempAddDataKML';
+			layer.visible = false;
+
+			// add layer visible false because we use it only to be able to generate feature layer from it.
+			// when we are done, we remove the layer.
 			map.addLayer(layer);
 
-			layer.on('load', function(input) {
-				// remove info template to disable default esri popup
-				input.layer.getLayers()[0].setInfoTemplate(null);
+			layer.on('load', gcvizFunc.closureFunc(function(map, uuid, fileName, input) {
+				var graphics, lenGraphics,
+					name, id, fieldName,
+					outFields = new Array(2),
+					field, fields, lenFields,
+					layerDef, jsonDef, featureLayer,
+					layerDefs = input.layer._fLayers,
+					lenLayerDef = layerDefs.length;
 
-				var featureInfos = input.layer.folders[0].featureInfos;
-				  array.forEach(featureInfos,function(info){
-				    var feature = input.layer.getFeature(info);
-				    //do something with the feature here...
-				    //input.layer.getFeature(input.layer.getFeature(info).featureInfos[0])
-				  });
-			});
+				while (lenLayerDef--) {
+					name = fileName + '-' + lenLayerDef;
+					id = uuid + lenLayerDef;
 
-			// add the data to the datagrid
-			//vmDatagrid.addTab(mymap.vIdName, featCollection, fileName, uuid);
-			
-			return layer;
+					// create layer from definition
+					layerDef = JSON.parse(layerDefs[lenLayerDef]._json);
+					featureLayer = new esriFeatLayer(layerDef);
+					
+					// set feature layer parameters
+					featureLayer.visible = true;
+					featureLayer.type = 5;
+					featureLayer.name = name;
+					featureLayer.id = id;
+	
+					// loop the graphics to add to the feature layer from where they come from. It will be use in the popup
+					graphics = featureLayer.graphics;
+					lenGraphics = graphics.length;
+					while (lenGraphics--) {
+						graphics[lenGraphics]._layer.name = name;
+					}
+	
+					// add the feature layer and remove the kml layer
+					map.addLayer(featureLayer);
+					map.removeLayer(map.getLayer('tempAddDataKML'));
+
+					// reoder layers to make sure symbol and datagrid are on top
+					reorderGraphicLayer(mymap, 'gcviz-symbol', -1);
+					reorderGraphicLayer(mymap, 'gcviz-datagrid', -1);
+
+					// clean fields to keep name and description
+					fields = layerDef.layerDefinition.fields;
+					lenFields = fields.length;
+
+					while (lenFields--) {
+						field = fields[lenFields];
+						fieldName = field.name;
+						
+						if (fieldName === 'name') {
+							field.alias = 'name';
+							outFields[0] = field;
+						} else if (fieldName === 'description') {
+							field.alias = 'description';
+							outFields[1] = field;
+						}
+					}
+					layerDef.layerDefinition.fields = outFields;
+
+					// set legend symbol
+					gisLegend.getFeatureLayerSymbol(JSON.stringify(featureLayer.renderer.toJson()), $viz('#symbol' + id)[0], id);
+
+					 // add the data to the datagrid
+					vmDatagrid.addTab(map.vIdName, layerDef, name, id);
+				}
+			}, map, uuid, fileName));
 		};
 
 		addGeoRSS = function(map, url, uuid, fileName) {

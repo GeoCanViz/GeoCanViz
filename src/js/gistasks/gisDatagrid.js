@@ -38,6 +38,8 @@
 			closeGetData,
 			createGraphic,
 			zoomFeatures,
+			drawSpatialExtent,
+			showSpatialExtent,
 			selectFeature,
 			selectFeaturePop,
 			unselectFeature,
@@ -54,7 +56,9 @@
 			symbPoint,
 			symbLine,
 			symbPoly,
+			symbSpatial,
 			mymap,
+			lastLayerId,
 			relRecords = {},
 			idTask,
 			idTasksArr = [],
@@ -66,11 +70,17 @@
 			idRtnFunc;
 
 		initialize = function(map) {
-			var color = [255,255,102,125],
-				colorOut = [255,255,0,255];
+			var color = [224,255,255,50],
+				colorOut = [0,255,255,255],
+				spatial = [230, 230, 250, 50],
+				spatialOut = [221, 160, 221, 255],
+				graphIds = map.graphicsLayerIds;
 
 			wkid = map.vWkid;
 			mymap = map;
+
+			// get the last layer loaded from service id
+			lastLayerId = graphIds[graphIds.length - 2];
 
 			// event and params for identify task
 			idFeatures = mymap.on('click', executeIdTask);
@@ -87,9 +97,10 @@
 			// have access to gisgeo anymore. With the require, we set the reference to gissymbol (hard way)
 			require(['gcviz-gissymbol'], function(gissymb) {
 				// set symbologies
-				symbPoint = gissymb.getSymbPoint(color, 18, colorOut, 1);
+				symbPoint = gissymb.getSymbPoint(color, 14, colorOut, 1.5);
 				symbLine = gissymb.getSymbLine(color, 5 , colorOut);
-				symbPoly = gissymb.getSymbPoly(colorOut, color, 1);
+				symbPoly = gissymb.getSymbPoly(colorOut, color, 1.5);
+				symbSpatial = gissymb.getSymbPoly(spatialOut, spatial, 1);
 			});
 		};
 
@@ -293,18 +304,22 @@
 			}
 		};
 
-		createGraphic = function(geometry, key) {
+		createGraphic = function(geometry, key, spatial) {
 			var symb,
 				graphic,
 				type = geometry.type;
 
 			// from geometry type, select symbol
-			if (type === 'point') {
-				symb = symbPoint;
-			} else if (type === 'polyline') {
-				symb = symbLine;
-			} else if (type === 'polygon'){
-				symb = symbPoly;
+			if (!spatial) {
+				if (type === 'point') {
+					symb = symbPoint;
+				} else if (type === 'polyline') {
+					symb = symbLine;
+				} else if (type === 'polygon'){
+					symb = symbPoly;
+				}
+			} else {
+				symb = symbSpatial;
 			}
 
 			// generate graphic and asign symbol
@@ -325,13 +340,13 @@
 
 			// if only one element, zoom feature instead
 			if (len === 1) {
-				graphic = createGraphic(geometries[0], 'zoom');
+				graphic = createGraphic(geometries[0], 'zoom', false);
 				gisMap.zoomFeature(mymap, graphic);
 			} else {
 				// create an array of graphics to get extent. Do not add them
 				// to the map because it is already there from the selection
 				while (i !== len) {
-					graphic = createGraphic(geometries[i], 'zoom');
+					graphic = createGraphic(geometries[i], 'zoom', false);
 					graphics[i] = graphic;
 					i++;
 				}
@@ -348,15 +363,38 @@
 			gcvizFunc.focusMap(mymap, true);
 		};
 
-		selectFeature = function(geometry, info) {
-			var graphic = createGraphic(geometry, 'sel' + '-' + info.table + '-' + info.feat);
+		drawSpatialExtent = function(geometry, key) {
+			var graphic = createGraphic(geometry, key, true);
 
-			// add graphic
+			// remove previous graphic then add new graphic
+			unselectFeature(key);
+			selectLayer.add(graphic);
+		};
+
+		showSpatialExtent = function(key) {
+			var graphic,
+				graphics = selectLayer.graphics,
+				len = graphics.length;
+
+			while (len--) {
+				graphic = graphics[len];
+				if (graphic.key === key) {
+					graphic.show();
+				} else {
+					graphic.hide();
+				}
+			}
+		};
+
+		selectFeature = function(geometry, info) {
+			var graphic = createGraphic(geometry, 'sel' + '-' + info.table + '-' + info.feat, false);
+
+			// remove previous graphic then add new graphic
 			selectLayer.add(graphic);
 		};
 
 		selectFeaturePop = function(geometry) {
-			var graphic = createGraphic(geometry, 'popup');
+			var graphic = createGraphic(geometry, 'popup', false);
 
 			// add graphic
 			selectLayer.add(graphic);
@@ -463,8 +501,8 @@
 				feature, features,
 				query = new esriQuery(),
 				graphId = mymap.graphicsLayerIds,
-				index = gcvizFunc.returnIndexMatch(graphId, 'gcviz-datagrid') + 1,
-				len = graphId.length;
+				index = gcvizFunc.returnIndexMatch(graphId, lastLayerId) + 1,
+				len = graphId.length - 2; // gcviz-symbol and gcviz-datagrid
 
 			// loop trought all the file layer added with add data
 			query.geometry = gisGeo.createExtent(event.mapPoint, mymap, 10);
@@ -565,6 +603,8 @@
 			getData: getData,
 			getSelection: getSelection,
 			zoomFeatures: zoomFeatures,
+			drawSpatialExtent: drawSpatialExtent,
+			showSpatialExtent: showSpatialExtent,
 			selectFeature: selectFeature,
 			selectFeaturePop: selectFeaturePop,
 			unselectFeature: unselectFeature,

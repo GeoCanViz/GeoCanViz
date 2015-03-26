@@ -19,6 +19,7 @@
 			getLegHelp,
 			getDataHelp,
 			getExtractHelp,
+			getDatagridHelp,
 			getDevHelp;
 
 		initialize = function($mapElem) {
@@ -32,6 +33,7 @@
 				tbNav = $mapElem.toolbarnav,
 				tbData = $mapElem.toolbardata,
 				tbExtract = $mapElem.toolbarextract,
+				datagrid = $mapElem.datagrid,
 				node = '';
 
 			// find the help dialog box
@@ -53,6 +55,7 @@
 								'<li data-bind="css: { \'gcviz-hidden\': noLeg }"><a href="#gcviz-help-tbleg" data-bind="text: legTitle, click: function() { scrollTo(\'leg\') }"></a></li>' +
 								'<li data-bind="css: { \'gcviz-hidden\': noData }"><a href="#gcviz-help-tbdata" data-bind="text: dataTitle, click: function() { scrollTo(\'data\') }"></a></li>' +
 								'<li data-bind="css: { \'gcviz-hidden\': noExtract }"><a href="#gcviz-help-tbextract" data-bind="text: extractTitle, click: function() { scrollTo(\'extract\') }"></a></li>' +
+								'<li data-bind="css: { \'gcviz-hidden\': noDatagrid }"><a href="#gcviz-help-datagrid" data-bind="text: datagridTitle, click: function() { scrollTo(\'datagrid\') }"></a></li>' +
 								'<li><a href="#gcviz-help-dev" data-bind="text: devTitle, click: function() { scrollTo(\'dev\') }"></a></li>' +
 							'</ul>' +
 						'</section>';
@@ -83,6 +86,9 @@
 
 			// toolbar extract
 			node += getExtractHelp(tbExtract);
+
+			// datagrid
+			node += getDatagridHelp(datagrid);
 
 			// developer's corner
 			node += getDevHelp(foot);
@@ -590,6 +596,22 @@
 								'<span class="span11" data-bind="text: extLink"></span>' +
 							'</div>' +
 							'<div class="row"><span class="span12" data-bind="text: extDesc2"></span></div>' +
+						'</div>';
+
+				node += '</section>';
+			}
+
+			return node;
+		};
+
+		getDatagridHelp = function(config) {
+			var enable = config.enable,
+				node = '';
+
+			if (enable) {
+				node = '<section id="gcviz-help-datagrid" class="gcviz-help gcviz-help-datagrid">' +
+						'<div class="row">' +
+							'<span class="gcviz-help-tbtitle" data-bind="text: datagridTitle"></span>' +
 						'</div>';
 
 				node += '</section>';

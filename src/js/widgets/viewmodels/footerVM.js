@@ -48,8 +48,11 @@
 				_self.tpArrow = i18n.getDict('%footer-tpNorth');
 
 				// coords and arrow
-				_self.coords1 = ko.observable('');
-				_self.coords2 = ko.observable('');
+				_self.coordsLabel = ko.observable('');
+				_self.coords1a = ko.observable('');
+				_self.coords1b = ko.observable('');
+				_self.coords2a = ko.observable('');
+				_self.coords2b = ko.observable('');
 				_self.dualCoords = ko.observable(0);
 				_self.rotateArrow = ko.observable('');
 
@@ -140,13 +143,16 @@
 							strPointY2 = y.toFixed(3).toString() + ' N';
 						}
 
-						_self.coords2(strPointY2 + ' | ' + strPointX2);
+						_self.coords2a(strPointY2 + ' |');
+						_self.coords2b(strPointX2);
 					} else {
 						strPointX = 'X= ' + x.toFixed(3).toString();
 						strPointY = 'Y= ' + y.toFixed(3).toString();
 					}
 
-					_self.coords1(_self.lblPosition + strPointY + ' | ' + strPointX);
+					_self.coordsLabel(_self.lblPosition);
+					_self.coords1a(strPointY + ' |');
+					_self.coords1b(strPointX);
 				};
 
 				_self.showNorthArrow = function(evt) {

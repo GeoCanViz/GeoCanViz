@@ -26,7 +26,7 @@ Global sys value#%gisurlalti#http://geogratis.gc.ca/services/elevation/cdem/alti
 #%wcag-xlong#Longitude West (x): #Longitude ouest (x) : 
 #%wcag-ylat#Latitude North (y): #Latitude nord (y) : 
 #%wcag-title#Accessibility mode coordinates input#Entrée des coordonnées en mode accessibilité
-#%wcag-msgx#Value needs to be between 50 and 140#La valeur doit être entre 50 et 140.
+#%wcag-msgx#Value needs to be between 50 and 140#La valeur doit être entre 40 et 150.
 #%wcag-msgy#Value needs to be between 40 and 80#La valeur doit être entre 40 et 80.
 #%wcag-addcoords#Add a new coordinate to the list#Ajouter une coordonnée à la liste
 #%wcag-remove#Remove#Enlever
@@ -78,6 +78,8 @@ Global sys value#%gisurlalti#http://geogratis.gc.ca/services/elevation/cdem/alti
 #%datagrid-popselect#Select the features from the following layer#Sélectionnez une couche dans les suivantes
 #%datagrid-protitle#Table Creation#Création des tables
 #%datagrid-prodesc#Please wait until all tables are created. This operation could take a while if there is a lot of data.#S'il vous plaît, attendre que les toutes tables soient créées. Cette opération peut prendre du temps si il y a beacoup de données.
+#%datagrid-exptitle#Table Export#Exporter la table
+#%datagrid-expdesc#Table selection is being exported to a Comma-Separated Value file in your download folder. Due to amount of elements, it can take up to few minutes.#La sélection de la table est exportée dans un fichier CSV (Comma-separated values) dans votre répertoire téléchargement. Du au nombre élevé d'éléments, ceci peut prendre jusqu'a quelques minutes.
 #%toolbardraw-alt#Measuring and Drawing Tools - Help#Mesures et outils de dessin - Aide
 #%toolbardraw-name#Measuring and Drawing Tools#Mesures et outils de dessin
 #%toolbardraw-insinputbox#Enter text, click OK and then click the map location where the text should be placed.#Cliquez sur OK pour placer le texte sur la carte ou cliquez sur Annuler pour abandonner.
@@ -276,6 +278,7 @@ Global sys value#%gisurlalti#http://geogratis.gc.ca/services/elevation/cdem/alti
 #%help-extract-click#This option use a tool to point on the map to indicate the desired grid box.#Cet option utilise un outil pour pointer sur un élément désiré de la grille.
 #%help-extract-link#The url link option use the map extent.#L'option lien URL utilise l'étendue de la carte.
 #%help-extract-desc2#As you zoom in and out, options may activate or deactivate based on your current map extent. The desired information is displayed in a new browser window. For the tool to function properly, you need to configure your browser to allow pop-up windows.#Quand vous faites un zoom avant ou arrière, les options s’activent ou se désactivent en fonction de l’étendue de la carte. L’information sera affichée dans une nouvelle fenêtre du navigateur. Pour que cet outil fonctionne correctement, vous devez configurer votre navigateur pour permettre les fenêtres contextuelles « pop-up windows ».
+#%help-datagrid-title#Data Table#Tableau des données
 #%help-dev-title#Developer's Corner#Le coin du développeur
 #%help-dev-logoalt#Get GeoCanViz on GitHub#Obtenir GéoCanViz de GitHub
 #%help-dev-logo#Click to view the latest GeoCanViz development source code on GitHub.#Cliquez pour voir le tout dernier code source de développement de GéoCanViz sur GitHub.
