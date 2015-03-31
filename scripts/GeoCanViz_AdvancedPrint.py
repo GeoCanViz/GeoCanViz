@@ -77,6 +77,27 @@ def main():
 
     try:
 
+##        Web_Map_as_JSON = '{"mapOptions":{"showAttribution":false,"extent":{"xmin":-8344271.65541982,"ymin":5616761.263257239,"xmax":-8301466.9195801793,"ymax":5639692.3717427608,"spatialReference":{"wkid":3857}},"spatialReference":{"wkid":3857}},"operationalLayers":[{"id":"013f40e0-e2f0-a8db-2377-966b05914123","title":"013f40e0-e2f0-a8db-2377-966b05914123","opacity":1,"minScale":144447.638572,"maxScale":4513.988705,"url":"http://nrcan/arcgis/rest/services/TestCache/MapServer"},{"id":"6be26697-4d66-6003-4382-4b1aa327a3d3","title":"6be26697-4d66-6003-4382-4b1aa327a3d3","opacity":1,"minScale":144447.638572,"maxScale":4513.988705,"url":"http://nrcan/arcgis/rest/services/testdata/MapServer"},{"id":"gcviz-symbol","opacity":1,"minScale":0,"maxScale":0,"featureCollection":{"layers":[]}},{"id":"map3_holder_graphics","opacity":1,"minScale":0,"maxScale":0,"featureCollection":{"layers":[]}}],"exportOptions":{"outputSize":[null,null],"dpi":96}}'
+##        Web_Map_Decode = json.loads(Web_Map_as_JSON)
+##        templateName = "A4 Portrait"
+##        lang = "EN"
+##        preserve_centerPoint =" "#"-8328684.938:5626421.593"#"-9996438.076:6965545.390"#"-8319825.306:5626829.433"
+##        scale = "5000"
+##        outputType = "PDF"
+##        layoutElements1 = '{"2#Sub Title":"dddd","1#Title":" ","4#Scale Bar":"false","9999#North Arrow":"false"}';
+##        log.write('Map: {0}\n'.format(Web_Map_as_JSON))
+
+##        Web_Map_as_JSON = '{"mapOptions":{"showAttribution":false,"extent":{"xmin":-8317543.8623287827,"ymin":5629365.8564837528,"xmax":-8312193.2703486793,"ymax":5632232.2450445229,"spatialReference":{"wkid":3857}},"spatialReference":{"wkid":3857}},"operationalLayers":[{"id":"013f40e0-e2f0-a8db-2377-966b05914123","title":"013f40e0-e2f0-a8db-2377-966b05914123","opacity":1,"minScale":144447.638572,"maxScale":4513.988705,"url":"http://nrcan/arcgis/rest/services/TestCache/MapServer"},{"id":"6be26697-4d66-6003-4382-4b1aa327a3d3","title":"6be26697-4d66-6003-4382-4b1aa327a3d3","opacity":1,"minScale":144447.638572,"maxScale":4513.988705,"url":"http://nrcan/arcgis/rest/services/testdata/MapServer"},{"id":"gcviz-symbol","opacity":1,"minScale":0,"maxScale":0,"featureCollection":{"layers":[]}},{"id":"map3_holder_graphics","opacity":1,"minScale":0,"maxScale":0,"featureCollection":{"layers":[]}}],"exportOptions":{"outputSize":[null,null],"dpi":300}}'
+##        Web_Map_Decode = json.loads(Web_Map_as_JSON)
+##        templateName = "A3 Landscape Small"
+##        lang = "EN"
+##        preserve_centerPoint ="-8314868.566338731:5630799.050764138"#"-8328684.938:5626421.593"#"-9996438.076:6965545.390"#"-8319825.306:5626829.433"
+##        scale = "5000"
+##        outputType = "PDF"
+##       #layoutElements1 = '{"Title":" ","North Arrow":"true"}' #{"Title":"asdfasdf","North Arrow":"false"}
+##        layoutElements1 = '{"Sub Title":" ","Title":" ","Author":" ","Map Document Credits":" ","Date":" ","Service Layer Credits":" ","Scale Bar":"false","Scale Text":"false","North Arrow":"false","Logo":""}';
+##        log.write('Map: {0}\n'.format(Web_Map_as_JSON))
+
         Web_Map_as_JSON = arcpy.GetParameterAsText(0)
         Web_Map_Decode = json.loads(arcpy.GetParameterAsText(0))
         templateName = arcpy.GetParameterAsText(2)
@@ -97,7 +118,7 @@ def main():
         mxdPath = os.path.join(settings.MXDTEMPLATEFOLDER, lang)
         if not os.path.isdir(mxdPath):
               raise folderNotExist(mxdPath, 'Folder does not exist on server: {0}\n'.format(mxdPath))
-        mxdTemplate = os.path.join(mxdPath, templateName)
+        mxdTemplate = os.path.join(mxdPath, templateName) # + ".mxd")
         if not os.path.exists(mxdTemplate):
                 raise fileNotExist(mxdTemplate, 'File does not exist on server: {0}\n'.format(mxdTemplate))
 
