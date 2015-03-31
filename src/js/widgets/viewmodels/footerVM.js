@@ -121,38 +121,41 @@
 						x = point.x,
 						y = point.y;
 
-					// if lat/long, set dd and dms
-					if (outwkid === 4326) {
-						_self.dualCoords(1);
-
-						// dms
-						dms = gcvizFunc.convertDdToDms(x, y, 0);
-						strPointY = dms.y.join(' ');
-						strPointX = dms.x.join(' ');
-
-						// dd
-						if (x < 0) {
-							strPointX2 = (-1 * x.toFixed(3)).toString() + ' ' + _self.lblWest;
+					// if coords are valid
+					if (!isNaN(x) && !isNaN(y)) {
+						// if lat/long, set dd and dms
+						if (outwkid === 4326) {
+							_self.dualCoords(1);
+	
+							// dms
+							dms = gcvizFunc.convertDdToDms(x, y, 0);
+							strPointY = dms.y.join(' ');
+							strPointX = dms.x.join(' ');
+	
+							// dd
+							if (x < 0) {
+								strPointX2 = (-1 * x.toFixed(3)).toString() + ' ' + _self.lblWest;
+							} else {
+								strPointX2 = x.toFixed(3).toString() + ' E';
+							}
+	
+							if (y < 0) {
+								strPointY2 = (-1 * y.toFixed(3)).toString() + ' S';
+							} else {
+								strPointY2 = y.toFixed(3).toString() + ' N';
+							}
+	
+							_self.coords2a(strPointY2 + ' |');
+							_self.coords2b(strPointX2);
 						} else {
-							strPointX2 = x.toFixed(3).toString() + ' E';
+							strPointX = 'X= ' + x.toFixed(3).toString();
+							strPointY = 'Y= ' + y.toFixed(3).toString();
 						}
-
-						if (y < 0) {
-							strPointY2 = (-1 * y.toFixed(3)).toString() + ' S';
-						} else {
-							strPointY2 = y.toFixed(3).toString() + ' N';
-						}
-
-						_self.coords2a(strPointY2 + ' |');
-						_self.coords2b(strPointX2);
-					} else {
-						strPointX = 'X= ' + x.toFixed(3).toString();
-						strPointY = 'Y= ' + y.toFixed(3).toString();
+	
+						_self.coordsLabel(_self.lblPosition);
+						_self.coords1a(strPointY + ' |');
+						_self.coords1b(strPointX);	
 					}
-
-					_self.coordsLabel(_self.lblPosition);
-					_self.coords1a(strPointY + ' |');
-					_self.coords1b(strPointX);
 				};
 
 				_self.showNorthArrow = function(evt) {

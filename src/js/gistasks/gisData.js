@@ -26,6 +26,7 @@
 			addCSV,
 			addKML,
 			addGeoRSS,
+			finishAdd,
 			createLayer,
 			getSeparator,
 			getFeatCollectionTemplateCSV,
@@ -163,14 +164,9 @@
 
 			featureLayer = new esriFeatLayer(featCollection, { 'id': guuid });
 			featureLayer.name = gfileName;
-			mymap.addLayer(featureLayer);
 
-			// reoder layers to make sure symbol and datagrid are on top
-			reorderGraphicLayer(mymap, 'gcviz-symbol', -1);
-			reorderGraphicLayer(mymap, 'gcviz-datagrid', -1);
-
-			// get the extent then zoom
-			gisMap.zoomGraphics(mymap, featureLayer.graphics);
+			// finish add by reordering layer and add the layer to map
+			finishAdd(mymap, featureLayer);
 				
 			// add to user array so knockout will generate legend
 			// we cant add it from the VM because the projection can take few second and the symbol is not define before.
@@ -289,7 +285,7 @@
 
 			layer.on('load', gcvizFunc.closureFunc(function(map, uuid, fileName, input) {
 				var graphics, lenGraphics,
-					name, id, fieldName,
+					name, id, fieldName, defaultFields,
 					outFields = new Array(2),
 					field, fields, lenFields,
 					layerDef, jsonDef, featureLayer,
@@ -317,28 +313,33 @@
 						graphics[lenGraphics]._layer.name = name;
 					}
 	
-					// add the feature layer and remove the kml layer
-					map.addLayer(featureLayer);
+					// remove the kml layer
 					map.removeLayer(map.getLayer('tempAddDataKML'));
 
-					// reoder layers to make sure symbol and datagrid are on top
-					reorderGraphicLayer(mymap, 'gcviz-symbol', -1);
-					reorderGraphicLayer(mymap, 'gcviz-datagrid', -1);
+					// finish add by reordering layer and add the layer to map
+					finishAdd(map, featureLayer);
 
 					// clean fields to keep name and description
 					fields = layerDef.layerDefinition.fields;
 					lenFields = fields.length;
+					defaultFields ='id, snippet, visibility, styleUrl, balloonStyleText';
 
 					while (lenFields--) {
 						field = fields[lenFields];
 						fieldName = field.name;
-						
-						if (fieldName === 'name') {
-							field.alias = 'name';
-							outFields[0] = field;
-						} else if (fieldName === 'description') {
-							field.alias = 'description';
-							outFields[1] = field;
+
+						// filter to remove default internal fields
+						if (defaultFields.indexOf(fieldName) === -1) {
+							if (fieldName === 'name') {
+								field.alias = 'name';
+								outFields[0] = field;
+							} else if (fieldName === 'description') {
+								field.alias = 'description';
+								outFields[1] = field;
+							} else {
+								field.alias = fieldName;
+								outFields.push(field);
+							}
 						}
 					}
 					layerDef.layerDefinition.fields = outFields;
@@ -403,6 +404,17 @@
 				// remove info template to disable default esri popup
 				input.layer.getLayers()[0].setInfoTemplate(null);
 			});
+		};
+
+		finishAdd = function(mymap, layer) {
+			mymap.addLayer(layer);
+
+			// reoder layers to make sure symbol and datagrid are on top
+			reorderGraphicLayer(mymap, 'gcviz-symbol', -1);
+			reorderGraphicLayer(mymap, 'gcviz-datagrid', -1);
+
+			// get the extent then zoom
+			gisMap.zoomGraphics(mymap, layer.graphics);
 		};
 
 		return {

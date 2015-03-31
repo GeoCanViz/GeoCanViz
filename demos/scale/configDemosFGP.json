@@ -1125,7 +1125,7 @@
             "items": [{
                 "title": "Maps (raster): ",
                 "subtitle": "Toporama, CanMatrix Print-ready and Georeferenced.",
-                "scale": -1,
+                "scale": 15000000,
                 "url": "http://geogratis.gc.ca/api/en/nrcan-rncan/ess-sst/-/OR/(urn:iso:series)toporama/(urn:iso:series)canmatrix-georeferenced",
                 "query": [{
                     "type": 1,
@@ -1139,7 +1139,7 @@
             }, {
                 "title": "Data (vector): ",
                 "subtitle": "CanVec+.",
-                "scale": -1,
+                "scale": 15000000,
                 "url": "http://geogratis.gc.ca/api/en/nrcan-rncan/ess-sst/-/(urn:iso:series)canvec-plus",
                 "query": [{
                     "type": 1,

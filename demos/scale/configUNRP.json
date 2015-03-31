@@ -1143,8 +1143,11 @@
             "enable": false,
             "expand": false,
             "pos": 3,
-            "data": {
-                "enable": false
+            "datafile": {
+                "enable": true
+            },
+            "dataurl": {
+                "enable": true
             }
         },
         "toolbarextract": {

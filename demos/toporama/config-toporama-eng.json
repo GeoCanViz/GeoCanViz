@@ -2293,7 +2293,7 @@
             "overview": {
                 "enable": true,
                 "url": "",
-                "type": "4"
+                "type": 4
             },
             "position": {
                 "enable": true
@@ -2303,7 +2303,10 @@
             "enable": true,
             "expand": false,
             "pos": 4,
-            "data": {
+            "datafile": {
+                "enable": true
+            },
+            "dataurl": {
                 "enable": true
             }
         },
@@ -2311,7 +2314,10 @@
             "enable": true,
             "expand": false,
             "pos": 3,
-            "grid": "bbbb469d-aaa1-c8f5-175c-645200a6b6fe",
+            "grid": {
+            	"enable": true,
+            	"id": "bbbb469d-aaa1-c8f5-175c-645200a6b6fe"
+            },
             "items": [{
                 "title": "Maps (raster): ",
                 "subtitle": "Toporama, CanMatrix Print ready and Georeferenced.",

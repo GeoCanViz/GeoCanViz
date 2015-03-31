@@ -1,5 +1,9 @@
 @import "gcviz-mixin";
 
+.gcviz-data-textinput {
+	width: 95%;
+}
+
 // buttons
 .gcviz-data-add {
 	@include sprite($img-spritebtn, -939, -2);

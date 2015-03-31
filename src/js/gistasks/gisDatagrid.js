@@ -79,9 +79,6 @@
 			wkid = map.vWkid;
 			mymap = map;
 
-			// get the last layer loaded from service id
-			lastLayerId = graphIds[graphIds.length - 2];
-
 			// event and params for identify task
 			idFeatures = mymap.on('click', executeIdTask);
 			idParams.tolerance = 3;
@@ -91,6 +88,13 @@
 			// add the graphic layers to the map and set global variable
 			mymap.addLayer(new esriGraphLayer({ id: 'gcviz-datagrid' }));
 			selectLayer = map.getLayer('gcviz-datagrid');
+
+			// get the last layer loaded from service id. If there is no layer before symbol and datagrid
+			// set lastLayerId to -1
+			lastLayerId = graphIds[graphIds.length - 3];
+			if (typeof lastLayerId === 'undefined') {
+				lastLayerId = -1;
+			}
 
 			// there is a problem with the define. the gcviz-gissymbol is not able to be set. The weird thing
 			// is if I replace gisgeo with gissymbol in the define, gisgeo will be set as gissymbol but I can't
@@ -223,9 +227,7 @@
 				}
 
 				// if there is esri date field, we need to reformat them
-				if (datesLen === 0) {
-					geometry.attributes = feat.attributes;
-				} else {
+				if (datesLen !== 0) {
 					attTmp = dates[0].split(';');
 					attDate = attTmp[0];
 					attFormat = attTmp[1];
@@ -242,8 +244,10 @@
 					} else {
 						feat.attributes[attDate] = '';
 					}
-					geometry.attributes = feat.attributes;
 				}
+
+				// set attributes
+				geometry.attributes = feat.attributes;
 
 				// add a unique id, the select checkbox and layerid
 				geometry.attributes.gcvizid = pos + '-' + i;
@@ -499,10 +503,17 @@
 		setFileLayerTask = function(event) {
 			var task, results, item, layer, featLen,
 				feature, features,
+				index,
 				query = new esriQuery(),
 				graphId = mymap.graphicsLayerIds,
-				index = gcvizFunc.returnIndexMatch(graphId, lastLayerId) + 1,
 				len = graphId.length - 2; // gcviz-symbol and gcviz-datagrid
+
+			// if !== -1, use layer id to find index. If === -1, no layer was added at init, use 0.
+			if (lastLayerId !== -1) {
+				index = gcvizFunc.returnIndexMatch(graphId, lastLayerId) + 1;
+			} else {
+				index = 0;
+			}
 
 			// loop trought all the file layer added with add data
 			query.geometry = gisGeo.createExtent(event.mapPoint, mymap, 10);

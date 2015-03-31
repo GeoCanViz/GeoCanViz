@@ -418,7 +418,10 @@
             "enable": true,
             "expand": false,
             "pos": 3,
-            "data": {
+            "datafile": {
+                "enable": true
+            },
+            "dataurl": {
                 "enable": true
             }
         },

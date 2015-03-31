@@ -198,7 +198,7 @@
 				};
 
 				_self.getData = function(layer, pos) {
-					var urlFull, strField,
+					var urlFull, strField, field, fieldType,
 						layerInfo = layer.layerinfo,
 						layerIndex = layerInfo.index,
 						type = layerInfo.type,
@@ -214,7 +214,14 @@
 					// get list of fields to query
 					strField = '';
 					while (fieldsLen--) {
-						strField += fields[fieldsLen].data + ',';
+						field = fields[fieldsLen];
+						fieldType = field.type;
+						strField += field.data + ',';
+
+						// add url value field if type field === url
+						if (fieldType.field === 'url') {
+							strField += fieldType.urlfield + ',';
+						}
 					}
 
 					// add the objectid (if not present)
@@ -638,32 +645,40 @@
 				};
 
 				_self.createFields = function(layer, link) {
-					var field,
+					var field, typeObj,
 						fields = layer.fields,
 						lenFields = fields.length;
 
-					// add ... to string field when length is more then 40 characters
 					while (lenFields--) {
 						field = fields[lenFields];
+						typeObj = field.type;
 
-						field.render = function(data, type) {
-							if (data !== null && typeof data !== 'undefined') {
-								// remove double quote
-								if (typeof data === 'string') {
-									data = data.replace(/"/g, '');
+						// if url, construct it.
+						// if nothing, add ... to string field when length is more then 40 characters
+						if (typeObj.field === 'url') {
+							field.render = gcvizFunc.closureFunc(function(typeObj, data, type, full) {
+								return '<a href="' + full[typeObj.urlfield] + '" target="_blank">' + data + '</a>';
+							}, typeObj);
+						} else {
+							field.render = function(data, type) {
+								if (data !== null && typeof data !== 'undefined') {
+									// remove double quote
+									if (typeof data === 'string') {
+										data = data.replace(/"/g, '');
+									}
+	
+									// for wcag we add a text input read only. This element is focusable so we can have
+									// the tooltip. Wrap in a relative position div to have the tooltip at the right
+									// after a scroll
+									return type === 'display' && data.length > 40 ?
+									'<div style="position: relative;"><span title="'+ data +'">' + data.substr(0, 38) + '</span>' +
+									'<input type="text" readOnly=true value= "..." class="gcviz-datagrid-stringbtn"></input>' +
+									'<span class="gcviz-datagrid-stringtp">' + data + '</span></div>' : data;
+								} else {
+									return data;
 								}
-
-								// for wcag we add a text input read only. This element is focusable so we can have
-								// the tooltip. Wrap in a relative position div to have the tooltip at the right
-								// after a scroll
-								return type === 'display' && data.length > 40 ?
-								'<div style="position: relative;"><span title="'+ data +'">' + data.substr(0, 38) + '</span>' +
-								'<input type="text" readOnly=true value= "..." class="gcviz-datagrid-stringbtn"></input>' +
-								'<span class="gcviz-datagrid-stringtp">' + data + '</span></div>' : data;
-							} else {
-								return data;
-							}
-						};
+							};
+						}
 					}
 
 					// if there is a link table, add link column
@@ -1178,7 +1193,7 @@
 				};
 
 				_self.applyFilterMap = function(target) {
-					var input, val, name, lyrDef,
+					var input, val, name, lyrDef, dateTmp,
 						defs = [],
 						definition = '',
 						table = objDataTable[activeTableId],
@@ -1203,6 +1218,14 @@
 								}
 							} else if (input.hasClass('gcviz-dg-searchdrop')) {
 								defs.push('UPPER(' + name + ') LIKE \'%' + val.toUpperCase() + '%\'');
+							} else if (input.hasClass('gcviz-dg-searchdate')) {
+								if (input.attr('placeholder') === 'Date Min') {
+									dateTmp = val.split('-');
+									defs.push(name + ' >= DATE \'' + dateTmp[1] + '/' + dateTmp[2] + '/' + dateTmp[0] + ' 00:00:00\'');
+								} else if (input.attr('placeholder') === 'Date Max') {
+									dateTmp = val.split('-');
+									defs.push(name + ' <= DATE \'' + dateTmp[1] + '/' + dateTmp[2] + '/' + dateTmp[0] + ' 00:00:00\'');
+								}
 							}
 						}
 					}
@@ -1506,6 +1529,7 @@
 					var info, linkInfo,
 						attrNames, attrValues,
 						field, fields, lenFields,
+						fieldType,
 						layer, popups,
 						staticFields = 1,
 						linkNode = '',
@@ -1554,9 +1578,18 @@
 
 								for (var l = 0; l < attrNames.length; l++) {
 									if (field.dataalias.toUpperCase() === attrNames[l].toUpperCase()) {
-										info = '<span class="gcviz-prop">' + field.title + '</span>' +
-												'<p class="gcviz-val">' + attrValues[l] + '</p>' +
-												info;
+										fieldType = field.type.field;
+
+										// if url, construct it
+										if (fieldType === 'url') {
+											info = '<span class="gcviz-prop">' + field.title + '</span></br>' +
+													'<a class="gcviz-popup-val" href="' + attrValues[gcvizFunc.returnIndexMatch(attrNames, field.type.urlfieldalias)] + '" target="_blank">' + attrValues[l] + '</a></br>' +
+													info;
+										} else {
+											info = '<span class="gcviz-prop">' + field.title + '</span>' +
+													'<p class="gcviz-popup-val">' + attrValues[l] + '</p>' +
+													info;
+										}
 									}
 								}
 							}

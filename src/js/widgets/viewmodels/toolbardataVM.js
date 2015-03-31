@@ -36,6 +36,7 @@
 				_self.tpDelete = i18n.getDict('%toolbardata-tpdelete');
 				_self.tpVisible = i18n.getDict('%toolbarlegend-tgvis');
 				_self.lblCSV = i18n.getDict('%toolbardata-lbladdcsv');
+				_self.lblUrl = i18n.getDict('%toolbardata-lbladdurl');
 
 				// dialog window for text
 				_self.lblErrTitle = i18n.getDict('%toolbardata-errtitle');
@@ -46,6 +47,11 @@
 				_self.msgIE9 = i18n.getDict('%toolbardata-ie9');
 				_self.errMsg = ko.observable();
 				_self.isErrDataOpen = ko.observable();
+
+				// dialog window for url
+				_self.lblUrlTitle = i18n.getDict('%toolbardata-lbladdurltitle');
+				_self.isUrlDialogOpen = ko.observable();
+				_self.addUrlValue = ko.observable('');
 
 				// array of user layer
 				_self.userArray = ko.observableArray([]);
@@ -74,7 +80,7 @@
 					$btnCSV.focus();
 				};
 
-				_self.addClick = function(vm, event) {
+				_self.addFileClick = function(vm, event) {
 					// we need to have different load file function because IE version 9 doesnt use
 					// fileReader object
 					if (window.browser === 'Explorer' && window.browserversion === 9) {
@@ -92,6 +98,47 @@
 
 					// focus back on add to keep focus
 					$btnCSV.focus();
+				};
+
+				_self.addURLClick = function() {
+					_self.isUrlDialogOpen(true);
+				};
+
+				_self.dialogUrlOkEnter = function () {
+					_self.dialogUrlOk();
+				};
+
+				_self.dialogUrlOk = function() {
+					var uu = gcvizFunc.getUUID(),
+						url = _self.addUrlValue(),
+						lenUrl = url.length,
+						valid = gcvizFunc.validateURL(url),
+						name = url.substring(url.lastIndexOf('/') + 1, lenUrl),
+						ext = url.substring(url.lastIndexOf('.') + 1, lenUrl);
+
+					// add data to table and to aray of imported data
+					if (valid) {
+						if (ext.toUpperCase() === 'KML') {
+							//http://geoappext.nrcan.gc.ca/GeoCanViz/CCMEO/toporama/building.kml
+							//http://geoscan.nrcan.gc.ca/star/download/xml150841558124753.kml
+							gisData.addKML(mymap, url, uu, name);
+						} else if (ext.toUpperCase() === 'RSS') {
+							//gisData.addGeoRSS(mymap, 'http://geoscan.ess.nrcan.gc.ca/rss/newpub_e.rss', uu, name);
+						}
+						_self.userArray.push({ label: name, id: uu + '0' });
+					}
+
+					// close window and clean url
+					_self.dialogUrlClose();
+					_self.addUrlValue('');
+				};
+
+				_self.dialogUrlClose = function() {
+					_self.isUrlDialogOpen(false);
+				};
+
+				_self.dialogUrlCancel = function() {
+					_self.dialogUrlClose();
 				};
 
 				_self.add = function(vm, event) {
@@ -132,15 +179,6 @@
 										}
 									}
 								});
-
-							// add KML
-							var uu = gcvizFunc.getUUID();
-							var path2 = 'http://geoscan.nrcan.gc.ca/star/download/xml150841558124753.kml';
-							gisData.addKML(mymap, path2, uu, 'myKML');
-							_self.userArray.push({ label: 'myKML', id: uu + '0' });
-							
-							// add GeoRSS
-							//gisData.addGeoRSS(mymap, 'http://geoscan.ess.nrcan.gc.ca/rss/newpub_e.rss', gcvizFunc.getUUID(), fileName);
 						};
 					
 						reader.readAsText(file);
