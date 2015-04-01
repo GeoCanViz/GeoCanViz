@@ -135,8 +135,8 @@
 					var templatepath;
 
 					if (printType === 1) {
-						templatepath = _self.urlhtml + "/" + lang + '/' + _self.selectedValue().toString();
-						gisprint.printBasicMap(_self.mymap, _self.printUrl, templatepath, _self.preserve().toString(), _self.forceScaleValue().toString().trim());
+						templatepath = _self.urlhtml + '/' + lang + '/' + _self.selectedValue().toString();
+						gisprint.printBasicMap(_self.mymap, _self.printUrl, templatepath, _self.preserve().toString(), _self.forceScaleValue().toString().trim(), _self.selectedDPIValue());
 					}
 					else {
 						gisprint.printCustomMap(_self.mymap, _self.printUrl, _self.selectedValue().toString(), _self.preserve().toString(), _self.selectedDPIValue(), _self.forceScaleValue().toString().trim());
@@ -177,7 +177,7 @@
 		};
 
 		getHTMLElements = function(htmlUrl, templateName , layout) {
-			var url =  htmlUrl + "/" + lang + '/' + templateName,
+			var url =  htmlUrl + '/' + lang + '/' + templateName,
 				printTextElements = document.getElementById('gcviz-printTextElements'),
 				printMapSurroundElements = document.getElementById('gcviz-printMapSurroundElements'),
 			    printPictureElements = document.getElementById('gcviz-printPictureElements');
