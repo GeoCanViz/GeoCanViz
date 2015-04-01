@@ -214,7 +214,7 @@
 				$html.find('[id^=gcviz-lblimgx]').andSelf().filter('[id^=gcviz-lblimgx]').each(function() {
 					id = this.id;
 					label = $(this).text();
-					newElement = ('<div class="gcviz-printRow"><div class="gcviz-printColLabel"><span class="gcviz-printLabel">' + label + '</span></div><div class="gcviz-printCol"><input type="text" id="gcviz-print' + id + '" name="' + label + '"></input><div>');
+					newElement = ('<div class="gcviz-printRow"><div class="gcviz-printColLabel"><span class="gcviz-printLabel">' + label + '</span></div><div class="gcviz-printCol"><input type="text" id="' + id + '" name="' + label + '"></input><div>');
 					orderedElements.push(new labelItem(id.split('gcviz-lblimgx')[1], id, newElement));
 				});
 

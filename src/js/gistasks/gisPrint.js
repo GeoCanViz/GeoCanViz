@@ -368,7 +368,8 @@
 		}; 
 
 		generateHTMLPrint = function(obj, orig, mapholder, mapUrl, scalebar, scalebarUrl, scaletext, scaletextUrl, northarrow, northarrowUrl, updatedHTML) {
-			var win;
+			var win,
+				id;
 			
 			addImagetoHtmlPrint(mapholder, mapUrl);
 			addImagetoHtmlPrint(scalebar, scalebarUrl);
@@ -376,9 +377,17 @@
 			addImagetoHtmlPrint(northarrow, northarrowUrl);
 			
 			$viz.each(obj, function(key, value) {
+				
 				orig.find('[id^=' + key + ']').each(function() {
-					if (this.id.indexOf('gcviz-label') >= 0) {
+					id = this.id;
+					if (id.indexOf('gcviz-label') >= 0) {
 						$viz(this).text(value);
+					}
+					if (id.indexOf('gcviz-lblimg') >= 0) {
+						id = id.replace('gcviz-lblimgx','gcviz-imgx');
+						orig.find('[id^=' + id + ']').each(function() {
+							$viz(this).attr( "src", value);
+						});
 					}
 				});
 			});
