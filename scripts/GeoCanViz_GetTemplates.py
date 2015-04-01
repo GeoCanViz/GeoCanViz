@@ -9,7 +9,7 @@
 import arcpy, sys, os, datetime, logging
 import GeoCanViz_Print_Settings as settings
 
-logFileName =  GeoCanViz_GetTemplates'
+logFileName =  'GeoCanViz_GetTemplates'
 NO_TEMPLATES_FOUND = "NO_TEMPLATES"
 
 # error handling classes
@@ -28,6 +28,7 @@ def main():
         folder = arcpy.GetParameterAsText(0)
         printType = arcpy.GetParameterAsText(1)
         layoutType = arcpy.GetParameterAsText(4)
+        projects = arcpy.GetParameterAsText(5)
         if printType == 'mxd':
             root = os.path.join(settings.MXDTEMPLATEFOLDER, folder);
         else:
@@ -39,17 +40,19 @@ def main():
         if not os.path.isdir(root):
             raise folderNotExist(root, 'Folder does not exist on server: {0}\n'.format(root))
 
-        for path, subdirs, files in os.walk(root):
-            for name in files:
-                 if name.endswith(printType):
-                    relDir = os.path.relpath(path, root)
-                    if layoutType.upper() in relDir.upper():
-                        if relDir != '.':
-                            relFile = os.path.join(relDir, name)
-                        else:
-                            relFile = name
-                        templates.append(relFile);
-                        log.write('file:{0}\n'.format(relFile))
+        projectFolders = projects.split(',')
+        for projectName in projectFolders:
+            for path, subdirs, files in os.walk(os.path.join(root, projectName)):
+                for name in files:
+                     if name.endswith(printType):
+                        relDir = os.path.relpath(path, root)
+                        if layoutType.upper() in relDir.upper():
+                            if relDir != '.':
+                                relFile = os.path.join(relDir, name)
+                            else:
+                                relFile = name
+                            templates.append(relFile);
+                            log.write('file:{0}\n'.format(relFile))
 
         if not templates:
            arcpy.SetParameterAsText(2, 'NO_TEMPLATES_FOUND')

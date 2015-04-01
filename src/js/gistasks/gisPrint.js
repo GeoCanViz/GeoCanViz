@@ -31,19 +31,23 @@
 			getMapCenter,
 			getLayoutElements,
 			getHTMLLayoutElements,
+			generateHTMLPrint,
 			printCustomMap,
 			printCustomResult,
 			printCustomError,
 			printHTMLError,
 			gp = null,
 			gpFolders = null,
-			lang = $viz('html').attr('lang').toUpperCase();
+			lang = $viz('html').attr('lang').toUpperCase(),
+			callPrintTask,
+			addImagetoHtmlPrint;
 
-		getTemplates = function(url, layout, printType) {
+		getTemplates = function(url, layout, printType, projects) {
 				
 			var params = { 'Folder': lang,
 						   'PrintType': printType,
-						   'Layout': layout},
+						   'Layout': layout,
+						   'Projects': projects.join(',')},
 				dfd = $viz.Deferred();
 			gpFolders = new esriGeoProcessor(url);
 			gpFolders.submitJob(params, function(jobinfo) {
@@ -139,7 +143,7 @@
 				}
 			});
 
-			$viz(printMapSurroundElements).find('input').each(function () {
+			$viz(printMapSurroundElements).find('input').each(function() {
 				elementName = this.name;
 				layoutElements[String(elementName)] = String(this.checked);
 			});
@@ -155,12 +159,13 @@
 
 		getHTMLLayoutElements = function() {
 			var printTextElements = document.getElementById('gcviz-printTextElements'),
+				printMapSurroundElements = document.getElementById('gcviz-printMapSurroundElements'),
 			    printPictureElements = document.getElementById('gcviz-printPictureElements'),
 			    layoutElements = {},
 			    elementName = '',
 			    elementValue = '';
 
-			$viz(printTextElements).find('input').each(function () {
+			$viz(printTextElements).find('input').each(function() {
 				elementName = this.id;
 				elementValue = this.value;
 				if(elementValue.trim().length > 0) {
@@ -175,6 +180,11 @@
 				elementName = this.id;
 				elementValue = this.value;
 				layoutElements[String(elementName)] = elementValue;
+			});
+
+			$viz(printMapSurroundElements).find('input').each(function() {
+				elementName = this.id;
+				layoutElements[String(elementName)] = String(this.checked);
 			});
 
 			return JSON.stringify(layoutElements);
@@ -228,73 +238,172 @@
 			console.log('printHTMLError' + response);
 		};
 
-		printBasicMap = function(map, url, templateName, preserve, forcedScale) {
-			var win,
-				orig,
+		callPrintTask = function(printTask, params) {
+				var dfd = $viz.Deferred();
+				
+				if (printTask !== null) {
+					printTask.execute(params, function(response) {
+						dfd.resolve(response.url);
+					}, printError);
+					return dfd;
+				}
+				else {
+					return null;
+				}
+		};
+		
+		printBasicMap = function(map, url, templateName, preserve, forcedScale, dpivalue) {
+			
+			var	orig,
 				map,
 				mapholder,
 				updatedHTML,
 				mapholderWidth,
 				mapholderHeight,
-				printTask,
-				params,
-				template;
+				printTaskMap = null,
+				printTaskScaleBar = null,
+				printTaskScaleText = null,
+				printTaskNorthArrow = null,
+				paramsMap,
+				paramsScaleBar,
+				paramsScaleText,
+				paramsNorthArrow,
+				templateMap,
+				templateScaleBar,
+				templateScaleText,
+				templateNorthArrow,
+				scalebar,
+				scaletext,
+				northarrow,
+				widthHeight,
+				elements = getHTMLLayoutElements(),
+				obj = jQuery.parseJSON(elements),
+				deferred =$viz.Deferred();
+				
 
 			$viz.get(templateName, function(data) {
-					orig = $('<div />').html(data);
+					orig = $viz('<div />').html(data);
 					mapholder = orig.find('[id^=gcviz-print]');
-					mapholderWidth = $(mapholder).width();
-					mapholderHeight = $(mapholder).height();
+					scalebar = orig.find('[id^=gcviz-scalebar]');
+					scaletext = orig.find('[id^=gcviz-scaletext]');
+					northarrow = orig.find('[id^=gcviz-arrow]');
+					
+					widthHeight = $viz(mapholder).html().split(',');
 
-					printTask = new esriPrintTask(url,  { async: true }),
-					params = new esriPrintParams(),
-					template = new esriPrintTemp();
+					if (widthHeight.length === 2) {
+						mapholderWidth = widthHeight[0];
+						mapholderHeight = widthHeight[1];
+					}
 
-					template.format = 'png8';
-					template.layout = 'MAP_ONLY';
-					template.layoutOptions = {
+					printTaskMap = new esriPrintTask(url, { async: true }),
+					paramsMap = paramsMap = new esriPrintParams(),
+					templateMap = new esriPrintTemp();
+
+					templateMap.format = 'PNG8';
+					templateMap.layout = 'MAP_ONLY';
+					templateMap.layoutOptions = {
 						'scalebarUnit': 'Kilometers'
 					};
+					
 					if (mapholderWidth > 0)  {
-						template.exportOptions.width = mapholderWidth;
+						templateMap.exportOptions.width = mapholderWidth;
 					}
 					if (mapholderHeight > 0) {
-						template.exportOptions.height = mapholderHeight;
+						templateMap.exportOptions.height = mapholderHeight;
 					}
-					template.exportOptions.dpi = 96;
+					templateMap.exportOptions.dpi = dpivalue;
 
 					if (preserve === 'extent') {
-						template.preserveScale = false;
+						templateMap.preserveScale = false;
 					} else { 
-						template.preserveScale = true; 
+						templateMap.preserveScale = true; 
 						if (preserve === 'force') {
-							template.outScale = forcedScale;
+							templateMap.outScale = forcedScale;
 						} else {
-							template.outScale = map.getScale();
+							templateMap.outScale = map.getScale();
 						}
 					}
+			
+					paramsMap.template = templateMap;
+					paramsMap.map = map;
+					
+					if (obj['gcviz-scalebar'] === 'true') {
+						printTaskScaleBar = new esriPrintTask(url, { async: true });
+						paramsScaleBar = new esriPrintParams()
+						templateScaleBar = $viz.extend(true, {}, templateMap);
+						paramsScaleBar.map = map;
+						templateScaleBar.layout = 'Scalebar';
+						paramsScaleBar.template = templateScaleBar;
+					}
 
-					params.template = template;
-					params.map = map;
-					printTask.execute(params, function(response) {
-		
-						var elements = getHTMLLayoutElements(),
-						element,
-						obj;
-						$viz(mapholder).append('<img src="' + response.url + '"></img>');
-						obj  = jQuery.parseJSON(elements);
-						$viz.each(obj, function(key, value) {
-							orig.find('[id^=' + key + ']').each( function() {
-								$(this).text(value);
-							});
-						});
+					if (obj['gcviz-scaletext'] === 'true') {
+						printTaskScaleText = new esriPrintTask(url, { async: true });
+						paramsScaleText = new esriPrintParams()
+						templateScaleText = $viz.extend(true, {}, templateMap);
+						paramsScaleText.map = map;
+						templateScaleText.layout = 'Scaletext';
+						paramsScaleText.template = templateScaleText;
+					}
 
-						updatedHTML = orig.html();
-						win = window.open('');
-						win.document.write(updatedHTML);
-					}, printError);
+					if (obj['gcviz-arrow'] === 'true') {
+						printTaskNorthArrow = new esriPrintTask(url, { async: true });
+						paramsNorthArrow = new esriPrintParams()
+						templateNorthArrow = $viz.extend(true, {}, templateMap);
+						paramsNorthArrow.map = map;
+						templateNorthArrow.layout = 'Northarrow';
+						paramsNorthArrow.template = templateNorthArrow;
+					}
+
+				    $viz.when(callPrintTask(printTaskMap, paramsMap), 
+				    						callPrintTask(printTaskScaleBar, paramsScaleBar), 
+				    						callPrintTask(printTaskScaleText, paramsScaleText),
+				    						callPrintTask(printTaskNorthArrow, paramsNorthArrow))
+				    .done(function(responseMap, responseScaleBar, responseScaleText, responseNorthArrow) {
+			            generateHTMLPrint(obj, orig, mapholder, responseMap, scalebar, responseScaleBar, scaletext, responseScaleText, northarrow, responseNorthArrow, updatedHTML)	
+			         })
+				    .fail(function() {
+				    	console.log('Failed to get all responses to generate map');
+				    });  
 			});
 		}; 
+
+		generateHTMLPrint = function(obj, orig, mapholder, mapUrl, scalebar, scalebarUrl, scaletext, scaletextUrl, northarrow, northarrowUrl, updatedHTML) {
+			var win,
+				id;
+			
+			addImagetoHtmlPrint(mapholder, mapUrl);
+			addImagetoHtmlPrint(scalebar, scalebarUrl);
+			addImagetoHtmlPrint(scaletext, scaletextUrl);
+			addImagetoHtmlPrint(northarrow, northarrowUrl);
+			
+			$viz.each(obj, function(key, value) {
+				
+				orig.find('[id^=' + key + ']').each(function() {
+					id = this.id;
+					if (id.indexOf('gcviz-label') >= 0) {
+						$viz(this).text(value);
+					}
+					if (id.indexOf('gcviz-lblimg') >= 0) {
+						id = id.replace('gcviz-lblimgx','gcviz-imgx');
+						orig.find('[id^=' + id + ']').each(function() {
+							$viz(this).attr( "src", value);
+						});
+					}
+				});
+			});
+
+			updatedHTML = orig.html();
+			win = window.open('');
+			win.document.write(updatedHTML);
+		};
+
+		addImagetoHtmlPrint = function(element, url) {
+			if (url !== null) {
+				$viz(element).html('<img src="' + url + '"></img>');
+			} else {
+				$viz(element).empty();
+			}
+		};
 
 		printMap = function(map, printInfo) {
 			// We cant use the print task for certain type now because it is not able to deal with
@@ -333,7 +442,8 @@
 
 
 		return {
-			printMap: printMap,
+			printMap : printMap,
+			generateHTMLPrint : generateHTMLPrint,
 			getTemplates: getTemplates,
 			getMxdElements: getMxdElements,
 			printCustomMap: printCustomMap,

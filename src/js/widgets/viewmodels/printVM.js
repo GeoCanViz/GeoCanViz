@@ -75,20 +75,22 @@
 				_self.isPrintDialogOpen = ko.observable(false);
 				_self.DPIs = ko.observableArray(DPIValues);
 				_self.printUrl = mapframe.map.urlprint;
-				_self.printUrlElements = mapframe.map.urlprintElements;
+				_self.printUrlElements = mapframe.map.urlprintelements;
 				_self.selectedValue = ko.observable();
 				_self.layoutValue = ko.observable();
 				_self.selectedDPIValue = ko.observable();
 				_self.preserve = ko.observable('extent');
 				_self.forceScaleValue = ko.observable().extend({ numeric: { precision: 0, validation: { min: 0 } } });
-				_self.urlhtmltemplates = mapframe.map.urlhtmltemplates;
+				_self.urltemplates = mapframe.map.urltemplates;
+				_self.urlhtml = mapframe.map.urlhtml;
+				_self.project = printOption.project;
 				_self.layoutValue.subscribe(function(layout) {
 					if (printType === 1) {
 						printTypeString = 'html';
 					} else {
 						printTypeString = 'mxd';
 					}
-					gisprint.getTemplates(_self.urlhtmltemplates, layout, printTypeString).done(function(templates) {
+					gisprint.getTemplates(_self.urltemplates, layout, printTypeString, _self.project).done(function(templates) {
 						_self.availableTemplates.removeAll();
 						template = templates.split(',');
 						template.forEach(function(value) {
@@ -106,7 +108,7 @@
 			 		clearElements();
 			 		if (templateName !== _self.noTemplateMessage && templateName !== undefined) {
 				 		if (printType === 1) {
-				 			getHTMLElements(templateName, _self.layoutValue().toString());
+				 			getHTMLElements(_self.urlhtml, templateName, _self.layoutValue().toString());
 				 		}
 				 		else {
 				 			gisprint.getMxdElements(_self.printUrlElements, templateName);
@@ -133,8 +135,8 @@
 					var templatepath;
 
 					if (printType === 1) {
-						templatepath = locationPath + 'gcviz/print/' + lang + '/' + _self.selectedValue().toString();
-						gisprint.printBasicMap(_self.mymap, _self.printUrl, templatepath, _self.preserve().toString(), _self.forceScaleValue().toString().trim());
+						templatepath = _self.urlhtml + '/' + lang + '/' + _self.selectedValue().toString();
+						gisprint.printBasicMap(_self.mymap, _self.printUrl, templatepath, _self.preserve().toString(), _self.forceScaleValue().toString().trim(), _self.selectedDPIValue());
 					}
 					else {
 						gisprint.printCustomMap(_self.mymap, _self.printUrl, _self.selectedValue().toString(), _self.preserve().toString(), _self.selectedDPIValue(), _self.forceScaleValue().toString().trim());
@@ -174,13 +176,15 @@
 			$viz(printMapSurroundElements).empty();
 		};
 
-		getHTMLElements = function(templateName , layout) {
-			var url = locationPath + "gcviz/print/" + lang + "/" + templateName,
+		getHTMLElements = function(htmlUrl, templateName , layout) {
+			var url =  htmlUrl + '/' + lang + '/' + templateName,
 				printTextElements = document.getElementById('gcviz-printTextElements'),
+				printMapSurroundElements = document.getElementById('gcviz-printMapSurroundElements'),
 			    printPictureElements = document.getElementById('gcviz-printPictureElements');
 
 			$viz(printTextElements).empty();
 			$viz(printPictureElements).empty();
+			$viz(printMapSurroundElements).empty();
 						
 			$viz.get(url, function(data) {
 				var $html = $(data),
@@ -210,16 +214,41 @@
 				$html.find('[id^=gcviz-lblimgx]').andSelf().filter('[id^=gcviz-lblimgx]').each(function() {
 					id = this.id;
 					label = $(this).text();
-					newElement = ('<div class="gcviz-printRow"><div class="gcviz-printColLabel"><span class="gcviz-printLabel">' + label + '</span></div><div class="gcviz-printCol"><input type="text" id="gcviz-print' + id + '" name="' + label + '"></input><div>');
+					newElement = ('<div class="gcviz-printRow"><div class="gcviz-printColLabel"><span class="gcviz-printLabel">' + label + '</span></div><div class="gcviz-printCol"><input type="text" id="' + id + '" name="' + label + '"></input><div>');
 					orderedElements.push(new labelItem(id.split('gcviz-lblimgx')[1], id, newElement));
 				});
 
 				sortElements(orderedElements).forEach(function (value, index) {
 					$viz(printPictureElements).append(value.NewElement);
 				});
+
+				orderedElements = [];
+
+				$html.find('[id^=gcviz-scalebar]').andSelf().filter('[id^=gcviz-scalebar]').each(function() {
+					id = this.id;
+					label = $(this).text();
+					newElement = ('<div class="gcviz-printRow"><div class="gcviz-printColLabel"><span class="gcviz-printLabel">' + label + '</span></div><div class="gcviz-printCol"><input type="checkbox" id="' + id + '" name="' + label + '"></input></div>');
+					orderedElements.push(new labelItem(id.split('gcviz-scalebar')[1], id, newElement));
+				});
+
+			    $html.find('[id^=gcviz-scaletext]').andSelf().filter('[id^=gcviz-scaletext]').each(function() {
+					id = this.id;
+					label = $(this).text();
+					newElement = ('<div class="gcviz-printRow"><div class="gcviz-printColLabel"><span class="gcviz-printLabel">' + label + '</span></div><div class="gcviz-printCol"><input type="checkbox" id="' + id + '" name="' + label + '"></input></div>');
+					orderedElements.push(new labelItem(id.split('gcviz-scaletext')[1], id, newElement));
+				});
+
+				$html.find('[id^=gcviz-arrow]').andSelf().filter('[id^=gcviz-arrow]').each(function() {
+					id = this.id;
+					label = $(this).text();
+					newElement = ('<div class="gcviz-printRow"><div class="gcviz-printColLabel"><span class="gcviz-printLabel">' + label + '</span></div><div class="gcviz-printCol"><input type="checkbox" id="' + id + '" name="' + label + '"></input></div>');
+					orderedElements.push(new labelItem(id.split('gcviz-arrow')[1], id, newElement));
+				});
 				
+				sortElements(orderedElements).forEach(function (value, index) {
+					$viz(printMapSurroundElements).append(value.NewElement);
+				}); 
 			});
-			
 		};
 		
 		sortElements = function(elements) {
