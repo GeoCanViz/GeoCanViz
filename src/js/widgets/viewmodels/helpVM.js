@@ -44,6 +44,7 @@
 					$helpLeg = $helpSect.find('.gcviz-help-tbleg'),
 					$helpData = $helpSect.find('.gcviz-help-tbdata'),
 					$helpExtract = $helpSect.find('.gcviz-help-tbextract'),
+					$helpDatagrid = $helpSect.find('.gcviz-help-datagrid'),
 					$helpDev = $helpSect.find('.gcviz-help-dev');
 
 				// viewmodel mapid to be access in tooltip custom binding
@@ -185,7 +186,8 @@
 
 				// data text
 				_self.dataTitle = i18n.getDict('%help-data-title');
-				_self.dataAdd = i18n.getDict('%help-data-add');
+				_self.dataAddFile = i18n.getDict('%help-data-addfile');
+				_self.dataAddURL = i18n.getDict('%help-data-addurl');
 				_self.dataSampleTitle = i18n.getDict('%help-data-sampletitle');
 				_self.dataSample = i18n.getDict('%help-data-sample');
 				_self.dataRemove = i18n.getDict('%help-data-remove');
@@ -196,6 +198,43 @@
 				_self.extClick = i18n.getDict('%help-extract-click');
 				_self.extLink = i18n.getDict('%help-extract-link');
 				_self.extDesc2 = i18n.getDict('%help-extract-desc2');
+
+				// datagrid text
+				_self.datagridTitle = i18n.getDict('%help-datagrid-title');
+				_self.dgDesc1 = i18n.getDict('%help-datagrid-desc1');
+				_self.dgDesc2 = i18n.getDict('%help-datagrid-desc2');
+				_self.dgDesc3 = i18n.getDict('%help-datagrid-desc3');
+				_self.dgDesc4 = i18n.getDict('%help-datagrid-desc4');
+				_self.dgDesc5 = i18n.getDict('%help-datagrid-desc5');
+				_self.dgZoomTitle = i18n.getDict('%help-datagrid-zoomtitle');
+				_self.dgZoomDesc = i18n.getDict('%help-datagrid-zoomdesc');
+				_self.dgSelectDesc = i18n.getDict('%help-datagrid-selectdesc');
+				_self.dgFilterTitle = i18n.getDict('%help-datagrid-filtertitle');
+				_self.dgFilterDesc = i18n.getDict('%help-datagrid-filterdesc');
+				_self.dgFilterClear = i18n.getDict('%help-datagrid-filterclear');
+				_self.dgFilterTypeDesc = i18n.getDict('%help-datagrid-filtertypedesc');
+				_self.dgFilterString = i18n.getDict('%help-datagrid-filtertypestring');
+				_self.dgFilterNum = i18n.getDict('%help-datagrid-filtertypenum');
+				_self.dgFilterSelect = i18n.getDict('%help-datagrid-filtertypeselect');
+				_self.dgFilterDate = i18n.getDict('%help-datagrid-filtertypedate');
+				_self.dgFilterApply = i18n.getDict('%help-datagrid-filterapply');
+				_self.dgFilterSelect = i18n.getDict('%help-datagrid-filterspatial');
+				_self.dgLinkTitle = i18n.getDict('%help-datagrid-linktitle');
+				_self.dgLinkDesc = i18n.getDict('%help-datagrid-linkdesc');
+				_self.dgLinkOpen = i18n.getDict('%help-datagrid-linkopen');
+				_self.dgLinkClose = i18n.getDict('%help-datagrid-linkclose');
+				_self.dgExportTitle = i18n.getDict('%help-datagrid-exporttitle');
+				_self.dgExportDesc = i18n.getDict('%help-datagrid-exportdesc');
+				_self.dgPopTitle = i18n.getDict('%help-datagrid-poptitle');
+				_self.dgPopDesc1 = i18n.getDict('%help-datagrid-popdesc1');
+				_self.dgPopDesc2 = i18n.getDict('%help-datagrid-popdesc2');
+				_self.dgPopDesc3 = i18n.getDict('%help-datagrid-popdesc3');
+				_self.dgPopDesc4 = i18n.getDict('%help-datagrid-popdesc4');
+				_self.dgPopDesc5 = i18n.getDict('%help-datagrid-popdesc5');
+				_self.dgPopZoom = i18n.getDict('%help-datagrid-popzoom');
+				_self.dgPopPrevious = i18n.getDict('%help-datagrid-popprevious');
+				_self.dgPopNext = i18n.getDict('%help-datagrid-popnext');
+				_self.dgPopDesc6 = i18n.getDict('%help-datagrid-popdesc6');
 
 				// developer's corner text
 				_self.devTitle = i18n.getDict('%help-dev-title');
@@ -219,6 +258,7 @@
 					_self.noLeg = ($helpLeg.length > 0) ? false : true;
 					_self.noData = ($helpData.length > 0) ? false : true;
 					_self.noExtract = ($helpExtract.length > 0) ? false : true;
+					_self.noDatagrid = ($helpDatagrid.length > 0) ? false : true;
 
 					// set global dialog to be able to open help from
 					// outisede the view model. This way, it is easy
@@ -263,6 +303,8 @@
 						$helpSect.scrollTo($helpData);
 					} else if (section === 'extract') {
 						$helpSect.scrollTo($helpExtract);
+					} else if (section === 'datagrid') {
+						$helpSect.scrollTo($helpDatagrid);
 					} else if (section === 'dev') {
 						$helpSect.scrollTo($helpDev);
 					}

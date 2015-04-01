@@ -13,6 +13,7 @@
 		var debounce,
 			debounceClick,
 			closureFunc,
+			validateURL,
 			addTooltip,
 			setStyle,
 			getFullscreenParam,
@@ -83,6 +84,22 @@
 				newArgs.push.apply(newArgs, arguments);
 				return fn.apply(this, newArgs);
 			};
+		};
+
+		// http://stackoverflow.com/questions/5717093/check-if-a-javascript-string-is-an-url
+		validateURL = function (str) {
+			var pattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
+				'((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // domain name
+				'((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
+				'(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
+				'(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
+				'(\\#[-a-z\\d_]*)?$','i');
+
+			if (!pattern.test(str)) {
+				return false;
+			} else {
+				return true;
+			}
 		};
 
 		addTooltip = function($element, userOpts) {
@@ -371,6 +388,7 @@
 			debounce: debounce,
 			debounceClick: debounceClick,
 			closureFunc: closureFunc,
+			validateURL: validateURL,
 			addTooltip: addTooltip,
 			setStyle: setStyle,
 			getFullscreenParam: getFullscreenParam,

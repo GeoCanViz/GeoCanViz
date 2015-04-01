@@ -30,6 +30,7 @@
 			var datagridViewModel = function($mapElem, mapid, config) {
 				var _self = this,
 					objDataTable, menuState,
+					drawTool = [],
 					triggerTableId = [],
 					activeTableId = -1,
 					delay = 400, clicks = 0, timer = null,
@@ -92,15 +93,19 @@
 				_self.progressTitle = i18n.getDict('%datagrid-protitle');
 				_self.progressDesc = i18n.getDict('%datagrid-prodesc');
 
+				// text for export dialog
+				_self.exportTitle = i18n.getDict('%datagrid-exptitle');
+				_self.exportDesc = i18n.getDict('%datagrid-expdesc');
+
 				// WCAG
 				_self.WCAGTitle = i18n.getDict('%wcag-title');
 				_self.lblWCAGx = i18n.getDict('%wcag-xlong');
 				_self.lblWCAGy = i18n.getDict('%wcag-ylat');
 				_self.lblWCAGmsgx = i18n.getDict('%wcag-msgx');
 				_self.lblWCAGmsgy = i18n.getDict('%wcag-msgy');
-				_self.xValueMin = ko.observable(140).extend({ numeric: { precision: 3, validation: { min: 50, max: 140 } } });
+				_self.xValueMin = ko.observable(140).extend({ numeric: { precision: 3, validation: { min: 40, max: 150 } } });
 				_self.yValueMin = ko.observable(40).extend({ numeric: { precision: 3, validation: { min: 40, max: 80 } } });
-				_self.xValueMax = ko.observable(50).extend({ numeric: { precision: 3, validation: { min: 50, max: 140 } } });
+				_self.xValueMax = ko.observable(50).extend({ numeric: { precision: 3, validation: { min: 40, max: 150 } } });
 				_self.yValueMax = ko.observable(80).extend({ numeric: { precision: 3, validation: { min: 40, max: 80 } } });
 				_self.isWCAG = ko.observable(false);
 				_self.isDialogWCAG = ko.observable(false);
@@ -117,6 +122,9 @@
 
 				// variable to start the progress dialog
 				_self.isWait = ko.observable(false);
+
+				// variable to start export csv message
+				_self.isExport = ko.observable(false);
 
 				_self.init = function() {
 					var intervalModal;
@@ -190,7 +198,7 @@
 				};
 
 				_self.getData = function(layer, pos) {
-					var urlFull, strField,
+					var urlFull, strField, field, fieldType,
 						layerInfo = layer.layerinfo,
 						layerIndex = layerInfo.index,
 						type = layerInfo.type,
@@ -206,7 +214,14 @@
 					// get list of fields to query
 					strField = '';
 					while (fieldsLen--) {
-						strField += fields[fieldsLen].data + ',';
+						field = fields[fieldsLen];
+						fieldType = field.type;
+						strField += field.data + ',';
+
+						// add url value field if type field === url
+						if (fieldType.field === 'url') {
+							strField += fieldType.urlfield + ',';
+						}
 					}
 
 					// add the objectid (if not present)
@@ -554,7 +569,7 @@
 									val = $.fn.dataTable.util.escapeRegex($(this).val());
 								$process.css('display', 'block');
 								setTimeout(function() {
-									table.column(colIdx).search(val ? '^' + val + '$' : '', true, false).draw();
+									table.column(colIdx).search(val ? '^.*\\b' + val + '\\b.*$' : '', true, false).draw();
 									$process.css('display', 'none');
 								}, 100);
 							});
@@ -630,32 +645,40 @@
 				};
 
 				_self.createFields = function(layer, link) {
-					var field,
+					var field, typeObj,
 						fields = layer.fields,
 						lenFields = fields.length;
 
-					// add ... to string field when length is more then 40 characters
 					while (lenFields--) {
 						field = fields[lenFields];
+						typeObj = field.type;
 
-						field.render = function(data, type) {
-							if (data !== null && typeof data !== 'undefined') {
-								// remove double quote
-								if (typeof data === 'string') {
-									data = data.replace(/"/g, '');
+						// if url, construct it.
+						// if nothing, add ... to string field when length is more then 40 characters
+						if (typeObj.field === 'url') {
+							field.render = gcvizFunc.closureFunc(function(typeObj, data, type, full) {
+								return '<a href="' + full[typeObj.urlfield] + '" target="_blank">' + data + '</a>';
+							}, typeObj);
+						} else {
+							field.render = function(data, type) {
+								if (data !== null && typeof data !== 'undefined') {
+									// remove double quote
+									if (typeof data === 'string') {
+										data = data.replace(/"/g, '');
+									}
+	
+									// for wcag we add a text input read only. This element is focusable so we can have
+									// the tooltip. Wrap in a relative position div to have the tooltip at the right
+									// after a scroll
+									return type === 'display' && data.length > 40 ?
+									'<div style="position: relative;"><span title="'+ data +'">' + data.substr(0, 38) + '</span>' +
+									'<input type="text" readOnly=true value= "..." class="gcviz-datagrid-stringbtn"></input>' +
+									'<span class="gcviz-datagrid-stringtp">' + data + '</span></div>' : data;
+								} else {
+									return data;
 								}
-
-								// for wcag we add a text input read only. This element is focusable so we can have
-								// the tooltip. Wrap in a relative position div to have the tooltip at the right
-								// after a scroll
-								return type === 'display' && data.length > 40 ?
-								'<div style="position: relative;"><span title="'+ data +'">' + data.substr(0, 38) + '</span>' +
-								'<input type="text" readOnly=true value= "..." class="gcviz-datagrid-stringbtn"></input>' +
-								'<span class="gcviz-datagrid-stringtp">' + data + '</span></div>' : data;
-							} else {
-								return data;
-							}
-						};
+							};
+						}
 					}
 
 					// if there is a link table, add link column
@@ -707,7 +730,10 @@
 							activate: function(e, ui) {
 								// redraw to align header and column
 								activeTableId = parseInt(ui.newPanel[0].id.split('-')[2], 10);
-								objDataTable[activeTableId].draw();				
+								objDataTable[activeTableId].draw();
+
+								// show spatial filter only for this table
+								gisDG.showSpatialExtent('spatial-' + activeTableId);
 							}
 						});
 						$datagrid.accordion('refresh');
@@ -799,7 +825,13 @@
 							if (menuState !== false) {
 								$menu.accordion('option', 'active', false);
 							}
-	
+
+							// set event for the toolbar
+							$menu.on('accordionbeforeactivate', function() {
+								$menu.off();
+								_self.selExtent();
+							});
+
 							// remove popup click event if it is there to avoid conflict then
 							// call graphic class to draw on map.
 							gisDG.removeEvtPop();
@@ -808,7 +840,7 @@
 							// so popup is not available. To resolve this, resize map.
 							mymap.resize();
 	
-							gisGraphic.drawBox(mymap, true, _self.selExtent);
+							drawTool = gisGraphic.drawBox(mymap, true, _self.selExtent);
 	
 							// focus the map
 							gcvizFunc.focusMap(mymap, true);
@@ -994,8 +1026,8 @@
 					}
 				};
 
-				_self.selectAll = function(field, val, graphic) {
-					var row, rows, len, tableId,
+				_self.selectAll = function(fields, val, graphic) {
+					var row, rows, len, tableId, fieldsLen,
 						i = 0,
 						info = { };
 
@@ -1005,13 +1037,19 @@
 					len = rows.length;
 					while (i !== len) {
 						row = rows[i];
-						row[field] = val;
-						info.feat = parseInt(row.gcvizid.split('-')[1], 10);
 
-						if (val && graphic) {
-							gisDG.selectFeature(row.geometry, info);
-						} else {
+						// loop trought fields
+						fieldsLen = fields.length;
+						while (fieldsLen--) {
+							row[fields[fieldsLen]] = val;
+						}
+
+						// set info and select or unselect
+						info.feat = parseInt(row.gcvizid.split('-')[1], 10);
+						if (!val || !graphic) {
 							gisDG.unselectFeature('sel' + '-' + activeTableId + '-' + info.feat);
+						} else {
+							gisDG.selectFeature(row.geometry, info);
 						}
 						i++;
 					}
@@ -1066,6 +1104,12 @@
 						rtnCarr = String.fromCharCode(13),
 						dataLen = data.length;
 
+					// show info window only there is a huge amount of data to process
+					if (dataLen > 2000) {
+						// show info window
+						_self.isExport(true);
+					}
+
 					// get the row title
 					row = data[0];
 					for (var field in row) {
@@ -1112,6 +1156,10 @@
 					});
 				};
 
+				_self.dialogExportOk = function() {
+					_self.isExport(false);
+				};
+
 				_self.clearFilter = function(target) {
 					var $elems = $viz(target.parentElement.parentElement).find('.gcviz-dg-search'),
 						$process = $viz('.dataTables_processing'),
@@ -1123,8 +1171,11 @@
 						triggerTableId[index] = '';
 					}
 
-					// remove spatial selection
-					_self.selectAll('gcvizspatial', false, false);
+					// remove spatial selection and selection for zoom
+					_self.selectAll(['gcvizspatial', 'gcvizcheck'], false, false);
+
+					// remove spatial filter extent
+					gisDG.unselectFeature('spatial-' + activeTableId);
 
 					// clear definition query
 					_self.applyDefQuery(infoLayer, '');
@@ -1142,7 +1193,7 @@
 				};
 
 				_self.applyFilterMap = function(target) {
-					var input, val, name, lyrDef,
+					var input, val, name, lyrDef, dateTmp,
 						defs = [],
 						definition = '',
 						table = objDataTable[activeTableId],
@@ -1167,6 +1218,14 @@
 								}
 							} else if (input.hasClass('gcviz-dg-searchdrop')) {
 								defs.push('UPPER(' + name + ') LIKE \'%' + val.toUpperCase() + '%\'');
+							} else if (input.hasClass('gcviz-dg-searchdate')) {
+								if (input.attr('placeholder') === 'Date Min') {
+									dateTmp = val.split('-');
+									defs.push(name + ' >= DATE \'' + dateTmp[1] + '/' + dateTmp[2] + '/' + dateTmp[0] + ' 00:00:00\'');
+								} else if (input.attr('placeholder') === 'Date Max') {
+									dateTmp = val.split('-');
+									defs.push(name + ' <= DATE \'' + dateTmp[1] + '/' + dateTmp[2] + '/' + dateTmp[0] + ' 00:00:00\'');
+								}
 							}
 						}
 					}
@@ -1194,7 +1253,10 @@
 				};
 
 				_self.concatDefQuery = function(layerInfo, defQuery, spatial) {
-					var iStart, iEnd, tmpStr, tmpStrLen,
+					var iStart, iEnd, tmpStrLen,
+						queryLen,
+						queryNoId = '',
+						tmpStr = '',
 						lyrDef = '',
 						layerType = layerInfo.type,
 						layerId = layerInfo.id;
@@ -1231,20 +1293,27 @@
 							if (tmpStr.indexOf(' AND ') === 0) {
 								tmpStr = tmpStr.substring(5, tmpStrLen);
 							}
-							if (tmpStr.indexOf(' AND ') === tmpStrLen - 5) {
+							if (tmpStr.lastIndexOf(' AND ') === tmpStrLen - 5) {
 								tmpStr = tmpStr.substring(0, tmpStrLen - 5);
 							}
 
-							// combine query
-							if (tmpStr !== '') {
-								defQuery += ' AND ' + tmpStr;
-							}
+							queryNoId = tmpStr;
 						} else {
-							// combine query
-							if (tmpStr !== '') {
-								defQuery += ' AND ' + tmpStr;
-							}
+							queryNoId = defQuery;
 						}
+
+						// combine query
+						if (tmpStr !== '' && defQuery !== '') {
+							defQuery += ' AND ' + tmpStr;
+						} else if (tmpStr !== '') {
+							defQuery = tmpStr;
+						}
+					}
+
+					// combine query if it dont exceed the 2048 characters limits on definition query
+					queryLen = defQuery.length;
+					if (queryLen > 2048) {
+						defQuery = queryNoId;
 					}
 					
 					return defQuery;
@@ -1252,54 +1321,16 @@
 
 				_self.dialogWCAGOk = function() {
 					var arr,
-						minY = _self.yValueMin(),
-						minX = _self.xValueMin(),
-						maxY = _self.yValueMax(),
-						maxX = _self.xValueMax();
-
-					// create a polygon from extent
-					arr = new Array(5);
-					arr[0] = [-minX, minY];
-					arr[1] = [-minX, maxY];
-					arr[2] = [-maxX, maxY];
-					arr[3] = [-maxX, minY];
-					
-					arr[4] = [-60, minY];
-					arr[5] = [-70, minY];
-					arr[6] = [-80, minY];
-					arr[7] = [-90, minY];
-					arr[8] = [-100, minY];
-					arr[9] = [-110, minY];
-					arr[10] = [-120, minY];
-					arr[11] = [-130, minY];
-					
-					arr[12] = [-minX, minY];
+						ymin = _self.yValueMin(),
+						xmin = _self.xValueMin(),
+						ymax = _self.yValueMax(),
+						xmax = _self.xValueMax();
 					
 					// draw box
-					gisGraphic.drawWCAGBox(arr, 4326, mymap.vWkid, _self.selExtent);
+					gisGraphic.drawWCAGBox(xmin, ymin, xmax, ymax, 4326, mymap.vWkid, _self.selExtent);
 
 					// close window
 					_self.isDialogWCAG(false);
-				};
-
-				_self.drawWCAGbox = function(geom) {
-					var tmp,
-						arr = new Array(5);
-
-					// create array with projected coord
-					tmp = geom[0];
-					arr[0] = [tmp.x, tmp.y];
-					tmp = geom[1];
-					arr[1] = [tmp.x, tmp.y];
-					tmp = geom[2];
-					arr[2] = [tmp.x, tmp.y];
-					tmp = geom[3];
-					arr[3] = [tmp.x, tmp.y];
-					tmp = geom[4];
-					arr[4] = [tmp.x, tmp.y];
-
-					// draw box
-					gisGraphic.drawWCAGBox(arr, mymap.vWkid, _self.selExtent);
 				};
 
 				_self.dialogWCAGCancel = function() {
@@ -1314,17 +1345,23 @@
 					var info, url, layerInfo,
 						type,
 						len, i, graphic, graphics, features;
-			
-			var aa = {table: 0, feat: 0};
-gisDG.selectFeature(geometry[0].geometry, aa);
 
 					// remove draw box cursor
 					$container.css('cursor', '');
+
+					// deactivate tool and click event if user opens menu or press esc
+					drawTool[0].deactivate();
+					drawTool[1].remove();
 
 					// put back popup click event
 					gisDG.addEvtPop();
 
 					if (typeof geometry !== 'undefined') {
+						// geometry can be object or array
+						if (typeof geometry.length !== 'undefined') {
+							geometry = geometry[0].geometry;
+						}
+
 						// get layerinfo
 						info = arrLayerInfo[activeTableId];
 						layerInfo = info.layerinfo;
@@ -1340,7 +1377,8 @@ gisDG.selectFeature(geometry[0].geometry, aa);
 								url += '/' + layerInfo.index;
 							}
 
-							// call query task to get selection
+							// draw extent for spatial filter then call query task to get selection
+							gisDG.drawSpatialExtent(geometry, 'spatial-' + activeTableId, true);
 							gisDG.getSelection(url, mymap.vWkid, geometry, _self.setSelection);
 						} else {
 							graphics = mymap.getLayer(layerInfo.id).graphics;
@@ -1356,7 +1394,9 @@ gisDG.selectFeature(geometry[0].geometry, aa);
 							 	}
 								i++;
 							}
-						
+
+							// draw extent for spatial filter then set selection
+							gisDG.drawSpatialExtent(geometry, 'spatial-' + info.table, true);
 							_self.setSelection(features);
 						}
 					}
@@ -1393,7 +1433,7 @@ gisDG.selectFeature(geometry[0].geometry, aa);
 
 						if (featIds.indexOf(dataId) !== -1) {
 							item.gcvizspatial = true;
-						} else if (item.gcvizcheck) {
+						} else if (item.gcvizspatial) {
 							item.gcvizspatial = false;
 						}
 						i++;
@@ -1489,8 +1529,9 @@ gisDG.selectFeature(geometry[0].geometry, aa);
 					var info, linkInfo,
 						attrNames, attrValues,
 						field, fields, lenFields,
+						fieldType,
 						layer, popups,
-						staticFields = 2,
+						staticFields = 1,
 						linkNode = '',
 						layerName = gcvizFunc.getLookup(lookPopups, currentFeature.layerName),
 						feature = currentFeature.feature,
@@ -1524,8 +1565,8 @@ gisDG.selectFeature(geometry[0].geometry, aa);
 							// check if there is a link table and get data
 							linkInfo = layer.linktable;
 							if (linkInfo.enable) {
-								// set to 3 because the 3 last field are for select (spatial and graphic) and link 
-								staticFields = 3;
+								// set to 2 because the 2 last field are for select graphic and link 
+								staticFields = 2;
 
 								linkNode = _self.getLinkNode(linkInfo, layer.layerinfo.id, attributes.OBJECTID);
 							}
@@ -1537,9 +1578,18 @@ gisDG.selectFeature(geometry[0].geometry, aa);
 
 								for (var l = 0; l < attrNames.length; l++) {
 									if (field.dataalias.toUpperCase() === attrNames[l].toUpperCase()) {
-										info = '<span class="gcviz-prop">' + field.title + '</span>' +
-												'<p class="gcviz-val">' + attrValues[l] + '</p>' +
-												info;
+										fieldType = field.type.field;
+
+										// if url, construct it
+										if (fieldType === 'url') {
+											info = '<span class="gcviz-prop">' + field.title + '</span></br>' +
+													'<a class="gcviz-popup-val" href="' + attrValues[gcvizFunc.returnIndexMatch(attrNames, field.type.urlfieldalias)] + '" target="_blank">' + attrValues[l] + '</a></br>' +
+													info;
+										} else {
+											info = '<span class="gcviz-prop">' + field.title + '</span>' +
+													'<p class="gcviz-popup-val">' + attrValues[l] + '</p>' +
+													info;
+										}
 									}
 								}
 							}
@@ -1783,6 +1833,7 @@ gisDG.selectFeature(geometry[0].geometry, aa);
 				data.layerid = layerId;
 				data.gcvizid = table + '-' + lenFeat;
 				data.gcvizcheck = false;
+				data.gcvizspatial = false;
 				datas.push(data);
 			}
 

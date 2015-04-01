@@ -16,17 +16,36 @@
 			var $toolbar,
 				config = $mapElem.toolbardata,
 				mapid = $mapElem.mapframe.id,
+				datafile = config.datafile,
+				dataurl = config.dataurl,
 				node = '';
 
 			// find toolbar and start to add items
 			$toolbar = $mapElem.find('.gcviz-tbdata-content');
 
-			// set add data button
-			if (config.data.enable) {
-				node += '<input id="fileDialogData" type="file" accept=".csv" data-bind="event: { change: addClick }" tabindex="-1"></input>' +
+			// set add data from file button
+			if (datafile.enable) {
+				// CSV file
+				node += '<input id="fileDialogData" type="file" accept=".csv" data-bind="event: { change: addFileClick }" tabindex="-1"></input>' +
 						'<div class="row">' +
 							'<div class="span1"><button id="btnAddCSV' + mapid + '" class="gcviz-data-add" tabindex="0" data-bind="buttonBlur, click: launchDialog, attr: { alt: tpAdd }"></button></div>' +
 							'<div class="span11"><label class="gcviz-label gcviz-nav-lblpos" for="btnAddCSV' + mapid + '" data-bind="text: lblCSV"></label></div>' +
+						'</div>';
+			}
+
+			// set add data from file button
+			if (dataurl.enable) {
+				// File from URL
+				node += '<div class="row">' +
+							'<div class="span1"><button id="btnAddUrl' + mapid + '" class="gcviz-data-add" tabindex="0" data-bind="buttonBlur, click: addURLClick, attr: { alt: tpAdd }"></button></div>' +
+							'<div class="span11"><label class="gcviz-label gcviz-nav-lblpos" for="btnAddUrl' + mapid + '" data-bind="text: lblUrl"></label></div>' +
+						'</div>' +
+						'<div data-bind="uiDialog: { title: lblUrlTitle, width: 450, height: 220, ok: dialogUrlOk, cancel: dialogUrlCancel, close: dialogUrlClose, openDialog: \'isUrlDialogOpen\' }">' +
+							'<div>' +
+								'<form><fieldset>' +
+									'<input class="gcviz-data-textinput text ui-widget-content ui-corner-all" data-bind="value: addUrlValue, valueUpdate: \'afterkeydown\', returnKey: dialogUrlOkEnter, attr: { alt: lblUrlTitle }"/>' +
+								'</fieldset></form>' +
+							'</div>' +
 						'</div>';
 			}
 

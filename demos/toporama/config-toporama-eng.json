@@ -142,7 +142,7 @@
                     "url": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/BaseMaps/CBMT_CBCT_GEOM_3978/MapServer",
                     "scale": {
                         "min": 0,
-                        "max": 17500
+                        "max": 0
                     }
                 }, {
                     "label": "CBME_CBCE_HS_RO_3978",
@@ -151,7 +151,7 @@
                     "url": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/BaseMaps/CBME_CBCE_HS_RO_3978/MapServer",
                     "scale": {
                         "min": 0,
-                        "max": 17500
+                        "max": 0
                     }
                 }, {
                     "label": "Imagery Lansat7",
@@ -160,7 +160,7 @@
                     "url": "http://maps.geogratis.gc.ca/wms/canimage_en",
                     "scale": {
                         "min": 0,
-                        "max": 10000
+                        "max": 0
                     },
                     "options": {
                         "layerinfos": [{
@@ -277,30 +277,6 @@
                             "title": "Water saturated soils"
                         }],
                         "visiblelayers": ["water_saturated_soils"],
-                        "scale": {
-                            "min": 250000,
-                            "max": 0
-                        },
-                        "cluster": {
-                            "enable": false,
-                            "distance": 50,
-                            "label": false,
-                            "symbol": false,
-                            "maxsizeprop": 50,
-                            "maxdataprop": 1000
-                        }
-                    }
-                }, {
-                    "label": "toporama_water_features",
-                    "id": "bbbb469d-bbb4-c8f5-175c-645280a6b6fe",
-                    "type": 3,
-                    "url": "http://wms.ess-ws.nrcan.gc.ca/wms/toporama_en",
-                    "options": {
-                        "layerinfos": [{
-                            "name": "water_features",
-                            "title": "Water features"
-                        }],
-                        "visiblelayers": ["water_features"],
                         "scale": {
                             "min": 250000,
                             "max": 0
@@ -483,6 +459,30 @@
                         }
                     }
                 }, {
+                    "label": "toporama_Aeronautical features",
+                    "id": "bbbb469d-dab3-c8f5-175c-645281a6b6fe",
+                    "type": 3,
+                    "url": "http://wms.ess-ws.nrcan.gc.ca/wms/toporama_en",
+                    "options": {
+                        "layerinfos": [{
+                            "name": "aeronautical_network",
+                            "title": "aeronautical_network"
+                        }],
+                        "visiblelayers": ["aeronautical_network"],
+                        "scale": {
+                            "min": 0,
+                            "max": 0
+                        },
+                        "cluster": {
+                            "enable": false,
+                            "distance": 50,
+                            "label": false,
+                            "symbol": false,
+                            "maxsizeprop": 50,
+                            "maxdataprop": 1000
+                        }
+                    }
+                }, {
                     "label": "toporama_road_network",
                     "id": "bbbb469d-ddd3-c8f5-175c-645281a6b6fe",
                     "type": 3,
@@ -555,30 +555,6 @@
                         }
                     }
                 }, {
-                    "label": "toporama_populated_places",
-                    "id": "bbbb469d-fff2-c8f5-175c-645283a6b6fe",
-                    "type": 3,
-                    "url": "http://wms.ess-ws.nrcan.gc.ca/wms/toporama_en",
-                    "options": {
-                        "layerinfos": [{
-                            "name": "populated_places",
-                            "title": "populated_places"
-                        }],
-                        "visiblelayers": ["populated_places"],
-                        "scale": {
-                            "min": 30000000,
-                            "max": 0
-                        },
-                        "cluster": {
-                            "enable": false,
-                            "distance": 50,
-                            "label": false,
-                            "symbol": false,
-                            "maxsizeprop": 50,
-                            "maxdataprop": 1000
-                        }
-                    }
-                }, {
                     "label": "toporama",
                     "id": "bbbb469d-gggg-c8f5-175c-645270a6b6fe",
                     "type": 3,
@@ -602,7 +578,7 @@
                             "maxdataprop": 1000
                         }
                     }
-                },{
+                }, {
                     "label": "Geobase_Flow_Hydro",
                     "id": "bbbb469d-mmmm-c8f5-175c-645270a6b6fe",
                     "type": 3,
@@ -626,7 +602,7 @@
                             "maxdataprop": 1000
                         }
                     }
-                },{
+                }, {
                     "label": "Geobase_Flow_Hydro",
                     "id": "bbbb469d-kkkk-c8f5-175c-645270a6b6fe",
                     "type": 3,
@@ -741,7 +717,7 @@
                     "images": []
                 },
                 "items": []
-            },{
+            }, {
                 "expand": false,
                 "last": true,
                 "type": 2,
@@ -926,9 +902,9 @@
                 "items": [{
                     "expand": false,
                     "last": false,
-                    "type": 0,
-                    "id": "9f66a0dd-fff3-bfff-c7b8-8a56f66cf92b",
-                    "graphid": "8a9bb0ab-0006-32b1-6715-be42194945aa",
+                    "type": 3,
+                    "id": "bbbb469d-fff1-c8f5-175c-645287a6b6fe",
+                    "graphid": "e5511402-0007-5cbe-0d3c-f537c612b7df",
                     "displayfields": false,
                     "label": {
                         "value": "Place and Feature Names",
@@ -938,7 +914,7 @@
                         "enable": false
                     },
                     "opacity": {
-                        "enable": false,
+                        "enable": true,
                         "min": 0,
                         "max": 1,
                         "initstate": 1
@@ -950,122 +926,46 @@
                         "radioid": 0
                     },
                     "displaychild": {
-                        "enable": true
+                        "enable": false,
+                        "symbol": ""
                     },
                     "customimage": {
-                        "enable": false,
-                        "description": "",
-                        "images": []
+                        "enable": true,
+                        "description": "Abbreviation: (FN): First Nation",
+                        "images": [{
+                            "url": "./images/legend/new/place_names.gif",
+                            "label": "Place Name / Geographic Feature Names / Administrative Area names"
+                        }, {
+                            "url": "./images/legend/new/hydro_names.gif",
+                            "label": "Hydrographic Names"
+                        }, {
+                            "url": "./images/legend/new/pop_0-999.gif",
+                            "label": "0 - 999"
+                        }, {
+                            "url": "./images/legend/new/pop_1000-4999.gif",
+                            "label": "1 000 - 4 999"
+                        }, {
+                            "url": "./images/legend/new/pop_5000-24999.gif",
+                            "label": "5 000 - 24 999"
+                        }, {
+                            "url": "./images/legend/new/pop_25000-99999.gif",
+                            "label": "25 000 - 99 999"
+                        }, {
+                            "url": "./images/legend/new/pop_100000-499999.gif",
+                            "label": "100 000 - 499 999"
+                        }, {
+                            "url": "./images/legend/new/pop_500000-greater.gif",
+                            "label": "500 000 or greater"
+                        }, {
+                            "url": "./images/legend/national_capital.gif",
+                            "label": "National Capital"
+                        }, {
+                            "url": "./images/legend/provincial_capital.gif",
+                            "label": "Provincial / Territorial Capitals"
+                        }]
                     },
-                    "items": [{
-                        "expand": false,
-                        "last": false,
-                        "type": 3,
-                        "id": "bbbb469d-fff2-c8f5-175c-645283a6b6fe",
-                        "graphid": "e5511402-0007-5cbe-0d3c-f537c612b7df",
-                        "displayfields": false,
-                        "label": {
-                            "value": "Place and Feature Names",
-                            "alttext": "Place and Feature Names"
-                        },
-                        "metadata": {
-                            "enable": false
-                        },
-                        "opacity": {
-                            "enable": true,
-                            "min": 0,
-                            "max": 1,
-                            "initstate": 1
-                        },
-                        "visibility": {
-                            "enable": true,
-                            "initstate": true,
-                            "type": 1,
-                            "radioid": 0
-                        },
-                        "displaychild": {
-                            "enable": false,
-                            "symbol": ""
-                        },
-                        "customimage": {
-                            "enable": true,
-                            "description": "Abbreviation: (FN): First Nation",
-                            "images": [{
-                                "url": "./images/legend/new/place_names.gif",
-                                "label": "Place Name / Geographic Feature Names / Administrative Area names"
-                            }, {
-                                "url": "./images/legend/new/hydro_names.gif",
-                                "label": "Hydrographic Names"
-                            }, {
-                                "url": "./images/legend/new/pop_0-999.gif",
-                                "label": "0 - 999"
-                            }, {
-                                "url": "./images/legend/new/pop_1000-4999.gif",
-                                "label": "1 000 - 4 999"
-                            }, {
-                                "url": "./images/legend/new/pop_5000-24999.gif",
-                                "label": "5 000 - 24 999"
-                            }, {
-                                "url": "./images/legend/new/pop_25000-99999.gif",
-                                "label": "25 000 - 99 999"
-                            }, {
-                                "url": "./images/legend/new/pop_100000-499999.gif",
-                                "label": "100 000 - 499 999"
-                            }, {
-                                "url": "./images/legend/new/pop_500000-greater.gif",
-                                "label": "500 000 or greater"
-                            }, {
-                                "url": "./images/legend/national_capital.gif",
-                                "label": "National Capital"
-                            }, {
-                                "url": "./images/legend/provincial_capital.gif",
-                                "label": "Provincial / Territorial Capitals"
-                            }]
-                        },
-                        "items": []
-                    }, {
-                        "expand": false,
-                        "last": false,
-                        "type": 3,
-                        "id": "bbbb469d-fff1-c8f5-175c-645287a6b6fe",
-                        "graphid": "e5511402-0008-5cbe-0d3c-f537c612b7df",
-                        "displayfields": false,
-                        "label": {
-                            "value": "Other Features",
-                            "alttext": "Other Features"
-                        },
-                        "metadata": {
-                            "enable": false
-                        },
-                        "opacity": {
-                            "enable": true,
-                            "min": 0,
-                            "max": 1,
-                            "initstate": 1
-                        },
-                        "visibility": {
-                            "enable": true,
-                            "initstate": true,
-                            "type": 1,
-                            "radioid": 0
-                        },
-                        "displaychild": {
-                            "enable": false,
-                            "symbol": ""
-                        },
-                        "customimage": {
-                            "enable": true,
-                            "description": "",
-                            "images": [{
-                                "url": "./images/legend/new/place_names.gif",
-                                "label": "Place Name / Geographic Feature Names / Administrative Area names"
-                            }, {
-                                "url": "./images/legend/new/hydro_names.gif",
-                                "label": "Hydrographic Names"
-                            }]
-                        },
-                        "items": []
-                    }]
+                    "items": []
+
                 }, {
                     "expand": false,
                     "last": false,
@@ -1214,6 +1114,75 @@
                             }, {
                                 "url": "./images/legend/snowshed_alt.gif",
                                 "label": "Snowshed"
+                            }]
+                        },
+                        "items": []
+                    }, {
+                        "expand": false,
+                        "last": false,
+                        "type": 3,
+                        "id": "bbbb469d-dab3-c8f5-175c-645281a6b6fe",
+                        "graphid": "e5511402-0011-5cbe-0d3c-f537c612b7df",
+                        "displayfields": false,
+                        "label": {
+                            "value": "Aeronautical features",
+                            "alttext": "Aeronautical features"
+                        },
+                        "metadata": {
+                            "enable": false
+                        },
+                        "opacity": {
+                            "enable": true,
+                            "min": 0,
+                            "max": 1,
+                            "initstate": 1
+                        },
+                        "visibility": {
+                            "enable": true,
+                            "initstate": true,
+                            "type": 1,
+                            "radioid": 0
+                        },
+                        "displaychild": {
+                            "enable": false,
+                            "symbol": ""
+                        },
+                        "customimage": {
+                            "enable": true,
+                            "description": "",
+                            "images": [{
+                                "url": "./images/legend/airfield_alt.gif",
+                                "label": "Airfield"
+                            }, {
+                                "url": "./images/legend/airport_alt.gif",
+                                "label": "Airport"
+                            }, {
+                                "url": "./images/legend/airport_2_alt.gif",
+                                "label": "Airport"
+                            }, {
+                                "url": "./images/legend/runway_hard_alt.gif",
+                                "label": "Airport"
+                            }, {
+                                "url": "./images/legend/Airport2.gif",
+                                "label": "Airport"
+                            }, {
+                                "url": "./images/legend/hospital-heliport2.gif",
+                                "label": "hospital heliport"
+                            }, {
+                                "url": "./images/legend/heliport2.gif",
+                                "label": "Heliport"
+                            }, {
+                                "url": "./images/legend/heliport_alt.gif",
+                                "label": "Heliport"
+                            }, {
+                                "url": "./images/legend/seaplane_anchorage_alt.gif",
+                                "label": "Seaplane Anchorage"
+                            }, {
+                                "url": "./images/legend/seaplane_base_alt.gif",
+                                "label": "Seaplane Base; Water Aerodrome"
+                            }, {
+                                "url": "./images/legend/seaplane-base2.gif",
+                                "label": "Seaplane Base"
                             }]
                         },
                         "items": []
@@ -1489,19 +1458,7 @@
                         "customimage": {
                             "enable": true,
                             "description": "",
-                            "images": [{
-                                "url": "./images/legend/airfield_alt.gif",
-                                "label": "Airfield"
-                            }, {
-                                "url": "./images/legend/airport_alt.gif",
-                                "label": "Airport"
-                            }, {
-                                "url": "./images/legend/airport_2_alt.gif",
-                                "label": "Airport"
-                            }, {
-                                "url": "./images/legend/runway_hard_alt.gif",
-                                "label": "Airport"
-                            }, {
+                            "images": [ {
                                 "url": "./images/legend/building_alt.gif",
                                 "label": "Building"
                             }, {
@@ -1538,9 +1495,6 @@
                                 "url": "./images/legend/footbridge_alt.gif",
                                 "label": "Footbridge"
                             }, {
-                                "url": "./images/legend/heliport_alt.gif",
-                                "label": "Heliport"
-                            }, {
                                 "url": "./images/legend/service_station_alt.gif",
                                 "label": "Highway Service Centre"
                             }, {
@@ -1555,12 +1509,6 @@
                             }, {
                                 "url": "./images/legend/ruins_small.gif",
                                 "label": "Ruins: small"
-                            }, {
-                                "url": "./images/legend/seaplane_anchorage_alt.gif",
-                                "label": "Seaplane Anchorage"
-                            }, {
-                                "url": "./images/legend/seaplane_base_alt.gif",
-                                "label": "Seaplane Base; Water Aerodrome"
                             }, {
                                 "url": "./images/legend/silo.gif",
                                 "label": "Silo"
@@ -1910,91 +1858,7 @@
                             }, {
                                 "url": "./images/legend/palsa_alt.png",
                                 "label": "Palsa Bog"
-                            }]
-                        },
-                        "items": []
-                    }, {
-                        "expand": false,
-                        "last": false,
-                        "type": 3,
-                        "id": "bbbb469d-bbb5-c8f5-175c-645276a6b6fe",
-                        "graphid": "e5511402-0023-5cbe-0d3c-f537c612b7df",
-                        "displayfields": false,
-                        "label": {
-                            "value": "Water Saturated Soils",
-                            "alttext": "Water Saturated Soils"
-                        },
-                        "metadata": {
-                            "enable": false
-                        },
-                        "opacity": {
-                            "enable": true,
-                            "min": 0,
-                            "max": 1,
-                            "initstate": 1
-                        },
-                        "visibility": {
-                            "enable": true,
-                            "initstate": true,
-                            "type": 1,
-                            "radioid": 0
-                        },
-                        "displaychild": {
-                            "enable": false,
-                            "symbol": ""
-                        },
-                        "customimage": {
-                            "enable": true,
-                            "description": "",
-                            "images": [{
-                                "url": "./images/legend/tourbiere_reticulee.gif",
-                                "label": "String Bog"
                             }, {
-                                "url": "./images/legend/sols_polygonaux.gif",
-                                "label": "Tundra Polygon"
-                            }, {
-                                "url": "./images/legend/etang_toundra.gif",
-                                "label": "Tundra Pond"
-                            }, {
-                                "url": "./images/legend/terre_humide5.gif",
-                                "label": "Wetland"
-                            }]
-                        },
-                        "items": []
-                    }, {
-                        "expand": false,
-                        "last": false,
-                        "type": 3,
-                        "id": "bbbb469d-bbb4-c8f5-175c-645280a6b6fe",
-                        "graphid": "e5511402-0024-5cbe-0d3c-f537c612b7df",
-                        "displayfields": false,
-                        "label": {
-                            "value": "Water Features",
-                            "alttext": "Water Features"
-                        },
-                        "metadata": {
-                            "enable": false
-                        },
-                        "opacity": {
-                            "enable": true,
-                            "min": 0,
-                            "max": 1,
-                            "initstate": 1
-                        },
-                        "visibility": {
-                            "enable": true,
-                            "initstate": true,
-                            "type": 1,
-                            "radioid": 0
-                        },
-                        "displaychild": {
-                            "enable": false,
-                            "symbol": ""
-                        },
-                        "customimage": {
-                            "enable": true,
-                            "description": "",
-                            "images": [{
                                 "url": "./images/legend/boatramp.gif",
                                 "label": "Boat Ramp"
                             }, {
@@ -2057,6 +1921,54 @@
                             }, {
                                 "url": "./images/legend/wharf_alt_new.gif",
                                 "label": "Wharf"
+                            }]
+                        },
+                        "items": []
+                    }, {
+                        "expand": false,
+                        "last": false,
+                        "type": 3,
+                        "id": "bbbb469d-bbb5-c8f5-175c-645276a6b6fe",
+                        "graphid": "e5511402-0023-5cbe-0d3c-f537c612b7df",
+                        "displayfields": false,
+                        "label": {
+                            "value": "Water Saturated Soils",
+                            "alttext": "Water Saturated Soils"
+                        },
+                        "metadata": {
+                            "enable": false
+                        },
+                        "opacity": {
+                            "enable": true,
+                            "min": 0,
+                            "max": 1,
+                            "initstate": 1
+                        },
+                        "visibility": {
+                            "enable": true,
+                            "initstate": true,
+                            "type": 1,
+                            "radioid": 0
+                        },
+                        "displaychild": {
+                            "enable": false,
+                            "symbol": ""
+                        },
+                        "customimage": {
+                            "enable": true,
+                            "description": "",
+                            "images": [{
+                                "url": "./images/legend/tourbiere_reticulee.gif",
+                                "label": "String Bog"
+                            }, {
+                                "url": "./images/legend/sols_polygonaux.gif",
+                                "label": "Tundra Polygon"
+                            }, {
+                                "url": "./images/legend/etang_toundra.gif",
+                                "label": "Tundra Pond"
+                            }, {
+                                "url": "./images/legend/terre_humide5.gif",
+                                "label": "Wetland"
                             }]
                         },
                         "items": []
@@ -2191,7 +2103,7 @@
                     },
                     "items": []
                 }]
-            },{
+            }, {
                 "expand": false,
                 "last": false,
                 "type": 3,
@@ -2226,84 +2138,84 @@
                     "images": []
                 },
                 "items": [{
-                "expand": false,
-                "last": false,
-                "type": 3,
-                "id": "bbbb469d-mmmm-c8f5-175c-645270a6b6fe",
-                "graphid": "e5511402-0028-5cbe-0d3c-f537c612b7df",
-                "displayfields": false,
-                "label": {
-                    "value": "Network linear flow",
-                    "alttext": "Network linear flow"
-                },
-                "metadata": {
-                    "enable": false
-                },
-                "opacity": {
-                    "enable": true,
-                    "min": 0,
-                    "max": 1,
-                    "initstate": 1
-                },
-                "visibility": {
-                    "enable": true,
-                    "initstate": true,
-                    "type": 1,
-                    "radioid": 0
-                },
-                "displaychild": {
-                    "enable": false,
-                    "symbol": ""
-                },
-                "customimage": {
-                    "enable": true,
-                    "description": "",
-                    "images": [{
-                        "url": "./images/legend/linearflow.gif",
-                        "label": "Network linear flow"
-						}]
-                },
-                "items": []
-            },{
-                "expand": false,
-                "last": false,
-                "type": 3,
-                "id": "bbbb469d-kkkk-c8f5-175c-645270a6b6fe",
-                "graphid": "e5511402-0028-5cbe-0d3c-f537c612b7df",
-                "displayfields": false,
-                "label": {
-                    "value": "Flow direction",
-                    "alttext": "flow direction"
-                },
-                "metadata": {
-                    "enable": false
-                },
-                "opacity": {
-                    "enable": true,
-                    "min": 0,
-                    "max": 1,
-                    "initstate": 1
-                },
-                "visibility": {
-                    "enable": true,
-                    "initstate": true,
-                    "type": 1,
-                    "radioid": 0
-                },
-                "displaychild": {
-                    "enable": false,
-                    "symbol": ""
-                },
-                "customimage": {
-                    "enable": true,
-                    "description": "",
-                    "images": [{
-                        "url": "./images/legend/flowdirection.gif",
-                        "label": "Flow direction"
-						}]
-                },
-                "items": []
-            }]
+                    "expand": false,
+                    "last": false,
+                    "type": 3,
+                    "id": "bbbb469d-mmmm-c8f5-175c-645270a6b6fe",
+                    "graphid": "e5511402-aa28-5cbe-0d3c-f537c612b7df",
+                    "displayfields": false,
+                    "label": {
+                        "value": "Network linear flow",
+                        "alttext": "Network linear flow"
+                    },
+                    "metadata": {
+                        "enable": false
+                    },
+                    "opacity": {
+                        "enable": true,
+                        "min": 0,
+                        "max": 1,
+                        "initstate": 1
+                    },
+                    "visibility": {
+                        "enable": true,
+                        "initstate": true,
+                        "type": 1,
+                        "radioid": 0
+                    },
+                    "displaychild": {
+                        "enable": false,
+                        "symbol": ""
+                    },
+                    "customimage": {
+                        "enable": true,
+                        "description": "",
+                        "images": [{
+                            "url": "./images/legend/linearflow.gif",
+                            "label": "Network linear flow"
+                        }]
+                    },
+                    "items": []
+                }, {
+                    "expand": false,
+                    "last": false,
+                    "type": 3,
+                    "id": "bbbb469d-kkkk-c8f5-175c-645270a6b6fe",
+                    "graphid": "e5511402-bb28-5cbe-0d3c-f537c612b7df",
+                    "displayfields": false,
+                    "label": {
+                        "value": "Flow direction",
+                        "alttext": "flow direction"
+                    },
+                    "metadata": {
+                        "enable": false
+                    },
+                    "opacity": {
+                        "enable": true,
+                        "min": 0,
+                        "max": 1,
+                        "initstate": 1
+                    },
+                    "visibility": {
+                        "enable": true,
+                        "initstate": true,
+                        "type": 1,
+                        "radioid": 0
+                    },
+                    "displaychild": {
+                        "enable": false,
+                        "symbol": ""
+                    },
+                    "customimage": {
+                        "enable": true,
+                        "description": "",
+                        "images": [{
+                            "url": "./images/legend/flowdirection.gif",
+                            "label": "Flow direction"
+                        }]
+                    },
+                    "items": []
+                }]
             }, {
                 "expand": false,
                 "last": false,
@@ -2381,7 +2293,7 @@
             "overview": {
                 "enable": true,
                 "url": "",
-                "type": "4"
+                "type": 4
             },
             "position": {
                 "enable": true
@@ -2391,25 +2303,32 @@
             "enable": true,
             "expand": false,
             "pos": 4,
-            "data": {
+            "datafile": {
+                "enable": true
+            },
+            "dataurl": {
                 "enable": true
             }
-        },"toolbarextract": {
+        },
+        "toolbarextract": {
             "enable": true,
             "expand": false,
             "pos": 3,
-            "grid": "bbbb469d-aaa1-c8f5-175c-645200a6b6fe",
+            "grid": {
+            	"enable": true,
+            	"id": "bbbb469d-aaa1-c8f5-175c-645200a6b6fe"
+            },
             "items": [{
                 "title": "Maps (raster): ",
-                "subtitle": "Toporama, CanMatrix Print-ready and Georeferenced.",
+                "subtitle": "Toporama, CanMatrix Print ready and Georeferenced.",
                 "scale": -1,
                 "url": "http://geogratis.gc.ca/api/en/nrcan-rncan/ess-sst/-/OR/(urn:iso:series)toporama/(urn:iso:series)canmatrix-georeferenced",
                 "query": [{
-                    "type": "1",
+                    "type": 1,
                     "param": "?q=XXX",
                     "label": "Get single map"
                 }, {
-                    "type": "2",
+                    "type": 2,
                     "param": "?bbox=XXX&sort-field=spatial",
                     "label": "Get all maps for area shown"
                 }]
@@ -2419,21 +2338,21 @@
                 "scale": -1,
                 "url": "http://geogratis.gc.ca/api/en/nrcan-rncan/ess-sst/-/(urn:iso:series)canvec-plus",
                 "query": [{
-                    "type": "1",
+                    "type": 1,
                     "param": "?q=XXX",
                     "label": "Get single map"
                 }, {
-                    "type": "2",
+                    "type": 2,
                     "param": "?bbox=XXX&sort-field=spatial",
                     "label": "Get all data for area shown"
                 }]
             }, {
                 "title": "Data: ",
-                "subtitle": "CanVec (vector) and Elevation (raster) data using custom geographic extent.",
+                "subtitle": "CanVec+ (vector) and Elevation (raster) data using custom geographic extent.",
                 "scale": -1,
                 "url": "http://geogratis.gc.ca/site/eng/extraction",
                 "query": [{
-                    "type": "2",
+                    "type": 2,
                     "param": "?bbox=XXX",
                     "label": "Get data using the Data Extraction Tool"
                 }]

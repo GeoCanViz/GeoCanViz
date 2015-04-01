@@ -521,7 +521,10 @@
             "enable": true,
             "expand": false,
             "pos": 3,
-            "data": {
+            "datafile": {
+                "enable": true
+            },
+            "dataurl": {
                 "enable": true
             }
         },
@@ -592,88 +595,6 @@
                  "popups": {
                     "enable": true,
                     "layeralias": "Geology - Major Rock Categories"
-                 },
-                 "hover": {
-                     "enable": false,
-                     "hoverfield": "Community Well-Being"
-                 }
-            }, {
-                "layerinfo": {
-                    "id": "6f798c6b-dddd1-4e24-78dd-9bfa5a9bc59e",
-                    "type": 5,
-                    "index": 0
-                },
-                "title": "Link tables",
-                "globalsearch": false,
-                "fields": [{
-                    "title": "Comp. Name.",
-                    "width": "250px",
-                    "data": "MINING_COMP_NAME",
-                    "dataalias": "MINING_COMP_NAME",
-				    "type": {
-				      "field": "field",
-				      "value": "string"
-				     },
-				    "searchable": true
-                }, {
-                    "title": "Project Status",
-                    "width": "250px",
-                    "data": "PROJ_STATUS_EN",
-                    "dataalias": "PROJ_STATUS_EN",
-				     "type": {
-				      	"field": "field",
-				      	"value": "select"
-				     },
-				     "searchable": true
-                }, {
-                    "title": "lat",
-                    "width": "110px",
-                    "data": "LAT_DD",
-                    "dataalias": "LAT_DD",
-				     "type": {
-				      	"field": "field",
-				      	"value": "number"
-				     },
-				     "searchable": true
-                }, {
-                    "title": "long",
-                    "width": "110px",
-                    "data": "LONG_DD",
-                    "dataalias": "LONG_DD",
-				     "type": {
-				      	"field": "field",
-				      	"value": "number"
-				     },
-				     "searchable": true
-                }],
-                "linktable": {
-                    "enable": true,
-                    "relationshipId": 0,
-                    "title": "Mining link section",
-                    "subtitle": "Mining sub section",
-                    "fields": [{
-                    	"title": "Date Signed",
-                    	"data": "DATE_AGRMT_SIGNED"
-                    }, {
-                    	"title": "Type Entente",
-                    	"data": "AGRMNT_TYPE_EN"
-                    }, {
-                    	"title": "Note",
-                    	"data": "AGRMNT_NOTES"
-                    },{
-                    	"title": "Agreement Status",
-                    	"data": "AGREEMENTS_STATUS"
-                    }, {
-                    	"title": "Agreement Type Code",
-                    	"data": "AGRMNT_TYPE_CODE_EN"
-                    }, {
-                    	"title": "Agreement Type Code FR",
-                    	"data": "TYPE_ENTENTE_CODE_FR"
-                    }]
-                 },
-                 "popups": {
-                    "enable": true,
-                    "layeralias": "Mining Project Status"
                  },
                  "hover": {
                      "enable": false,

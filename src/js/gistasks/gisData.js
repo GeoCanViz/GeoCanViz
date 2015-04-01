@@ -22,14 +22,24 @@
 			'esri/layers/GeoRSSLayer',
 			'dojo/_base/array'
 	], function($viz, gcvizFunc, gisGeo, gisMap, gisLegend, vmDatagrid, vmTbData, esriCSVStore, esriFeatLayer, esriSR, esriPoint, esriKML, esriGeoRSS, array) {
-		var addCSV,
+		var reorderGraphicLayer,
+			addCSV,
 			addKML,
 			addGeoRSS,
+			finishAdd,
 			createLayer,
 			getSeparator,
 			getFeatCollectionTemplateCSV,
 			featCollection, guuid, gfileName,
 			mymap;
+
+		reorderGraphicLayer = function(map, layerId, position) {
+			// check position
+			if (position === -1) {
+				position = map.graphicsLayerIds.length - 1;
+			}
+			map.reorderLayer(map.getLayer(layerId), position);
+		};
 
 		// https://developers.arcgis.com/javascript/jssamples/exp_dragdrop.html
 		// we dont use the drag and drop because it is not WCAG but we use the way they
@@ -154,10 +164,9 @@
 
 			featureLayer = new esriFeatLayer(featCollection, { 'id': guuid });
 			featureLayer.name = gfileName;
-			mymap.addLayer(featureLayer);
 
-			// get the extent then zoom
-			gisMap.zoomGraphics(mymap, featureLayer.graphics);
+			// finish add by reordering layer and add the layer to map
+			finishAdd(mymap, featureLayer);
 				
 			// add to user array so knockout will generate legend
 			// we cant add it from the VM because the projection can take few second and the symbol is not define before.
@@ -267,26 +276,81 @@
 		addKML = function(map, url, uuid, fileName) {
 			var layer;
 			layer = new esriKML(url, { outSR: new esri.SpatialReference({ wkid: map.vWkid }) });
-			layer.name = fileName;
-			layer.id = uuid;
+			layer.id = 'tempAddDataKML';
+			layer.visible = false;
+
+			// add layer visible false because we use it only to be able to generate feature layer from it.
+			// when we are done, we remove the layer.
 			map.addLayer(layer);
 
-			layer.on('load', function(input) {
-				// remove info template to disable default esri popup
-				input.layer.getLayers()[0].setInfoTemplate(null);
+			layer.on('load', gcvizFunc.closureFunc(function(map, uuid, fileName, input) {
+				var graphics, lenGraphics,
+					name, id, fieldName, defaultFields,
+					outFields = new Array(2),
+					field, fields, lenFields,
+					layerDef, jsonDef, featureLayer,
+					layerDefs = input.layer._fLayers,
+					lenLayerDef = layerDefs.length;
 
-				var featureInfos = input.layer.folders[0].featureInfos;
-				  array.forEach(featureInfos,function(info){
-				    var feature = input.layer.getFeature(info);
-				    //do something with the feature here...
-				    //input.layer.getFeature(input.layer.getFeature(info).featureInfos[0])
-				  });
-			});
+				while (lenLayerDef--) {
+					name = fileName + '-' + lenLayerDef;
+					id = uuid + lenLayerDef;
 
-			// add the data to the datagrid
-			//vmDatagrid.addTab(mymap.vIdName, featCollection, fileName, uuid);
-			
-			return layer;
+					// create layer from definition
+					layerDef = JSON.parse(layerDefs[lenLayerDef]._json);
+					featureLayer = new esriFeatLayer(layerDef);
+					
+					// set feature layer parameters
+					featureLayer.visible = true;
+					featureLayer.type = 5;
+					featureLayer.name = name;
+					featureLayer.id = id;
+	
+					// loop the graphics to add to the feature layer from where they come from. It will be use in the popup
+					graphics = featureLayer.graphics;
+					lenGraphics = graphics.length;
+					while (lenGraphics--) {
+						graphics[lenGraphics]._layer.name = name;
+					}
+	
+					// remove the kml layer
+					map.removeLayer(map.getLayer('tempAddDataKML'));
+
+					// finish add by reordering layer and add the layer to map
+					finishAdd(map, featureLayer);
+
+					// clean fields to keep name and description
+					fields = layerDef.layerDefinition.fields;
+					lenFields = fields.length;
+					defaultFields ='id, snippet, visibility, styleUrl, balloonStyleText';
+
+					while (lenFields--) {
+						field = fields[lenFields];
+						fieldName = field.name;
+
+						// filter to remove default internal fields
+						if (defaultFields.indexOf(fieldName) === -1) {
+							if (fieldName === 'name') {
+								field.alias = 'name';
+								outFields[0] = field;
+							} else if (fieldName === 'description') {
+								field.alias = 'description';
+								outFields[1] = field;
+							} else {
+								field.alias = fieldName;
+								outFields.push(field);
+							}
+						}
+					}
+					layerDef.layerDefinition.fields = outFields;
+
+					// set legend symbol
+					gisLegend.getFeatureLayerSymbol(JSON.stringify(featureLayer.renderer.toJson()), $viz('#symbol' + id)[0], id);
+
+					 // add the data to the datagrid
+					vmDatagrid.addTab(map.vIdName, layerDef, name, id);
+				}
+			}, map, uuid, fileName));
 		};
 
 		addGeoRSS = function(map, url, uuid, fileName) {
@@ -340,6 +404,17 @@
 				// remove info template to disable default esri popup
 				input.layer.getLayers()[0].setInfoTemplate(null);
 			});
+		};
+
+		finishAdd = function(mymap, layer) {
+			mymap.addLayer(layer);
+
+			// reoder layers to make sure symbol and datagrid are on top
+			reorderGraphicLayer(mymap, 'gcviz-symbol', -1);
+			reorderGraphicLayer(mymap, 'gcviz-datagrid', -1);
+
+			// get the extent then zoom
+			gisMap.zoomGraphics(mymap, layer.graphics);
 		};
 
 		return {

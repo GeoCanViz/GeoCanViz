@@ -207,7 +207,7 @@
 					features[i] = feat;
 					i++;
 				}
-				success(features.reverse());
+				success(features);
 			});
 
 			geomServUnique.project(paramsUnique);

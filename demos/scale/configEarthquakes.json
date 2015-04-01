@@ -1,0 +1,529 @@
+{
+    "gcviz": {
+        "mapframe": {
+            "size": {
+                "height": 700,
+                "width": 1200
+            },
+            "map": {
+                "urlgeomserv": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/Utilities/Geometry/GeometryServer",
+                "urlproxy": "http://localhost:8888/php/proxy.php",
+                "urldownload": "http://localhost:8888/php/download.php",
+                "sr": {
+                    "wkid": 3978
+                },
+                "extentmax": {
+                    "xmin": -4282638.0615,
+                    "ymin": -5153821.09214,
+                    "xmax": 4852210.17557,
+                    "ymax": 4376714.4421
+                },
+                "extentinit": {
+                    "xmin": -2813489.21168,
+                    "ymin": -870778.71419,
+                    "xmax": 3536523.48834,
+                    "ymax": 4685482.39834
+                },
+                "lods": {
+                    "enable": true,
+                    "values": [{
+                        "level": 0,
+                        "resolution": 38364.660062653464,
+                        "scale": 145000000,
+                        "check": true
+                    }, {
+                        "level": 1,
+                        "resolution": 22489.62831258996,
+                        "scale": 85000000,
+                        "check": true
+                    }, {
+                        "level": 2,
+                        "resolution": 13229.193125052918,
+                        "scale": 50000000,
+                        "check": true
+                    }, {
+                        "level": 3,
+                        "resolution": 7937.5158750317505,
+                        "scale": 30000000,
+                        "check": true
+                    }, {
+                        "level": 4,
+                        "resolution": 4630.2175937685215,
+                        "scale": 17500000,
+                        "check": true
+                    }, {
+                        "level": 5,
+                        "resolution": 2645.8386250105837,
+                        "scale": 10000000,
+                        "check": true
+                    }, {
+                        "level": 6,
+                        "resolution": 1587.5031750063501,
+                        "scale": 6000000,
+                        "check": true
+                    }, {
+                        "level": 7,
+                        "resolution": 926.0435187537042,
+                        "scale": 3500000,
+                        "check": true
+                    }, {
+                        "level": 8,
+                        "resolution": 529.1677250021168,
+                        "scale": 2000000,
+                        "check": true
+                    }, {
+                        "level": 9,
+                        "resolution": 317.50063500127004,
+                        "scale": 1200000,
+                        "check": true
+                    }, {
+                        "level": 10,
+                        "resolution": 185.20870375074085,
+                        "scale": 700000,
+                        "check": true
+                    }, {
+                        "level": 11,
+                        "resolution": 111.12522225044451,
+                        "scale": 420000,
+                        "check": true
+                    }, {
+                        "level": 12,
+                        "resolution": 66.1459656252646,
+                        "scale": 250000,
+                        "check": true
+                    }, {
+                        "level": 13,
+                        "resolution": 38.36466006265346,
+                        "scale": 145000,
+                        "check": true
+                    }, {
+                        "level": 14,
+                        "resolution": 22.48962831258996,
+                        "scale": 85000,
+                        "check": true
+                    }, {
+                        "level": 15,
+                        "resolution": 13.229193125052918,
+                        "scale": 50000,
+                        "check": true
+                    }, {
+                        "level": 16,
+                        "resolution": 7.9375158750317505,
+                        "scale": 30000,
+                        "check": true
+                    }, {
+                        "level": 17,
+                        "resolution": 4.6302175937685215,
+                        "scale": 17500,
+                        "check": true
+                    }]
+                },
+                "link": false,
+                "zoombar": {
+                    "bar": true,
+                    "zoom": true,
+                    "zoomfull": true
+                },
+                "bases": [{
+                    "label": "CBCT3978",
+                    "id": "cc77bc0a-8480-1a52-2740-55b581f40616",
+                    "type": 2,
+                    "url": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/BaseMaps/CBCT3978/MapServer",
+                    "scale": {
+                        "min": 0,
+                        "max": 0
+                    }
+                }],
+                "layers": [{
+                    "label": "earthquakes",
+                    "id": "93f05b62-6c5c-0ca0-e03b-612d99293294",
+                    "type": 4,
+                    "url": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/test/earthqhakes/MapServer/",
+                    "beforebase": false,
+                    "scale": {
+                        "min": 0,
+                        "max": 0
+                    },
+                    "usecluster": false,
+                    "cluster": {
+                        "enable": false,
+                        "distance": 50,
+                        "label": false,
+                        "symbol": false,
+                        "maxsizeprop": 50,
+                        "maxdataprop": 1000
+                    }
+                }]
+            }
+        },
+        "header": {
+            "side": 1,
+            "title": {
+                "value": "Earthquakes",
+                "alttext": "Earthquakes"
+            },
+            "tools": {
+                "enable": true,
+                "expand": true
+            },
+            "link": false,
+            "inset": false,
+            "about": {
+                "enable": true,
+                "type": 1,
+                "value": "This is sample map showing earthquakes in Canada"
+            },
+            "print": {
+                "enable": true,
+                "type": 1,
+                "template": [],
+                "DPI": [100, 300]
+
+            },
+            "fullscreen": true
+        },
+        "footer": {
+            "northarrow": {
+                "enable": true,
+                "inwkid": 3978
+            },
+            "mousecoords": {
+                "enable": true,
+                "outwkid": 4326
+            },
+            "scalebar": {
+                "enable": true,
+                "unit": 1
+            },
+            "datagrid": {
+                "direction": "in"
+            },
+            "logo": false
+        },
+        "toolbarlegend": {
+            "enable": true,
+            "expand": true,
+            "pos": 1,
+            "basemaps": [{
+                "expand": false,
+                "last": true,
+                "type": 2,
+                "id": "cc77bc0a-8480-1a52-2740-55b581f40616",
+                "graphid": "6a5dca6e-2bc3-14ec-3d0d-c6fdd5a0f992",
+                "displayfields": false,
+                "label": {
+                    "value": "CBCT3978",
+                    "alttext": "CBCT3978"
+                },
+                "metadata": {
+                    "enable": false
+                },
+                "opacity": {
+                    "enable": false,
+                    "min": 0,
+                    "max": 1,
+                    "initstate": 1
+                },
+                "visibility": {
+                    "enable": true,
+                    "initstate": true,
+                    "type": 1,
+                    "radioid": 0
+                },
+                "displaychild": {
+                    "enable": false,
+                    "symbol": "{\"type\":\"simple\",\"symbol\":{\"type\":\"esriSFS\",\"style\":\"esriSFSSolid\",\"color\":[0,0,0,0],\"outline\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[0,0,0,0],\"width\":0.4}},\"label\":\"\",\"description\":\"\"}"
+                },
+                "customimage": {
+                    "enable": false,
+                    "images": []
+                },
+                "items": []
+            }],
+            "items": [{
+                "expand": true,
+                "last": false,
+                "type": 4,
+                "id": "93f05b62-6c5c-0ca0-e03b-612d99293294",
+                "graphid": "9b8bed21-127f-5f51-d75d-2dfdfd0c628a",
+                "displayfields": false,
+                "label": {
+                    "value": "earthquakes",
+                    "alttext": "earthquakes"
+                },
+                "metadata": {
+                    "enable": false
+                },
+                "opacity": {
+                    "enable": true,
+                    "min": 0,
+                    "max": 1,
+                    "initstate": 1
+                },
+                "visibility": {
+                    "enable": true,
+                    "initstate": true,
+                    "type": 1,
+                    "radioid": 0
+                },
+                "displaychild": {
+                    "enable": true
+                },
+                "customimage": {
+                    "enable": false,
+                    "images": [
+
+                    ]
+                },
+                "items": [{
+                    "expand": true,
+                    "last": true,
+                    "type": 4,
+                    "id": "93f05b62-6c5c-0ca0-e03b-612d99293294",
+                    "graphid": "3e67248b-3fe0-6499-c36b-675e4b8c7e4d",
+                    "displayfields": false,
+                    "label": {
+                        "value": "Last events",
+                        "alttext": "Last events"
+                    },
+                    "metadata": {
+                        "enable": false
+                    },
+                    "opacity": {
+                        "enable": false,
+                        "min": 0,
+                        "max": 1,
+                        "initstate": 1
+                    },
+                    "visibility": {
+                        "enable": false,
+                        "initstate": true,
+                        "type": 1,
+                        "radioid": 0
+                    },
+                    "displaychild": {
+                        "enable": true,
+                        "symbol": "{\"type\":\"uniqueValue\",\"field1\":\"Date_\",\"field2\":null,\"field3\":null,\"fieldDelimiter\":\", \",\"defaultSymbol\":null,\"defaultLabel\":null,\"uniqueValueInfos\":[{\"symbol\":{\"type\":\"esriSMS\",\"style\":\"esriSMSCircle\",\"color\":[255,255,0,255],\"size\":11,\"angle\":0,\"xoffset\":0,\"yoffset\":0,\"outline\":{\"color\":[0,0,0,255],\"width\":1}},\"value\":\"2015-03-26\",\"label\":\"2015-03-26\",\"description\":\"\"}]}"
+                    },
+                    "customimage": {
+                        "enable": false,
+                        "images": [
+
+                        ]
+                    },
+                    "items": []
+                }, {
+                    "expand": true,
+                    "last": true,
+                    "type": 4,
+                    "id": "93f05b62-6c5c-0ca0-e03b-612d99293294",
+                    "graphid": "f3eb57e4-25c2-93c3-8877-7c8f3785da01",
+                    "displayfields": false,
+                    "label": {
+                        "value": "Earthquakes",
+                        "alttext": "Earthquakes"
+                    },
+                    "metadata": {
+                        "enable": false
+                    },
+                    "opacity": {
+                        "enable": false,
+                        "min": 0,
+                        "max": 1,
+                        "initstate": 1
+                    },
+                    "visibility": {
+                        "enable": false,
+                        "initstate": true,
+                        "type": 1,
+                        "radioid": 0
+                    },
+                    "displaychild": {
+                        "enable": true,
+                        "symbol": "{\"type\":\"classBreaks\",\"field\":\"Mag\",\"classificationMethod\":\"esriClassifyManual\",\"minValue\":-1,\"classBreakInfos\":[{\"symbol\":{\"type\":\"esriSMS\",\"style\":\"esriSMSCircle\",\"color\":[112,68,137,255],\"size\":4,\"angle\":0,\"xoffset\":0,\"yoffset\":0,\"outline\":{\"color\":[0,0,0,255],\"width\":1}},\"classMaxValue\":1.999999,\"label\":\"< 2\",\"description\":\"\"},{\"symbol\":{\"type\":\"esriSMS\",\"style\":\"esriSMSCircle\",\"color\":[112,68,137,255],\"size\":6.8,\"angle\":0,\"xoffset\":0,\"yoffset\":0,\"outline\":{\"color\":[0,0,0,255],\"width\":1}},\"classMaxValue\":2.999999,\"label\":\"2\",\"description\":\"\"},{\"symbol\":{\"type\":\"esriSMS\",\"style\":\"esriSMSCircle\",\"color\":[255,0,197,255],\"size\":9.6,\"angle\":0,\"xoffset\":0,\"yoffset\":0,\"outline\":{\"color\":[0,0,0,255],\"width\":1}},\"classMaxValue\":3.999999,\"label\":\"3\",\"description\":\"\"},{\"symbol\":{\"type\":\"esriSMS\",\"style\":\"esriSMSCircle\",\"color\":[255,0,0,255],\"size\":12.399999999999999,\"angle\":0,\"xoffset\":0,\"yoffset\":0,\"outline\":{\"color\":[0,0,0,255],\"width\":1}},\"classMaxValue\":4.999999,\"label\":\"4\",\"description\":\"\"},{\"symbol\":{\"type\":\"esriPMS\",\"url\":\"a8b3aaee1a636b3a321a1b5b7d439663\",\"imageData\":\"iVBORw0KGgoAAAANSUhEUgAAAB4AAAAcCAYAAAB2+A+pAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAzpJREFUSInVlltoFGcUx3/ZXXNSL0mcrSGjQhCvIGjS2JoQ6qUgYtsQNVGMGvUh9qW1au1DzUMexBqhQfCGYh8EEYNgKKWIJfW+sPFuEIIoUdnWMJDg1zZm1ZObfZhNDLq7hk0T8cAw8535n/P7mPOdbz4f78h87yM4A2h5F+C9wFqgezjBHwIrROSIql4YTvBSwKuqJcDwgYssyn81kAUlIdgE9AwHeOw1w8e5AjeVDBEpUNXAkIMtKHLAc/ITmOfiSoChBy+0KG8JQ34G/JAFp0K6sgm2AC+HEjzmhiGvMht8Hlg0AXaHyBSRPFWtTwgsIotV1a6aIlmz/JobTfywXTI2Nao3b5w7nu1379syOVqQyf1oMc3/SNNX9/QO8AyoJdL3fWBVvQ1s3t6kS2iKNU9lrsDUVHfkT4GtNuwK6XRCTI8VAzTatr3KcZy+zab/p24BvgC2AlVAck0uzz/N5IP+acQHIzyvxpVzYNtrzfSgjc5lAZKMm/9nYLPjOM/7a16v8Utgj2VZF8PhcE3pTZ12cCZPymfgT/YQ1dJTID3y3AP83szfy4OkKbQBG4FT0eKiLi5jzC0gFzjwdSPrzzs83V/AGDslOhygrQN2XsP85GAB9UApEIqlj7eq24ENQF2t4VDwN3pOf4Ynx/+m8PEzWH2WzoCSLiJVqloJdMXJPaB2OgEkOXC8I8bG6AECyggR2auqFQPIObA+XmTx5WUDM9Ne+bQHJFL38SNhgw0PjC4JuJvJ/wL2toYprJgCo5Ndx/VWtKweb3U2SZ9PxOvxQPEkKHSYBkwCHg0aLCLzG1RH7bNBu+DIfdq+bSQVaC+8yujv/0Qr5iA5Y/tCioHqQYPzR+mai+q2Tekl2n8xpOL25nfAN9UOO87W0XW0AN96Gx4aygI6eHBSR5hiG1jwB90GOnH/RrWR97styzrXYExNznkmZwvcVWYBE4DmhMEikh9U7V1SQWAN8Fd/jTHmOpADHGxQyiLu5cD+hMG49eoGdgA/Evtg9xRYB5wBDkfiEger6kciMk9Vg2+ZYK/VAFeAY8A4oDURcAqwVFX/HSC01x4BC4G0eKJ44BeRKxHrAp7EE/wHjVUVv8wDB30AAAAASUVORK5CYII=\",\"contentType\":\"image/png\",\"width\":22,\"height\":21,\"angle\":0,\"xoffset\":0,\"yoffset\":0},\"classMaxValue\":5.999999,\"label\":\"5\",\"description\":\"\"},{\"symbol\":{\"type\":\"esriPMS\",\"url\":\"cdb336559f75a2f5ed3c0c6695ba5bd9\",\"imageData\":\"iVBORw0KGgoAAAANSUhEUgAAACcAAAAkCAYAAAAKNyObAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAABEBJREFUWIXNmH9MVWUYxz/8fIF7/bFjrS6MIQnhxhDEzavNCoiGzozxa4LxR4sVYqQrrS3SfoqVuoq16cyhNZfGkLUsm6xGS/rBWmxUuzMac7std/wjT2rc4kG4tz/O5YfEvR7gMHj+Oed93vf5vp97n/M+531PNPPYoucaIJzZDVcGtNklZifcYuBd4BNgyA5BO+EeBlxKqTwR+dIOQdvgMl1UeXQQkTJgXsEtMAwKg/clwJOAf6aidsE9pMuo1h1KqXUicn6morbAjaQ0RQOvASJSDswLOEe/UATw3lYo2gdAKbADCMxE2A64DV6D2Jo8KMiCe9Ogs48kTdPchmF0zSncSEpL10B0JDxaAJ194PP5yoE5hYsTYSPAylTT4b7bvIpIKbBrJuIT4RYBEQDewyo3GkkIF3z2R7X6iWZRNXngWmz60hMhxwU9OqmfPqdtz001LobTkGH111314gk2h4G/Q8HdDxwDlqTUSfifZUoDULJ6zBMbBbXroe44bNpvNFnVAP5QSlWLyNeh4M4A2cAJIN8CHQArl93cXrvcauRN8z4mIlfGOyd75i4BhcDzwMtAdFEm14/WsyBZM1N+K8teCoGWyft+0xna8iYD3TpOzL/tWcwNw/8s1ILwA41KqQ4ROdnuYWl6Hf4zDQwWZqMirRBOsGE/tHXRv7kJJ+BUSv3qcDgqDcP4KVRM2NUqIt8DOcARgc1F+1AvlvDPzmISFsZbB7vSD3s+pP9wB86g67iIPCUivnBxVkrJNaAS+AJoevVjHF/9wuDRbcRmJN06uPsiVB7gRp+BE7gObAVOWZh3SnWuGfgG+Kizj5zlz0DXXnCnhw441wMbXgcgBvgBqALClpbpwgH0Ams1hWEI8QvDVkFY5DCvLsUlXVgH3JjKZFN+Qyilcg2ReHcKpLnCj81KBgXoQhKQCHhnFQ7zEENNIcSMW7b9Ap0XID8T4mJMnzMO9lTA7lbA3Km8PatwaXdKpccL7owxX99lqD2EdPSittzD8BvVRCUvMfvys4BW0BQVhswinKZpqzxeIzFDg4wk8Afgs26Gig8QhZlB/8nviDrXTaBlFxEFKyArxewwhDWAC9BnBc7n85UCbNsE/w7C7tMMHDxLXLC7GXgFeMcQSh9shMYKAvUbiWgog5faiMA8XxyaFbg0Tao8Ovj9kN/AUI9OHHAVeBw4HRxWBtQCb73QSsL5n/EXriISRlNrP5zL5cr06HoqwNMnRmM7gWrg9wnDj2CeIU6195Ld3ms6fcJ9wG3An7bC6bpeNq45DLwG7A3eT2YXALdSar+IbAcQiASKMR8B++AIlhDAq5R6RES+tRAjIrIDaAfeB24Hyu2GWwasAFqAWhG5ZjFuxD4Pxn8APID5XeWqXXBFQA3mLnm6dhlYD+wM6oXY8Y2ZVbhjwMD0uUYtAByE0fIT1qzC2QE2Zb15/WXzP4sDWJrYby0IAAAAAElFTkSuQmCC\",\"contentType\":\"image/png\",\"width\":29,\"height\":27,\"angle\":0,\"xoffset\":0,\"yoffset\":0},\"classMaxValue\":11,\"label\":\"6+\",\"description\":\"\"}]}"
+                    },
+                    "customimage": {
+                        "enable": false,
+                        "images": [
+
+                        ]
+                    },
+                    "items": [
+
+                    ]
+                }],
+                "isExpand": true
+            }]
+        },
+        "toolbardraw": {
+            "enable": true,
+            "expand": false,
+            "pos": 2,
+            "drawline": {
+                "enable": true
+            },
+            "drawtext": {
+                "enable": true
+            },
+            "measureline": {
+                "enable": true,
+                "unit": 1
+            },
+            "measurearea": {
+                "enable": true,
+                "unit": 1
+            },
+            "importexport": {
+                "enable": true
+            }
+        },
+        "toolbarnav": {
+            "enable": true,
+            "expand": false,
+            "pos": 0,
+            "mapwkid": 3978,
+            "geolocation": {
+                "enable": true,
+                "graphic": true,
+                "info": true
+            },
+            "scaledisplay": {
+                "enable": true,
+                "format": 1
+            },
+            "overview": {
+                "enable": true,
+                "url": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/BaseMaps/CBCT3978/MapServer",
+                "type": 2
+            },
+            "position": {
+                "enable": true
+            }
+        },
+        "toolbardata": {
+            "enable": true,
+            "expand": false,
+            "pos": 3,
+            "datafile": {
+                "enable": true
+            },
+            "dataurl": {
+                "enable": true
+            }
+        },
+        "toolbarextract": {
+            "enable": false,
+            "expand": false,
+            "pos": -1,
+            "grid": {
+                "enable": false,
+                "id": "93f05b62-6c5c-0ca0-e03b-212d99293294"
+            },
+            "items": []
+        },
+        "insetframe": {
+            "enable": false
+        },
+        "datagrid": {
+            "enable": true,
+            "expand": true,
+            "layers": [
+				{
+                    "layerinfo": {
+                        "id": "93f05b62-6c5c-0ca0-e03b-612d99293294",
+                        "type": 4,
+                        "index": 1
+                    },
+                    "title": "Earthquakes",
+                    "globalsearch": false,
+                    "fields": [{
+                        "title": "Mag",
+                        "width": "100px",
+                        "data": "Mag",
+                        "dataalias": "Mag",
+                        "type": {
+                            "field": "field",
+                            "value": "number"
+                        },
+                        "searchable": true
+                    },{
+                        "title": "Mag",
+                        "width": "100px",
+                        "data": "Mag",
+                        "dataalias": "Mag",
+                        "type": {
+                            "field": "field",
+                            "value": "number"
+                        },
+                        "searchable": true
+                    },{
+                        "title": "- Date -",
+                        "width": "200px",
+                        "data": "Date_",
+                        "dataalias": "Date_",
+                        "type": {
+                            "field": "field",
+                            "value": "date",
+                            "informat": "esri",
+				      							"outformat": "short"
+                        },
+                        "searchable": true
+                    },{
+                        "title": "Depth",
+                        "width": "100px",
+                        "data": "Depth",
+                        "dataalias": "Depth",
+                        "type": {
+                            "field": "field",
+                            "value": "number"
+                        },
+                        "searchable": true
+                    },{
+                        "title": "Latitude",
+                        "width": "100px",
+                        "data": "Lat",
+                        "dataalias": "Lat",
+                        "type": {
+                            "field": "field",
+                            "value": "number"
+                        },
+                        "searchable": true
+                    },{
+                        "title": "Longitude",
+                        "width": "100px",
+                        "data": "Lon",
+                        "dataalias": "Lon",
+                        "type": {
+                            "field": "field",
+                            "value": "number"
+                        },
+                        "searchable": true
+                    },{
+                        "title": "Region",
+                        "width": "200px",
+                        "data": "Region",
+                        "dataalias": "region",
+                        "type": {
+                            "field": "Region",
+                            "value": "string"
+                        },
+                        "searchable": true
+                    }],
+                    "linktable": {
+                        "enable": false
+                    },
+                    "popups": {
+                        "enable": true,
+                        "layeralias": "Earthquakes"
+                    },
+                    "hover": {
+                        "enable": false,
+                        "hoverfield": "Earthquakes"
+                    }
+                }
+            ]
+        },
+        "customwidgets": [
+        ]
+    }
+}

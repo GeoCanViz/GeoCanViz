@@ -67,12 +67,33 @@
 
 //  ****** link info section ******
 // the open close buttons for link info
-td.gcviz-dg-link {
+%linkopen {
 	background: url($img-root + 'dgLinkOpen.png') no-repeat center center;
+}
+
+%linkclose {
+	background: url($img-root + 'dgLinkClose.png') no-repeat center center;
+}
+
+.gcviz-dg-linkopen {
+	@extend %linkopen;
+	width: 50px;
+	height: 20px;
+}
+
+.gcviz-dg-linkclose {
+	@extend %linkclose;
+	width: 50px;
+	height: 20px;
+}
+
+td.gcviz-dg-link {
+	@extend %linkopen;
 	cursor: pointer;
 }
 tr.shown td.gcviz-dg-link {
-	background: url($img-root + 'dgLinkClose.png') no-repeat center center;
+	@extend %linkclose;
+	cursor: pointer;
 }
 
 .gcviz-dg-linktitle {
@@ -230,12 +251,14 @@ table.dataTable.no-footer {
 	@include app-text(1.1, bold);
 }
 
-.gcviz-val {
+.gcviz-popup-val {
 	@include app-text(1.1, normal);
 	padding-top: 2px!important;
 	padding-left: 5px!important;
 	padding-bottom: 3px!important;
-	margin: 0!important;
+	margin-top: 0!important;
+	margin-left: 0!important;
+	display: block;
 }
 
 .gcviz-popup-content {

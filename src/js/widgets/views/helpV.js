@@ -19,6 +19,7 @@
 			getLegHelp,
 			getDataHelp,
 			getExtractHelp,
+			getDatagridHelp,
 			getDevHelp;
 
 		initialize = function($mapElem) {
@@ -32,6 +33,7 @@
 				tbNav = $mapElem.toolbarnav,
 				tbData = $mapElem.toolbardata,
 				tbExtract = $mapElem.toolbarextract,
+				datagrid = $mapElem.datagrid,
 				node = '';
 
 			// find the help dialog box
@@ -53,6 +55,7 @@
 								'<li data-bind="css: { \'gcviz-hidden\': noLeg }"><a href="#gcviz-help-tbleg" data-bind="text: legTitle, click: function() { scrollTo(\'leg\') }"></a></li>' +
 								'<li data-bind="css: { \'gcviz-hidden\': noData }"><a href="#gcviz-help-tbdata" data-bind="text: dataTitle, click: function() { scrollTo(\'data\') }"></a></li>' +
 								'<li data-bind="css: { \'gcviz-hidden\': noExtract }"><a href="#gcviz-help-tbextract" data-bind="text: extractTitle, click: function() { scrollTo(\'extract\') }"></a></li>' +
+								'<li data-bind="css: { \'gcviz-hidden\': noDatagrid }"><a href="#gcviz-help-datagrid" data-bind="text: datagridTitle, click: function() { scrollTo(\'datagrid\') }"></a></li>' +
 								'<li><a href="#gcviz-help-dev" data-bind="text: devTitle, click: function() { scrollTo(\'dev\') }"></a></li>' +
 							'</ul>' +
 						'</section>';
@@ -83,6 +86,9 @@
 
 			// toolbar extract
 			node += getExtractHelp(tbExtract);
+
+			// datagrid
+			node += getDatagridHelp(datagrid);
 
 			// developer's corner
 			node += getDevHelp(foot);
@@ -531,22 +537,33 @@
 
 		getDataHelp = function(config) {
 			var enable = config.enable,
-				data = config.data.enable,
+				datafile = config.datafile.enable,
+				dataurl = config.dataurl.enable,
 				node = '';
 
-			if (enable && (data)) {
+			if (enable) {
 				node = '<section id="gcviz-help-tbdata" class="gcviz-help gcviz-help-tbdata">' +
 						'<div class="row"><span class="gcviz-help-tbtitle" data-bind="text: dataTitle"></span></div>';
 
-				if (data) {
+				if (datafile) {
 					node += '<div class="row">' +
 								'<div class="span1">' +
 									'<button class="gcviz-help-adddata" tabindex="-1"</button>' +
 								'</div>' +
-								'<span class="span11" data-bind="text: dataAdd"></span>' +
-							'</div>' +
-							'<div class="row"><span class="gcviz-help-textsub" data-bind="text: dataSampleTitle"></span></div>' +
-							'<div class="row">' +
+								'<span class="span11" data-bind="text: dataAddFile"></span>' +
+							'</div>';
+				}
+
+				if (dataurl) {
+					node += '<div class="row">' +
+								'<div class="span1">' +
+									'<button class="gcviz-help-adddata" tabindex="-1"</button>' +
+								'</div>' +
+								'<span class="span11" data-bind="text: dataAddURL"></span>' +
+							'</div>';
+				}
+
+				node += '<div class="row">' +
 								'<div class="span1"></div>' +
 								'<div class="span11">' +
 									'<div class="row">' +
@@ -562,10 +579,8 @@
 										'<span class="span9" data-bind="text: dataRemove"></span>' +
 								'</div>' +
 								'</div>' +
-							'</div>';
-				}
-
-				node += '</section>';
+							'</div>' +
+						'</section>';
 			}
 
 			return node;
@@ -591,6 +606,161 @@
 							'</div>' +
 							'<div class="row"><span class="span12" data-bind="text: extDesc2"></span></div>' +
 						'</div>';
+
+				node += '</section>';
+			}
+
+			return node;
+		};
+
+		getDatagridHelp = function(config) {
+			var enable = config.enable,
+				node = '';
+
+			if (enable) {
+				node = '<section id="gcviz-help-datagrid" class="gcviz-help gcviz-help-datagrid">' +
+							'<div class="row">' +
+								'<span class="gcviz-help-tbtitle" data-bind="text: datagridTitle"></span>' +
+							'</div>' +
+							'<div class="row"><span class="span12" data-bind="text: dgDesc1"></span></div>' +
+							'<div class="row"><span class="span12" data-bind="text: dgDesc2"></span></div>' +
+							'<div class="row"><span class="span12" data-bind="text: dgDesc3"></span></div>' +
+							'<div class="row"><span class="span12" data-bind="text: dgDesc4"></span></div>' +
+							'<div class="row"><span class="span12" data-bind="text: dgDesc5"></span></div>' +
+							'<div class="row"><span class="gcviz-help-textsub" data-bind="text: dgZoomTitle"></span></div>' +
+							'<div class="row">' +
+								'<div class="span1">' +
+									'<button class="gcviz-dg-zoomsel" tabindex="-1"</button>' +
+								'</div>' +
+								'<div class="span11">' +
+									'<span class="gcviz-help-textlist" data-bind="text: dgZoomDesc"></span>' +
+								'</div>' +
+							'</div>' +
+							'<div class="row">' +
+								'<div class="span1">' +
+									'<button class="gcviz-dg-selfeat" tabindex="-1"</button>' +
+								'</div>' +
+								'<div class="span11">' +
+									'<span class="gcviz-help-textlist" data-bind="text: dgSelectDesc"></span>' +
+								'</div>' +
+							'</div>' +
+							'<div class="row"><span class="gcviz-help-textsub" data-bind="text: dgFilterTitle"></span></div>' +
+							'<div class="row"><span class="span12" data-bind="text: dgFilterDesc"></span></div>' +
+							'<div class="row">' +
+								'<div class="span1">' +
+									'<button class="gcviz-dg-filterclear" tabindex="-1"</button>' +
+								'</div>' +
+								'<div class="span11">' +
+									'<span class="gcviz-help-textlist" data-bind="text: dgFilterClear"></span>' +
+								'</div>' +
+							'</div>' +
+							'<div class="row"><span class="span12" data-bind="text: dgFilterTypeDesc"></span></div>' +
+							'<div class="row">' +
+								'<div class="span1">' +
+									'<span class="gcviz-help-textlist"></span>' +
+								'</div>' +
+								'<div class="span11">' +
+									'<span class="gcviz-help-textlist" data-bind="text: dgFilterString"></span>' +
+								'</div>' +
+							'</div>' +
+							'<div class="row">' +
+								'<div class="span1">' +
+									'<span class="gcviz-help-textlist"></span>' +
+								'</div>' +
+								'<div class="span11">' +
+									'<span class="gcviz-help-textlist" data-bind="text: dgFilterNum"></span>' +
+								'</div>' +
+							'</div>' +
+							'<div class="row">' +
+								'<div class="span1">' +
+									'<span class="gcviz-help-textlist"></span>' +
+								'</div>' +
+								'<div class="span11">' +
+									'<span class="gcviz-help-textlist" data-bind="text: dgFilterSelect"></span>' +
+								'</div>' +
+							'</div>' +
+							'<div class="row">' +
+								'<div class="span1">' +
+									'<span class="gcviz-help-textlist"></span>' +
+								'</div>' +
+								'<div class="span11">' +
+									'<span class="gcviz-help-textlist" data-bind="text: dgFilterDate"></span>' +
+								'</div>' +
+							'</div>' +
+							'<div class="row">' +
+								'<div class="span1">' +
+									'<button class="gcviz-dg-applyfilter" tabindex="-1"</button>' +
+								'</div>' +
+								'<div class="span11">' +
+									'<span class="gcviz-help-textlist" data-bind="text: dgFilterApply"></span>' +
+								'</div>' +
+							'</div>' +
+							'<div class="row">' +
+								'<div class="span1">' +
+									'<button class="gcviz-dg-selfeat" tabindex="-1"</button>' +
+								'</div>' +
+								'<div class="span11">' +
+									'<span class="gcviz-help-textlist" data-bind="text: dgFilterSelect"></span>' +
+								'</div>' +
+							'</div>' +
+							'<div class="row"><span class="gcviz-help-textsub" data-bind="text: dgLinkTitle"></span></div>' +
+							'<div class="row"><span class="span12" data-bind="text: dgLinkDesc"></span></div>' +
+							'<div class="row">' +
+								'<div class="span1">' +
+									'<div class="gcviz-dg-linkopen"></div>' +
+								'</div>' +
+								'<div class="span11">' +
+									'<span class="gcviz-help-textlist" data-bind="text: dgLinkOpen"></span>' +
+								'</div>' +
+							'</div>' +
+							'<div class="row">' +
+								'<div class="span1">' +
+									'<div class="gcviz-dg-linkclose"></div>' +
+								'</div>' +
+								'<div class="span11">' +
+									'<span class="gcviz-help-textlist" data-bind="text: dgLinkClose"></span>' +
+								'</div>' +
+							'</div>' +
+							'<div class="row"><span class="gcviz-help-textsub" data-bind="text: dgExportTitle"></span></div>' +
+							'<div class="row">' +
+								'<div class="span1">' +
+									'<button class="gcviz-dg-exportcsv" tabindex="-1"</button>' +
+								'</div>' +
+								'<div class="span11">' +
+									'<span class="gcviz-help-textlist" data-bind="text: dgExportDesc"></span>' +
+								'</div>' +
+							'</div>' +
+							'<div class="row"><span class="gcviz-help-textsub" data-bind="text: dgPopTitle"></span></div>' +
+							'<div class="row"><span class="span12" data-bind="text: dgPopDesc1"></span></div>' +
+							'<div class="row"><span class="span12" data-bind="text: dgPopDesc2"></span></div>' +
+							'<div class="row"><span class="span12" data-bind="text: dgPopDesc3"></span></div>' +
+							'<div class="row"><span class="span12" data-bind="text: dgPopDesc4"></span></div>' +
+							'<div class="row"><span class="span12" data-bind="text: dgPopDesc5"></span></div>' +
+							'<div class="row">' +
+								'<div class="span1">' +
+									'<button class="gcviz-popup-zoom" tabindex="-1"</button>' +
+								'</div>' +
+								'<div class="span11">' +
+									'<span class="gcviz-help-textlist" data-bind="text: dgPopZoom"></span>' +
+								'</div>' +
+							'</div>' +
+							'<div class="row">' +
+								'<div class="span1">' +
+									'<button class="gcviz-popup-previous" tabindex="-1"</button>' +
+								'</div>' +
+								'<div class="span11">' +
+									'<span class="gcviz-help-textlist" data-bind="text: dgPopPrevious"></span>' +
+								'</div>' +
+							'</div>' +
+							'<div class="row">' +
+								'<div class="span1">' +
+									'<button class="gcviz-popup-next" tabindex="-1"</button>' +
+								'</div>' +
+								'<div class="span11">' +
+									'<span class="gcviz-help-textlist" data-bind="text: dgPopNext"></span>' +
+								'</div>' +
+							'</div>' +
+							'<div class="row"><span class="span12" data-bind="text: dgPopDesc6"></span></div>';
 
 				node += '</section>';
 			}

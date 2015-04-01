@@ -94,7 +94,7 @@
 				_self.lblWCAGy = i18n.getDict('%wcag-ylat');
 				_self.lblWCAGmsgx = i18n.getDict('%wcag-msgx');
 				_self.lblWCAGmsgy = i18n.getDict('%wcag-msgy');
-				_self.xValue = ko.observable().extend({ numeric: { precision: 3, validation: { min: 50, max: 140 } } });
+				_self.xValue = ko.observable().extend({ numeric: { precision: 3, validation: { min: 40, max: 150 } } });
 				_self.yValue = ko.observable().extend({ numeric: { precision: 3, validation: { min: 40, max: 80 } } });
 				_self.isWCAG = ko.observable(false);
 				_self.isDialogWCAG = ko.observable(false);
@@ -158,6 +158,10 @@
 				};
 
 				_self.setQueryExtent = function(item, url, query, extent) {
+					// because of the projection if 3978 is used, full extend can give wierd result
+					// in the top corner. To avoid this, limit your query with the scale dependecy.
+					// we cant reapply default value here because we dont want to restrict coordinates
+					// to Canada.
 					var min = extent[0],
 						max = extent[1],
 						extentVal = min.x + ',' + min.y + ','+ max.x + ',' + max.y;
