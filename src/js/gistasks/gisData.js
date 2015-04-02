@@ -19,12 +19,14 @@
 			'esri/SpatialReference',
 			'esri/geometry/Point',
 			'esri/layers/KMLLayer',
+			'esri/layers/FeatureLayer',
 			'esri/layers/GeoRSSLayer',
 			'dojo/_base/array'
-	], function($viz, gcvizFunc, gisGeo, gisMap, gisLegend, vmDatagrid, vmTbData, esriCSVStore, esriFeatLayer, esriSR, esriPoint, esriKML, esriGeoRSS, array) {
+	], function($viz, gcvizFunc, gisGeo, gisMap, gisLegend, vmDatagrid, vmTbData, esriCSVStore, esriFeatLayer, esriSR, esriPoint, esriKML, esriFL, esriGeoRSS, array) {
 		var reorderGraphicLayer,
 			addCSV,
 			addKML,
+			addFeatLayer,
 			addGeoRSS,
 			finishAdd,
 			createLayer,
@@ -274,7 +276,9 @@
 		};
 
 		addKML = function(map, url, uuid, fileName) {
-			var layer;
+			var layer,
+				def = $viz.Deferred();
+
 			layer = new esriKML(url, { outSR: new esri.SpatialReference({ wkid: map.vWkid }) });
 			layer.id = 'tempAddDataKML';
 			layer.visible = false;
@@ -283,6 +287,12 @@
 			// when we are done, we remove the layer.
 			map.addLayer(layer);
 
+			// trap error
+			layer.on('error', function(error) {
+				// return info
+				def.resolve(1, error.target.url);
+			});
+			
 			layer.on('load', gcvizFunc.closureFunc(function(map, uuid, fileName, input) {
 				var graphics, lenGraphics,
 					name, id, fieldName, defaultFields,
@@ -344,13 +354,64 @@
 					}
 					layerDef.layerDefinition.fields = outFields;
 
-					// set legend symbol
-					gisLegend.getFeatureLayerSymbol(JSON.stringify(featureLayer.renderer.toJson()), $viz('#symbol' + id)[0], id);
+					// set legend symbol (need to put in timeout because the symbol is not created yet)
+					setTimeout(function() {
+						gisLegend.getFeatureLayerSymbol(JSON.stringify(featureLayer.renderer.toJson()), $viz('#symbol' + id)[0], id);
+					}, 1000);
 
 					 // add the data to the datagrid
 					vmDatagrid.addTab(map.vIdName, layerDef, name, id);
+
+					// return info
+					def.resolve(0, { name: name, id: id });
 				}
 			}, map, uuid, fileName));
+
+			return def;
+		};
+
+		addFeatLayer = function(map, url, uuid) {
+			var layer,
+				fileName = 'test',
+				def = $viz.Deferred();
+
+			layer = new esriFL(url, {
+					mode: esriFL.MODE_ONDEMAND,
+					outFields: ['*'],
+					id: uuid,
+					outSR: new esri.SpatialReference({ wkid: map.vWkid })
+				});
+
+			// add layer visible false because we use it only to be able to generate feature layer from it.
+			// when we are done, we remove the layer.
+			map.addLayer(layer);
+
+			// trap error
+			layer.on('error', function(error) {
+				// return info
+				//def.resolve(1, error.target.url);
+			});
+			
+			layer.on('load', gcvizFunc.closureFunc(function(map, uuid, fileName, input) {
+				var layer = input.layer,
+					layerDef = JSON.parse(layer._json);
+
+				// finish add by reordering layer and add the layer to map
+				finishAdd(map, layer);
+
+				// set legend symbol (need to put in timeout because the symbol is not created yet)
+				setTimeout(function() {
+					gisLegend.getFeatureLayerSymbol(JSON.stringify(layer.renderer.toJson()), $viz('#symbol' + uuid)[0], uuid);
+				}, 1000);
+
+				 // add the data to the datagrid
+				vmDatagrid.addTab(map.vIdName, layerDef, fileName, uuid);
+
+				// return info
+				def.resolve(0, { name: fileName, id: uuid });
+			}, map, uuid, fileName));
+
+			return def;
 		};
 
 		addGeoRSS = function(map, url, uuid, fileName) {
@@ -420,6 +481,7 @@
 		return {
 			addCSV: addCSV,
 			addKML: addKML,
+			addFeatLayer: addFeatLayer,
 			addGeoRSS: addGeoRSS
 		};
 	});

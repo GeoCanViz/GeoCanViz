@@ -20,6 +20,7 @@
 			addTab,
 			removeTab,
 			innerAddTab,
+			innerAddRestTab,
 			innerRemoveTab,
 			innerTable,
 			vm;
@@ -182,6 +183,15 @@
 							}
 						}, 500);
 					});
+				};
+
+				_self.focusTables = function() {
+					var element = document.getElementById('table-' + mymap.vIdName + '-0_wrapper');
+
+					element.focus();
+					if (scroll) {
+						element.scrollIntoView();
+					}
 				};
 
 				_self.openWait = function(event) {
@@ -421,24 +431,27 @@
 					$info.after('<div class="gcviz-dg-tools"></div>');
 					$tools = $viz($info[0].parentElement.getElementsByClassName('gcviz-dg-tools'));
 
-					// disable spatial and on map for not type 4 or 5
+					// filter on map for layer not type 4 or 5
 					// FeatureLayer: layer created by value (from a feature collection) does not support definition expressions and time definitions
 					if (type === 4 || type === 5) {
 						// add the show selection on map button
 						$tools.append('<button id="applyfilter-' + id + '" class="gcviz-dg-applyfilter gcviz-dg-pad"></button><label class="gcviz-label" for="applyfilter-' + id + '">' + _self.lblApplyfilters + '</label>');
 						$elemFilter = $viz('.gcviz-dg-applyfilter');
 						gcvizFunc.addTooltip($elemFilter, { content: _self.tpApplyFilters });
-	
-						// add the select on map button
-						$tools.append('<button id="selFeat-' + id + '" class="gcviz-dg-selfeat gcviz-dg-pad"></button><label class="gcviz-label" for="selFeat-' + id + '">' + _self.lblSelectFeatures + '</label>');
-						$elemFilter = $viz('.gcviz-dg-selfeat');
-						gcvizFunc.addTooltip($elemFilter, { content: _self.tpSelectFeatures });
 					}
 					
 					// add the clear filter button
 					$tools.append('<button id="clearfilter-' + id + '" tableid="' + idTable + '" class="gcviz-dg-filterclear gcviz-dg-pad"></button><label class="gcviz-label" for="clearfilter-' + id + '">' + _self.lblClearFilters + '</label>');
 					$elemFilter = $viz('.gcviz-dg-filterclear');
 					gcvizFunc.addTooltip($elemFilter, { content: _self.tpClearFilters });
+
+					// disable spatial for layer not type 4 or 5
+					// FeatureLayer: layer created by value (from a feature collection) does not support definition expressions and time definitions
+					if (type === 4 || type === 5) {
+						$tools.append('<button id="selFeat-' + id + '" class="gcviz-dg-selfeat gcviz-dg-pad"></button><label class="gcviz-label" for="selFeat-' + id + '">' + _self.lblSelectFeatures + '</label>');
+						$elemFilter = $viz('.gcviz-dg-selfeat');
+						gcvizFunc.addTooltip($elemFilter, { content: _self.tpSelectFeatures });
+					}
 
 					// add export csv button
 					$tools.append('<button id="exportcsv-' + id +'" class="gcviz-dg-exportcsv gcviz-dg-pad"></button><label class="gcviz-label" for="exportcsv-' + id + '">' + _self.lblExportTableCSV + '</label>');
@@ -1479,6 +1492,21 @@
 					// add tab and table
 					_self.createTab(datas);
 				};
+
+				innerAddRestTab = function(url, layer) {
+					var layerIndex = 0;
+
+					var urlFull = url + '/query?where=OBJECTID+>+0&&dirty=' + (new Date()).getTime();
+					gisDG.getData(urlFull, layer, _self.createTab);
+
+					// popup (remove layer index)
+					url = url.substring(0, url.indexOf('MapServer/') + 10);
+					gisDG.createIdTask(url, layerIndex, layer.id, 5, _self.returnIdTask);
+
+					// add title and layer name alias to a lookup table for popups
+					lookPopups.push([popup.layeralias, layer.title]);
+				};
+
 				innerRemoveTab = _self.removeTab;
 
 				// ********* popup section **********

@@ -8,11 +8,12 @@
 /* global locationPath: false */
 (function() {
 	'use strict';
-	define(['knockout',
+	define(['jquery-private',
+			'knockout',
 			'gcviz-i18n',
 			'gcviz-func',
 			'gcviz-vm-help'
-	], function(ko, i18n, gcvizFunc, helpVM) {
+	], function($viz, ko, i18n, gcvizFunc, helpVM) {
 		var initialize,
 			vm;
 

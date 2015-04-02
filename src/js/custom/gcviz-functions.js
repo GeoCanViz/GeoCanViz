@@ -86,20 +86,44 @@
 			};
 		};
 
-		// http://stackoverflow.com/questions/5717093/check-if-a-javascript-string-is-an-url
-		validateURL = function (str) {
-			var pattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
-				'((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // domain name
-				'((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
-				'(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
-				'(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
-				'(\\#[-a-z\\d_]*)?$','i');
+		// https://mathiasbynens.be/demo/url-regex (@imme_emosol)
+		validateURL = function (url) {
+			// if the url end by /name.ext the .ext part make it freeze.
+			// to avoid that, remove last part of url (after last /). Validate that part individually
+			// the regexp only validate the first 3 parts (http, domain, first folder)
+			var tmpPart, isValid,
+				pattern = new RegExp('(https?|ftp)://(-\.)?([^\s/?\.#-]+\.?)+(/[^\s]*)?$'),
+				esri = '/rest/services/',
+				isEsri = false,
+				index = url.lastIndexOf('/') + 1,
+				urlFirst = url.substring(0, index),
+				urlLast = url.substring(index),
+				tmpUrl = url.split('//'),
+				result = false;
 
-			if (!pattern.test(str)) {
-				return false;
-			} else {
-				return true;
+			// extract first 3 parts of the url
+			if (tmpUrl.length === 2) {
+				tmpPart = tmpUrl[1].split('/');
+
+				if (tmpPart.length >= 2) {
+					urlFirst = tmpUrl[0] + '//' + tmpPart[0] + '/' + tmpPart[1];
+				}
 			}
+
+			// check if it is a REST layer
+			if (url.indexOf(esri) !== -1) {
+				isEsri = true;
+			}
+
+			// check if url is valid and if there is a file name or it is esri layer
+			isValid = pattern.test(urlFirst);
+			if (isValid && urlLast.split('.').length === 2) {
+				result = true;
+			} else if (isValid && isEsri){
+				result = true;
+			}
+
+			return result;
 		};
 
 		addTooltip = function($element, userOpts) {

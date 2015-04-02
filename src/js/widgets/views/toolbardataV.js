@@ -62,7 +62,7 @@
 			node += '</script>';
 
 			// add dialog error message
-			node += '<div data-bind="uiDialog: { title: lblErrTitle, width: 300, height: 200, ok: dialogDataClose, close: dialogDataClose, openDialog: \'isErrDataOpen\' }">' +
+			node += '<div data-bind="uiDialog: { title: lblErrTitle, width: 500, height: 200, ok: dialogDataClose, close: dialogDataClose, openDialog: \'isErrDataOpen\' }">' +
 						'<span data-bind="text: errMsg"></span>' +
 					'</div>';
 

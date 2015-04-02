@@ -30,7 +30,7 @@
 						'<div id="gcviz-datagrid' + mapid + '" class="gcviz-datagrid">' +
 							'<h3 id="gcviz-datahead' + mapid + '"></h3>' +
 							'<div id="gcviz-datatab' + mapid + '" class="gcviz-datagrid-hold">' +
-								'<ul class="gcviz-datagrid-ul"></ul>' +
+								'<ul class="gcviz-datagrid-ul" data-bind="click: focusTables"></ul>' +
 							'</div>' +
 						'</div>' +
 

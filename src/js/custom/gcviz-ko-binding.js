@@ -66,7 +66,8 @@
 	//custom binding handler to create a contextual menu
 	ko.bindingHandlers.contextHelp = {
 		init: function(element, valueAccessor) {
-			var options = valueAccessor() || {},
+			var bubbleClass = 'gcviz-help-bubble',
+				options = valueAccessor() || {},
 				$element = $viz(element);
 
 			// add text
@@ -80,8 +81,13 @@
 				event.currentTarget.getElementsByTagName('img')[0].tabIndex = -1;
 			});
 
+			// if the buble is for wcag, change class because the bubble needs to be left justified
+			if (options.link === 'gcviz-help-key') {
+				bubbleClass = 'gcviz-wcag-bubble';
+			}
+
 			// add bubble (set the alt text, id to match the label, click function and keyboard input)
-			$element.append('<img id="' + options.id + '" tabindex="-1" data-bind="click: function() { showBubble(32, 0, 0, \'' + options.link + '\') }, clickBubble: false, enterkey: { func: \'showBubble\', keyType: \'keydown\', params: \'' + options.link + '\' }" class="gcviz-help-bubble" src="' + options.img + '" alt="' + options.alt + '"></img>');
+			$element.append('<img id="' + options.id + '" tabindex="-1" data-bind="click: function() { showBubble(32, 0, 0, \'' + options.link + '\') }, clickBubble: false, enterkey: { func: \'showBubble\', keyType: \'keydown\', params: \'' + options.link + '\' }" class="' + bubbleClass + '" src="' + options.img + '" alt="' + options.alt + '"></img>');
 		}
 	};
 

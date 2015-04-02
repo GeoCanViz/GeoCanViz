@@ -20,11 +20,18 @@
 	min-height: (2 * $rembase) + rem;
 }
 
-.gcviz-help-bubble {
+%helpbubble {
 	margin-bottom: 0!important;
-	margin-left: (0.5 * $rembase) + rem;
 	cursor: pointer;
 	display: inline-block!important;
+}
+.gcviz-help-bubble {
+	@extend %helpbubble;
+	float: right;
+}
+
+.gcviz-wcag-bubble {
+	@extend %helpbubble;
 }
 
 .gcviz-help-bubbledesc {

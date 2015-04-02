@@ -46,7 +46,7 @@ Global sys value#%gisurlalti#http://geogratis.gc.ca/services/elevation/cdem/alti
 #%footer-tpdatagrid#Hide/Show data tables#Ouvrir ou fermer les tableaux des données
 #%footer-tpformat#Toggle between decimal degree and degree minute second format#Basculer entre le format degré décimal et degré minute seconde
 #%datagrid-processing#Processing...#Traitement en cours...
-#%datagrid-search#Search...#Rechercher...:
+#%datagrid-search#Filter...#Filtrer...:
 #%datagrid-lengthMenu#Show _MENU_ entries#Afficher _MENU_ éléments
 #%datagrid-info#Showing _START_ to _END_ of _TOTAL_#Affichage de _START_ à _END_ sur _TOTAL_
 #%datagrid-infoEmpty#Showing 0 to 0 of 0#Affichage de 0 à 0 sur 0
@@ -64,20 +64,20 @@ Global sys value#%gisurlalti#http://geogratis.gc.ca/services/elevation/cdem/alti
 #%datagrid-sortDescending#: activate to sort column descending#: activer pour trier la colonne par ordre décroissant
 #%datagrid-selectall#Select All#Sélectionner tout
 #%datagrid-zoomselect#Zoom to selected#Zoom à la sélection
-#%datagrid-tpclearfilters#Clear all search#Effacer toutes les recherches
-#%datagrid-lblclearfilters#Clear search#Effacer recherche
+#%datagrid-tpclearfilters#Clear all filters#Effacer tous les filtres
+#%datagrid-lblclearfilters#Clear filters#Effacer filtres
 #%datagrid-tpexportselcsv#Export Selection to CSV#Exporter la sélection au format CSV
 #%datagrid-tpexporttblcsv#Export table to CSV#Exporter la table au format CSV
 #%datagrid-lblexporttblcsv#Export CSV#Exporter en CSV
 #%datagrid-tpselfeat#Select features on map#Sélectionner les élements sur la carte
 #%datagrid-lblselfeat#Select features#Sélectionner élements
-#%datagrid-tpapplyfilters#Apply filters on map#Appliquer les filtres sur la carte
-#%datagrid-lblapplyfilters#Apply filters#Appliquer les filtres
+#%datagrid-tpapplyfilters#Filter map#AFiltrer la carte
+#%datagrid-lblapplyfilters#Filter map#Filtrer la carte
 #%datagrid-poptitle#Information#Information
 #%datagrid-popalllayers#All layers#Toutes les couches
 #%datagrid-popselect#Select the features from the following layer#Sélectionnez une couche dans les suivantes
 #%datagrid-protitle#Table Creation#Création des tables
-#%datagrid-prodesc#Please wait until all tables are created. This operation could take a while if there is a lot of data.#S'il vous plaît, attendre que les toutes tables soient créées. Cette opération peut prendre du temps si il y a beacoup de données.
+#%datagrid-prodesc#Please wait until all tables are created. This operation could take up to 30 seconds. If tables are not created after that, refresh you browser.#S'il vous plaît, attendre que les toutes tables soient créées. Cette opération pourrait prendre jusqu'à 30 secondes. Si les tables ne sont pas créées après cela, veuillez rafraîchir navigateur.
 #%datagrid-exptitle#Table Export#Exporter la table
 #%datagrid-expdesc#Table selection is being exported to a Comma-Separated Value file in your download folder. Due to amount of elements, it can take up to few minutes.#La sélection de la table est exportée dans un fichier CSV (Comma-separated values) dans votre répertoire téléchargement. Du au nombre élevé d'éléments, ceci peut prendre jusqu'a quelques minutes.
 #%toolbardraw-alt#Measuring and Drawing Tools - Help#Mesures et outils de dessin - Aide
@@ -151,6 +151,9 @@ Global sys value#%gisurlalti#http://geogratis.gc.ca/services/elevation/cdem/alti
 #%toolbardata-err2#Unable to determine the field separator. It should be one of these characters (, ; |).#Incapable de déterminer le séparateur. Il devrait être l'un des caractères suivants : (, ; |).
 #%toolbardata-err3#Presence of element(s) with invalid latitude and/or longitude.#Présence d'élément(s) dont les valeurs de latitude et/ou de longitude sont invalides.
 #%toolbardata-err4#Error fetching items from CSV file: #Erreur de récupération des items du fichier CSV : 
+#%toolbardata-errurl#Wrong URL format.#Mauvais format de URL.
+#%toolbardata-errload#Unable to add: XXX. File not found, wrong URL or out of memory#Impossible d'ajouter : XXX. Fichier non trouvé, mauvais URL ou manque de mémoire.
+#%toolbardata-errformat#Unable to recognize format or format not supported.#Impossible de reconnaître le format ou format non supporté.
 #%toolbardata-ie9#This tool is not available in Internet Explorer version 9. You need Internet Explorer version 10 and higher or another browser (Chrome, FireFox or Safari).#Cet outil n'est pas disponible dans Internet Explorer 9. Vous devez avoir la version 10 et plus ou un autre navigateur (Chrome, Firefox ou Safari).
 #%toolbarextract-alt#Download Maps and Data - Help#Téléchager cartes et données - Aide
 #%toolbarextract-name#Download Maps and Data#Téléchager cartes et données

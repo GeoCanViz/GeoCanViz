@@ -44,6 +44,9 @@
 				_self.errMsg2 = i18n.getDict('%toolbardata-err2');
 				_self.errMsg3 = i18n.getDict('%toolbardata-err3');
 				_self.errMsg4 = i18n.getDict('%toolbardata-err4');
+				_self.errURL = i18n.getDict('%toolbardata-errurl');
+				_self.errLoad = i18n.getDict('%toolbardata-errload');
+				_self.errFormat = i18n.getDict('%toolbardata-errformat');
 				_self.msgIE9 = i18n.getDict('%toolbardata-ie9');
 				_self.errMsg = ko.observable();
 				_self.isErrDataOpen = ko.observable();
@@ -109,7 +112,8 @@
 				};
 
 				_self.dialogUrlOk = function() {
-					var uu = gcvizFunc.getUUID(),
+					var esri = '/rest/services/',
+						uu = gcvizFunc.getUUID(),
 						url = _self.addUrlValue(),
 						lenUrl = url.length,
 						valid = gcvizFunc.validateURL(url),
@@ -120,12 +124,38 @@
 					if (valid) {
 						if (ext.toUpperCase() === 'KML') {
 							//http://geoappext.nrcan.gc.ca/GeoCanViz/CCMEO/toporama/building.kml
-							//http://geoscan.nrcan.gc.ca/star/download/xml150841558124753.kml
-							gisData.addKML(mymap, url, uu, name);
+							gisData.addKML(mymap, url, uu, name)
+								.done(function(err, data) {
+									if (err === 0) {
+										// add to user array so knockout will generate legend
+										_self.userArray.push({ label: data.name, id: data.id });
+									} else {
+										_self.errMsg(_self.errLoad.replace('XXX', data));
+										_self.isErrDataOpen(true);
+									}
+							});
 						} else if (ext.toUpperCase() === 'RSS') {
 							//gisData.addGeoRSS(mymap, 'http://geoscan.ess.nrcan.gc.ca/rss/newpub_e.rss', uu, name);
+						} 
+						// else if (url.indexOf(esri) !== -1) {
+							// gisData.addFeatLayer(mymap, url, uu)
+								// .done(function(err, data) {
+									// if (err === 0) {
+										// // add to user array so knockout will generate legend
+										// _self.userArray.push({ label: data.name, id: data.id });
+									// } else {
+										// _self.errMsg(_self.errLoad.replace('XXX', data));
+										// _self.isErrDataOpen(true);
+									// }
+							// });
+						// } 
+						else {
+							_self.errMsg(_self.errFormat);
+							_self.isErrDataOpen(true);
 						}
-						_self.userArray.push({ label: name, id: uu + '0' });
+					} else {
+						_self.errMsg(_self.errURL);
+						_self.isErrDataOpen(true);
 					}
 
 					// close window and clean url
