@@ -18,6 +18,7 @@
 	], function($viz, ko, i18n, gcvizFunc, gisMap, gisDG, gisGraphic, gisgeo) {
 		var initialize,
 			addTab,
+			addRestTab,
 			removeTab,
 			innerAddTab,
 			innerAddRestTab,
@@ -121,8 +122,9 @@
 				_self.isEnableNext = ko.observable(false);
 				_self.popupCounter = ko.observable('');
 
-				// variable to start the progress dialog
+				// variable to start the progress dialog and notify all tables are created
 				_self.isWait = ko.observable(false);
+				_self.isTableReady = ko.observable(false);
 
 				// variable to start export csv message
 				_self.isExport = ko.observable(false);
@@ -186,7 +188,7 @@
 				};
 
 				_self.focusTables = function() {
-					var element = document.getElementById('table-' + mymap.vIdName + '-0_wrapper');
+					var element = document.getElementById('table-' + mymap.vIdName + '-' + activeTableId + '_wrapper');
 
 					element.focus();
 					if (scroll) {
@@ -765,7 +767,7 @@
 
 						// enable datagrid button in footerVM
 						gcvizFunc.setElemValueVM(mapid, 'footer', 'isTableReady', true);
-
+						
 						// stop propagation of event on search by column field
 						$viz('.gcviz-dg-search').on('click', function(event) {
 							event.preventDefault();
@@ -782,6 +784,9 @@
 								objDataTable[len].draw();
 							}
 						});
+
+						// notify tables are ready
+						_self.isTableReady(true);
 					}
 
 					// new table have been added
@@ -1323,9 +1328,9 @@
 						}
 					}
 
-					// combine query if it dont exceed the 2048 characters limits on definition query
+					// combine query if it exceed the 5000 characters.
 					queryLen = defQuery.length;
-					if (queryLen > 2048) {
+					if (queryLen > 5000) {
 						defQuery = queryNoId;
 					}
 					
@@ -1494,17 +1499,21 @@
 				};
 
 				innerAddRestTab = function(url, layer) {
-					var layerIndex = 0;
+					var urlFull = url + '/query?where=OBJECTID+>+0&outFields=*&dirty=' + (new Date()).getTime(),
+						layerInfo = layer.layerinfo;
 
-					var urlFull = url + '/query?where=OBJECTID+>+0&&dirty=' + (new Date()).getTime();
+					// get data
 					gisDG.getData(urlFull, layer, _self.createTab);
 
 					// popup (remove layer index)
 					url = url.substring(0, url.indexOf('MapServer/') + 10);
-					gisDG.createIdTask(url, layerIndex, layer.id, 5, _self.returnIdTask);
+					gisDG.createIdTask(url, layerInfo.index, layerInfo.id, 5, _self.returnIdTask);
 
 					// add title and layer name alias to a lookup table for popups
-					lookPopups.push([popup.layeralias, layer.title]);
+					lookPopups.push([layer.popups.layeralias, layer.title]);
+
+					// add layer definition to config file
+					config.layers.push(layer);
 				};
 
 				innerRemoveTab = _self.removeTab;
@@ -1889,6 +1898,70 @@
 			}
 		};
 
+		addRestTab = function(url, featLayer) {
+			var field, outfield, fieldName, fieldType,
+				outFields = [],
+				layer = { },
+				name = featLayer.name,
+				table = innerTable,
+				fields = featLayer.fields,
+				lenFields = fields.length;
+
+			// remove shape fields. Recreate fields instead of copying them because
+			// there is hidden key that makes datatable to crash.
+			while (lenFields--) {
+				field = fields[lenFields];
+				fieldName = field.name;
+				fieldType = field.type;
+
+				if (fieldName !== 'Shape' && fieldName !== 'OBJECTID') {
+					outfield = { },
+					outfield.title = field.alias;
+					outfield.data = field.name;
+					outfield.dataalias = field.name;
+					outfield.width = '100px';
+					outfield.searchable = true;
+
+					outfield.type = {
+							field: 'field',
+						};
+					if (fieldType === 'esriFieldTypeDate') {
+						outfield.type.value = 'date';
+						outfield.type.informat = 'esri';
+						outfield.type.outformat = 'short';
+						outfield.width = '200px';
+					} else if (fieldType === 'esriFieldTypeDouble') {
+						outfield.type.value = 'number';
+					} else {
+						outfield.type.value = 'string';
+					}
+					
+					outFields.push(outfield);
+				}
+			}
+
+			// recreate layerinfo like we have in config file from data added from
+			// data toollbar.
+			layer.title = name;
+			layer.mapid = featLayer._map.vIdName;
+			layer.fields = outFields;
+			layer.globalsearch = false;
+			layer.popups = { 'enable': true,
+							'layeralias': name };
+			layer.linktable = { 'enable': false };
+			layer.layerinfo = { 
+								'pos': table,
+								'id': featLayer.id,
+								'type': 5,
+								'index': featLayer.layerId
+							};
+			
+			// call the inner create tab function (if datagrid is enable)
+			if (typeof innerAddRestTab !== 'undefined') {
+				innerAddRestTab(url, layer);
+			}
+		};
+
 		removeTab = function(id) {
 			innerRemoveTab(id);
 		};
@@ -1896,6 +1969,7 @@
 		return {
 			initialize: initialize,
 			addTab: addTab,
+			addRestTab: addRestTab,
 			removeTab: removeTab
 		};
 	});

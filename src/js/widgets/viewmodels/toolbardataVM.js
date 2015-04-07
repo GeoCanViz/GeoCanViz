@@ -63,8 +63,25 @@
 				_self.isAddData = ko.observable(false);
 
 				_self.init = function() {
+					var url;
+
 					// to expose the observable to know when the layer has been added
 					innerNotifyAdd = _self.notifyAdd;
+
+					// check if there is a urlto load
+					url = window.location.toString().split('?');
+
+					if (url.length === 2) {
+						// subscribe to the isTableReady event. to know tables have been initialize
+						gcvizFunc.subscribeTo(mapid, 'datagrid', 'isTableReady', function(input) {
+							if (input) {
+								_self.addUrlValue(url[1]);
+								setTimeout(function() {
+									_self.dialogUrlOk();
+								}, 1000);
+							}
+						});
+					}
 
 					return { controlsDescendantBindings: true };
 				};
@@ -134,21 +151,22 @@
 										_self.isErrDataOpen(true);
 									}
 							});
-						} else if (ext.toUpperCase() === 'RSS') {
+						}
+						//else if (ext.toUpperCase() === 'RSS') {
 							//gisData.addGeoRSS(mymap, 'http://geoscan.ess.nrcan.gc.ca/rss/newpub_e.rss', uu, name);
+						//} 
+						else if (url.indexOf(esri) !== -1) {
+							gisData.addFeatLayer(mymap, url, uu)
+								.done(function(err, data) {
+									if (err === 0) {
+										// add to user array so knockout will generate legend
+										_self.userArray.push({ label: data.name, id: data.id });
+									} else {
+										_self.errMsg(_self.errLoad.replace('XXX', data));
+										_self.isErrDataOpen(true);
+									}
+							});
 						} 
-						// else if (url.indexOf(esri) !== -1) {
-							// gisData.addFeatLayer(mymap, url, uu)
-								// .done(function(err, data) {
-									// if (err === 0) {
-										// // add to user array so knockout will generate legend
-										// _self.userArray.push({ label: data.name, id: data.id });
-									// } else {
-										// _self.errMsg(_self.errLoad.replace('XXX', data));
-										// _self.isErrDataOpen(true);
-									// }
-							// });
-						// } 
 						else {
 							_self.errMsg(_self.errFormat);
 							_self.isErrDataOpen(true);

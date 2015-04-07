@@ -372,7 +372,6 @@
 
 		addFeatLayer = function(map, url, uuid) {
 			var layer,
-				fileName = 'test',
 				def = $viz.Deferred();
 
 			layer = new esriFL(url, {
@@ -389,27 +388,27 @@
 			// trap error
 			layer.on('error', function(error) {
 				// return info
-				//def.resolve(1, error.target.url);
+				def.resolve(1, error.target.url);
 			});
 			
-			layer.on('load', gcvizFunc.closureFunc(function(map, uuid, fileName, input) {
+			layer.on('load', gcvizFunc.closureFunc(function(map, uuid, input) {
 				var layer = input.layer,
 					layerDef = JSON.parse(layer._json);
-
-				// finish add by reordering layer and add the layer to map
-				finishAdd(map, layer);
 
 				// set legend symbol (need to put in timeout because the symbol is not created yet)
 				setTimeout(function() {
 					gisLegend.getFeatureLayerSymbol(JSON.stringify(layer.renderer.toJson()), $viz('#symbol' + uuid)[0], uuid);
+
+					// finish add by reordering layer and add the layer to map
+					finishAdd(map, layer);
 				}, 1000);
 
 				 // add the data to the datagrid
-				vmDatagrid.addTab(map.vIdName, layerDef, fileName, uuid);
+				vmDatagrid.addRestTab(url, layer);
 
 				// return info
-				def.resolve(0, { name: fileName, id: uuid });
-			}, map, uuid, fileName));
+				def.resolve(0, { name: layer.name, id: uuid });
+			}, map, uuid));
 
 			return def;
 		};

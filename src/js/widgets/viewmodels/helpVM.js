@@ -207,16 +207,17 @@
 				_self.dgDesc4 = i18n.getDict('%help-datagrid-desc4');
 				_self.dgDesc5 = i18n.getDict('%help-datagrid-desc5');
 				_self.dgZoomTitle = i18n.getDict('%help-datagrid-zoomtitle');
+				_self.dgZoomSelDesc = i18n.getDict('%help-datagrid-zoomseldesc');
 				_self.dgZoomDesc = i18n.getDict('%help-datagrid-zoomdesc');
 				_self.dgSelectDesc = i18n.getDict('%help-datagrid-selectdesc');
 				_self.dgFilterTitle = i18n.getDict('%help-datagrid-filtertitle');
 				_self.dgFilterDesc = i18n.getDict('%help-datagrid-filterdesc');
 				_self.dgFilterClear = i18n.getDict('%help-datagrid-filterclear');
 				_self.dgFilterTypeDesc = i18n.getDict('%help-datagrid-filtertypedesc');
-				_self.dgFilterString = i18n.getDict('%help-datagrid-filtertypestring');
-				_self.dgFilterNum = i18n.getDict('%help-datagrid-filtertypenum');
-				_self.dgFilterSelect = i18n.getDict('%help-datagrid-filtertypeselect');
-				_self.dgFilterDate = i18n.getDict('%help-datagrid-filtertypedate');
+				_self.dgFilterTypeString = i18n.getDict('%help-datagrid-filtertypestring');
+				_self.dgFilterTypeNum = i18n.getDict('%help-datagrid-filtertypenum');
+				_self.dgFilterTypeSelect = i18n.getDict('%help-datagrid-filtertypeselect');
+				_self.dgFilterTypeDate = i18n.getDict('%help-datagrid-filtertypedate');
 				_self.dgFilterApply = i18n.getDict('%help-datagrid-filterapply');
 				_self.dgFilterSelect = i18n.getDict('%help-datagrid-filterspatial');
 				_self.dgLinkTitle = i18n.getDict('%help-datagrid-linktitle');
@@ -241,6 +242,7 @@
 				_self.devLogoAlt = i18n.getDict('%help-dev-logoalt');
 				_self.devLogo = i18n.getDict('%help-dev-logo');
 				_self.devDesc = i18n.getDict('%help-dev-desc');
+				_self.devUrl = i18n.getDict('%footer-urlgcvizrepo');
 
 				// help dialog box
 				_self.lblHelpTitle = i18n.getDict('%help-dialogtitle');

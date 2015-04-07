@@ -160,6 +160,11 @@ var locationPath;
 				vmArray.legend = tblegend.initialize($mapSection);
 			}
 
+			// add datatable, popup and hover
+			if (config.datagrid.enable) {
+				vmArray.datagrid = datagrid.initialize($mapSection);
+			}
+
 			// add data
 			if (config.toolbardata.enable) {
 				vmArray.data = tbdata.initialize($mapSection);
@@ -173,11 +178,6 @@ var locationPath;
 			// add inset
 			if (config.insetframe.enable) {
 				vmArray.insets = inset.initialize($mapSection);
-			}
-
-			// add datatable, popup and hover
-			if (config.datagrid.enable) {
-				vmArray.datagrid = datagrid.initialize($mapSection);
 			}
 
 			// add print

@@ -209,7 +209,6 @@
 				}
 				i++;
 			}
-			datesLen = dates.length;
 
 			// loop trought data
 			i = 0;
@@ -227,8 +226,9 @@
 				}
 
 				// if there is esri date field, we need to reformat them
-				if (datesLen !== 0) {
-					attTmp = dates[0].split(';');
+				datesLen = dates.length;
+				while (datesLen--) {
+					attTmp = dates[datesLen].split(';');
 					attDate = attTmp[0];
 					attFormat = attTmp[1];
 					tmpDate = feat.attributes[attDate];
@@ -520,8 +520,8 @@
 			while (index < len) {
 				layer = mymap.getLayer(graphId[index]);
 
-				// do it only for visible layer and not a internal esri graphic layer
-				if (layer.visible && layer.id.search('graphicsLayer') !== 0) {
+				// do it only for visible layer, not a internal esri graphic layer or REST feature layer
+				if (layer.visible && layer.id.search('graphicsLayer') !== 0 && layer.type !== 'Feature Layer') {
 					task = layer.selectFeatures(query, esriFeatLayer.SELECTION_NEW);
 
 					// reset feature

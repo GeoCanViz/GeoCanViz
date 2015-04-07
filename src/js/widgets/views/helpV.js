@@ -628,6 +628,7 @@
 							'<div class="row"><span class="span12" data-bind="text: dgDesc4"></span></div>' +
 							'<div class="row"><span class="span12" data-bind="text: dgDesc5"></span></div>' +
 							'<div class="row"><span class="gcviz-help-textsub" data-bind="text: dgZoomTitle"></span></div>' +
+							'<div class="row"><span class="span12" data-bind="text: dgZoomSelDesc"></span></div>' +
 							'<div class="row">' +
 								'<div class="span1">' +
 									'<button class="gcviz-dg-zoomsel" tabindex="-1"</button>' +
@@ -660,7 +661,7 @@
 									'<span class="gcviz-help-textlist"></span>' +
 								'</div>' +
 								'<div class="span11">' +
-									'<span class="gcviz-help-textlist" data-bind="text: dgFilterString"></span>' +
+									'<span class="gcviz-help-textlist" data-bind="text: dgFilterTypeString"></span>' +
 								'</div>' +
 							'</div>' +
 							'<div class="row">' +
@@ -668,7 +669,7 @@
 									'<span class="gcviz-help-textlist"></span>' +
 								'</div>' +
 								'<div class="span11">' +
-									'<span class="gcviz-help-textlist" data-bind="text: dgFilterNum"></span>' +
+									'<span class="gcviz-help-textlist" data-bind="text: dgFilterTypeNum"></span>' +
 								'</div>' +
 							'</div>' +
 							'<div class="row">' +
@@ -676,7 +677,7 @@
 									'<span class="gcviz-help-textlist"></span>' +
 								'</div>' +
 								'<div class="span11">' +
-									'<span class="gcviz-help-textlist" data-bind="text: dgFilterSelect"></span>' +
+									'<span class="gcviz-help-textlist" data-bind="text: dgFilterTypeSelect"></span>' +
 								'</div>' +
 							'</div>' +
 							'<div class="row">' +
@@ -684,7 +685,7 @@
 									'<span class="gcviz-help-textlist"></span>' +
 								'</div>' +
 								'<div class="span11">' +
-									'<span class="gcviz-help-textlist" data-bind="text: dgFilterDate"></span>' +
+									'<span class="gcviz-help-textlist" data-bind="text: dgFilterTypeDate"></span>' +
 								'</div>' +
 							'</div>' +
 							'<div class="row">' +
@@ -783,7 +784,8 @@
 						'</div>';
 			}
 
-			node +='<div class="row"><span class="span12" data-bind="text: devDesc"></span></div></section>';
+			node +='<div class="row"><span data-bind="text: devDesc"></span>' +
+					'<a target="_blank" data-bind="attr: { href: devUrl, title: \'GitHub\' }"> GitHub.</a></div></section>';
 
 			return node;
 		};
