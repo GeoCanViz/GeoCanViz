@@ -14,10 +14,7 @@
 			'esri/tasks/PrintParameters',
 			'esri/tasks/Geoprocessor'
 	], function($viz, func, esriPrintTemp, esriPrintTask, esriPrintParams, esriGeoProcessor) {
-		var printMap,
-			printResult,
-			printError,
-			htmlPage,
+		var htmlPage,
 			getTemplates,
 			getMxdElements,
 			gpJobComplete,
@@ -89,7 +86,7 @@
 				 elementType = pair[1];
 				 elementLabel = pair[0];
 				 
-				 if (elementLabel.indexOf("9999#") >= 0) 
+				 if (elementLabel.indexOf('9999#') >= 0) 
 				 	elementLabel = elementLabel.substring(elementLabel.indexOf("#") + 1);
 				 
 				 if (elementType === 'TEXT_ELEMENT') {
@@ -116,7 +113,7 @@
 		};
 
 		gpJobFailed = function(error) {
-			console.log('gpJobFailed' + error);
+			console.log('gpJobFailed: ' + error);
 		};
 
 		getMapCenter = function(map) {
@@ -231,11 +228,11 @@
 		};
 
 		printCustomError = function(response) {
-			console.log('printCustomError' + response);
+			console.log('printCustomError: ' + response);
 		};
 
 		printHTMLError = function(response) {
-			console.log('printHTMLError' + response);
+			console.log('printHTMLError: ' + response);
 		};
 
 		callPrintTask = function(printTask, params) {
@@ -404,44 +401,7 @@
 			}
 		};
 
-		printMap = function(map, printInfo) {
-			// We cant use the print task for certain type now because it is not able to deal with
-			// cluster graphic layers.
-			// TODO try to solve this or stay with the new approach
-			var printTask = new esriPrintTask(printInfo.url),
-				params = new esriPrintParams(),
-				template = new esriPrintTemp();
-
-			// set the html page to open
-			htmlPage = printInfo.template;
-
-			// set the print template and print parameters then call the task
-			template.exportOptions = { dpi: 96 };
-			template.format = 'PNG8';
-			template.layout = 'Letter ANSI A Landscape';
-			template.layoutOptions = {
-				'scalebarUnit': 'Kilometers',
-				'copyrightText': printInfo.copyright,
-				'legendLayer': []
-			};
-			template.preserveScale = true;
-
-			params.template = template;
-			params.map = map;
-			printTask.execute(params, printResult, printError);
-		};
-
-		printResult = function(response) {
-			
-		};
-
-		printError = function(err) {
-			console.log('Printing broken: ', err);
-		};
-
-
 		return {
-			printMap : printMap,
 			generateHTMLPrint : generateHTMLPrint,
 			getTemplates: getTemplates,
 			getMxdElements: getMxdElements,

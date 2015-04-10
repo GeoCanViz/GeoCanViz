@@ -7,8 +7,12 @@
             },
             "map": {
                 "urlgeomserv": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/Utilities/Geometry/GeometryServer",
-                "urlproxy": "http://geoappext.nrcan.gc.ca/php/proxy.php",
+                "urlproxy": "http://geoappext.nrcan.gc.ca/php/proxy.ashx",
                 "urldownload": "http://geoappext.nrcan.gc.ca/php/download.php",
+                "urlprint": "http://s-bsc-geoappint.nrn.nrcan.gc.ca/arcgis/rest/services/Tools/GeoCanViz_ExportWebMap/GPServer/Export%20Web%20Map",
+                "urlprintelements":"http://s-bsc-geoappint.nrn.nrcan.gc.ca/arcgis/rest/services/Tools/GeoCanVizGetMxdElements/GPServer/GeoCanVizGetMxdElements",
+                "urltemplates": "http://s-bsc-geoappint.nrn.nrcan.gc.ca/arcgis/rest/services/Tools/GeoCanVizGetTemplates/GPServer/GeoCanVizGetTemplates",
+                "urlhtml": "http://s-bsc-geoappint.nrn.nrcan.gc.ca/GeoCanViz/AdvancedPrint/templates",
                 "sr": {
                     "wkid": 3978
                 },
@@ -173,7 +177,10 @@
             },
             "print": {
                 "enable": true,
-                "type": 1
+                "type": 2,
+                "printlayout": ["Portrait", "Landscape"],
+                "project": ["Default", "Topo"],
+                "DPI": [96, 300]
             },
             "fullscreen": true
         },
@@ -326,6 +333,9 @@
             },
             "dataurl": {
                 "enable": true
+            },
+            "dataquery": {
+            	"enable": true
             }
         },
         "toolbarextract": {

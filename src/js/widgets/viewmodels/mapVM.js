@@ -45,6 +45,14 @@
 				// set zoom extent button to be able to enable/disable
 				$zmExtent = $viz('#map-zmextent-' + mapid);
 
+				// previous / nest extent
+				_self.previous = i18n.getDict('%datagrid-previous');
+				_self.next = i18n.getDict('%datagrid-next');
+				_self.isEnablePrevious = ko.observable(false);
+				_self.isEnableNext = ko.observable(false);
+				_self.extentPos = ko.observable(0);
+				_self.extentArray = ko.observableArray([]);
+
 				_self.init = function() {
 					var layer, base, panel,
 						layers = config.layers,
@@ -78,6 +86,8 @@
 					// create map	
 					map = gisM.createMap(mapid + '_holder', config, side);
 
+					// add extent change event
+					gisM.extentMapEvent(map, _self.changeExtent);
 					// add basemap
 					bases = bases.reverse();
 					while (lenBases--) {
@@ -104,21 +114,6 @@
 
 					// keep map reference in the viewmodel to be accessible from other view model
 					_self.map = map;
-
-					// set a wcag close button for map info window
-					map.on('load', function() {
-						var btn;
-
-						panel = $viz('.esriPopupWrapper').find('.titlePane');
-						panel.prepend('<button class="gcviz-wcag-close ui-button ui-state-default ui-button-icon-only ui-dialog-titlebar-close" role="button" aria-disabled="false" title="close">' +
-											'<span class="ui-button-icon-primary ui-icon ui-icon-closethick"></span>' +
-											'<span class="ui-button-text">close</span>' +
-										'</button>');
-						btn = panel.find('.gcviz-wcag-close');
-						btn.on('click', function() {
-							gisM.hideInfoWindow(_self.map, 'location');
-						});
-					});
 
 					return { controlsDescendantBindings: true };
 				};
@@ -167,6 +162,54 @@
 					// open menu if it was open
 					if (menuState !== false) {
 						$menu.accordion('option', 'active', 0);
+					}
+				};
+
+				_self.changeExtent = function(value) {
+					_self.extentArray.push(value);
+					_self.extentPos(_self.extentPos() + 1);
+
+					// keep only 5 extent
+					if (_self.extentArray().length > 5) {
+						_self.extentArray.shift();
+					}
+
+					if (_self.extentArray().length > 0) {
+						_self.isEnablePrevious(true);
+					}
+				};
+
+				_self.clickPreviousExtent = function() {
+					_self.extentPos(_self.extentPos() - 1);
+					
+					if (_self.extentPos() <= 0) {
+						_self.extentPos(0);
+						_self.isEnablePrevious(false);
+					} else {
+						_self.isEnablePrevious(true);
+					};
+
+					if (_self.extentArray().length > _self.extentPos()) {
+						_self.isEnableNext(true);
+					} else {
+						_self.isEnableNext(false);
+					}
+				};
+
+				_self.clickNextExtent = function() {
+					_self.extentPos(_self.extentPos() + 1);
+
+					if (_self.extentPos() >= 5) {
+						_self.extentPos(5);
+						_self.isEnableNext(false);
+					} else {
+						_self.isEnableNext(true);
+					};
+
+					if (_self.extentArray().length < _self.extentPos()) {
+						_self.isEnablePrevious(true);
+					} else {
+						_self.isEnablePrevious(false);
 					}
 				};
 

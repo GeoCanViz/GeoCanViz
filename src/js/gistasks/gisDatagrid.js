@@ -102,7 +102,7 @@
 			require(['gcviz-gissymbol'], function(gissymb) {
 				// set symbologies
 				symbPoint = gissymb.getSymbPoint(color, 14, colorOut, 1.5);
-				symbLine = gissymb.getSymbLine(color, 5 , colorOut);
+				symbLine = gissymb.getSymbLine(colorOut, 3);
 				symbPoly = gissymb.getSymbPoly(colorOut, color, 1.5);
 				symbSpatial = gissymb.getSymbPoly(spatialOut, spatial, 1);
 			});
@@ -520,8 +520,8 @@
 			while (index < len) {
 				layer = mymap.getLayer(graphId[index]);
 
-				// do it only for visible layer, not a internal esri graphic layer or REST feature layer
-				if (layer.visible && layer.id.search('graphicsLayer') !== 0 && layer.type !== 'Feature Layer') {
+				// do it only for visible layer, not internal esri graphic layer or REST feature layer
+				if (layer.visible && layer.id.search('graphicsLayer') !== 0 && layer.id.search('gcviz-') !== 0 && layer.type !== 'Feature Layer') {
 					task = layer.selectFeatures(query, esriFeatLayer.SELECTION_NEW);
 
 					// reset feature

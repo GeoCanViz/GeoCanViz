@@ -12,20 +12,20 @@
 			'gcviz-func',
 			'gcviz-i18n',
 			'gcviz-gisdata',
-			'gcviz-gislegend',
 			'gcviz-vm-datagrid'
-	], function($viz, ko, gcvizFunc, i18n, gisData, gisLegend, vmDatagrid) {
+	], function($viz, ko, gcvizFunc, i18n, gisData, vmDatagrid) {
 		var initialize,
 			notifyAdd,
 			innerNotifyAdd,
 			vm;
 
-		initialize = function($mapElem, mapid) {
+		initialize = function($mapElem, mapid, config) {
 
 			// data model				
-			var toolbardataViewModel = function($mapElem, mapid) {
+			var toolbardataViewModel = function($mapElem, mapid, config) {
 				var _self = this,
 					$btnCSV = $viz('#btnAddCSV' + mapid),
+					configQuery = config.dataquery.enable,
 					mymap = gcvizFunc.getElemValueVM(mapid, ['map', 'map'], 'js');
 
 				// viewmodel mapid to be access in tooltip custom binding
@@ -34,7 +34,6 @@
 				// tooltip and label
 				_self.tpAdd = i18n.getDict('%toolbardata-tpadd');
 				_self.tpDelete = i18n.getDict('%toolbardata-tpdelete');
-				_self.tpVisible = i18n.getDict('%toolbarlegend-tgvis');
 				_self.lblCSV = i18n.getDict('%toolbardata-lbladdcsv');
 				_self.lblUrl = i18n.getDict('%toolbardata-lbladdurl');
 
@@ -53,8 +52,14 @@
 
 				// dialog window for url
 				_self.lblUrlTitle = i18n.getDict('%toolbardata-lbladdurltitle');
+				_self.lblAddUrl = i18n.getDict('%toolbardata-lbladdurldesc');
 				_self.isUrlDialogOpen = ko.observable();
 				_self.addUrlValue = ko.observable('');
+
+				// dialog window for process
+				_self.lblAddTitle = i18n.getDict('%toolbardata-lbladdtitle');
+				_self.lblAddDesc = i18n.getDict('%toolbardata-lbladddesc');
+				_self.isDataProcess = ko.observable(false);
 
 				// array of user layer
 				_self.userArray = ko.observableArray([]);
@@ -68,19 +73,19 @@
 					// to expose the observable to know when the layer has been added
 					innerNotifyAdd = _self.notifyAdd;
 
-					// check if there is a urlto load
-					url = window.location.toString().split('?');
+					// check if there is a url to load
+					if (configQuery) {
+						url = window.location.toString().split('?');
 
-					if (url.length === 2) {
-						// subscribe to the isTableReady event. to know tables have been initialize
-						gcvizFunc.subscribeTo(mapid, 'datagrid', 'isTableReady', function(input) {
-							if (input) {
-								_self.addUrlValue(url[1]);
-								setTimeout(function() {
+						if (url.length === 2) {
+							// subscribe to the isTableReady event to know tables have been initialize
+							gcvizFunc.subscribeTo(mapid, 'datagrid', 'isTableReady', function(input) {
+								if (input) {
+									_self.addUrlValue(url[1]);
 									_self.dialogUrlOk();
-								}, 1000);
-							}
-						});
+								}
+							});
+						}
 					}
 
 					return { controlsDescendantBindings: true };
@@ -139,8 +144,12 @@
 
 					// add data to table and to aray of imported data
 					if (valid) {
+						// show process dialog
+						_self.isDataProcess(true);
+
 						if (ext.toUpperCase() === 'KML') {
 							//http://geoappext.nrcan.gc.ca/GeoCanViz/CCMEO/toporama/building.kml
+							//https://developers.google.com/kml/documentation/KML_Samples.kml
 							gisData.addKML(mymap, url, uu, name)
 								.done(function(err, data) {
 									if (err === 0) {
@@ -148,6 +157,7 @@
 										_self.userArray.push({ label: data.name, id: data.id });
 									} else {
 										_self.errMsg(_self.errLoad.replace('XXX', data));
+										_self.isDataProcess(false);
 										_self.isErrDataOpen(true);
 									}
 							});
@@ -163,6 +173,7 @@
 										_self.userArray.push({ label: data.name, id: data.id });
 									} else {
 										_self.errMsg(_self.errLoad.replace('XXX', data));
+										_self.isDataProcess(false);
 										_self.isErrDataOpen(true);
 									}
 							});
@@ -206,6 +217,9 @@
 						reader.onload = function() {
 							var uuid = gcvizFunc.getUUID(),
 								fileName = reader.fileName;
+
+							// show process dialog
+							_self.isDataProcess(true);
 
 							// use deffered object to wait for the result
 							gisData.addCSV(mymap, reader.result, uuid, fileName)
@@ -252,27 +266,15 @@
 					}
 				};
 
-				_self.changeItemsVisibility = function(selectedItem, event) {
-					// in the view we use event: {click: myfunction } instead of just click
-					// to be able to pass the event 
-					gisLegend.setLayerVisibility(mymap, selectedItem.id, event.target.checked);
-
-					// Knockout doesn't prevent the default click action.
-					return true;
-				};
-
-				_self.changeServiceOpacity = function(layerid, opacityValue) {
-					gisLegend.setLayerOpacity(mymap, layerid, opacityValue);
-				};
-
 				_self.notifyAdd = function() {
 					_self.isAddData(false);
+					_self.isDataProcess(false);
 				};
 
 				_self.init();
 			};
 
-			vm = new toolbardataViewModel($mapElem, mapid);
+			vm = new toolbardataViewModel($mapElem, mapid, config);
 			ko.applyBindings(vm, $mapElem[0]); // This makes Knockout get to work
 			return vm;
 		};

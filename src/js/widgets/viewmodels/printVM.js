@@ -3,7 +3,7 @@
  * GeoCanViz viewer / Visionneuse GéoCanViz
  * gcviz.github.io/gcviz/License-eng.txt / gcviz.github.io/gcviz/Licence-fra.txt
  *
- * Help view model widget
+ * Print view model widget
  */
 /* global locationPath: false */
 (function() {
@@ -120,7 +120,7 @@
 			 	_self.printlayouts = ko.observableArray(printlayout);
 	
                 _self.init = function() {
-					// set global dialog to be able to open help from
+					// set global dialog to be able to open print from
 					// outisede the view model. This way, it is easy
 					// for header VM to open help dialog
 					gblDialogOpen = _self.isPrintDialogOpen;
@@ -131,7 +131,7 @@
 					return { controlsDescendantBindings: true };
 				};
 
-				_self.dialogHelpOk = function() {
+				_self.dialogPrintOk = function() {
 					var templatepath;
 
 					if (printType === 1) {

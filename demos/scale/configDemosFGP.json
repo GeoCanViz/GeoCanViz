@@ -1112,6 +1112,9 @@
             "pos": 4,
             "data": {
                 "enable": true
+            },
+            "dataquery": {
+            	"enable": false
             }
         },
         "toolbarextract": {

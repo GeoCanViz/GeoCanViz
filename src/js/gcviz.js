@@ -181,7 +181,10 @@ var locationPath;
 			}
 
 			// add print
-			//vmArray.print = print.initialize($mapSection);
+			if (config.header.print.enable) {
+				// add print
+				vmArray.print = print.initialize($mapSection);
+			}
 
 			// create the help for the map instance
 			vmArray.help = help.initialize($mapSection);

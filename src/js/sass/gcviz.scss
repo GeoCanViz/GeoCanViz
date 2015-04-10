@@ -293,6 +293,8 @@ input[type="checkbox"], input[type="radio"]{
 	background: transparent;
 	border: 0;
 	vertical-align:	middle;
+	padding-left: (0.5 * $rembase) + rem;
+	padding-right: (0.5 * $rembase) + rem;
 }
 
 // solve problem with a black bar when you drag jQueryUI dialog window

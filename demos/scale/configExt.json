@@ -30,6 +30,9 @@
             },
             "dataurl": {
                 "enable": true
+            },
+            "dataquery": {
+            	"enable": false
             }},"insetframe": {"enable": false},
 "toolbarextract": {
             "enable": false,

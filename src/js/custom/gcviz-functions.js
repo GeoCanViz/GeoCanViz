@@ -86,29 +86,20 @@
 			};
 		};
 
-		// https://mathiasbynens.be/demo/url-regex (@imme_emosol)
+		// http://someweblog.com/url-regular-expression-javascript-link-shortener/
+		// http://code.tutsplus.com/tutorials/8-regular-expressions-you-should-know--net-6149
 		validateURL = function (url) {
 			// if the url end by /name.ext the .ext part make it freeze.
 			// to avoid that, remove last part of url (after last /). Validate that part individually
 			// the regexp only validate the first 3 parts (http, domain, first folder)
 			var tmpPart, isValid,
-				pattern = new RegExp('(https?|ftp)://(-\.)?([^\s/?\.#-]+\.?)+(/[^\s]*)?$'),
+				pattern = new RegExp (/\(?(?:(http|https|ftp):\/\/)?(?:((?:[^\W\s]|\.|-|[:]{1})+)@{1})?((?:www.)?(?:[^\W\s]|\.|-)+[\.][^\W\s]{2,4}|localhost(?=\/)|\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})(?::(\d*))?([\/]?[^\s\?]*[\/]{1})*(?:\/?([^\s\n\?\[\]\{\}\#]*(?:(?=\.)){1}|[^\s\n\?\[\]\{\}\.\#]*)?([\.]{1}[^\s\?\#]*)?)?(?:\?{1}([^\s\n\#\[\]]*))?([\#][^\s\n]*)?\)?/gi),
 				esri = '/rest/services/',
 				isEsri = false,
 				index = url.lastIndexOf('/') + 1,
-				urlFirst = url.substring(0, index),
 				urlLast = url.substring(index),
 				tmpUrl = url.split('//'),
 				result = false;
-
-			// extract first 3 parts of the url
-			if (tmpUrl.length === 2) {
-				tmpPart = tmpUrl[1].split('/');
-
-				if (tmpPart.length >= 2) {
-					urlFirst = tmpUrl[0] + '//' + tmpPart[0] + '/' + tmpPart[1];
-				}
-			}
 
 			// check if it is a REST layer
 			if (url.indexOf(esri) !== -1) {
@@ -116,7 +107,7 @@
 			}
 
 			// check if url is valid and if there is a file name or it is esri layer
-			isValid = pattern.test(urlFirst);
+			isValid = pattern.test(url);
 			if (isValid && urlLast.split('.').length === 2) {
 				result = true;
 			} else if (isValid && isEsri){

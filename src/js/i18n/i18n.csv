@@ -40,6 +40,17 @@ Global sys value#%gisurlalti#http://geogratis.gc.ca/services/elevation/cdem/alti
 #%header-tpprint#Print map#Imprimer la carte
 #%header-tpinset#Show or hide insets#Afficher ou cacher les insertions
 #%header-tpfullscreen#Toggle between maximum and original map size#Basculer entre mode plein écran et régulier
+#%print-dialogtitle#Print#Imprimer
+#%print-dialogtemplate#Template#Gabarit
+#%print-dialogParameters#Parameters#Paramètres
+#%print-dialogScaleExtent#Map scale/Extent#Échele de la carte/Étendue
+#%print-dialogPreserve#Preserve: #Préserver : 
+#%print-dialogMapScale#Map Scale#MÉchele de la carte
+#%print-dialogMapExtent#Map Extent#Étendue de la carte
+#%print-dialogDPI#DPI#PPP
+#%print-dialogForceScale#Force scale: #Forcer l'échele : 
+#%print-dialogLayout#Layout#Disposition
+#%print-dialogNoTemplates#No Templates Found#Gabarits non trouvés
 #%footer-tpgithub#Get GeoCanViz on GitHub#Obtenir GéoCanViz de GitHub
 #%footer-urlgcvizrepo#https://github.com/GeoCanViz/GeoCanViz#https://github.com/GeoCanViz/GeoCanViz
 #%footer-tpNorth#North Arrow#Flèche du nord
@@ -77,7 +88,7 @@ Global sys value#%gisurlalti#http://geogratis.gc.ca/services/elevation/cdem/alti
 #%datagrid-popalllayers#All layers#Toutes les couches
 #%datagrid-popselect#Select the features from the following layer#Sélectionnez une couche dans les suivantes
 #%datagrid-protitle#Table Creation#Création des tables
-#%datagrid-prodesc#Please wait until all tables are created. This operation could take up to 30 seconds. If tables are not created after that, refresh you browser.#S'il vous plaît, attendre que les toutes tables soient créées. Cette opération pourrait prendre jusqu'à 30 secondes. Si les tables ne sont pas créées après cela, veuillez rafraîchir navigateur.
+#%datagrid-prodesc#Please wait until all tables are created. This operation could take up to 30 seconds. If tables are not created after that, refresh your browser.#S'il vous plaît, attendre que les toutes tables soient créées. Cette opération pourrait prendre jusqu'à 30 secondes. Si les tables ne sont pas créées après cela, veuillez rafraîchir navigateur.
 #%datagrid-exptitle#Table Export#Exporter la table
 #%datagrid-expdesc#Table selection is being exported to a Comma-Separated Value file in your download folder. Due to amount of elements, it can take up to few minutes.#La sélection de la table est exportée dans un fichier CSV (Comma-separated values) dans votre répertoire téléchargement. Du au nombre élevé d'éléments, ceci peut prendre jusqu'a quelques minutes.
 #%toolbardraw-alt#Measuring and Drawing Tools - Help#Mesures et outils de dessin - Aide
@@ -143,8 +154,11 @@ Global sys value#%gisurlalti#http://geogratis.gc.ca/services/elevation/cdem/alti
 #%toolbardata-name#Import Data#Importer des données
 #%toolbardata-tpadd#Import Data#Importer des données
 #%toolbardata-lbladdcsv#Import points in CSV format#Importer des points en format CSV
-#%toolbardata-lbladdurl#Import KML format#Importer en format KML
+#%toolbardata-lbladdurl#Import from URL#Importer d'un URL
+#%toolbardata-lbladdurldesc#Add URL to import. Supported formats are KML and ArcGIS REST “feature layer”.#Entrer le URL à importer. Les formats supportés sont KML et ArcGIS REST « feature layer ».
 #%toolbardata-lbladdurltitle#URL to import#URL à importer
+#%toolbardata-lbladdtitle#Import Data#Importer des données
+#%toolbardata-lbladddesc#Wait for the process to finish. When it is done, you will find the symbology in “Map Layers and Legend(s)” toolbar. If available, you will have a new table in the “Data Table” section.#Attendez que le processus se termine. Lorsque cela est fait, vous trouverez la symbologie dans la barre d'outil « Couvertures de la carte et légende(s) ». Si disponible, vous aurez une nouvelle table dans la section « Tableau des données ».
 #%toolbardata-tpdelete#Remove Data#Enlever des données
 #%toolbardata-errtitle#Add Data Error#Erreur dans l'ajout des données
 #%toolbardata-err1#There must be a field for y coordinates (latitude, lat, y or ycenter), and a field for x coordinates (longitude, long, x or xcenter).#Il doit y avoir un champ (latitude, lat, y ou ycenter) pour les coordonnées y et un champ (longitude, long, x ou xcenter) pour les coordonnées x.
@@ -324,14 +338,3 @@ Global sys value#%gisurlalti#http://geogratis.gc.ca/services/elevation/cdem/alti
 #%help-dev-logoalt#Get GeoCanViz on GitHub#Obtenir GéoCanViz de GitHub
 #%help-dev-logo#Click to view the latest GeoCanViz development source code on GitHub.#Cliquez pour voir le tout dernier code source de développement de GéoCanViz sur GitHub.
 #%help-dev-desc#This map was created using the GeoCanViz Viewer framework, an open source tool created by Natural Resources Canada Canadian Center Mapping and Earth Observation group. The viewer can be configured to use some or all of the tools and toolbars - for information and to get the latest development source code, go to GeoCanViz on#Cette carte a été créée en utilisant le visualisateur GéoCanViz, un logiciel libre créé par le groupe Centre canadien de cartographie et d'observation de la terre de Ressources naturelles Canada. Le visualisateur peut être configuré pour utiliser une partie ou l'ensemble des outils et des barres d'outils - pour de l'information et pour obtenir la dernière version du code source, aller à GeoCanViz sur
-#%print-dialogtitle#Print#Print_FR
-#%print-dialogtemplate#Template#Template_FR
-#%print-dialogParameters#Parameters#Parameters_FR
-#%print-dialogScaleExtent#Map Scale/Extent#Map Scale/Extent FR
-#%print-dialogPreserve#Preserve:#Preserve_FR:
-#%print-dialogMapScale#Map Scale#Map Scale_FR
-#%print-dialogMapExtent#Map Extent#Map Extent_FR
-#%print-dialogDPI#DPI#DPI_FR
-#%print-dialogForceScale#Force Scale:#Force Scale_FR:
-#%print-dialogLayout#Layout#Layout_FR
-#%print-dialogNoTemplates#No Templates Found#No Templates Found FR

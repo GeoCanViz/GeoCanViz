@@ -181,8 +181,8 @@
 					//gisPrint.printMap(vmArray[mapid].map.map, _self.printInfo);
 
 					// This is the simple print. It doesn't use esri print task
-					printSimple(map, _self.printInfo.template);
-					//printVM.togglePrint();
+					//printSimple(map, _self.printInfo.template);
+					printVM.togglePrint();
 				};
 
 				_self.insetClick = function() {

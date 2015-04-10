@@ -23,7 +23,7 @@
 			innerAddTab,
 			innerAddRestTab,
 			innerRemoveTab,
-			innerTable,
+			innerTable = 0,
 			vm;
 
 		initialize = function($mapElem, mapid, config) {
@@ -143,22 +143,6 @@
 					});
 					$viz('.ui-accordion-header').hide();
 
-					// start progress dialog. Put in a timer if not, the variable is not initialize
-					intervalModal = setInterval(function() {
-						// check if identity manager window is open. If so wait until finish before show modal
-						var id = $viz('.esriSignInDialog');
-
-						// if table are created, do not show modal
-						if (tableReady) {
-							_self.isWait(false);
-							clearInterval(intervalModal);
-						} else if (id.length === 0 || id[0].style.display === 'none') { // if no id or id is display, show modal
-							_self.isWait(true);
-						} else {
-							_self.isWait(false);
-						}
-					}, 1000);
-
 					// wait for the map to load
 					mymap.on('load', function() {
 						var interval,
@@ -173,17 +157,38 @@
 						// if a table initialize slower then next one, position can be messed up.
 						objDataTable = new Array(lenLayers);
 
-						// loop all layers inside an interval to make sure there is no mess up with the index
-						// When they start at the same time, index can be switch to another table and the geometries
-						// doesn't match the table anymore.
-						interval = setInterval(function() {
-							_self.getData(layers[i], i);
-							i++;
+						// if there is no tables, set is ready to true.
+						if (lenLayers === 0) {
+							_self.isTableReady(true);
+						} else {
+							// start progress dialog. Put in a timer if not, the variable is not initialize
+							intervalModal = setInterval(function() {
+								// check if identity manager window is open. If so wait until finish before show modal
+								var id = $viz('.esriSignInDialog');
+		
+								// if table are created, do not show modal
+								if (tableReady) {
+									_self.isWait(false);
+									clearInterval(intervalModal);
+								} else if (id.length === 0 || id[0].style.display === 'none') { // if no id or id is display, show modal
+									_self.isWait(true);
+								} else {
+									_self.isWait(false);
+								}
+							}, 1000);
 
-							if (i === lenLayers) {
-								clearInterval(interval);
-							}
-						}, 500);
+							// loop all layers inside an interval to make sure there is no mess up with the index
+							// When they start at the same time, index can be switch to another table and the geometries
+							// doesn't match the table anymore.
+							interval = setInterval(function() {
+								_self.getData(layers[i], i);
+								i++;
+	
+								if (i === lenLayers) {
+									clearInterval(interval);
+								}
+							}, 500);
+						}
 					});
 				};
 
@@ -793,6 +798,15 @@
 					if (table > tables) {
 						$datatab.tabs('refresh');
 						$datagrid.accordion('refresh');
+
+						// make sure the wait window is close
+						_self.isWait(false);
+
+						// there is a problem with the define. The gcviz-vm-tbdata is not able to be set.
+						// We set the reference to gcviz-vm-tbdata (hard way)
+						require(['gcviz-vm-tbdata'], function(vmData) {
+							vmData.notifyAdd();
+						});
 					}
 
 					// increment triggerTableId
@@ -1252,7 +1266,7 @@
 					definition = defs.join(' AND ');
 
 					// concat if there is an existing query and set query
-					definition = _self.concatDefQuery(info, definition, false);
+					definition = _self.concatDefQuery(info, definition, 0, false);
 					_self.applyDefQuery(info, definition);
 				};
 
@@ -1270,7 +1284,7 @@
 					}
 				};
 
-				_self.concatDefQuery = function(layerInfo, defQuery, spatial) {
+				_self.concatDefQuery = function(layerInfo, defQuery, nbFeatures, spatial) {
 					var iStart, iEnd, tmpStrLen,
 						queryLen,
 						queryNoId = '',
@@ -1328,9 +1342,9 @@
 						}
 					}
 
-					// combine query if it exceed the 5000 characters.
-					queryLen = defQuery.length;
-					if (queryLen > 5000) {
+					// combine query if theres is more then 1000 features because there is a bug (max record count on layer set to 1000
+					// and we cant change the value in ArcGIS server 10.1)
+					if (nbFeatures >= 1000) {
 						defQuery = queryNoId;
 					}
 					
@@ -1435,6 +1449,7 @@
 						data = objDataTable[activeTableId].data(),
 						lenData = data.length,
 						lenFeats = features.length,
+						oriLenFeats = lenFeats,
 						featIds = new Array(lenFeats);
 
 					// create an array with all the objectid to select
@@ -1471,7 +1486,7 @@
 					definition = 'OBJECTID IN (' + featIds.join(',') + ')';
 
 					// concat if there is an existing query and set query
-					definition = _self.concatDefQuery(info, definition, true);
+					definition = _self.concatDefQuery(info, definition, oriLenFeats, true);
 					_self.applyDefQuery(info, definition);
 				};
 
@@ -1900,6 +1915,7 @@
 
 		addRestTab = function(url, featLayer) {
 			var field, outfield, fieldName, fieldType,
+				defaultFields ='OBJECTID, Shape, SHAPE.AREA, SHAPE.LEN',
 				outFields = [],
 				layer = { },
 				name = featLayer.name,
@@ -1914,7 +1930,7 @@
 				fieldName = field.name;
 				fieldType = field.type;
 
-				if (fieldName !== 'Shape' && fieldName !== 'OBJECTID') {
+				if (defaultFields.indexOf(fieldName) === -1) {
 					outfield = { },
 					outfield.title = field.alias;
 					outfield.data = field.name;
@@ -1930,7 +1946,7 @@
 						outfield.type.informat = 'esri';
 						outfield.type.outformat = 'short';
 						outfield.width = '200px';
-					} else if (fieldType === 'esriFieldTypeDouble') {
+					} else if (fieldType === 'esriFieldTypeDouble' || fieldType === 'esriFieldTypeInteger' || fieldType === 'esriFieldTypeSmallInteger') {
 						outfield.type.value = 'number';
 					} else {
 						outfield.type.value = 'string';

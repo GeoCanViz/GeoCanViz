@@ -11,9 +11,9 @@
 			'gcviz-func',
 			'gcviz-gisgeo',
 			'gcviz-gismap',
-			'gcviz-gislegend',
 			'gcviz-vm-datagrid',
 			'gcviz-vm-tbdata',
+			'gcviz-vm-tblegend',
 			'dojox/data/CsvStore',
 			'esri/layers/FeatureLayer',
 			'esri/SpatialReference',
@@ -22,12 +22,13 @@
 			'esri/layers/FeatureLayer',
 			'esri/layers/GeoRSSLayer',
 			'dojo/_base/array'
-	], function($viz, gcvizFunc, gisGeo, gisMap, gisLegend, vmDatagrid, vmTbData, esriCSVStore, esriFeatLayer, esriSR, esriPoint, esriKML, esriFL, esriGeoRSS, array) {
+	], function($viz, gcvizFunc, gisGeo, gisMap, vmDatagrid, vmTbData, vmTbLegend, esriCSVStore, esriFeatLayer, esriSR, esriPoint, esriKML, esriFL, esriGeoRSS, array) {
 		var reorderGraphicLayer,
 			addCSV,
 			addKML,
 			addFeatLayer,
 			addGeoRSS,
+			addLegend,
 			finishAdd,
 			createLayer,
 			getSeparator,
@@ -175,8 +176,8 @@
 			// to avoid this, we add the layer only when it is done.
 			//gArray.push({ label: gReader.fileName, id: guuid });
 
-			// set legend symbol
-			gisLegend.getFeatureLayerSymbol(JSON.stringify(featureLayer.renderer.toJson()), $viz('#symbol' + guuid)[0], guuid);
+			// set legend
+			addLegend(gfileName, guuid, 7, JSON.stringify(featureLayer.renderer.toJson()));
 
 			// add the data to the datagrid
 			vmDatagrid.addTab(mymap.vIdName, featCollection, gfileName, guuid);
@@ -283,10 +284,6 @@
 			layer.id = 'tempAddDataKML';
 			layer.visible = false;
 
-			// add layer visible false because we use it only to be able to generate feature layer from it.
-			// when we are done, we remove the layer.
-			map.addLayer(layer);
-
 			// trap error
 			layer.on('error', function(error) {
 				// return info
@@ -294,7 +291,7 @@
 			});
 			
 			layer.on('load', gcvizFunc.closureFunc(function(map, uuid, fileName, input) {
-				var graphics, lenGraphics,
+				var graphics, lenGraphics, attributes, graphic,
 					name, id, fieldName, defaultFields,
 					outFields = new Array(2),
 					field, fields, lenFields,
@@ -315,13 +312,6 @@
 					featureLayer.type = 5;
 					featureLayer.name = name;
 					featureLayer.id = id;
-	
-					// loop the graphics to add to the feature layer from where they come from. It will be use in the popup
-					graphics = featureLayer.graphics;
-					lenGraphics = graphics.length;
-					while (lenGraphics--) {
-						graphics[lenGraphics]._layer.name = name;
-					}
 	
 					// remove the kml layer
 					map.removeLayer(map.getLayer('tempAddDataKML'));
@@ -354,10 +344,30 @@
 					}
 					layerDef.layerDefinition.fields = outFields;
 
-					// set legend symbol (need to put in timeout because the symbol is not created yet)
-					setTimeout(function() {
-						gisLegend.getFeatureLayerSymbol(JSON.stringify(featureLayer.renderer.toJson()), $viz('#symbol' + id)[0], id);
-					}, 1000);
+					// loop the graphics to add to the feature layer from where they come from. It will be use in the popup
+					// at the same time check if there is feature without fields. It happen when the value is null in the kml
+					// the field is not created on the feature.
+					graphics = featureLayer.graphics;
+					lenGraphics = graphics.length;
+					while (lenGraphics--) {
+						graphic = graphics[lenGraphics];
+						attributes = graphic.attributes;
+
+						// set layer name
+						graphic._layer.name = name;
+
+						lenFields = outFields.length;
+						while (lenFields--) {
+							field = outFields[lenFields].alias;
+
+							if (!attributes.hasOwnProperty(field)){
+								attributes[field] = '';
+							}
+						}
+					}
+
+					// set legend
+					addLegend(name, id, 7, JSON.stringify(featureLayer.renderer.toJson()));
 
 					 // add the data to the datagrid
 					vmDatagrid.addTab(map.vIdName, layerDef, name, id);
@@ -366,6 +376,10 @@
 					def.resolve(0, { name: name, id: id });
 				}
 			}, map, uuid, fileName));
+
+			// add layer visible false because we use it only to be able to generate feature layer from it.
+			// when we are done, we remove the layer.
+			map.addLayer(layer);
 
 			return def;
 		};
@@ -393,21 +407,20 @@
 			
 			layer.on('load', gcvizFunc.closureFunc(function(map, uuid, input) {
 				var layer = input.layer,
+					name = layer.name,
 					layerDef = JSON.parse(layer._json);
 
-				// set legend symbol (need to put in timeout because the symbol is not created yet)
-				setTimeout(function() {
-					gisLegend.getFeatureLayerSymbol(JSON.stringify(layer.renderer.toJson()), $viz('#symbol' + uuid)[0], uuid);
+				// set legend
+				addLegend(name, uuid, 5, JSON.stringify(layer.renderer.toJson()));
+				
+				// finish add by reordering layer and add the layer to map
+				finishAdd(map, layer);
 
-					// finish add by reordering layer and add the layer to map
-					finishAdd(map, layer);
-				}, 1000);
-
-				 // add the data to the datagrid
+				// add the data to the datagrid
 				vmDatagrid.addRestTab(url, layer);
 
 				// return info
-				def.resolve(0, { name: layer.name, id: uuid });
+				def.resolve(0, { name: name, id: uuid });
 			}, map, uuid));
 
 			return def;
@@ -466,15 +479,73 @@
 			});
 		};
 
+		addLegend = function(name, id, type, symbol) {
+			var config = {
+					"expand": true,
+					"last": false,
+					"type": type,
+					"id": id,
+					"graphid": "custom",
+					"displayfields": false,
+					"label": {
+						"value": name,
+						"alttext": name
+					},
+					"metadata": {
+						"enable": false
+					},
+					"opacity": {
+						"enable": true,
+						"min": 0,
+						"max": 1,
+						"initstate": 1
+					},
+					"visibility": {
+						"enable": true,
+						"initstate": true,
+						"type": 1,
+						"radioid": 0
+					},
+					"displaychild": {
+						"enable": true,
+						"symbol": symbol
+					},
+					"customimage": {
+						"enable": false,
+						"images": []
+					},
+					"items": []
+				};
+
+			vmTbLegend.addLegend(config);
+		};
+
 		finishAdd = function(mymap, layer) {
+			var graphics, layerId,
+				layerIds = mymap.graphicsLayerIds,
+				len = layerIds.length;
+
+			// add layer to the map
 			mymap.addLayer(layer);
 
 			// reoder layers to make sure symbol and datagrid are on top
 			reorderGraphicLayer(mymap, 'gcviz-symbol', -1);
 			reorderGraphicLayer(mymap, 'gcviz-datagrid', -1);
 
+			// remove intern graphic layers added in the process
+			while (len--) {
+				layerId = layerIds[len];
+				if (layerId.indexOf('graphicsLayer') !== -1) {
+					mymap.removeLayer(mymap.getLayer(layerId));
+				}				
+			}
+
 			// get the extent then zoom
-			gisMap.zoomGraphics(mymap, layer.graphics);
+			graphics = layer.graphics;
+
+			if (graphics.length > 0) {
+				gisMap.zoomGraphics(mymap, layer.graphics);
+			}
 		};
 
 		return {

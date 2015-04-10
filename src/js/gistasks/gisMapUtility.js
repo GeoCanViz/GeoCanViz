@@ -37,6 +37,7 @@
 			setPanScaleLink,
 			connectLinkEvent,
 			connectEvent,
+			extentMapEvent,
 			addLayer,
 			setScaleInfo,
 			resizeMap,
@@ -316,6 +317,12 @@
 				// check if inset needs to be resize
 				if (!noLink) { linkInset(target); }
 				noLink = false;
+			}, 1000, false));
+		};
+
+		extentMapEvent = function(map, funct) {
+			map.on('extent-change', func.debounce(function(evt) {
+				funct(map.extent);
 			}, 1000, false));
 		};
 
@@ -677,6 +684,7 @@
 			createInset: createInset,
 			addLayer: addLayer,
 			setScaleInfo: setScaleInfo,
+			extentMapEvent: extentMapEvent,
 			resizeMap: resizeMap,
 			resizeCenterMap: resizeCenterMap,
 			zoomPoint: zoomPoint,

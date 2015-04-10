@@ -1091,6 +1091,9 @@
             },
             "dataurl": {
                 "enable": true
+            },
+            "dataquery": {
+            	"enable": false
             }
         },
         "toolbarextract": {

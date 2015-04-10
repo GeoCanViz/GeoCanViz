@@ -43,6 +43,7 @@
 						'<div data-bind="uiDialog: { title: lblUrlTitle, width: 450, height: 220, ok: dialogUrlOk, cancel: dialogUrlCancel, close: dialogUrlClose, openDialog: \'isUrlDialogOpen\' }">' +
 							'<div>' +
 								'<form><fieldset>' +
+									'<span data-bind="text: lblAddUrl"></span>' +
 									'<input class="gcviz-data-textinput text ui-widget-content ui-corner-all" data-bind="value: addUrlValue, valueUpdate: \'afterkeydown\', returnKey: dialogUrlOkEnter, attr: { alt: lblUrlTitle }"/>' +
 								'</fieldset></form>' +
 							'</div>' +
@@ -53,10 +54,7 @@
 			node += '<div><ul class="gcviz-data-ul" data-bind="template: { name: \'userTmpl\', foreach: $root.userArray }"></ul></div>';
 			node += '<script id="userTmpl" type="text/html">';
 				node += '<li class="gcviz-data-li"><div class="gcviz-data-item">';
-					node += '<input class="gcviz-data-itemchild" type="checkbox" data-bind="event: { click: $root.changeItemsVisibility }, attr: { alt: $root.tpVisible, id: \'checkbox\' + id }, checked: true"/>';
-					node += '<div class="gcviz-data-itemchild" data-bind="HorizontalSliderDijit: { widget: $root.HorizontalSlider, extent: [0, 1], value: 1, visible: true, enable: true }"></div>';
 					node += '<span class="gcviz-data-itemchild" data-bind="text: label, attr: { id: \'span\' + id }"></span>';
-					node += '<div class="gcviz-data-itemchild" data-bind="attr: { id: \'symbol\' + id }"></div>';
 					node += '<button class="gcviz-data-itemchild gcviz-data-del" tabindex="0" data-bind="click: function($data) { $root.removeClick($data) }, tooltip: { content: $root.tpDelete }"></button>';
 				node += '</div></li>';
 			node += '</script>';
@@ -66,8 +64,13 @@
 						'<span data-bind="text: errMsg"></span>' +
 					'</div>';
 
+			// add dialog error message
+			node += '<div data-bind="uiDialog: { title: lblAddTitle, width: 500, height: 200, openDialog: \'isDataProcess\' }">' +
+						'<span data-bind="text: lblAddDesc"></span>' +
+					'</div>';
+
 			$toolbar.append(node);
-			return (tbdataVM.initialize($toolbar, mapid));
+			return (tbdataVM.initialize($toolbar, mapid, config));
 		};
 
 		return {
