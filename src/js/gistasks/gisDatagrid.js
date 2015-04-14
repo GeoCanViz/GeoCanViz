@@ -202,9 +202,9 @@
 			// check is there field date. If so, keep name and output format
 			while (i !== fieldsLen) {
 				field = fields[i];
-				fieldType = field.type;
+				fieldType = field.fieldtype;
 
-				if (fieldType.informat === 'esri' && fieldType.value === 'date') {
+				if (fieldType.informat === 1 && fieldType.value === 3) {
 					dates.push(field.data + ';' + fieldType.outformat);
 				}
 				i++;

@@ -415,7 +415,7 @@
                 "enable": true
             },
             "dataquery": {
-            	"enable": false
+            	"enable": true
             }
         },
         "toolbarextract": {
@@ -448,9 +448,9 @@
                         "width": "100px",
                         "data": "Mag",
                         "dataalias": "Mag",
-                        "type": {
-                            "field": "field",
-                            "value": "number"
+                        "fieldtype": {
+                            "type": 1,
+                            "value": 2
                         },
                         "searchable": true
                     },{
@@ -458,9 +458,9 @@
                         "width": "100px",
                         "data": "Mag",
                         "dataalias": "Mag",
-                        "type": {
-                            "field": "field",
-                            "value": "number"
+                        "fieldtype": {
+                            "type": 1,
+                            "value": 2
                         },
                         "searchable": true
                     },{
@@ -468,11 +468,11 @@
                         "width": "200px",
                         "data": "Date_",
                         "dataalias": "Date_",
-                        "type": {
-                            "field": "field",
-                            "value": "date",
-                            "informat": "esri",
-				      							"outformat": "short"
+                        "fieldtype": {
+                            "type": 1,
+                            "value": 3,
+                            "informat": 1,
+				      							"outformat": 1
                         },
                         "searchable": true
                     },{
@@ -480,9 +480,9 @@
                         "width": "100px",
                         "data": "Depth",
                         "dataalias": "Depth",
-                        "type": {
-                            "field": "field",
-                            "value": "number"
+                        "fieldtype": {
+                            "type": 1,
+                            "value": 2
                         },
                         "searchable": true
                     },{
@@ -490,9 +490,9 @@
                         "width": "100px",
                         "data": "Lat",
                         "dataalias": "Lat",
-                        "type": {
-                            "field": "field",
-                            "value": "number"
+                        "fieldtype": {
+                            "type": 1,
+                            "value": 2
                         },
                         "searchable": true
                     },{
@@ -500,9 +500,9 @@
                         "width": "100px",
                         "data": "Lon",
                         "dataalias": "Lon",
-                        "type": {
-                            "field": "field",
-                            "value": "number"
+                        "fieldtype": {
+                            "type": 1,
+                            "value": 2
                         },
                         "searchable": true
                     },{
@@ -510,9 +510,9 @@
                         "width": "200px",
                         "data": "Region",
                         "dataalias": "region",
-                        "type": {
-                            "field": "Region",
-                            "value": "string"
+                        "fieldtype": {
+                            "type": 1,
+                            "value": 1
                         },
                         "searchable": true
                     }],

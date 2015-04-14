@@ -196,7 +196,7 @@
 				node += '<div data-bind="uiDialog: { title: lblTextTitle, width: 450, height: 220, ok: dialogTextOk, cancel: dialogTextCancel, close: dialogTextClose, openDialog: \'isTextDialogOpen\' }">' +
 							'<div id="gcviz-draw-inputbox">' +
 								'<form><fieldset>' +
-									'<input id="gcviz-textvalue" class="gcviz-draw-textinput text ui-widget-content ui-corner-all" data-bind="value: drawTextValue, valueUpdate: \'afterkeydown\', returnKey: dialogTextOkEnter, attr: { alt: lblTextTitle }"/>' +
+									'<input id="gcviz-textvalue" class="gcviz-draw-textinput text ui-widget-content ui-corner-all" data-bind="value: drawTextValue, valueUpdate: \'input\', returnKey: dialogTextOkEnter, attr: { alt: lblTextTitle }"/>' +
 									'<div style="clear: both"></div><span data-bind="text: lblTextInfo"></span>' +
 								'</fieldset></form>' +
 							'</div>' +

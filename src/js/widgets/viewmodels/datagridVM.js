@@ -232,11 +232,11 @@
 					strField = '';
 					while (fieldsLen--) {
 						field = fields[fieldsLen];
-						fieldType = field.type;
+						fieldType = field.fieldtype;
 						strField += field.data + ',';
 
 						// add url value field if type field === url
-						if (fieldType.field === 'url') {
+						if (fieldType.type === 3) {
 							strField += fieldType.urlfield + ',';
 						}
 					}
@@ -476,19 +476,19 @@
 							elem = $viz(this).append('<label class="gcviz-gd-zoomlbl" for="zoomSel-' + id + '">Zoom</label><button id="zoomSel-' + id + '" class="gcviz-dg-zoomsel"></button>');
 							gcvizFunc.addTooltip(elem, { content: _self.lblZoomSelect });
 						} else if (column.bSearchable) {
-							valueType = column.type.value;
+							valueType = column.fieldtype.value;
 
-							if (valueType === 'string') {
+							if (valueType === 1) {
 								// add string filter
 								$viz(this).append('<input type="text" class="gcviz-dg-search gcviz-dg-searchstr" gcviz-name="' + column.data + '" placeholder="' + _self.search + '"></input>');
-							} else if (valueType === 'number') {
+							} else if (valueType === 2) {
 								// add numeric filter
 								$viz(this).append('<div><input type="text" class="gcviz-dg-search gcviz-dg-searchnum" gcviz-name="' + column.data + '" placeholder="Min"></input>' +
 													'<input type="text" class="gcviz-dg-search gcviz-dg-searchnum" gcviz-name="' + column.data + '" placeholder="Max"></input></div>');
-							} else if (valueType === 'select') {
+							} else if (valueType === 4) {
 								// dropdowm select box
 								$viz(this).append('<select class="gcviz-dg-search gcviz-dg-searchdrop" gcviz-name="' + column.data + '"><option value=""></option></select>');
-							} else if (valueType === 'date') {
+							} else if (valueType === 3) {
 								// date picker
 								$viz(this).append('<div><input type="text" class="gcviz-dg-search gcviz-dg-searchdate" gcviz-name="' + column.data + '" placeholder="Date Min"></text>' +
 													'<input type="text" class="gcviz-dg-search gcviz-dg-searchdate" gcviz-name="' + column.data + '" placeholder="Date Max"></text></div>');
@@ -503,7 +503,7 @@
 				_self.addSearcFields = function(table, fields) {
 					// apply the search by field
 					table.columns().eq(0).each(gcvizFunc.closureFunc(function(fields, table, colIdx) {
-						var fieldValue = fields[colIdx].type.value,
+						var fieldValue = fields[colIdx].fieldtype.value,
 							tableId = table.settings()[0].sTableId;
 
 						if (colIdx === 0) { // select checkbox
@@ -521,7 +521,7 @@
 								}
 								return true;
 							}, tableId));
-						} else if (fieldValue === 'string' && fields[colIdx].bSearchable) {
+						} else if (fieldValue === 1 && fields[colIdx].bSearchable) {
 							// set a debounce functiojn to apply filter only after 1 second of inactivity
 							$viz('input', table.column(colIdx).header()).on('keyup', gcvizFunc.debounce(function() {
 								// put the draw in a timeout if not, the processing will not be shown
@@ -533,7 +533,7 @@
 									$process.css('display', 'none');
 								}, value), 100);
 							}, 750, false));
-						} else if (fieldValue === 'number' && fields[colIdx].bSearchable) {
+						} else if (fieldValue === 2 && fields[colIdx].bSearchable) {
 							// https://datatables.net/examples/plug-ins/range_filtering.html
 							var $inputs = $viz('input', table.column(colIdx).header());
 
@@ -574,7 +574,7 @@
 								}, 250);
 							}, 750, false));
 
-						} else if (fieldValue === 'select') {
+						} else if (fieldValue === 4) {
 							// http://datatables.net/examples/api/multi_filter_select.html
 							var $select = $viz('select', table.column(colIdx).header());
 
@@ -593,7 +593,7 @@
 									$process.css('display', 'none');
 								}, 100);
 							});
-						} else if (fieldValue === 'date') {
+						} else if (fieldValue === 3) {
 							var $inputs = $viz('input', table.column(colIdx).header()),
 								lang = window.langext.substring(0,2),
 								opts = {
@@ -669,13 +669,21 @@
 						fields = layer.fields,
 						lenFields = fields.length;
 
+					// field type can be (field: 1, keyurl: 2, url: 3, fieldurl: 4, fieldkeyurl: 5, control: 99)
+					// field value can be (string: 1, number: 2, date: 3, select: 4, image: 5, string-list: 6, image-list: 7)
+					// for field, nothing special, value can be anything
+					// for keyurl, (value: string, display: value to display, url: url to use with the key)
+					// for url, nothing special, just display the link (value: string, image, string-list, image-list)
+					// for fieldurl, (value: string, urlfield: name of the field where to get url, urlfieldalias: alias name of the field where to get url)
+					// for fieldkeyurl, (value: string, string-list, image, image-list, url: url to use with the key, fieldkey: name of the field where to get url, urlfieldalias: alias name of the field where to get url)
+					// for value date (informat: esri: 1, outformat: short: 1, long: 2)
 					while (lenFields--) {
 						field = fields[lenFields];
-						typeObj = field.type;
+						typeObj = field.fieldtype;
 
 						// if url, construct it.
 						// if nothing, add ... to string field when length is more then 40 characters
-						if (typeObj.field === 'url') {
+						if (typeObj.type === 3) {
 							field.render = gcvizFunc.closureFunc(function(typeObj, data, type, full) {
 								return '<a href="' + full[typeObj.urlfield] + '" target="_blank">' + data + '</a>';
 							}, typeObj);
@@ -683,7 +691,7 @@
 							field.render = function(data, type) {
 								if (data !== null && typeof data !== 'undefined') {
 									// remove double quote
-									if (typeof data === 'string') {
+									if (typeof data === 1) {
 										data = data.replace(/"/g, '');
 									}
 	
@@ -710,8 +718,8 @@
 							width: '30px',
 							searchable: false,
 							orderable: false,
-							type: {
-								value: 'button'
+							fieldtype: {
+								value: 99
 							},
 							defaultContent: ''
 						});
@@ -725,7 +733,9 @@
 						width: '45px',
 						searchable: false,
 						orderable: false,
-						type: 'num',
+						fieldtype: {
+							value: 99
+						},
 						render: function (data, type) {
 									if (type === 'display') {
 										return '<input type="checkbox" class="gcviz-dg-select"></input>';
@@ -1630,12 +1640,12 @@
 
 								for (var l = 0; l < attrNames.length; l++) {
 									if (field.dataalias.toUpperCase() === attrNames[l].toUpperCase()) {
-										fieldType = field.type.field;
+										fieldType = field.fieldtype.type;
 
 										// if url, construct it
-										if (fieldType === 'url') {
+										if (fieldType === 3) {
 											info = '<span class="gcviz-prop">' + field.title + '</span></br>' +
-													'<a class="gcviz-popup-val" href="' + attrValues[gcvizFunc.returnIndexMatch(attrNames, field.type.urlfieldalias)] + '" target="_blank">' + attrValues[l] + '</a></br>' +
+													'<a class="gcviz-popup-val" href="' + attrValues[gcvizFunc.returnIndexMatch(attrNames, field.fieldtype.urlfieldalias)] + '" target="_blank">' + attrValues[l] + '</a></br>' +
 													info;
 										} else {
 											info = '<span class="gcviz-prop">' + field.title + '</span>' +
@@ -1865,9 +1875,9 @@
 					delete field.name;
 					field.width = '80px';
 					field.searchable = true;
-					field.type = {
-						field: 'field',
-						value: 'string'
+					field.fieldtype = {
+						type: 1,
+						value: 1
 					};
 
 					fields.push(field);
@@ -1928,7 +1938,7 @@
 			while (lenFields--) {
 				field = fields[lenFields];
 				fieldName = field.name;
-				fieldType = field.type;
+				fieldType = field.fieldtype;
 
 				if (defaultFields.indexOf(fieldName) === -1) {
 					outfield = { },
@@ -1938,18 +1948,18 @@
 					outfield.width = '100px';
 					outfield.searchable = true;
 
-					outfield.type = {
-							field: 'field',
+					outfield.fieldtype = {
+							type: 1,
 						};
 					if (fieldType === 'esriFieldTypeDate') {
-						outfield.type.value = 'date';
-						outfield.type.informat = 'esri';
-						outfield.type.outformat = 'short';
+						outfield.fieldtype.value = 3;
+						outfield.fieldtype.informat = 1;
+						outfield.fieldtype.outformat = 1;
 						outfield.width = '200px';
 					} else if (fieldType === 'esriFieldTypeDouble' || fieldType === 'esriFieldTypeInteger' || fieldType === 'esriFieldTypeSmallInteger') {
-						outfield.type.value = 'number';
+						outfield.fieldtype.value = 2;
 					} else {
-						outfield.type.value = 'string';
+						outfield.fieldtype.value = 1;
 					}
 					
 					outFields.push(outfield);

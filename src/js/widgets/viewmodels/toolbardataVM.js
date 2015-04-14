@@ -11,9 +11,10 @@
 			'knockout',
 			'gcviz-func',
 			'gcviz-i18n',
+			'gcviz-gismap',
 			'gcviz-gisdata',
 			'gcviz-vm-datagrid'
-	], function($viz, ko, gcvizFunc, i18n, gisData, vmDatagrid) {
+	], function($viz, ko, gcvizFunc, i18n, gisMap, gisData, vmDatagrid) {
 		var initialize,
 			notifyAdd,
 			innerNotifyAdd,
@@ -75,14 +76,22 @@
 
 					// check if there is a url to load
 					if (configQuery) {
-						url = window.location.toString().split('?');
-
-						if (url.length === 2) {
-							// subscribe to the isTableReady event to know tables have been initialize
+						// data param can be like this:
+						// data=http://maps.ottawa.ca/arcgis/rest/services/Schools/MapServer/2,1,1,0.5;http://geoappext.nrcan.gc.ca/GeoCanViz/CCMEO/toporama/combine.kml,0,0,1
+						// first the url, the expand state, the visibiity state, the opacity value, zoom to extent value
+						url = gcvizFunc.getURLParameter(window.location.toString(), 'data');
+						
+						if (url !== null) {
+							// subscribe to the isTableReady event to know when tables have been initialize
 							gcvizFunc.subscribeTo(mapid, 'datagrid', 'isTableReady', function(input) {
+								var layer = url.split(';'),
+									len = layer.length;
+
 								if (input) {
-									_self.addUrlValue(url[1]);
-									_self.dialogUrlOk();
+									while (len--) {
+										_self.addUrlValue(layer[len]);
+										_self.dialogUrlOk();
+									}
 								}
 							});
 						}
@@ -136,7 +145,9 @@
 				_self.dialogUrlOk = function() {
 					var esri = '/rest/services/',
 						uu = gcvizFunc.getUUID(),
-						url = _self.addUrlValue(),
+						info = _self.addUrlValue().split(','),
+						config = _self.setConfig(info),
+						url = info[0],
 						lenUrl = url.length,
 						valid = gcvizFunc.validateURL(url),
 						name = url.substring(url.lastIndexOf('/') + 1, lenUrl),
@@ -150,11 +161,18 @@
 						if (ext.toUpperCase() === 'KML') {
 							//http://geoappext.nrcan.gc.ca/GeoCanViz/CCMEO/toporama/building.kml
 							//https://developers.google.com/kml/documentation/KML_Samples.kml
-							gisData.addKML(mymap, url, uu, name)
+							gisData.addKML(mymap, url, uu, name, config)
 								.done(function(err, data) {
 									if (err === 0) {
-										// add to user array so knockout will generate legend
-										_self.userArray.push({ label: data.name, id: data.id });
+										var item,
+											len = data.length;
+
+										while (len--) {
+											item = data[len];
+
+											// add to user array so knockout will generate legend
+											_self.userArray.push({ label: item.name, id: item.id });
+										}
 									} else {
 										_self.errMsg(_self.errLoad.replace('XXX', data));
 										_self.isDataProcess(false);
@@ -166,7 +184,7 @@
 							//gisData.addGeoRSS(mymap, 'http://geoscan.ess.nrcan.gc.ca/rss/newpub_e.rss', uu, name);
 						//} 
 						else if (url.indexOf(esri) !== -1) {
-							gisData.addFeatLayer(mymap, url, uu)
+							gisData.addFeatLayer(mymap, url, uu, config)
 								.done(function(err, data) {
 									if (err === 0) {
 										// add to user array so knockout will generate legend
@@ -264,6 +282,33 @@
 					if (typeof vmDatagrid !== 'undefined') {
 						vmDatagrid.removeTab(selectedItem.id);
 					}
+				};
+
+				_self.setConfig = function(param) {
+					var config = { expand: true,
+									visibility: true,
+									opacity: 1,
+									zoom: true },
+						expand = param[1],
+						vis = param[2],
+						opacity = param[3],
+						zoom = param[4];
+
+					// check if config paramter are present
+					if (typeof expand !== 'undefined' && expand === '0') {
+						config.expand = false;
+					}
+					if (typeof vis !== 'undefined' && vis === '0' ) {
+						config.visibility = false;
+					}
+					if (typeof opacity !== 'undefined') {
+						config.opacity = parseFloat(opacity, 10);
+					}
+					if (typeof zoom !== 'undefined' && zoom === '0') {
+						config.zoom = false;
+					}
+
+					return config;
 				};
 
 				_self.notifyAdd = function() {

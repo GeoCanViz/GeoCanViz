@@ -551,10 +551,10 @@
 
 					if (distance > 0) {
 						graphic = new esriGraph(pt, symbol);
-						graphic.symbol = gissymbols.getSymbText(gColor, pt.distance + ' ' + unit, 10, 0, 0, -10, 'normal', 'center');
+						graphic.symbol = gissymbols.getSymbText(gColor, pt.distance + ' ' + unit, 10, 0, 0, -20, 'normal', 'center');
 
 						// add background then text
-						addBackgroundText(graphic, gBackColor, 'center', 12, 0, -2, -11, mymap.graphics);
+						addBackgroundText(graphic, gBackColor, 'center', 12, 0, -2, -21, mymap.graphics);
 						mymap.graphics.add(graphic);
 					}
 				};

@@ -381,9 +381,9 @@
                     "width": "250px",
                     "data": "PROJ_STATUS_EN",
                     "dataalias": "PROJ_STATUS_EN",
-				    "type": {
-				      "field": "field",
-				      "value": "string"
+				    "fieldtype": {
+				      "type": 1,
+				      "value": 1
 				     },
 				    "searchable": true
                 }, {
@@ -391,9 +391,9 @@
                     "width": "250px",
                     "data": "COM_EN",
                     "dataalias": "COM_EN",
-				     "type": {
-				      	"field": "field",
-				      	"value": "select"
+				     "fieldtype": {
+				      	"type": 1,
+				      	"value": 4
 				     },
 				     "searchable": true
                 }, {
@@ -401,9 +401,9 @@
                     "width": "110px",
                     "data": "LAT_DD",
                     "dataalias": "LAT_DD",
-				     "type": {
-				      	"field": "field",
-				      	"value": "number"
+				     "fieldtype": {
+				      	"type": 1,
+				      	"value": 2
 				     },
 				     "searchable": true
                 }, {
@@ -411,9 +411,9 @@
                     "width": "110px",
                     "data": "LONG_DD",
                     "dataalias": "LONG_DD",
-				     "type": {
-				      	"field": "field",
-				      	"value": "number"
+				     "fieldtype": {
+				      	"type": 1,
+				      	"value": 2
 				     },
 				     "searchable": true
                 },{
@@ -422,9 +422,9 @@
                     "data": "PROJECT_NAME_EN",
                     "dataalias": "PROJECT_NAME_EN",
                     "sType": "html",
-				    "type": {
-				      "field": "url",
-				      "value": "string",
+				    "fieldtype": {
+				      "type": 3,
+				      "value": 1,
 				      "urlfield": "MINING_COMP_WEB_LINK",
 				      "urlfieldalias": "MINING_COMP_WEB_LINK"
 				     },
@@ -434,9 +434,9 @@
                     "width": "250px",
                     "data": "PAST_MINING_COMP_NAME",
                     "dataalias": "PAST_MINING_COMP_NAME",
-				    "type": {
-				      "field": "field",
-				      "value": "string"
+				    "fieldtype": {
+				      "type": 1,
+				      "value": 1
 				     },
 				    "searchable": true
                 }],

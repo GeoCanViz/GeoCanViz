@@ -45,6 +45,7 @@
 			zoomPoint,
 			zoomFeature,
 			zoomGraphics,
+			zoomExtent,
 			getMapCenter,
 			createMapMenu,
 			zoomIn,
@@ -323,7 +324,7 @@
 		extentMapEvent = function(map, funct) {
 			map.on('extent-change', func.debounce(function(evt) {
 				funct(map.extent);
-			}, 1000, false));
+			}, 500, false));
 		};
 
 		addLayer = function(map, layerInfo) {
@@ -486,6 +487,16 @@
 			// get the extent then zoom
 			var extent = esri.graphicsExtent(graphics); // can't load AMD
 			map.setExtent(extent.expand(1.75));
+		};
+
+		zoomExtent = function(map, extent, json) {
+			var mapExtent;
+
+			if (json) {
+				mapExtent = new esriExt(extent);
+			}
+
+			map.setExtent(mapExtent);
 		};
 
 		getMapCenter = function(map) {
@@ -690,6 +701,7 @@
 			zoomPoint: zoomPoint,
 			zoomFeature: zoomFeature,
 			zoomGraphics: zoomGraphics,
+			zoomExtent: zoomExtent,
 			getOverviewLayer: getOverviewLayer,
 			getMapCenter: getMapCenter,
 			manageScreenState: manageScreenState,

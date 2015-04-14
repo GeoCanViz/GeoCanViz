@@ -14,6 +14,7 @@
 			debounceClick,
 			closureFunc,
 			validateURL,
+			getURLParameter,
 			addTooltip,
 			setStyle,
 			getFullscreenParam,
@@ -115,6 +116,11 @@
 			}
 
 			return result;
+		};
+
+		// http://stackoverflow.com/questions/11582512/how-to-get-url-parameters-with-javascript
+		getURLParameter = function(url, param) {
+			return decodeURIComponent((new RegExp('[?|&]' + param + '=' + '([^&]+?)(&|#|$)').exec(url)||[,""])[1].replace(/\+/g, '%20'))||null;
 		};
 
 		addTooltip = function($element, userOpts) {
@@ -404,6 +410,7 @@
 			debounceClick: debounceClick,
 			closureFunc: closureFunc,
 			validateURL: validateURL,
+			getURLParameter: getURLParameter,
 			addTooltip: addTooltip,
 			setStyle: setStyle,
 			getFullscreenParam: getFullscreenParam,

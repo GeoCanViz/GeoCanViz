@@ -276,7 +276,7 @@
 			return featCollection;
 		};
 
-		addKML = function(map, url, uuid, fileName) {
+		addKML = function(map, url, uuid, fileName, config) {
 			var layer,
 				def = $viz.Deferred();
 
@@ -290,92 +290,104 @@
 				def.resolve(1, error.target.url);
 			});
 			
-			layer.on('load', gcvizFunc.closureFunc(function(map, uuid, fileName, input) {
-				var graphics, lenGraphics, attributes, graphic,
+			layer.on('load', gcvizFunc.closureFunc(function(map, uuid, fileName, config, input) {
+				var interval,
+					graphics, lenGraphics, attributes, graphic,
 					name, id, fieldName, defaultFields,
-					outFields = new Array(2),
-					field, fields, lenFields,
+					field, fields, lenFields, outFields,
 					layerDef, jsonDef, featureLayer,
+					output = [],
+					
 					layerDefs = input.layer._fLayers,
 					lenLayerDef = layerDefs.length;
 
-				while (lenLayerDef--) {
-					name = fileName + '-' + lenLayerDef;
-					id = uuid + lenLayerDef;
+				// remove the kml layer
+				map.removeLayer(map.getLayer('tempAddDataKML'));
 
-					// create layer from definition
-					layerDef = JSON.parse(layerDefs[lenLayerDef]._json);
-					featureLayer = new esriFeatLayer(layerDef);
-					
-					// set feature layer parameters
-					featureLayer.visible = true;
-					featureLayer.type = 5;
-					featureLayer.name = name;
-					featureLayer.id = id;
+				interval = setInterval(function() {
+					while (lenLayerDef--) {
+						outFields = new Array(2);
+						name = fileName + '-' + lenLayerDef;
+						id = uuid + lenLayerDef;
 	
-					// remove the kml layer
-					map.removeLayer(map.getLayer('tempAddDataKML'));
-
-					// finish add by reordering layer and add the layer to map
-					finishAdd(map, featureLayer);
-
-					// clean fields to keep name and description
-					fields = layerDef.layerDefinition.fields;
-					lenFields = fields.length;
-					defaultFields ='id, snippet, visibility, styleUrl, balloonStyleText';
-
-					while (lenFields--) {
-						field = fields[lenFields];
-						fieldName = field.name;
-
-						// filter to remove default internal fields
-						if (defaultFields.indexOf(fieldName) === -1) {
-							if (fieldName === 'name') {
-								field.alias = 'name';
-								outFields[0] = field;
-							} else if (fieldName === 'description') {
-								field.alias = 'description';
-								outFields[1] = field;
-							} else {
-								field.alias = fieldName;
-								outFields.push(field);
-							}
-						}
-					}
-					layerDef.layerDefinition.fields = outFields;
-
-					// loop the graphics to add to the feature layer from where they come from. It will be use in the popup
-					// at the same time check if there is feature without fields. It happen when the value is null in the kml
-					// the field is not created on the feature.
-					graphics = featureLayer.graphics;
-					lenGraphics = graphics.length;
-					while (lenGraphics--) {
-						graphic = graphics[lenGraphics];
-						attributes = graphic.attributes;
-
-						// set layer name
-						graphic._layer.name = name;
-
-						lenFields = outFields.length;
+						// create layer from definition
+						layerDef = JSON.parse(layerDefs[lenLayerDef]._json);
+						featureLayer = new esriFeatLayer(layerDef);
+						
+						// set feature layer parameters
+						featureLayer.visible = true;
+						featureLayer.type = 5;
+						featureLayer.name = name;
+						featureLayer.id = id;
+	
+						// finish add by reordering layer and add the layer to map
+						finishAdd(map, featureLayer, config.zoom);
+	
+						// clean fields to keep name and description
+						fields = layerDef.layerDefinition.fields;
+						lenFields = fields.length;
+						defaultFields ='id, snippet, visibility, styleUrl, balloonStyleText';
+	
 						while (lenFields--) {
-							field = outFields[lenFields].alias;
-
-							if (!attributes.hasOwnProperty(field)){
-								attributes[field] = '';
+							field = fields[lenFields];
+							fieldName = field.name;
+	
+							// filter to remove default internal fields
+							if (defaultFields.indexOf(fieldName) === -1) {
+								if (fieldName === 'name') {
+									field.alias = 'name';
+									outFields[0] = field;
+								} else if (fieldName === 'description') {
+									field.alias = 'description';
+									outFields[1] = field;
+								} else {
+									field.alias = fieldName;
+									outFields.push(field);
+								}
 							}
 						}
+						layerDef.layerDefinition.fields = outFields;
+	
+						// loop the graphics to add to the feature layer from where they come from. It will be use in the popup
+						// at the same time check if there is feature without fields. It happen when the value is null in the kml
+						// the field is not created on the feature.
+						graphics = featureLayer.graphics;
+						lenGraphics = graphics.length;
+						while (lenGraphics--) {
+							graphic = graphics[lenGraphics];
+							attributes = graphic.attributes;
+	
+							// set layer name
+							graphic._layer.name = name;
+	
+							lenFields = outFields.length;
+							while (lenFields--) {
+								field = outFields[lenFields].alias;
+	
+								if (!attributes.hasOwnProperty(field)){
+									attributes[field] = '';
+								}
+							}
+						}
+	
+						// set legend
+						addLegend(name, id, 7, JSON.stringify(featureLayer.renderer.toJson()), config);
+	
+						 // add the data to the datagrid
+						vmDatagrid.addTab(map.vIdName, layerDef, name, id);
+	
+						// add output info
+						output.push({ name: name, id: id });
 					}
 
-					// set legend
-					addLegend(name, id, 7, JSON.stringify(featureLayer.renderer.toJson()));
-
-					 // add the data to the datagrid
-					vmDatagrid.addTab(map.vIdName, layerDef, name, id);
+					// layers created, remove interval
+					clearInterval(interval);
 
 					// return info
-					def.resolve(0, { name: name, id: id });
-				}
-			}, map, uuid, fileName));
+					def.resolve(0, output);
+				}, 500);
+
+			}, map, uuid, fileName, config));
 
 			// add layer visible false because we use it only to be able to generate feature layer from it.
 			// when we are done, we remove the layer.
@@ -384,12 +396,12 @@
 			return def;
 		};
 
-		addFeatLayer = function(map, url, uuid) {
+		addFeatLayer = function(map, url, uuid, config) {
 			var layer,
 				def = $viz.Deferred();
 
 			layer = new esriFL(url, {
-					mode: esriFL.MODE_ONDEMAND,
+					mode: esriFL.MODE_SNAPSHOT,
 					outFields: ['*'],
 					id: uuid,
 					outSR: new esri.SpatialReference({ wkid: map.vWkid })
@@ -405,23 +417,25 @@
 				def.resolve(1, error.target.url);
 			});
 			
-			layer.on('load', gcvizFunc.closureFunc(function(map, uuid, input) {
+			layer.on('load', gcvizFunc.closureFunc(function(map, uuid, config, input) {
 				var layer = input.layer,
 					name = layer.name,
 					layerDef = JSON.parse(layer._json);
 
 				// set legend
-				addLegend(name, uuid, 5, JSON.stringify(layer.renderer.toJson()));
+				addLegend(name, uuid, 5, JSON.stringify(layer.renderer.toJson()), config);
 				
 				// finish add by reordering layer and add the layer to map
-				finishAdd(map, layer);
+				layer.minScale = 0;
+				layer.maxScale = 0;
+				finishAdd(map, layer, config.zoom);
 
 				// add the data to the datagrid
 				vmDatagrid.addRestTab(url, layer);
 
 				// return info
 				def.resolve(0, { name: name, id: uuid });
-			}, map, uuid));
+			}, map, uuid, config));
 
 			return def;
 		};
@@ -479,9 +493,9 @@
 			});
 		};
 
-		addLegend = function(name, id, type, symbol) {
+		addLegend = function(name, id, type, symbol, config) {
 			var config = {
-					"expand": true,
+					"expand": config.expand,
 					"last": false,
 					"type": type,
 					"id": id,
@@ -498,11 +512,11 @@
 						"enable": true,
 						"min": 0,
 						"max": 1,
-						"initstate": 1
+						"initstate": config.opacity
 					},
 					"visibility": {
 						"enable": true,
-						"initstate": true,
+						"initstate": config.visibility,
 						"type": 1,
 						"radioid": 0
 					},
@@ -520,7 +534,7 @@
 			vmTbLegend.addLegend(config);
 		};
 
-		finishAdd = function(mymap, layer) {
+		finishAdd = function(mymap, layer, zoom) {
 			var graphics, layerId,
 				layerIds = mymap.graphicsLayerIds,
 				len = layerIds.length;
@@ -541,10 +555,12 @@
 			}
 
 			// get the extent then zoom
-			graphics = layer.graphics;
+			if (zoom) {
+				graphics = layer.graphics;
 
-			if (graphics.length > 0) {
-				gisMap.zoomGraphics(mymap, layer.graphics);
+				if (graphics.length > 0) {
+					gisMap.zoomGraphics(mymap, layer.graphics);
+				}
 			}
 		};
 

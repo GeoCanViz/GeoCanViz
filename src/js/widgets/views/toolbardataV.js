@@ -44,7 +44,7 @@
 							'<div>' +
 								'<form><fieldset>' +
 									'<span data-bind="text: lblAddUrl"></span>' +
-									'<input class="gcviz-data-textinput text ui-widget-content ui-corner-all" data-bind="value: addUrlValue, valueUpdate: \'afterkeydown\', returnKey: dialogUrlOkEnter, attr: { alt: lblUrlTitle }"/>' +
+									'<input class="gcviz-data-textinput text ui-widget-content ui-corner-all" data-bind="value: addUrlValue, valueUpdate: \'input\', returnKey: dialogUrlOkEnter, attr: { alt: lblUrlTitle }"/>' +
 								'</fieldset></form>' +
 							'</div>' +
 						'</div>';
