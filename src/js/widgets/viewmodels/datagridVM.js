@@ -5,6 +5,7 @@
  *
  * Datagrid view model widget
  */
+/* global $: false */
 (function() {
 	'use strict';
 	define(['jquery-private',
@@ -13,9 +14,8 @@
 			'gcviz-func',
 			'gcviz-gismap',
 			'gcviz-gisdatagrid',
-			'gcviz-gisgraphic',
-			'gcviz-gisgeo'
-	], function($viz, ko, i18n, gcvizFunc, gisMap, gisDG, gisGraphic, gisgeo) {
+			'gcviz-gisgraphic'
+	], function($viz, ko, i18n, gcvizFunc, gisMap, gisDG, gisGraphic) {
 		var initialize,
 			addTab,
 			addRestTab,
@@ -136,7 +136,7 @@
 					$datagrid.accordion({
 						collapsible: true,
 						active: false,
-						activate: function(e, ui) {
+						activate: function() {
 							// redraw to align header and column
 							objDataTable[0].draw();
 						}
@@ -165,7 +165,7 @@
 							intervalModal = setInterval(function() {
 								// check if identity manager window is open. If so wait until finish before show modal
 								var id = $viz('.esriSignInDialog');
-		
+
 								// if table are created, do not show modal
 								if (tableReady) {
 									_self.isWait(false);
@@ -183,7 +183,7 @@
 							interval = setInterval(function() {
 								_self.getData(layers[i], i);
 								i++;
-	
+
 								if (i === lenLayers) {
 									clearInterval(interval);
 								}
@@ -311,7 +311,7 @@
 						deferRender = false,
 						link = false,
 						searchInd = 1,
-						$table = $viz('#table-' + mapid + '-' + pos),
+						$table = $('#table-' + mapid + '-' + pos),
 						dom = 'irtp';
 
 					// check if we need to add a columns to open/close link info
@@ -425,7 +425,7 @@
 					}
 				};
 
-				_self.initCompl = function(inTable, deferRender) {
+				_self.initCompl = function(inTable) {
 					var $elemFilter, $elemCSV, $tools,
 						idTable = inTable.sTableId,
 						idxTable = idTable.split('-'),
@@ -446,7 +446,7 @@
 						$elemFilter = $viz('.gcviz-dg-applyfilter');
 						gcvizFunc.addTooltip($elemFilter, { content: _self.tpApplyFilters });
 					}
-					
+
 					// add the clear filter button
 					$tools.append('<button id="clearfilter-' + id + '" tableid="' + idTable + '" class="gcviz-dg-filterclear gcviz-dg-pad"></button><label class="gcviz-label" for="clearfilter-' + id + '">' + _self.lblClearFilters + '</label>');
 					$elemFilter = $viz('.gcviz-dg-filterclear');
@@ -538,8 +538,8 @@
 							var $inputs = $viz('input', table.column(colIdx).header());
 
 							// add the range filter search
-							$.fn.dataTable.ext.search.push(gcvizFunc.closureFunc(function(inputs, tableId, settings, data, dataIndex) {
-								var min, max, val, index,
+							$.fn.dataTable.ext.search.push(gcvizFunc.closureFunc(function(inputs, tableId, settings, data) {
+								var min, max, val,
 									flag = false,
 									dataId = settings.sTableId;
 
@@ -560,10 +560,10 @@
 								}
 
 								return flag;
-						    }, $inputs, tableId));
+							}, $inputs, tableId));
 
 							// set a debounce functiojn to apply filter only after 1 second of inactivity
-							$inputs.on('keyup', gcvizFunc.debounce(function(e) {
+							$inputs.on('keyup', gcvizFunc.debounce(function() {
 								// put the draw in a timeout if not, the processing will not be shown
 								var $process = $viz('.dataTables_processing');
 
@@ -579,7 +579,7 @@
 							var $select = $viz('select', table.column(colIdx).header());
 
 							// add values to dropdown
-							table.column(colIdx).data().unique().sort().each(function(d, j) {
+							table.column(colIdx).data().unique().sort().each(function(d) {
 								$select.append('<option value="' + d + '">' + d + '</option>');
 							});
 
@@ -614,11 +614,11 @@
 							$inputs.closest('th').attr('col-index', colIdx);
 
 							// add the date range filter search
-							$.fn.dataTable.ext.search.push(gcvizFunc.closureFunc(function(inputs, tableId, settings, data, dataIndex) {
-       							var min, max, val, index,
-       								isMinDate, isMaxDate, isValDate,
-       								flag = false,
-       								dataId = settings.sTableId;
+							$.fn.dataTable.ext.search.push(gcvizFunc.closureFunc(function(inputs, tableId, settings, data) {
+								var min, max, val,
+									isMinDate, isMaxDate, isValDate,
+									flag = false,
+									dataId = settings.sTableId;
 
 								// if it is active table filter data, if not return all data
 								if (tableId === dataId) {
@@ -629,26 +629,26 @@
 									isMaxDate = !isNaN(max.getYear()),
 									isValDate = !isNaN(val.getYear());
 
-		 							// test if dates are valid and compare 
-		 							if (!isMinDate && !isMaxDate) {
-		 								// if no filter return true
-		 								flag = true;
-		 							} else if ((isMinDate || isMaxDate) && !isValDate) {
-		 								// if dates are provided and the data is not a date, return false.
-		 								flag = false;
-		 							} else if (val >= min && !isMaxDate) {
-		 								flag = true;
-		 							} else if (!isMinDate && val <= max) {
-		 								flag = true;
-		 							} else if (val >= min && val <= max) {
-		 								flag = true;
-		 							}
+									// test if dates are valid and compare 
+									if (!isMinDate && !isMaxDate) {
+										// if no filter return true
+										flag = true;
+									} else if ((isMinDate || isMaxDate) && !isValDate) {
+										// if dates are provided and the data is not a date, return false.
+										flag = false;
+									} else if (val >= min && !isMaxDate) {
+										flag = true;
+									} else if (!isMinDate && val <= max) {
+										flag = true;
+									} else if (val >= min && val <= max) {
+										flag = true;
+									}
 								} else {
 									flag = true;
 								}
 
 								return flag;
-						    }, $inputs, tableId));
+							}, $inputs, tableId));
 
 							$inputs.on('change', function() {
 								// put the draw in a timeout if not, the processing will not be shown
@@ -694,7 +694,7 @@
 									if (typeof data === 1) {
 										data = data.replace(/"/g, '');
 									}
-	
+
 									// for wcag we add a text input read only. This element is focusable so we can have
 									// the tooltip. Wrap in a relative position div to have the tooltip at the right
 									// after a scroll
@@ -782,7 +782,7 @@
 
 						// enable datagrid button in footerVM
 						gcvizFunc.setElemValueVM(mapid, 'footer', 'isTableReady', true);
-						
+
 						// stop propagation of event on search by column field
 						$viz('.gcviz-dg-search').on('click', function(event) {
 							event.preventDefault();
@@ -826,7 +826,7 @@
 				_self.setEvents = function(pos) {
 					var $table = $viz('#table-' + mapid + '-' + pos),
 						$tabs = $viz('#tabs-' + mapid + '-' + pos);
-					
+
 					// set checkbox event
 					$table.on('change', '.gcviz-dg-select', function(e) {
 						// select or unselect feature on map
@@ -843,7 +843,7 @@
 					});
 
 					// export csv
-					$tabs.on('click', '.gcviz-dg-exportcsv', function(e) {
+					$tabs.on('click', '.gcviz-dg-exportcsv', function() {
 						var table = objDataTable[activeTableId],
 							filterRows = table.rows({ filter: 'applied' }).data().toArray();
 						_self.exportCSV(filterRows);
@@ -856,12 +856,12 @@
 					});
 
 					// set select item on map event
-					$tabs.on('click', '.gcviz-dg-selfeat', function(e) {
+					$tabs.on('click', '.gcviz-dg-selfeat', function() {
 						// check if WCAG mode is enable, if so use dialog box instead)
 						if (!_self.isWCAG()) {
 							// set draw box cursor
 							$container.css('cursor', 'crosshair');
-		
+
 							// get active menu and close it if open
 							menuState = $menu.accordion('option', 'active');
 							if (menuState !== false) {
@@ -877,13 +877,13 @@
 							// remove popup click event if it is there to avoid conflict then
 							// call graphic class to draw on map.
 							gisDG.removeEvtPop();
-	
+
 							// there is a bug when in full screen and do a zoom to select. There is an offset in y
 							// so popup is not available. To resolve this, resize map.
 							mymap.resize();
-	
+
 							drawTool = gisGraphic.drawBox(mymap, true, _self.selExtent);
-	
+
 							// focus the map
 							gcvizFunc.focusMap(mymap, true);
 						} else {
@@ -1069,7 +1069,7 @@
 				};
 
 				_self.selectAll = function(fields, val, graphic) {
-					var row, rows, len, tableId, fieldsLen,
+					var row, rows, len, fieldsLen,
 						i = 0,
 						info = { };
 
@@ -1105,7 +1105,7 @@
 					gisDG.zoomFeatures(geom);
 				};
 
-				_self.zoomSelect = function(target) {
+				_self.zoomSelect = function() {
 					var feat,
 						i = 0,
 						data = objDataTable[activeTableId].rows({ filter: 'applied' }).data(),
@@ -1235,12 +1235,10 @@
 				};
 
 				_self.applyFilterMap = function(target) {
-					var input, val, name, lyrDef, dateTmp,
+					var input, val, name, dateTmp,
 						defs = [],
 						definition = '',
-						table = objDataTable[activeTableId],
 						info = arrLayerInfo[activeTableId].layerinfo,
-						layerId = info.id,
 						inputs = $viz(target).parent().parent().find('.gcviz-dg-search'),
 						len = inputs.length;
 
@@ -1296,7 +1294,6 @@
 
 				_self.concatDefQuery = function(layerInfo, defQuery, nbFeatures, spatial) {
 					var iStart, iEnd, tmpStrLen,
-						queryLen,
 						queryNoId = '',
 						tmpStr = '',
 						lyrDef = '',
@@ -1313,7 +1310,7 @@
 					// check if query never been initialize
 					if (typeof lyrDef === 'undefined') {
 						lyrDef = '';
-					};
+					}
 
 					// if it is a statial query remove spatial part then concat
 					// If not, add the spatial part then concat.
@@ -1357,17 +1354,16 @@
 					if (nbFeatures >= 1000) {
 						defQuery = queryNoId;
 					}
-					
+
 					return defQuery;
 				};
 
 				_self.dialogWCAGOk = function() {
-					var arr,
-						ymin = _self.yValueMin(),
+					var ymin = _self.yValueMin(),
 						xmin = _self.xValueMin(),
 						ymax = _self.yValueMax(),
 						xmax = _self.xValueMax();
-					
+
 					// draw box
 					gisGraphic.drawWCAGBox(xmin, ymin, xmax, ymax, 4326, mymap.vWkid, _self.selExtent);
 
@@ -1431,9 +1427,9 @@
 							// loop trought graphics, add them to array and call setSelection
 							while (i <= len) {
 								graphic = graphics[i];
-							 	if (geometry.contains(graphic.geometry)) {
-							 		features.push(graphic);
-							 	}
+								if (geometry.contains(graphic.geometry)) {
+									features.push(graphic);
+								}
 								i++;
 							}
 
@@ -1450,12 +1446,9 @@
 				};
 
 				_self.setSelection = function(features) {
-					var dataId, item, definition, lyrDef,
-						info = { },
+					var dataId, item, definition,
 						i = 0,
-						j = 0,
 						info = arrLayerInfo[activeTableId].layerinfo,
-						layerId = info.id,
 						data = objDataTable[activeTableId].data(),
 						lenData = data.length,
 						lenFeats = features.length,
@@ -1831,8 +1824,8 @@
 
 					// do not let the user set to height too low. For width, we dont have
 					// to do it because minWidth works.
-					if (height < 200) {
-						height = 200;
+					if (height < 100) {
+						height = 100;
 					}
 
 					$popContent.css('height', height + 'px');
@@ -1910,13 +1903,13 @@
 			layer.linktable = { 'enable': false };
 
 			// add layer info to first element
-			layer.layerinfo = { 
+			layer.layerinfo = {
 								'pos': table,
 								'id': layerId,
 								'type': 7
 							};
 			datas[0].layer = layer;
-							
+
 			// call the inner create tab function (if datagrid is enable)
 			if (typeof innerAddTab !== 'undefined') {
 				innerAddTab(datas, title, layer);
@@ -1949,7 +1942,7 @@
 					outfield.searchable = true;
 
 					outfield.fieldtype = {
-							type: 1,
+							type: 1
 						};
 					if (fieldType === 'esriFieldTypeDate') {
 						outfield.fieldtype.value = 3;
@@ -1961,7 +1954,7 @@
 					} else {
 						outfield.fieldtype.value = 1;
 					}
-					
+
 					outFields.push(outfield);
 				}
 			}
@@ -1975,13 +1968,13 @@
 			layer.popups = { 'enable': true,
 							'layeralias': name };
 			layer.linktable = { 'enable': false };
-			layer.layerinfo = { 
+			layer.layerinfo = {
 								'pos': table,
 								'id': featLayer.id,
 								'type': 5,
 								'index': featLayer.layerId
 							};
-			
+
 			// call the inner create tab function (if datagrid is enable)
 			if (typeof innerAddRestTab !== 'undefined') {
 				innerAddRestTab(url, layer);

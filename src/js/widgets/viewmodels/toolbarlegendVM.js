@@ -96,7 +96,7 @@
 					// loop trought layers to find a match
 					while (len--) {
 						layer = _self.allLayers[len];
-						
+
 						if (graphId === layer.graphid) {
 							count = 1;
 						}
@@ -112,16 +112,6 @@
 					}
 
 					return className;
-				};
-
-				// needs this function because the a tag inside li tag doesn't work.
-				// TODO: works on Macs. test to see if it works on PC and remove
-				_self.openMetadata = function(node) {
-					var href = node.href;
-
-					if (href !== '') {
-						//window.open(href, '_blank');
-					}
 				};
 
 				_self.createSymbol = function(data, node) {

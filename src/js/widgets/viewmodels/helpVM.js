@@ -28,7 +28,6 @@
 				var _self = this,
 					pathHelpBubble = locationPath + 'gcviz/images/helpBubble.png',
 					pathOV = locationPath + 'gcviz/images/helpOV.png',
-					pathDataSample = locationPath + 'gcviz/images/helpDataSample.png',
 					pathGCVizPNG = locationPath + 'gcviz/images/GCVizLogo.png',
 					pathZoombar = locationPath + 'gcviz/images/helpZoombar.png',
 					$btnHelp = $mapElem.find('.gcviz-head-help'),
@@ -53,7 +52,6 @@
 				// images path
 				_self.imgHelpBubble = pathHelpBubble;
 				_self.imgHelpOV = pathOV;
-				_self.imgHelpDataSamp = pathDataSample;
 				_self.imgHelpLogo = pathGCVizPNG;
 				_self.imgHelpZoombar = pathZoombar;
 
@@ -88,6 +86,7 @@
 				_self.mapZoomFull = i18n.getDict('%help-map-zoomfull');
 				_self.mapZoom = i18n.getDict('%help-map-zoom');
 				_self.mapZoombar = i18n.getDict('%help-map-zoombar');
+				_self.mapZoompv = i18n.getDict('%help-map-zoompv');
 
 				// header
 				_self.headTitle = i18n.getDict('%help-head-title');
@@ -183,14 +182,13 @@
 				_self.legDesc3 = i18n.getDict('%help-leg-desc3');
 				_self.legSlider = i18n.getDict('%help-leg-slider');
 				_self.legExpand = i18n.getDict('%help-leg-exp');
+				_self.legNewLayer = i18n.getDict('%help-leg-newLayer');
 
 				// data text
 				_self.dataTitle = i18n.getDict('%help-data-title');
 				_self.dataAddFile = i18n.getDict('%help-data-addfile');
 				_self.dataAddURL = i18n.getDict('%help-data-addurl');
-				_self.dataSampleTitle = i18n.getDict('%help-data-sampletitle');
 				_self.dataSample = i18n.getDict('%help-data-sample');
-				_self.dataRemove = i18n.getDict('%help-data-remove');
 
 				// extract text
 				_self.extractTitle = i18n.getDict('%help-extract-title');

@@ -176,10 +176,6 @@
 
 				_self.printClick = function() {
 					// Print the map
-					// TODO this sample doent work because text, csv and cluster does not work.
-					//_self.printInfo.url = 'http://geoappext.nrcan.gc.ca/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task';
-					//gisPrint.printMap(vmArray[mapid].map.map, _self.printInfo);
-
 					// This is the simple print. It doesn't use esri print task
 					//printSimple(map, _self.printInfo.template);
 					printVM.togglePrint();
@@ -376,6 +372,7 @@
 				scalebar = $viz('#scalebar' + mapid),
 				zoomMax = $viz('.gcviz-map-zm'),
 				zoomBar = $viz('.dijitSlider'),
+				zoomPrevNext = $viz('.gcviz-map-zoompv'),
 				height = node.css('height'),
 				width = node.css('width');
 
@@ -394,9 +391,10 @@
 			// It needs to be in a click event to open without a warning
 			window.open(template);
 
-			// hide zoom max and zoom bar
+			// hide zoom max, zoom bar and prev next
 			zoomMax.addClass('gcviz-hidden');
 			zoomBar.addClass('gcviz-hidden');
+			zoomPrevNext.addClass('gcviz-hidden');
 
 			// get rotation and remove decimal part
 			rotation = getRotationDegrees(arrow);
@@ -435,10 +433,11 @@
 			setTimeout (function() {
 				zoomMax.removeClass('gcviz-hidden');
 				zoomBar.removeClass('gcviz-hidden');
+				zoomPrevNext.removeClass('gcviz-hidden');
 				gcvizFunc.setStyle(node[0], { 'width': width, 'height': height });
 				gcvizFunc.setStyle(node.find('#' + mapid + '_holder_root')[0], { 'width': width, 'height': height });
 				gisM.resizeCenterMap(map, center);
-			}, 7000);
+			}, 15000);
 		};
 
 		// http://stackoverflow.com/questions/8270612/get-element-moz-transformrotate-value-in-jquery

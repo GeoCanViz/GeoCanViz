@@ -126,7 +126,8 @@
                 "zoombar": {
                     "bar": true,
                     "zoom": true,
-                    "zoomfull": true
+                    "zoomfull": true,
+                    "previousnext": true
                 },
                 "bases": [{
                     "label": "CBCT3978",
@@ -366,7 +367,7 @@
             "enable": false
         },
         "datagrid": {
-            "enable": true,
+            "enable": false,
             "expand": true,
             "layers": [{
                 "layerinfo": {

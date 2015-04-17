@@ -10,7 +10,7 @@
 	define(['gcviz-vm-print'
 	], function(printVM) {
 		var initialize;
-			
+
 		initialize = function($mapElem) {
 			var $print,
 				mapid = $mapElem.mapframe.id,
@@ -30,28 +30,28 @@
 							'<select id="printSelect" data-bind="value: selectedValue, optionsText: \'Name\', optionsValue: \'Name\', options: availableTemplates "></select></div>' +
 						'<div id="gcviz-PrintMapScaleDiv"><span class="gcviz-subtitle gcviz-printLabel" data-bind="text: lblMapScaleExtent"></span>' +
 							'<div><span class="gcviz-printLabel gcviz-printParam" data-bind="text: lblPreserve"></span>' +
-								  '<input type="radio" name="scaleExtentGroup" value="extent" data-bind="checked: preserve"></input>' +
-								  '<span class="gcviz-printLabel gcviz-printParam" data-bind="text: lblMapExtent"></span>' +
-                                  '<input type="radio" name="scaleExtentGroup" value="scale" data-bind="checked: preserve"></input>' +
-                                  '<span class="gcviz-printLabel gcviz-printParam" data-bind="text: lblMapScale"></span>' +
+								'<input type="radio" name="scaleExtentGroup" value="extent" data-bind="checked: preserve"></input>' +
+								'<span class="gcviz-printLabel gcviz-printParam" data-bind="text: lblMapExtent"></span>' +
+								'<input type="radio" name="scaleExtentGroup" value="scale" data-bind="checked: preserve"></input>' +
+								'<span class="gcviz-printLabel gcviz-printParam" data-bind="text: lblMapScale"></span>' +
                             '</div>' +
                             '<div><span class="gcviz-printLabel gcviz-printParam" data-bind="text: lblForceScale"></span>' +
-                            	  '<input class="gcviz-printLabel" type="radio" name="scaleExtentGroup" value="force" data-bind="checked: preserve"></input>' +
-                            	  '<input class="gcviz-printLabel" type="text" name="forceScale" data-bind="event: { change: selectRadioForce }, value: forceScaleValue, textInput: attemptedValue"></input>' +
-                            '</div>'+     
-                        '</div>' + 
+								'<input class="gcviz-printLabel" type="radio" name="scaleExtentGroup" value="force" data-bind="checked: preserve"></input>' +
+								'<input class="gcviz-printLabel" type="text" name="forceScale" data-bind="event: { change: selectRadioForce }, value: forceScaleValue, textInput: attemptedValue"></input>' +
+                            '</div>'+
+                        '</div>' +
                         '<div id="DPIdiv"><span class="gcviz-subtitle gcviz-printLabel" data-bind="text: lblPrintDPI"></span>' +
                         '<select id="printDPI" data-bind="value: selectedDPIValue, optionsText: \'Name\', optionsValue: \'Name\', options: DPIs"></select></div>';
 
 			node += '<div id="printParameters">' +
 						'<span class="gcviz-subtitle gcviz-printLabel" data-bind="text: lblPrintParameters"></span>' +
-						 '<div id="printParametersDetails">' +	
+						'<div id="printParametersDetails">' +
                             '<div id ="gcviz-printTextElements" class="gcviz-PrintElementGroup" ></div>' +
                             '<div id ="gcviz-printPictureElements" class="gcviz-PrintElementGroup" ></div>' +
                             '<div id ="gcviz-printMapSurroundElements" class="gcviz-PrintElementGroup" ></div>' +
-						 '</div>' +
+						'</div>' +
 					'</div>';
-		
+
 			// close div
 			node += '</div>';
 
@@ -59,8 +59,6 @@
 
 			return(printVM.initialize($print, mapid, printOption, mapframe));
 		};
-
-		
 
 		return {
 			initialize: initialize

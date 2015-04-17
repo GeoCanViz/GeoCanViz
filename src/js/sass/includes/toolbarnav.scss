@@ -88,7 +88,8 @@
 
 // scale bar and scale display
 .gcviz-nav-scale {
-	margin-top: (1.5 * $rembase) + rem;
+	margin-top: (0.75 * $rembase) + rem;
+	margin-bottom: (1 * $rembase) + rem;
 }
 
 // scale display

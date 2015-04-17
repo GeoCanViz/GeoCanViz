@@ -20,9 +20,8 @@
 			'esri/geometry/Point',
 			'esri/layers/KMLLayer',
 			'esri/layers/FeatureLayer',
-			'esri/layers/GeoRSSLayer',
-			'dojo/_base/array'
-	], function($viz, gcvizFunc, gisGeo, gisMap, vmDatagrid, vmTbData, vmTbLegend, esriCSVStore, esriFeatLayer, esriSR, esriPoint, esriKML, esriFL, esriGeoRSS, array) {
+			'esri/layers/GeoRSSLayer'
+	], function($viz, gcvizFunc, gisGeo, gisMap, vmDatagrid, vmTbData, vmTbLegend, esriCSVStore, esriFeatLayer, esriSR, esriPoint, esriKML, esriFL, esriGeoRSS) {
 		var reorderGraphicLayer,
 			addCSV,
 			addKML,
@@ -152,7 +151,11 @@
 
 		createLayer = function(features) {
 			var featureLayer, feature, item, attr,
-				len = features.length;
+				len = features.length,
+				config = { expand: true,
+								visibility: true,
+								opacity: 1,
+								zoom: true };
 
 			while (len--) {
 				item = features[len];
@@ -169,15 +172,15 @@
 			featureLayer.name = gfileName;
 
 			// finish add by reordering layer and add the layer to map
-			finishAdd(mymap, featureLayer);
-				
+			finishAdd(mymap, featureLayer, config.zoom);
+
 			// add to user array so knockout will generate legend
 			// we cant add it from the VM because the projection can take few second and the symbol is not define before.
 			// to avoid this, we add the layer only when it is done.
 			//gArray.push({ label: gReader.fileName, id: guuid });
 
 			// set legend
-			addLegend(gfileName, guuid, 7, JSON.stringify(featureLayer.renderer.toJson()));
+			addLegend(gfileName, guuid, 7, JSON.stringify(featureLayer.renderer.toJson()), config);
 
 			// add the data to the datagrid
 			vmDatagrid.addTab(mymap.vIdName, featCollection, gfileName, guuid);
@@ -280,7 +283,7 @@
 			var layer,
 				def = $viz.Deferred();
 
-			layer = new esriKML(url, { outSR: new esri.SpatialReference({ wkid: map.vWkid }) });
+			layer = new esriKML(url, { outSR: new esriSR({ wkid: map.vWkid }) });
 			layer.id = 'tempAddDataKML';
 			layer.visible = false;
 
@@ -289,15 +292,15 @@
 				// return info
 				def.resolve(1, error.target.url);
 			});
-			
+
 			layer.on('load', gcvizFunc.closureFunc(function(map, uuid, fileName, config, input) {
 				var interval,
 					graphics, lenGraphics, attributes, graphic,
 					name, id, fieldName, defaultFields,
 					field, fields, lenFields, outFields,
-					layerDef, jsonDef, featureLayer,
+					layerDef, featureLayer,
 					output = [],
-					
+
 					layerDefs = input.layer._fLayers,
 					lenLayerDef = layerDefs.length;
 
@@ -309,29 +312,29 @@
 						outFields = new Array(2);
 						name = fileName + '-' + lenLayerDef;
 						id = uuid + lenLayerDef;
-	
+
 						// create layer from definition
 						layerDef = JSON.parse(layerDefs[lenLayerDef]._json);
 						featureLayer = new esriFeatLayer(layerDef);
-						
+
 						// set feature layer parameters
-						featureLayer.visible = true;
+						featureLayer.visible = config.visibility;
 						featureLayer.type = 5;
 						featureLayer.name = name;
 						featureLayer.id = id;
-	
+
 						// finish add by reordering layer and add the layer to map
 						finishAdd(map, featureLayer, config.zoom);
-	
+
 						// clean fields to keep name and description
 						fields = layerDef.layerDefinition.fields;
 						lenFields = fields.length;
 						defaultFields ='id, snippet, visibility, styleUrl, balloonStyleText';
-	
+
 						while (lenFields--) {
 							field = fields[lenFields];
 							fieldName = field.name;
-	
+
 							// filter to remove default internal fields
 							if (defaultFields.indexOf(fieldName) === -1) {
 								if (fieldName === 'name') {
@@ -347,7 +350,7 @@
 							}
 						}
 						layerDef.layerDefinition.fields = outFields;
-	
+
 						// loop the graphics to add to the feature layer from where they come from. It will be use in the popup
 						// at the same time check if there is feature without fields. It happen when the value is null in the kml
 						// the field is not created on the feature.
@@ -356,26 +359,26 @@
 						while (lenGraphics--) {
 							graphic = graphics[lenGraphics];
 							attributes = graphic.attributes;
-	
+
 							// set layer name
 							graphic._layer.name = name;
-	
+
 							lenFields = outFields.length;
 							while (lenFields--) {
 								field = outFields[lenFields].alias;
-	
+
 								if (!attributes.hasOwnProperty(field)){
 									attributes[field] = '';
 								}
 							}
 						}
-	
+
 						// set legend
 						addLegend(name, id, 7, JSON.stringify(featureLayer.renderer.toJson()), config);
-	
-						 // add the data to the datagrid
+
+						// add the data to the datagrid
 						vmDatagrid.addTab(map.vIdName, layerDef, name, id);
-	
+
 						// add output info
 						output.push({ name: name, id: id });
 					}
@@ -404,7 +407,7 @@
 					mode: esriFL.MODE_SNAPSHOT,
 					outFields: ['*'],
 					id: uuid,
-					outSR: new esri.SpatialReference({ wkid: map.vWkid })
+					outSR: new esriSR({ wkid: map.vWkid })
 				});
 
 			// add layer visible false because we use it only to be able to generate feature layer from it.
@@ -416,18 +419,16 @@
 				// return info
 				def.resolve(1, error.target.url);
 			});
-			
+
 			layer.on('load', gcvizFunc.closureFunc(function(map, uuid, config, input) {
 				var layer = input.layer,
-					name = layer.name,
-					layerDef = JSON.parse(layer._json);
+					name = layer.name;
 
 				// set legend
+				layer.visible = config.visibility;
 				addLegend(name, uuid, 5, JSON.stringify(layer.renderer.toJson()), config);
-				
+
 				// finish add by reordering layer and add the layer to map
-				layer.minScale = 0;
-				layer.maxScale = 0;
 				finishAdd(map, layer, config.zoom);
 
 				// add the data to the datagrid
@@ -442,7 +443,7 @@
 
 		addGeoRSS = function(map, url, uuid, fileName) {
 			var layer;
-			layer = new esriGeoRSS(url, { outSR: new esri.SpatialReference({ wkid: map.vWkid }) });
+			layer = new esriGeoRSS(url, { outSR: new esriSR({ wkid: map.vWkid }) });
 			layer.name = fileName;
 			layer.id = uuid;
 			map.addLayer(layer);
@@ -450,7 +451,7 @@
 			// the GeoRSS layer contains one feature layer for each geometry type
 			// TODO: loop trought getFEatureLayers
 			layer.on('load', function(input) {
-				var field, graph, atts, lenAtts,
+				var field,
 					newFields = [],
 					featLayer = input.layer.getFeatureLayers()[0],
 					fields = featLayer.fields,
@@ -458,10 +459,10 @@
 					graphics = featLayer.graphics,
 					lenGraphs = graphics.length,
 					featColl = { 'layerDefinition': {
-										'fields': [],
+										'fields': []
 										},
 										'featureSet': {
-											'features': [],
+											'features': []
 										}
 									};
 
@@ -477,11 +478,11 @@
 						newFields.push({
 										'name': field.name,
 										'alias': field.name,
-										'type': '',
-										});	
+										'type': ''
+										});
 					}
 				}
-				
+
 				featColl.layerDefinition.fields = newFields;
 				featColl.featureSet.features = graphics;
 
@@ -494,71 +495,89 @@
 		};
 
 		addLegend = function(name, id, type, symbol, config) {
-			var config = {
-					"expand": config.expand,
-					"last": false,
-					"type": type,
-					"id": id,
-					"graphid": "custom",
-					"displayfields": false,
-					"label": {
-						"value": name,
-						"alttext": name
+			var outConfig = {
+					'expand': config.expand,
+					'last': false,
+					'type': type,
+					'id': id,
+					'graphid': 'custom',
+					'displayfields': false,
+					'label': {
+						'value': name,
+						'alttext': name
 					},
-					"metadata": {
-						"enable": false
+					'metadata': {
+						'enable': false
 					},
-					"opacity": {
-						"enable": true,
-						"min": 0,
-						"max": 1,
-						"initstate": config.opacity
+					'opacity': {
+						'enable': true,
+						'min': 0,
+						'max': 1,
+						'initstate': config.opacity
 					},
-					"visibility": {
-						"enable": true,
-						"initstate": config.visibility,
-						"type": 1,
-						"radioid": 0
+					'visibility': {
+						'enable': true,
+						'initstate': config.visibility,
+						'type': 1,
+						'radioid': 0
 					},
-					"displaychild": {
-						"enable": true,
-						"symbol": symbol
+					'displaychild': {
+						'enable': true,
+						'symbol': symbol
 					},
-					"customimage": {
-						"enable": false,
-						"images": []
+					'customimage': {
+						'enable': false,
+						'images': []
 					},
-					"items": []
+					'items': []
 				};
 
-			vmTbLegend.addLegend(config);
+			vmTbLegend.addLegend(outConfig);
 		};
 
 		finishAdd = function(mymap, layer, zoom) {
 			var graphics, layerId,
+				graph, geomType,
 				layerIds = mymap.graphicsLayerIds,
 				len = layerIds.length;
 
 			// add layer to the map
 			mymap.addLayer(layer);
 
+			// set map scale
+			layer.minScale = 0;
+			layer.maxScale = 0;
+
 			// reoder layers to make sure symbol and datagrid are on top
-			reorderGraphicLayer(mymap, 'gcviz-symbol', -1);
-			reorderGraphicLayer(mymap, 'gcviz-datagrid', -1);
+			if (layerIds.indexOf('gcviz-symbol') !== -1) {
+				reorderGraphicLayer(mymap, 'gcviz-symbol', -1);
+			}
+			if (layerIds.indexOf('gcviz-datagrid') !== -1) {
+				reorderGraphicLayer(mymap, 'gcviz-datagrid', -1);
+			}
 
 			// remove intern graphic layers added in the process
 			while (len--) {
 				layerId = layerIds[len];
 				if (layerId.indexOf('graphicsLayer') !== -1) {
 					mymap.removeLayer(mymap.getLayer(layerId));
-				}				
+				}
 			}
 
-			// get the extent then zoom
+			// get the extent then zoom. If there is only one point we need to call zoom to feature
 			if (zoom) {
 				graphics = layer.graphics;
 
-				if (graphics.length > 0) {
+				if (graphics.length === 1) {
+					graph = graphics[0];
+					geomType = graph.geometry.type;
+
+					if (geomType === 'point') {
+						gisMap.zoomFeature(mymap, graph);
+					} else {
+						gisMap.zoomGraphics(mymap, layer.graphics);
+					}
+				} else if (graphics.length > 1) {
 					gisMap.zoomGraphics(mymap, layer.graphics);
 				}
 			}

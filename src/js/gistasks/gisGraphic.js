@@ -746,7 +746,6 @@
 		importGraphics = function(map, graphics, isGraphics) {
 			var item,
 				graphic,
-				extent,
 				extents = [],
 				key = gcvizFunc.getUUID(),
 				layer = map.getLayer('gcviz-symbol'),
@@ -869,7 +868,7 @@
 						polyJson = { 'rings': [arr],
 										'spatialReference': { 'wkid': map.vWkid } };
 						poly = new esriPoly(polyJson);
-	
+
 						// densify extent
 						gisgeo.densifyGeom(poly, 'km', success);
 					}
@@ -925,7 +924,7 @@
 			polyJson = { 'rings': [arr],
 							'spatialReference': { 'wkid': inwkid } };
 			poly = new esriPoly(polyJson);
-				
+
 			// project extent
 			gisgeo.projectGeoms([poly], outwkid, success);
 		};

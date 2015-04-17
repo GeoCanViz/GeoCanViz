@@ -93,13 +93,12 @@
 			// if the url end by /name.ext the .ext part make it freeze.
 			// to avoid that, remove last part of url (after last /). Validate that part individually
 			// the regexp only validate the first 3 parts (http, domain, first folder)
-			var tmpPart, isValid,
+			var isValid,
 				pattern = new RegExp (/\(?(?:(http|https|ftp):\/\/)?(?:((?:[^\W\s]|\.|-|[:]{1})+)@{1})?((?:www.)?(?:[^\W\s]|\.|-)+[\.][^\W\s]{2,4}|localhost(?=\/)|\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})(?::(\d*))?([\/]?[^\s\?]*[\/]{1})*(?:\/?([^\s\n\?\[\]\{\}\#]*(?:(?=\.)){1}|[^\s\n\?\[\]\{\}\.\#]*)?([\.]{1}[^\s\?\#]*)?)?(?:\?{1}([^\s\n\#\[\]]*))?([\#][^\s\n]*)?\)?/gi),
 				esri = '/rest/services/',
 				isEsri = false,
 				index = url.lastIndexOf('/') + 1,
 				urlLast = url.substring(index),
-				tmpUrl = url.split('//'),
 				result = false;
 
 			// check if it is a REST layer
@@ -120,7 +119,7 @@
 
 		// http://stackoverflow.com/questions/11582512/how-to-get-url-parameters-with-javascript
 		getURLParameter = function(url, param) {
-			return decodeURIComponent((new RegExp('[?|&]' + param + '=' + '([^&]+?)(&|#|$)').exec(url)||[,""])[1].replace(/\+/g, '%20'))||null;
+			return decodeURIComponent((new RegExp('[?|&]' + param + '=' + '([^&]+?)(&|#|$)').exec(url)||[,''])[1].replace(/\+/g, '%20'))||null;
 		};
 
 		addTooltip = function($element, userOpts) {

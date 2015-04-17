@@ -151,16 +151,17 @@
 				zoommax = zoomCfg.zoomfull,
 				zoombar = zoomCfg.bar,
 				zoom = zoomCfg.zoom,
+				previousnext = zoomCfg.previousnext,
 				node = '';
 
-			if (zoommax || zoombar) {
+			if (zoommax || zoombar || zoom || previousnext) {
 				node = '<section id="gcviz-help-map" class="gcviz-help gcviz-help-map">' +
 						'<div class="row"><span class="gcviz-help-tbtitle" data-bind="text: mapTitle"></span></div>';
 
 				if (zoommax) {
 					node +='<div class="row">' +
 								'<div class="span1">' +
-									'<button class="gcviz-help-zoommax" tabindex="-1"</button>' +
+									'<button class="gcviz-help-zoommax" tabindex="-1"></button>' +
 								'</div>' +
 								'<span class="span11" data-bind="text: mapZoomFull"></span>' +
 							'</div>';
@@ -178,9 +179,19 @@
 				if (zoom) {
 					node += '<div class="row">' +
 								'<div class="span1">' +
-									'<button class="gcviz-help-zoomext" tabindex="-1"</button>' +
+									'<button class="gcviz-help-zoomext" tabindex="-1"></button>' +
 								'</div>' +
 								'<span class="span11" data-bind="text: mapZoom"></span>' +
+							'</div>';
+				}
+
+				if (previousnext) {
+					node += '<div class="row">' +
+								'<div class="span2">' +
+									'<button class="gcviz-help-zoomp" tabindex="-1"></button>' +
+									'<button class="gcviz-help-zoomn" tabindex="-1"></button>' +
+								'</div>' +
+								'<span class="span10 gcviz-help-textbtn" data-bind="text: mapZoompv"></span>' +
 							'</div>';
 				}
 
@@ -201,7 +212,7 @@
 						'<div class="row"><span class="gcviz-help-tbtitle" data-bind="text: headTitle"></span></div>' +
 						'<div class="row">' +
 							'<div class="span1">' +
-								'<button class="gcviz-help-help" tabindex="-1"</button>' +
+								'<button class="gcviz-help-help" tabindex="-1"></button>' +
 							'</div>' +
 							'<span class="span11 gcviz-help-textbtn" data-bind="text: headHelp"></span>' +
 						'</div>';
@@ -209,7 +220,7 @@
 			if (about) {
 				node += '<div class="row">' +
 							'<div class="span1">' +
-								'<button class="gcviz-help-about" tabindex="-1"</button>' +
+								'<button class="gcviz-help-about" tabindex="-1"></button>' +
 							'</div>' +
 							'<span class="span11 gcviz-help-textbtn" data-bind="text: headAbout"></span>' +
 						'</div>';
@@ -218,7 +229,7 @@
 			if (print) {
 				node += '<div class="row">' +
 							'<div class="span1">' +
-								'<button class="gcviz-help-print" tabindex="-1"</button>' +
+								'<button class="gcviz-help-print" tabindex="-1"></button>' +
 							'</div>' +
 							'<span class="span11 gcviz-help-textbtn" data-bind="text: headPrint"></span>' +
 						'</div>';
@@ -227,13 +238,13 @@
 			if (fullscreen) {
 				node += '<div class="row">' +
 							'<div class="span1">' +
-								'<button class="gcviz-help-fs" tabindex="-1"</button>' +
+								'<button class="gcviz-help-fs" tabindex="-1"></button>' +
 							'</div>' +
 							'<span class="span11 gcviz-help-textbtn" data-bind="text: headGoFS"></span>' +
 						'</div>' +
 						'<div class="row">' +
 							'<div class="span1">' +
-								'<button class="gcviz-help-reg" tabindex="-1"</button>' +
+								'<button class="gcviz-help-reg" tabindex="-1"></button>' +
 							'</div>' +
 							'<span class="span11 gcviz-help-textbtn" data-bind="text: headExitFS"></span>' +
 						'</div>';
@@ -278,7 +289,7 @@
 				if (arrow) {
 					node += '<div class="row">' +
 								'<div class="span1">' +
-									'<button class="gcviz-help-arrow" tabindex="-1"</button>' +
+									'<button class="gcviz-help-arrow" tabindex="-1"></button>' +
 								'</div>' +
 								'<span class="span11" data-bind="text: footArrow"></span>' +
 							'</div>';
@@ -304,7 +315,7 @@
 						'<div class="row"><span class="gcviz-help-tbtitle" data-bind="text: drawTitle"></span></div>' +
 						'<div class="row">' +
 							'<div class="span4 gcviz-draw-cholder">' +
-								'<button class="gcviz-help-black" tabindex="-1"</button>' +
+								'<button class="gcviz-help-black" tabindex="-1"></button>' +
 								'<button class="gcviz-help-blue" tabindex="-1"></button>' +
 								'<button class="gcviz-help-green" tabindex="-1"></button>' +
 								'<button class="gcviz-help-red" tabindex="-1"></button>' +
@@ -317,7 +328,7 @@
 				if (drawline) {
 					node += '<div class="row">' +
 								'<div class="span1">' +
-									'<button class="gcviz-help-line" tabindex="-1"</button>' +
+									'<button class="gcviz-help-line" tabindex="-1"></button>' +
 								'</div>' +
 								'<div class="span11">' +
 									'<span data-bind="text: drawLine"></span>' +
@@ -334,7 +345,7 @@
 				if (drawtext) {
 					node += '<div class="row">' +
 								'<div class="span1">' +
-									'<button class="gcviz-help-text" tabindex="-1"</button>' +
+									'<button class="gcviz-help-text" tabindex="-1"></button>' +
 								'</div>' +
 								'<div class="span11">' +
 									'<span data-bind="text: drawText"></span>' +
@@ -351,7 +362,7 @@
 				if (measline) {
 					node += '<div class="row">' +
 								'<div class="span1">' +
-									'<button class="gcviz-help-length" tabindex="-1"</button>' +
+									'<button class="gcviz-help-length" tabindex="-1"></button>' +
 								'</div>' +
 								'<div class="span11">' +
 									'<span data-bind="text: drawLength"></span>' +
@@ -368,7 +379,7 @@
 				if (measarea) {
 					node += '<div class="row">' +
 								'<div class="span1">' +
-									'<button class="gcviz-help-area" tabindex="-1"</button>' +
+									'<button class="gcviz-help-area" tabindex="-1"></button>' +
 								'</div>' +
 								'<div class="span11">' +
 									'<span data-bind="text: drawArea"></span>' +
@@ -384,13 +395,13 @@
 
 				node +=	'<div class="row">' +
 							'<div class="span1">' +
-								'<button class="gcviz-help-del" tabindex="-1"</button>' +
+								'<button class="gcviz-help-del" tabindex="-1"></button>' +
 							'</div>' +
 							'<span class="span11" data-bind="text: drawEraseAll"></span>' +
 						'</div>' +
 						'<div class="row">' +
 							'<div class="span1">' +
-								'<button class="gcviz-help-delsel" tabindex="-1"</button>' +
+								'<button class="gcviz-help-delsel" tabindex="-1"></button>' +
 							'</div>' +
 							'<div class="span11">' +
 								'<span data-bind="text: drawEraseSel"></span>' +
@@ -402,13 +413,13 @@
 						'</div>' +
 						'<div class="row">' +
 							'<div class="span1">' +
-								'<button class="gcviz-help-undo" tabindex="-1"</button>' +
+								'<button class="gcviz-help-undo" tabindex="-1"></button>' +
 							'</div>' +
 							'<span class="span11" data-bind="text: drawUndo"></span>' +
 						'</div>' +
 						'<div class="row">' +
 							'<div class="span1">' +
-								'<button class="gcviz-help-redo" tabindex="-1"</button>' +
+								'<button class="gcviz-help-redo" tabindex="-1"></button>' +
 							'</div>' +
 							'<span class="span11" data-bind="text: drawRedo"></span>' +
 						'</div>';
@@ -416,13 +427,13 @@
 				if (impexp) {
 					node += '<div class="row">' +
 								'<div class="span1">' +
-									'<button class="gcviz-help-imp" tabindex="-1"</button>' +
+									'<button class="gcviz-help-imp" tabindex="-1"></button>' +
 								'</div>' +
 								'<span class="span11" data-bind="text: drawImport"></span>' +
 							'</div>' +
 							'<div class="row">' +
 								'<div class="span1">' +
-									'<button class="gcviz-help-exp" tabindex="-1"</button>' +
+									'<button class="gcviz-help-exp" tabindex="-1"></button>' +
 								'</div>' +
 								'<span class="span11" data-bind="text: drawExport"></span>' +
 							'</div>';
@@ -444,7 +455,7 @@
 				if (about) {
 					node += '<div class="row">' +
 							'<div class="span1">' +
-								'<button class="gcviz-help-about" tabindex="-1"</button>' +
+								'<button class="gcviz-help-about" tabindex="-1"></button>' +
 							'</div>' +
 							'<span class="span11 gcviz-help-textbtn" data-bind="text: legAbout"></span>' +
 						'</div>';
@@ -455,6 +466,7 @@
 						'<div class="row"><span class="span12" data-bind="text: legDesc3"></span></div>' +
 						'<div class="row"><span class="span12" data-bind="text: legSlider"></span></div>' +
 						'<div class="row"><span class="span12" data-bind="text: legExpand"></span></div>' +
+						'<div class="row"><span class="span12" data-bind="text: legNewLayer"></span></div>' +
 					'</section>';
 			}
 
@@ -499,7 +511,7 @@
 					node += '<div class="row"><span class="gcviz-help-textsub" data-bind="text: navMapInfoTitle"></span></div>' +
 							'<div class="row">' +
 								'<div class="span1">' +
-									'<button class="gcviz-help-pos" tabindex="-1"</button>' +
+									'<button class="gcviz-help-pos" tabindex="-1"></button>' +
 								'</div>' +
 								'<div class="span11">' +
 									'<span data-bind="text: navPos"></span>' +
@@ -548,7 +560,7 @@
 				if (datafile) {
 					node += '<div class="row">' +
 								'<div class="span1">' +
-									'<button class="gcviz-help-adddata" tabindex="-1"</button>' +
+									'<button class="gcviz-help-adddata" tabindex="-1"></button>' +
 								'</div>' +
 								'<span class="span11" data-bind="text: dataAddFile"></span>' +
 							'</div>';
@@ -557,27 +569,15 @@
 				if (dataurl) {
 					node += '<div class="row">' +
 								'<div class="span1">' +
-									'<button class="gcviz-help-adddata" tabindex="-1"</button>' +
+									'<button class="gcviz-help-adddata" tabindex="-1"></button>' +
 								'</div>' +
 								'<span class="span11" data-bind="text: dataAddURL"></span>' +
 							'</div>';
 				}
 
 				node += '<div class="row">' +
-								'<div class="span1"></div>' +
-								'<div class="span11">' +
-									'<div class="row">' +
-										'<div class="span4">' +
-											'<img class="gcviz-help-img" data-bind="attr: { src: imgHelpDataSamp, title: dataSample }"></img>' +
-										'</div>' +
-										'<span class="span7" data-bind="text: dataSample"></span>' +
-									'</div>' +
-									'<div class="row">' +
-										'<div class="span2">' +
-											'<button class="gcviz-help-deldata" tabindex="-1"</button>' +
-										'</div>' +
-										'<span class="span9" data-bind="text: dataRemove"></span>' +
-								'</div>' +
+								'<div class="span12">' +
+									'<span data-bind="text: dataSample"></span>' +
 								'</div>' +
 							'</div>' +
 						'</section>';
@@ -597,7 +597,7 @@
 							'<div class="row"><span class="span12" data-bind="text: extDesc1"></span></div>' +
 							'<div class="row">' +
 								'<div class="span1">' +
-									'<button class="gcviz-help-pos" tabindex="-1"</button>' +
+									'<button class="gcviz-help-pos" tabindex="-1"></button>' +
 								'</div>' +
 								'<span class="span11 gcviz-help-textbtn" data-bind="text: extClick"></span>' +
 							'</div>' +
@@ -631,7 +631,7 @@
 							'<div class="row"><span class="span12" data-bind="text: dgZoomSelDesc"></span></div>' +
 							'<div class="row">' +
 								'<div class="span1">' +
-									'<button class="gcviz-dg-zoomsel" tabindex="-1"</button>' +
+									'<button class="gcviz-dg-zoomsel" tabindex="-1"></button>' +
 								'</div>' +
 								'<div class="span11">' +
 									'<span class="gcviz-help-textlist" data-bind="text: dgZoomDesc"></span>' +
@@ -639,7 +639,7 @@
 							'</div>' +
 							'<div class="row">' +
 								'<div class="span1">' +
-									'<button class="gcviz-dg-selfeat" tabindex="-1"</button>' +
+									'<button class="gcviz-dg-selfeat" tabindex="-1"></button>' +
 								'</div>' +
 								'<div class="span11">' +
 									'<span class="gcviz-help-textlist" data-bind="text: dgSelectDesc"></span>' +
@@ -649,7 +649,7 @@
 							'<div class="row"><span class="span12" data-bind="text: dgFilterDesc"></span></div>' +
 							'<div class="row">' +
 								'<div class="span1">' +
-									'<button class="gcviz-dg-filterclear" tabindex="-1"</button>' +
+									'<button class="gcviz-dg-filterclear" tabindex="-1"></button>' +
 								'</div>' +
 								'<div class="span11">' +
 									'<span class="gcviz-help-textlist" data-bind="text: dgFilterClear"></span>' +
@@ -690,7 +690,7 @@
 							'</div>' +
 							'<div class="row">' +
 								'<div class="span1">' +
-									'<button class="gcviz-dg-applyfilter" tabindex="-1"</button>' +
+									'<button class="gcviz-dg-applyfilter" tabindex="-1"></button>' +
 								'</div>' +
 								'<div class="span11">' +
 									'<span class="gcviz-help-textlist" data-bind="text: dgFilterApply"></span>' +
@@ -698,7 +698,7 @@
 							'</div>' +
 							'<div class="row">' +
 								'<div class="span1">' +
-									'<button class="gcviz-dg-selfeat" tabindex="-1"</button>' +
+									'<button class="gcviz-dg-selfeat" tabindex="-1"></button>' +
 								'</div>' +
 								'<div class="span11">' +
 									'<span class="gcviz-help-textlist" data-bind="text: dgFilterSelect"></span>' +
@@ -725,7 +725,7 @@
 							'<div class="row"><span class="gcviz-help-textsub" data-bind="text: dgExportTitle"></span></div>' +
 							'<div class="row">' +
 								'<div class="span1">' +
-									'<button class="gcviz-dg-exportcsv" tabindex="-1"</button>' +
+									'<button class="gcviz-dg-exportcsv" tabindex="-1"></button>' +
 								'</div>' +
 								'<div class="span11">' +
 									'<span class="gcviz-help-textlist" data-bind="text: dgExportDesc"></span>' +
@@ -739,7 +739,7 @@
 							'<div class="row"><span class="span12" data-bind="text: dgPopDesc5"></span></div>' +
 							'<div class="row">' +
 								'<div class="span1">' +
-									'<button class="gcviz-popup-zoom" tabindex="-1"</button>' +
+									'<button class="gcviz-popup-zoom" tabindex="-1"></button>' +
 								'</div>' +
 								'<div class="span11">' +
 									'<span class="gcviz-help-textlist" data-bind="text: dgPopZoom"></span>' +
@@ -747,7 +747,7 @@
 							'</div>' +
 							'<div class="row">' +
 								'<div class="span1">' +
-									'<button class="gcviz-popup-previous" tabindex="-1"</button>' +
+									'<button class="gcviz-popup-previous" tabindex="-1"></button>' +
 								'</div>' +
 								'<div class="span11">' +
 									'<span class="gcviz-help-textlist" data-bind="text: dgPopPrevious"></span>' +
@@ -755,7 +755,7 @@
 							'</div>' +
 							'<div class="row">' +
 								'<div class="span1">' +
-									'<button class="gcviz-popup-next" tabindex="-1"</button>' +
+									'<button class="gcviz-popup-next" tabindex="-1"></button>' +
 								'</div>' +
 								'<div class="span11">' +
 									'<span class="gcviz-help-textlist" data-bind="text: dgPopNext"></span>' +

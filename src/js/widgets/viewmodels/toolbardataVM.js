@@ -77,10 +77,10 @@
 					// check if there is a url to load
 					if (configQuery) {
 						// data param can be like this:
-						// data=http://maps.ottawa.ca/arcgis/rest/services/Schools/MapServer/2,1,1,0.5;http://geoappext.nrcan.gc.ca/GeoCanViz/CCMEO/toporama/combine.kml,0,0,1
+						// data=http://maps.ottawa.ca/arcgis/rest/services/Schools/MapServer/2,1,1,0.5,0;http://geoappext.nrcan.gc.ca/GeoCanViz/CCMEO/toporama/combine.kml,0,0,1,0
 						// first the url, the expand state, the visibiity state, the opacity value, zoom to extent value
 						url = gcvizFunc.getURLParameter(window.location.toString(), 'data');
-						
+
 						if (url !== null) {
 							// subscribe to the isTableReady event to know when tables have been initialize
 							gcvizFunc.subscribeTo(mapid, 'datagrid', 'isTableReady', function(input) {
@@ -195,7 +195,7 @@
 										_self.isErrDataOpen(true);
 									}
 							});
-						} 
+						}
 						else {
 							_self.errMsg(_self.errFormat);
 							_self.isErrDataOpen(true);
@@ -260,7 +260,7 @@
 									}
 								});
 						};
-					
+
 						reader.readAsText(file);
 					}
 
@@ -294,7 +294,7 @@
 						opacity = param[3],
 						zoom = param[4];
 
-					// check if config paramter are present
+					// check if config parameter are present
 					if (typeof expand !== 'undefined' && expand === '0') {
 						config.expand = false;
 					}

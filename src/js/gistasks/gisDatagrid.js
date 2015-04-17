@@ -5,7 +5,7 @@
  *
  * GIS datagrids functions
  */
-/* global esri: false, dojo: false */
+/* global dojo: false */
 (function () {
 	'use strict';
 	define(['jquery-private',
@@ -234,7 +234,7 @@
 					tmpDate = feat.attributes[attDate];
 					if (tmpDate !== null) {
 						tmpDate = new Date(tmpDate).toISOString();
-						
+
 						if (attFormat === 'long') {
 							tmpDate = tmpDate.replace('T', ' - ');
 						} else {
@@ -442,8 +442,7 @@
 				i = 0,
 				deferred = [],
 				defList = [],
-				lenTask = idTasksArr.length,
-				lenDef = lenTask;
+				lenTask = idTasksArr.length;
 
 			// reset task for file layer
 			deferredGraph = [];
@@ -457,14 +456,14 @@
 				layerType = info.layerType;
 				layerIndex = info.layerIndex;
 				layer = mymap.getLayer(info.layerId);
-				
+
 				// identify tasks setup parameters
 				idParams.geometry = event.mapPoint;
 				idParams.mapExtent = mymap.extent;
 				idParams.width = mymap.width;
 				idParams.height = mymap.height;
 				idParams.tolerance = 10;
-	
+
 				// set definition query
 				if (layerType === 4) {
 					arrDef = layer.layerDefinitions;
@@ -472,13 +471,13 @@
 					lyrDef = layer.getDefinitionExpression();
 					if (typeof lyrDef === 'undefined') {
 						lyrDef = '';
-					};
+					}
 
 					arrDef = new Array(layerIndex + 1);
 					arrDef[layerIndex] = lyrDef;
 				}
 				idParams.layerDefinitions = arrDef;
-			
+
 				// set layer to query then excute (if layer is visible)
 				idTask = idTasksArr[i];
 				if (layer.visible) {

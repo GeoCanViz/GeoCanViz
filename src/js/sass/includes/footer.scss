@@ -56,10 +56,6 @@
 	@extend %arrow
 }
 
-.gcviz-help-arrow {
-	@extend %arrow
-}
-
 // the header button sprite (need to use background-position because FF is not able to set x and y)
 .gcviz-foot-data {
 	@include sprite($img-spritebtn, -1481, -2);

@@ -172,17 +172,17 @@
                     }
                 }],
                 "layers": [{
-                    "label": "toporama_limits",
-                    "id": "bbbb469d-bbb1-c8f5-175c-645271a6b6fe",
+                    "label": "toporama_limites",
+                    "id": "bbbb469d-aaaa-c8f5-175c-645271a6b6fe",
                     "type": 3,
-                    "url": "http://wms.ess-ws.nrcan.gc.ca/wms/toporama_en",
+                    "url": "http://wms.ess-ws.nrcan.gc.ca/wms/toporama_fr",
                     "options": {
                         "layerinfos": [{
-                            "name": "limits",
-                            "title": "Limits"
+                            "name": "limites",
+                            "title": "Limites"
                         }],
-                        "visiblelayers": ["Limits"]
-                    	},
+                        "visiblelayers": ["Limites"] 
+                    },
                     "scale": {
                             "min": 0,
                             "max": 420000
@@ -197,17 +197,17 @@
                         }
                 }, {
                     "label": "toporama_builtup_areas",
-                    "id": "bbbb469d-bbb2-c8f5-175c-645282a6b6fe",
+                    "id": "bbbb469d-aaaa-c8f5-175c-645282a6b6fe",
                     "type": 3,
-                    "url": "http://wms.ess-ws.nrcan.gc.ca/wms/toporama_en",
+                    "url": "http://wms.ess-ws.nrcan.gc.ca/wms/toporama_fr",
                     "options": {
                         "layerinfos": [{
-                            "name": "builtup_areas",
-                            "title": "builtup_areas"
+                            "name": "agglomeration",
+                            "title": "agglomeration"
                         }],
-                        "visiblelayers": ["builtup_areas"]
-                   		},
-                   	"scale": {
+                        "visiblelayers": ["agglomeration"]
+                    },
+                    "scale": {
                             "min": 250000,
                             "max": 0
                         },
@@ -221,17 +221,17 @@
                         }
                 }, {
                     "label": "toporama_vegetation",
-                    "id": "bbbb469d-bbb3-c8f5-175c-645272a6b6fe",
+                    "id": "bbbb469d-aaaa-c8f5-175c-645272a6b6fe",
                     "type": 3,
-                    "url": "http://wms.ess-ws.nrcan.gc.ca/wms/toporama_en",
+                    "url": "http://wms.ess-ws.nrcan.gc.ca/wms/toporama_fr",
                     "options": {
                         "layerinfos": [{
                             "name": "vegetation",
                             "title": "Vegetation"
                         }],
                         "visiblelayers": ["vegetation"]
-                    	},
-                    	 "scale": {
+                    },
+                    "scale": {
                             "min": 250000,
                             "max": 0
                         },
@@ -245,17 +245,17 @@
                         }
                 }, {
                     "label": "toporama_hydrography",
-                    "id": "bbbb469d-bbb6-c8f5-175c-645273a6b6fe",
+                    "id": "bbbb469d-aaaa-c8f5-175c-645273a6b6fe",
                     "type": 3,
-                    "url": "http://wms.ess-ws.nrcan.gc.ca/wms/toporama_en",
+                    "url": "http://wms.ess-ws.nrcan.gc.ca/wms/toporama_fr",
                     "options": {
                         "layerinfos": [{
-                            "name": "hydrography",
-                            "title": "Hydrography"
+                            "name": "hydrographie",
+                            "title": "hydrographie"
                         }],
-                        "visiblelayers": ["hydrography"]
+                        "visiblelayers": ["hydrographie"]
                     },
-                    "scale": {
+                     "scale": {
                             "min": 0,
                             "max": 0
                         },
@@ -269,17 +269,17 @@
                         }
                 }, {
                     "label": "toporama_water_saturated_soils",
-                    "id": "bbbb469d-bbb5-c8f5-175c-645276a6b6fe",
+                    "id": "bbbb469d-aaaa-c8f5-175c-645276a6b6fe",
                     "type": 3,
-                    "url": "http://wms.ess-ws.nrcan.gc.ca/wms/toporama_en",
+                    "url": "http://wms.ess-ws.nrcan.gc.ca/wms/toporama_fr",
                     "options": {
                         "layerinfos": [{
-                            "name": "water_saturated_soils",
-                            "title": "Water saturated soils"
+                            "name": "sols_satures_eau",
+                            "title": "sols satures eau"
                         }],
-                        "visiblelayers": ["water_saturated_soils"]
+                        "visiblelayers": ["sols_satures_eau"]
                     },
-                    "scale": {
+                     "scale": {
                             "min": 250000,
                             "max": 0
                         },
@@ -291,17 +291,17 @@
                             "maxsizeprop": 50,
                             "maxdataprop": 1000
                         }
-                }, {
+                },  {
                     "label": "toporama_landforms",
-                    "id": "bbbb469d-bbb8-c8f5-175c-645277a6b6fe",
+                    "id": "bbbb469d-aaaa-c8f5-175c-645277a6b6fe",
                     "type": 3,
-                    "url": "http://wms.ess-ws.nrcan.gc.ca/wms/toporama_en",
+                    "url": "http://wms.ess-ws.nrcan.gc.ca/wms/toporama_fr",
                     "options": {
                         "layerinfos": [{
-                            "name": "landforms",
-                            "title": "Landforms"
+                            "name": "relief_formes",
+                            "title": "Relief et formes"
                         }],
-                        "visiblelayers": ["landforms"]
+                        "visiblelayers": ["relief_formes"]
                     },
                     "scale": {
                             "min": 250000,
@@ -317,15 +317,15 @@
                         }
                 }, {
                     "label": "toporama_hypsography",
-                    "id": "bbbb469d-bbb9-c8f5-175c-645275a6b6fe",
+                    "id": "bbbb469d-aaaa-c8f5-175c-645275a6b6fe",
                     "type": 3,
-                    "url": "http://wms.ess-ws.nrcan.gc.ca/wms/toporama_en",
+                    "url": "http://wms.ess-ws.nrcan.gc.ca/wms/toporama_fr",
                     "options": {
                         "layerinfos": [{
-                            "name": "Hypsography",
-                            "title": "Hypsography"
+                            "name": "hypsographie",
+                            "title": "Hypsographie"
                         }],
-                        "visiblelayers": ["hypsography"]
+                        "visiblelayers": ["hypsographie"]
                     },
                     "scale": {
                             "min": 250000,
@@ -341,15 +341,15 @@
                         }
                 }, {
                     "label": "toporama_power_network",
-                    "id": "bbbb469d-ccc1-c8f5-175c-645284a6b6fe",
+                    "id": "bbbb469d-aaaa-c8f5-175c-645284a6b6fe",
                     "type": 3,
-                    "url": "http://wms.ess-ws.nrcan.gc.ca/wms/toporama_en",
+                    "url": "http://wms.ess-ws.nrcan.gc.ca/wms/toporama_fr",
                     "options": {
                         "layerinfos": [{
-                            "name": "power_network",
-                            "title": "Power Network"
+                            "name": "reseau_energetique",
+                            "title": "Réseau énergétique"
                         }],
-                        "visiblelayers": ["power_network"]
+                        "visiblelayers": ["reseau_energetique"]
                     },
                     "scale": {
                             "min": 250000,
@@ -365,13 +365,13 @@
                         }
                 }, {
                     "label": "toporama_constructions",
-                    "id": "bbbb469d-ccc2-c8f5-175c-645278a6b6fe",
+                    "id": "bbbb469d-aaaa-c8f5-175c-645278a6b6fe",
                     "type": 3,
-                    "url": "http://wms.ess-ws.nrcan.gc.ca/wms/toporama_en",
+                    "url": "http://wms.ess-ws.nrcan.gc.ca/wms/toporama_fr",
                     "options": {
                         "layerinfos": [{
                             "name": "constructions",
-                            "title": "constructions"
+                            "title": "Constructions"
                         }],
                         "visiblelayers": ["constructions"]
                     },
@@ -388,16 +388,16 @@
                             "maxdataprop": 1000
                         }
                 }, {
-                    "label": "designated_areas",
-                    "id": "bbbb469d-ccc3-c8f5-175c-645274a6b6fe",
+                    "label": "toporama_aires_designees",
+                    "id": "bbbb469d-aaaa-c8f5-175c-645274a6b6fe",
                     "type": 3,
-                    "url": "http://wms.ess-ws.nrcan.gc.ca/wms/toporama_en",
+                    "url": "http://wms.ess-ws.nrcan.gc.ca/wms/toporama_fr",
                     "options": {
                         "layerinfos": [{
-                            "name": "designated_areas",
-                            "title": "designated_areas"
+                            "name": "aires_designees",
+                            "title": "Aires désignées"
                         }],
-                        "visiblelayers": ["designated_areas"]
+                        "visiblelayers": ["aires_designees"]
                     },
                      "scale": {
                             "min": 250000,
@@ -413,17 +413,17 @@
                         }
                 }, {
                     "label": "toporama_structures",
-                    "id": "bbbb469d-ddd1-c8f5-175c-645286a6b6fe",
+                    "id": "bbbb469d-aaaa-c8f5-175c-645286a6b6fe",
                     "type": 3,
-                    "url": "http://wms.ess-ws.nrcan.gc.ca/wms/toporama_en",
+                    "url": "http://wms.ess-ws.nrcan.gc.ca/wms/toporama_fr",
                     "options": {
                         "layerinfos": [{
                             "name": "structures",
-                            "title": "structures"
+                            "title": "Structures"
                         }],
                         "visiblelayers": ["structures"]
                     },
-                    "scale": {
+                     "scale": {
                             "min": 50000,
                             "max": 0
                         },
@@ -436,16 +436,16 @@
                             "maxdataprop": 1000
                         }
                 }, {
-                    "label": "toporama_railway",
-                    "id": "bbbb469d-ddd2-c8f5-175c-645285a6b6fe",
+                    "label": "toporama_reseau_ferroviaire",
+                    "id": "bbbb469d-aaaa-c8f5-175c-645285a6b6fe",
                     "type": 3,
-                    "url": "http://wms.ess-ws.nrcan.gc.ca/wms/toporama_en",
+                    "url": "http://wms.ess-ws.nrcan.gc.ca/wms/toporama_fr",
                     "options": {
                         "layerinfos": [{
-                            "name": "railway",
-                            "title": "railway"
+                            "name": "reseau_ferroviaire",
+                            "title": "Réseau ferroviaire"
                         }],
-                        "visiblelayers": ["railway"]
+                        "visiblelayers": ["reseau_ferroviaire"]
                     },
                     "scale": {
                             "min": 10000000,
@@ -463,15 +463,15 @@
                     "label": "toporama_Aeronautical features",
                     "id": "bbbb469d-dab3-c8f5-175c-645281a6b6fe",
                     "type": 3,
-                    "url": "http://wms.ess-ws.nrcan.gc.ca/wms/toporama_en",
+                    "url": "http://wms.ess-ws.nrcan.gc.ca/wms/toporama_fr",
                     "options": {
                         "layerinfos": [{
-                            "name": "aeronautical_network",
-                            "title": "aeronautical_network"
+                            "name": "reseau_aeronautique",
+                            "title": "reseau_aeronautique"
                         }],
-                        "visiblelayers": ["aeronautical_network"]
+                        "visiblelayers": ["reseau_aeronautique"]
                     },
-                    "scale": {
+                     "scale": {
                             "min": 0,
                             "max": 0
                         },
@@ -484,16 +484,16 @@
                             "maxdataprop": 1000
                         }
                 }, {
-                    "label": "toporama_road_network",
-                    "id": "bbbb469d-ddd3-c8f5-175c-645281a6b6fe",
+                    "label": "toporama_reseau_routier",
+                    "id": "bbbb469d-aaaa-c8f5-175c-645281a6b6fe",
                     "type": 3,
-                    "url": "http://wms.ess-ws.nrcan.gc.ca/wms/toporama_en",
+                    "url": "http://wms.ess-ws.nrcan.gc.ca/wms/toporama_fr",
                     "options": {
                         "layerinfos": [{
-                            "name": "road_network",
-                            "title": "Road network"
+                            "name": "reseau_routier",
+                            "title": "Réseau routier"
                         }],
-                        "visiblelayers": ["road_network"]
+                        "visiblelayers": ["reseau_routier"]
                     },
                     "scale": {
                             "min": 0,
@@ -508,8 +508,8 @@
                             "maxdataprop": 1000
                         }
                 }, {
-                    "label": "toporama_feature_names",
-                    "id": "bbbb469d-eee1-c8f5-175c-645299a6b6fe",
+                    "label": "toporama_boundaries",
+                    "id": "bbbb469d-aaaa-c8f5-175c-645299a6b6fe",
                     "type": 3,
                     "url": "http://wms.ess-ws.nrcan.gc.ca/wms/toporama_en",
                     "options": {
@@ -532,16 +532,16 @@
                             "maxdataprop": 1000
                         }
                 }, {
-                    "label": "toporama_feature_names",
-                    "id": "bbbb469d-fff1-c8f5-175c-645287a6b6fe",
+                    "label": "toporama_Toponymie",
+                    "id": "bbbb469d-aaaa-c8f5-175c-645287a6b6fe",
                     "type": 3,
-                    "url": "http://wms.ess-ws.nrcan.gc.ca/wms/toporama_en",
+                    "url": "http://wms.ess-ws.nrcan.gc.ca/wms/toporama_fr",
                     "options": {
                         "layerinfos": [{
-                            "name": "feature_names",
-                            "title": "feature_names"
+                            "name": "toponymie",
+                            "title": "Toponymie"
                         }],
-                        "visiblelayers": ["feature_names"]
+                        "visiblelayers": ["Toponymie"]
                     },
                     "scale": {
                             "min": 0,
@@ -557,15 +557,15 @@
                         }
                 }, {
                     "label": "toporama",
-                    "id": "bbbb469d-gggg-c8f5-175c-645270a6b6fe",
+                    "id": "bbbb469d-aaaa-c8f5-175c-645270a6b6fe",
                     "type": 3,
-                    "url": "http://wms.ess-ws.nrcan.gc.ca/wms/toporama_en",
+                    "url": "http://wms.ess-ws.nrcan.gc.ca/wms/toporama_fr",
                     "options": {
                         "layerinfos": [{
-                            "name": "WMS-Toporama",
-                            "title": "WMS-Toporama"
+                            "name": "SCW-Toporama",
+                            "title": "SCW-Toporama"
                         }],
-                        "visiblelayers": ["WMS-Toporama"]
+                        "visiblelayers": ["SCW-Toporama"]
                     },
                     "scale": {
                             "min": 0,
@@ -591,7 +591,7 @@
                         }],
                         "visiblelayers": ["nhn:network:NETWORKLINEARFLOW_1"]
                     },
-                     "scale": {
+                    "scale": {
                             "min": 145000,
                             "max": 0
                         },
@@ -629,7 +629,7 @@
                         }
                 }, {
                     "label": "toporama_NTS_Index",
-                    "id": "bbbb469d-aaa1-c8f5-175c-645200a6b6fe",
+                    "id": "bbbb469d-aaaa-c8f5-175c-645200a6b6fe",
                     "type": 4,
                     "url": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/test/NTS_Index/MapServer",
                     "scale": {
@@ -654,7 +654,7 @@
             "about": {
                 "enable": true,
                 "type": 1,
-                "value": "Toporama offers continuous map coverage for all of Canada available from national to regional and local topographic scales. The dynamic map viewer offers features for searching place names, zooming and panning, measuring distances, getting coordinates and more."
+                "value": "Toporama offre la couverture complète du pays à l'échelle nationale, régionale et locale (cartes topographiques seulement). Le visualisateur de cartes dynamiques permet la recherche de noms de localité, de zoomer ou panoramiquer, de mesurer des distances, d'obtenir des coordonnées et plus encore."
             },
             "print": {
                 "enable": true,
@@ -694,8 +694,8 @@
                 "graphid": "762eb7ed-cccc-242f-6fcf-af08f5605eb1",
                 "displayfields": false,
                 "label": {
-                    "value": "No base",
-                    "alttext": "No base"
+                    "value": "Sans base",
+                    "alttext": "Sans base"
                 },
                 "metadata": {
                     "enable": false
@@ -713,9 +713,7 @@
                     "enable": false
                 },
                 "customimage": {
-                    "enable": false,
-                    "description": "",
-                    "images": []
+                    "enable": false
                 },
                 "items": []
             }, {
@@ -726,8 +724,8 @@
                 "graphid": "762eb7ed-0001-242f-6fcf-af08f5605eb1",
                 "displayfields": false,
                 "label": {
-                    "value": "Hillshade",
-                    "alttext": "Hillshade"
+                    "value": "Relief ombré",
+                    "alttext": "Relief ombré"
                 },
                 "metadata": {
                     "enable": false
@@ -751,7 +749,7 @@
                 "customimage": {
                     "enable": false,
                     "description": "",
-                    "images": []
+                    "images": [{}]
                 },
                 "items": []
             }, {
@@ -762,8 +760,8 @@
                 "graphid": "e5511402-0002-5cbe-0d3c-f537c612b7df",
                 "displayfields": false,
                 "label": {
-                    "value": "Landsat imagery",
-                    "alttext": "Landsat imagery"
+                    "value": "Images landsat",
+                    "alttext": "Images landsat"
                 },
                 "metadata": {
                     "enable": false,
@@ -801,8 +799,8 @@
                 "graphid": "cc7fde4c-0003-1cf2-8358-7ca86eefb13c",
                 "displayfields": false,
                 "label": {
-                    "value": "Canada base map",
-                    "alttext": "Canada base map"
+                    "value": "Carte de base du Canada",
+                    "alttext": "Carte de base du Canada"
                 },
                 "metadata": {
                     "enable": false
@@ -821,12 +819,12 @@
                 },
                 "displaychild": {
                     "enable": false,
-                    "symbol": ""
+                    "symbol": "{\"type\":\"simple\",\"symbol\":{\"type\":\"esriSFS\",\"style\":\"esriSFSSolid\",\"color\":[0,0,0,0],\"outline\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[0,0,0,0],\"width\":0.4}},\"label\":\"\",\"description\":\"\"}"
                 },
                 "customimage": {
                     "enable": false,
                     "description": "",
-                    "images": []
+                    "images": [{}]
                 },
                 "items": []
             }],
@@ -834,12 +832,12 @@
                 "expand": false,
                 "last": false,
                 "type": 3,
-                "id": "bbbb469d-gggg-c8f5-175c-645270a6b6fe",
+                "id": "bbbb469d-aaaa-c8f5-175c-645270a6b6fe",
                 "graphid": "e5511402-0004-5cbe-0d3c-f537c612b7df",
                 "displayfields": false,
                 "label": {
-                    "value": "Toporama complete",
-                    "alttext": "Toporama complete"
+                    "value": "Toporama complet",
+                    "alttext": "Toporama complet"
                 },
                 "metadata": {
                     "enable": false
@@ -870,12 +868,12 @@
                 "expand": false,
                 "last": false,
                 "type": 0,
-                "id": "9f66a0dd-abcd-bfff-c7b8-8a55f66cf92b",
+                "id": "9f66a0dd-eba7-bfff-c7b8-8a55f66cf92b",
                 "graphid": "8a9bb0ab-0005-32b1-6715-be42194945aa",
                 "displayfields": false,
                 "label": {
-                    "value": "Toporama features",
-                    "alttext": "Toporama features"
+                    "value": "Toporama (couches)",
+                    "alttext": "Toporama (couches)"
                 },
                 "metadata": {
                     "enable": false
@@ -898,85 +896,85 @@
                 "customimage": {
                     "enable": false,
                     "description": "",
-                    "images": []
+                    "images": [{}]
                 },
                 "items": [{
-                    "expand": false,
-                    "last": false,
-                    "type": 3,
-                    "id": "bbbb469d-fff1-c8f5-175c-645287a6b6fe",
-                    "graphid": "e5511402-0007-5cbe-0d3c-f537c612b7df",
-                    "displayfields": false,
-                    "label": {
-                        "value": "Place and Feature Names",
-                        "alttext": "Place and Feature Names"
-                    },
-                    "metadata": {
-                        "enable": false
-                    },
-                    "opacity": {
-                        "enable": true,
-                        "min": 0,
-                        "max": 1,
-                        "initstate": 1
-                    },
-                    "visibility": {
-                        "enable": true,
-                        "initstate": true,
-                        "type": 1,
-                        "radioid": 0
-                    },
-                    "displaychild": {
-                        "enable": false,
-                        "symbol": ""
-                    },
-                    "customimage": {
-                        "enable": true,
-                        "description": "Abbreviation: (FN): First Nation",
-                        "images": [{
-                            "url": "../images/legend/new/place_names.gif",
-                            "label": "Place Name / Geographic Feature Names / Administrative Area names"
-                        }, {
-                            "url": "../images/legend/new/hydro_names.gif",
-                            "label": "Hydrographic Names"
-                        }, {
-                            "url": "../images/legend/new/pop_0-999.gif",
-                            "label": "0 - 999"
-                        }, {
-                            "url": "../images/legend/new/pop_1000-4999.gif",
-                            "label": "1 000 - 4 999"
-                        }, {
-                            "url": "../images/legend/new/pop_5000-24999.gif",
-                            "label": "5 000 - 24 999"
-                        }, {
-                            "url": "../images/legend/new/pop_25000-99999.gif",
-                            "label": "25 000 - 99 999"
-                        }, {
-                            "url": "../images/legend/new/pop_100000-499999.gif",
-                            "label": "100 000 - 499 999"
-                        }, {
-                            "url": "../images/legend/new/pop_500000-greater.gif",
-                            "label": "500 000 or greater"
-                        }, {
-                            "url": "../images/legend/national_capital.gif",
-                            "label": "National Capital"
-                        }, {
-                            "url": "../images/legend/provincial_capital.gif",
-                            "label": "Provincial / Territorial Capitals"
-                        }]
-                    },
-                    "items": []
-
+                        "expand": false,
+                        "last": false,
+                        "type": 3,
+                        "id": "bbbb469d-aaaa-c8f5-175c-645287a6b6fe",
+                        "graphid": "e5511402-0007-5cbe-0d3c-f537c612b7df",
+                        "displayfields": false,
+                        "label": {
+                            "value": "Lieux habités",
+                            "alttext": "Lieux habités"
+                        },
+                        "metadata": {
+                            "enable": false
+                        },
+                        "opacity": {
+                            "enable": true,
+                            "min": 0,
+                            "max": 1,
+                            "initstate": 1
+                        },
+                        "visibility": {
+                            "enable": true,
+                            "initstate": true,
+                            "type": 1,
+                            "radioid": 0
+                        },
+                        "displaychild": {
+                            "enable": false,
+                            "symbol": ""
+                        },
+                        "customimage": {
+                            "enable": true,
+                            "description": "Abbréviation : (PN) : Premières Nation",
+                            "images": [{
+                                "url": "../images/legend/national_capital.gif",
+                                "label": "Capitale nationale"
+                            }, {
+                                "url": "../images/legend/provincial_capital.gif",
+                                "label": "Capitale provinciale et territoriale"
+                            }, {
+                                "url": "../images/legend/new/place_names.gif",
+                                "label": "Nom de lieu / Nom d'élément géographique / Nom de région administrative"
+                            }, {
+                                "url": "../images/legend/new/hydro_names.gif",
+                                "label": "Nom d'élément hydrographique"
+                            }, {
+                                "url": "../images/legend/new/pop_0-999.gif",
+                                "label": "0 - 999"
+                            }, {
+                                "url": "../images/legend/new/pop_1000-4999.gif",
+                                "label": "1 000 - 4 999"
+                            }, {
+                                "url": "../images/legend/new/pop_5000-24999.gif",
+                                "label": "5 000 - 24 999"
+                            }, {
+                                "url": "../images/legend/new/pop_25000-99999.gif",
+                                "label": "25 000 - 99 999"
+                            }, {
+                                "url": "../images/legend/new/pop_100000-499999.gif",
+                                "label": "100 000 - 499 999"
+                            }, {
+                                "url": "../images/legend/new/pop_500000-greater.gif",
+                                "label": "500 000 ou plus"
+                            }]
+                        },
+                        "items": []
+                    
                 }, {
                     "expand": false,
                     "last": false,
                     "type": 3,
-                    "id": "bbbb469d-eee1-c8f5-175c-645299a6b6fe",
+                    "id": "bbbb469d-aaaa-c8f5-175c-645299a6b6fe",
                     "graphid": "e5511402-0009-5cbe-0d3c-f537c612b7df",
                     "displayfields": false,
                     "label": {
-                        "value": "Boundaries",
-                        "alttext": "Boundaries"
+                        "value": "Frontières et limites",
+                        "alttext": "Frontières et limites"
                     },
                     "metadata": {
                         "enable": false
@@ -1002,16 +1000,16 @@
                         "description": "",
                         "images": [{
                             "url": "../images/legend/new/international.gif",
-                            "label": "International"
+                            "label": "Frontière internationale"
                         }, {
                             "url": "../images/legend/new/provincial_territorial.gif",
-                            "label": "Provincial / Territorial"
+                            "label": "Limites provinciales / territoriales"
                         }, {
                             "url": "../images/legend/new/canada_kalaallit_dividing_line.gif",
-                            "label": "Canada / Kalaallit Nunaat Dividing Line"
+                            "label": "Ligne de séparation, Canada / Kalaallit Nunaat"
                         }, {
                             "url": "../images/legend/new/canada_eez.gif",
-                            "label": "Canada's Exclusive Economic Zone (EEZ)"
+                            "label": "Zone économique exclusive du Canada (ZÉE)"
                         }]
                     },
                     "items": []
@@ -1019,12 +1017,12 @@
                     "expand": false,
                     "last": false,
                     "type": 0,
-                    "id": "9f66a0dd-ddd4-bfff-c7b8-8a56f66cf93b",
+                    "id": "9f66a0dd-eba7-bfff-c7b8-8a56f66cf93b",
                     "graphid": "8a9bb0ab-0010-32b1-6715-be42194945aa",
                     "displayfields": false,
                     "label": {
-                        "value": "Transportation",
-                        "alttext": "Transportation"
+                        "value": "Transport",
+                        "alttext": "Transport"
                     },
                     "metadata": {
                         "enable": false
@@ -1047,18 +1045,18 @@
                     "customimage": {
                         "enable": false,
                         "description": "",
-                        "images": []
+                        "images": [{}]
                     },
                     "items": [{
                         "expand": false,
                         "last": false,
                         "type": 3,
-                        "id": "bbbb469d-ddd3-c8f5-175c-645281a6b6fe",
+                        "id": "bbbb469d-aaaa-c8f5-175c-645281a6b6fe",
                         "graphid": "e5511402-0011-5cbe-0d3c-f537c612b7df",
                         "displayfields": false,
                         "label": {
-                            "value": "Road Network",
-                            "alttext": "Road Network"
+                            "value": "Réseau routier",
+                            "alttext": "Réseau routier"
                         },
                         "metadata": {
                             "enable": false
@@ -1083,38 +1081,38 @@
                             "enable": true,
                             "description": "",
                             "images": [{
-                                "url": "../images/legend/ferry_alt.gif",
-                                "label": "Ferry Route"
-                            }, {
                                 "url": "../images/legend/toll_gate_new_alt.gif",
-                                "label": "Gate / Toll Gate"
+                                "label": "Barrière ou Poste de péage"
                             }, {
                                 "url": "../images/legend/route_number_new_alt.gif",
-                                "label": "Highway Route Number"
-                            }, {
-                                "url": "../images/legend/road_a_new_alt.gif",
-                                "label": "Road A: hard surface, more than 2 lanes"
-                            }, {
-                                "url": "../images/legend/road_b_new_alt.gif",
-                                "label": "Road B: hard surface, 2 lanes"
-                            }, {
-                                "url": "../images/legend/road_c_new_alt.gif",
-                                "label": "Road C: hard surface, less than 2 lanes; Street: hard surface"
-                            }, {
-                                "url": "../images/legend/road_d_new_alt.gif",
-                                "label": "Road D: loose surface, 2 lanes or more"
-                            }, {
-                                "url": "../images/legend/road_e_new_alt.gif",
-                                "label": "Road E: loose surface, less than 2 lanes; Street: unpaved"
-                            }, {
-                                "url": "../images/legend/winter_new_alt.gif",
-                                "label": "Road G: Vehicle Track / Winter Road"
-                            }, {
-                                "url": "../images/legend/trail_new_alt_.gif",
-                                "label": "Road H: Trail / Portage"
+                                "label": "Numéro de route"
                             }, {
                                 "url": "../images/legend/snowshed_alt.gif",
-                                "label": "Snowshed"
+                                "label": "Paraneige"
+                            }, {
+                                "url": "../images/legend/road_a_new_alt.gif",
+                                "label": "Route A : revêtue, plus de 2 voies"
+                            }, {
+                                "url": "../images/legend/road_b_new_alt.gif",
+                                "label": "Route B : revêtue, 2 voies"
+                            }, {
+                                "url": "../images/legend/road_c_new_alt.gif",
+                                "label": "Route C : revêtue, moins de 2 voies / Rue : revêtue"
+                            }, {
+                                "url": "../images/legend/road_d_new_alt.gif",
+                                "label": "Route D : non revêtue, 2 voies ou plus"
+                            }, {
+                                "url": "../images/legend/road_e_new_alt.gif",
+                                "label": "Route E : non revêtue, moins de 2 voies / Rue : non revêtue"
+                            }, {
+                                "url": "../images/legend/winter_new_alt.gif",
+                                "label": "Route G : chemin de terre, chemin d'hiver"
+                            }, {
+                                "url": "../images/legend/trail_new_alt_.gif",
+                                "label": "Road H : sentier, portage"
+                            }, {
+                                "url": "../images/legend/ferry_alt.gif",
+                                "label": "Traversier"
                             }]
                         },
                         "items": []
@@ -1153,37 +1151,37 @@
                             "description": "",
                             "images": [{
                                 "url": "../images/legend/airfield_alt.gif",
-                                "label": "Airfield"
+                                "label": "Aérodrome"
                             }, {
                                 "url": "../images/legend/airport_alt.gif",
-                                "label": "Airport"
+                                "label": "Aéroport"
                             }, {
                                 "url": "../images/legend/airport_2_alt.gif",
-                                "label": "Airport"
+                                "label": "Aéroport"
                             }, {
                                 "url": "../images/legend/runway_hard_alt.gif",
-                                "label": "Airport"
+                                "label": "Aéroport"
                             }, {
                                 "url": "../images/legend/airport2.gif",
-                                "label": "Airport"
+                                "label": "Aéroport"
                             }, {
                                 "url": "../images/legend/hospital-heliport2.gif",
-                                "label": "hospital heliport"
+                                "label": "Hôpital héliport"
                             }, {
                                 "url": "../images/legend/heliport2.gif",
-                                "label": "Heliport"
+                                "label": "Héliport"
                             }, {
                                 "url": "../images/legend/heliport_alt.gif",
-                                "label": "Heliport"
+                                "label": "Héliport"
                             }, {
                                 "url": "../images/legend/seaplane_anchorage_alt.gif",
-                                "label": "Seaplane Anchorage"
+                                "label": "Mouillage d'hydravion"
                             }, {
                                 "url": "../images/legend/seaplane_base_alt.gif",
-                                "label": "Seaplane Base; Water Aerodrome"
+                                "label": "Hydrobase"
                             }, {
                                 "url": "../images/legend/seaplane-base2.gif",
-                                "label": "Seaplane Base"
+                                "label": "Hydrobase"
                             }]
                         },
                         "items": []
@@ -1191,12 +1189,12 @@
                         "expand": false,
                         "last": false,
                         "type": 3,
-                        "id": "bbbb469d-ddd2-c8f5-175c-645285a6b6fe",
+                        "id": "bbbb469d-aaaa-c8f5-175c-645285a6b6fe",
                         "graphid": "e5511402-0012-5cbe-0d3c-f537c612b7df",
                         "displayfields": false,
                         "label": {
-                            "value": "Railway",
-                            "alttext": "Railway"
+                            "value": "Réseau ferroviaire",
+                            "alttext": "Réseau ferroviaire"
                         },
                         "metadata": {
                             "enable": false
@@ -1222,22 +1220,22 @@
                             "description": "",
                             "images": [{
                                 "url": "../images/legend/railway_alt.gif",
-                                "label": "Railway"
-                            }, {
-                                "url": "../images/legend/railway_bridge_alt.gif",
-                                "label": "Railway Bridge"
+                                "label": "Chemin de fer"
                             }, {
                                 "url": "../images/legend/railway_nonoperate_alt.gif",
-                                "label": "Railway: Not Operational"
+                                "label": "Chemin de fer : non opérationnel"
                             }, {
                                 "url": "../images/legend/snowshed_alt.gif",
-                                "label": "Railway Snowshed"
-                            }, {
-                                "url": "../images/legend/tunnel_alt.gif",
-                                "label": "Railway Tunnel"
+                                "label": "Chemin de fer : Paraneige"
                             }, {
                                 "url": "../images/legend/railway_turntable.gif",
-                                "label": "Railway Turntable"
+                                "label": "Chemin de fer : Plaque tournante"
+                            }, {
+                                "url": "../images/legend/railway_bridge_alt.gif",
+                                "label": "Chemin de fer : Pont"
+                            }, {
+                                "url": "../images/legend/tunnel_alt.gif",
+                                "label": "Chemin de fer : Tunnel"
                             }]
                         },
                         "items": []
@@ -1245,7 +1243,7 @@
                         "expand": false,
                         "last": false,
                         "type": 3,
-                        "id": "bbbb469d-ddd1-c8f5-175c-645286a6b6fe",
+                        "id": "bbbb469d-aaaa-c8f5-175c-645286a6b6fe",
                         "graphid": "e5511402-0013-5cbe-0d3c-f537c612b7df",
                         "displayfields": false,
                         "label": {
@@ -1276,7 +1274,7 @@
                             "description": "",
                             "images": [{
                                 "url": "../images/legend/road_bridge_new_alt.gif",
-                                "label": "Bridge"
+                                "label": "Pont"
                             }, {
                                 "url": "../images/legend/tunnel_alt.gif",
                                 "label": "Tunnel"
@@ -1288,12 +1286,12 @@
                     "expand": false,
                     "last": false,
                     "type": 0,
-                    "id": "9f66a0dd-ccc4-bfff-c7b8-8a56f66cf94b",
+                    "id": "9f66a0dd-eba7-bfff-c7b8-8a56f66cf94b",
                     "graphid": "8a9bb0ab-0014-32b1-6715-be42194945aa",
                     "displayfields": false,
                     "label": {
-                        "value": "Constructed Features",
-                        "alttext": "Constructed Features"
+                        "value": "Constructions",
+                        "alttext": "Constructions"
                     },
                     "metadata": {
                         "enable": false
@@ -1316,18 +1314,18 @@
                     "customimage": {
                         "enable": false,
                         "description": "",
-                        "images": []
+                        "images": [{}]
                     },
                     "items": [{
                         "expand": false,
                         "last": false,
                         "type": 3,
-                        "id": "bbbb469d-ccc3-c8f5-175c-645274a6b6fe",
+                        "id": "bbbb469d-aaaa-c8f5-175c-645274a6b6fe",
                         "graphid": "e5511402-0015-5cbe-0d3c-f537c612b7df",
                         "displayfields": false,
                         "label": {
-                            "value": "Designated Areas",
-                            "alttext": "Designated Areas"
+                            "value": "Aires désignées",
+                            "alttext": "Aires désignées"
                         },
                         "metadata": {
                             "enable": false
@@ -1352,77 +1350,77 @@
                             "enable": true,
                             "description": "",
                             "images": [{
-                                "url": "../images/legend/campground_large_alt.gif",
-                                "label": "Campground: large"
-                            }, {
-                                "url": "../images/legend/campground_small_alt.gif",
-                                "label": "Campground: small"
-                            }, {
-                                "url": "../images/legend/cemetery_large_alt.gif",
-                                "label": "Cemetery: large"
-                            }, {
-                                "url": "../images/legend/cemetery_small_alt.gif",
-                                "label": "Cemetery: small"
-                            }, {
                                 "url": "../images/legend/designated_area_alt.gif",
-                                "label": "Designated Area: labelled"
-                            }, {
-                                "url": "../images/legend/drivein_large_alt.gif",
-                                "label": "Drive-in Theatre: large"
-                            }, {
-                                "url": "../images/legend/drivein_small_alt.gif",
-                                "label": "Drive-in Theatre: small"
-                            }, {
-                                "url": "../images/legend/fort_alt.gif",
-                                "label": "Fort: labelled"
-                            }, {
-                                "url": "../images/legend/golfcourse_large_alt.gif",
-                                "label": "Golf Course: large"
-                            }, {
-                                "url": "../images/legend/golfcourse_small_alt.gif",
-                                "label": "Golf Course: small"
-                            }, {
-                                "url": "../images/legend/golfdriveing_large_alt.gif",
-                                "label": "Golf Driving Range: large"
-                            }, {
-                                "url": "../images/legend/golfdrivieng_small_alt.gif",
-                                "label": "Golf Driving Range: small"
-                            }, {
-                                "url": "../images/legend/historic_point_interest.gif",
-                                "label": "Historic Site / Point of Interest"
-                            }, {
-                                "url": "../images/legend/industrial_depot_alt.gif",
-                                "label": "Industrial Solids Depot: labelled"
-                            }, {
-                                "url": "../images/legend/chimney_alt.gif",
-                                "label": "Lookout: labelled"
-                            }, {
-                                "url": "../images/legend/mine_large_alt.gif",
-                                "label": "Mine: large"
-                            }, {
-                                "url": "../images/legend/mine_small_alt.gif",
-                                "label": "Mine: small; Mining Area"
-                            }, {
-                                "url": "../images/legend/park_sports_alt.gif",
-                                "label": "Park / Sports Field"
-                            }, {
-                                "url": "../images/legend/picnic_large_alt.gif",
-                                "label": "Picnic Site: large"
-                            }, {
-                                "url": "../images/legend/picnic_small_alt.gif",
-                                "label": "Picnic Site: small"
+                                "label": "Aire désignée annotée"
                             }, {
                                 "url": "../images/legend/gravel_alt.gif",
-                                "label": "Pit"
+                                "label": "Banc"
+                            }, {
+                                "url": "../images/legend/chimney_alt.gif",
+                                "label": "Belvédère annoté"
                             }, {
                                 "url": "../images/legend/quarry_alt.gif",
-                                "label": "Quarry"
-                            }, {
-                                "url": "../images/legend/shrine.gif",
-                                "label": "Shrine"
+                                "label": "Carrière"
                             }, {
                                 "url": "../images/legend/centre_de_ski.gif",
-                                "label": "Ski Centre"
+                                "label": "Centre de ski"
+                            }, {
+                                "url": "../images/legend/cemetery_large_alt.gif",
+                                "label": "Cimetière : grand"
+                            }, {
+                                "url": "../images/legend/cemetery_small_alt.gif",
+                                "label": "Cimetière : petit"
+                            }, {
+                                "url": "../images/legend/drivein_large_alt.gif",
+                                "label": "Ciné-parc : grand"
+                            }, {
+                                "url": "../images/legend/drivein_small_alt.gif",
+                                "label": "Ciné-parc : petit"
+                            }, {
+                                "url": "../images/legend/industrial_depot_alt.gif",
+                                "label": "Dépôt de solide industriel annoté"
+                            }, {
+                                "url": "../images/legend/fort_alt.gif",
+                                "label": "Fort annoté"
+                            }, {
+                                "url": "../images/legend/shrine.gif",
+                                "label": "Lieu de pélerinage"
+                            }, {
+                                "url": "../images/legend/historic_point_interest.gif",
+                                "label": "Lieu historique / Lieu d'intérêt"
+                            }, {
+                                "url": "../images/legend/mine_large_alt.gif",
+                                "label": "Mine : grand"
+                            }, {
+                                "url": "../images/legend/mine_small_alt.gif",
+                                "label": "Mine : petit / Zone d'extraction de minerai"
+                            }, {
+                                "url": "../images/legend/park_sports_alt.gif",
+                                "label": "Parc / Terrain de sports"
+                            }, {
+                                "url": "../images/legend/campground_large_alt.gif",
+                                "label": "Terrain de camping : grand"
+                            }, {
+                                "url": "../images/legend/campground_small_alt.gif",
+                                "label": "Terrain de camping : petit"
+                            }, {
+                                "url": "../images/legend/golfcourse_large_alt.gif",
+                                "label": "Terrain de golf : grand"
+                            }, {
+                                "url": "../images/legend/golfcourse_small_alt.gif",
+                                "label": "Terrain de golf : petit"
+                            }, {
+                                "url": "../images/legend/picnic_large_alt.gif",
+                                "label": "Terrain de pique-nique : grand"
+                            }, {
+                                "url": "../images/legend/picnic_small_alt.gif",
+                                "label": "Terrain de pique-nique : petit"
+                            }, {
+                                "url": "../images/legend/golfdriveing_large_alt.gif",
+                                "label": "Terrain de pratique de golf : grand"
+                            }, {
+                                "url": "../images/legend/golfdrivieng_small_alt.gif",
+                                "label": "Terrain de pratique de golf : petit"
                             }]
                         },
                         "items": []
@@ -1430,7 +1428,7 @@
                         "expand": false,
                         "last": false,
                         "type": 3,
-                        "id": "bbbb469d-ccc2-c8f5-175c-645278a6b6fe",
+                        "id": "bbbb469d-aaaa-c8f5-175c-645278a6b6fe",
                         "graphid": "e5511402-0016-5cbe-0d3c-f537c612b7df",
                         "displayfields": false,
                         "label": {
@@ -1459,90 +1457,90 @@
                         "customimage": {
                             "enable": true,
                             "description": "",
-                            "images": [ {
+                            "images": [{
+                                "url": "../images/legend/designated_area_alt.gif",
+                                "label": "Aire désignée annotée"
+                            }, {
+                                "url": "../images/legend/chimney_alt.gif",
+                                "label": "Antenne parabolique annoté"
+                            }, {
                                 "url": "../images/legend/building_alt.gif",
-                                "label": "Building"
+                                "label": "Bâtiment"
                             }, {
                                 "url": "../images/legend/building_text_alt.gif",
-                                "label": "Building: labelled"
-                            }, {
-                                "url": "../images/legend/chimney_alt.gif",
-                                "label": "Chimney / Tower: labelled"
-                            }, {
-                                "url": "../images/legend/batiment_0_garde_cotiere.gif",
-                                "label": "Coast Guard Station"
-                            }, {
-                                "url": "../images/legend/chimney_alt.gif",
-                                "label": "Cross: labelled"
-                            }, {
-                                "url": "../images/legend/batiment_0_douane.gif",
-                                "label": "Customs Post"
-                            }, {
-                                "url": "../images/legend/designated_area_alt.gif",
-                                "label": "Designated Area: labelled"
-                            }, {
-                                "url": "../images/legend/building_school.gif",
-                                "label": "Educational Building"
-                            }, {
-                                "url": "../images/legend/electric_power_station.gif",
-                                "label": "Electric Power Station"
-                            }, {
-                                "url": "../images/legend/fence_alt.gif",
-                                "label": "Fence"
-                            }, {
-                                "url": "../images/legend/fire_station_alt.gif",
-                                "label": "Fire Station"
-                            }, {
-                                "url": "../images/legend/footbridge_alt.gif",
-                                "label": "Footbridge"
+                                "label": "Bâtiment : annoté"
                             }, {
                                 "url": "../images/legend/service_station_alt.gif",
-                                "label": "Highway Service Centre"
+                                "label": "Centre de services autoroutiers"
                             }, {
                                 "url": "../images/legend/chimney_alt.gif",
-                                "label": "Parabolic Antenna: labelled"
+                                "label": "Cheminée / Tour annotée"
+                            }, {
+                                "url": "../images/legend/horizontal_tank_alt.gif",
+                                "label": "Citerne : horizontale"
+                            }, {
+                                "url": "../images/legend/vertical_tank_alt.gif",
+                                "label": "Citerne : verticale"
+                            }, {
+                                "url": "../images/legend/fence_alt.gif",
+                                "label": "Clôture"
+                            }, {
+                                "url": "../images/legend/chimney_alt.gif",
+                                "label": "Croix annotée"
+                            }, {
+                                "url": "../images/legend/wind_operated_dev_alt.gif",
+                                "label": "Éolienne"
+                            }, {
+                                "url": "../images/legend/building_school.gif",
+                                "label": "Établissement d'enseignement"
                             }, {
                                 "url": "../images/legend/building_religiousl.gif",
-                                "label": "Religious Building"
+                                "label": "Établissement religieux"
+                            }, {
+                                "url": "../images/legend/wall_alt.gif",
+                                "label": "Mur"
+                            }, {
+                                "url": "../images/legend/footbridge_alt.gif",
+                                "label": "Passerelle"
+                            }, {
+                                "url": "../images/legend/sports_track_alt.gif",
+                                "label": "Piste de course"
+                            }, {
+                                "url": "../images/legend/batiment_0_douane.gif",
+                                "label": "Poste de douane"
+                            }, {
+                                "url": "../images/legend/fire_station_alt.gif",
+                                "label": "Poste de pompiers"
+                            }, {
+                                "url": "../images/legend/electric_power_station.gif",
+                                "label": "Poste électrique"
+                            }, {
+                                "url": "../images/legend/well_water.gif",
+                                "label": "Puits : Eau / Saumure"
+                            }, {
+                                "url": "../images/legend/well_gas.gif",
+                                "label": "Puits : pétrole"
+                            }, {
+                                "url": "../images/legend/under_res_large.gif",
+                                "label": "Réservoir souterrain : grand"
+                            }, {
+                                "url": "../images/legend/under_res_small.gif",
+                                "label": "Réservoir souterrain : petit"
                             }, {
                                 "url": "../images/legend/ruins_large_alt.gif",
-                                "label": "Ruins: large"
+                                "label": "Ruines : grand"
                             }, {
                                 "url": "../images/legend/ruins_small.gif",
-                                "label": "Ruins: small"
+                                "label": "Ruines : petit"
                             }, {
                                 "url": "../images/legend/silo.gif",
                                 "label": "Silo"
                             }, {
-                                "url": "../images/legend/sports_track_alt.gif",
-                                "label": "Sports Track / Race Track"
-                            }, {
                                 "url": "../images/legend/stadium_alt.gif",
-                                "label": "Stadium"
+                                "label": "Stade"
                             }, {
-                                "url": "../images/legend/horizontal_tank_alt.gif",
-                                "label": "Tank: Horizontal"
-                            }, {
-                                "url": "../images/legend/vertical_tank_alt.gif",
-                                "label": "Tank: Vertical"
-                            }, {
-                                "url": "../images/legend/under_res_large.gif",
-                                "label": "Underground Reservoir: large"
-                            }, {
-                                "url": "../images/legend/under_res_small.gif",
-                                "label": "Underground Reservoir: small"
-                            }, {
-                                "url": "../images/legend/wall_alt.gif",
-                                "label": "Wall"
-                            }, {
-                                "url": "../images/legend/well_water.gif",
-                                "label": "Well: Brine / Water"
-                            }, {
-                                "url": "../images/legend/well_gas.gif",
-                                "label": "Well: Petroleum"
-                            }, {
-                                "url": "../images/legend/wind_operated_dev_alt.gif",
-                                "label": "Wind-operated Device"
+                                "url": "../images/legend/batiment_0_garde_cotiere.gif",
+                                "label": "Station de la garde côtière"
                             }]
                         },
                         "items": []
@@ -1550,12 +1548,12 @@
                         "expand": false,
                         "last": false,
                         "type": 3,
-                        "id": "bbbb469d-ccc1-c8f5-175c-645284a6b6fe",
+                        "id": "bbbb469d-aaaa-c8f5-175c-645284a6b6fe",
                         "graphid": "e5511402-0017-5cbe-0d3c-f537c612b7df",
                         "displayfields": false,
                         "label": {
-                            "value": "Power Network",
-                            "alttext": "Power Network"
+                            "value": "Réseau énergétique",
+                            "alttext": "Réseau énergétique"
                         },
                         "metadata": {
                             "enable": false
@@ -1580,41 +1578,41 @@
                             "enable": true,
                             "description": "",
                             "images": [{
+                                "url": "../images/legend/submarine_cable_alt.gif",
+                                "label": "Câble sous-marin"
+                            }, {
                                 "url": "../images/legend/transformer_station_large_alt.gif",
-                                "label": "Electric Facility: large"
+                                "label": "Installation électrique : grand"
                             }, {
                                 "url": "../images/legend/poste_transformateur_0.gif",
-                                "label": "Electric Facility: small; Transformer Station"
-                            }, {
-                                "url": "../images/legend/number_lines_alt.gif",
-                                "label": "Number of Pipelines"
-                            }, {
-                                "url": "../images/legend/number_lines_alt.gif",
-                                "label": "Number of Power Transmission Lines"
+                                "label": "Installation électrique : petit / Poste de transformateur"
                             }, {
                                 "url": "../images/legend/oilgas_facility_large_alt.gif",
-                                "label": "Oil / Natural Gas Facility: large"
+                                "label": "Installation pétrolière ou gazière : grand"
                             }, {
                                 "url": "../images/legend/oilgas_facility_alt.gif",
-                                "label": "Oil / Natural Gas Facility: small"
+                                "label": "Installation pétrolière ou gaziére : petit"
+                            }, {
+                                "url": "../images/legend/power_transmission_line_alt.gif",
+                                "label": "Ligne de transport d'énergie électrique"
+                            }, {
+                                "url": "../images/legend/telephone_line_alt.gif",
+                                "label": "Ligne téléphonique"
+                            }, {
+                                "url": "../images/legend/number_lines_alt.gif",
+                                "label": "Nombre de ligne de transport d'énergie électriques"
+                            }, {
+                                "url": "../images/legend/number_lines_alt.gif",
+                                "label": "Nombre de pipelines"
                             }, {
                                 "url": "../images/legend/pipeline_aboveground_alt.gif",
                                 "label": "Pipeline"
                             }, {
                                 "url": "../images/legend/pipeline_valve.gif",
-                                "label": "Pipeline: Control Valve"
+                                "label": "Pipeline : valve de contrôle"
                             }, {
                                 "url": "../images/legend/pipeline_underground_alt.gif",
-                                "label": "Pipeline: Underground"
-                            }, {
-                                "url": "../images/legend/power_transmission_line_alt.gif",
-                                "label": "Power Transmission Line"
-                            }, {
-                                "url": "../images/legend/submarine_cable_alt.gif",
-                                "label": "Submarine Cable"
-                            }, {
-                                "url": "../images/legend/telephone_line_alt.gif",
-                                "label": "Telephone Line"
+                                "label": "Pipeline : souterrain"
                             }]
                         },
                         "items": []
@@ -1623,12 +1621,12 @@
                     "expand": false,
                     "last": false,
                     "type": 0,
-                    "id": "9f66a0dd-bb10-bfff-c7b8-8a56f66cf95b",
+                    "id": "9f66a0dd-eba7-bfff-c7b8-8a56f66cf95b",
                     "graphid": "8a9bb0ab-0018-32b1-6715-be42194945aa",
                     "displayfields": false,
                     "label": {
-                        "value": "Contours and Landforms",
-                        "alttext": "Contours Features"
+                        "value": "Courbes de niveau, relief et formes",
+                        "alttext": "Courbes de niveau, relief et formes"
                     },
                     "metadata": {
                         "enable": false
@@ -1651,18 +1649,18 @@
                     "customimage": {
                         "enable": false,
                         "description": "",
-                        "images": []
+                        "images": [{}]
                     },
                     "items": [{
                         "expand": false,
                         "last": false,
                         "type": 3,
-                        "id": "bbbb469d-bbb9-c8f5-175c-645275a6b6fe",
+                        "id": "bbbb469d-aaaa-c8f5-175c-645275a6b6fe",
                         "graphid": "e5511402-0019-5cbe-0d3c-f537c612b7df",
                         "displayfields": false,
                         "label": {
-                            "value": "Contours",
-                            "alttext": "Contours"
+                            "value": "Courbes de niveau",
+                            "alttext": "Courbes de niveau"
                         },
                         "metadata": {
                             "enable": false
@@ -1685,31 +1683,31 @@
                         },
                         "customimage": {
                             "enable": true,
-                            "description": "Contour / Elevation Values: m = metres, ft = feet",
+                            "description": "Valeur des élévations et des courbes de niveau : m = mètres, pi = pied",
                             "images": [{
                                 "url": "../images/legend/contour_approx_index_alt.gif",
-                                "label": "Contour: Approximate, Index (interval varies)"
+                                "label": "Courbe de niveau : approximative, maîtresse (équidistance variable)"
                             }, {
                                 "url": "../images/legend/contour_approx_inter_alt.gif",
-                                "label": "Contour: Approximate, Intermediate (interval varies)"
+                                "label": "Courbe de niveau : approximative, intermédiaire (équidistance variable)"
                             }, {
                                 "url": "../images/legend/contour_dep_index.gif",
-                                "label": "Contour: Depression, Index (interval varies)"
+                                "label": "Courbe de cuvette : maîtresse (équidistance variable)"
                             }, {
                                 "url": "../images/legend/contour_dep_inter.gif",
-                                "label": "Contour: Depression, Intermediate (interval varies)"
+                                "label": "Courbe de cuvette : intermédiaire (équidistance variable)"
                             }, {
                                 "url": "../images/legend/contour_index_alt.gif",
-                                "label": "Contour: Index (interval varies)"
+                                "label": "Courbe de niveau : maîtresse (équidistance variable)"
                             }, {
                                 "url": "../images/legend/contour_intermediate_alt.gif",
-                                "label": "Contour: Intermediate (interval varies)"
+                                "label": "Courbe de niveau : intermédiaire (équidistance variable)"
                             }, {
                                 "url": "../images/legend/precise_elevation_alt.gif",
-                                "label": "Precise Elevation"
+                                "label": "Altitude précise"
                             }, {
                                 "url": "../images/legend/spot_height_alt.gif",
-                                "label": "Spot Height"
+                                "label": "Point coté"
                             }]
                         },
                         "items": []
@@ -1717,12 +1715,12 @@
                         "expand": false,
                         "last": false,
                         "type": 3,
-                        "id": "bbbb469d-bbb8-c8f5-175c-645277a6b6fe",
+                        "id": "bbbb469d-aaaa-c8f5-175c-645277a6b6fe",
                         "graphid": "e5511402-0020-5cbe-0d3c-f537c612b7df",
                         "displayfields": false,
                         "label": {
-                            "value": "Landforms",
-                            "alttext": "Landforms"
+                            "value": "Relief et formes",
+                            "alttext": "Relief et formes"
                         },
                         "metadata": {
                             "enable": false
@@ -1757,7 +1755,7 @@
                                 "label": "Pingo"
                             }, {
                                 "url": "../images/legend/sand_other_alt.gif",
-                                "label": "Sand"
+                                "label": "Sable"
                             }]
                         },
                         "items": []
@@ -1766,12 +1764,12 @@
                     "expand": false,
                     "last": false,
                     "type": 0,
-                    "id": "9f66a0dd-bbb7-bfff-c7b8-8a56f66cf96b",
+                    "id": "9f66a0dd-eba7-bfff-c7b8-8a56f66cf96b",
                     "graphid": "8a9bb0ab-0021-32b1-6715-be42194945aa",
                     "displayfields": false,
                     "label": {
-                        "value": "Hydrographic Features",
-                        "alttext": "Hydrographic Features"
+                        "value": "Hydrographie",
+                        "alttext": "Hydrographie"
                     },
                     "metadata": {
                         "enable": false
@@ -1794,18 +1792,18 @@
                     "customimage": {
                         "enable": false,
                         "description": "",
-                        "images": []
+                        "images": [{}]
                     },
                     "items": [{
                         "expand": false,
                         "last": false,
                         "type": 3,
-                        "id": "bbbb469d-bbb6-c8f5-175c-645273a6b6fe",
+                        "id": "bbbb469d-aaaa-c8f5-175c-645273a6b6fe",
                         "graphid": "e5511402-0022-5cbe-0d3c-f537c612b7df",
                         "displayfields": false,
                         "label": {
-                            "value": "Hydrography",
-                            "alttext": "Hydrography"
+                            "value": "Hydrographie",
+                            "alttext": "Hydrographie"
                         },
                         "metadata": {
                             "enable": false
@@ -1830,98 +1828,98 @@
                             "enable": true,
                             "description": "",
                             "images": [{
-                                "url": "../images/legend/bank_int_alt_new.gif",
-                                "label": "Banks: Intermittent"
-                            }, {
                                 "url": "../images/legend/water_bodies_alt_new.gif",
-                                "label": "Ocean / Canal / Lake / Watercourse / Reservoir"
+                                "label": "Canal / Cours d'eau / Lac / Réservoir / Océan"
                             }, {
                                 "url": "../images/legend/intermittant_waterbody_alt_new.gif",
-                                "label": "Canal / Lake / Watercourse / Reservoir: Intermittent"
+                                "label": "Canal / Cours d'eau / Lac / Réservoir : intermittent"
                             }, {
                                 "url": "../images/legend/river_alt_new.gif",
-                                "label": "Canal / Conduit / Watercourse"
+                                "label": "Canal / Conduit / Cours d'eau"
                             }, {
                                 "url": "../images/legend/river_int_alt_new.gif",
-                                "label": "Canal / Conduit / Watercourse (Intermittent)"
-                            }, {
-                                "url": "../images/legend/debris_covered_ice_alt.png",
-                                "label": "Debris-covered Ice"
-                            }, {
-                                "url": "../images/legend/drink_filter_water.gif",
-                                "label": "Drinkable Water / Water Filter"
+                                "label": "Canal / Conduit / Cours d'eau : intermittent"
                             }, {
                                 "url": "../images/legend/liquid_waste_alt.gif",
-                                "label": "Liquid Waste"
+                                "label": "Déchets liquides"
+                            }, {
+                                "url": "../images/legend/drink_filter_water.gif",
+                                "label": "Eau potable / Bassin de filtration"
+                            }, {
+                                "url": "../images/legend/debris_covered_ice_alt.png",
+                                "label": "Glace recouverte de débris"
                             }, {
                                 "url": "../images/legend/permanent_snow_ice_alt.png",
-                                "label": "Permanent Snow / Ice"
+                                "label": "Neige et glace permanentes"
+                            }, {
+                                "url": "../images/legend/bank_int_alt_new.gif",
+                                "label": "Rive : intermittent"
                             }, {
                                 "url": "../images/legend/palsa_alt.png",
-                                "label": "Palsa Bog"
-                            }, {
-                                "url": "../images/legend/boatramp.gif",
-                                "label": "Boat Ramp"
-                            }, {
-                                "url": "../images/legend/breakwater_2_alt_new.gif",
-                                "label": "Breakwater"
-                            }, {
-                                "url": "../images/legend/dam_large_alt_new.gif",
-                                "label": "Dam: large"
-                            }, {
-                                "url": "../images/legend/dam_line_alt_new.gif",
-                                "label": "Dam: small"
-                            }, {
-                                "url": "../images/legend/disappearing_stream_new_alt.gif",
-                                "label": "Disappearing Stream"
-                            }, {
-                                "url": "../images/legend/dry_riverbed_alt.gif",
-                                "label": "Dry River Bed"
-                            }, {
-                                "url": "../images/legend/dyke_2_alt.gif",
-                                "label": "Dyke / Levee"
-                            }, {
-                                "url": "../images/legend/shipwreck_new_alt.gif",
-                                "label": "Exposed Shipwreck"
-                            }, {
-                                "url": "../images/legend/falls_line_alt_new.gif",
-                                "label": "Falls"
-                            }, {
-                                "url": "../images/legend/fish_ladder_alt.gif",
-                                "label": "Fish Ladder"
-                            }, {
-                                "url": "../images/legend/ford_new_alt.gif",
-                                "label": "Ford"
-                            }, {
-                                "url": "../images/legend/lockgate.gif",
-                                "label": "Lock Gate"
+                                "label": "Tourbière de palse"
                             }, {
                                 "url": "../images/legend/navigation_beacon_alt_new.gif",
-                                "label": "Navigation Beacon: labelled"
+                                "label": "Balise de navigation annoté"
+                            }, {
+                                "url": "../images/legend/rocky_ledge_alt_new.gif",
+                                "label": "Barre rocheuse / Récif"
+                            }, {
+                                "url": "../images/legend/dam_large_alt_new.gif",
+                                "label": "Barrage : grand"
+                            }, {
+                                "url": "../images/legend/dam_line_alt_new.gif",
+                                "label": "Barrage : petit"
+                            }, {
+                                "url": "../images/legend/breakwater_2_alt_new.gif",
+                                "label": "Brise-lames"
+                            }, {
+                                "url": "../images/legend/rocky_ledge_alt_new.gif",
+                                "label": "Cale"
+                            }, {
+                                "url": "../images/legend/falls_line_alt_new.gif",
+                                "label": "Chutes"
+                            }, {
+                                "url": "../images/legend/dyke_2_alt.gif",
+                                "label": "Digue / Levée"
+                            }, {
+                                "url": "../images/legend/fish_ladder_alt.gif",
+                                "label": "Échelle à poissons"
+                            }, {
+                                "url": "../images/legend/shipwreck_new_alt.gif",
+                                "label": "Épave émergée"
+                            }, {
+                                "url": "../images/legend/disappearing_stream_new_alt.gif",
+                                "label": "Exsurgence"
                             }, {
                                 "url": "../images/legend/repere_navigation_new.gif",
-                                "label": "Navigation Light"
+                                "label": "Feu de navigation"
                             }, {
-                                "url": "../images/legend/rapids_large_alt_new.gif",
-                                "label": "Rapids: large"
+                                "url": "../images/legend/ford_new_alt.gif",
+                                "label": "Gué (passage à)"
                             }, {
-                                "url": "../images/legend/rapids_line_alt_new.gif",
-                                "label": "Rapids: small"
+                                "url": "../images/legend/dry_riverbed_alt.gif",
+                                "label": "Lit de cours d'eau tar"
                             }, {
-                                "url": "../images/legend/rock_alt_new.gif",
-                                "label": "Rock in Water"
-                            }, {
-                                "url": "../images/legend/rocky_ledge_alt_new.gif",
-                                "label": "Rocky Ledge / Reef"
-                            }, {
-                                "url": "../images/legend/rocky_ledge_alt_new.gif",
-                                "label": "Slip"
-                            }, {
-                                "url": "../images/legend/drydock_new_alt.gif",
-                                "label": "Underwater Sand"
+                                "url": "../images/legend/lockgate.gif",
+                                "label": "Porte d'écluse"
                             }, {
                                 "url": "../images/legend/wharf_alt_new.gif",
-                                "label": "Wharf"
+                                "label": "Quai"
+                            }, {
+                                "url": "../images/legend/boatramp.gif",
+                                "label": "Rampe de mise à l'eau"
+                            }, {
+                                "url": "../images/legend/rapids_large_alt_new.gif",
+                                "label": "Rapide : grand"
+                            }, {
+                                "url": "../images/legend/rapids_line_alt_new.gif",
+                                "label": "Rapide : petit"
+                            }, {
+                                "url": "../images/legend/rock_alt_new.gif",
+                                "label": "Rochers dans l'eau"
+                            }, {
+                                "url": "../images/legend/drydock_new_alt.gif",
+                                "label": "Sable sous-marin"
                             }]
                         },
                         "items": []
@@ -1929,12 +1927,12 @@
                         "expand": false,
                         "last": false,
                         "type": 3,
-                        "id": "bbbb469d-bbb5-c8f5-175c-645276a6b6fe",
+                        "id": "bbbb469d-aaaa-c8f5-175c-645276a6b6fe",
                         "graphid": "e5511402-0023-5cbe-0d3c-f537c612b7df",
                         "displayfields": false,
                         "label": {
-                            "value": "Water Saturated Soils",
-                            "alttext": "Water Saturated Soils"
+                            "value": "Sols saturés",
+                            "alttext": "Sols saturés"
                         },
                         "metadata": {
                             "enable": false
@@ -1959,17 +1957,17 @@
                             "enable": true,
                             "description": "",
                             "images": [{
-                                "url": "../images/legend/tourbiere_reticulee.gif",
-                                "label": "String Bog"
+                                "url": "../images/legend/etang_toundra.gif",
+                                "label": "Étangs de toundra"
                             }, {
                                 "url": "../images/legend/sols_polygonaux.gif",
-                                "label": "Tundra Polygon"
-                            }, {
-                                "url": "../images/legend/etang_toundra.gif",
-                                "label": "Tundra Pond"
+                                "label": "Sols polygonaux"
                             }, {
                                 "url": "../images/legend/terre_humide5.gif",
-                                "label": "Wetland"
+                                "label": "Terre humide"
+                            }, {
+                                "url": "../images/legend/tourbiere_reticulee.gif",
+                                "label": "Tourbière réticulée"
                             }]
                         },
                         "items": []
@@ -1978,12 +1976,12 @@
                     "expand": false,
                     "last": false,
                     "type": 3,
-                    "id": "bbbb469d-bbb3-c8f5-175c-645272a6b6fe",
+                    "id": "bbbb469d-aaaa-c8f5-175c-645272a6b6fe",
                     "graphid": "e5511402-0025-5cbe-0d3c-f537c612b7df",
                     "displayfields": false,
                     "label": {
-                        "value": "Vegetation",
-                        "alttext": "vegetation"
+                        "value": "Végétation",
+                        "alttext": "Végétation"
                     },
                     "metadata": {
                         "enable": false
@@ -2008,14 +2006,14 @@
                         "enable": true,
                         "description": "",
                         "images": [{
-                            "url": "../images/legend/cutline_other_alt.gif",
-                            "label": "Cut Line: Other / Unknown"
-                        }, {
                             "url": "../images/legend/cutline_firebreak_alt.gif",
-                            "label": "Cut Line: Firebreak"
+                            "label": "Percée : Coupe-feu"
+                        }, {
+                            "url": "../images/legend/cutline_other_alt.gif",
+                            "label": "Percée : Inconnue / Autre"
                         }, {
                             "url": "../images/legend/wooded_alt.gif",
-                            "label": "Wooded Area"
+                            "label": "Région boisée"
                         }]
                     },
                     "items": []
@@ -2023,12 +2021,12 @@
                     "expand": false,
                     "last": false,
                     "type": 3,
-                    "id": "bbbb469d-bbb2-c8f5-175c-645282a6b6fe",
+                    "id": "bbbb469d-aaaa-c8f5-175c-645282a6b6fe",
                     "graphid": "e5511402-0026-5cbe-0d3c-f537c612b7df",
                     "displayfields": false,
                     "label": {
-                        "value": "Built-up Areas",
-                        "alttext": "Built-up Areas"
+                        "value": "Agglomération",
+                        "alttext": "Agglomération"
                     },
                     "metadata": {
                         "enable": false
@@ -2054,7 +2052,7 @@
                         "description": "",
                         "images": [{
                             "url": "../images/legend/builtup_alt.gif",
-                            "label": "Built-up Area: large"
+                            "label": "Grande agglomération"
                         }]
                     },
                     "items": []
@@ -2062,12 +2060,12 @@
                     "expand": false,
                     "last": false,
                     "type": 3,
-                    "id": "bbbb469d-bbb1-c8f5-175c-645271a6b6fe",
+                    "id": "bbbb469d-aaaa-c8f5-175c-645271a6b6fe",
                     "graphid": "e5511402-0027-5cbe-0d3c-f537c612b7df",
                     "displayfields": false,
                     "label": {
-                        "value": "Limits",
-                        "alttext": "Limits"
+                        "value": "Limites",
+                        "alttext": "Limites"
                     },
                     "metadata": {
                         "enable": false
@@ -2093,13 +2091,13 @@
                         "description": "",
                         "images": [{
                             "url": "../images/legend/new/provinces_territories_colour.gif",
-                            "label": "Provinces / Territories (colour varies)"
+                            "label": "Provinces et Territories (couleur variable)"
                         }, {
                             "url": "../images/legend/new/regions_outside_canada.gif",
-                            "label": "Regions Outside Canada"
+                            "label": "Régions à l'extérieur du Canada"
                         }, {
                             "url": "../images/legend/new/administrative_area_geographic_feature_names.gif",
-                            "label": "Administrative Area / Geographic Feature Names"
+                            "label": "Régions administratives / éléments géographiques"
                         }]
                     },
                     "items": []
@@ -2112,8 +2110,8 @@
                 "graphid": "e5511402-0028-5cbe-0d3c-f537c612b7df",
                 "displayfields": false,
                 "label": {
-                    "value": "Water flow",
-                    "alttext": "Water flow"
+                    "value": "Écoulement de l'eau",
+                    "alttext": "Écoulement de l'eau"
                 },
                 "metadata": {
                     "enable": false
@@ -2143,11 +2141,11 @@
                     "last": false,
                     "type": 3,
                     "id": "bbbb469d-mmmm-c8f5-175c-645270a6b6fe",
-                    "graphid": "e5511402-0528-5cbe-0d3c-f537c612b7df",
+                    "graphid": "e5511402-0128-5cbe-0d3c-f537c612b7df",
                     "displayfields": false,
                     "label": {
-                        "value": "Network linear flow",
-                        "alttext": "Network linear flow"
+                        "value": "Filamentaire d’écoulement",
+                        "alttext": "Filamentaire d’écoulement"
                     },
                     "metadata": {
                         "enable": false
@@ -2173,7 +2171,7 @@
                         "description": "",
                         "images": [{
                             "url": "../images/legend/linearflow.gif",
-                            "label": "Network linear flow"
+                            "label": "Filamentaire d’écoulement"
                         }]
                     },
                     "items": []
@@ -2182,11 +2180,11 @@
                     "last": false,
                     "type": 3,
                     "id": "bbbb469d-kkkk-c8f5-175c-645270a6b6fe",
-                    "graphid": "e5511402-0628-5cbe-0d3c-f537c612b7df",
+                    "graphid": "e5511402-0528-5cbe-0d3c-f537c612b7df",
                     "displayfields": false,
                     "label": {
-                        "value": "Flow direction",
-                        "alttext": "flow direction"
+                        "value": "Direction de l'écoulement",
+                        "alttext": "Direction de l'écoulement"
                     },
                     "metadata": {
                         "enable": false
@@ -2212,7 +2210,7 @@
                         "description": "",
                         "images": [{
                             "url": "../images/legend/flowdirection.gif",
-                            "label": "Flow direction"
+                            "label": "Direction de l'écoulement"
                         }]
                     },
                     "items": []
@@ -2221,12 +2219,12 @@
                 "expand": false,
                 "last": false,
                 "type": 4,
-                "id": "bbbb469d-aaa1-c8f5-175c-645200a6b6fe",
+                "id": "bbbb469d-aaaa-c8f5-175c-645200a6b6fe",
                 "graphid": "e5511402-0028-5cbe-0d3c-f537c612b7df",
                 "displayfields": false,
                 "label": {
-                    "value": "National topographic Grid",
-                    "alttext": "National topographic Grid"
+                    "value": "Grille topographique nationale",
+                    "alttext": "Grille topographique nationale"
                 },
                 "metadata": {
                     "enable": false
@@ -2304,7 +2302,7 @@
             "enable": true,
             "expand": false,
             "pos": 4,
-           "datafile": {
+            "datafile": {
                 "enable": true
             },
             "dataurl": {
@@ -2320,45 +2318,45 @@
             "pos": 3,
             "grid":{ 
 				"enable": true,
-				"id":"bbbb469d-aaa1-c8f5-175c-645200a6b6fe"
+				"id":"bbbb469d-aaaa-c8f5-175c-645200a6b6fe"
             },
-            "items": [{
-				"title": "Maps (raster): ",
-                "subtitle": "Toporama, CanMatrix Print ready and Georeferenced.",
+			"items": [{
+                "title": "Carte (matriciel): ",
+                "subtitle": "Toporama, CanMatrix prêt à imprimer et géoréférencée.",
                 "scale": 15000000,
-                "url": "http://geogratis.gc.ca/api/en/nrcan-rncan/ess-sst/-/OR/(urn:iso:series)toporama/(urn:iso:series)canmatrix-georeferenced",
+                "url": "http://geogratis.gc.ca/api/fr/nrcan-rncan/ess-sst/-/OR/(urn:iso:series)toporama/(urn:iso:series)canmatrix-georeference",
                 "query": [{
                     "type": 1,
                     "param": "?q=XXX",
-                    "label": "Get single map"
+                    "label": "Obtenez une seule carte"
                 }, {
                     "type": 2,
                     "param": "?bbox=XXX&sort-field=spatial",
-                    "label": "Get all maps for area shown"
+                    "label": "Obtenir toutes les données pour la zone présentés"
                 }]
             }, {
-                "title": "Data (vector): ",
+                "title": "Données (vectoriel): ",
                 "subtitle": "CanVec+.",
                 "scale": 15000000,
-                "url": "http://geogratis.gc.ca/api/en/nrcan-rncan/ess-sst/-/(urn:iso:series)canvec-plus",
+                "url": "http://geogratis.gc.ca/api/fr/nrcan-rncan/ess-sst/-/(urn:iso:series)canvec-plus",
                 "query": [{
                     "type": 1,
                     "param": "?q=XXX",
-                    "label": "Get single map"
+                    "label": "Obtenez une seule carte"
                 }, {
                     "type": 2,
                     "param": "?bbox=XXX&sort-field=spatial",
-                    "label": "Get all data for area shown"
+                    "label": "Obtenir toutes les données pour la zone présentés"
                 }]
             }, {
-                "title": "Data: ",
-                "subtitle": "CanVec+ (vector) and Elevation (raster) data using custom geographic extent.",
+                "title": "Données: ",
+                "subtitle": "CanVec+ (vectoriel) et les données d'élévation (matriciel) utilisant un étendue géographique personnalisé.",
                 "scale": 15000000,
-                "url": "http://geogratis.gc.ca/site/eng/extraction",
+                "url": "http://geogratis.gc.ca/site/fra/extraction",
                 "query": [{
                     "type": 2,
                     "param": "?bbox=XXX",
-                    "label": "Get data using the Data Extraction Tool"
+                    "label": "Obtenir des données à l'aide de l'outil d'extraction de données"
                 }]
             }]
         },
@@ -2366,9 +2364,7 @@
             "enable": false
         },
         "datagrid": {
-            "enable": false,
-            "expand": false
-
+            "enable": false
         },
         "customwidgets": []
     }
