@@ -317,7 +317,7 @@
 					}, 2000);
 				};
 
-				_self.addMeasure = function(array, key, type, unit, color, point) {
+				_self.addMeasure = function(array, key, type, unit, color, drawMap, point) {
 					var len, previous,
 						flag = false,
 						screenPt = point.screenPoint,
@@ -351,7 +351,7 @@
 									nextMeasureLength(geometry, unit);
 								}, 50, false));
 							} else {
-								gisgeo.measureLength(array(), unit, measureLength);
+								gisgeo.measureLength(array(), unit, measureLength, drawMap);
 							}
 						} else if (type === 1) {
 							measureArea(array);
@@ -364,7 +364,7 @@
 					mouseMeasureLength.remove();
 				};
 
-				_self.addMeasureSumLength = function(array, key, unit) {
+				_self.addMeasureSumLength = function(array, key, unit, drawMap) {
 					var pt, text, offx, offy,
 						dist = 0,
 						len = array().length,
@@ -373,38 +373,40 @@
 						angle = (Math.atan2((last.y - secLast.y), (last.x - secLast.x)) * (180 / Math.PI)),
 						off = Math.round(angle/90);
 
-					// set global then call the tool
-					gKey = key;
-
-					// calculate values
-					while (len--) {
-						pt = array()[len];
-
-						if (pt.hasOwnProperty('distance')) {
-							dist += pt.distance;
+					if (drawMap) {
+						// set global then call the tool
+						gKey = key;
+	
+						// calculate values
+						while (len--) {
+							pt = array()[len];
+	
+							if (pt.hasOwnProperty('distance')) {
+								dist += pt.distance;
+							}
 						}
+	
+						// set good offset from angle and off
+						if (off === 0) {
+							offx = 20;
+							offy = 10;
+						} else if (off === 1) {
+							offx = 0;
+							offy = 10;
+						} else if (off === -1) {
+							offx = 0;
+							offy = -20;
+						} else {
+							offx = -20;
+							offy = 10;
+						}
+	
+						// add text
+						dist = Math.floor(dist * 100) / 100;
+						text = txtDist + dist + ' ' + unit;
+						last.text = text;
+						measureText(last, 0, offx, offy);
 					}
-
-					// set good offset from angle and off
-					if (off === 0) {
-						offx = 20;
-						offy = 10;
-					} else if (off === 1) {
-						offx = 0;
-						offy = 10;
-					} else if (off === -1) {
-						offx = 0;
-						offy = -20;
-					} else {
-						offx = -20;
-						offy = 10;
-					}
-
-					// add text
-					dist = Math.floor(dist * 100) / 100;
-					text = txtDist + dist + ' ' + unit;
-					last.text = text;
-					measureText(last, 0, offx, offy);
 
 					// add to stack
 					addUndoStack(gKey);
@@ -418,10 +420,10 @@
 					mymap.graphics.clear();
 				};
 
-				_self.addMeasureSumArea = function(array, key, unit) {
+				_self.addMeasureSumArea = function(array, key, unit, drawMap) {
 					var item, polyJson, poly,
 						polyArr = [],
-						len = array().length,
+						len = array.length,
 						lastPoly = len - 1;
 
 					// set global then call the tool
@@ -429,11 +431,11 @@
 
 					// create poly geom and add the closing point
 					while (len--) {
-						item = array()[len];
+						item = array[len];
 						polyArr.push([item.x, item.y]);
 					}
 
-					item = array()[lastPoly];
+					item = array[lastPoly];
 					polyArr.push([item.x, item.y]);
 
 					polyJson = { 'rings': [polyArr],
@@ -441,21 +443,30 @@
 					poly = new esriPoly(polyJson);
 
 					// area and length from geosprocessing
-					gisgeo.measureArea(poly, unit, measureAreaCallback);
+					gisgeo.measureArea(poly, unit, measureAreaCallback, array, drawMap);
 
 					// set is WCAG false before finishing
 					isWCAG = false;
 				};
 
-				measureAreaCallback = function(poly, areas, unit) {
-					var info = {};
+				measureAreaCallback = function(poly, areas, unit, array, drawMap) {
+					var item,
+						info = {},
+						len = array.length - 1;
 
 					info.area = Math.floor(areas.areas[0] * 100) / 100;
 					info.length = Math.floor(areas.lengths[0] * 100) / 100;
 					info.unit = unit;
 
+					// put info on the item so it can be retrieve in the view model
+					item = array[len];
+					item.area = info.area;
+					item.length = info.length;
+
 					// get label coordinnate from geoprocessing
-					gisgeo.labelPoints(poly, info, measureLabelCallback);
+					if (drawMap) {
+						gisgeo.labelPoints(poly, info, measureLabelCallback);
+					}
 				};
 
 				measureLabelCallback = function(points, info) {
@@ -471,7 +482,7 @@
 					addUndoStack(gKey);
 				};
 
-				measureLength = function(array, unit) {
+				measureLength = function(array, unit, drawMap) {
 					var line, pt1, pt2, text, angle, off,
 						offx = 0,
 						offy = -15,
@@ -492,28 +503,30 @@
 						symbLayer.add(graphic);
 
 						// add text
-						text = { 'geometry': {
+						if (drawMap) {
+							text = { 'geometry': {
 									'x': (pt1.x + pt2.x) / 2, 'y': (pt1.y + pt2.y) / 2,
 									'spatialReference': { 'wkid': wkid } } };
-						text.text = pt1.distance + ' ' + unit;
+							text.text = pt1.distance + ' ' + unit;
 
-						// calculate angle
-						angle = (Math.atan2((pt1.y - pt2.y), (pt1.x - pt2.x)) * (180 / Math.PI));
-						if (angle > 90 || angle < -90) {
-							angle -= 180;
+							// calculate angle
+							angle = (Math.atan2((pt1.y - pt2.y), (pt1.x - pt2.x)) * (180 / Math.PI));
+							if (angle > 90 || angle < -90) {
+								angle -= 180;
+							}
+
+							// change offset if vertical
+							off = Math.round(Math.abs(angle)/90);
+							if (off === 1) {
+								offx = 15;
+								offy = 0;
+							} else if (off === 3) {
+								offx = -15;
+								offy = 0;
+							}
+
+							measureText(text, angle, offx, offy);
 						}
-
-						// change offset if vertical
-						off = Math.round(Math.abs(angle)/90);
-						if (off === 1) {
-							offx = 15;
-							offy = 0;
-						} else if (off === 3) {
-							offx = -15;
-							offy = 0;
-						}
-
-						measureText(text, angle, offx, offy);
 					}
 
 					// add the point symbol

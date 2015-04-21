@@ -50,7 +50,7 @@
 			}
 
 			// add div to hold overview map if user decide to show it on the map instead of toolbar
-			$div.append('<div id="ovmapcont' + mapid +'" class="gcviz-ovmapcontainer' + ext + '"><div id="ovmap' + mapid +'"></div></div>');
+			$div.append('<div id="ovmapcont' + mapid +'" class="gcviz-ovmapcontainer' + ext + '"><div id="ovmap' + mapid +'"></div><div id="scaletoolmap' + mapid + '" class="gcviz-scalemap' + ext + ' gcviz-hidden"><span class="gcviz-scaleDisplayLabel"></span></div></div>');
 
 			// set height and width for the map. Substract the header height
 			holder.css({ 'width': widthMax, 'height': height });

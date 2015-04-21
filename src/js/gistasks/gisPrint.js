@@ -14,7 +14,10 @@
 			'esri/tasks/PrintParameters',
 			'esri/tasks/Geoprocessor'
 	], function($viz, func, esriPrintTemp, esriPrintTask, esriPrintParams, esriGeoProcessor) {
-		var htmlPage,
+		var printMap,
+			printResult,
+			printError,
+			htmlPage,
 			getTemplates,
 			getMxdElements,
 			gpJobComplete,
@@ -86,7 +89,7 @@
 				 elementType = pair[1];
 				 elementLabel = pair[0];
 				 
-				 if (elementLabel.indexOf('9999#') >= 0) 
+				 if (elementLabel.indexOf("9999#") >= 0) 
 				 	elementLabel = elementLabel.substring(elementLabel.indexOf("#") + 1);
 				 
 				 if (elementType === 'TEXT_ELEMENT') {
@@ -113,7 +116,7 @@
 		};
 
 		gpJobFailed = function(error) {
-			console.log('gpJobFailed: ' + error);
+			console.log('gpJobFailed' + error);
 		};
 
 		getMapCenter = function(map) {
@@ -228,11 +231,11 @@
 		};
 
 		printCustomError = function(response) {
-			console.log('printCustomError: ' + response);
+			console.log('printCustomError' + response);
 		};
 
 		printHTMLError = function(response) {
-			console.log('printHTMLError: ' + response);
+			console.log('printHTMLError' + response);
 		};
 
 		callPrintTask = function(printTask, params) {
@@ -250,6 +253,7 @@
 		};
 		
 		printBasicMap = function(map, url, templateName, preserve, forcedScale, dpivalue) {
+			
 			var	orig,
 				map,
 				mapholder,
@@ -325,7 +329,7 @@
 					
 					if (obj['gcviz-scalebar'] === 'true') {
 						printTaskScaleBar = new esriPrintTask(url, { async: true });
-						paramsScaleBar = new esriPrintParams();
+						paramsScaleBar = new esriPrintParams()
 						templateScaleBar = $viz.extend(true, {}, templateMap);
 						paramsScaleBar.map = map;
 						templateScaleBar.layout = 'Scalebar';
@@ -334,7 +338,7 @@
 
 					if (obj['gcviz-scaletext'] === 'true') {
 						printTaskScaleText = new esriPrintTask(url, { async: true });
-						paramsScaleText = new esriPrintParams();
+						paramsScaleText = new esriPrintParams()
 						templateScaleText = $viz.extend(true, {}, templateMap);
 						paramsScaleText.map = map;
 						templateScaleText.layout = 'Scaletext';
@@ -343,7 +347,7 @@
 
 					if (obj['gcviz-arrow'] === 'true') {
 						printTaskNorthArrow = new esriPrintTask(url, { async: true });
-						paramsNorthArrow = new esriPrintParams();
+						paramsNorthArrow = new esriPrintParams()
 						templateNorthArrow = $viz.extend(true, {}, templateMap);
 						paramsNorthArrow.map = map;
 						templateNorthArrow.layout = 'Northarrow';
@@ -355,7 +359,7 @@
 				    						callPrintTask(printTaskScaleText, paramsScaleText),
 				    						callPrintTask(printTaskNorthArrow, paramsNorthArrow))
 				    .done(function(responseMap, responseScaleBar, responseScaleText, responseNorthArrow) {
-			            generateHTMLPrint(obj, orig, mapholder, responseMap, scalebar, responseScaleBar, scaletext, responseScaleText, northarrow, responseNorthArrow, updatedHTML);
+			            generateHTMLPrint(obj, orig, mapholder, responseMap, scalebar, responseScaleBar, scaletext, responseScaleText, northarrow, responseNorthArrow, updatedHTML)	
 			         })
 				    .fail(function() {
 				    	console.log('Failed to get all responses to generate map');
@@ -380,9 +384,9 @@
 						$viz(this).text(value);
 					}
 					if (id.indexOf('gcviz-lblimg') >= 0) {
-						id = id.replace('gcviz-lblimgx', 'gcviz-imgx');
+						id = id.replace('gcviz-lblimgx','gcviz-imgx');
 						orig.find('[id^=' + id + ']').each(function() {
-							$viz(this).attr('src', value);
+							$viz(this).attr( "src", value);
 						});
 					}
 				});
@@ -401,7 +405,44 @@
 			}
 		};
 
+		printMap = function(map, printInfo) {
+			// We cant use the print task for certain type now because it is not able to deal with
+			// cluster graphic layers.
+			// TODO try to solve this or stay with the new approach
+			var printTask = new esriPrintTask(printInfo.url),
+				params = new esriPrintParams(),
+				template = new esriPrintTemp();
+
+			// set the html page to open
+			htmlPage = printInfo.template;
+
+			// set the print template and print parameters then call the task
+			template.exportOptions = { dpi: 96 };
+			template.format = 'PNG8';
+			template.layout = 'Letter ANSI A Landscape';
+			template.layoutOptions = {
+				'scalebarUnit': 'Kilometers',
+				'copyrightText': printInfo.copyright,
+				'legendLayer': []
+			};
+			template.preserveScale = true;
+
+			params.template = template;
+			params.map = map;
+			printTask.execute(params, printResult, printError);
+		};
+
+		printResult = function(response) {
+			
+		};
+
+		printError = function(err) {
+			console.log('Printing broken: ', err);
+		};
+
+
 		return {
+			printMap : printMap,
 			generateHTMLPrint : generateHTMLPrint,
 			getTemplates: getTemplates,
 			getMxdElements: getMxdElements,

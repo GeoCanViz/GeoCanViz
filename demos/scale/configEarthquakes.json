@@ -207,7 +207,7 @@
         },
         "toolbarlegend": {
             "enable": true,
-            "expand": true,
+            "expand": false,
             "pos": 1,
             "basemaps": [{
                 "expand": false,
@@ -362,7 +362,7 @@
         },
         "toolbardraw": {
             "enable": true,
-            "expand": false,
+            "expand": true,
             "pos": 2,
             "drawline": {
                 "enable": true

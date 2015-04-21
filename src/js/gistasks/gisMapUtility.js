@@ -394,14 +394,14 @@
 						min = scale.min,
 						max = scale.max,
 						mapScale = layerScale.myMap.getScale();
-	
+
 					// set scales
 					layerScale.minScale = min;
 					layerScale.maxScale = max;
-	
+
 					// remove mymap
 					delete layerScale.myMap;
-	
+
 					// set scale class. We need to do this because the event
 					// scale-visibility havent been fired.
 					if (min !== 0 || max !== 0) {
@@ -415,7 +415,7 @@
 				// set scales
 				layerScale.minScale = min;
 				layerScale.maxScale = max;
-				
+
 				// set scale class. We need to do this because the event
 				// scale-visibility havent been fired. We put a timeout because
 				// we cant use the load event
@@ -428,7 +428,7 @@
 					}
 				}
 			}
-			
+
 			// set event to know when layer is outside scale
 			layerScale.on('scale-visibility-change', function() {
 				var $leg = $viz('#' + layerInfo.id);

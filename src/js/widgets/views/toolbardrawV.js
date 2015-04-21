@@ -48,7 +48,7 @@
 					'</div>';
 
 			// set measure buttons
-			node += getMeasureBtn(config);
+			node += getMeasureBtn(config, mapid);
 
 			// set draw and add text buttons
 			node += getDrawBtn(config);
@@ -92,7 +92,7 @@
 			return(tbdrawVM.initialize($toolbar, mapid, config));
 		};
 
-		getMeasureBtn = function(config) {
+		getMeasureBtn = function(config, mapid) {
 			var measLabel,
 				classSpan = 'span2',
 				node = '',
@@ -116,6 +116,18 @@
 				// add measure line button
 				if (measLine) {
 					node += '<button class="gcviz-draw-length" tabindex="0" data-bind="buttonBlur, click: measureLengthClick, attr: { alt: tpMeasureLength }"></button>';
+
+					// show window with vertex and final distance or area
+					node += '<div data-bind="uiDialog: { title: lblMeasFull, width: 275, height: 220, modal: false, draggable: true, ok: dialogMeasureClose, close: dialogMeasureClose, openDialog: \'isMeasureDialogOpen\' }">' +
+								'<div>' +
+									'<span data-bind="html: segmentMeasures"></span>' +
+									'<span data-bind="html: totalMeasures"></span>' +
+									'<div>' +
+										'<input id="chk-length-display' + mapid + '" class="gcviz-leg-check" type="checkbox" data-bind="checked: isMeasureOnMap"/>' +
+										'<label class="gcviz-label gcviz-nav-lblovdisp" for="chk-length-display' + mapid + '" data-bind="text: measureDisplayLabel"></label>' +
+									'</div>' +
+								'</div>' +
+							'</div>';
 
 					// if there is second button, add a separator
 					if (measArea) {

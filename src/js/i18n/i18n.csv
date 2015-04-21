@@ -111,8 +111,10 @@ Global sys value#%gisurlalti#http://geogratis.gc.ca/services/elevation/cdem/alti
 #%toolbardraw-tpredo#Redo last operation#Refaire la dernière opération
 #%toolbardraw-tpimport#Import annotations#Importer des annotations
 #%toolbardraw-tpexport#Export annotations#Exporter des annotations
-#%toolbardraw-dist#Total Length: #Longueur totale: 
-#%toolbardraw-area#Area: #Aire: 
+#%toolbardraw-dist#Total Length: #Longueur totale : 
+#%toolbardraw-seg#Segment: #Segment : 
+#%toolbardraw-area#Area: #Aire : 
+#%toolbarnav-lbllengthdisplay#Draw values on map#Dessiner les valeurs sur la carte
 #%toolbardraw-lblselcolor#Select a colour#Selectionnez une couleur
 #%toolbardraw-lblmeasfull#Measure a path / Area#Mesurer ligne / surface
 #%toolbardraw-lblmeasline#Measure a path#Mesurer ligne
@@ -261,7 +263,7 @@ Global sys value#%gisurlalti#http://geogratis.gc.ca/services/elevation/cdem/alti
 #%help-nav-zoomtotitle#Find a Location#Trouver un lieu
 #%help-nav-zoomto#Use this tool to search, then zoom to, a geographic location:#Utilisez cet outil pour chercher un lieu géographique puis faire un zoom sur celui-ci :
 #%help-nav-zoomto1#1. Enter a geographic name, such as a province, town, lake, river, National Topographic System map number, postal code or latitude longitude coordinate, in the text box.#1. Entrez un nom géographique comme une province, une ville, un lac, une rivière, un numéro de carte du Système national de référence cartographique, un code postal ou une coordonnée (latitude longitude) dans la zone de texte.
-#%help-nav-zoomto1b#1b. The coordinates can be entered in decimal degrees or degrees/minutes/seconds. The coordinates must be separated by a space. Latitude ( N/S) should be first, followed by the longitude (E/O). The negative sign “-” must be present to indicate west longitude or south latitude. When a valid coordinate is entered, it is displayed in the dropdown menu. Examples of accepted geographical coordinates formats:#1b. Les coordonnées peuvent être entrées en degrés décimaux ou degrés/minutes/secondes. Les coordonnées doivent être séparées par un espace. La latitude (N/S) doit être en premier suivi de la longitude (E/O). Le signe négatif « - » doit être présent pour indiquer une longitude ouest ou une latitude sud. Lorsqu'une coordonnée valide est entrée, elle s'affiche dans le menu déroulant. Exemples de formats des coordonnées géographiques acceptés :
+#%help-nav-zoomto1b#1b. The coordinates can be entered in decimal degrees or degrees/minutes/seconds. The coordinates must be separated by a space. Latitude (N/S) should be first, followed by the longitude (E/O). The negative sign “-” must be present to indicate west longitude or south latitude. When a valid coordinate is entered, it is displayed in the dropdown menu. Examples of accepted geographical coordinates formats:#1b. Les coordonnées peuvent être entrées en degrés décimaux ou degrés/minutes/secondes. Les coordonnées doivent être séparées par un espace. La latitude (N/S) doit être en premier suivi de la longitude (E/O). Le signe négatif « - » doit être présent pour indiquer une longitude ouest ou une latitude sud. Lorsqu'une coordonnée valide est entrée, elle s'affiche dans le menu déroulant. Exemples de formats des coordonnées géographiques acceptés :
 #%help-nav-zoomto1b1#46 -72#46 -72
 #%help-nav-zoomto1b2#46.53 -72.685658#46.53 -72.685658
 #%help-nav-zoomto1b3#46 15 00 N -72 30 00 W#46 15 00 N -72 30 00 W

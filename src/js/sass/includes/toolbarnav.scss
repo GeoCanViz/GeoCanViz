@@ -12,6 +12,16 @@
 	z-index: 30;
 }
 
+%scalemap {
+	position: absolute;
+	bottom: 0;
+	padding: (0.1 * $rembase) + rem;
+	z-index: 30;
+	width: (21 * $rembase) + rem;
+	background-color: rgba(208, 213, 206, 0.9);
+	text-align: center;
+}
+
 %ovborder {
 	@include app-border(0.1, solid, $orange-darkborder);
 }
@@ -97,6 +107,17 @@
 	@include app-text(1.1);
 	display: block;
 	line-height: 1;
+	padding: (0.1 * $rembase) + rem;
+}
+
+.gcviz-scalemapl {
+	@extend %scalemap;
+	left: 233px;
+}
+
+.gcviz-scalemapr {
+	@extend %scalemap;
+	right: 233px;
 }
 
 /* Reset some ESRI classes that are being modified by the Map classes */

@@ -66,7 +66,6 @@
 							// set scale display
 							if (configScaleDisplay) {
 								node += '<div class="row gcviz-nav-scale">' +
-											
 											'<div id="scaletool' + mapid + '"><span class="gcviz-scaleDisplayLabel" data-bind="text: lblScale"></div>' +
 										'</div>';
 							}
