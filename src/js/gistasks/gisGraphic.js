@@ -293,7 +293,7 @@
 						points[1] = array[i + 1];
 						i += 1;
 
-						gisgeo.measureLength(points, gUnit, measureLength);
+						gisgeo.measureLength(points, gUnit, measureLength, true);
 						points = [];
 					}
 
@@ -301,7 +301,7 @@
 					// sum length. Need to convert to a ko array.
 					arrayKo = ko.observableArray(array.reverse());
 					setTimeout(function() {
-						_self.addMeasureSumLength(arrayKo, gKey, gUnit);
+						_self.addMeasureSumLength(arrayKo, gKey, gUnit, true);
 					}, 2000);
 				};
 
@@ -313,7 +313,7 @@
 					arrayKo = ko.observableArray(array.reverse());
 					measureArea(arrayKo);
 					setTimeout(function() {
-						_self.addMeasureSumArea (arrayKo, gKey, gUnit);
+						_self.addMeasureSumArea(arrayKo(), gKey, gUnit, true);
 					}, 2000);
 				};
 

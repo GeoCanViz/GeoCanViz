@@ -156,10 +156,8 @@
 					_self.graphic.deactivate();
 					_self.measureType = '';
 
-					// hide measure length window
-					_self.isMeasureDialogOpen(false);
-					_self.segmentMeasures('');
-					_self.totalMeasures('');
+					// hide measure window and reset values
+					_self.dialogMeasureClose();
 
 					// set the focus back to the right tool
 					_self.setFocus();
@@ -311,11 +309,11 @@
 					_self.closeTools('length');
 					_self.measureType = 'length';
 
-					// show measure window
-					_self.isMeasureDialogOpen(true);
-
 					// check if WCAG mode is enable, if so use dialog box instead!
 					if (!_self.isWCAG()) {
+						// show measure window
+						_self.isMeasureDialogOpen(true);
+
 						// set cursor (remove default cursor first and all other cursors)
 						$container.css('cursor', '');
 						$container.addClass('gcviz-draw-cursor-measure');
@@ -355,16 +353,17 @@
 				_self.setSegmentLength = function(segments) {
 					var pt,
 						array = _self.measureHolder(),
-						len = array.length - 1;
+						nbSeg = array.length,
+						len = nbSeg - 1;
 
 					// add value to window
 					if (len > 0) {
 						// put in a timeout to let gisGraphic and gisGeoprocessing generate the distance
 						setTimeout(function() {
 							pt = array[len];
-							if (pt.hasOwnProperty('distance') && segments < array.length) {
+							if (pt.hasOwnProperty('distance') && segments < nbSeg) {
 								_self.segmentMeasures(_self.segmentMeasures() + lblSeg + pt.distance + ' km<br/>');
-								_self.setTotalMeasure(array);
+								_self.setTotalMeasure(array, nbSeg);
 							}
 						}, 1000);			
 					} else {
@@ -374,10 +373,9 @@
 					}
 				};
 
-				_self.setTotalMeasure = function(array) {
+				_self.setTotalMeasure = function(array, len) {
 					var pt,
-						dist = 0,
-						len = array.length;
+						dist = 0;
 
 					// calculate values and add to window
 					while (len--) {
@@ -410,11 +408,11 @@
 					_self.closeTools('area');
 					_self.measureType = 'area';
 
-					// show measure window
-					_self.isMeasureDialogOpen(true);
-
 					// check if WCAG mode is enable, if so use dialog box instead!
 					if (!_self.isWCAG()) {
+						// show measure window
+						_self.isMeasureDialogOpen(true);
+
 						// set cursor (remove default cursor first and all other cursors)
 						$container.css('cursor', '');
 						$container.addClass('gcviz-draw-cursor-measure');
@@ -447,7 +445,7 @@
 						setTimeout(function() {
 							var item = array[len - 1];
 							_self.totalMeasures(lblArea + item.area + ' km2<br/>' + lblDist + item.length + 'km');
-						}, 1500);
+						}, 1250);
 					} else if (len > 0) {
 						_self.graphic.eraseUnfinish();
 					}
