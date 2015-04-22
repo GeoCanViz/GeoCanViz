@@ -7,8 +7,12 @@
             },
             "map": {
                 "urlgeomserv": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/Utilities/Geometry/GeometryServer",
-                "urlproxy": "http://geoappext.nrcan.gc.ca/php/proxy.php",
+                "urlproxy": "http://geoappext.nrcan.gc.ca/php/proxy.ashx",
                 "urldownload": "http://geoappext.nrcan.gc.ca/php/download.php",
+                "urlprint": "http://s-bsc-geoappint.nrn.nrcan.gc.ca/arcgis/rest/services/Tools/GeoCanViz_ExportWebMap/GPServer/Export%20Web%20Map",
+                "urlprintelements":"http://s-bsc-geoappint.nrn.nrcan.gc.ca/arcgis/rest/services/Tools/GeoCanVizGetMxdElements/GPServer/GeoCanVizGetMxdElements",
+                "urltemplates": "http://s-bsc-geoappint.nrn.nrcan.gc.ca/arcgis/rest/services/Tools/GeoCanVizGetTemplates/GPServer/GeoCanVizGetTemplates",
+                "urlhtml": "http://s-bsc-geoappint.nrn.nrcan.gc.ca/GeoCanViz/AdvancedPrint/templates",
                 "sr": {
                     "wkid": 3978
                 },
@@ -122,7 +126,8 @@
                 "zoombar": {
                     "bar": true,
                     "zoom": true,
-                    "zoomfull": true
+                    "zoomfull": true,
+                    "previousnext": true
                 },
                 "bases": [{
                     "label": "CBCT3978",
@@ -173,7 +178,10 @@
             },
             "print": {
                 "enable": true,
-                "type": 1
+                "type": 2,
+                "printlayout": ["Portrait", "Landscape"],
+                "project": ["Default", "Topo"],
+                "DPI": [96, 300]
             },
             "fullscreen": true
         },
@@ -326,6 +334,9 @@
             },
             "dataurl": {
                 "enable": true
+            },
+            "dataquery": {
+            	"enable": true
             }
         },
         "toolbarextract": {
@@ -356,7 +367,7 @@
             "enable": false
         },
         "datagrid": {
-            "enable": true,
+            "enable": false,
             "expand": true,
             "layers": [{
                 "layerinfo": {
@@ -371,9 +382,9 @@
                     "width": "250px",
                     "data": "PROJ_STATUS_EN",
                     "dataalias": "PROJ_STATUS_EN",
-				    "type": {
-				      "field": "field",
-				      "value": "string"
+				    "fieldtype": {
+				      "type": 1,
+				      "value": 1
 				     },
 				    "searchable": true
                 }, {
@@ -381,9 +392,9 @@
                     "width": "250px",
                     "data": "COM_EN",
                     "dataalias": "COM_EN",
-				     "type": {
-				      	"field": "field",
-				      	"value": "select"
+				     "fieldtype": {
+				      	"type": 1,
+				      	"value": 4
 				     },
 				     "searchable": true
                 }, {
@@ -391,9 +402,9 @@
                     "width": "110px",
                     "data": "LAT_DD",
                     "dataalias": "LAT_DD",
-				     "type": {
-				      	"field": "field",
-				      	"value": "number"
+				     "fieldtype": {
+				      	"type": 1,
+				      	"value": 2
 				     },
 				     "searchable": true
                 }, {
@@ -401,9 +412,9 @@
                     "width": "110px",
                     "data": "LONG_DD",
                     "dataalias": "LONG_DD",
-				     "type": {
-				      	"field": "field",
-				      	"value": "number"
+				     "fieldtype": {
+				      	"type": 1,
+				      	"value": 2
 				     },
 				     "searchable": true
                 },{
@@ -412,9 +423,9 @@
                     "data": "PROJECT_NAME_EN",
                     "dataalias": "PROJECT_NAME_EN",
                     "sType": "html",
-				    "type": {
-				      "field": "url",
-				      "value": "string",
+				    "fieldtype": {
+				      "type": 3,
+				      "value": 1,
 				      "urlfield": "MINING_COMP_WEB_LINK",
 				      "urlfieldalias": "MINING_COMP_WEB_LINK"
 				     },
@@ -424,9 +435,9 @@
                     "width": "250px",
                     "data": "PAST_MINING_COMP_NAME",
                     "dataalias": "PAST_MINING_COMP_NAME",
-				    "type": {
-				      "field": "field",
-				      "value": "string"
+				    "fieldtype": {
+				      "type": 1,
+				      "value": 1
 				     },
 				    "searchable": true
                 }],

@@ -132,7 +132,8 @@
                 "zoombar": {
                     "bar": true,
                     "zoom": true,
-                    "zoomfull": true
+                    "zoomfull": true,
+                    "previousnext": true
                 },
                 "bases": [
 				{
@@ -423,6 +424,9 @@
             },
             "dataurl": {
                 "enable": true
+            },
+            "dataquery": {
+            	"enable": false
             }
         },
         "insetframe": {

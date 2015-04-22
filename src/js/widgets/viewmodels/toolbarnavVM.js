@@ -31,11 +31,13 @@
 					clickPosition,
 					geolocation = config.geolocation,
 					overview = config.overview,
-					scaledisplay = config.scaledisplay,
+					scaledisplay = config.scaledisplay.enable,
 					inMapField = $mapElem.find('#inGeoLocation' + mapid),
 					btnClickMap = $mapElem.find('#btnClickMap' + mapid),
 					$container = $viz('#' + mapid + '_holder_layers'),
 					$ovMap = $viz('#ovmapcont' + mapid),
+					$scaleMap = $viz('#scaletoolmap' + mapid),
+					$scaleMapSpan = $scaleMap.children()[0],
 					$menu = $viz('#gcviz-menu' + mapid),
 					$panel = $viz('#gcviz-menu-cont' + mapid),
 					$posDiag = $mapElem.find('#gcviz-pos' + mapid),
@@ -180,7 +182,7 @@
 						});
 					}
 
-					if (scaledisplay.enable) {
+					if (scaledisplay) {
 						mymap.on('extent-change', function() {
 							var formatScale;
 
@@ -194,6 +196,7 @@
 
 							// update scale
 							_self.lblScale(_self.ScaleLabel + '1:' + formatScale);
+							$scaleMapSpan.textContent = _self.ScaleLabel + '1:' + formatScale;
 						});
 					}
 
@@ -510,21 +513,33 @@
 				};
 
 				_self.showOVMap = function() {
-					// move content from tools to map
-					if (_self.isOVShowMap()) {
-						ovMapWidget[0].show();
-						ovMapWidget[1].hide();
-						$ovMap.removeClass('gcviz-ov-border');
-					} else {
-						// start the dijiit if not already started
-						if (!gblOVMap) {
-							ovMapWidget[1].startup();
-							gblOVMap = true;
-						}
+					var show = _self.isOVShowMap();
 
-						ovMapWidget[1].show();
-						ovMapWidget[0].hide();
-						$ovMap.addClass('gcviz-ov-border');
+					// overview map
+					if (typeof ovMapWidget !== 'undefined') {
+						// move content from tools to map
+						if (show) {
+							ovMapWidget[0].show();
+							ovMapWidget[1].hide();
+							$ovMap.removeClass('gcviz-ov-border');
+						} else {
+							// start the dijiit if not already started
+							if (!gblOVMap) {
+								ovMapWidget[1].startup();
+								gblOVMap = true;
+							}
+	
+							ovMapWidget[1].show();
+							ovMapWidget[0].hide();
+							$ovMap.addClass('gcviz-ov-border');
+						}
+					}
+
+					// scale
+					if (!show && scaledisplay) {
+						$scaleMap.removeClass('gcviz-hidden');
+					} else {
+						$scaleMap.addClass('gcviz-hidden');
 					}
 
 					return true;

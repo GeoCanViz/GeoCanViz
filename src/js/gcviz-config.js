@@ -6,16 +6,18 @@
  * Version: @gcviz.version@
  *
  */
-/* global alert: false */
+/* global alert: false, $: false */
 (function() {
 	'use strict';
 	// get the language
-	var url = window.location.toString(),
+	var lang,
+		url = window.location.toString(),
 		locationPath, redirectPath,
 		language = 'en-min',
 		metas,
 		i;
 
+	// set language
 	if ((url.search(/_f\.htm/) > -1) || (url.search(/-fra\./) > -1) || (url.search(/-fr\./) > -1) || (url.search(/lang=fra/) > -1) || (url.search(/lang=fr/) > -1)) {
 		language = 'fr-min';
 		window.langext = 'fra';
@@ -23,9 +25,26 @@
 		language = 'en-min';
 		window.langext = 'eng';
 	} else {
-		window.langext = 'eng';
-		console.log('language not set, English by default');
+		// check if lang-gcviz is set for the first map. All maps needs to have the same language.
+		lang = $('.gcviz')[0].getAttribute('lang-gcviz');
+
+		if (lang !== null) {
+			if (lang === 'fra') {
+				window.langext = 'fra';
+				language = 'fr-min';
+			} else if (lang === 'eng') {
+				window.langext = 'eng';
+				language = 'en-min';
+			} else {
+				window.langext = 'eng';
+				console.log('language not set, English by default');
+			}
+		} else {
+			window.langext = 'eng';
+			console.log('language not set, English by default');
+		}
 	}
+
 
 	// get code location and redirect path from meta tag
 	metas = document.getElementsByTagName('meta'),

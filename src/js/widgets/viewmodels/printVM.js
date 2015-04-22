@@ -3,9 +3,8 @@
  * GeoCanViz viewer / Visionneuse GéoCanViz
  * gcviz.github.io/gcviz/License-eng.txt / gcviz.github.io/gcviz/Licence-fra.txt
  *
- * Help view model widget
+ * Print view model widget
  */
-/* global locationPath: false */
 (function() {
 	'use strict';
 	define(['jquery-private',
@@ -20,7 +19,6 @@
 			gblDialog,
 			getHTMLElements,
 			sortElements,
-			populateTemplates,
 			clearElements,
 			vm,
 			lang = $viz('html').attr('lang').toUpperCase();
@@ -34,7 +32,7 @@
 					$dialog = $mapElem.find('#print-' + mapid),
 					printlayout = [],
 					DPIValues = [],
-				    TemplateItem = function(name) {
+					TemplateItem = function(name) {
                         this.Name = name;
                     },
                     DPIValueItem = function(name) {
@@ -61,7 +59,7 @@
 				_self.lblPrintDPI = i18n.getDict('%print-dialogDPI');
 				_self.lblForceScale = i18n.getDict('%print-dialogForceScale');
 				_self.lblLayout = i18n.getDict('%print-dialogLayout');
-				_self.noTemplateMessage =  i18n.getDict('%print-dialogNoTemplates'); 
+				_self.noTemplateMessage =  i18n.getDict('%print-dialogNoTemplates');
 				_self.mymap = gcvizFunc.getElemValueVM(mapid, ['map', 'map'], 'js');
 
 				printOption.printlayout.forEach(function(value) {
@@ -96,42 +94,41 @@
 						template.forEach(function(value) {
 							if (value === 'NO_TEMPLATES_FOUND') {
 								_self.availableTemplates.push(new TemplateItem(_self.noTemplateMessage));
-         					}
-         					else {
-         						_self.availableTemplates.push(new TemplateItem(value));
-         					}
-         				});
-					});  
+							}
+							else {
+								_self.availableTemplates.push(new TemplateItem(value));
+							}
+						});
+					});
 				});
 
-			 	_self.selectedValue.subscribe(function(templateName) {
-			 		clearElements();
-			 		if (templateName !== _self.noTemplateMessage && templateName !== undefined) {
-				 		if (printType === 1) {
-				 			getHTMLElements(_self.urlhtml, templateName, _self.layoutValue().toString());
-				 		}
-				 		else {
-				 			gisprint.getMxdElements(_self.printUrlElements, templateName);
-				 		}
-			 		}
+				_self.selectedValue.subscribe(function(templateName) {
+					clearElements();
+					if (templateName !== _self.noTemplateMessage && templateName !== undefined) {
+						if (printType === 1) {
+							getHTMLElements(_self.urlhtml, templateName, _self.layoutValue().toString());
+						} else {
+							gisprint.getMxdElements(_self.printUrlElements, templateName);
+						}
+					}
 				});
 
-			    _self.availableTemplates = ko.observableArray([]);
-			 	_self.printlayouts = ko.observableArray(printlayout);
-	
+				_self.availableTemplates = ko.observableArray([]);
+				_self.printlayouts = ko.observableArray(printlayout);
+
                 _self.init = function() {
-					// set global dialog to be able to open help from
+					// set global dialog to be able to open print from
 					// outisede the view model. This way, it is easy
 					// for header VM to open help dialog
 					gblDialogOpen = _self.isPrintDialogOpen;
-					
+
 					// keep both dialog box in global so we can extract and add item
 					gblDialog = $dialog;
 
 					return { controlsDescendantBindings: true };
 				};
 
-				_self.dialogHelpOk = function() {
+				_self.dialogPrintOk = function() {
 					var templatepath;
 
 					if (printType === 1) {
@@ -163,32 +160,32 @@
 		};
 
 		togglePrint = function() {
-			gblDialogOpen(true); 
+			gblDialogOpen(true);
 		};
 
 		clearElements = function() {
 			var printTextElements = document.getElementById('gcviz-printTextElements'),
-			    printPictureElements = document.getElementById('gcviz-printPictureElements'),
-			    printMapSurroundElements = document.getElementById('gcviz-printMapSurroundElements');
+				printPictureElements = document.getElementById('gcviz-printPictureElements'),
+				printMapSurroundElements = document.getElementById('gcviz-printMapSurroundElements');
 
 			$viz(printTextElements).empty();
 			$viz(printPictureElements).empty();
 			$viz(printMapSurroundElements).empty();
 		};
 
-		getHTMLElements = function(htmlUrl, templateName , layout) {
+		getHTMLElements = function(htmlUrl, templateName) {
 			var url =  htmlUrl + '/' + lang + '/' + templateName,
 				printTextElements = document.getElementById('gcviz-printTextElements'),
 				printMapSurroundElements = document.getElementById('gcviz-printMapSurroundElements'),
-			    printPictureElements = document.getElementById('gcviz-printPictureElements');
+				printPictureElements = document.getElementById('gcviz-printPictureElements');
 
 			$viz(printTextElements).empty();
 			$viz(printPictureElements).empty();
 			$viz(printMapSurroundElements).empty();
-						
+
 			$viz.get(url, function(data) {
-				var $html = $(data),
-					id, 
+				var $html = $viz(data),
+					id,
 					label,
 					newElement,
 					orderedElements = [],
@@ -197,15 +194,15 @@
                         this.Id = id;
                         this.NewElement = newElement;
                     };
- 				
+
 				$html.find('[id^=gcviz-label]').andSelf().filter('[id^=gcviz-label]').each(function() {
 					id = this.id;
-					label = $(this).text();
+					label = $viz(this).text();
 					newElement = ('<div class="gcviz-printRow"><div class="gcviz-printColLabel"><span class="gcviz-printLabel">' + label+ '</span></div><div class="gcviz-printCol"><input type="text" id="' + id + '" name="' + label + '"></input></div>');
 					orderedElements.push(new labelItem(id.split('gcviz-label')[1], id, newElement));
 				});
 
-				sortElements(orderedElements).forEach(function (value, index) {
+				sortElements(orderedElements).forEach(function (value) {
 					$viz(printTextElements).append(value.NewElement);
 				});
 
@@ -213,12 +210,12 @@
 
 				$html.find('[id^=gcviz-lblimgx]').andSelf().filter('[id^=gcviz-lblimgx]').each(function() {
 					id = this.id;
-					label = $(this).text();
+					label = $viz(this).text();
 					newElement = ('<div class="gcviz-printRow"><div class="gcviz-printColLabel"><span class="gcviz-printLabel">' + label + '</span></div><div class="gcviz-printCol"><input type="text" id="' + id + '" name="' + label + '"></input><div>');
 					orderedElements.push(new labelItem(id.split('gcviz-lblimgx')[1], id, newElement));
 				});
 
-				sortElements(orderedElements).forEach(function (value, index) {
+				sortElements(orderedElements).forEach(function (value) {
 					$viz(printPictureElements).append(value.NewElement);
 				});
 
@@ -226,37 +223,37 @@
 
 				$html.find('[id^=gcviz-scalebar]').andSelf().filter('[id^=gcviz-scalebar]').each(function() {
 					id = this.id;
-					label = $(this).text();
+					label = $viz(this).text();
 					newElement = ('<div class="gcviz-printRow"><div class="gcviz-printColLabel"><span class="gcviz-printLabel">' + label + '</span></div><div class="gcviz-printCol"><input type="checkbox" id="' + id + '" name="' + label + '"></input></div>');
 					orderedElements.push(new labelItem(id.split('gcviz-scalebar')[1], id, newElement));
 				});
 
-			    $html.find('[id^=gcviz-scaletext]').andSelf().filter('[id^=gcviz-scaletext]').each(function() {
+				$html.find('[id^=gcviz-scaletext]').andSelf().filter('[id^=gcviz-scaletext]').each(function() {
 					id = this.id;
-					label = $(this).text();
+					label = $viz(this).text();
 					newElement = ('<div class="gcviz-printRow"><div class="gcviz-printColLabel"><span class="gcviz-printLabel">' + label + '</span></div><div class="gcviz-printCol"><input type="checkbox" id="' + id + '" name="' + label + '"></input></div>');
 					orderedElements.push(new labelItem(id.split('gcviz-scaletext')[1], id, newElement));
 				});
 
 				$html.find('[id^=gcviz-arrow]').andSelf().filter('[id^=gcviz-arrow]').each(function() {
 					id = this.id;
-					label = $(this).text();
+					label = $viz(this).text();
 					newElement = ('<div class="gcviz-printRow"><div class="gcviz-printColLabel"><span class="gcviz-printLabel">' + label + '</span></div><div class="gcviz-printCol"><input type="checkbox" id="' + id + '" name="' + label + '"></input></div>');
 					orderedElements.push(new labelItem(id.split('gcviz-arrow')[1], id, newElement));
 				});
-				
-				sortElements(orderedElements).forEach(function (value, index) {
+
+				sortElements(orderedElements).forEach(function (value) {
 					$viz(printMapSurroundElements).append(value.NewElement);
-				}); 
+				});
 			});
 		};
-		
+
 		sortElements = function(elements) {
 				return elements.sort(function(a, b) {
- 					return a.Position - b.Position;
+					return a.Position - b.Position;
 				});
 		};
-		
+
 		return {
 			initialize: initialize,
 			togglePrint: togglePrint,

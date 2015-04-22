@@ -133,7 +133,8 @@
                 "zoombar": {
                     "bar": true,
                     "zoom": true,
-                    "zoomfull": true
+                    "zoomfull": true,
+                    "previousnext": true
                 },
                 "bases": [{
                     "label": "CBME_CBCE_HS_RO_3978",
@@ -1091,6 +1092,9 @@
             },
             "dataurl": {
                 "enable": true
+            },
+            "dataquery": {
+            	"enable": false
             }
         },
         "toolbarextract": {

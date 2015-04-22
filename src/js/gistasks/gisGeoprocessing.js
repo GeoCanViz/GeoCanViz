@@ -56,7 +56,7 @@
 			});
 		};
 
-		measureLength = function(array, unit, success) {
+		measureLength = function(array, unit, success, drawMap) {
 			var distUnit,
 				distParams = new esriDist(),
 				len = array.length,
@@ -76,11 +76,11 @@
 			geomServ.distance(distParams, function(distance) {
 				// keep 2 decimals
 				array[len - 1].distance = Math.floor(distance * 100) / 100;
-				success(array, unit);
+				success(array, unit, drawMap);
 			});
 		};
 
-		measureArea = function(poly, unit, success) {
+		measureArea = function(poly, unit, success, array, drawMap) {
 			var areaUnit, distUnit,
 				areaParams = new esriArea(),
 				geomServ = esriConfig.defaults.io.geometryService;
@@ -100,7 +100,7 @@
 			geomServ.simplify([poly], function(simplifiedGeometries) {
 				areaParams.polygons = simplifiedGeometries;
 				geomServ.areasAndLengths(areaParams, function(areas) {
-					success(areaParams.polygons[0], areas, unit);
+					success(areaParams.polygons[0], areas, unit, array, drawMap);
 				});
 			});
 		};

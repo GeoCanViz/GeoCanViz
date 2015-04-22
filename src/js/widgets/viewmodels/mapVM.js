@@ -30,11 +30,14 @@
 					map, menuState,
 					mapframe = $mapElem.mapframe,
 					mapid = mapframe.id,
-					config = mapframe.map;
+					config = mapframe.map,
+					extentCall = false,
+					extentBtnClick = '';
 
 				// text
 				_self.tpZoomFull = i18n.getDict('%map-tpzoomfull');
 				_self.tpZoom = i18n.getDict('%map-tpzoom');
+				_self.close = i18n.getDict('%close');
 
 				// viewmodel mapid to be access in tooltip custom binding
 				_self.mapid = mapid;
@@ -45,8 +48,17 @@
 				// set zoom extent button to be able to enable/disable
 				$zmExtent = $viz('#map-zmextent-' + mapid);
 
+				// previous / nest extent
+				_self.previous = i18n.getDict('%datagrid-previous');
+				_self.next = i18n.getDict('%datagrid-next');
+				_self.isEnablePrevious = ko.observable(false);
+				_self.isEnableNext = ko.observable(false);
+				_self.extentPos = ko.observable(-1);
+				_self.extentArray = ko.observableArray([]);
+
 				_self.init = function() {
 					var layer, base, panel,
+						extent, extentVal, extentInit,
 						layers = config.layers,
 						bases = config.bases,
 						lenLayers = layers.length,
@@ -75,8 +87,24 @@
 						_self.mapfocus(false);
 					});
 
+					// check if extent is specify in the extent, if so modify config
+					// param look like this: extent=-535147.9538835107,12432.88706458224,-104177.95416573394,161860.56747549836
+					extent = gcvizFunc.getURLParameter(window.location.toString(), 'extent');
+
+					if (extent !== null) {
+						extentVal = extent.split(',');
+						extentInit = config.extentinit;
+						extentInit.xmin = parseFloat(extentVal[0], 10);
+						extentInit.ymin = parseFloat(extentVal[1], 10);
+						extentInit.xmax = parseFloat(extentVal[2], 10);
+						extentInit.ymax = parseFloat(extentVal[3], 10);
+					}
+
 					// create map	
 					map = gisM.createMap(mapid + '_holder', config, side);
+
+					// add extent change event
+					gisM.extentMapEvent(map, _self.changeExtent);
 
 					// add basemap
 					bases = bases.reverse();
@@ -105,7 +133,7 @@
 					// keep map reference in the viewmodel to be accessible from other view model
 					_self.map = map;
 
-					// set a wcag close button for map info window
+					// KEEP!!! set a wcag close button for map info window (we need this for the popup with find a location)
 					map.on('load', function() {
 						var btn;
 
@@ -144,7 +172,7 @@
 					// remove popup click event if it is there to avoid conflict then
 					// call graphic class to draw on map.
 					gisDG.removeEvtPop();
-					gisGraphic.drawBox(_self.map, false, _self.zoomExtent);				
+					gisGraphic.drawBox(_self.map, false, _self.zoomExtent);
 				};
 
 				_self.zoomExtent = function(geometry) {
@@ -168,6 +196,121 @@
 					if (menuState !== false) {
 						$menu.accordion('option', 'active', 0);
 					}
+				};
+
+				_self.changeExtent = function(value) {
+					var pos, len, array;
+
+					// check if the extent was fired by the click next or previous
+					if (!extentCall) {
+						// increment pos
+						_self.extentPos(_self.extentPos() + 1);
+						pos = _self.extentPos();
+
+						if (pos < _self.extentArray().length) {
+							// case a new extent is added inside the array because the user made previous
+							// we keep all the remaining extent (position to the end... in other words all the back).
+
+							// if it comes from a previous, reverse the array
+							if (extentBtnClick === 'p') {
+								array = _self.extentArray.slice(pos - 1);
+								_self.extentArray(array.reverse());
+							} else {
+								array =_self.extentArray().reverse;
+								array = _self.extentArray.slice(0, pos);
+								_self.extentArray(array);
+							}
+							extentBtnClick = '';
+
+							// add the new extent at the end
+							_self.extentArray.push(value);
+
+							// set position to the end of the array and disable next
+							_self.extentPos(array.length - 1);
+							_self.isEnableNext(false);
+						} else {
+							// case where we add a new extent at the end of the array
+							_self.extentArray.push(value);
+						}
+
+						// keep only 15 extents
+						len = _self.extentArray().length;
+						if (len > 15) {
+							// remove first element (fifo array) and set pos to the last item
+							_self.extentArray.shift();
+							_self.extentPos(14);
+						}
+
+						// enable previous if there is at least 2 items
+						if (len > 1) {
+							_self.isEnablePrevious(true);
+						}
+					}
+
+					// set extent fired by click to false
+					extentCall = false;
+				};
+
+				_self.clickPreviousExtent = function() {
+					// debounce the click to the same debounce then extent change event
+					gcvizFunc.debounceClick(function() {
+						var  pos;
+
+						// set fired to true and decrement the position
+						extentCall = true;
+						extentBtnClick = 'p';
+						_self.extentPos(_self.extentPos() - 1);
+						pos = _self.extentPos();
+
+						// enable / disable the previous button
+						if (pos <= 0) {
+							_self.isEnablePrevious(false);
+						} else {
+							_self.isEnablePrevious(true);
+						}
+
+						// enable / disable the next button
+						if (_self.extentArray().length >= pos + 1) {
+							_self.isEnableNext(true);
+						} else {
+							_self.isEnableNext(false);
+						}
+
+						// zoom to extent
+						gisM.zoomExtent(map, _self.extentArray()[pos], true);
+					}, 500);
+				};
+
+				_self.clickNextExtent = function() {
+					// debounce the click to the same debounce then extent change event
+					gcvizFunc.debounceClick(function() {
+						var pos,
+							len = _self.extentArray().length;
+
+						// set fired to true and increment the position
+						extentCall = true;
+						extentBtnClick = 'n';
+						_self.extentPos(_self.extentPos() + 1);
+						pos = _self.extentPos();
+
+						// enable / disable the next button
+						if (pos >= 14 || len <= pos + 1) {
+							_self.isEnableNext(false);
+						} else {
+							_self.isEnableNext(true);
+						}
+
+						// enable / disable the previous button
+						if (len >= pos + 1) {
+							_self.isEnablePrevious(true);
+						} else {
+							_self.isEnablePrevious(false);
+						}
+
+						// zoom to extent
+						gisM.zoomExtent(map, _self.extentArray()[pos], true);
+					}, 500);
+
 				};
 
 				// click mouse set focus to map.

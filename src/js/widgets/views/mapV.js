@@ -33,6 +33,11 @@
 			$div.prepend('<div id="' + mapid + '_holder' + '" name="map" class="gcviz-mapholder" gcviz-size="' + height + ';' + width + '" data-bind="event: { click: clickMouse }, enterkey: { func: \'applyKey\', keyType: \'keydown\' }" tabindex="0"><div class="gcviz-loading gcviz-loading-' + ext + '"><div class="gcviz-loadingLabel"></div></div></div>');
 			holder = $mapElem.find('#' + mapid + '_holder');
 
+			if (zoom.previousnext) {
+				holder.prepend('<button class="gcviz-map-zoompv gcviz-map-previous' + ext + '" data-bind="click: clickPreviousExtent, enable: isEnablePrevious, attr: { title: previous }" tabindex="0"></button>' +
+							'<button class="gcviz-map-zoompv gcviz-map-next' + ext + '" data-bind="click: clickNextExtent, enable: isEnableNext, attr: { title: next }" tabindex="0"></button>');
+			}
+
 			// add zoom in with box extent
 			if (zoom.zoom) {
 				zoomClass = (zoom.bar) ? 'gcviz-map-zoomposl' : 'gcviz-map-zoomposh';
@@ -45,7 +50,7 @@
 			}
 
 			// add div to hold overview map if user decide to show it on the map instead of toolbar
-			$div.append('<div id="ovmapcont' + mapid +'" class="gcviz-ovmapcontainer' + ext + '"><div id="ovmap' + mapid +'"></div></div>');
+			$div.append('<div id="ovmapcont' + mapid +'" class="gcviz-ovmapcontainer' + ext + '"><div id="ovmap' + mapid +'"></div><div id="scaletoolmap' + mapid + '" class="gcviz-scalemap' + ext + ' gcviz-hidden"><span class="gcviz-scaleDisplayLabel"></span></div></div>');
 
 			// set height and width for the map. Substract the header height
 			holder.css({ 'width': widthMax, 'height': height });

@@ -5,6 +5,7 @@
  *
  * Datagrid view model widget
  */
+/* global $: false */
 (function() {
 	'use strict';
 	define(['jquery-private',
@@ -13,15 +14,16 @@
 			'gcviz-func',
 			'gcviz-gismap',
 			'gcviz-gisdatagrid',
-			'gcviz-gisgraphic',
-			'gcviz-gisgeo'
-	], function($viz, ko, i18n, gcvizFunc, gisMap, gisDG, gisGraphic, gisgeo) {
+			'gcviz-gisgraphic'
+	], function($viz, ko, i18n, gcvizFunc, gisMap, gisDG, gisGraphic) {
 		var initialize,
 			addTab,
+			addRestTab,
 			removeTab,
 			innerAddTab,
+			innerAddRestTab,
 			innerRemoveTab,
-			innerTable,
+			innerTable = 0,
 			vm;
 
 		initialize = function($mapElem, mapid, config) {
@@ -120,8 +122,9 @@
 				_self.isEnableNext = ko.observable(false);
 				_self.popupCounter = ko.observable('');
 
-				// variable to start the progress dialog
+				// variable to start the progress dialog and notify all tables are created
 				_self.isWait = ko.observable(false);
+				_self.isTableReady = ko.observable(false);
 
 				// variable to start export csv message
 				_self.isExport = ko.observable(false);
@@ -133,28 +136,12 @@
 					$datagrid.accordion({
 						collapsible: true,
 						active: false,
-						activate: function(e, ui) {
+						activate: function() {
 							// redraw to align header and column
 							objDataTable[0].draw();
 						}
 					});
 					$viz('.ui-accordion-header').hide();
-
-					// start progress dialog. Put in a timer if not, the variable is not initialize
-					intervalModal = setInterval(function() {
-						// check if identity manager window is open. If so wait until finish before show modal
-						var id = $viz('.esriSignInDialog');
-
-						// if table are created, do not show modal
-						if (tableReady) {
-							_self.isWait(false);
-							clearInterval(intervalModal);
-						} else if (id.length === 0 || id[0].style.display === 'none') { // if no id or id is display, show modal
-							_self.isWait(true);
-						} else {
-							_self.isWait(false);
-						}
-					}, 1000);
 
 					// wait for the map to load
 					mymap.on('load', function() {
@@ -170,18 +157,48 @@
 						// if a table initialize slower then next one, position can be messed up.
 						objDataTable = new Array(lenLayers);
 
-						// loop all layers inside an interval to make sure there is no mess up with the index
-						// When they start at the same time, index can be switch to another table and the geometries
-						// doesn't match the table anymore.
-						interval = setInterval(function() {
-							_self.getData(layers[i], i);
-							i++;
+						// if there is no tables, set is ready to true.
+						if (lenLayers === 0) {
+							_self.isTableReady(true);
+						} else {
+							// start progress dialog. Put in a timer if not, the variable is not initialize
+							intervalModal = setInterval(function() {
+								// check if identity manager window is open. If so wait until finish before show modal
+								var id = $viz('.esriSignInDialog');
 
-							if (i === lenLayers) {
-								clearInterval(interval);
-							}
-						}, 500);
+								// if table are created, do not show modal
+								if (tableReady) {
+									_self.isWait(false);
+									clearInterval(intervalModal);
+								} else if (id.length === 0 || id[0].style.display === 'none') { // if no id or id is display, show modal
+									_self.isWait(true);
+								} else {
+									_self.isWait(false);
+								}
+							}, 1000);
+
+							// loop all layers inside an interval to make sure there is no mess up with the index
+							// When they start at the same time, index can be switch to another table and the geometries
+							// doesn't match the table anymore.
+							interval = setInterval(function() {
+								_self.getData(layers[i], i);
+								i++;
+
+								if (i === lenLayers) {
+									clearInterval(interval);
+								}
+							}, 500);
+						}
 					});
+				};
+
+				_self.focusTables = function() {
+					var element = document.getElementById('table-' + mymap.vIdName + '-' + activeTableId + '_wrapper');
+
+					element.focus();
+					if (scroll) {
+						element.scrollIntoView();
+					}
 				};
 
 				_self.openWait = function(event) {
@@ -215,11 +232,11 @@
 					strField = '';
 					while (fieldsLen--) {
 						field = fields[fieldsLen];
-						fieldType = field.type;
+						fieldType = field.fieldtype;
 						strField += field.data + ',';
 
 						// add url value field if type field === url
-						if (fieldType.field === 'url') {
+						if (fieldType.type === 3) {
 							strField += fieldType.urlfield + ',';
 						}
 					}
@@ -294,7 +311,7 @@
 						deferRender = false,
 						link = false,
 						searchInd = 1,
-						$table = $viz('#table-' + mapid + '-' + pos),
+						$table = $('#table-' + mapid + '-' + pos),
 						dom = 'irtp';
 
 					// check if we need to add a columns to open/close link info
@@ -408,7 +425,7 @@
 					}
 				};
 
-				_self.initCompl = function(inTable, deferRender) {
+				_self.initCompl = function(inTable) {
 					var $elemFilter, $elemCSV, $tools,
 						idTable = inTable.sTableId,
 						idxTable = idTable.split('-'),
@@ -421,24 +438,27 @@
 					$info.after('<div class="gcviz-dg-tools"></div>');
 					$tools = $viz($info[0].parentElement.getElementsByClassName('gcviz-dg-tools'));
 
-					// disable spatial and on map for not type 4 or 5
+					// filter on map for layer not type 4 or 5
 					// FeatureLayer: layer created by value (from a feature collection) does not support definition expressions and time definitions
 					if (type === 4 || type === 5) {
 						// add the show selection on map button
 						$tools.append('<button id="applyfilter-' + id + '" class="gcviz-dg-applyfilter gcviz-dg-pad"></button><label class="gcviz-label" for="applyfilter-' + id + '">' + _self.lblApplyfilters + '</label>');
 						$elemFilter = $viz('.gcviz-dg-applyfilter');
 						gcvizFunc.addTooltip($elemFilter, { content: _self.tpApplyFilters });
-	
-						// add the select on map button
-						$tools.append('<button id="selFeat-' + id + '" class="gcviz-dg-selfeat gcviz-dg-pad"></button><label class="gcviz-label" for="selFeat-' + id + '">' + _self.lblSelectFeatures + '</label>');
-						$elemFilter = $viz('.gcviz-dg-selfeat');
-						gcvizFunc.addTooltip($elemFilter, { content: _self.tpSelectFeatures });
 					}
-					
+
 					// add the clear filter button
 					$tools.append('<button id="clearfilter-' + id + '" tableid="' + idTable + '" class="gcviz-dg-filterclear gcviz-dg-pad"></button><label class="gcviz-label" for="clearfilter-' + id + '">' + _self.lblClearFilters + '</label>');
 					$elemFilter = $viz('.gcviz-dg-filterclear');
 					gcvizFunc.addTooltip($elemFilter, { content: _self.tpClearFilters });
+
+					// disable spatial for layer not type 4 or 5
+					// FeatureLayer: layer created by value (from a feature collection) does not support definition expressions and time definitions
+					if (type === 4 || type === 5) {
+						$tools.append('<button id="selFeat-' + id + '" class="gcviz-dg-selfeat gcviz-dg-pad"></button><label class="gcviz-label" for="selFeat-' + id + '">' + _self.lblSelectFeatures + '</label>');
+						$elemFilter = $viz('.gcviz-dg-selfeat');
+						gcvizFunc.addTooltip($elemFilter, { content: _self.tpSelectFeatures });
+					}
 
 					// add export csv button
 					$tools.append('<button id="exportcsv-' + id +'" class="gcviz-dg-exportcsv gcviz-dg-pad"></button><label class="gcviz-label" for="exportcsv-' + id + '">' + _self.lblExportTableCSV + '</label>');
@@ -456,19 +476,19 @@
 							elem = $viz(this).append('<label class="gcviz-gd-zoomlbl" for="zoomSel-' + id + '">Zoom</label><button id="zoomSel-' + id + '" class="gcviz-dg-zoomsel"></button>');
 							gcvizFunc.addTooltip(elem, { content: _self.lblZoomSelect });
 						} else if (column.bSearchable) {
-							valueType = column.type.value;
+							valueType = column.fieldtype.value;
 
-							if (valueType === 'string') {
+							if (valueType === 1) {
 								// add string filter
 								$viz(this).append('<input type="text" class="gcviz-dg-search gcviz-dg-searchstr" gcviz-name="' + column.data + '" placeholder="' + _self.search + '"></input>');
-							} else if (valueType === 'number') {
+							} else if (valueType === 2) {
 								// add numeric filter
 								$viz(this).append('<div><input type="text" class="gcviz-dg-search gcviz-dg-searchnum" gcviz-name="' + column.data + '" placeholder="Min"></input>' +
 													'<input type="text" class="gcviz-dg-search gcviz-dg-searchnum" gcviz-name="' + column.data + '" placeholder="Max"></input></div>');
-							} else if (valueType === 'select') {
+							} else if (valueType === 4) {
 								// dropdowm select box
 								$viz(this).append('<select class="gcviz-dg-search gcviz-dg-searchdrop" gcviz-name="' + column.data + '"><option value=""></option></select>');
-							} else if (valueType === 'date') {
+							} else if (valueType === 3) {
 								// date picker
 								$viz(this).append('<div><input type="text" class="gcviz-dg-search gcviz-dg-searchdate" gcviz-name="' + column.data + '" placeholder="Date Min"></text>' +
 													'<input type="text" class="gcviz-dg-search gcviz-dg-searchdate" gcviz-name="' + column.data + '" placeholder="Date Max"></text></div>');
@@ -483,7 +503,7 @@
 				_self.addSearcFields = function(table, fields) {
 					// apply the search by field
 					table.columns().eq(0).each(gcvizFunc.closureFunc(function(fields, table, colIdx) {
-						var fieldValue = fields[colIdx].type.value,
+						var fieldValue = fields[colIdx].fieldtype.value,
 							tableId = table.settings()[0].sTableId;
 
 						if (colIdx === 0) { // select checkbox
@@ -501,7 +521,7 @@
 								}
 								return true;
 							}, tableId));
-						} else if (fieldValue === 'string' && fields[colIdx].bSearchable) {
+						} else if (fieldValue === 1 && fields[colIdx].bSearchable) {
 							// set a debounce functiojn to apply filter only after 1 second of inactivity
 							$viz('input', table.column(colIdx).header()).on('keyup', gcvizFunc.debounce(function() {
 								// put the draw in a timeout if not, the processing will not be shown
@@ -513,13 +533,13 @@
 									$process.css('display', 'none');
 								}, value), 100);
 							}, 750, false));
-						} else if (fieldValue === 'number' && fields[colIdx].bSearchable) {
+						} else if (fieldValue === 2 && fields[colIdx].bSearchable) {
 							// https://datatables.net/examples/plug-ins/range_filtering.html
 							var $inputs = $viz('input', table.column(colIdx).header());
 
 							// add the range filter search
-							$.fn.dataTable.ext.search.push(gcvizFunc.closureFunc(function(inputs, tableId, settings, data, dataIndex) {
-								var min, max, val, index,
+							$.fn.dataTable.ext.search.push(gcvizFunc.closureFunc(function(inputs, tableId, settings, data) {
+								var min, max, val,
 									flag = false,
 									dataId = settings.sTableId;
 
@@ -540,10 +560,10 @@
 								}
 
 								return flag;
-						    }, $inputs, tableId));
+							}, $inputs, tableId));
 
 							// set a debounce functiojn to apply filter only after 1 second of inactivity
-							$inputs.on('keyup', gcvizFunc.debounce(function(e) {
+							$inputs.on('keyup', gcvizFunc.debounce(function() {
 								// put the draw in a timeout if not, the processing will not be shown
 								var $process = $viz('.dataTables_processing');
 
@@ -554,12 +574,12 @@
 								}, 250);
 							}, 750, false));
 
-						} else if (fieldValue === 'select') {
+						} else if (fieldValue === 4) {
 							// http://datatables.net/examples/api/multi_filter_select.html
 							var $select = $viz('select', table.column(colIdx).header());
 
 							// add values to dropdown
-							table.column(colIdx).data().unique().sort().each(function(d, j) {
+							table.column(colIdx).data().unique().sort().each(function(d) {
 								$select.append('<option value="' + d + '">' + d + '</option>');
 							});
 
@@ -573,7 +593,7 @@
 									$process.css('display', 'none');
 								}, 100);
 							});
-						} else if (fieldValue === 'date') {
+						} else if (fieldValue === 3) {
 							var $inputs = $viz('input', table.column(colIdx).header()),
 								lang = window.langext.substring(0,2),
 								opts = {
@@ -594,11 +614,11 @@
 							$inputs.closest('th').attr('col-index', colIdx);
 
 							// add the date range filter search
-							$.fn.dataTable.ext.search.push(gcvizFunc.closureFunc(function(inputs, tableId, settings, data, dataIndex) {
-       							var min, max, val, index,
-       								isMinDate, isMaxDate, isValDate,
-       								flag = false,
-       								dataId = settings.sTableId;
+							$.fn.dataTable.ext.search.push(gcvizFunc.closureFunc(function(inputs, tableId, settings, data) {
+								var min, max, val,
+									isMinDate, isMaxDate, isValDate,
+									flag = false,
+									dataId = settings.sTableId;
 
 								// if it is active table filter data, if not return all data
 								if (tableId === dataId) {
@@ -609,26 +629,26 @@
 									isMaxDate = !isNaN(max.getYear()),
 									isValDate = !isNaN(val.getYear());
 
-		 							// test if dates are valid and compare 
-		 							if (!isMinDate && !isMaxDate) {
-		 								// if no filter return true
-		 								flag = true;
-		 							} else if ((isMinDate || isMaxDate) && !isValDate) {
-		 								// if dates are provided and the data is not a date, return false.
-		 								flag = false;
-		 							} else if (val >= min && !isMaxDate) {
-		 								flag = true;
-		 							} else if (!isMinDate && val <= max) {
-		 								flag = true;
-		 							} else if (val >= min && val <= max) {
-		 								flag = true;
-		 							}
+									// test if dates are valid and compare 
+									if (!isMinDate && !isMaxDate) {
+										// if no filter return true
+										flag = true;
+									} else if ((isMinDate || isMaxDate) && !isValDate) {
+										// if dates are provided and the data is not a date, return false.
+										flag = false;
+									} else if (val >= min && !isMaxDate) {
+										flag = true;
+									} else if (!isMinDate && val <= max) {
+										flag = true;
+									} else if (val >= min && val <= max) {
+										flag = true;
+									}
 								} else {
 									flag = true;
 								}
 
 								return flag;
-						    }, $inputs, tableId));
+							}, $inputs, tableId));
 
 							$inputs.on('change', function() {
 								// put the draw in a timeout if not, the processing will not be shown
@@ -649,13 +669,21 @@
 						fields = layer.fields,
 						lenFields = fields.length;
 
+					// field type can be (field: 1, keyurl: 2, url: 3, fieldurl: 4, fieldkeyurl: 5, control: 99)
+					// field value can be (string: 1, number: 2, date: 3, select: 4, image: 5, string-list: 6, image-list: 7)
+					// for field, nothing special, value can be anything
+					// for keyurl, (value: string, display: value to display, url: url to use with the key)
+					// for url, nothing special, just display the link (value: string, image, string-list, image-list)
+					// for fieldurl, (value: string, urlfield: name of the field where to get url, urlfieldalias: alias name of the field where to get url)
+					// for fieldkeyurl, (value: string, string-list, image, image-list, url: url to use with the key, fieldkey: name of the field where to get url, urlfieldalias: alias name of the field where to get url)
+					// for value date (informat: esri: 1, outformat: short: 1, long: 2)
 					while (lenFields--) {
 						field = fields[lenFields];
-						typeObj = field.type;
+						typeObj = field.fieldtype;
 
 						// if url, construct it.
 						// if nothing, add ... to string field when length is more then 40 characters
-						if (typeObj.field === 'url') {
+						if (typeObj.type === 3) {
 							field.render = gcvizFunc.closureFunc(function(typeObj, data, type, full) {
 								return '<a href="' + full[typeObj.urlfield] + '" target="_blank">' + data + '</a>';
 							}, typeObj);
@@ -663,10 +691,10 @@
 							field.render = function(data, type) {
 								if (data !== null && typeof data !== 'undefined') {
 									// remove double quote
-									if (typeof data === 'string') {
+									if (typeof data === 1) {
 										data = data.replace(/"/g, '');
 									}
-	
+
 									// for wcag we add a text input read only. This element is focusable so we can have
 									// the tooltip. Wrap in a relative position div to have the tooltip at the right
 									// after a scroll
@@ -690,8 +718,8 @@
 							width: '30px',
 							searchable: false,
 							orderable: false,
-							type: {
-								value: 'button'
+							fieldtype: {
+								value: 99
 							},
 							defaultContent: ''
 						});
@@ -705,7 +733,9 @@
 						width: '45px',
 						searchable: false,
 						orderable: false,
-						type: 'num',
+						fieldtype: {
+							value: 99
+						},
 						render: function (data, type) {
 									if (type === 'display') {
 										return '<input type="checkbox" class="gcviz-dg-select"></input>';
@@ -769,12 +799,24 @@
 								objDataTable[len].draw();
 							}
 						});
+
+						// notify tables are ready
+						_self.isTableReady(true);
 					}
 
 					// new table have been added
 					if (table > tables) {
 						$datatab.tabs('refresh');
 						$datagrid.accordion('refresh');
+
+						// make sure the wait window is close
+						_self.isWait(false);
+
+						// there is a problem with the define. The gcviz-vm-tbdata is not able to be set.
+						// We set the reference to gcviz-vm-tbdata (hard way)
+						require(['gcviz-vm-tbdata'], function(vmData) {
+							vmData.notifyAdd();
+						});
 					}
 
 					// increment triggerTableId
@@ -784,7 +826,7 @@
 				_self.setEvents = function(pos) {
 					var $table = $viz('#table-' + mapid + '-' + pos),
 						$tabs = $viz('#tabs-' + mapid + '-' + pos);
-					
+
 					// set checkbox event
 					$table.on('change', '.gcviz-dg-select', function(e) {
 						// select or unselect feature on map
@@ -801,7 +843,7 @@
 					});
 
 					// export csv
-					$tabs.on('click', '.gcviz-dg-exportcsv', function(e) {
+					$tabs.on('click', '.gcviz-dg-exportcsv', function() {
 						var table = objDataTable[activeTableId],
 							filterRows = table.rows({ filter: 'applied' }).data().toArray();
 						_self.exportCSV(filterRows);
@@ -814,12 +856,12 @@
 					});
 
 					// set select item on map event
-					$tabs.on('click', '.gcviz-dg-selfeat', function(e) {
+					$tabs.on('click', '.gcviz-dg-selfeat', function() {
 						// check if WCAG mode is enable, if so use dialog box instead)
 						if (!_self.isWCAG()) {
 							// set draw box cursor
 							$container.css('cursor', 'crosshair');
-		
+
 							// get active menu and close it if open
 							menuState = $menu.accordion('option', 'active');
 							if (menuState !== false) {
@@ -835,13 +877,13 @@
 							// remove popup click event if it is there to avoid conflict then
 							// call graphic class to draw on map.
 							gisDG.removeEvtPop();
-	
+
 							// there is a bug when in full screen and do a zoom to select. There is an offset in y
 							// so popup is not available. To resolve this, resize map.
 							mymap.resize();
-	
+
 							drawTool = gisGraphic.drawBox(mymap, true, _self.selExtent);
-	
+
 							// focus the map
 							gcvizFunc.focusMap(mymap, true);
 						} else {
@@ -1027,7 +1069,7 @@
 				};
 
 				_self.selectAll = function(fields, val, graphic) {
-					var row, rows, len, tableId, fieldsLen,
+					var row, rows, len, fieldsLen,
 						i = 0,
 						info = { };
 
@@ -1063,7 +1105,7 @@
 					gisDG.zoomFeatures(geom);
 				};
 
-				_self.zoomSelect = function(target) {
+				_self.zoomSelect = function() {
 					var feat,
 						i = 0,
 						data = objDataTable[activeTableId].rows({ filter: 'applied' }).data(),
@@ -1193,12 +1235,10 @@
 				};
 
 				_self.applyFilterMap = function(target) {
-					var input, val, name, lyrDef, dateTmp,
+					var input, val, name, dateTmp,
 						defs = [],
 						definition = '',
-						table = objDataTable[activeTableId],
 						info = arrLayerInfo[activeTableId].layerinfo,
-						layerId = info.id,
 						inputs = $viz(target).parent().parent().find('.gcviz-dg-search'),
 						len = inputs.length;
 
@@ -1234,7 +1274,7 @@
 					definition = defs.join(' AND ');
 
 					// concat if there is an existing query and set query
-					definition = _self.concatDefQuery(info, definition, false);
+					definition = _self.concatDefQuery(info, definition, 0, false);
 					_self.applyDefQuery(info, definition);
 				};
 
@@ -1252,9 +1292,8 @@
 					}
 				};
 
-				_self.concatDefQuery = function(layerInfo, defQuery, spatial) {
+				_self.concatDefQuery = function(layerInfo, defQuery, nbFeatures, spatial) {
 					var iStart, iEnd, tmpStrLen,
-						queryLen,
 						queryNoId = '',
 						tmpStr = '',
 						lyrDef = '',
@@ -1271,7 +1310,7 @@
 					// check if query never been initialize
 					if (typeof lyrDef === 'undefined') {
 						lyrDef = '';
-					};
+					}
 
 					// if it is a statial query remove spatial part then concat
 					// If not, add the spatial part then concat.
@@ -1310,22 +1349,21 @@
 						}
 					}
 
-					// combine query if it dont exceed the 2048 characters limits on definition query
-					queryLen = defQuery.length;
-					if (queryLen > 2048) {
+					// combine query if theres is more then 1000 features because there is a bug (max record count on layer set to 1000
+					// and we cant change the value in ArcGIS server 10.1)
+					if (nbFeatures >= 1000) {
 						defQuery = queryNoId;
 					}
-					
+
 					return defQuery;
 				};
 
 				_self.dialogWCAGOk = function() {
-					var arr,
-						ymin = _self.yValueMin(),
+					var ymin = _self.yValueMin(),
 						xmin = _self.xValueMin(),
 						ymax = _self.yValueMax(),
 						xmax = _self.xValueMax();
-					
+
 					// draw box
 					gisGraphic.drawWCAGBox(xmin, ymin, xmax, ymax, 4326, mymap.vWkid, _self.selExtent);
 
@@ -1389,9 +1427,9 @@
 							// loop trought graphics, add them to array and call setSelection
 							while (i <= len) {
 								graphic = graphics[i];
-							 	if (geometry.contains(graphic.geometry)) {
-							 		features.push(graphic);
-							 	}
+								if (geometry.contains(graphic.geometry)) {
+									features.push(graphic);
+								}
 								i++;
 							}
 
@@ -1408,15 +1446,13 @@
 				};
 
 				_self.setSelection = function(features) {
-					var dataId, item, definition, lyrDef,
-						info = { },
+					var dataId, item, definition,
 						i = 0,
-						j = 0,
 						info = arrLayerInfo[activeTableId].layerinfo,
-						layerId = info.id,
 						data = objDataTable[activeTableId].data(),
 						lenData = data.length,
 						lenFeats = features.length,
+						oriLenFeats = lenFeats,
 						featIds = new Array(lenFeats);
 
 					// create an array with all the objectid to select
@@ -1453,7 +1489,7 @@
 					definition = 'OBJECTID IN (' + featIds.join(',') + ')';
 
 					// concat if there is an existing query and set query
-					definition = _self.concatDefQuery(info, definition, true);
+					definition = _self.concatDefQuery(info, definition, oriLenFeats, true);
 					_self.applyDefQuery(info, definition);
 				};
 
@@ -1479,6 +1515,25 @@
 					// add tab and table
 					_self.createTab(datas);
 				};
+
+				innerAddRestTab = function(url, layer) {
+					var urlFull = url + '/query?where=OBJECTID+>+0&outFields=*&dirty=' + (new Date()).getTime(),
+						layerInfo = layer.layerinfo;
+
+					// get data
+					gisDG.getData(urlFull, layer, _self.createTab);
+
+					// popup (remove layer index)
+					url = url.substring(0, url.indexOf('MapServer/') + 10);
+					gisDG.createIdTask(url, layerInfo.index, layerInfo.id, 5, _self.returnIdTask);
+
+					// add title and layer name alias to a lookup table for popups
+					lookPopups.push([layer.popups.layeralias, layer.title]);
+
+					// add layer definition to config file
+					config.layers.push(layer);
+				};
+
 				innerRemoveTab = _self.removeTab;
 
 				// ********* popup section **********
@@ -1578,12 +1633,12 @@
 
 								for (var l = 0; l < attrNames.length; l++) {
 									if (field.dataalias.toUpperCase() === attrNames[l].toUpperCase()) {
-										fieldType = field.type.field;
+										fieldType = field.fieldtype.type;
 
 										// if url, construct it
-										if (fieldType === 'url') {
+										if (fieldType === 3) {
 											info = '<span class="gcviz-prop">' + field.title + '</span></br>' +
-													'<a class="gcviz-popup-val" href="' + attrValues[gcvizFunc.returnIndexMatch(attrNames, field.type.urlfieldalias)] + '" target="_blank">' + attrValues[l] + '</a></br>' +
+													'<a class="gcviz-popup-val" href="' + attrValues[gcvizFunc.returnIndexMatch(attrNames, field.fieldtype.urlfieldalias)] + '" target="_blank">' + attrValues[l] + '</a></br>' +
 													info;
 										} else {
 											info = '<span class="gcviz-prop">' + field.title + '</span>' +
@@ -1769,8 +1824,8 @@
 
 					// do not let the user set to height too low. For width, we dont have
 					// to do it because minWidth works.
-					if (height < 200) {
-						height = 200;
+					if (height < 100) {
+						height = 100;
 					}
 
 					$popContent.css('height', height + 'px');
@@ -1813,9 +1868,9 @@
 					delete field.name;
 					field.width = '80px';
 					field.searchable = true;
-					field.type = {
-						field: 'field',
-						value: 'string'
+					field.fieldtype = {
+						type: 1,
+						value: 1
 					};
 
 					fields.push(field);
@@ -1848,16 +1903,81 @@
 			layer.linktable = { 'enable': false };
 
 			// add layer info to first element
-			layer.layerinfo = { 
+			layer.layerinfo = {
 								'pos': table,
 								'id': layerId,
 								'type': 7
 							};
 			datas[0].layer = layer;
-							
+
 			// call the inner create tab function (if datagrid is enable)
 			if (typeof innerAddTab !== 'undefined') {
 				innerAddTab(datas, title, layer);
+			}
+		};
+
+		addRestTab = function(url, featLayer) {
+			var field, outfield, fieldName, fieldType,
+				defaultFields ='OBJECTID, Shape, SHAPE.AREA, SHAPE.LEN',
+				outFields = [],
+				layer = { },
+				name = featLayer.name,
+				table = innerTable,
+				fields = featLayer.fields,
+				lenFields = fields.length;
+
+			// remove shape fields. Recreate fields instead of copying them because
+			// there is hidden key that makes datatable to crash.
+			while (lenFields--) {
+				field = fields[lenFields];
+				fieldName = field.name;
+				fieldType = field.fieldtype;
+
+				if (defaultFields.indexOf(fieldName) === -1) {
+					outfield = { },
+					outfield.title = field.alias;
+					outfield.data = field.name;
+					outfield.dataalias = field.name;
+					outfield.width = '100px';
+					outfield.searchable = true;
+
+					outfield.fieldtype = {
+							type: 1
+						};
+					if (fieldType === 'esriFieldTypeDate') {
+						outfield.fieldtype.value = 3;
+						outfield.fieldtype.informat = 1;
+						outfield.fieldtype.outformat = 1;
+						outfield.width = '200px';
+					} else if (fieldType === 'esriFieldTypeDouble' || fieldType === 'esriFieldTypeInteger' || fieldType === 'esriFieldTypeSmallInteger') {
+						outfield.fieldtype.value = 2;
+					} else {
+						outfield.fieldtype.value = 1;
+					}
+
+					outFields.push(outfield);
+				}
+			}
+
+			// recreate layerinfo like we have in config file from data added from
+			// data toollbar.
+			layer.title = name;
+			layer.mapid = featLayer._map.vIdName;
+			layer.fields = outFields;
+			layer.globalsearch = false;
+			layer.popups = { 'enable': true,
+							'layeralias': name };
+			layer.linktable = { 'enable': false };
+			layer.layerinfo = {
+								'pos': table,
+								'id': featLayer.id,
+								'type': 5,
+								'index': featLayer.layerId
+							};
+
+			// call the inner create tab function (if datagrid is enable)
+			if (typeof innerAddRestTab !== 'undefined') {
+				innerAddRestTab(url, layer);
 			}
 		};
 
@@ -1868,6 +1988,7 @@
 		return {
 			initialize: initialize,
 			addTab: addTab,
+			addRestTab: addRestTab,
 			removeTab: removeTab
 		};
 	});

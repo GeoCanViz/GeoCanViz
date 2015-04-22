@@ -5,7 +5,7 @@
  *
  * GIS datagrids functions
  */
-/* global esri: false, dojo: false */
+/* global dojo: false */
 (function () {
 	'use strict';
 	define(['jquery-private',
@@ -102,7 +102,7 @@
 			require(['gcviz-gissymbol'], function(gissymb) {
 				// set symbologies
 				symbPoint = gissymb.getSymbPoint(color, 14, colorOut, 1.5);
-				symbLine = gissymb.getSymbLine(color, 5 , colorOut);
+				symbLine = gissymb.getSymbLine(colorOut, 3);
 				symbPoly = gissymb.getSymbPoly(colorOut, color, 1.5);
 				symbSpatial = gissymb.getSymbPoly(spatialOut, spatial, 1);
 			});
@@ -202,14 +202,13 @@
 			// check is there field date. If so, keep name and output format
 			while (i !== fieldsLen) {
 				field = fields[i];
-				fieldType = field.type;
+				fieldType = field.fieldtype;
 
-				if (fieldType.informat === 'esri' && fieldType.value === 'date') {
+				if (fieldType.informat === 1 && fieldType.value === 3) {
 					dates.push(field.data + ';' + fieldType.outformat);
 				}
 				i++;
 			}
-			datesLen = dates.length;
 
 			// loop trought data
 			i = 0;
@@ -227,14 +226,15 @@
 				}
 
 				// if there is esri date field, we need to reformat them
-				if (datesLen !== 0) {
-					attTmp = dates[0].split(';');
+				datesLen = dates.length;
+				while (datesLen--) {
+					attTmp = dates[datesLen].split(';');
 					attDate = attTmp[0];
 					attFormat = attTmp[1];
 					tmpDate = feat.attributes[attDate];
 					if (tmpDate !== null) {
 						tmpDate = new Date(tmpDate).toISOString();
-						
+
 						if (attFormat === 'long') {
 							tmpDate = tmpDate.replace('T', ' - ');
 						} else {
@@ -442,8 +442,7 @@
 				i = 0,
 				deferred = [],
 				defList = [],
-				lenTask = idTasksArr.length,
-				lenDef = lenTask;
+				lenTask = idTasksArr.length;
 
 			// reset task for file layer
 			deferredGraph = [];
@@ -457,14 +456,14 @@
 				layerType = info.layerType;
 				layerIndex = info.layerIndex;
 				layer = mymap.getLayer(info.layerId);
-				
+
 				// identify tasks setup parameters
 				idParams.geometry = event.mapPoint;
 				idParams.mapExtent = mymap.extent;
 				idParams.width = mymap.width;
 				idParams.height = mymap.height;
 				idParams.tolerance = 10;
-	
+
 				// set definition query
 				if (layerType === 4) {
 					arrDef = layer.layerDefinitions;
@@ -472,13 +471,13 @@
 					lyrDef = layer.getDefinitionExpression();
 					if (typeof lyrDef === 'undefined') {
 						lyrDef = '';
-					};
+					}
 
 					arrDef = new Array(layerIndex + 1);
 					arrDef[layerIndex] = lyrDef;
 				}
 				idParams.layerDefinitions = arrDef;
-			
+
 				// set layer to query then excute (if layer is visible)
 				idTask = idTasksArr[i];
 				if (layer.visible) {
@@ -520,8 +519,8 @@
 			while (index < len) {
 				layer = mymap.getLayer(graphId[index]);
 
-				// do it only for visible layer and not a internal esri graphic layer
-				if (layer.visible && layer.id.search('graphicsLayer') !== 0) {
+				// do it only for visible layer, not internal esri graphic layer or REST feature layer
+				if (layer.visible && layer.id.search('graphicsLayer') !== 0 && layer.id.search('gcviz-') !== 0 && layer.type !== 'Feature Layer') {
 					task = layer.selectFeatures(query, esriFeatLayer.SELECTION_NEW);
 
 					// reset feature

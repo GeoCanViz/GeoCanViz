@@ -46,30 +46,35 @@
 						'</div>';
 			}
 
-			// set overview map
-			if (configOverview) {
+			// set overview map and scale
+			if (configOverview || configScaleDisplay) {
 				node += '<div class="row gcviz-nav-overview">' +
 							'<span class="gcviz-subtitle" data-bind="text: OVLabel"></span>' +
 							'<div class="row">' +
 								'<div class="span1"></div>' +
-								'<div class="span10">' +
-									'<div id="ovtoolcontainer' + mapid + '" class="gcviz-ovtoolcontainer">' +
-										'<div id="ovMapContainer' + mapid + '" class="gcviz-overviewMap" data-bind="tooltip: { content: tpOverview }">' +
-											'<div id="divOverviewMap' + mapid + '"></div>' +
-										'</div>' +
-									'</div>' +
-									'<input class="gcviz-leg-check" type="checkbox" data-bind="event: { click: showOVMap }, clickBubble: false, attr: { alt: $root.tpVisible, id: \'chk-ov-display\' }, checked: isOVShowMap"/>' +
+								'<div class="span10">';
+
+							// set overview map
+							if (configOverview) {
+								node += '<div id="ovtoolcontainer' + mapid + '" class="gcviz-ovtoolcontainer">' +
+											'<div id="ovMapContainer' + mapid + '" class="gcviz-overviewMap" data-bind="tooltip: { content: tpOverview }">' +
+												'<div id="divOverviewMap' + mapid + '"></div>' +
+											'</div>' +
+										'</div>';
+							}
+							
+							// set scale display
+							if (configScaleDisplay) {
+								node += '<div class="row gcviz-nav-scale">' +
+											'<div id="scaletool' + mapid + '"><span class="gcviz-scaleDisplayLabel" data-bind="text: lblScale"></div>' +
+										'</div>';
+							}
+
+							// add show on map control
+							node += '<input class="gcviz-leg-check" type="checkbox" data-bind="event: { click: showOVMap }, clickBubble: false, attr: { alt: $root.tpVisible, id: \'chk-ov-display\' }, checked: isOVShowMap"/>' +
 									'<label class="gcviz-label gcviz-nav-lblovdisp" for="chk-ov-display" data-bind="text: OVDisplayLabel"></label>' +
 								'</div>' +
 							'</div>' +
-						'</div>';
-			}
-
-			// set scale display
-			if (configScaleDisplay) {
-				node += '<div class="row gcviz-nav-scale">' +
-							'<div class="span1"></div>' +
-							'<div id="scaletool' + mapid + '" class="span11"><span class="gcviz-scaleDisplayLabel" data-bind="text: lblScale"></div>' +
 						'</div>';
 			}
 

@@ -30,12 +30,12 @@
 						'<div id="gcviz-datagrid' + mapid + '" class="gcviz-datagrid">' +
 							'<h3 id="gcviz-datahead' + mapid + '"></h3>' +
 							'<div id="gcviz-datatab' + mapid + '" class="gcviz-datagrid-hold">' +
-								'<ul class="gcviz-datagrid-ul"></ul>' +
+								'<ul class="gcviz-datagrid-ul" data-bind="click: focusTables"></ul>' +
 							'</div>' +
 						'</div>' +
 
 						// popup
-						'<div id="gcviz-popup' + mapid + '" class="gcviz-popup" data-bind="uiDialog: { title: popupDialogTitle, minWidth: 350, minHeigth: 325, close: dialogPopupClose, openDialog: \'isPopupDialogOpen\', ' +
+						'<div id="gcviz-popup' + mapid + '" class="gcviz-popup" data-bind="uiDialog: { title: popupDialogTitle, width: 350, minWidth: 200, minHeigth: 200, close: dialogPopupClose, openDialog: \'isPopupDialogOpen\', ' +
 																										'modal: false, resizable: true, draggable: true, resizeStop: setPopupSize, ' +
 																										'position: { within: \'#' + mapid + '_holder\', at: \'' + side + ' bottom\' } }">' +
 							'<select id="popupSelect' + mapid + '" class="gcviz-popup-select" data-bind="options: layerName, value: selectedLayer, event: { change: changeSelectLayer }, ' +

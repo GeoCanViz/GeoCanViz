@@ -131,6 +131,11 @@
 	@include app-text(1, normal);
 }
 
+.gcviz-leg-custom {
+	@extend %legspan;
+	@include app-text(1.1, bold, $orange-darkborder);
+}
+
 .gcviz-legendSymbolDiv {
 	vertical-align: middle;
 	padding-left: (3.5 * $rembase) + rem;

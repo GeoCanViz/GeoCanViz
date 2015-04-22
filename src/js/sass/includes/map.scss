@@ -143,6 +143,41 @@ html[data-useragent*='IE10'] .esriLargeSliderVertical {
 	top: (7.5 * $rembase) + rem!important;
 }
 
+// previous / next extent
+%previousextent {
+	@include sprite($img-spritepopupbtn, -3, -2);
+	position: absolute!important;
+	top: (4 * $rembase) + rem!important;
+	z-index: 30;
+}
+
+%nextextent {
+	@include sprite($img-spritepopupbtn, -39, -2);
+	position: absolute!important;
+	top: (4 * $rembase) + rem!important;
+	z-index: 30;
+}
+
+.gcviz-map-previousl {
+	@extend %previousextent;
+	left: (4 * $rembase) + rem!important;
+}
+
+.gcviz-map-nextl {
+	@extend %nextextent;
+	left: (6.5 * $rembase) + rem!important;
+}
+
+.gcviz-map-previousr {
+	@extend %previousextent;
+	right: (6.5 * $rembase) + rem!important;
+}
+
+.gcviz-map-nextr {
+	@extend %nextextent;
+	right: (4 * $rembase) + rem!important;
+}
+
 // to be used by the help
 .gcviz-map-zoommax {
 	@include sprite($img-spritebtn, -1012, -2);

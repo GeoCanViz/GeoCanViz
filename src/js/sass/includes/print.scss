@@ -11,11 +11,13 @@
 }
 
 .gcviz-printRow {
-    display: table-row;
+	display: table-row;
 	text-align: left;
+	padding-bottom: (0.5 * $rembase) + rem;
 }
 
 .gcviz-printColLabel {
+	@include app-text(1.1, normal, $black);
 	display: table-cell;
 	border: 0;
 }
@@ -25,7 +27,13 @@
 }
 
 .gcviz-printLabel {
-	padding-left: 2px;
-	padding-right: 2px;
+	padding-left: (1 * $rembase) + rem;
+	padding-right: (1 * $rembase) + rem;
+	padding-top: (0.5 * $rembase) + rem;
+	padding-bottom: (0.5 * $rembase) + rem;
+}
+
+.gcviz-printParam {
+	@include app-text(1.1, normal, $black);
 }
 

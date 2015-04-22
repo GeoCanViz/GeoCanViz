@@ -5,6 +5,7 @@
  *
  * GIS map functions
  */
+/* global esri: false */
 (function () {
 	'use strict';
 	define(['jquery-private',
@@ -37,6 +38,7 @@
 			setPanScaleLink,
 			connectLinkEvent,
 			connectEvent,
+			extentMapEvent,
 			addLayer,
 			setScaleInfo,
 			resizeMap,
@@ -44,6 +46,7 @@
 			zoomPoint,
 			zoomFeature,
 			zoomGraphics,
+			zoomExtent,
 			getMapCenter,
 			createMapMenu,
 			zoomIn,
@@ -319,6 +322,12 @@
 			}, 1000, false));
 		};
 
+		extentMapEvent = function(map, funct) {
+			map.on('extent-change', func.debounce(function() {
+				funct(map.extent);
+			}, 500, false));
+		};
+
 		addLayer = function(map, layerInfo) {
 			var layer, layerDef,
 				options,
@@ -363,39 +372,62 @@
 				map.addLayer(layer);
 
 				// set scale info
-				setScaleInfo(map, layerInfo);
+				setScaleInfo(map, layerInfo, type);
 			}
 		};
 
-		setScaleInfo = function(map, layerInfo) {
-			var layerScale,
-				scale = layerInfo.scale;
+		setScaleInfo = function(map, layerInfo, type) {
+			var $leg, layerScale, mapScale,
+				scale = layerInfo.scale,
+				min = scale.min,
+				max = scale.max;
 
 			// set scale (we need to pass the map because the scale is not properly set at this stage)
 			layerScale = map.getLayer(layerInfo.id);
-			layerScale.myMap = map;
-			layerScale.on('load', function() {
-				var $leg,
-					min = scale.min,
-					max = scale.max,
-					mapScale = layerScale.myMap.getScale();
+			mapScale = map.getScale();
 
+			// if not WMS, use the on load event to setup. If WMS, use another because the load event is not fired.
+			if (type !== 3) {
+				layerScale.myMap = map;
+				layerScale.on('load', function() {
+					var $leg,
+						min = scale.min,
+						max = scale.max,
+						mapScale = layerScale.myMap.getScale();
+
+					// set scales
+					layerScale.minScale = min;
+					layerScale.maxScale = max;
+
+					// remove mymap
+					delete layerScale.myMap;
+
+					// set scale class. We need to do this because the event
+					// scale-visibility havent been fired.
+					if (min !== 0 || max !== 0) {
+						if (min < mapScale && mapScale > max) {
+							$leg = $viz('#' + layerInfo.id);
+							$leg.addClass('gcviz-leg-dis');
+						}
+					}
+				});
+			} else {
 				// set scales
 				layerScale.minScale = min;
 				layerScale.maxScale = max;
 
-				// remove mymap
-				delete layerScale.myMap;
-
 				// set scale class. We need to do this because the event
-				// scale-visibility havent been fired.
+				// scale-visibility havent been fired. We put a timeout because
+				// we cant use the load event
 				if (min !== 0 || max !== 0) {
 					if (min < mapScale && mapScale > max) {
-						$leg = $viz('#' + layerInfo.id);
-						$leg.addClass('gcviz-leg-dis');
+						setTimeout(function() {
+							$leg = $viz('#' + layerInfo.id);
+							$leg.addClass('gcviz-leg-dis');
+						}, 2000);
 					}
 				}
-			});
+			}
 
 			// set event to know when layer is outside scale
 			layerScale.on('scale-visibility-change', function() {
@@ -479,6 +511,16 @@
 			// get the extent then zoom
 			var extent = esri.graphicsExtent(graphics); // can't load AMD
 			map.setExtent(extent.expand(1.75));
+		};
+
+		zoomExtent = function(map, extent, json) {
+			var mapExtent;
+
+			if (json) {
+				mapExtent = new esriExt(extent);
+			}
+
+			map.setExtent(mapExtent);
 		};
 
 		getMapCenter = function(map) {
@@ -605,6 +647,7 @@
 			return extent;
 		};
 
+		// we use this function to show a popup when the user zoom to a location
 		showInfoWindow = function(map, title, content, geom, offX, offY) {
 			// check if we need to set the anchor to left (see where is the menu)
 			var layer, graphics, graphic, len, point, screenPnt,
@@ -677,11 +720,13 @@
 			createInset: createInset,
 			addLayer: addLayer,
 			setScaleInfo: setScaleInfo,
+			extentMapEvent: extentMapEvent,
 			resizeMap: resizeMap,
 			resizeCenterMap: resizeCenterMap,
 			zoomPoint: zoomPoint,
 			zoomFeature: zoomFeature,
 			zoomGraphics: zoomGraphics,
+			zoomExtent: zoomExtent,
 			getOverviewLayer: getOverviewLayer,
 			getMapCenter: getMapCenter,
 			manageScreenState: manageScreenState,

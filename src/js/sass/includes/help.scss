@@ -20,11 +20,18 @@
 	min-height: (2 * $rembase) + rem;
 }
 
-.gcviz-help-bubble {
+%helpbubble {
 	margin-bottom: 0!important;
-	margin-left: (0.5 * $rembase) + rem;
 	cursor: pointer;
 	display: inline-block!important;
+}
+.gcviz-help-bubble {
+	@extend %helpbubble;
+	float: right;
+}
+
+.gcviz-wcag-bubble {
+	@extend %helpbubble;
 }
 
 .gcviz-help-bubbledesc {
@@ -72,6 +79,14 @@
 	@include spritenohover($img-spritebtn, -1625, -2);
 }
 
+.gcviz-help-zoomp {
+	@include spritenohover($img-spritepopupbtn, -3, -2);
+}
+
+.gcviz-help-zoomn {
+	@include spritenohover($img-spritepopupbtn, -39, -2);
+}
+
 .gcviz-help-help {
 	@include spritenohover($img-spritebtn, -110, -2);
 }
@@ -98,6 +113,14 @@
 
 .gcviz-help-reg {
 	@include spritenohover($img-spritebtn, -255, -2);
+}
+
+.gcviz-help-arrow {
+	@include sprite($img-spritebtn, -1122, -3, 3);
+	-webkit-transform: rotate(90deg); /* Safari & Chrome */
+	-moz-transform: rotate(90deg); /* Firefox */
+	-ms-transform: rotate(90deg); /* Internet Explorer */
+	-o-transform: rotate(90deg); /* Opera */
 }
 
 .gcviz-help-data {

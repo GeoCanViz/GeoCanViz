@@ -28,6 +28,7 @@
 					clickMeasureLength, clickMeasureArea,
 					dblclickMeasure,
 					lblDist = i18n.getDict('%toolbardraw-dist'),
+					lblSeg = i18n.getDict('%toolbardraw-seg'),
 					lblArea = i18n.getDict('%toolbardraw-area'),
 					mymap = gcvizFunc.getElemValueVM(mapid, ['map', 'map'], 'js'),
 					$container = $viz('#' + mapid + '_holder_layers'),
@@ -77,6 +78,13 @@
 				_self.isTextDialogOpen = ko.observable();
 				_self.isText = ko.observable(false);
 				_self.drawTextValue = ko.observable('');
+
+				// dialog window for length
+				_self.measureDisplayLabel = i18n.getDict('%toolbarnav-lbllengthdisplay');
+				_self.isMeasureDialogOpen = ko.observable();
+				_self.segmentMeasures = ko.observable('');
+				_self.totalMeasures = ko.observable('');
+				_self.isMeasureOnMap = ko.observable(false);
 
 				// keep color setting
 				_self.selectedColor = ko.observable();
@@ -148,10 +156,13 @@
 					_self.graphic.deactivate();
 					_self.measureType = '';
 
+					// hide measure window and reset values
+					_self.dialogMeasureClose();
+
 					// set the focus back to the right tool
 					_self.setFocus();
 
-					// open mneu
+					// open menu
 					$menu.accordion('option', 'active', 0);
 				};
 
@@ -285,25 +296,40 @@
 					$viz('.ui-tooltip').remove();
 				};
 
+				_self.dialogMeasureClose = function() {
+					_self.isMeasureDialogOpen(false);
+					_self.segmentMeasures('');
+					_self.totalMeasures('');
+				};
+
 				_self.measureLengthClick = function() {
+					var segments = 0;
+
 					globalKey = gcvizFunc.getUUID();
 					_self.closeTools('length');
 					_self.measureType = 'length';
 
 					// check if WCAG mode is enable, if so use dialog box instead!
 					if (!_self.isWCAG()) {
+						// show measure window
+						_self.isMeasureDialogOpen(true);
+
 						// set cursor (remove default cursor first and all other cursors)
 						$container.css('cursor', '');
 						$container.addClass('gcviz-draw-cursor-measure');
 
 						clickMeasureLength = mymap.on('click', function(event) {
-											_self.graphic.addMeasure(_self.measureHolder, globalKey, 0, 'km', _self.selectedColor(), event);
+											_self.graphic.addMeasure(_self.measureHolder, globalKey, 0, 'km', _self.selectedColor(), _self.isMeasureOnMap(), event);
+											_self.setSegmentLength(segments);
+											segments++;
 										});
 
 						// on double click, close line and show total length
 						dblclickMeasure = mymap.on('dbl-click', function(event) {
 							// add last point then close
-							_self.graphic.addMeasure(_self.measureHolder, globalKey, 0, 'km', _self.selectedColor(), event);
+							_self.graphic.addMeasure(_self.measureHolder, globalKey, 0, 'km', _self.selectedColor(), _self.isMeasureOnMap(), event);
+							_self.setSegmentLength(segments);
+							segments = 0;
 
 							// remove mouse mouve event that shows distance after the element is finish
 							_self.graphic.removeMouseMove();
@@ -312,7 +338,7 @@
 							// the last point is not in the sum length
 							setTimeout(function() {
 								_self.endMeasureLength();
-							}, 200);
+							}, 300);
 						});
 					} else {
 						_self.isDialogWCAG(true);
@@ -324,11 +350,50 @@
 					gcvizFunc.focusMap(mymap, false);
 				};
 
+				_self.setSegmentLength = function(segments) {
+					var pt,
+						array = _self.measureHolder(),
+						nbSeg = array.length,
+						len = nbSeg - 1;
+
+					// add value to window
+					if (len > 0) {
+						// put in a timeout to let gisGraphic and gisGeoprocessing generate the distance
+						setTimeout(function() {
+							pt = array[len];
+							if (pt.hasOwnProperty('distance') && segments < nbSeg) {
+								_self.segmentMeasures(_self.segmentMeasures() + lblSeg + pt.distance + ' km<br/>');
+								_self.setTotalMeasure(array, nbSeg);
+							}
+						}, 1000);			
+					} else {
+						// the array only have 1 point, it is a new line, reinitalize the value
+						_self.segmentMeasures('');
+						_self.totalMeasures('');
+					}
+				};
+
+				_self.setTotalMeasure = function(array, len) {
+					var pt,
+						dist = 0;
+
+					// calculate values and add to window
+					while (len--) {
+						pt = array[len];
+
+						if (pt.hasOwnProperty('distance')) {
+							dist += pt.distance;
+						}
+					}
+					dist = Math.floor(dist * 100) / 100;
+					_self.totalMeasures(lblDist + dist + ' km');
+				};
+
 				_self.endMeasureLength = function() {
 					var len = _self.measureHolder().length;
 
 					if (len >= 2) {
-						_self.graphic.addMeasureSumLength(_self.measureHolder, globalKey, 'km');
+						_self.graphic.addMeasureSumLength(_self.measureHolder, globalKey, 'km', _self.isMeasureOnMap());
 					} else if (len > 0) {
 						_self.graphic.eraseUnfinish();
 					}
@@ -345,18 +410,20 @@
 
 					// check if WCAG mode is enable, if so use dialog box instead!
 					if (!_self.isWCAG()) {
+						// show measure window
+						_self.isMeasureDialogOpen(true);
+
 						// set cursor (remove default cursor first and all other cursors)
 						$container.css('cursor', '');
 						$container.addClass('gcviz-draw-cursor-measure');
 
 						clickMeasureArea = mymap.on('click', function(event) {
-											_self.graphic.addMeasure(_self.measureHolder, globalKey, 1, 'km', _self.selectedColor(), event);
+											_self.graphic.addMeasure(_self.measureHolder, globalKey, 1, 'km', _self.selectedColor(), false, event);
 										});
 						// on double click, close polygon and show total length and area
 						dblclickMeasure = mymap.on('dbl-click', function(event) {
 							// add last point then close
-							_self.graphic.addMeasure(_self.measureHolder, globalKey, 1, 'km', _self.selectedColor(), event);
-
+							_self.graphic.addMeasure(_self.measureHolder, globalKey, 1, 'km', _self.selectedColor(), false, event);
 							_self.endMeasureArea();
 						});
 					} else {
@@ -370,10 +437,15 @@
 				};
 
 				_self.endMeasureArea = function() {
-					var len = _self.measureHolder().length;
+					var array = _self.measureHolder(),
+						len = array.length;
 
 					if (len >= 3) {
-						_self.graphic.addMeasureSumArea(_self.measureHolder, globalKey, 'km');
+						_self.graphic.addMeasureSumArea(array, globalKey, 'km', _self.isMeasureOnMap());
+						setTimeout(function() {
+							var item = array[len - 1];
+							_self.totalMeasures(lblArea + item.area + ' km2<br/>' + lblDist + item.length + 'km');
+						}, 1250);
 					} else if (len > 0) {
 						_self.graphic.eraseUnfinish();
 					}

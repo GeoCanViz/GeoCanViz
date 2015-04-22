@@ -14,6 +14,7 @@
 			debounceClick,
 			closureFunc,
 			validateURL,
+			getURLParameter,
 			addTooltip,
 			setStyle,
 			getFullscreenParam,
@@ -86,20 +87,39 @@
 			};
 		};
 
-		// http://stackoverflow.com/questions/5717093/check-if-a-javascript-string-is-an-url
-		validateURL = function (str) {
-			var pattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
-				'((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // domain name
-				'((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
-				'(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
-				'(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
-				'(\\#[-a-z\\d_]*)?$','i');
+		// http://someweblog.com/url-regular-expression-javascript-link-shortener/
+		// http://code.tutsplus.com/tutorials/8-regular-expressions-you-should-know--net-6149
+		validateURL = function (url) {
+			// if the url end by /name.ext the .ext part make it freeze.
+			// to avoid that, remove last part of url (after last /). Validate that part individually
+			// the regexp only validate the first 3 parts (http, domain, first folder)
+			var isValid,
+				pattern = new RegExp (/\(?(?:(http|https|ftp):\/\/)?(?:((?:[^\W\s]|\.|-|[:]{1})+)@{1})?((?:www.)?(?:[^\W\s]|\.|-)+[\.][^\W\s]{2,4}|localhost(?=\/)|\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})(?::(\d*))?([\/]?[^\s\?]*[\/]{1})*(?:\/?([^\s\n\?\[\]\{\}\#]*(?:(?=\.)){1}|[^\s\n\?\[\]\{\}\.\#]*)?([\.]{1}[^\s\?\#]*)?)?(?:\?{1}([^\s\n\#\[\]]*))?([\#][^\s\n]*)?\)?/gi),
+				esri = '/rest/services/',
+				isEsri = false,
+				index = url.lastIndexOf('/') + 1,
+				urlLast = url.substring(index),
+				result = false;
 
-			if (!pattern.test(str)) {
-				return false;
-			} else {
-				return true;
+			// check if it is a REST layer
+			if (url.indexOf(esri) !== -1) {
+				isEsri = true;
 			}
+
+			// check if url is valid and if there is a file name or it is esri layer
+			isValid = pattern.test(url);
+			if (isValid && urlLast.split('.').length === 2) {
+				result = true;
+			} else if (isValid && isEsri){
+				result = true;
+			}
+
+			return result;
+		};
+
+		// http://stackoverflow.com/questions/11582512/how-to-get-url-parameters-with-javascript
+		getURLParameter = function(url, param) {
+			return decodeURIComponent((new RegExp('[?|&]' + param + '=' + '([^&]+?)(&|#|$)').exec(url)||[,''])[1].replace(/\+/g, '%20'))||null;
 		};
 
 		addTooltip = function($element, userOpts) {
@@ -389,6 +409,7 @@
 			debounceClick: debounceClick,
 			closureFunc: closureFunc,
 			validateURL: validateURL,
+			getURLParameter: getURLParameter,
 			addTooltip: addTooltip,
 			setStyle: setStyle,
 			getFullscreenParam: getFullscreenParam,

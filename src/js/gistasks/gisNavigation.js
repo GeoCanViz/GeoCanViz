@@ -5,7 +5,6 @@
  *
  * GIS navigation functions
  */
-/* global XDomainRequest: false */
 (function () {
 	'use strict';
 	define(['jquery-private',
@@ -79,8 +78,7 @@
 		};
 
 		getNTS = function(lati, longi, urlNTS) {
-			var xdr,
-				def = $viz.Deferred(); // Use a deferred object to call the service
+			var def = $viz.Deferred(); // Use a deferred object to call the service
 
 			$viz.ajax({
 				url: urlNTS,
@@ -99,8 +97,7 @@
 		};
 
 		getUTMzone = function(lati, longi, urlUTM) {
-			var xdr,
-				def = $viz.Deferred(); // Use a deferred object to call the service
+			var def = $viz.Deferred(); // Use a deferred object to call the service
 
 			$viz.ajax({
 				url: urlUTM,
@@ -119,8 +116,7 @@
 		};
 
 		getAltitude = function(lati, longi, urlAlti) {
-			var xdr,
-				def = $viz.Deferred(); // Use a deferred object to call the service
+			var def = $viz.Deferred(); // Use a deferred object to call the service
 
 			$viz.ajax({
 				url: urlAlti,

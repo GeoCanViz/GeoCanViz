@@ -15,6 +15,8 @@
 			'gcviz-ko'
 	], function($viz, ko, i18n, gcvizFunc, gisLegend) {
 		var initialize,
+			addLegend,
+			innerAddLegend,
 			loopChildrenVisibility,
 			vm;
 
@@ -38,7 +40,7 @@
 					_self.basesArray = ko.observableArray(config.basemaps);
 
 					// concat all layers to access in determineTextCSS
-					_self.allLayers = _self.layersArray().concat(_self.basesArray()),
+					_self.allLayers = _self.layersArray().concat(_self.basesArray());
 
 					// subscribe to fullscreen so we cant change the max height
 					gcvizFunc.subscribeTo(_self.mapid, 'header', 'isFullscreen', _self.setHeight);
@@ -86,6 +88,7 @@
 
 				_self.determineTextCSS = function(item) {
 					var layer,
+						graphId = item.graphid,
 						className = 'gcviz-leg-span',
 						len = _self.allLayers.length,
 						count = 0;
@@ -94,24 +97,21 @@
 					while (len--) {
 						layer = _self.allLayers[len];
 
-						if (item.graphid === layer.graphid) {
+						if (graphId === layer.graphid) {
 							count = 1;
 						}
 					}
 
 					count = (count === 0) ? 2 : 1;
 
-					return className + count;
-				};
-
-				// needs this function because the a tag inside li tag doesn't work.
-				// TODO: works on Macs. test to see if it works on PC and remove
-				_self.openMetadata = function(node) {
-					var href = node.href;
-
-					if (href !== '') {
-						//window.open(href, '_blank');
+					// if it is a custom layer added by the user, specify class
+					if (graphId !== 'custom') {
+						className += count;
+					} else {
+						className = 'gcviz-leg-custom';
 					}
+
+					return className;
 				};
 
 				_self.createSymbol = function(data, node) {
@@ -189,6 +189,13 @@
 					}
 				};
 
+				innerAddLegend = function(config) {
+					_self.layersArray.push(config);
+
+					// concat all layers to access in determineTextCSS
+					_self.allLayers = _self.layersArray().concat(_self.basesArray());
+				};
+
 				_self.init();
 			};
 
@@ -215,8 +222,13 @@
 			return vm;
 		};
 
+		addLegend = function(config) {
+				innerAddLegend(config);
+		};
+
 		return {
-			initialize: initialize
+			initialize: initialize,
+			addLegend: addLegend
 		};
 	});
 }).call(this);
