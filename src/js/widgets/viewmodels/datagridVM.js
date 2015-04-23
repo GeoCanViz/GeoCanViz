@@ -526,12 +526,19 @@
 							$viz('input', table.column(colIdx).header()).on('keyup', gcvizFunc.debounce(function() {
 								// put the draw in a timeout if not, the processing will not be shown
 								var $process = $viz('.dataTables_processing'),
-									value = this.value;
+									val = this.value;
+
 								$process.css('display', 'block');
 								setTimeout(gcvizFunc.closureFunc(function(value) {
-									table.column(colIdx).search(value).draw();
+									// genere regex
+									if (value !== '') {
+										value = value.replace(/\*/g, '.*');
+										value = '^' + value + '$';
+									}
+									
+									table.column(colIdx).search(value, true, false).draw();
 									$process.css('display', 'none');
-								}, value), 100);
+								}, val), 100);
 							}, 750, false));
 						} else if (fieldValue === 2 && fields[colIdx].bSearchable) {
 							// https://datatables.net/examples/plug-ins/range_filtering.html
@@ -587,6 +594,7 @@
 								// put the draw in a timeout if not, the processing will not be shown
 								var $process = $viz('.dataTables_processing'),
 									val = $.fn.dataTable.util.escapeRegex($(this).val());
+
 								$process.css('display', 'block');
 								setTimeout(function() {
 									table.column(colIdx).search(val ? '^.*\\b' + val + '\\b.*$' : '', true, false).draw();

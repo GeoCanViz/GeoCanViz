@@ -404,6 +404,8 @@
 				};
 
 				_self.measureAreaClick = function() {
+					var segments = 0;
+
 					globalKey = gcvizFunc.getUUID();
 					_self.closeTools('area');
 					_self.measureType = 'area';
@@ -418,13 +420,18 @@
 						$container.addClass('gcviz-draw-cursor-measure');
 
 						clickMeasureArea = mymap.on('click', function(event) {
+											if (segments === 0) {
+												_self.totalMeasures('');
+											}
 											_self.graphic.addMeasure(_self.measureHolder, globalKey, 1, 'km', _self.selectedColor(), false, event);
+											segments++;
 										});
 						// on double click, close polygon and show total length and area
 						dblclickMeasure = mymap.on('dbl-click', function(event) {
 							// add last point then close
 							_self.graphic.addMeasure(_self.measureHolder, globalKey, 1, 'km', _self.selectedColor(), false, event);
 							_self.endMeasureArea();
+							segments = 0;
 						});
 					} else {
 						_self.isDialogWCAG(true);

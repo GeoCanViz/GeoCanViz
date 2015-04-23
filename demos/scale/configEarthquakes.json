@@ -7,12 +7,12 @@
             },
             "map": {
                 "urlgeomserv": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/Utilities/Geometry/GeometryServer",
-                "urlproxy": "http://localhost:8888/php/proxy.php",
-                "urldownload": "http://localhost:8888/php/download.php",
-                "urlprint": "http://s-bsc-geoappint.nrn.nrcan.gc.ca/arcgis/rest/services/Tools/GeoCanVizExportWebMap/GPServer/Export%20Web%20Map",
+                "urlproxy": "http://geoappext.nrcan.gc.ca/php/proxy.php",
+                "urldownload": "http://geoappext.nrcan.gc.ca/php/download.php",
+                "urlprint": "http://s-bsc-geoappint.nrn.nrcan.gc.ca/arcgis/rest/services/Tools/GeoCanVizAdvancedPrint/GPServer/GeoCanVizAdvancedPrint",
                 "urlprintelements":"http://s-bsc-geoappint.nrn.nrcan.gc.ca/arcgis/rest/services/Tools/GeoCanVizGetMxdElements/GPServer/GeoCanVizGetMxdElements",
                 "urltemplates": "http://s-bsc-geoappint.nrn.nrcan.gc.ca/arcgis/rest/services/Tools/GeoCanVizGetTemplates/GPServer/GeoCanVizGetTemplates",
-                "urlhtml": "http://s-bsc-geoappint.nrn.nrcan.gc.ca/GeoCanViz/AdvancedPrint/templates",
+                "urlhtml": "http://s-bsc-geoappint.nrn.nrcan.gc.ca/GeoCanViz/AdvancedPrint/templates/HTML",
                 "sr": {
                     "wkid": 3978
                 },

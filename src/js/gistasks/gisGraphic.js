@@ -203,7 +203,9 @@
 					}
 
 					// remove mouse move event and clear the dump graphics
-					mouseMeasureLength.remove();
+					if (typeof mouseMeasureLength !== 'undefined') {
+						mouseMeasureLength.remove();
+					}
 					mymap.graphics.clear();
 				};
 
@@ -410,6 +412,7 @@
 
 					// add to stack
 					addUndoStack(gKey);
+					isGraphics(true);
 
 					// remove mouse move event and clear the dump graphics
 					if (!isWCAG) {
@@ -463,6 +466,10 @@
 					item.area = info.area;
 					item.length = info.length;
 
+					// add to stack
+					addUndoStack(gKey);
+					isGraphics(true);
+
 					// get label coordinnate from geoprocessing
 					if (drawMap) {
 						gisgeo.labelPoints(poly, info, measureLabelCallback);
@@ -477,9 +484,6 @@
 								'spatialReference': { 'wkid': wkid } } };
 					text.text = txtArea + info.area + ' ' + info.unit + '2';
 					measureText(text, 0, 0, 0);
-
-					// add to stack
-					addUndoStack(gKey);
 				};
 
 				measureLength = function(array, unit, drawMap) {
@@ -835,7 +839,7 @@
 			} else if (type === 'polyline') {
 				symb = gissymbols.getSymbLine([229,0,51,255], 2);
 			} else if (type === 'polygon') {
-				symb = gissymbols.getSymbPoly([205,197,197,100], [229,0,51,255], 2);
+				symb = gissymbols.getSymbPoly([229,0,51,255], [205,197,197,100], 2);
 			}
 
 			// generate graphic and asign symbol
@@ -845,6 +849,9 @@
 			// add the key to be able to find back the graphic
 			graphic.key = elem.attributes.key;
 
+			// add attributes
+			graphic.attributes = elem.attributes;
+			
 			// add graphic
 			layer.add(graphic);
 

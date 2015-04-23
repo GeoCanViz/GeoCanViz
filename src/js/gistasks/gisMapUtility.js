@@ -655,8 +655,8 @@
 				anchor = (map.vSideMenu !== 1) ? 'upperright' : 'upperleft';
 
 			// if no geom value get the point where to put the window as the map center
-			// If there is a string get the point from the graphic with this key.
-			//if the geom is a geometry, use it directly
+			// If there is a string get the geometry from the graphic with this key.
+			// If the geom is a geometry, use it directly.
 			if (typeof geom === 'undefined') {
 				point = getMapCenter(map);
 			} else if (typeof geom === 'string') {
@@ -673,6 +673,11 @@
 				}
 			} else {
 				point = geom;
+			}
+
+			// if the graphic is a polygon get the centroid
+			if (point.type === 'polygon') {
+				point = point.getCentroid();
 			}
 
 			map.infoWindow.setTitle(title);

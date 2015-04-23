@@ -247,11 +247,16 @@
 				inMapField.autocomplete({
 					source: function(request, response) {
 						var lonlat = gcvizFunc.parseLonLat(request.term);
+
+						// reset the array (need to set a dummy value if not it is not reset)
+						autoCompleteArray = [{ minx: 0, miny: 0, maxx: 0, maxy: 0, title: 'ddd' }];
+
 						if (typeof lonlat !== 'undefined') {
 							lonlat = [lonlat[0] + ';' + lonlat[1] + ';' + lonlat[2]];
 							response($viz.map(lonlat, function(item) {
 								var pt1, pt2, add, value,
 									miny, maxy, minx, maxx,
+									geomType = 'point',
 									lonlat = item.split(';'),
 									bufVal = 0.01799856; // 2km = 0.01799856 degrees
 
@@ -266,7 +271,7 @@
 								add = gcvizFunc.convertDdToDms(pt2, pt1, 0);
 								value = add.y.join().replace(/,/g,'') + ' ' + add.x.join().replace(/,/g,'');
 								value += ' | ' + pt1.toFixed(3) + ' ' + pt2.toFixed(3);
-								autoCompleteArray.push({ minx: minx, miny: miny, maxx: maxx, maxy: maxy, coords: lonlat, title: value });
+								autoCompleteArray.push({ minx: minx, miny: miny, maxx: maxx, maxy: maxy, coords: lonlat, type: geomType, title: value });
 
 								return {
 									label: value,
@@ -283,13 +288,14 @@
 								},
 								success: function(data) {
 									response($viz.map(data, function(item) {
-										var geom, coords, pt1, pt2,
+										var geom, coords, pt1, pt2, geomType,
 											miny, maxy, minx, maxx,
 											txtLabel, valItem,
 											bbox = item.bbox,
 											bufVal = 0.01799856; // 2km = 0.01799856 degrees
 
 										if (typeof bbox === 'object') {
+											geomType = 'polygon';
 											coords = item.geometry.coordinates;
 											geom = bbox;
 											miny = geom[1];
@@ -297,7 +303,8 @@
 											minx = geom[0];
 											maxx = geom[2];
 										} else {
-											// Convert the lat/long to a bbox with 2km width
+											// convert the lat/long to a bbox with 2km width
+											geomType = 'point';
 											geom = item.geometry.coordinates;
 											coords = geom;
 											pt1 = geom[1];
@@ -310,7 +317,7 @@
 
 										txtLabel = item.title;
 										valItem = item.title;
-										autoCompleteArray.push({ minx: minx, miny: miny, maxx: maxx, maxy: maxy, coords: coords, title: item.title });
+										autoCompleteArray.push({ minx: minx, miny: miny, maxx: maxx, maxy: maxy, coords: coords, type: geomType, title: item.title });
 
 										return {
 											label: txtLabel,
@@ -323,45 +330,19 @@
 					},
 					minLength: 3,
 					select: function(event, ui) {
-						var acai, title, infotitle, geometry, coords;
+						var acai, title;
 
-						// Find selection and zoom to it
-						for (var i=0; i<autoCompleteArray.length; i++) {
+						// find selection and zoom to it
+						for (var i = 0; i < autoCompleteArray.length; i++) {
 							acai = autoCompleteArray[i],
 							title = acai.title;
-							coords = acai.coords;
 
 							if (ui.item.label === title) {
-								geometry = { 'polygon': [[[acai.minx, acai.miny],
-															[acai.maxx, acai.miny],
-															[acai.maxx, acai.maxy],
-															[acai.minx, acai.maxy],
-															[acai.minx, acai.miny]]] };
-								gisGeo.zoomLocation(acai.minx, acai.miny, acai.maxx, acai.maxy, mymap, _self.outSR);
-
-								// remove previous info window if there is one.
-								gisMap.hideInfoWindow(mymap, 'location');
-
-								// add graphic representation
-								if (geolocation.graphic) {
-									geometry = { 'x': coords[0], 'y': coords[1] };
-									gisGraph.createGraphic(mymap, 'point', geometry, { title: title }, 4326, 'location');
-								}
-
-								// show info window (keep title because it will be overides before the timeout occurs)
-								infotitle = title;
-
-								if (geolocation.info) {
-									setTimeout(function() {
-										gisMap.showInfoWindow(mymap, 'Location', infotitle, 'location', 12, 0);
-									}, 1000);
-								}
+								_self.selectAutoComplete(acai);
 							}
 						}
-						// Reset the array
-						autoCompleteArray = [{ minx: 0, miny: 0, maxx: 0, maxy: 0, title: 'ddd' }];
 
-						// Put focus back on input field
+						// put focus back on input field
 						inMapField.focus();
 					},
 					open: function() {
@@ -375,7 +356,54 @@
 						collision: 'fit',
 						within: '#' + mapid
 					}
+				}).keypress(function (e) {
+					if (e.keyCode === 13) {
+						// check if there is more then 1 item. The first one is just place holder.
+						if (autoCompleteArray.length > 1) {
+							_self.selectAutoComplete(autoCompleteArray[1]);
+						}
+					};
 				});
+
+				_self.selectAutoComplete = function(acai) {
+					var anchor, geometry,
+						title = acai.title,
+						infotitle = title, // need this because title will be reset before the timeout
+						coords = acai.coords,
+						minx = acai.minx,
+						miny = acai.miny,
+						maxx = acai.maxx,
+						maxy = acai.maxy;
+					
+					// zoom to location
+					gisGeo.zoomLocation(minx, miny, maxx, maxy, mymap, _self.outSR);
+
+					// remove previous info window if there is one.
+					gisMap.hideInfoWindow(mymap, 'location');
+
+					// add graphic representation
+					if (geolocation.graphic && acai.type === 'point') {
+						geometry = { 'x': coords[0], 'y': coords[1] };
+						gisGraph.createGraphic(mymap, 'point', geometry, { title: title }, 4326, 'location');
+					} else {
+						geometry = { 'polygon': [[[minx, miny],
+											[maxx, miny],
+											[maxx, maxy],
+											[minx, maxy],
+											[minx, miny]]] };
+						gisGraph.createGraphic(mymap, 'polygon', geometry, { title: title }, 4326, 'location');
+					}
+
+					// reset the array (need to set a dummy value if not it is not reset)
+					autoCompleteArray = [{ minx: 0, miny: 0, maxx: 0, maxy: 0, title: 'ddd' }];
+
+					// show info window
+					if (geolocation.info) {
+						setTimeout(function() {
+							gisMap.showInfoWindow(mymap, 'Location', infotitle, 'location', 12, 0);
+						}, 1000);
+					}
+				};
 
 				_self.getMapClick = function() {
 					// close menu

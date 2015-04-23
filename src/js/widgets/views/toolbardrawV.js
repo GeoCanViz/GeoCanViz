@@ -21,7 +21,8 @@
 			var $toolbar,
 				config = $mapElem.toolbardraw,
 				mapid = $mapElem.mapframe.id,
-				node = '';
+				node = '',
+				side = $mapElem.header.side === 1 ? 'left' : 'right'; //measure window side from menu side
 
 			// add the url for dowload page to config
 			config.urldownload = $mapElem.mapframe.map.urldownload;
@@ -48,7 +49,7 @@
 					'</div>';
 
 			// set measure buttons
-			node += getMeasureBtn(config, mapid);
+			node += getMeasureBtn(config, mapid, side);
 
 			// set draw and add text buttons
 			node += getDrawBtn(config);
@@ -92,7 +93,7 @@
 			return(tbdrawVM.initialize($toolbar, mapid, config));
 		};
 
-		getMeasureBtn = function(config, mapid) {
+		getMeasureBtn = function(config, mapid, side) {
 			var measLabel,
 				classSpan = 'span2',
 				node = '',
@@ -118,7 +119,8 @@
 					node += '<button class="gcviz-draw-length" tabindex="0" data-bind="buttonBlur, click: measureLengthClick, attr: { alt: tpMeasureLength }"></button>';
 
 					// show window with vertex and final distance or area
-					node += '<div data-bind="uiDialog: { title: lblMeasFull, width: 275, height: 220, modal: false, draggable: true, ok: dialogMeasureClose, close: dialogMeasureClose, openDialog: \'isMeasureDialogOpen\' }">' +
+					node += '<div data-bind="uiDialog: { title: lblMeasFull, width: 275, height: 220, modal: false, draggable: true, ok: dialogMeasureClose, close: dialogMeasureClose, openDialog: \'isMeasureDialogOpen\', ' +
+																'position: { within: \'#' + mapid + '_holder\', at: \'' + side + ' center\' } }">' +
 								'<div>' +
 									'<span data-bind="html: segmentMeasures"></span>' +
 									'<span data-bind="html: totalMeasures"></span>' +
