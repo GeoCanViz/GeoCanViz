@@ -16,7 +16,9 @@
 	], function($viz, ko, i18n, gcvizFunc, gisLegend) {
 		var initialize,
 			addLegend,
+			removeLegend,
 			innerAddLegend,
+			innerRemoveLegend,
 			loopChildrenVisibility,
 			vm;
 
@@ -196,6 +198,15 @@
 					_self.allLayers = _self.layersArray().concat(_self.basesArray());
 				};
 
+				innerRemoveLegend = function(id) {
+					_self.layersArray.remove(function(layer) {
+						return layer.id == id;
+					});
+
+					// concat all layers to access in determineTextCSS
+					_self.allLayers = _self.layersArray().concat(_self.basesArray());
+				};
+
 				_self.init();
 			};
 
@@ -223,12 +234,17 @@
 		};
 
 		addLegend = function(config) {
-				innerAddLegend(config);
+			innerAddLegend(config);
+		};
+
+		removeLegend = function(id) {
+			innerRemoveLegend(id);
 		};
 
 		return {
 			initialize: initialize,
-			addLegend: addLegend
+			addLegend: addLegend,
+			removeLegend: removeLegend
 		};
 	});
 }).call(this);

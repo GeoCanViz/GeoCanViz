@@ -28,6 +28,8 @@
 			addFeatLayer,
 			addGeoRSS,
 			addLegend,
+			addLegendMissing,
+			removeLegendMissing,
 			finishAdd,
 			createLayer,
 			getSeparator,
@@ -170,6 +172,7 @@
 
 			featureLayer = new esriFeatLayer(featCollection, { 'id': guuid });
 			featureLayer.name = gfileName;
+			featureLayer.type = 5;
 
 			// finish add by reordering layer and add the layer to map
 			finishAdd(mymap, featureLayer, config.zoom);
@@ -177,8 +180,6 @@
 			// add to user array so knockout will generate legend
 			// we cant add it from the VM because the projection can take few second and the symbol is not define before.
 			// to avoid this, we add the layer only when it is done.
-			//gArray.push({ label: gReader.fileName, id: guuid });
-
 			// set legend
 			addLegend(gfileName, guuid, 7, JSON.stringify(featureLayer.renderer.toJson()), config);
 
@@ -535,6 +536,51 @@
 			vmTbLegend.addLegend(outConfig);
 		};
 
+		addLegendMissing = function(name) {
+			var outConfig = {
+					'expand': false,
+					'last': true,
+					'type': 5,
+					'id': name,
+					'graphid': 'custom',
+					'displayfields': false,
+					'label': {
+						'value': name,
+						'alttext': name
+					},
+					'metadata': {
+						'enable': false
+					},
+					'opacity': {
+						'enable': false,
+						'min': 0,
+						'max': 1,
+						'initstate': 1
+					},
+					'visibility': {
+						'enable': false,
+						'initstate': 1,
+						'type': 1,
+						'radioid': 0
+					},
+					'displaychild': {
+						'enable': false,
+						'symbol': ''
+					},
+					'customimage': {
+						'enable': false,
+						'images': []
+					},
+					'items': []
+				};
+
+			vmTbLegend.addLegend(outConfig);
+		};
+
+		removeLegendMissing = function(id) {
+			vmTbLegend.removeLegend(id);
+		};
+
 		finishAdd = function(mymap, layer, zoom) {
 			var graphics, layerId,
 				graph, geomType,
@@ -587,7 +633,9 @@
 			addCSV: addCSV,
 			addKML: addKML,
 			addFeatLayer: addFeatLayer,
-			addGeoRSS: addGeoRSS
+			addGeoRSS: addGeoRSS,
+			addLegendMissing: addLegendMissing,
+			removeLegendMissing: removeLegendMissing
 		};
 	});
 }());

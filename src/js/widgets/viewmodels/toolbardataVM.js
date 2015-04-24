@@ -62,6 +62,15 @@
 				_self.lblAddDesc = i18n.getDict('%toolbardata-lbladddesc');
 				_self.isDataProcess = ko.observable(false);
 
+				// dialog window for datafile url parameter
+				_self.lblAddParamDesc = i18n.getDict('%toolbardata-lbladdparamdesc');
+				_self.lblImportParam = i18n.getDict('%toolbardata-lbladdparam');
+				_self.lblMiss = i18n.getDict('%toolbardata-lblmiss');
+				_self.lblImportParamFile = ko.observable('');
+				_self.isFileProcess = ko.observable(false);
+				_self.files = [];
+				_self.file = '';
+
 				// array of user layer
 				_self.userArray = ko.observableArray([]);
 
@@ -69,17 +78,22 @@
 				_self.isAddData = ko.observable(false);
 
 				_self.init = function() {
-					var url;
+					var url, file;
 
 					// to expose the observable to know when the layer has been added
 					innerNotifyAdd = _self.notifyAdd;
 
 					// check if there is a url to load
 					if (configQuery) {
-						// data param can be like this:
-						// data=http://maps.ottawa.ca/arcgis/rest/services/Schools/MapServer/2,1,1,0.5,0;http://geoappext.nrcan.gc.ca/GeoCanViz/CCMEO/toporama/combine.kml,0,0,1,0
+						// dataurl param can be like this:
+						// dataurl=http://maps.ottawa.ca/arcgis/rest/services/Schools/MapServer/2,1,1,0.5,0;http://geoappext.nrcan.gc.ca/GeoCanViz/CCMEO/toporama/combine.kml,0,0,1,0
 						// first the url, the expand state, the visibiity state, the opacity value, zoom to extent value
-						url = gcvizFunc.getURLParameter(window.location.toString(), 'data');
+						url = gcvizFunc.getURLParameter(window.location.toString(), 'dataurl');
+
+						// datafile param can be like this:
+						// datafile=ParksVan.csv;ExportCSV.csv,1,1,1,1
+						// first the file name, the expand state, the visibiity state, the opacity value, zoom to extent value
+						file = gcvizFunc.getURLParameter(window.location.toString(), 'datafile');
 
 						if (url !== null) {
 							// subscribe to the isTableReady event to know when tables have been initialize
@@ -95,6 +109,19 @@
 								}
 							});
 						}
+
+						if (file !== null) {
+							// subscribe to the isTableReady event to know when tables have been initialize
+							gcvizFunc.subscribeTo(mapid, 'datagrid', 'isTableReady', function(input) {
+								_self.files = file.split(';');
+
+								// we cant open directly the file dialog for security reason. It need to be from a user event.
+								// Show a window where user will be able to click to add the file.
+								if (input && _self.files.length > 0) {
+									_self.addParamUrlFile();
+								}
+							});
+						}
 					}
 
 					return { controlsDescendantBindings: true };
@@ -104,7 +131,7 @@
 					// launch the dialog. We cant put the dialog in the button because
 					// Firefox will not launch the window. To be able to open the window,
 					// we mimic the click
-					$viz(document.getElementById('fileDialogData'))[0].click();
+					document.getElementById('fileDialogData' + mapid).click();
 				};
 
 				_self.dialogDataClose = function() {
@@ -112,6 +139,37 @@
 
 					// focus back on add to keep focus
 					$btnCSV.focus();
+				};
+
+				_self.addParamUrlFile = function() {
+					// shift the first item
+					var item = _self.files.shift();
+
+					if (typeof item !== 'undefined') {
+						_self.file = item;
+						_self.lblImportParamFile(_self.lblImportParam + _self.file);
+						_self.isFileProcess(true);
+					}
+				};
+
+				_self.closeParamUrlFile = function() {
+					_self.isFileProcess(false);
+					_self.file = '';
+
+					// relaunch the add witht he global file object from param url. If there is still file
+					// in it, the dialog can be launch again to add those file. If not file left or no file
+					// initially, there is nothing
+					// put a time out so the close will not interfere witht he open
+					setTimeout(function() {
+						_self.addParamUrlFile();
+					}, 1000);
+				};
+
+				_self.okParamUrlFile = function() {
+					// add entry in the legend for the missins layer
+					gisData.addLegendMissing(_self.file + _self.lblMiss);
+
+					_self.closeParamUrlFile();
 				};
 
 				_self.addFileClick = function(vm, event) {
@@ -127,6 +185,11 @@
 						// added projection. We put back the event after.
 						setTimeout(function() {
 							_self.add(vm, event);
+
+							// relaunch the add witht he global file object from param url. If there is still file
+							// in it, the dialog can be launch again to add those file. If not file left or no file
+							// initially, there is nothing
+							_self.closeParamUrlFile();
 						}, 1000);
 					}
 
@@ -219,7 +282,7 @@
 				};
 
 				_self.add = function(vm, event) {
-					var file, reader,
+					var file, reader, name,
 						files = event.target.files,
 						len = files.length;
 
@@ -229,7 +292,11 @@
 						reader = new FileReader();
 
 						// keep track of file name
-						reader.fileName = file.name;
+						name = file.name;
+						reader.fileName = name;
+
+						// make sure the layer was not missing from a datafile url parameter before
+						gisData.removeLegendMissing(file.name + _self.lblMiss);
 
 						// closure to capture the file information and launch the process
 						reader.onload = function() {
@@ -264,14 +331,16 @@
 						reader.readAsText(file);
 					}
 
-					// clear the selected file
-					document.getElementById('fileDialogData').value = '';
+					// clear the selected file (we need to clear because if we tru to the same file twice it wont work
+					// because the change event will not be triggered)
+					document.getElementById('fileDialogData' + mapid).value = '';
+
 				};
 
 				_self.removeClick = function(selectedItem) {
 					// remove the layer from the map then from the array
 					// In the view we use click: function($data) { $root.removeClick($data) } to avoid
-					// to ave the function call when we add the item to the array.
+					// to have the function call when we add the item to the array.
 					mymap.removeLayer(mymap.getLayer(selectedItem.id));
 					_self.userArray.remove(selectedItem);
 

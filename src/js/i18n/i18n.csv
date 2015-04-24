@@ -157,10 +157,13 @@ Global sys value#%gisurlalti#http://geogratis.gc.ca/services/elevation/cdem/alti
 #%toolbardata-tpadd#Import Data#Importer des données
 #%toolbardata-lbladdcsv#Import points in CSV format#Importer des points en format CSV
 #%toolbardata-lbladdurl#Import from URL#Importer d'un URL
+#%toolbardata-lbladdparamdesc#The url you are trying to load contains a link to a local file. If you have this file and wants to add it, click on the button below. Otherwise click “Ok”.#L'URL que vous essayez de charger contient lien vers un fichier local. Si vous cavez ce fichier et vous désirez l'ajouter, cliquez sur le bouton ci-dessous. Sinon, cliquez sur « Ok ».
+#%toolbardata-lbladdparam#File to import: #Fichier à importer : 
 #%toolbardata-lbladdurldesc#Specify the URL of the data to import. Supported formats are KML and ArcGIS REST “feature layer”.#Spécifiez le URL de la donnée à importer. Les formats supportés sont KML et ArcGIS REST « feature layer ».
 #%toolbardata-lbladdurltitle#URL from import#URL à importer
 #%toolbardata-lbladdtitle#Import Data#Importer des données
 #%toolbardata-lbladddesc#Wait for the process to finish. When it is done, you will find the symbology in “Map Layers and Legend(s)” toolbar. If available, you will have a new table in the “Data Table” section.#Attendez que le processus se termine. Lorsque cela est fait, vous trouverez la symbologie dans la barre d'outils « Couvertures de la carte et légende(s) ». Si disponible, vous aurez une nouvelle table dans la section « Tableau des données ».
+#%toolbardata-lblmiss#  - Missing -#  - Manquant -
 #%toolbardata-tpdelete#Remove Data#Enlever des données
 #%toolbardata-errtitle#Add Data Error#Erreur dans l'ajout des données
 #%toolbardata-err1#There must be a field for y coordinates (latitude, lat, y or ycenter), and a field for x coordinates (longitude, long, x or xcenter).#Il doit y avoir un champ (latitude, lat, y ou ycenter) pour les coordonnées y et un champ (longitude, long, x ou xcenter) pour les coordonnées x.
