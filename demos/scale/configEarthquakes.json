@@ -465,18 +465,6 @@
                         },
                         "searchable": true
                     },{
-                        "title": "- Date -",
-                        "width": "200px",
-                        "data": "Date_",
-                        "dataalias": "Date_",
-                        "fieldtype": {
-                            "type": 1,
-                            "value": 3,
-                            "informat": 1,
-				      							"outformat": 1
-                        },
-                        "searchable": true
-                    },{
                         "title": "Depth",
                         "width": "100px",
                         "data": "Depth",

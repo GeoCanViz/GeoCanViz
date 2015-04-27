@@ -530,10 +530,10 @@
 
 								$process.css('display', 'block');
 								setTimeout(gcvizFunc.closureFunc(function(value) {
-									// genere regex
+									// generate regex
 									if (value !== '') {
 										value = value.replace(/\*/g, '.*');
-										value = '^' + value + '$';
+										value = '^' + value + '.*$';
 									}
 									
 									table.column(colIdx).search(value, true, false).draw();

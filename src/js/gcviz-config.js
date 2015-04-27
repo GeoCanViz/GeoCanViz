@@ -189,17 +189,17 @@
 	// if browser not supported, redirect
 	if (window.browser !== 'Explorer' && window.browser !== 'Firefox' && window.browser !== 'Chrome' && window.browser !== 'Safari') {
 		if (language === 'en-min') {
-			alert('Browser not supported: needs to be Chrome, Firefox, Safari or Explorer. You will be redirected to project page.');
+			alert('Browser not supported: needs to be Chrome, Firefox, Safari or Explorer. You will be redirected to project page. Make sure “Browser Mode” is “Internet Explorer 10” or above and “Document Mode is “Standards”. To access those settings, press F12 to open “developer tools”.');
 		} else {
-			alert('Navigateur non pris en charge: doit être Chrome, Firefox, Safari ou Explorer. Vous serez redirigé vers la page de projet');
+			alert('Navigateur non pris en charge: doit être Chrome, Firefox, Safari ou Explorer. Vous serez redirigé vers la page de projet. Si vous êtes un utilisateur d\'Internet Explorer. Vérifiez que le « Mode navigateur » est « Internet Explorer 10 » ou plus haut et que le « Mode document » est « normes ». Pour accéder à ces réglages, appuyez sur F12 pour ouvrir les « outils de développement ».');
 		}
 
 		window.location = redirectPath;
-	} else if (window.browser === 'Explorer' && window.browserversion <= 8) {
+	} else if (window.browser === 'Explorer' && window.browserversion < 10) {
 		if (language === 'en-min') {
-			alert('Browser not supported: Explorer needs to be version 9 or higher. You will be redirected to project page.');
+			alert('Browser not supported: Explorer needs to be version 10 or higher. You will be redirected to project page. Make sure “Browser Mode” is “Internet Explorer 10” or above and “Document Mode is “Standards”. To access those settings, press F12 to open “developer tools”.');
 		} else {
-			alert('Navigateur non pris en charge: Explorer doit être version 9 ou supérieur. Vous serez redirigé vers la page de projet');
+			alert('Navigateur non pris en charge: Explorer doit être version 10 ou supérieur. Vous serez redirigé vers la page de projet. Si vous êtes un utilisateur d\'Internet Explorer. Vérifiez que le « Mode navigateur » est « Internet Explorer 10 » ou plus haut et que le « Mode document » est « normes ». Pour accéder à ces réglages, appuyez sur F12 pour ouvrir les « outils de développement ».');
 		}
 
 		window.location = redirectPath;
@@ -416,8 +416,8 @@
 	});
 
 	// start the process with a private jquery. If we dont, it creates a conflict because we laod jQuery and it is different then the one loaded by WET
-	define('jquery-private', ['jquery'], function ($viz) {
-		var noConflict = $viz.noConflict(true);
+	define('jquery-private', ['jquery', 'jqueryui', 'magnificpopup'], function ($viz) {
+		var noConflict = $.noConflict(true);
 
 		// if there is no jQuery loaded, set the window jquery to be the one from this project. Otherwise keep the outside one because it is use
 		// by script outside this project.

@@ -14,8 +14,6 @@ var locationPath;
 		mapsNum;
 
 	define(['jquery-private',
-			'magnificpopup',
-			'jqueryui',
 			'gcviz-i18n',
 			'gcviz-func',
 			'gcviz-v-map',
@@ -31,7 +29,7 @@ var locationPath;
 			'gcviz-v-tbdata',
 			'gcviz-v-tbextract',
 			'gcviz-v-print'
-	], function($viz, mp, jqui, i18n, gcvizFunc, map, inset, help, wcag, datagrid, header, footer, tbdraw, tbnav, tblegend, tbdata, tbextract, print) {
+	], function($viz, i18n, gcvizFunc, map, inset, help, wcag, datagrid, header, footer, tbdraw, tbnav, tblegend, tbdata, tbextract, print) {
 		var initialize,
 			readConfig,
 			execConfig,
@@ -49,7 +47,9 @@ var locationPath;
 
 			// extent or private AMD jQuery with the jQuery from outside project to get reference to some dependencies (magnificPopup, jqueryUI, slidesJS)
 			// we need to do this because those libraries are not AMD and use the window.jQuery object to initialize themselves.
-			$viz.extend(true, $viz, $);
+			// TODO: I put this in comment because no set jquerui as input in my define in the gcviz-config...it seems to solve the problem!
+			//		 The extend seems to corrupt the library...
+			//$viz.extend(true, $viz, $);
 
 			// initialize map number and total for the ready event
 			mapsTotal = len;
@@ -63,7 +63,7 @@ var locationPath;
 			setLocationPath();
 
 			// set local for magnificpopup plugin
-			setLocalMP();
+			//setLocalMP();
 
 			// set scrollTo function
 			setScrollTo();
@@ -272,7 +272,7 @@ var locationPath;
 
 		setLocalMP = function() {
 			// keep $ because $viz wont work
-			$viz.extend(true, $.magnificPopup.defaults, {
+			$viz.extend({}, $.magnificPopup.defaults, {
 				tClose: i18n.getDict('%mp-close'), // Alt text on close button
 				tLoading: i18n.getDict('%mp-load'), // Text that is displayed during loading. Can contain %curr% and %total% keys
 				gallery: {

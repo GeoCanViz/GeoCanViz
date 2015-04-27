@@ -43,7 +43,6 @@
 			addImagetoHtmlPrint;
 
 		getTemplates = function(url, layout, printType, projects) {
-				
 			var params = { 'Folder': lang,
 						   'PrintType': printType,
 						   'Layout': layout,

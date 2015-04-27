@@ -310,7 +310,8 @@
             "zoom": true,
             "geolocation": {
                 "enable": true,
-                "type": -1
+                "graphic": true,
+                "info": true
             },
             "scaledisplay": {
                 "enable": true,
@@ -367,7 +368,7 @@
             "enable": false
         },
         "datagrid": {
-            "enable": false,
+            "enable": true,
             "expand": true,
             "layers": [{
                 "layerinfo": {

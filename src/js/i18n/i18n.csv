@@ -114,7 +114,7 @@ Global sys value#%gisurlalti#http://geogratis.gc.ca/services/elevation/cdem/alti
 #%toolbardraw-dist#Total Length: #Longueur totale : 
 #%toolbardraw-seg#Segment: #Segment : 
 #%toolbardraw-area#Area: #Aire : 
-#%toolbarnav-lbllengthdisplay#Draw values on map#Dessiner les valeurs sur la carte
+#%toolbardraw-lbllengthdisplay#Draw values on map#Dessiner les valeurs sur la carte
 #%toolbardraw-lblselcolor#Select a colour#Selectionnez une couleur
 #%toolbardraw-lblmeasfull#Measure a path / Area#Mesurer ligne / surface
 #%toolbardraw-lblmeasline#Measure a path#Mesurer ligne
@@ -157,7 +157,7 @@ Global sys value#%gisurlalti#http://geogratis.gc.ca/services/elevation/cdem/alti
 #%toolbardata-tpadd#Import Data#Importer des données
 #%toolbardata-lbladdcsv#Import points in CSV format#Importer des points en format CSV
 #%toolbardata-lbladdurl#Import from URL#Importer d'un URL
-#%toolbardata-lbladdparamdesc#The url you are trying to load contains a link to a local file. If you have this file and wants to add it, click on the button below. Otherwise click “Ok”.#L'URL que vous essayez de charger contient lien vers un fichier local. Si vous cavez ce fichier et vous désirez l'ajouter, cliquez sur le bouton ci-dessous. Sinon, cliquez sur « Ok ».
+#%toolbardata-lbladdparamdesc#The map you are trying to load contains a link to a local file. If you have this file and wants to add it, click on the button below. Otherwise click “Ok”.#L'URL que vous essayez de charger contient lien vers un fichier local. Si vous cavez ce fichier et vous désirez l'ajouter, cliquez sur le bouton ci-dessous. Sinon, cliquez sur « Ok ».
 #%toolbardata-lbladdparam#File to import: #Fichier à importer : 
 #%toolbardata-lbladdurldesc#Specify the URL of the data to import. Supported formats are KML and ArcGIS REST “feature layer”.#Spécifiez le URL de la donnée à importer. Les formats supportés sont KML et ArcGIS REST « feature layer ».
 #%toolbardata-lbladdurltitle#URL from import#URL à importer

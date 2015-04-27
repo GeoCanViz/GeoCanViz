@@ -80,7 +80,7 @@
 				_self.drawTextValue = ko.observable('');
 
 				// dialog window for length
-				_self.measureDisplayLabel = i18n.getDict('%toolbarnav-lbllengthdisplay');
+				_self.measureDisplayLabel = i18n.getDict('%toolbardraw-lbllengthdisplay');
 				_self.isMeasureDialogOpen = ko.observable();
 				_self.segmentMeasures = ko.observable('');
 				_self.totalMeasures = ko.observable('');
