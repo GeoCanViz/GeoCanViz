@@ -45,9 +45,9 @@
 
 				// dialog text to show about
 				node += '<div data-bind="uiDialog: { title: lblAboutTitle, width: 400, height: 300, ok: dialogAboutOk, close: dialogAboutOk, openDialog: \'isAboutDialogOpen\' }">' +
-						'<span data-bind="text: aboutInfo1"></span>' +
-						'<div data-bind="if: aboutType === 2"><a data-bind="attr: { href: aboutURL, title: aboutURLText }, text: aboutURLText" tabindex="0" target="_blank"></a>' +
-						'<span data-bind="text: aboutInfo2"></span></div>' +
+							'<span data-bind="text: aboutInfo1"></span>' +
+						'	<div data-bind="if: aboutType === 2"><a data-bind="attr: { href: aboutURL, title: aboutURLText }, text: aboutURLText" tabindex="0" target="_blank"></a>' +
+						'	<span data-bind="text: aboutInfo2"></span></div>' +
 					'</div>';
 			}
 
@@ -65,6 +65,17 @@
 			// add print button
 			if (config.print.enable) {
 				node += '<button class="gcviz-head-print" tabindex="0" data-bind="buttonBlur, click: printClick, tooltip: { content: tpPrint }"></button>';
+			}
+
+			// add save url button
+			if (config.save.enable) {
+				node += '<button class="gcviz-head-save" tabindex="0" data-bind="buttonBlur, click: saveClick, tooltip: { content: tpSave }"></button>';
+
+				// dialog text to show map url
+				node += '<div data-bind="uiDialog: { title: tpSave, width: 400, height: 300, ok: dialogSaveOk, close: dialogSaveOk, openDialog: \'isSaveDialogOpen\' }">' +
+							'<span data-bind="text: lblSaveDesc"></span>' +
+							'<input id="gcviz-head-save" class="gcviz-head-textinput text ui-widget-content ui-corner-all" readOnly="true" data-bind="value: saveURL"></input>' +
+					'</div>';
 			}
 
 			// add fullscreen button

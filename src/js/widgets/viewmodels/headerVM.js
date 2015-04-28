@@ -18,8 +18,10 @@
 			'gcviz-gismap',
 			'gcviz-vm-tbextract',
 			'gcviz-vm-print',
+			'gcviz-vm-tbdata',
+			'gcviz-vm-tblegend',
 			'gcviz-vm-help'
-	], function($viz, ko, media, gisPrint, i18n, binding, gcvizFunc, gisM, extractVM, printVM, helpVM) {
+	], function($viz, ko, media, gisPrint, i18n, binding, gcvizFunc, gisM, extractVM, printVM, dataVM, legendVM, helpVM) {
 		var initialize,
 			printSimple,
 			getRotationDegrees,
@@ -36,6 +38,8 @@
 					$mapholder = $viz('#' + mapid),
 					$map = $viz('#' + mapid + '_holder'),
 					$btnAbout = $mapElem.find('.gcviz-head-about'),
+					$btnSave = $mapElem.find('.gcviz-head-save'),
+					$saveUrl = $mapElem.find('#gcviz-head-save'),
 					$menu = $mapElem.find('#gcviz-menu' + mapid),
 					$btnFull = $mapElem.find('.gcviz-head-pop'),
 					map = gcvizFunc.getElemValueVM(mapid, ['map', 'map'], 'js'),
@@ -56,6 +60,7 @@
 				_self.tpPrint = i18n.getDict('%header-tpprint');
 				_self.tpInset = i18n.getDict('%header-tpinset');
 				_self.tpAbout = i18n.getDict('%header-tpabout');
+				_self.tpSave = i18n.getDict('%header-tpsave');
 				_self.tpFullScreen = i18n.getDict('%header-tpfullscreen');
 				_self.lblMenu = i18n.getDict('%header-tools');
 
@@ -91,6 +96,14 @@
 					copyright: i18n.getDict('%header-printcopyright'),
 					template: pathPrint
 				};
+
+				// save map url dialog box
+				_self.lblSaveDesc = i18n.getDict('%header-copyclip');
+				if (window.browserOS === 'mac') {
+					_self.lblSaveDesc = _self.lblSaveDesc.replace('CTRL+C', 'CMD+C');
+				}
+				_self.isSaveDialogOpen = ko.observable(false);
+				_self.saveURL = ko.observable('');
 
 				// fullscreen
 				_self.isFullscreen = ko.observable(false);
@@ -224,6 +237,39 @@
 				_self.dialogAboutOk = function() {
 					_self.isAboutDialogOpen(false);
 					$btnAbout.focus();
+				};
+
+				_self.saveClick = function(ev) {
+					var mapUrl,
+						extentString,
+						dataString,
+						legendString,
+						extent = gisM.getMapExtent(map),
+						url = window.location.toString(),
+						url = url.substring(0, url.indexOf('html') + 4) + '?';
+
+					// set extent
+					extentString = 'exent=' + extent.xmin + ',' + extent.ymin + ',' + extent.xmax + ',' + extent.ymax;
+
+					// set imported data
+					dataString = dataVM.getURL();
+
+					// set legend
+					legendString = legendVM.getURL();
+
+					// set map url
+					mapUrl = url + extentString + '&' + dataString;
+					_self.saveURL(mapUrl);
+					_self.isSaveDialogOpen(true);
+
+					// select the url and focus to input
+					$saveUrl[0].setSelectionRange(0, mapUrl.length);
+					$saveUrl.focus();
+				};
+
+				_self.dialogSaveOk = function() {
+					_self.isSaveDialogOpen(false);
+					$btnSave.focus();
 				};
 
 				_self.cancelFullScreen = function() {

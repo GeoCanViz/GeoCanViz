@@ -416,7 +416,7 @@
 	});
 
 	// start the process with a private jquery. If we dont, it creates a conflict because we laod jQuery and it is different then the one loaded by WET
-	define('jquery-private', ['jquery', 'jqueryui', 'magnificpopup'], function ($viz) {
+	define('jquery-private', ['jquery', 'jqueryui', 'magnificpopup'], function ($viz, ui, mp) {
 		var noConflict = $.noConflict(true);
 
 		// if there is no jQuery loaded, set the window jquery to be the one from this project. Otherwise keep the outside one because it is use

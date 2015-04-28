@@ -36,10 +36,12 @@ Global sys value#%gisurlalti#http://geogratis.gc.ca/services/elevation/cdem/alti
 #%header-abouttitle#about this map #À propos de cette carte 
 #%header-aboutread#Read #Lire 
 #%header-tpabout#About this map#À propos de cette carte
+#%header-tpsave#Save map URL#Sauvegarder l'URL de la carte
 #%header-tphelp#Help#Aide
 #%header-tpprint#Print map#Imprimer la carte
 #%header-tpinset#Show or hide insets#Afficher ou cacher les insertions
 #%header-tpfullscreen#Toggle between maximum and original map size#Basculer entre mode plein écran et régulier
+#%header-copyclip#To copy map URL to clipboard press CTRL+C keys or move your mouse over the text, press right click button then select copy.#Pour copier l'URL au presse-papier, pressez les touches CTRL+C ou bien déplacez votre souris au dessus du texte, clicquez sur le bouton droit et sélectionnez copier.
 #%print-dialogtitle#Print#Imprimer
 #%print-dialogtemplate#Template#Gabarit
 #%print-dialogParameters#Parameters#Paramètres
@@ -152,6 +154,9 @@ Global sys value#%gisurlalti#http://geogratis.gc.ca/services/elevation/cdem/alti
 #%toolbarnav-lblovdisplay#Show on map#Afficher sur la carte
 #%toolbarnav-ovdrag#Drag to change map extent#Glisser pour changer l'étendue de la carte
 #%toolbarnav-scale#Approximate Scale #Échelle approximative 
+#%toolbarnav-zoomscalemin#You are trying to set map scale below minimum zoom level. The map scale will be #Vous essayez de définir l'échelle de la carte en dessous du niveau de zoom minimum. L'échelle de la carte sera 
+#%toolbarnav-zoomscalemax#You are trying to set map scale above maximum zoom level. The map scale will be #Vous essayez de définir l'échelle de la carte au dessus du niveau de zoom maximum. L'échelle de la carte sera 
+#%toolbarnav-zoomscale#You are trying to set map scale between zoom levels. The map scale will be #Vous essayez de définir l'échelle de la carte entre les niveaux de zoom. L'échelle de la carte sera 
 #%toolbardata-alt#Import Data - Help#Importer des données - Aide
 #%toolbardata-name#Import Data#Importer des données
 #%toolbardata-tpadd#Import Data#Importer des données
@@ -269,9 +274,11 @@ Global sys value#%gisurlalti#http://geogratis.gc.ca/services/elevation/cdem/alti
 #%help-nav-zoomto1b#1b. The coordinates can be entered in decimal degrees or degrees/minutes/seconds. The coordinates must be separated by a space. Latitude (N/S) should be first, followed by the longitude (E/O). The negative sign “-” must be present to indicate west longitude or south latitude. When a valid coordinate is entered, it is displayed in the dropdown menu. Examples of accepted geographical coordinates formats:#1b. Les coordonnées peuvent être entrées en degrés décimaux ou degrés/minutes/secondes. Les coordonnées doivent être séparées par un espace. La latitude (N/S) doit être en premier suivi de la longitude (E/O). Le signe négatif « - » doit être présent pour indiquer une longitude ouest ou une latitude sud. Lorsqu'une coordonnée valide est entrée, elle s'affiche dans le menu déroulant. Exemples de formats des coordonnées géographiques acceptés :
 #%help-nav-zoomto1b1#46 -72#46 -72
 #%help-nav-zoomto1b2#46.53 -72.685658#46.53 -72.685658
-#%help-nav-zoomto1b3#46 15 00 N -72 30 00 W#46 15 00 N -72 30 00 W
-#%help-nav-zoomto1b4#46d15m00s -72d30m00s#46d15m00s -72d30m00s
-#%help-nav-zoomto1b5#46d15m00sN -72d30m00sW#46d15m00sN -72d30m00sW
+#%help-nav-zoomto1b3#46.3,-72.78#46.3,-72.78
+#%help-nav-zoomto1b4#46 15 00 N -72 30 00 W#46 15 00 N -72 30 00 W
+#%help-nav-zoomto1b5#46d15m00s -72d30m00s#46d15m00s -72d30m00s
+#%help-nav-zoomto1b6#46d15m00sN -72d30m00sW#46d15m00sN -72d30m00sW
+#%help-nav-zoomto1c#1c. Enter a map scale (e.g. 1:50000) to zoom to a specific map scale. If zoom levels are specified for the map, map scale will be set to the nearest zoom level.#1c. Entrez un échelle de la carte (par exemple, 1:50000) pour zoomer sur cet échelle spécifique. Si des niveaux de zoom sont spécifiés pour cette carte, l'échelle de la carte sera réglé sur le niveau de zoom le plus près.
 #%help-nav-zoomto2#2. A drop down list will then appear containing place name choices from the Canadian Geographical Names Database (http://www.nrcan.gc.ca/earth-sciences/geography/place-names/10786).#2. Un menu déroulant contenant les noms de lieu disponibles dans la Base de données toponymiques du Canada (http://www.nrcan.gc.ca/earth-sciences/geography/place-names/10786) apparaîtra alors.
 #%help-nav-zoomto3#3. Select one of the place names from the list by clicking on it or press ENTER key and it will select the first place name.#3. Sélectionnez l'un des noms de lieu dans la liste en cliquant dessus ou bien presser la touche ENTER le premier non de lieu sera sélectionné.
 #%help-nav-zoomto4#4. The map will then zoom to the selected place name.#4. La carte fera alors un zoom sur le nom de lieu sélectionné.

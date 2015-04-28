@@ -47,7 +47,9 @@
 			zoomFeature,
 			zoomGraphics,
 			zoomExtent,
+			zoomScale,
 			getMapCenter,
+			getMapExtent,
 			createMapMenu,
 			zoomIn,
 			zoomOut,
@@ -85,7 +87,8 @@
 				fullExtent = new esriExt({ 'xmin': fExtent.xmin, 'ymin': fExtent.ymin,
 										'xmax': fExtent.xmax, 'ymax': fExtent.ymax,
 										'spatialReference': { 'wkid': wkid } }),
-				initLods = config.lods.values.reverse(),
+				lodsCfg = config.lods,
+				initLods = lodsCfg.values.reverse(),
 				lenLods = initLods.length,
 				lods = [],
 				options,
@@ -102,7 +105,7 @@
 			}
 
 			// set options
-			if (lods.length) {
+			if (lods.length && lodsCfg.enable) {
 				options = {
 					extent: initExtent,
 					spatialReference: { 'wkid': wkid },
@@ -110,7 +113,8 @@
 					showAttribution: false,
 					lods: lods,
 					wrapAround180: true,
-					smartNavigation: false
+					smartNavigation: false,
+					autoResize: false
 				};
 
 				if (config.zoombar.bar) {
@@ -125,7 +129,8 @@
 					logo: false,
 					showAttribution: false,
 					wrapAround180: true,
-					smartNavigation: false
+					smartNavigation: false,
+					autoResize: false
 				};
 			}
 
@@ -523,6 +528,59 @@
 			map.setExtent(mapExtent);
 		};
 
+		zoomScale = function(map, inScale) {
+			var lod1, lod2, out, len,
+				delta1, delta2,
+				i = 0,
+				lods = map._mapParams.lods,
+				scale = parseFloat(inScale, 10);
+
+			// zoom to scale
+			map.setScale(scale);
+
+			// check if lods is enable
+			if (typeof lods !== 'undefined') {
+				len = lods.length;
+
+				// loop to get between wich scale we try to zoom for cache service
+				while (i < len) {
+					lod1 = lods[i].scale;
+	
+					if (i < len - 1) {
+						lod2 = lods[i + 1].scale;
+	
+						if (lod1 >= scale && lod2 <= scale) {
+							delta1 = lod1 - scale;
+							delta2 = scale - lod2;
+
+							// check from wich lods we are the nearest
+							if (delta1 > delta2) {
+								out = ['cache', lod2];
+							} else {
+								out = ['cache', lod1];
+							}
+
+							break;
+						} else if (lod1 <= scale) {
+							// outsisde zoom level (above max)
+							out = ['cache-max', lod1];
+							break;
+						}
+					} else {
+						// outsisde zoom level (below min)
+						out = ['cache-min', lod1];
+						break;
+					}
+
+					i++;			
+				}
+			} else {
+				out = ['dynamic'];
+			}
+
+			return out;
+		};
+
 		getMapCenter = function(map) {
 			var extent,
 				point;
@@ -532,6 +590,10 @@
 								(extent.ymin + extent.ymax) / 2, map.vWkid);
 
 			return point;
+		};
+
+		getMapExtent = function(map) {
+			return map.extent;
 		};
 
 		manageScreenState = function(map, interval, fullscreen) {
@@ -732,6 +794,8 @@
 			zoomFeature: zoomFeature,
 			zoomGraphics: zoomGraphics,
 			zoomExtent: zoomExtent,
+			zoomScale: zoomScale,
+			getMapExtent: getMapExtent,
 			getOverviewLayer: getOverviewLayer,
 			getMapCenter: getMapCenter,
 			manageScreenState: manageScreenState,

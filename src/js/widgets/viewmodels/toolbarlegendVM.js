@@ -17,8 +17,13 @@
 		var initialize,
 			addLegend,
 			removeLegend,
+			getLegendParam,
+			getURL,
 			innerAddLegend,
 			innerRemoveLegend,
+			innerGetLegendParam,
+			innerGetURL,
+			loopGetURL,
 			loopChildrenVisibility,
 			vm;
 
@@ -207,6 +212,44 @@
 					_self.allLayers = _self.layersArray().concat(_self.basesArray());
 				};
 
+				innerGetLegendParam = function(id) {
+					return gisLegend.getLayerParam(_self.mymap, id);
+				};
+
+				innerGetURL = function() {
+					var layer,
+						returnURL = [],
+						layers = _self.allLayers,
+						len = layers.length;
+
+					while (len--) {
+						layer = layers[len];
+
+						returnURL = loopGetURL(_self.mymap, [layer], returnURL, loopGetURL);
+					}
+
+					return returnURL;
+				};
+
+				loopGetURL = function(map, items, url) {
+					var layer, graphid,
+						layers = items,
+						len = layers.length;
+
+					while (len--) {
+						layer = layers[len];
+						graphid = layer.graphid;
+						
+						if (layer.last && graphid !== 'custom') {
+							url.push(gisLegend.getLayerParam(map, layer.id, graphid));
+						} else {
+							url = loopGetURL(map, layer.items, url, loopGetURL);
+						}
+					}
+
+					return url;
+				};
+
 				_self.init();
 			};
 
@@ -241,10 +284,20 @@
 			innerRemoveLegend(id);
 		};
 
+		getLegendParam = function(id) {
+			return innerGetLegendParam(id);
+		};
+
+		getURL = function() {
+			return innerGetURL();
+		};
+		
 		return {
 			initialize: initialize,
 			addLegend: addLegend,
-			removeLegend: removeLegend
+			removeLegend: removeLegend,
+			getLegendParam: getLegendParam,
+			getURL: getURL
 		};
 	});
 }).call(this);

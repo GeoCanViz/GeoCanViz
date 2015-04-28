@@ -159,6 +159,8 @@
 				_self.navZoomto1b3 = i18n.getDict('%help-nav-zoomto1b3');
 				_self.navZoomto1b4 = i18n.getDict('%help-nav-zoomto1b4');
 				_self.navZoomto1b5 = i18n.getDict('%help-nav-zoomto1b5');
+				_self.navZoomto1b6 = i18n.getDict('%help-nav-zoomto1b6');
+				_self.navZoomto1c = i18n.getDict('%help-nav-zoomto1c');
 				_self.navZoomto2 = i18n.getDict('%help-nav-zoomto2');
 				_self.navZoomto3 = i18n.getDict('%help-nav-zoomto3');
 				_self.navZoomto4 = i18n.getDict('%help-nav-zoomto4');

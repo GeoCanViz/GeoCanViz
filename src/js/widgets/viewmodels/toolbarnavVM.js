@@ -81,6 +81,9 @@
 				_self.ScaleLabel = _self.lblScale();
 				_self.zoomGrp = i18n.getDict('%toolbarnav-zoomgrp');
 				_self.mapInfoGrp = i18n.getDict('%toolbarnav-mapinfogrp');
+				_self.zoomScaleMin = i18n.getDict('%toolbarnav-zoomscalemin');
+				_self.zoomScaleMax = i18n.getDict('%toolbarnav-zoomscalemax');
+				_self.zoomScale = i18n.getDict('%toolbarnav-zoomscale');
 
 				// WCAG
 				_self.WCAGTitle = i18n.getDict('%wcag-title');
@@ -246,7 +249,9 @@
 				// Set the input field has an autocomplete field and define the source and events for it
 				inMapField.autocomplete({
 					source: function(request, response) {
-						var lonlat = gcvizFunc.parseLonLat(request.term);
+						var term = request.term,
+							lonlat = gcvizFunc.parseLonLat(term),
+							scale = gcvizFunc.parseScale(term);
 
 						// reset the array (need to set a dummy value if not it is not reset)
 						autoCompleteArray = [{ minx: 0, miny: 0, maxx: 0, maxy: 0, title: 'ddd' }];
@@ -278,13 +283,26 @@
 									value: value
 								};
 							}));
+						} else if (typeof scale !== 'undefined') {
+							response($viz.map([scale], function(item) {
+								var value = scale,
+									parts = scale.split(':'),
+									geomType = 'scale';
+
+								autoCompleteArray.push({ minx: 0, miny: 0, maxx: 0, maxy: 0, coords: parts[1], type: geomType, title: value });
+
+								return {
+									label: value,
+									value: value
+								};
+							}));
 						} else {
 							$viz.ajax({
 								url: _self.geoLocUrl,
 								cache: false,
 								dataType: 'jsonp', // jsonp because it is cross domain
 								data: {
-									q: request.term + '*'
+									q: term + '*'
 								},
 								success: function(data) {
 									response($viz.map(data, function(item) {
@@ -366,41 +384,61 @@
 				});
 
 				_self.selectAutoComplete = function(acai) {
-					var anchor, geometry,
+					var anchor, geometry, output, scaleOut, scaleType,
 						title = acai.title,
 						infotitle = title, // need this because title will be reset before the timeout
 						coords = acai.coords,
 						minx = acai.minx,
 						miny = acai.miny,
 						maxx = acai.maxx,
-						maxy = acai.maxy;
-					
-					// zoom to location
-					gisGeo.zoomLocation(minx, miny, maxx, maxy, mymap, _self.outSR);
+						maxy = acai.maxy,
+						type = acai.type;
 
 					// remove previous info window if there is one.
 					gisMap.hideInfoWindow(mymap, 'location');
 
-					// add graphic representation
-					if (geolocation.graphic && acai.type === 'point') {
-						geometry = { 'x': coords[0], 'y': coords[1] };
-						gisGraph.createGraphic(mymap, 'point', geometry, { title: title }, 4326, 'location');
+					if (type !== 'scale') {
+						// zoom to location
+						gisGeo.zoomLocation(minx, miny, maxx, maxy, mymap, _self.outSR);
+	
+						// add graphic representation
+						if (geolocation.graphic && acai.type === 'point') {
+							geometry = { 'x': coords[0], 'y': coords[1] };
+							gisGraph.createGraphic(mymap, 'point', geometry, { title: title }, 4326, 'location');
+						} else {
+							geometry = { 'polygon': [[[minx, miny],
+												[maxx, miny],
+												[maxx, maxy],
+												[minx, maxy],
+												[minx, miny]]] };
+							gisGraph.createGraphic(mymap, 'polygon', geometry, { title: title }, 4326, 'location');
+						}
+
+						anchor = 'location';
 					} else {
-						geometry = { 'polygon': [[[minx, miny],
-											[maxx, miny],
-											[maxx, maxy],
-											[minx, maxy],
-											[minx, miny]]] };
-						gisGraph.createGraphic(mymap, 'polygon', geometry, { title: title }, 4326, 'location');
+						output = gisMap.zoomScale(mymap, coords);
+						scaleType = output[0];
+
+						if (scaleType === 'cache') {
+							scaleOut = _self.zoomScale + output[1] + '.';
+						} else if (scaleType === 'cache-min') {
+							scaleOut = _self.zoomScaleMin + output[1] + '.';
+						} else if (scaleType === 'cache-max') {
+							scaleOut = _self.zoomScaleMax + output[1] + '.';
+						} else {
+							
+						}
+
+						infotitle = scaleOut; 
 					}
 
 					// reset the array (need to set a dummy value if not it is not reset)
-					autoCompleteArray = [{ minx: 0, miny: 0, maxx: 0, maxy: 0, title: 'ddd' }];
+					autoCompleteArray = [{ minx: 0, miny: 0, maxx: 0, maxy: 0, coords: 0, type: '', title: 'ddd' }];
 
 					// show info window
 					if (geolocation.info) {
 						setTimeout(function() {
-							gisMap.showInfoWindow(mymap, 'Location', infotitle, 'location', 12, 0);
+							gisMap.showInfoWindow(mymap, 'Location', infotitle, anchor, 12, 0);
 						}, 1000);
 					}
 				};

@@ -65,6 +65,11 @@
 	@include marg-button;
 }
 
+.gcviz-head-save {
+	@include sprite($img-spritebtn, -1301, -2);
+	@include marg-button;
+}
+
 .gcviz-head-fs {
 	@include sprite($img-spritebtn, -219, -2);
 	@include marg-button;
@@ -84,4 +89,8 @@
 
 .gcviz-sectionfs-dg {
 	overflow-y: scroll;
+}
+
+.gcviz-head-textinput {
+	width: 95%;
 }

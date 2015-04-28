@@ -13,11 +13,14 @@
 			'gcviz-i18n',
 			'gcviz-gismap',
 			'gcviz-gisdata',
-			'gcviz-vm-datagrid'
-	], function($viz, ko, gcvizFunc, i18n, gisMap, gisData, vmDatagrid) {
+			'gcviz-vm-datagrid',
+			'gcviz-vm-tblegend'
+	], function($viz, ko, gcvizFunc, i18n, gisMap, gisData, vmDatagrid, legendVM) {
 		var initialize,
 			notifyAdd,
+			getURL,
 			innerNotifyAdd,
+			innerGetURL,
 			vm;
 
 		initialize = function($mapElem, mapid, config) {
@@ -82,6 +85,9 @@
 
 					// to expose the observable to know when the layer has been added
 					innerNotifyAdd = _self.notifyAdd;
+
+					// to expose the getURL for save map URL
+					innerGetURL = _self.getURL;
 
 					// check if there is a url to load
 					if (configQuery) {
@@ -234,7 +240,7 @@
 											item = data[len];
 
 											// add to user array so knockout will generate legend
-											_self.userArray.push({ label: item.name, id: item.id });
+											_self.userArray.push(item);
 										}
 									} else {
 										_self.errMsg(_self.errLoad.replace('XXX', data));
@@ -251,7 +257,7 @@
 								.done(function(err, data) {
 									if (err === 0) {
 										// add to user array so knockout will generate legend
-										_self.userArray.push({ label: data.name, id: data.id });
+										_self.userArray.push(data);
 									} else {
 										_self.errMsg(_self.errLoad.replace('XXX', data));
 										_self.isDataProcess(false);
@@ -311,7 +317,7 @@
 								.done(function(data) {
 									if (data === 0) {
 										// add to user array so knockout will generate legend
-										_self.userArray.push({ label: fileName, id: uuid });
+										_self.userArray.push({ label: fileName, id: uuid, type: 'file' });
 									} else {
 										_self.isErrDataOpen(true);
 										_self.isAddData(false);
@@ -385,6 +391,41 @@
 					_self.isDataProcess(false);
 				};
 
+				_self.getURL = function() {
+					var layer, param,
+						returnURL = '',
+						flagFile = false,
+						flagURL = false,
+						file = 'datafile=',
+						url = 'dataurl=',
+						layers = _self.userArray(),
+						len = layers.length;
+
+					while (len--) {
+						layer = layers[len];
+
+						if (layer.type === 'file') {
+							file += layer.label + ';';
+							flagFile = true;
+						} else {
+							if (url.indexOf(layer.url) === -1) {
+								param = legendVM.getLegendParam(layer.id);
+								url += layer.url + ',1,' + param.visible + ',' + param.opacity +',0;';
+							}
+							flagURL = true;
+						}
+					}
+
+					if (flagFile) {
+						returnURL = file.slice(0,-1);
+					}
+					if (flagURL) {
+						returnURL += '&' + url.slice(0,-1);
+					}
+
+					return returnURL;
+				};
+
 				_self.init();
 			};
 
@@ -397,9 +438,14 @@
 			innerNotifyAdd();
 		};
 
+		getURL = function() {
+			return innerGetURL();
+		};
+
 		return {
 			initialize: initialize,
-			notifyAdd: notifyAdd
+			notifyAdd: notifyAdd,
+			getURL: getURL
 		};
 	});
 }).call(this);

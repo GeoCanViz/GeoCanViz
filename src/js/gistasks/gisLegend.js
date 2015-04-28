@@ -19,7 +19,8 @@
 			setLayerOpacity,
 			getFeatureLayerSymbol,
 			createSymbols,
-			createSVGSurface;
+			createSVGSurface,
+			getLayerParam;
 
 		setLayerVisibility = function(mymap, selectedLayer, visState) {
 			var layer = mymap.getLayer(selectedLayer);
@@ -145,10 +146,23 @@
 			}
 		};
 
+		getLayerParam = function(map, id, graphid) {
+			var layer = map.getLayer(id),
+				param = { visible: layer.visible ? 1 : 0,
+							opacity: layer.opacity };
+
+			if (typeof graphid !== 'undefined') {
+				param.graphid = graphid;
+			}
+
+			return param;
+		};
+
 		return {
 			setLayerVisibility: setLayerVisibility,
 			setLayerOpacity: setLayerOpacity,
-			getFeatureLayerSymbol: getFeatureLayerSymbol
+			getFeatureLayerSymbol: getFeatureLayerSymbol,
+			getLayerParam: getLayerParam
 		};
 	});
 }());

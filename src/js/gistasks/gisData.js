@@ -301,9 +301,12 @@
 					field, fields, lenFields, outFields,
 					layerDef, featureLayer,
 					output = [],
-
-					layerDefs = input.layer._fLayers,
+					layer = input.layer,
+					layerDefs = layer._fLayers,
 					lenLayerDef = layerDefs.length;
+
+				// set url to retreive in view model
+				layerDefs.url = layer.url;
 
 				// remove the kml layer
 				map.removeLayer(map.getLayer('tempAddDataKML'));
@@ -328,24 +331,27 @@
 						finishAdd(map, featureLayer, config.zoom);
 
 						// clean fields to keep name and description
-						fields = layerDef.layerDefinition.fields;
+						fields = Object.keys(layerDef.featureSet.features[0].attributes);
 						lenFields = fields.length;
 						defaultFields ='id, snippet, visibility, styleUrl, balloonStyleText';
 
 						while (lenFields--) {
-							field = fields[lenFields];
-							fieldName = field.name;
+							fieldName = fields[lenFields];
+							field = {};
 
 							// filter to remove default internal fields
 							if (defaultFields.indexOf(fieldName) === -1) {
 								if (fieldName === 'name') {
 									field.alias = 'name';
+									field.name = 'name';
 									outFields[0] = field;
 								} else if (fieldName === 'description') {
 									field.alias = 'description';
+									field.name = 'description';
 									outFields[1] = field;
 								} else {
 									field.alias = fieldName;
+									field.name = fieldName;
 									outFields.push(field);
 								}
 							}
@@ -381,7 +387,7 @@
 						vmDatagrid.addTab(map.vIdName, layerDef, name, id);
 
 						// add output info
-						output.push({ name: name, id: id });
+						output.push({ label: name, id: id, url: layerDefs.url });
 					}
 
 					// layers created, remove interval
@@ -436,7 +442,7 @@
 				vmDatagrid.addRestTab(url, layer);
 
 				// return info
-				def.resolve(0, { name: name, id: uuid });
+				def.resolve(0, { label: name, id: uuid, url: layer.url });
 			}, map, uuid, config));
 
 			return def;

@@ -165,7 +165,7 @@
 				_self.updateArrow = function(projectedPoints) {
 					var dLon, lat1, lat2,
 						x, y, pointB,
-						bearing,
+						bearing, mapRotation,
 						pointA = { x: -100, y: 90 };
 
 					pointB = projectedPoints[0];
@@ -176,7 +176,6 @@
 					x = Math.cos(lat1) * Math.sin(lat2) - Math.sin(lat1) * Math.cos(lat2) * Math.cos(dLon);
 					bearing = Math.atan2(y, x) * 180 / Math.PI;
 					bearing = ((bearing + 360) % 360).toFixed(1) - 90; //Converting -ve to +ve (0-360)
-
 					_self.rotateArrow('rotate(' + bearing + 'deg)');
 				};
 

@@ -185,6 +185,9 @@
                 "project": ["Default", "Topo"],
                 "DPI": [96, 300]
             },
+            "save": {
+            	"enable": true
+            },
             "fullscreen": true
         },
         "footer": {

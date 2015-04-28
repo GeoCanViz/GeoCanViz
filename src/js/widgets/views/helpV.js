@@ -499,7 +499,9 @@
 										'<li class="gcviz-help-textlist" data-bind="text: navZoomto1b3"></li>' +
 										'<li class="gcviz-help-textlist" data-bind="text: navZoomto1b4"></li>' +
 										'<li class="gcviz-help-textlist" data-bind="text: navZoomto1b5"></li>' +
+										'<li class="gcviz-help-textlist" data-bind="text: navZoomto1b6"></li>' +
 									'</ul>' +
+									'<span class="gcviz-help-textlist" data-bind="text: navZoomto1c"></span>' +
 									'<span class="gcviz-help-textlist" data-bind="text: navZoomto2"></span>' +
 									'<span class="gcviz-help-textlist" data-bind="text: navZoomto3"></span>' +
 									'<span class="gcviz-help-textlist" data-bind="text: navZoomto4"></span>' +

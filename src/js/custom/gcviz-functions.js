@@ -35,6 +35,7 @@
 			padDigits,
 			parseLonLat,
 			parseDMS,
+			parseScale,
 			convertDdToDms,
 			timer,
 			vmObject = { };
@@ -320,7 +321,7 @@
 
 		parseLonLat = function(input) {
 			var x, y, lonlat,
-				ddregex = /^([-+]?([1-8]?\d(\.\d+)?|90(\.0+)?))([\s+])([-+]?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?))$/g,
+				ddregex = /^([-+]?([1-8]?\d(\.\d+)?|90(\.0+)?))([\s+|,])([-+]?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?))$/g,
 				dd = ddregex.exec(input),
 				dmsregex = /(-)?(\d{2,3})([:°d|\s+])\s*([0-5][0-9])([:\'m]|\s*)(\s*([0-5][0-9])([\.,](\d+))?([\"s]|\s*))?\s*([NnWwOo])?[ |,]\s*(-)?(\d{2,3})([:°d|\s+])\s*([0-5][0-9])([:\'m]|\s*)(\s*([0-5][0-9])([\.,](\d+))?([\"s]|\s*))?\s*([NnWwOo])?/g,
 				dms = dmsregex.exec(input);
@@ -376,6 +377,22 @@
 			return dd;
 		};
 
+		parseScale = function(input) {
+			var part1, part2, scale,
+				parts = input.split(':');
+
+			if (parts.length === 2) {
+				part1 = parseInt(parts[0], 10);
+				part2 = parseFloat(parts[1], 10);
+
+				if (part1 === 1 && part2 > 999) {
+					scale =  '1:' + part2;
+				}
+			}
+
+			return scale;
+		};
+
 		convertDdToDms = function(degX, degY, digit) {
 			var yLabel, xLabel,
 				dx = parseInt(degX, 10),
@@ -429,6 +446,7 @@
 			focusMap: focusMap,
 			padDigits: padDigits,
 			parseLonLat: parseLonLat,
+			parseScale: parseScale,
 			convertDdToDms: convertDdToDms
 		};
 	});
