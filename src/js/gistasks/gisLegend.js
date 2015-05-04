@@ -50,6 +50,7 @@
 				anode,
 				nodeImage,
 				nodeLabel,
+				nodeOutter,
 				jsonRen = JSON.parse(renderer),
 				ren = esriJsonUtilR.fromJson(jsonRen),
 				renDefSym = ren.defaultSymbol,
@@ -85,6 +86,7 @@
 				//domConstruct.place(domConstruct.create('br'), symbolLocation);
 
 				$viz.each(legs, function(key, value) {
+					nodeOutter = domConstruct.create('div', { 'class': 'gcviz-leg-outholder' });
 					nodeImage = domConstruct.create('div', { 'class': 'gcviz-leg-uniqueSymbolHolder' });
 					nodeLabel = domConstruct.create('div', { 'class': 'gcviz-leg-uniqueSpan' });
 					descriptors = esriJsonUtilS.getShapeDescriptors(value.symbol);
@@ -92,8 +94,9 @@
 					shape = mySurface.createShape(descriptors.defaultShape);
 					createSymbols(descriptors, shape, value);
 					nodeLabel.innerHTML = value.label;
-					domConstruct.place(nodeImage, symbolLocation);
-					domConstruct.place(nodeLabel, symbolLocation);
+					domConstruct.place(nodeImage, nodeOutter);
+					domConstruct.place(nodeLabel, nodeOutter);
+					domConstruct.place(nodeOutter, symbolLocation);
 					domConstruct.place(domConstruct.create('br'), symbolLocation);
 				});
 			} else {
@@ -146,14 +149,12 @@
 			}
 		};
 
-		getLayerParam = function(map, id, graphid) {
+		getLayerParam = function(map, id) {
 			var layer = map.getLayer(id),
-				param = { visible: layer.visible ? 1 : 0,
-							opacity: layer.opacity };
-
-			if (typeof graphid !== 'undefined') {
-				param.graphid = graphid;
-			}
+				vis = layer.visible ? 1 : 0,
+				opa = layer.opacity.toFixed(2),
+				param = { visible: vis,
+							opacity: opa };
 
 			return param;
 		};

@@ -18,6 +18,7 @@
 				mapid = $mapElem.mapframe.id,
 				datafile = config.datafile,
 				dataurl = config.dataurl,
+				isDatagrid = $mapElem.datagrid.enable,
 				node = '';
 
 			// find toolbar and start to add items
@@ -65,7 +66,7 @@
 					'</div>';
 
 			// add dialog load message
-			node += '<div data-bind="uiDialog: { title: lblAddTitle, width: 500, height: 200, openDialog: \'isDataProcess\' }">' +
+			node += '<div data-bind="uiDialog: { title: lblAddTitle, width: 500, height: 200, modal: true, open: openWait, openDialog: \'isDataProcess\', closeOnEscape: false }">' +
 						'<span data-bind="text: lblAddDesc"></span>' +
 					'</div>';
 
@@ -80,7 +81,7 @@
 					'</div>';
 
 			$toolbar.append(node);
-			return (tbdataVM.initialize($toolbar, mapid, config));
+			return (tbdataVM.initialize($toolbar, mapid, config, isDatagrid));
 		};
 
 		return {

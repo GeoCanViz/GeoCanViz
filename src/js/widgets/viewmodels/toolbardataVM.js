@@ -23,10 +23,10 @@
 			innerGetURL,
 			vm;
 
-		initialize = function($mapElem, mapid, config) {
+		initialize = function($mapElem, mapid, config, isDatagrid) {
 
 			// data model				
-			var toolbardataViewModel = function($mapElem, mapid, config) {
+			var toolbardataViewModel = function($mapElem, mapid, config, isDatagrid) {
 				var _self = this,
 					$btnCSV = $viz('#btnAddCSV' + mapid),
 					configQuery = config.dataquery.enable,
@@ -90,47 +90,67 @@
 					innerGetURL = _self.getURL;
 
 					// check if there is a url to load
-					if (configQuery) {
-						// dataurl param can be like this:
-						// dataurl=http://maps.ottawa.ca/arcgis/rest/services/Schools/MapServer/2,1,1,0.5,0;http://geoappext.nrcan.gc.ca/GeoCanViz/CCMEO/toporama/combine.kml,0,0,1,0
-						// first the url, the expand state, the visibiity state, the opacity value, zoom to extent value
-						url = gcvizFunc.getURLParameter(window.location.toString(), 'dataurl');
+					// dataurl param can be like this:
+					// dataurl=http://maps.ottawa.ca/arcgis/rest/services/Schools/MapServer/1,1,1,0.5,0;http://geoappext.nrcan.gc.ca/GeoCanViz/CCMEO/toporama/combine.kml,0,0,1,0
+					// first the url, the expand state, the visibiity state, the opacity value, zoom to extent value
+					url = gcvizFunc.getURLParameter(window.location.toString(), 'dataurl');
 
-						// datafile param can be like this:
-						// datafile=ParksVan.csv;ExportCSV.csv,1,1,1,1
-						// first the file name, the expand state, the visibiity state, the opacity value, zoom to extent value
-						file = gcvizFunc.getURLParameter(window.location.toString(), 'datafile');
+					// datafile param can be like this:
+					// datafile=ParksVan.csv;ExportCSV.csv,1,1,1,1
+					// first the file name, the expand state, the visibiity state, the opacity value, zoom to extent value
+					file = gcvizFunc.getURLParameter(window.location.toString(), 'datafile');
 
-						if (url !== null) {
+					if (url !== null) {
+						if (isDatagrid) {
 							// subscribe to the isTableReady event to know when tables have been initialize
 							gcvizFunc.subscribeTo(mapid, 'datagrid', 'isTableReady', function(input) {
-								var layer = url.split(';'),
-									len = layer.length;
-
-								if (input) {
-									while (len--) {
-										_self.addUrlValue(layer[len]);
-										_self.dialogUrlOk();
-									}
-								}
+								_self.addUrlUrl(url, input);
 							});
+						} else {
+							// set in a timeout. if not dialog box not launch
+							setTimeout(function() {
+								_self.addUrlUrl(url, true);
+							}, 0);
 						}
+					}
 
-						if (file !== null) {
+					if (file !== null) {
+						if (isDatagrid) {
 							// subscribe to the isTableReady event to know when tables have been initialize
 							gcvizFunc.subscribeTo(mapid, 'datagrid', 'isTableReady', function(input) {
-								_self.files = file.split(';');
-
-								// we cant open directly the file dialog for security reason. It need to be from a user event.
-								// Show a window where user will be able to click to add the file.
-								if (input && _self.files.length > 0) {
-									_self.addParamUrlFile();
-								}
+								_self.addFileUrl(file, input);
 							});
+						} else {
+							// set in a timeout. if not dialog box not launch
+							setTimeout(function() {
+								_self.addFileUrl(file, true);
+							}, 0);
 						}
 					}
 
 					return { controlsDescendantBindings: true };
+				};
+
+				_self.addUrlUrl = function(url, input) {
+					var layer = url.split(';'),
+						len = layer.length;
+
+					if (input) {
+						while (len--) {
+							_self.addUrlValue(layer[len]);
+							_self.dialogUrlOk();
+						}
+					}
+				};
+				
+				_self.addFileUrl = function(file, input) {
+					_self.files = file.split(';');
+	
+					// we cant open directly the file dialog for security reason. It need to be from a user event.
+					// Show a window where user will be able to click to add the file.
+					if (input && _self.files.length > 0) {
+						_self.addParamUrlFile();
+					}
 				};
 
 				_self.launchDialog = function() {
@@ -138,6 +158,11 @@
 					// Firefox will not launch the window. To be able to open the window,
 					// we mimic the click
 					document.getElementById('fileDialogData' + mapid).click();
+				};
+
+				_self.openWait = function(event) {
+					// remove close icon to have a real modal window.
+					$viz(event.target.parentElement).find('.ui-dialog-titlebar-close').addClass('gcviz-dg-wait');
 				};
 
 				_self.dialogDataClose = function() {
@@ -350,6 +375,9 @@
 					mymap.removeLayer(mymap.getLayer(selectedItem.id));
 					_self.userArray.remove(selectedItem);
 
+					// remove fromlegend
+					legendVM.removeLegend(selectedItem.id);
+
 					// focus back on add to keep focus
 					$btnCSV.focus();
 
@@ -417,7 +445,7 @@
 					}
 
 					if (flagFile) {
-						returnURL = file.slice(0,-1);
+						returnURL = '&' + file.slice(0,-1);
 					}
 					if (flagURL) {
 						returnURL += '&' + url.slice(0,-1);
@@ -429,7 +457,7 @@
 				_self.init();
 			};
 
-			vm = new toolbardataViewModel($mapElem, mapid, config);
+			vm = new toolbardataViewModel($mapElem, mapid, config, isDatagrid);
 			ko.applyBindings(vm, $mapElem[0]); // This makes Knockout get to work
 			return vm;
 		};

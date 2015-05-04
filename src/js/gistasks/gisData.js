@@ -322,7 +322,7 @@
 						featureLayer = new esriFeatLayer(layerDef);
 
 						// set feature layer parameters
-						featureLayer.visible = config.visibility;
+						layer.setVisibility(config.visibility);
 						featureLayer.type = 5;
 						featureLayer.name = name;
 						featureLayer.id = id;
@@ -380,11 +380,11 @@
 							}
 						}
 
-						// set legend
-						addLegend(name, id, 7, JSON.stringify(featureLayer.renderer.toJson()), config);
-
 						// add the data to the datagrid
 						vmDatagrid.addTab(map.vIdName, layerDef, name, id);
+
+						// set legend
+						addLegend(name, id, 7, JSON.stringify(featureLayer.renderer.toJson()), config);
 
 						// add output info
 						output.push({ label: name, id: id, url: layerDefs.url });
@@ -431,15 +431,19 @@
 				var layer = input.layer,
 					name = layer.name;
 
-				// set legend
-				layer.visible = config.visibility;
-				addLegend(name, uuid, 5, JSON.stringify(layer.renderer.toJson()), config);
+				// set feature layer parameters
+				layer.setVisibility(config.visibility);
+				layer.type = 5;
+				//layer._map = map;
 
 				// finish add by reordering layer and add the layer to map
 				finishAdd(map, layer, config.zoom);
 
 				// add the data to the datagrid
-				vmDatagrid.addRestTab(url, layer);
+				vmDatagrid.addRestTab(url, layer, map.vIdName);
+
+				// set legend
+				addLegend(name, uuid, 5, JSON.stringify(layer.renderer.toJson()), config);
 
 				// return info
 				def.resolve(0, { label: name, id: uuid, url: layer.url });
@@ -597,8 +601,8 @@
 			mymap.addLayer(layer);
 
 			// set map scale
-			layer.minScale = 0;
-			layer.maxScale = 0;
+			layer.setMinScale(0);
+			layer.setMaxScale(0);
 
 			// reoder layers to make sure symbol and datagrid are on top
 			if (layerIds.indexOf('gcviz-symbol') !== -1) {

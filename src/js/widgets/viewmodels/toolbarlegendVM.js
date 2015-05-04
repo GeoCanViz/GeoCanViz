@@ -43,8 +43,29 @@
 				_self.theme = i18n.getDict('%toolbarlegend-theme');
 
 				_self.init = function() {
-					_self.layersArray = ko.observableArray(config.items);
-					_self.basesArray = ko.observableArray(config.basemaps);
+					var legend, lenLegend, legendParams,
+						basemaps = config.basemaps,
+						layers = config.items,
+						combLayers = basemaps.concat(layers);
+
+					// check if there is a url to load
+					// leged param can be like this:
+					// legend=9b8bed21-127f-5f51-d75d-2dfdfd0c628a,1,0,0.55;
+					// first the id, the expand state, the visibiity state and the opacity value
+					legend = gcvizFunc.getURLParameter(window.location.toString(), 'legend');
+
+					if (legend !== null) {
+						// update config file from legend parameters
+						legendParams = legend.split(';');
+						lenLegend = legendParams.length;
+
+						while (lenLegend--) {
+							_self.updateConfig(legendParams[lenLegend], combLayers);
+						}
+					}
+
+					_self.layersArray = ko.observableArray(layers);
+					_self.basesArray = ko.observableArray(basemaps);
 
 					// concat all layers to access in determineTextCSS
 					_self.allLayers = _self.layersArray().concat(_self.basesArray());
@@ -60,6 +81,24 @@
 						_self.changeItemsVisibility();
 					}, 1000);
 					return { controlsDescendantBindings: true };
+				};
+
+				_self.updateConfig = function(item, layers) {
+					var layer,
+						lenLayers = layers.length,
+						params = item.split(',');
+
+					while (lenLayers--) {
+						layer = layers[lenLayers];
+
+						if (params[0] === layer.graphid) {
+							layer.expand = params[1] === '1' ? true : false;
+							layer.visibility.initstate = params[2] === '1' ? true : false;
+							layer.opacity.initstate = parseFloat(params[3], 10);
+						} else if (layer.items.length > 0) {
+							_self.updateConfig(item, layer.items);
+						}
+					}
 				};
 
 				_self.setHeight = function() {
@@ -136,14 +175,18 @@
 
 				_self.changeItemsVisibility = function(selectedItem, event) {
 					var item,
+						isCheck = event.target.checked,
 						lenBases = _self.basesArray().length,
 						lenLayers = _self.layersArray().length;
 
 					// loop trought items (we use event when the check box is clicked) event is
 					// undefined at initialization
 					if (typeof event !== 'undefined') {
-						selectedItem.visibility.initstate = event.target.checked;
+						selectedItem.visibility.initstate = isCheck;
 					}
+
+					// set value in layers array to retrieve to save legend
+					selectedItem.visibility.curstate = isCheck;
 
 					// always loop trought all the layers. If we just do child of event trigger,
 					// it could show a layer even if parent visibility is false
@@ -171,7 +214,13 @@
 				};
 
 				_self.changeServiceOpacity = function(layerid, opacityValue) {
+					var opa = parseFloat(opacityValue.toFixed(2), 10);
+
+					// set opacity
 					gisLegend.setLayerOpacity(_self.mymap, layerid, opacityValue);
+
+					// set value in layers array to retrieve to save legend
+					_self.assignOpacityValue(_self.allLayers, layerid, opa);
 				};
 
 				_self.toggleViewService = function(selectedLayer, event) {
@@ -185,15 +234,41 @@
 						if (className === 'gcviz-leg-imgli') {
 							evtTarget.removeClass('gcviz-leg-imgli');
 							evtTarget.addClass('gcviz-leg-imgliopen');
+
+							// set value in layers array to retrieve to save legend
+							selectedLayer.expand = true;
 						} else if (className === 'gcviz-leg-imgliopen') {
 							evtTarget.removeClass('gcviz-leg-imgliopen');
 							evtTarget.addClass('gcviz-leg-imgli');
+
+							// set value in layers array to retrieve to save legend
+							selectedLayer.expand = false;
 						}
 						evtTargetLi.children('div#childItems.gcviz-legendHolderDiv').toggle();
 						evtTargetLi.children('.gcviz-legendSymbolDiv').toggle();
 						evtTargetLi.children('div#customImage.gcviz-legendHolderImgDiv').toggle();
 						event.stopPropagation(); // prevent toggling of inner nested lists
 					}
+				};
+
+				_self.assignOpacityValue = function(layers, id, value) {
+					var layer,
+						len = layers.length;
+
+					while (len--) {
+						layer = layers[len];
+
+						// loop trought inner items to set the value
+						if (layer.items.length > 0) {
+							_self.assignOpacityValue(layer.items, id, value);
+						}
+
+						if (layer.id === id) {
+							layer.opacity.initstate = parseFloat(value, 10);
+						} else {
+							
+						}
+					}			
 				};
 
 				innerAddLegend = function(config) {
@@ -224,8 +299,14 @@
 
 					while (len--) {
 						layer = layers[len];
-
 						returnURL = loopGetURL(_self.mymap, [layer], returnURL, loopGetURL);
+					}
+
+					// join the array and add legend type
+					if (returnURL.length > 0) {
+						returnURL = '&legend=' + returnURL.join(';');
+					} else {
+						returnURL = '';
 					}
 
 					return returnURL;
@@ -233,17 +314,25 @@
 
 				loopGetURL = function(map, items, url) {
 					var layer, graphid,
+						opa, vis, exp,
 						layers = items,
 						len = layers.length;
 
 					while (len--) {
 						layer = layers[len];
 						graphid = layer.graphid;
-						
-						if (layer.last && graphid !== 'custom') {
-							url.push(gisLegend.getLayerParam(map, layer.id, graphid));
-						} else {
-							url = loopGetURL(map, layer.items, url, loopGetURL);
+
+						if (graphid !== 'custom') {
+							// first the graphid, the expand state, the visibiity state, the opacity value
+							exp = layer.expand ? 1 : 0;
+							vis = layer.visibility.curstate ? 1 : 0;
+							opa = layer.opacity.initstate;
+							url.push(layer.graphid + ',' + exp + ',' + vis  + ',' + opa);
+
+							// if not the last item, loop trought children to get all layers
+							if (!layer.last) {
+								url = loopGetURL(map, layer.items, url, loopGetURL);
+							}
 						}
 					}
 
@@ -261,6 +350,11 @@
 					isCheck = false;
 				}
 
+				// TODO:
+				// set value in layers array to retrieve to save legend
+				itemMaster.visibility.curstate = isCheck;
+
+				// if there is children, loop in them. otherwise, it is the last item, apply value.	
 				if (items.length > 0) {
 					Object.keys(items).forEach(function(key) {
 						loopChildrenVisibility(map, items[key], isCheck, loopChildrenVisibility);

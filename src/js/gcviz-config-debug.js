@@ -10,12 +10,11 @@
 (function() {
 	'use strict';
 	// get the language
-	var lang,
+	var lang, metas, i,
+		out$, outJQuery,
 		url = window.location.toString(),
 		locationPath, redirectPath,
-		language = 'en-min',
-		metas,
-		i;
+		language = 'en-min';
 
 	// set language
 	if ((url.search(/_f\.htm/) > -1) || (url.search(/-fra\./) > -1) || (url.search(/-fr\./) > -1) || (url.search(/lang=fra/) > -1) || (url.search(/lang=fr/) > -1)) {
@@ -70,6 +69,15 @@
 				console.log('Define "location" meta paramter or put web site in a folder called "GeoCanViz"');
 			}
 		}
+	}
+
+	// check if there is a version of jquery attach to window object
+	if (typeof window.jQuery !== 'undefined') {
+		window.flag$ = true;
+		out$ = $;
+		outJQuery = jQuery;
+	} else {
+		window.flag$ = false;
 	}
 
 	// detect browser (code from http://www.quirksmode.org/)
@@ -415,21 +423,30 @@
 		]
 	});
 
-	// start the process with a private jquery. If we dont, it creates a conflict because we laod jQuery and it is different then the one loaded by WET
-	define('jquery-private', ['jquery', 'jqueryui', 'magnificpopup'], function ($viz, ui, mp) {
-		var noConflict = $viz.noConflict(true);
+	// delay the start to let outside init finish. If we are in a WET template, there is confluct between the 2 jQuery.
+	setTimeout(function() {
+		// start the process with a private jquery. If we dont, it creates a conflict because we laod jQuery and it is different then the one loaded by WET
+		define('jquery-private', ['jquery'], function ($viz) {
+			// if there is no jQuery loaded, the window jquery will be the one from this project
+			// Otherwise keep the outside one because it is use
+			if (window.flag$) {
+				require(['jqueryui', 'genfile'], function(ui, file) {
+					var noConflict = $viz.noConflict(true);
+	
+					window.jQuery = outJQuery;
+					window.$ = out$;
+				});
+			}
 
-		// if there is no jQuery loaded, set the window jquery to be the one from this project. Otherwise keep the outside one because it is use
-		// by script outside this project.
-		window.jQuery = !(window.jQuery) ? window.$ = $viz : window.jQuery;
-
-		return noConflict;
-	});
-		
-	require(['jquery-private', 'gcviz'], function($viz, gcviz) {
-		return $viz(document).ready(function() {
-			return gcviz.initialize();
+			return $viz;
 		});
-	});
+
+		// launch gcviz
+		require(['jquery-private', 'gcviz'], function($viz, gcviz) {
+			return $viz(document).ready(function() {
+				return gcviz.initialize();
+			});
+		});
+	}, 1000);
 
 }).call(this);

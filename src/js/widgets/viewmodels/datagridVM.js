@@ -138,7 +138,9 @@
 						active: false,
 						activate: function() {
 							// redraw to align header and column
-							objDataTable[0].draw();
+							if (tables) {
+								objDataTable[0].draw();
+							}
 						}
 					});
 					$viz('.ui-accordion-header').hide();
@@ -202,6 +204,7 @@
 				};
 
 				_self.openWait = function(event) {
+					// remove close icon to have a real modal window.
 					$viz(event.target.parentElement).find('.ui-dialog-titlebar-close').addClass('gcviz-dg-wait');
 				};
 
@@ -1921,10 +1924,16 @@
 			// call the inner create tab function (if datagrid is enable)
 			if (typeof innerAddTab !== 'undefined') {
 				innerAddTab(datas, title, layer);
+			} else {
+				// there is a problem with the define. The gcviz-vm-tbdata is not able to be set.
+				// We set the reference to gcviz-vm-tbdata (hard way)
+				require(['gcviz-vm-tbdata'], function(vmData) {
+					vmData.notifyAdd();
+				});
 			}
 		};
 
-		addRestTab = function(url, featLayer) {
+		addRestTab = function(url, featLayer, mapid) {
 			var field, outfield, fieldName, fieldType,
 				defaultFields ='OBJECTID, Shape, SHAPE.AREA, SHAPE.LEN',
 				outFields = [],
@@ -1970,7 +1979,7 @@
 			// recreate layerinfo like we have in config file from data added from
 			// data toollbar.
 			layer.title = name;
-			layer.mapid = featLayer._map.vIdName;
+			layer.mapid = mapid;
 			layer.fields = outFields;
 			layer.globalsearch = false;
 			layer.popups = { 'enable': true,
@@ -1986,11 +1995,19 @@
 			// call the inner create tab function (if datagrid is enable)
 			if (typeof innerAddRestTab !== 'undefined') {
 				innerAddRestTab(url, layer);
+			} else {
+				// there is a problem with the define. The gcviz-vm-tbdata is not able to be set.
+				// We set the reference to gcviz-vm-tbdata (hard way)
+				require(['gcviz-vm-tbdata'], function(vmData) {
+					vmData.notifyAdd();
+				});
 			}
 		};
 
 		removeTab = function(id) {
-			innerRemoveTab(id);
+			if (typeof innerRemoveTab !== 'undefined') {
+				innerRemoveTab(id);
+			}
 		};
 
 		return {

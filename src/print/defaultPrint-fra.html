@@ -21,7 +21,7 @@
 					map = doc.getElementById('gcviz-print'),
 					arrrow = doc.getElementById('gcviz-arrow'),
 					scalebar = doc.getElementById('gcviz-scalebar'),
-					url = doc.getElementById('gcviz-url');
+					title = doc.getElementById('gcviz-title');
 
 				// wait for the resize map from GCViz to finish
 				setTimeout(function() {
@@ -29,13 +29,13 @@
 					map.innerHTML = localStorage.gcvizPrintNode;
 					arrrow.innerHTML = localStorage.gcvizArrowNode;
 					scalebar.innerHTML = localStorage.gcvizScalebarNode;
-					url.innerHTML = localStorage.gcvizURL;
+					title.innerHTML = localStorage.gcvizTitle;
 
 					// clean
 					localStorage.removeItem('gcvizPrintNode');
 					localStorage.removeItem('gcvizArrowNode');
 					localStorage.removeItem('gcvizScalebarNode');
-					localStorage.removeItem('gcvizURL');
+					localStorage.removeItem('gcvizTitle');
 				}, 4000);
 				
 				// wait the page finish the refresh
@@ -46,25 +46,21 @@
 		</script>
 	</head>
     <body>
-    	<span class="infotext" style="font-family:Sans-Serif; font-size:16px; font-weight: bold;">Wait 15 seconds for the print menu to open.</span>
-    	<div id="gcviz-title" style="width: 100%;"><span style="height: 100%;width: 50px; margin: 10px auto; display: block; font-size: 20px; font-weight: bold;">Toporama</span></div>
+    	<span class="infotext" style="font-family:Sans-Serif; font-size:16px; font-weight: bold;">Attendez 15 secondes et le menu d'impression s'ouvrira.</span>
+    	<div style="width: 100%;"><span id="gcviz-title" style="height: 100%;width: 50px; margin: 10px auto; display: block; font-size: 20px; font-weight: bold;"></span></div>
     	<div id="gcviz-print"></div>
     	<div id="gcviz-scalebar" style="display: inline-block;"></div>
     	<div id="gcviz-arrow" style="display: inline-block; margin-left: 2.5in; margin-top: 10px;"></div>
     	<div id="gcviz-copy">
-    		<object data="../images/nrcan_fip_e.svg" type="image/svg+xml" style="display: inline-block;">
-				<img src="../images/NRCanE.jpeg" />
+    		<object data="../images/nrcan_fip_f.svg" type="image/svg+xml" style="display: inline-block;">
+				<img src="../images/NRCanF.jpeg" />
 			</object>
-			<p style="font-family:Sans-Serif; font-size:11px; display: inline-block; margin-left: 30px;  vertical-align: super;">&#64; Her Majesty the Queen in Right of Canada, as represented by the Minister of Natural Resources, 2014.<br>&#64; Sa Majest&#233; la Reine du chef du Canada, repr&#233;sent&#233;e par le ministre de Ressources naturelles Canada, 2014.</p>
+			<p style="font-family:Sans-Serif; font-size:11px; display: inline-block; margin-left: 30px; vertical-align: super;">&#64; Sa Majest&#233; la Reine du chef du Canada, repr&#233;sent&#233;e par le ministre de Ressources naturelles Canada, 2014.<br>&#64; Her Majesty the Queen in Right of Canada, as represented by the Minister of Natural Resources, 2014.</p>
     		<object data="../images/Canada.svg" type="image/svg+xml" style="display: inline-block;height: 20px; margin-left: 20px; vertical-align: super;">
 				<img src="../images/Canada.png" />
 			</object>
     	</div>
-    	<div>
-    		<span style="display: inline-block; font-size: 11px; vertical-align: super;">Created with Toporama - </span>
-    		<span id="gcviz-url" style="display: inline-block; font-size: 11px; vertical-align: super;"></span>
-    	</div>
-    	<script src="http://js.arcgis.com/3.11/"></script>
+    	<script src="http://js.arcgis.com/3.13/"></script>
 		<link rel="stylesheet" href="../gcviz-min.css">
     </body>
 </html>

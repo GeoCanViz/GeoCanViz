@@ -26,7 +26,7 @@
                     "ymax": 4172189.70508
                 },
                 "lods": {
-                    "enable": false,
+                    "enable": true,
                     "values": [{
                         "level": 0,
                         "resolution": 38364.660062653464,
@@ -658,9 +658,12 @@
             },
             "print": {
                 "enable": true,
-                "type": 1,
+                "type": 3,
                 "template": [],
                 "DPI": [100, 300]
+            },
+			"save": {
+            	"enable": true
             },
             "fullscreen": true
         },
@@ -2364,7 +2367,9 @@
             "enable": false
         },
         "datagrid": {
-            "enable": false
+            "enable": false,
+            "expand": false,
+            "layers": []
         },
         "customwidgets": []
     }

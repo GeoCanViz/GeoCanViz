@@ -84,6 +84,7 @@
 				_self.zoomScaleMin = i18n.getDict('%toolbarnav-zoomscalemin');
 				_self.zoomScaleMax = i18n.getDict('%toolbarnav-zoomscalemax');
 				_self.zoomScale = i18n.getDict('%toolbarnav-zoomscale');
+				_self.zoomScaleDyna = i18n.getDict('%toolbarnav-zoomscaledyna');
 
 				// WCAG
 				_self.WCAGTitle = i18n.getDict('%wcag-title');
@@ -380,6 +381,7 @@
 						if (autoCompleteArray.length > 1) {
 							_self.selectAutoComplete(autoCompleteArray[1]);
 						}
+						e.preventDefault();
 					};
 				});
 
@@ -426,7 +428,7 @@
 						} else if (scaleType === 'cache-max') {
 							scaleOut = _self.zoomScaleMax + output[1] + '.';
 						} else {
-							
+							scaleOut = _self.zoomScaleDyna + title;
 						}
 
 						infotitle = scaleOut; 

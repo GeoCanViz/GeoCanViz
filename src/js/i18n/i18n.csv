@@ -136,7 +136,7 @@ Global sys value#%gisurlalti#http://geogratis.gc.ca/services/elevation/cdem/alti
 #%toolbarnav-alt#Search and Map Information - Help#Recherche et information sur la carte - Aide
 #%toolbarnav-name#Search and Map Information#Recherche et information sur la carte
 #%toolbarnav-zoomgrp#Find a Location#Trouver un lieu
-#%toolbarnav-lblgeoloc#Enter and select a geographical name, topographic map number, postal code or latitude and longitude coordinate#Entrez et sélectionnez un nom géographique ou topographique, un numéro de carte, un code postal ou une coordonnée (latitude et longitude).
+#%toolbarnav-lblgeoloc#Enter and select a name, National Topographic System (NTS) number, postal FSA (K1G), latitude and longitude coordinate or map scale#Entrez et sélectionnez un nom, un numéro du Système national de référence cartographique (SNRC), un code RTA (K1G), une coordonnée (latitude et longitude) ou une échelle de la carte
 #%toolbarnav-inskeyboard#When entering a geographic location suggested names will appear in the auto-fill list below the text entry box. Suggestions will start appearing after you type 3 characters.#Lorsque vous spécifiez un lieu géographique, des suggestions apparaissent dans la liste d'auto-remplissage en dessous de la zone de texte. Les suggestions commenceront à apparaître après avoir tapé 3 caractères.
 #%toolbarnav-mapinfogrp#Map Information#Information sur la carte
 #%toolbarnav-lblinfo#Get coordinates from map#Obtenir les coordonnées de la carte
@@ -157,15 +157,16 @@ Global sys value#%gisurlalti#http://geogratis.gc.ca/services/elevation/cdem/alti
 #%toolbarnav-zoomscalemin#You are trying to set map scale below minimum zoom level. The map scale will be #Vous essayez de définir l'échelle de la carte en dessous du niveau de zoom minimum. L'échelle de la carte sera 
 #%toolbarnav-zoomscalemax#You are trying to set map scale above maximum zoom level. The map scale will be #Vous essayez de définir l'échelle de la carte au dessus du niveau de zoom maximum. L'échelle de la carte sera 
 #%toolbarnav-zoomscale#You are trying to set map scale between zoom levels. The map scale will be #Vous essayez de définir l'échelle de la carte entre les niveaux de zoom. L'échelle de la carte sera 
+#%toolbarnav-zoomscaledyna#Map scale = #L'échelle de la carte =
 #%toolbardata-alt#Import Data - Help#Importer des données - Aide
 #%toolbardata-name#Import Data#Importer des données
 #%toolbardata-tpadd#Import Data#Importer des données
 #%toolbardata-lbladdcsv#Import points in CSV format#Importer des points en format CSV
-#%toolbardata-lbladdurl#Import from URL#Importer d'un URL
+#%toolbardata-lbladdurl#Import from URL#Importer d'une URL
 #%toolbardata-lbladdparamdesc#The map you are trying to load contains a link to a local file. If you have this file and wants to add it, click on the button below. Otherwise click “Ok”.#L'URL que vous essayez de charger contient lien vers un fichier local. Si vous cavez ce fichier et vous désirez l'ajouter, cliquez sur le bouton ci-dessous. Sinon, cliquez sur « Ok ».
 #%toolbardata-lbladdparam#File to import: #Fichier à importer : 
-#%toolbardata-lbladdurldesc#Specify the URL of the data to import. Supported formats are KML and ArcGIS REST “feature layer”.#Spécifiez le URL de la donnée à importer. Les formats supportés sont KML et ArcGIS REST « feature layer ».
-#%toolbardata-lbladdurltitle#URL from import#URL à importer
+#%toolbardata-lbladdurldesc#Specify the URL of the data to import. Supported formats are KML and ArcGIS REST “feature layer”.#Spécifiez l'URL de la donnée à importer. Les formats supportés sont KML et ArcGIS REST « feature layer ».
+#%toolbardata-lbladdurltitle#URL to import#URL à importer
 #%toolbardata-lbladdtitle#Import Data#Importer des données
 #%toolbardata-lbladddesc#Wait for the process to finish. When it is done, you will find the symbology in “Map Layers and Legend(s)” toolbar. If available, you will have a new table in the “Data Table” section.#Attendez que le processus se termine. Lorsque cela est fait, vous trouverez la symbologie dans la barre d'outils « Couvertures de la carte et légende(s) ». Si disponible, vous aurez une nouvelle table dans la section « Tableau des données ».
 #%toolbardata-lblmiss#  - Missing -#  - Manquant -
@@ -175,8 +176,8 @@ Global sys value#%gisurlalti#http://geogratis.gc.ca/services/elevation/cdem/alti
 #%toolbardata-err2#Unable to determine the field separator. It should be one of these characters (, ; |).#Incapable de déterminer le séparateur. Il devrait être l'un des caractères suivants : (, ; |).
 #%toolbardata-err3#Presence of element(s) with invalid latitude and/or longitude.#Présence d'élément(s) dont les valeurs de latitude et/ou de longitude sont invalides.
 #%toolbardata-err4#Error fetching items from CSV file: #Erreur de récupération des items du fichier CSV : 
-#%toolbardata-errurl#Wrong URL format.#Mauvais format de URL.
-#%toolbardata-errload#Unable to add: XXX. File not found, wrong URL or out of memory#Impossible d'ajouter : XXX. Fichier non trouvé, mauvais URL ou manque de mémoire.
+#%toolbardata-errurl#Wrong URL format.#Mauvais format d'URL.
+#%toolbardata-errload#Unable to add: XXX. File not found, wrong URL or out of memory#Impossible d'ajouter : XXX. Fichier non trouvé, mauvaise URL ou manque de mémoire.
 #%toolbardata-errformat#Unable to recognize format or format not supported.#Impossible de reconnaître le format ou format non supporté.
 #%toolbardata-ie9#This tool is not available in Internet Explorer version 9. You need Internet Explorer version 10 and higher or another browser (Chrome, FireFox or Safari).#Cet outil n'est pas disponible dans Internet Explorer 9. Vous devez avoir la version 10 et plus ou un autre navigateur (Chrome, Firefox ou Safari).
 #%toolbarextract-alt#Download Maps and Data - Help#Téléchager cartes et données - Aide
@@ -217,6 +218,7 @@ Global sys value#%gisurlalti#http://geogratis.gc.ca/services/elevation/cdem/alti
 #%help-head-help#Click to open the help window.#Cliquez pour ouvrir la fenêtre d'aide.
 #%help-head-about#Click to open a window containing a description of the map.#Cliquez pour ouvrir une fenêtre contenant une description de la carte.
 #%help-head-print#Click to print the current view of the map.#Cliquez pour imprimer l'aperçu actuel de la carte.
+#%help-head-save#Click to save map URL. This URL let you open the map in the same state.# Cliquez pour sauvegarder l'URL de la carte. Cette URL vous permet d'ouvrir la carte dans le même état.
 #%help-head-gofs#Click to view the maximum map size.#Cliquez pour voir la taille maximale de la carte.
 #%help-head-exfs#Click to return to the default map size.#Cliquer pour retourner à la taille par défaut de la carte.
 #%help-head-menutitle#Menu#Menu
@@ -270,7 +272,7 @@ Global sys value#%gisurlalti#http://geogratis.gc.ca/services/elevation/cdem/alti
 #%help-nav-title#Search and Map Information#Recherche et information sur la carte
 #%help-nav-zoomtotitle#Find a Location#Trouver un lieu
 #%help-nav-zoomto#Use this tool to search, then zoom to, a geographic location:#Utilisez cet outil pour chercher un lieu géographique puis faire un zoom sur celui-ci :
-#%help-nav-zoomto1#1. Enter a geographic name, such as a province, town, lake, river, National Topographic System map number, postal code or latitude longitude coordinate, in the text box.#1. Entrez un nom géographique comme une province, une ville, un lac, une rivière, un numéro de carte du Système national de référence cartographique, un code postal ou une coordonnée (latitude longitude) dans la zone de texte.
+#%help-nav-zoomto1#1. Enter a geographic name, such as a province, town, lake, river, National Topographic System (NTS) number, postal FSA (K1G), latitude longitude coordinate or scale, in the text box.#1. Entrez un nom géographique comme une province, une ville, un lac, une rivière, un numéro du Système national de référence cartographique (SNRC), un code RTA (K1G), une coordonnée (latitude longitude) ou une échelle dans la zone de texte.
 #%help-nav-zoomto1b#1b. The coordinates can be entered in decimal degrees or degrees/minutes/seconds. The coordinates must be separated by a space. Latitude (N/S) should be first, followed by the longitude (E/O). The negative sign “-” must be present to indicate west longitude or south latitude. When a valid coordinate is entered, it is displayed in the dropdown menu. Examples of accepted geographical coordinates formats:#1b. Les coordonnées peuvent être entrées en degrés décimaux ou degrés/minutes/secondes. Les coordonnées doivent être séparées par un espace. La latitude (N/S) doit être en premier suivi de la longitude (E/O). Le signe négatif « - » doit être présent pour indiquer une longitude ouest ou une latitude sud. Lorsqu'une coordonnée valide est entrée, elle s'affiche dans le menu déroulant. Exemples de formats des coordonnées géographiques acceptés :
 #%help-nav-zoomto1b1#46 -72#46 -72
 #%help-nav-zoomto1b2#46.53 -72.685658#46.53 -72.685658
@@ -303,7 +305,7 @@ Global sys value#%gisurlalti#http://geogratis.gc.ca/services/elevation/cdem/alti
 #%help-leg-newLayer#If you add a layer with the “Import Data” toolbar or the layer is imported from the url, the layer name will be in dark orange instead of black.#Si vous ajoutez une couche avec la barre d'outils « Importer des données » ou si la couche est importée de l'URL, le nom de la couche sera en orange foncé au lieu de noir.
 #%help-data-title#Import Data#Importer des données
 #%help-data-addfile#Use the “Import points in CSV format” tool to import a Comma Separated Values (CSV) file that contains geolocation information and to display it on the map. This file must contain geolocation fields that hold the geometry. The field names should be (latitude, lat, y, or ycenter) for y coordinates, and (longitude, long, x, or xcenter) for x coordinates. The data must be in NAD 83 geographical coordinates. The field separator must be one of these characters (, ; |).#Utilisez l'outil « Importer des points en format CSV » pour importer un fichier Comma Separated Values (CSV) contenant de l'information de géolocalisation et l'afficher sur la carte. Ce fichier doit comprendre des champs de géolocalisation qui contiennent la géométrie. Le nom du champ doit être (latitude, lat, y, ou ycenter) pour les coordonnées y et (longitude, long, x, ou xcenter) pour les coordonnées x. Les données doivent être en coordonnées géographiques NAD 83. Le séparateur doit être l'un des caractères suivants : (, ; |).
-#%help-data-addurl#Use the “Import from URL” tool to import data in various formats.  When clicked, you will be prompted to enter a valid URL pointing to your data. We currently support KML and ESRI REST “Feature Layer”.#Utilisez l'outil « Importer d'un URL » pour importer des données dans différents formats. Lorsque vous cliquez dessus, vous serez invité à entrer un URL valide pointant à vos données. Nous soutenons actuellement les formats KML et ESRI REST « Feature layer ».
+#%help-data-addurl#Use the “Import from URL” tool to import data in various formats.  When clicked, you will be prompted to enter a valid URL pointing to your data. We currently support KML and ESRI REST “Feature Layer”.#Utilisez l'outil « Importer d'une URL » pour importer des données dans différents formats. Lorsque vous cliquez dessus, vous serez invité à entrer une URL valide pointant à vos données. Nous soutenons actuellement les formats KML et ESRI REST « Feature layer ».
 #%help-data-sample#When the data has been added, the name of the layer and a button to remove the layer are shown. To see the symbology for the data added, go to “Map Layers and Legend(s)” toolbar.#Lorsque des données sont ajouté, le nom et un bouton pour enlever la couche sont affichées. Pour voir la symbologie pour la donnée ajoutée, aller à la barre d'outils « Couvertures de la carte et légende(s) ».
 #%help-extract-title#Download Maps and Data#Télécharger cartes et données
 #%help-extract-desc1#Use this tool to get access to available maps and data. When you open this tool, if you have a grid layer like the NTS grid for example, it will automatically be turned on. The tool may present two ways to get information. #Utilisez cet outil pour avoir accès à des cartes ou des données disponibles. Quand vous ouvrez cet outil, si vous avez une grille dans les couches disponibles, par exemple une grille SNRC, celle-ci sera automatiquement affichée. L’outil peut présenter deux façons d’obtenir de l’information.

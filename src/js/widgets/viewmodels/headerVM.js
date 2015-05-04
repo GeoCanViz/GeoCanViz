@@ -32,7 +32,8 @@
 			var headerViewModel = function($mapElem, mapid, config, isDataTbl) {
 				var _self = this,
 					configAbout = config.about,
-					pathPrint = locationPath + 'gcviz/print/toporamaPrint-' + window.langext + '.html',
+					configPrint = config.print,
+					pathPrint = locationPath + 'gcviz/print/defaultPrint-' + window.langext + '.html',
 					pathHelpBubble = locationPath + 'gcviz/images/helpBubble.png',
 					$section = $viz('#section' + mapid),
 					$mapholder = $viz('#' + mapid),
@@ -54,6 +55,9 @@
 				// tools panel settings
 				_self.xheightToolsOuter = ko.observable('max-height:100px!important');
 				_self.xheightToolsInner = ko.observable('max-height:100px!important');
+
+				// application title
+				_self.headTitle = ko.observable(config.title.value);
 
 				// tooltip, text strings
 				_self.tpHelp = i18n.getDict('%header-tphelp');
@@ -94,7 +98,8 @@
 				_self.printInfo = {
 					url: i18n.getDict('%header-printurl'),
 					copyright: i18n.getDict('%header-printcopyright'),
-					template: pathPrint
+					template: pathPrint,
+					title: _self.headTitle()
 				};
 
 				// save map url dialog box
@@ -189,9 +194,13 @@
 
 				_self.printClick = function() {
 					// Print the map
-					// This is the simple print. It doesn't use esri print task
-					//printSimple(map, _self.printInfo.template);
-					printVM.togglePrint();
+					if (configPrint.type === 3) {
+						// this is the simple print. It doesn't use esri print task
+						printSimple(map, _self.printInfo);
+					} else {
+						// print from our custom esri services
+						printVM.togglePrint();
+					}
 				};
 
 				_self.insetClick = function() {
@@ -249,16 +258,16 @@
 						url = url.substring(0, url.indexOf('html') + 4) + '?';
 
 					// set extent
-					extentString = 'exent=' + extent.xmin + ',' + extent.ymin + ',' + extent.xmax + ',' + extent.ymax;
-
-					// set imported data
-					dataString = dataVM.getURL();
+					extentString = 'extent=' + extent.xmin + ',' + extent.ymin + ',' + extent.xmax + ',' + extent.ymax;
 
 					// set legend
 					legendString = legendVM.getURL();
 
+					// set imported data
+					dataString = dataVM.getURL();
+
 					// set map url
-					mapUrl = url + extentString + '&' + dataString;
+					mapUrl = url + extentString + dataString + legendString;
 					_self.saveURL(mapUrl);
 					_self.isSaveDialogOpen(true);
 
@@ -408,9 +417,10 @@
 			return vm;
 		};
 
-		printSimple = function(map, template) {
+		printSimple = function(map, printInfo) {
 			var style, rotation,
-				sub, ind1, ind2, reg1, reg2, reg3, reg4,
+				styles, lenStyles,
+				arrowStyle = '',
 				center = {},
 				mapid = map.vIdName,
 				node = $viz('#' + mapid + '_holder'),
@@ -435,7 +445,7 @@
 
 			// open the print page here instead of timemeout because if we do so, it will act as popup.
 			// It needs to be in a click event to open without a warning
-			window.open(template);
+			window.open(printInfo.template);
 
 			// hide zoom max, zoom bar and prev next
 			zoomMax.addClass('gcviz-hidden');
@@ -445,32 +455,18 @@
 			// get rotation and remove decimal part
 			rotation = getRotationDegrees(arrow);
 			style = arrow.attr('style');
+			styles = style.split(';');
+			lenStyles = styles.length - 1;
 
-			// create 3 reg because we dont know where to round the decimal
-			reg2 = new RegExp(rotation - 1, 'g'),
-			reg3 = new RegExp(rotation, 'g'),
-			reg4 = new RegExp(rotation + 1, 'g'),
-			ind1 = style.indexOf('.');
-			ind2 = style.indexOf('deg');
-
-			// check if we need to remove decimal part
-			if (ind1 !== -1) {
-				sub = style.substring(ind1, ind2);
-
-				// remove decimal
-				reg1 = new RegExp(sub, 'g');
-				style = style.replace(reg1, '');
+			while (lenStyles--) {
+				arrowStyle += styles[lenStyles].split(':')[0] + ':' + 'rotate(' + rotation + 'deg);';
 			}
 
-			// because it was round we need to check minus 1 value and plus one
-			style = style.replace(reg2, rotation);
-			style = style.replace(reg3, rotation);
-			style = style.replace(reg4, rotation);
-
 			// set the local storage (modify arrow because it wont print... it is an image background)
+			localStorage.setItem('gcvizTitle', printInfo.title);
 			setTimeout(function() {
 				localStorage.setItem('gcvizPrintNode', node[0].outerHTML);
-				localStorage.setItem('gcvizArrowNode', '<img src="../images/printNorthArrow.png" style="' + style + '"></img>');
+				localStorage.setItem('gcvizArrowNode', '<img src="../images/printNorthArrow.png" style="' + arrowStyle + '"></img>');
 				localStorage.setItem('gcvizScalebarNode', scalebar[0].outerHTML);
 				localStorage.setItem('gcvizURL', window.location.href);
 			}, 3500);

@@ -26,7 +26,7 @@
                     "ymax": 4172189.70508
                 },
                 "lods": {
-                    "enable": false,
+                    "enable": true,
                     "values": [{
                         "level": 0,
                         "resolution": 38364.660062653464,
@@ -151,8 +151,8 @@
                     "type": 2,
                     "url": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/BaseMaps/CBME_CBCE_HS_RO_3978/MapServer",
                     "scale": {
-                        "min": 0,
-                        "max": 0
+                        "min": 145000000,
+                        "max": 17500
                     }
                 }, {
                     "label": "Imagery Lansat7",
@@ -658,9 +658,12 @@
             },
             "print": {
                 "enable": true,
-                "type": 1,
+                "type": 3,
                 "template": [],
                 "DPI": [100, 300]
+            },
+			"save": {
+            	"enable": true
             },
             "fullscreen": true
         },
@@ -2109,7 +2112,7 @@
                 "last": false,
                 "type": 3,
                 "id": "bbbb469d-llll-c8f5-175c-645200a6b6fe",
-                "graphid": "e5511402-0028-5cbe-0d3c-f537c612b7df",
+                "graphid": "e5511402-0928-5cbe-0d3c-f537c612b7df",
                 "displayfields": false,
                 "label": {
                     "value": "Water flow",
@@ -2153,7 +2156,7 @@
                         "enable": false
                     },
                     "opacity": {
-                        "enable": true,
+                        "enable": false,
                         "min": 0,
                         "max": 1,
                         "initstate": 1
@@ -2192,7 +2195,7 @@
                         "enable": false
                     },
                     "opacity": {
-                        "enable": true,
+                        "enable": false,
                         "min": 0,
                         "max": 1,
                         "initstate": 1
@@ -2308,10 +2311,10 @@
                 "enable": true
             },
             "dataurl": {
-                "enable": false
+                "enable": true
             },
             "dataquery": {
-            	"enable": false
+            	"enable": true
             }
         },
         "toolbarextract": {
@@ -2367,8 +2370,8 @@
         },
         "datagrid": {
             "enable": false,
-            "expand": false
-
+            "expand": false,
+            "layers": []
         },
         "customwidgets": []
     }

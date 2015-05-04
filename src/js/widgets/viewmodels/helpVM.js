@@ -93,6 +93,7 @@
 				_self.headHelp = i18n.getDict('%help-head-help');
 				_self.headAbout = i18n.getDict('%help-head-about');
 				_self.headPrint = i18n.getDict('%help-head-print');
+				_self.headSave = i18n.getDict('%help-head-save');
 				_self.headGoFS = i18n.getDict('%help-head-gofs');
 				_self.headExitFS = i18n.getDict('%help-head-exfs');
 				_self.headMenuTitle = i18n.getDict('%help-head-menutitle');

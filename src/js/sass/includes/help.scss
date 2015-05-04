@@ -107,6 +107,10 @@
 	@include spritenohover($img-spritebtn, -3, -2);
 }
 
+.gcviz-help-save {
+	@include spritenohover($img-spritebtn, -1301, -2);
+}
+
 .gcviz-help-fs {
 	@include spritenohover($img-spritebtn, -219, -2);
 }

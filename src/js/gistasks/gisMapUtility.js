@@ -116,12 +116,6 @@
 					smartNavigation: false,
 					autoResize: false
 				};
-
-				if (config.zoombar.bar) {
-					options.slider = true;
-					options.sliderPosition = side === 1 ? 'top-left' : 'top-right';
-					options.sliderStyle = 'large';
-				}
 			} else {
 				options = {
 					extent: initExtent,
@@ -132,6 +126,12 @@
 					smartNavigation: false,
 					autoResize: false
 				};
+			}
+
+			if (config.zoombar.bar) {
+					options.slider = true;
+					options.sliderPosition = side === 1 ? 'top-left' : 'top-right';
+					options.sliderStyle = 'large';
 			}
 
 			map = new esriMap(id, options);

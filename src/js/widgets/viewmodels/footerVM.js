@@ -67,9 +67,9 @@
 					var mymap = gcvizFunc.getElemValueVM(mapid, ['map', 'map'], 'js');
 
 					if (configMouse.enable) {
-						coordEvt = mymap.on('mouse-move', function(evt) {
+						coordEvt = mymap.on('mouse-move', gcvizFunc.debounce(function(evt) {
 							_self.showCoordinates(evt);
-						});
+						}, 200, false));
 
 						$viz('#' + mapid).on('gcviz-ready', function() {
 							// subscribe to the open add data event. When data is added we need to stop the

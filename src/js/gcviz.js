@@ -114,6 +114,7 @@ var locationPath;
 				size = mapframe.size,
 				width = size.width,
 				vmArray = {},
+				cfgPrint = config.header.print,
 				maxWidth = parseInt($mapElem.parent().css('width'), 10) - (2 * $mapElem.position().left); // get container width;
 
 			// check if the container width is smaller then gcviz. If so, set width to container width
@@ -181,7 +182,7 @@ var locationPath;
 			}
 
 			// add print
-			if (config.header.print.enable) {
+			if (cfgPrint.enable && cfgPrint.type !== 3) {
 				// add print
 				vmArray.print = print.initialize($mapSection);
 			}

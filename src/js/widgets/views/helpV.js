@@ -205,6 +205,7 @@
 			var menu = config.tools.enable,
 				about = config.about.enable,
 				print = config.print.enable,
+				save = config.save.enable,
 				fullscreen = config.fullscreen,
 				node = '';
 
@@ -232,6 +233,15 @@
 								'<button class="gcviz-help-print" tabindex="-1"></button>' +
 							'</div>' +
 							'<span class="span11 gcviz-help-textbtn" data-bind="text: headPrint"></span>' +
+						'</div>';
+			}
+
+			if (save) {
+				node += '<div class="row">' +
+							'<div class="span1">' +
+								'<button class="gcviz-help-save" tabindex="-1"></button>' +
+							'</div>' +
+							'<span class="span11 gcviz-help-textbtn" data-bind="text: headSave"></span>' +
 						'</div>';
 			}
 

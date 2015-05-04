@@ -20,7 +20,6 @@
 				configAbout = config.about,
 				isDatatable = $mapElem.datagrid.enable,
 				mapid = $mapElem.mapframe.id,
-				title = config.title.value,
 				node = '',
 				menu = '';
 
@@ -32,9 +31,7 @@
 			ext = config.side === 1 ? '-r' : '-l';
 
 			// set title (always configure with menu right so use ext = -r)
-			if (typeof title !== 'undefined') {
-				node += '<label class="gcviz-head-title-r unselectable">' + title + '</label>';
-			}
+			node += '<span class="gcviz-head-title-r unselectable" data-bind="text: headTitle"></span>';
 
 			// add buttons (always configure with menu right so use ext = -r)
 			node += '<div class="gcviz-head-btn-r">';
