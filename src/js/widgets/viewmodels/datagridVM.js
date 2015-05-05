@@ -826,7 +826,7 @@
 						// there is a problem with the define. The gcviz-vm-tbdata is not able to be set.
 						// We set the reference to gcviz-vm-tbdata (hard way)
 						require(['gcviz-vm-tbdata'], function(vmData) {
-							vmData.notifyAdd();
+							vmData.notifyAdd(mapid);
 						});
 					}
 
@@ -1928,7 +1928,7 @@
 				// there is a problem with the define. The gcviz-vm-tbdata is not able to be set.
 				// We set the reference to gcviz-vm-tbdata (hard way)
 				require(['gcviz-vm-tbdata'], function(vmData) {
-					vmData.notifyAdd();
+					vmData.notifyAdd(mapid);
 				});
 			}
 		};
@@ -1999,7 +1999,7 @@
 				// there is a problem with the define. The gcviz-vm-tbdata is not able to be set.
 				// We set the reference to gcviz-vm-tbdata (hard way)
 				require(['gcviz-vm-tbdata'], function(vmData) {
-					vmData.notifyAdd();
+					vmData.notifyAdd(mapid);
 				});
 			}
 		};

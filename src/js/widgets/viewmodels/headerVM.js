@@ -261,10 +261,10 @@
 					extentString = 'extent=' + extent.xmin + ',' + extent.ymin + ',' + extent.xmax + ',' + extent.ymax;
 
 					// set legend
-					legendString = legendVM.getURL();
+					legendString = legendVM.getURL(_self.mapid);
 
 					// set imported data
-					dataString = dataVM.getURL();
+					dataString = dataVM.getURL(_self.mapid);
 
 					// set map url
 					mapUrl = url + extentString + dataString + legendString;

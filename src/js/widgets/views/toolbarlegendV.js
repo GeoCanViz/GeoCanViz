@@ -27,8 +27,8 @@
 			itemsTemplate = '<script id="itemsTmpl" type="text/html">';
 				itemsTemplate += '<li class="gcviz-leg-li" data-bind="legendItemList: { expanded: expand }, attr { \'id\': id }">';
 					itemsTemplate += '<div class="gcviz-legendHolderDiv gcviz-leg-imgholder"data-bind="if: displaychild.enable || customimage.enable"><div title="' + i18n.getDict('%toolbarlegend-tpexpand') + '" tabindex="0" data-bind="event: { keyup: function(data, event) { $root.toggleViewService(data, event) } }, click: function(data, event) { $root.toggleViewService(data, event) }, css: $root.determineCSS($parent, $data)"></div></div>';
-					itemsTemplate += '<div class="gcviz-legendHolderDiv" data-bind="if: visibility.enable && visibility.type === 1"><input class="gcviz-leg-check" type="checkbox" title="' + i18n.getDict('%toolbarlegend-tpvis') + '" data-bind="event: { click: $root.changeItemsVisibility }, clickBubble: false, attr: { id: \'checkbox\' + id }, checked: visibility.initstate"/></div>';
-					itemsTemplate += '<div class="gcviz-legendHolderDiv" data-bind="if: visibility.enable && visibility.type === 2"><div data-bind="LegendRadioButtons: { value: visibility.initstate, group: \'radio\' + visibility.radioid }"></div></div>';
+					itemsTemplate += '<div class="gcviz-legendHolderDiv" data-bind="if: visibility.enable && visibility.type === 1"><input class="gcviz-leg-check" type="checkbox" title="' + i18n.getDict('%toolbarlegend-tpvis') + '" data-bind="event: { click: $root.changeItemsVisibility }, clickBubble: false, attr: { id: \'checkbox\' + id + itemsTmpl.mapid }, checked: visibility.initstate"/></div>';
+					itemsTemplate += '<div class="gcviz-legendHolderDiv" data-bind="if: visibility.enable && visibility.type === 2"><div data-bind="LegendRadioButtons: { value: visibility.initstate, group: \'radio\' + visibility.radioid, id: id + itemsTmpl.mapid}"></div></div>';
 					itemsTemplate += '<div class="gcviz-legendHolderDiv" data-bind="HorizontalSliderDijit: { widget: $root.HorizontalSlider, extent: [opacity.min, opacity.max], value: opacity.initstate, enable: opacity.enable }, if: opacity.enable"></div>';
 					itemsTemplate += '<div class="gcviz-legendHolderDiv" data-bind="if: metadata.enable"><span data-bind="attr: { id: \'span\' + id }, css: $root.determineTextCSS($data)"><a class="gcviz-legendLink" target="_blank" data-bind="attr: { href: metadata.value, title: metadata.alttext, alt: metadata.alttext }, text: label.value"></a></span></div>';
 					itemsTemplate += '<div class="gcviz-legendHolderDiv" data-bind="ifnot: metadata.enable"><span data-bind="text: label.value, attr: { id: \'span\' + id }, css: $root.determineTextCSS($data)"></span></div>';
@@ -41,7 +41,7 @@
 
 			$legend.append(itemsTemplate);
 			node += '<div data-bind="if: layersArray().length > 0"><div class="gcviz-leg-theme"><span data-bind="text: theme"></span></div></div>';
-			node += '<div><ul class="gcviz-leg-ul" data-bind="template: { name: \'itemsTmpl\', foreach: $data.layersArray }"></ul></div>';
+			node += '<div><ul class="gcviz-leg-ul" data-bind="template: { name: \'itemsTmpl\', foreach: $data.layersArray, templateOptions: { mapid: mapid }"></ul></div>';
 			node += '<div data-bind="if: basesArray().length > 0"><div class="gcviz-leg-theme"><span data-bind="text: base"></span><ul class="gcviz-leg-ul" data-bind="template: { name: \'itemsTmpl\', foreach: $data.basesArray }"></ul></div></div>';
 
 			$legend.append(node);

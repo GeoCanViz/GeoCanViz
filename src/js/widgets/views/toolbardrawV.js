@@ -61,7 +61,7 @@
 			node += getUndoRedoBtn();
 
 			// set import and export buttons
-			node += getImpExpBtn(config);
+			node += getImpExpBtn(config, mapid);
 
 			// WCAG dialog window
 			node += '<div id="diagDrawWCAG' + mapid + '" data-bind="wcag: { }, uiDialog: { title: WCAGTitle, width: 490, height: 350, ok: dialogWCAGOk, cancel: dialogWCAGCancel, close: dialogWCAGClose, openDialog: \'isDialogWCAG\' }">' +
@@ -266,7 +266,7 @@
 			return node;
 		};
 
-		getImpExpBtn = function(config) {
+		getImpExpBtn = function(config, mapid) {
 			var node = '';
 
 			if (config.importexport.enable) {
@@ -274,7 +274,7 @@
 				node = '<div class="row"><div class="span4">' +
 
 						// add import and export buttons
-						'<input id="fileDialogAnno" type="file" accept="application/json" data-bind="event: { change: importClick }" tabindex="-1"></input>' +
+						'<input id="fileDialogAnno' + mapid + '" type="file" accept="application/json" data-bind="event: { change: importClick }" tabindex="-1"></input>' +
 						'<button class="gcviz-draw-imp" tabindex="0" data-bind="buttonBlur, click: launchDialog, attr: { alt: tpImport }"></button>' +
 						'<div class="gcviz-tbseparator"></div>' +
 						'<button class="gcviz-draw-exp" tabindex="0" data-bind="buttonBlur, click: exportClick, attr: { alt: tpExport }, enable: isGraphics"></button>' +

@@ -19,8 +19,6 @@
 		var initialize,
 			notifyAdd,
 			getURL,
-			innerNotifyAdd,
-			innerGetURL,
 			vm;
 
 		initialize = function($mapElem, mapid, config, isDatagrid) {
@@ -82,12 +80,6 @@
 
 				_self.init = function() {
 					var url, file;
-
-					// to expose the observable to know when the layer has been added
-					innerNotifyAdd = _self.notifyAdd;
-
-					// to expose the getURL for save map URL
-					innerGetURL = _self.getURL;
 
 					// check if there is a url to load
 					// dataurl param can be like this:
@@ -462,12 +454,14 @@
 			return vm;
 		};
 
-		notifyAdd = function() {
-			innerNotifyAdd();
+		notifyAdd = function(mapid) {
+			// link to view model to call the function inside
+			gcvizFunc.getVM(mapid, 'data').notifyAdd();
 		};
 
-		getURL = function() {
-			return innerGetURL();
+		getURL = function(mapid) {
+			// link to view model to call the function inside
+			return gcvizFunc.getVM(mapid, 'data').getURL();
 		};
 
 		return {

@@ -335,6 +335,7 @@
 
 		addLayer = function(map, layerInfo) {
 			var layer, layerDef,
+				visLayers,
 				options,
 				resourceInfo,
 				type = layerInfo.type;
@@ -361,6 +362,12 @@
 				layerDef.layerDefinitions = [''];
 
 				layer = new esriDyna(layerInfo.url, { 'id': layerInfo.id, 'imageParameters': layerDef });
+
+				// if visible layers are set
+				visLayers = layerInfo.visiblelayers;
+				if (typeof visLayers !== 'undefined') {
+					layer.setVisibleLayers(visLayers);
+				}
 			} else if (type === 5) {
 				layer = new esriFL(layerInfo.url, {
 					mode: esriFL.MODE_ONDEMAND,

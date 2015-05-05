@@ -2,8 +2,8 @@
     "gcviz": {
         "mapframe": {
             "size": {
-                "height": 700,
-                "width": 1200
+                "height": 500,
+                "width": 575
             },
             "map": {
                 "urlgeomserv": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/Utilities/Geometry/GeometryServer",
@@ -122,7 +122,7 @@
                         "check": true
                     }]
                 },
-                "link": false,
+                "link": true,
                 "zoombar": {
                     "bar": true,
                     "zoom": true,
@@ -144,6 +144,7 @@
                     "id": "93f05b62-6c5c-0ca0-e03b-612d99293294",
                     "type": 4,
                     "url": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/test/earthqhakes/MapServer/",
+                    "visiblelayers": [0,1],
                     "beforebase": false,
                     "scale": {
                         "min": 0,
@@ -422,22 +423,60 @@
             	"enable": true
             }
         },
-        "toolbarextract": {
-            "enable": false,
+              "toolbarextract": {
+            "enable": true,
             "expand": false,
-            "pos": -1,
-            "grid": {
-                "enable": false,
-                "id": "93f05b62-6c5c-0ca0-e03b-212d99293294"
+            "pos": 4,
+            "grid":{ 
+				"enable": true,
+				"id":"bbbb469d-aaa1-c8f5-175c-645200a6b6fe"
             },
-            "items": []
+            "items": [{
+				"title": "Maps (raster): ",
+                "subtitle": "Toporama, CanMatrix Print ready and Georeferenced.",
+                "scale": 15000000,
+                "url": "http://geogratis.gc.ca/api/en/nrcan-rncan/ess-sst/-/OR/(urn:iso:series)toporama/(urn:iso:series)canmatrix-georeferenced",
+                "query": [{
+                    "type": 1,
+                    "param": "?q=XXX",
+                    "label": "Get single map"
+                }, {
+                    "type": 2,
+                    "param": "?bbox=XXX&sort-field=spatial",
+                    "label": "Get all maps for area shown"
+                }]
+            }, {
+                "title": "Data (vector): ",
+                "subtitle": "CanVec+.",
+                "scale": 15000000,
+                "url": "http://geogratis.gc.ca/api/en/nrcan-rncan/ess-sst/-/(urn:iso:series)canvec-plus",
+                "query": [{
+                    "type": 1,
+                    "param": "?q=XXX",
+                    "label": "Get single map"
+                }, {
+                    "type": 2,
+                    "param": "?bbox=XXX&sort-field=spatial",
+                    "label": "Get all data for area shown"
+                }]
+            }, {
+                "title": "Data: ",
+                "subtitle": "CanVec+ (vector) and Elevation (raster) data using custom geographic extent.",
+                "scale": 15000000,
+                "url": "http://geogratis.gc.ca/site/eng/extraction",
+                "query": [{
+                    "type": 2,
+                    "param": "?bbox=XXX",
+                    "label": "Get data using the Data Extraction Tool"
+                }]
+            }]
         },
         "insetframe": {
             "enable": false
         },
         "datagrid": {
             "enable": true,
-            "expand": true,
+            "expand": false,
             "layers": [
 				{
                     "layerinfo": {

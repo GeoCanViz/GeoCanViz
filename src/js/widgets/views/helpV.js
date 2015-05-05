@@ -324,7 +324,7 @@
 				node = '<section id="gcviz-help-tbdraw" class="gcviz-help gcviz-help-tbdraw">' +
 						'<div class="row"><span class="gcviz-help-tbtitle" data-bind="text: drawTitle"></span></div>' +
 						'<div class="row">' +
-							'<div class="span4 gcviz-draw-cholder">' +
+							'<div class="span3 gcviz-draw-cholder">' +
 								'<button class="gcviz-help-black" tabindex="-1"></button>' +
 								'<button class="gcviz-help-blue" tabindex="-1"></button>' +
 								'<button class="gcviz-help-green" tabindex="-1"></button>' +
@@ -332,7 +332,7 @@
 								'<button class="gcviz-help-yellow" tabindex="-1"></button>' +
 								'<button class="gcviz-help-white" tabindex="-1"></button>' +
 							'</div>' +
-							'<span class="span8" data-bind="text: drawColorSelect"></span>' +
+							'<span class="span9" data-bind="text: drawColorSelect"></span>' +
 						'</div>';
 
 				if (drawline) {

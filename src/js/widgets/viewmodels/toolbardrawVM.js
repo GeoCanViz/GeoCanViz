@@ -89,17 +89,14 @@
 				// keep color setting
 				_self.selectedColor = ko.observable();
 
-				// enable buttons (undo, export)
-				_self.stackUndo = ko.observableArray([]);
-				_self.stackRedo = ko.observableArray([]);
-				_self.isGraphics = ko.observable(false);
-
-				// graphic object
-				_self.graphic = new gisGraphic.initialize(mymap, _self.isGraphics, _self.stackUndo, _self.stackRedo, lblDist, lblArea);
-
 				// measure array and info
 				_self.measureHolder = ko.observableArray([]);
 				_self.measureType = '';
+
+				// enable buttons (undo, redo)
+				_self.stackUndo = ko.observableArray([]);
+				_self.stackRedo = ko.observableArray([]);
+				_self.isGraphics = ko.observable(false);
 
 				// set active tool
 				_self.activeTool = ko.observable('');
@@ -124,7 +121,19 @@
 					// select black by default
 					_self.selectColorClick('black');
 
+					// graphic object
+					mymap.stackU = [];
+					mymap.stackR = [];
+					
+					_self.graphic = new gisGraphic.initialize(mymap, lblDist, lblArea);
+
 					return { controlsDescendantBindings: true };
+				};
+
+				_self.updateStack = function() {
+					_self.isGraphics(_self.graphic.getIsGraphics());
+					_self.stackUndo(_self.graphic.getStackUndo());
+					_self.stackRedo(_self.graphic.getStackRedo());
 				};
 
 				// end draw action on tools toolbar click
@@ -161,6 +170,9 @@
 
 					// set the focus back to the right tool
 					_self.setFocus();
+
+					// update stack and state for buttons with observable
+					_self.updateStack();
 
 					// open menu
 					$menu.accordion('option', 'active', 0);
@@ -253,6 +265,10 @@
 					// workaround to remove tooltip on undo. The tooltip appears
 					// even if the button is disable
 					$viz('.ui-tooltip').remove();
+
+					// update stack and state for buttons with observable
+					_self.updateStack();
+
 				};
 
 				_self.eraseSelClick = function() {
@@ -280,6 +296,10 @@
 					// workaround to remove tooltip on undo. The tooltip appears
 					// even if the button is disable
 					$viz('.ui-tooltip').remove();
+
+					// update stack and state for buttons with observable
+					_self.updateStack();
+
 				};
 
 				_self.redoClick = function() {
@@ -294,6 +314,10 @@
 					// workaround to remove tooltip on undo. The tooltip appears
 					// even if the button is disable
 					$viz('.ui-tooltip').remove();
+
+					// update stack and state for buttons with observable
+					_self.updateStack();
+
 				};
 
 				_self.dialogMeasureClose = function() {
@@ -466,7 +490,7 @@
 					// launch the dialog. We cant put the dialog in the button because
 					// Firefox will not launch the window. To be able to open the window,
 					// we mimic the click
-					$viz(document.getElementById('fileDialogAnno'))[0].click();
+					$viz(document.getElementById('fileDialogAnno' + _self.mapid))[0].click();
 				};
 
 				_self.importClick = function(vm, event) {
@@ -484,16 +508,21 @@
 					}
 
 					// clear the selected file
-					document.getElementById('fileDialogAnno').value = '';
+					document.getElementById('fileDialogAnno' + _self.mapid).value = '';
 				};
 
 				_self.loadFile = function() {
 					return function(e) {
-						var jsonGraphics;
+						var graph,
+							jsonGraphics;
 
 						try {
 							jsonGraphics = JSON.parse(e.target.result);
-							gisGraphic.importGraphics(mymap, jsonGraphics, _self.isGraphics);
+							graph = gisGraphic.importGraphics(mymap, jsonGraphics);
+							
+							// update stack and state for buttons with observable
+							_self.graphic.addUndoStack(graph.key, graph.graphics);
+							_self.updateStack();
 						} catch(error) {
 							console.log('Not able to load graphics' + ': ' + error);
 						}

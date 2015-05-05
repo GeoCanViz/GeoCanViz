@@ -22,7 +22,6 @@
 			innerAddLegend,
 			innerRemoveLegend,
 			innerGetLegendParam,
-			innerGetURL,
 			loopGetURL,
 			loopChildrenVisibility,
 			vm;
@@ -33,6 +32,7 @@
 			var toolbarlegendViewModel = function($mapElem, mapid, config) {
 				var _self = this;
 
+				// get map reference
 				_self.mymap = gcvizFunc.getElemValueVM(mapid, ['map', 'map'], 'js');
 
 				// viewmodel mapid to be access in tooltip custom binding
@@ -175,18 +175,14 @@
 
 				_self.changeItemsVisibility = function(selectedItem, event) {
 					var item,
-						isCheck = event.target.checked,
 						lenBases = _self.basesArray().length,
 						lenLayers = _self.layersArray().length;
 
 					// loop trought items (we use event when the check box is clicked) event is
 					// undefined at initialization
 					if (typeof event !== 'undefined') {
-						selectedItem.visibility.initstate = isCheck;
+						selectedItem.visibility.initstate = event.target.checked;
 					}
-
-					// set value in layers array to retrieve to save legend
-					selectedItem.visibility.curstate = isCheck;
 
 					// always loop trought all the layers. If we just do child of event trigger,
 					// it could show a layer even if parent visibility is false
@@ -291,7 +287,7 @@
 					return gisLegend.getLayerParam(_self.mymap, id);
 				};
 
-				innerGetURL = function() {
+				_self.getURL = function() {
 					var layer,
 						returnURL = [],
 						layers = _self.allLayers,
@@ -314,7 +310,7 @@
 
 				loopGetURL = function(map, items, url) {
 					var layer, graphid,
-						opa, vis, exp,
+						isCheck, opa, vis, exp,
 						layers = items,
 						len = layers.length;
 
@@ -322,10 +318,13 @@
 						layer = layers[len];
 						graphid = layer.graphid;
 
+						// get the checkbox/radio button state
+						isCheck = $mapElem.find('#checkbox' + layer.id + mapid).prop('checked');
+
 						if (graphid !== 'custom') {
 							// first the graphid, the expand state, the visibiity state, the opacity value
 							exp = layer.expand ? 1 : 0;
-							vis = layer.visibility.curstate ? 1 : 0;
+							vis = isCheck ? 1 : 0;
 							opa = layer.opacity.initstate;
 							url.push(layer.graphid + ',' + exp + ',' + vis  + ',' + opa);
 
@@ -345,14 +344,11 @@
 			loopChildrenVisibility = function(map, itemMaster, isCheck) {
 				var items = itemMaster.items;
 
-				// if value is false, set isCheck to false for all children
+				// if value is false, set isCheck to false for all children because if parent
+				// is not visible, children should not be visible either
 				if (!itemMaster.visibility.initstate) {
 					isCheck = false;
 				}
-
-				// TODO:
-				// set value in layers array to retrieve to save legend
-				itemMaster.visibility.curstate = isCheck;
 
 				// if there is children, loop in them. otherwise, it is the last item, apply value.	
 				if (items.length > 0) {
@@ -382,8 +378,9 @@
 			return innerGetLegendParam(id);
 		};
 
-		getURL = function() {
-			return innerGetURL();
+		getURL = function(mapid) {
+			// link to view model to call the function inside
+			return gcvizFunc.getVM(mapid, 'legend').getURL();
 		};
 		
 		return {

@@ -274,7 +274,8 @@
 			widget = new radio({
 				name: options.group,
 				value: options.value,
-				checked: options.value
+				checked: options.value,
+				id: 'checkbox' + options.id
 			}).placeAt(element);
 
 			widget.on('Change', function(e) {

@@ -162,9 +162,22 @@
 					// in the top corner. To avoid this, limit your query with the scale dependecy.
 					// we cant reapply default value here because we dont want to restrict coordinates
 					// to Canada.
-					var min = extent[0],
+					var extentVal, tmpy,
+						min = extent[0],
 						max = extent[1],
-						extentVal = min.x + ',' + min.y + ','+ max.x + ',' + max.y;
+						xmin = min.x,
+						ymin = min.y,
+						xmax = max.x,
+						ymax = max.y;
+
+					// due to projection sometimes ymin is higher then ymax. Make sure to reverse if happens
+					// because it crash the api
+					if (ymin > ymax) {
+						tmpy = ymax;
+						ymax = ymin;
+						ymin = tmpy;
+					}
+					extentVal = xmin + ',' + ymin + ','+ xmax + ',' + ymax;
 
 					item.hrefData(url + query.replace('XXX', extentVal));
 				};

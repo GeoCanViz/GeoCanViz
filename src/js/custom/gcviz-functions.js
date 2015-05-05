@@ -29,6 +29,7 @@
 			getElemValueVM,
 			setElemValueVM,
 			setVM,
+			getVM,
 			subscribeTo,
 			getTextWidth,
 			focusMap,
@@ -279,8 +280,12 @@
 			return vmObject[vm][name][element](val);
 		};
 
-		setVM = function(name, vm) {
-			vmObject[name] = vm;
+		setVM = function(mapid, vm) {
+			vmObject[mapid] = vm;
+		};
+
+		getVM = function(mapid, name) {
+			return vmObject[mapid][name];
 		};
 
 		subscribeTo = function(name, vm, value, funct) {
@@ -441,6 +446,7 @@
 			getElemValueVM: getElemValueVM,
 			setElemValueVM: setElemValueVM,
 			setVM: setVM,
+			getVM: getVM,
 			subscribeTo: subscribeTo,
 			getTextWidth: getTextWidth,
 			focusMap: focusMap,

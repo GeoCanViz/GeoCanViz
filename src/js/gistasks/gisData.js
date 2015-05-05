@@ -177,21 +177,14 @@
 			// finish add by reordering layer and add the layer to map
 			finishAdd(mymap, featureLayer, config.zoom);
 
+			// add the data to the datagrid
+			vmDatagrid.addTab(mymap.vIdName, featCollection, gfileName, guuid);
+
 			// add to user array so knockout will generate legend
 			// we cant add it from the VM because the projection can take few second and the symbol is not define before.
 			// to avoid this, we add the layer only when it is done.
 			// set legend
 			addLegend(gfileName, guuid, 7, JSON.stringify(featureLayer.renderer.toJson()), config);
-
-			// add the data to the datagrid
-			vmDatagrid.addTab(mymap.vIdName, featCollection, gfileName, guuid);
-
-			// there is a problem with the define. the gcviz-vm-tbdata is not able to be set.
-			// With the require, we set the reference to gcviz-vm-tbdata (hard way)
-			require(['gcviz-vm-tbdata'], function(vmTbData) {
-				// notify toolbar data the new layer is finish
-				vmTbData.notifyAdd();
-			});
 		};
 
 		getSeparator = function(string) {
