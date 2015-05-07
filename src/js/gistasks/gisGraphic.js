@@ -13,7 +13,6 @@
 			'gcviz-gissymbol',
 			'gcviz-gisgeo',
 			'gcviz-gismap',
-			'esri/layers/GraphicsLayer',
 			'esri/toolbars/draw',
 			'esri/symbols/SimpleLineSymbol',
 			'esri/geometry/ScreenPoint',
@@ -22,7 +21,7 @@
 			'esri/geometry/Polyline',
 			'esri/graphic',
 			'dojo/on'
-	], function($viz, ko, gcvizFunc, gissymb, gisgeo, gisMap, esriGraphLayer, esriTools, esriLine, esriScreenPt, esriPt, esriPoly, esriPolyline, esriGraph, dojoOn) {
+	], function($viz, ko, gcvizFunc, gissymb, gisgeo, gisMap, esriTools, esriLine, esriScreenPt, esriPt, esriPoly, esriPolyline, esriGraph, dojoOn) {
 		var initialize,
 			importGraphics,
 			exportGraphics,
@@ -33,17 +32,17 @@
 			privateMap,
 			gissymbols;
 
-		initialize = function(mymap, lblDist, lblArea) {
+		// there is a problem with the define. the gcviz-gissymbol is not able to be set. The weird thing
+		// is if I replace gisgeo with gissymbol in the define, gisgeo will be set as gissymbol but I can't
+		// have access to gisgeo anymore. With the require, we set the reference to gissymbol (hard way)
+		require(['gcviz-gissymbol'], function(gissymb) {
+			gissymbols = gissymb;
+		});
 
-			// there is a problem with the define. the gcviz-gissymbol is not able to be set. The weird thing
-			// is if I replace gisgeo with gissymbol in the define, gisgeo will be set as gissymbol but I can't
-			// have access to gisgeo anymore. With the require, we set the reference to gissymbol (hard way)
-			require(['gcviz-gissymbol'], function(gissymb) {
-				gissymbols = gissymb;
-			});
+		initialize = function(mymap, stackU, stackR, lblDist, lblArea) {
 
 			// data model				
-			var graphic = function(mymap, lblDist, lblArea) {
+			var graphic = function(mymap, stackU, stackR, lblDist, lblArea) {
 				var _self = this,
 					symbLayer,
 					lengthWCAG, areaWCAG,
@@ -70,8 +69,7 @@
 					isWCAG = false;
 
 				_self.init = function() {
-					// add the graphic layers to the map
-					mymap.addLayer(new esriGraphLayer({ id: 'gcviz-symbol' }));
+					// get the graphic layer
 					symbLayer = map.getLayer('gcviz-symbol');
 
 					// create esri toolbar
@@ -773,9 +771,10 @@
 				_self.init();
 			};
 
-			return new graphic(mymap, lblDist, lblArea);
+			return new graphic(mymap, stackU, stackR, lblDist, lblArea);
 		};
 
+		// *** PUBLIC FUNCTIONS ***
 		importGraphics = function(map, graphics) {
 			var item,
 				graphic,

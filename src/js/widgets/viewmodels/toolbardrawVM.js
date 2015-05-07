@@ -17,7 +17,7 @@
 			'gcviz-gisdatagrid'
 	], function($viz, ko, generateFile, i18n, mapVM, gcvizFunc, gisGraphic, gisDG) {
 		var initialize,
-			vm;
+			vm = [];
 
 		initialize = function($mapElem, mapid, config) {
 
@@ -30,7 +30,6 @@
 					lblDist = i18n.getDict('%toolbardraw-dist'),
 					lblSeg = i18n.getDict('%toolbardraw-seg'),
 					lblArea = i18n.getDict('%toolbardraw-area'),
-					mymap = gcvizFunc.getElemValueVM(mapid, ['map', 'map'], 'js'),
 					$container = $viz('#' + mapid + '_holder_layers'),
 					$btnDraw = $mapElem.find('.gcviz-draw-line'),
 					$btnText = $mapElem.find('.gcviz-draw-text'),
@@ -120,12 +119,8 @@
 				_self.init = function() {
 					// select black by default
 					_self.selectColorClick('black');
-
-					// graphic object
-					mymap.stackU = [];
-					mymap.stackR = [];
 					
-					_self.graphic = new gisGraphic.initialize(mymap, lblDist, lblArea);
+					_self.graphic = new gisGraphic.initialize(mymap, _self.stackU, _self.stackR, lblDist, lblArea);
 
 					return { controlsDescendantBindings: true };
 				};
@@ -688,8 +683,9 @@
 				_self.init();
 			};
 
-			vm = new toolbardrawViewModel($mapElem, mapid);
-			ko.applyBindings(vm, $mapElem[0]); // This makes Knockout get to work
+			// put view model in an array because we can have more then one map in the page
+			vm[mapid] = new toolbardrawViewModel($mapElem, mapid);
+			ko.applyBindings(vm[mapid], $mapElem[0]); // This makes Knockout get to work
 			return vm;
 		};
 

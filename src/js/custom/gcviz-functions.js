@@ -26,20 +26,13 @@
 			getLookup,
 			getRandomColor,
 			getObjectIds,
-			getElemValueVM,
-			setElemValueVM,
-			setVM,
-			getVM,
-			subscribeTo,
 			getTextWidth,
-			focusMap,
 			padDigits,
 			parseLonLat,
 			parseDMS,
 			parseScale,
 			convertDdToDms,
-			timer,
-			vmObject = { };
+			timer;
 
 		debounce = function(func, threshold, execAsap) {
 			var timeout;
@@ -258,40 +251,6 @@
 			return arr;
 		};
 
-		getElemValueVM = function(name, elements, type) {
-			var val,
-				len = elements.length;
-
-			if (len === 1) {
-				val = vmObject[name][elements[0]];
-			} else if (len === 2) {
-				val = vmObject[name][elements[0]][elements[1]];
-			} else if (len === 3) {
-				val = vmObject[name][elements[0]][elements[1]][elements[2]];
-			}
-
-			if (type === 'ko') {
-				val = val();
-			}
-			return val;
-		};
-
-		setElemValueVM = function(vm, name, element, val) {
-			return vmObject[vm][name][element](val);
-		};
-
-		setVM = function(mapid, vm) {
-			vmObject[mapid] = vm;
-		};
-
-		getVM = function(mapid, name) {
-			return vmObject[mapid][name];
-		};
-
-		subscribeTo = function(name, vm, value, funct) {
-			vmObject[name][vm][value].subscribe(funct);
-		};
-
 		// Uses canvas.measureText to compute and return the width of the given text of given font in pixels.
 		// http://stackoverflow.com/questions/118241/calculate-text-width-with-javascript/21015393#21015393
 		getTextWidth = function(text, font) {
@@ -302,15 +261,6 @@
 			context.font = font;
 			metric = context.measureText(text);
 			return metric.width;
-		};
-
-		focusMap = function(map, scroll) {
-			var element = document.getElementById(map.vIdName + '_holder');
-
-			element.focus();
-			if (scroll) {
-				element.scrollIntoView();
-			}
 		};
 
 		padDigits = function(number, digits) {
@@ -443,13 +393,7 @@
 			getLookup: getLookup,
 			getRandomColor: getRandomColor,
 			getObjectIds: getObjectIds,
-			getElemValueVM: getElemValueVM,
-			setElemValueVM: setElemValueVM,
-			setVM: setVM,
-			getVM: getVM,
-			subscribeTo: subscribeTo,
 			getTextWidth: getTextWidth,
-			focusMap: focusMap,
 			padDigits: padDigits,
 			parseLonLat: parseLonLat,
 			parseScale: parseScale,

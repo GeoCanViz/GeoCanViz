@@ -15,11 +15,7 @@
 		var initialize,
 			toggleHelp,
 			toggleHelpBubble,
-			gblDialogOpen,
-			gblDialog,
-			gblDialogBubbleOpen,
-			gblDialogBubble,
-			vm;
+			vm = [];
 
 		initialize = function($mapElem, mapid) {
 
@@ -32,7 +28,7 @@
 					pathZoombar = locationPath + 'gcviz/images/helpZoombar.png',
 					$btnHelp = $mapElem.find('.gcviz-head-help'),
 					$dialog = $mapElem.find('#help-' + mapid),
-					$dialogBubble = $mapElem.find('#helpbubble-' + mapid),
+					$dialogBubble = $mapElem.find('#helpbubble-' + mapid).find('#gcviz-bubble'),
 					$helpSect = $mapElem.find('.gcviz-help-sect'),
 					$helpKey = $helpSect.find('.gcviz-help-key'),
 					$helpMap = $helpSect.find('.gcviz-help-map'),
@@ -48,6 +44,10 @@
 
 				// viewmodel mapid to be access in tooltip custom binding
 				_self.mapid = mapid;
+
+				// keep track of window
+				_self.dialog = $dialog;
+				_self.dialogBubble = $dialogBubble;
 
 				// images path
 				_self.imgHelpBubble = pathHelpBubble;
@@ -263,15 +263,6 @@
 					_self.noExtract = ($helpExtract.length > 0) ? false : true;
 					_self.noDatagrid = ($helpDatagrid.length > 0) ? false : true;
 
-					// set global dialog to be able to open help from
-					// outisede the view model. This way, it is easy
-					// for header VM to open help dialog
-					gblDialogOpen = _self.isHelpDialogOpen;
-					gblDialogBubbleOpen = _self.isHelpBubbleDialogOpen;
-
-					// keep both dialog box in global so we can extract and add item
-					gblDialog = $dialog;
-					gblDialogBubble = $dialogBubble.find('#gcviz-bubble');
 					return { controlsDescendantBindings: true };
 				};
 
@@ -284,7 +275,7 @@
 
 				_self.dialogHelpBubbleOk = function() {
 					_self.isHelpBubbleDialogOpen(false);
-					gblDialogBubble.empty();
+					_self.dialogBubble.empty();
 				};
 
 				_self.scrollTo = function(section) {
@@ -313,37 +304,39 @@
 					}
 				};
 
-				_self.aboutClick = function() {
-					console.log('dd');//_self.isAboutDialogOpen(true);
-				};
-
 				_self.init();
 			};
 
-			vm = new helpViewModel($mapElem, mapid);
-			ko.applyBindings(vm, $mapElem[0]); // This makes Knockout get to work
+			// put view model in an array because we can have more then one map in the page
+			vm[mapid] = new helpViewModel($mapElem, mapid);
+			ko.applyBindings(vm[mapid], $mapElem[0]); // This makes Knockout get to work
 			return vm;
 		};
 
-		toggleHelp = function() {
+		// *** PUBLIC FUNCTIONS ***
+		toggleHelp = function(mapid) {
+			var viewModel = vm[mapid];
+
 			// open main help and close bubble help if open
-			gblDialogOpen(true);
-			gblDialogBubbleOpen(false);
+			viewModel.isHelpDialogOpen(true);
+			viewModel.isHelpBubbleDialogOpen(false);
 		};
 
-		toggleHelpBubble = function(key, section) {
-			var prevent = false;
+		toggleHelpBubble = function(mapid, key, section) {
+			var prevent = false,
+				viewModel = vm[mapid],
+				bubble = viewModel.dialogBubble;
 
 			// empty bubble
-			gblDialogBubble.empty();
+			bubble.empty();
 
 			// get part of the help to put inside the bubble
-			gblDialogBubble.append(gblDialog.find('#' + section).clone());
+			bubble.append(viewModel.dialog.find('#' + section).clone());
 
 			if (key === 32) {
 				// open bubble help and close main help if open
-				gblDialogBubbleOpen(true);
-				gblDialogOpen(false);
+				viewModel.isHelpDialogOpen(false);
+				viewModel.isHelpBubbleDialogOpen(true);
 				prevent = true;
 			}
 

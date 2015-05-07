@@ -10,23 +10,21 @@
 	define(['jquery-private',
 			'knockout',
 			'gcviz-i18n',
-			'gcviz-vm-map',
 			'gcviz-func',
-			'gcviz-gismap',
 			'gcviz-gisgeo',
 			'gcviz-gisnav',
-			'gcviz-gisdatagrid',
-			'gcviz-gisgraphic'
-	], function($viz, ko, i18n, mapVM, gcvizFunc, gisMap, gisGeo, gisNav, gisDG, gisGraph) {
+			'gcviz-gisdatagrid'
+	], function($viz, ko, i18n, gcvizFunc, gisGeo, gisNav, gisDG) {
 		var initialize,
-			gblOVMap = false,
-			vm;
+			endGetCoordinates,
+			vm = [];
 
 		initialize = function($mapElem, mapid, config) {
 
 			// data model				
 			var toolbarnavViewModel = function($mapElem, mapid) {
 				var _self = this,
+					mapVM,
 					ovMapWidget,
 					clickPosition,
 					geolocation = config.geolocation,
@@ -41,11 +39,19 @@
 					$menu = $viz('#gcviz-menu' + mapid),
 					$panel = $viz('#gcviz-menu-cont' + mapid),
 					$posDiag = $mapElem.find('#gcviz-pos' + mapid),
-					mymap = gcvizFunc.getElemValueVM(mapid, ['map', 'map'], 'js'),
 					autoCompleteArray = [{ minx: 0 , miny: 0, maxx: 0, maxy: 0, title: 'ddd' }];
+
+				// there is a problem with the define. The gcviz-vm-map is not able to be set.
+				// We set the reference to gcviz-vm-map (hard way)
+				require(['gcviz-vm-map'], function(vmMap) {
+					mapVM = vmMap;
+				});
 
 				// viewmodel mapid to be access in tooltip and wcag custom binding
 				_self.mapid = mapid;
+
+				// know if overview widget has been started
+				_self.OVMapStart = false;
 
 				// get language code for scale formating
 				_self.langCode = i18n.getDict('%lang-code');
@@ -131,12 +137,11 @@
 				_self.activeTool = ko.observable('');
 
 				_self.init = function() {
-					var currentScale;
 					_self.theAutoCompleteArray = ko.observableArray(autoCompleteArray);
 
 					// See if user wanted an overview map. If so, initialize it here
 					if (overview.enable) {
-						ovMapWidget = gisNav.setOverview(mymap, overview);
+						ovMapWidget = mapVM.setOverviewMap(mapid, overview);
 
 						// event to know when the panel is open for the first time to start
 						// the overview map
@@ -187,35 +192,40 @@
 					}
 
 					if (scaledisplay) {
-						mymap.on('extent-change', function() {
-							var formatScale;
-
-							// get scale
-							currentScale = Math.round(mymap.getScale()).toString();
-
-							// set formating
-							formatScale = currentScale.split('').reverse().join('');
-							formatScale = formatScale.replace(/(\d{3})(?=\d)/g, '$1' + ' ');
-							formatScale = formatScale.split('').reverse().join('');
-
-							// update scale
-							_self.lblScale(_self.ScaleLabel + '1:' + formatScale);
-							$scaleMapSpan.textContent = _self.ScaleLabel + '1:' + formatScale;
-						});
+						// set on extent-change event to display scale
+						mapVM.registerEvent(mapid, 'extent-change', _self.displayScale);
 					}
 
 					return { controlsDescendantBindings: true };
+				};
+
+				_self.displayScale = function() {
+					var formatScale,
+						currentScale;
+
+					// get scale
+					currentScale = Math.round(mapVM.getScaleMap(mapid)).toString();
+
+					// set formating
+					formatScale = currentScale.split('').reverse().join('');
+					formatScale = formatScale.replace(/(\d{3})(?=\d)/g, '$1' + ' ');
+					formatScale = formatScale.split('').reverse().join('');
+
+					// update scale
+					_self.lblScale(_self.ScaleLabel + '1:' + formatScale);
+					$scaleMapSpan.textContent = _self.ScaleLabel + '1:' + formatScale;
 				};
 
 				_self.endPosition = function() {
 					// Reset cursor
 					$container.removeClass('gcviz-nav-cursor-pos');
 
+//TODO set this inside vm datagrid!!!
 					// set popup event
 					gisDG.addEvtPop();
 
 					// enable zoom extent button on map
-					mapVM.disableZoomExtent(false);
+					mapVM.disableZoomExtent(mapid, false);
 
 					// remove click event
 					if (typeof clickPosition !== 'undefined') {
@@ -258,6 +268,7 @@
 						autoCompleteArray = [{ minx: 0, miny: 0, maxx: 0, maxy: 0, title: 'ddd' }];
 
 						if (typeof lonlat !== 'undefined') {
+							// if response is a coordinnate
 							lonlat = [lonlat[0] + ';' + lonlat[1] + ';' + lonlat[2]];
 							response($viz.map(lonlat, function(item) {
 								var pt1, pt2, add, value,
@@ -285,6 +296,7 @@
 								};
 							}));
 						} else if (typeof scale !== 'undefined') {
+							// if response is a scale
 							response($viz.map([scale], function(item) {
 								var value = scale,
 									parts = scale.split(':'),
@@ -298,6 +310,7 @@
 								};
 							}));
 						} else {
+							// if not, call the api because it is a name, NTS or postal FSA
 							$viz.ajax({
 								url: _self.geoLocUrl,
 								cache: false,
@@ -397,28 +410,28 @@
 						type = acai.type;
 
 					// remove previous info window if there is one.
-					gisMap.hideInfoWindow(mymap, 'location');
+					mapVM.hideInfoWindow(mapid, 'location');
 
 					if (type !== 'scale') {
 						// zoom to location
-						gisGeo.zoomLocation(minx, miny, maxx, maxy, mymap, _self.outSR);
+						mapVM.zoomLocation(mapid, minx, miny, maxx, maxy, _self.outSR);
 	
 						// add graphic representation
 						if (geolocation.graphic && acai.type === 'point') {
 							geometry = { 'x': coords[0], 'y': coords[1] };
-							gisGraph.createGraphic(mymap, 'point', geometry, { title: title }, 4326, 'location');
+							mapVM.addGraphic(mapid, 'point', geometry, { title: title }, 4326, 'location');
 						} else {
 							geometry = { 'polygon': [[[minx, miny],
 												[maxx, miny],
 												[maxx, maxy],
 												[minx, maxy],
 												[minx, miny]]] };
-							gisGraph.createGraphic(mymap, 'polygon', geometry, { title: title }, 4326, 'location');
+							mapVM.addGraphic(mapid, 'polygon', geometry, { title: title }, 4326, 'location');
 						}
 
 						anchor = 'location';
 					} else {
-						output = gisMap.zoomScale(mymap, coords);
+						output = mapVM.setScaleMap(mapid, coords);
 						scaleType = output[0];
 
 						if (scaleType === 'cache') {
@@ -440,7 +453,7 @@
 					// show info window
 					if (geolocation.info) {
 						setTimeout(function() {
-							gisMap.showInfoWindow(mymap, 'Location', infotitle, anchor, 12, 0);
+							mapVM.showInfoWindow(mapid, 'Location', infotitle, anchor, 12, 0);
 						}, 1000);
 					}
 				};
@@ -465,12 +478,10 @@
 						gisDG.removeEvtPop();
 
 						// disable zoom extent button on map
-						mapVM.disableZoomExtent(true);
+						mapVM.disableZoomExtent(mapid, true);
 
 						// Get user to click on map and capture event
-						clickPosition = mymap.on('click', function(evt) {
-							gisGeo.projectPoints([evt.mapPoint], 4326, _self.displayInfo);
-						});
+						clickPosition = mapVM.registerEvent(mapid, 'click', _self.projectMapClick);
 					} else {
 						_self.isDialogWCAG(true);
 					}
@@ -480,14 +491,18 @@
 
 					// focus the map. We need to specify this because when you use the keyboard to
 					// activate the tool, the focus sometimes doesnt go to the map.
-					gcvizFunc.focusMap(mymap, false);
+					mapVM.focusMap(mapid, false);
+				};
+
+				_self.projectMapClick = function(evt) {
+					gisGeo.projectPoints([evt.mapPoint], 4326, _self.displayInfo);
 				};
 
 				_self.dialogWCAGOk = function() {
 					var x = _self.xValue() * -1,
 						y = _self.yValue();
 
-					gisGeo.projectCoords([[x, y]], mymap.vWkid, 4326, _self.displayInfo);
+					gisGeo.projectCoords([[x, y]], mapVM.getSR(mapid), 4326, _self.displayInfo);
 					_self.isDialogWCAG(false);
 					_self.wcagok = true;
 				};
@@ -592,9 +607,9 @@
 							$ovMap.removeClass('gcviz-ov-border');
 						} else {
 							// start the dijiit if not already started
-							if (!gblOVMap) {
+							if (!_self.OVMapStart) {
 								ovMapWidget[1].startup();
-								gblOVMap = true;
+								_self.OVMapStart = true;
 							}
 	
 							ovMapWidget[1].show();
@@ -616,13 +631,31 @@
 				_self.init();
 			};
 
-			vm = new toolbarnavViewModel($mapElem, mapid);
-			ko.applyBindings(vm, $mapElem[0]); // This makes Knockout get to work
+			// put view model in an array because we can have more then one map in the page
+			vm[mapid] = new toolbarnavViewModel($mapElem, mapid);
+			ko.applyBindings(vm[mapid], $mapElem[0]); // This makes Knockout get to work
 			return vm;
 		};
 
+		// *** PUBLIC FUNCTIONS ***
+		endGetCoordinates = function(mapid) {
+			var flag = false,
+				viewModel = vm[mapid];
+
+			// link to view model to call the function inside
+			if (typeof viewModel !== 'undefined') {
+				if (viewModel.activeTool() === 'position') {
+					viewModel.endPosition();
+					flag = true;
+				}
+			}
+
+			return flag;
+		};
+
 		return {
-			initialize: initialize
+			initialize: initialize,
+			endGetCoordinates: endGetCoordinates
 		};
 	});
 }).call(this);

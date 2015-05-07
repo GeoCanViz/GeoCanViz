@@ -28,8 +28,6 @@
 			addFeatLayer,
 			addGeoRSS,
 			addLegend,
-			addLegendMissing,
-			removeLegendMissing,
 			finishAdd,
 			createLayer,
 			getSeparator,
@@ -140,7 +138,7 @@
 					// and sometimes layer will not be created.
 					setTimeout(function() {
 						gisGeo.projectPoints(ptArr, outWkid, createLayer);
-						def.resolve(0);
+						def.resolve(0, { label: gfileName, id: guuid });
 					}, 0);
 				},
 				onError: function (error) {
@@ -439,7 +437,7 @@
 				addLegend(name, uuid, 5, JSON.stringify(layer.renderer.toJson()), config);
 
 				// return info
-				def.resolve(0, { label: name, id: uuid, url: layer.url });
+				def.resolve(0, [{ label: name, id: uuid, url: layer.url }]);
 			}, map, uuid, config));
 
 			return def;
@@ -539,51 +537,6 @@
 			vmTbLegend.addLegend(outConfig);
 		};
 
-		addLegendMissing = function(name) {
-			var outConfig = {
-					'expand': false,
-					'last': true,
-					'type': 5,
-					'id': name,
-					'graphid': 'custom',
-					'displayfields': false,
-					'label': {
-						'value': name,
-						'alttext': name
-					},
-					'metadata': {
-						'enable': false
-					},
-					'opacity': {
-						'enable': false,
-						'min': 0,
-						'max': 1,
-						'initstate': 1
-					},
-					'visibility': {
-						'enable': false,
-						'initstate': 1,
-						'type': 1,
-						'radioid': 0
-					},
-					'displaychild': {
-						'enable': false,
-						'symbol': ''
-					},
-					'customimage': {
-						'enable': false,
-						'images': []
-					},
-					'items': []
-				};
-
-			vmTbLegend.addLegend(outConfig);
-		};
-
-		removeLegendMissing = function(id) {
-			vmTbLegend.removeLegend(id);
-		};
-
 		finishAdd = function(mymap, layer, zoom) {
 			var graphics, layerId,
 				graph, geomType,
@@ -636,9 +589,7 @@
 			addCSV: addCSV,
 			addKML: addKML,
 			addFeatLayer: addFeatLayer,
-			addGeoRSS: addGeoRSS,
-			addLegendMissing: addLegendMissing,
-			removeLegendMissing: removeLegendMissing
+			addGeoRSS: addGeoRSS
 		};
 	});
 }());

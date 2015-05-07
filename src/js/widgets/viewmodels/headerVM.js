@@ -18,19 +18,21 @@
 			'gcviz-gismap',
 			'gcviz-vm-tbextract',
 			'gcviz-vm-print',
-			'gcviz-vm-tbdata',
-			'gcviz-vm-tblegend',
 			'gcviz-vm-help'
-	], function($viz, ko, media, gisPrint, i18n, binding, gcvizFunc, gisM, extractVM, printVM, dataVM, legendVM, helpVM) {
+	], function($viz, ko, media, gisPrint, i18n, binding, gcvizFunc, gisM, extractVM, printVM, helpVM) {
 		var initialize,
+			toggleMenu,
+			subscribeIsFullscreen,
+			subscribeIsInsetVisible,
 			printSimple,
 			getRotationDegrees,
-			vm;
+			vm = [];
 
 		initialize = function($mapElem, mapid, config, isDataTbl) {
 			// data model				
 			var headerViewModel = function($mapElem, mapid, config, isDataTbl) {
 				var _self = this,
+					mapVM,
 					configAbout = config.about,
 					configPrint = config.print,
 					pathPrint = locationPath + 'gcviz/print/defaultPrint-' + window.langext + '.html',
@@ -43,8 +45,13 @@
 					$saveUrl = $mapElem.find('#gcviz-head-save'),
 					$menu = $mapElem.find('#gcviz-menu' + mapid),
 					$btnFull = $mapElem.find('.gcviz-head-pop'),
-					map = gcvizFunc.getElemValueVM(mapid, ['map', 'map'], 'js'),
 					instrHeight = 36;
+
+				// there is a problem with the define. The gcviz-vm-map is not able to be set.
+				// We set the reference to gcviz-vm-map (hard way)
+				require(['gcviz-vm-map'], function(vmMap) {
+					mapVM = vmMap;
+				});
 
 				// viewmodel mapid to be access in tooltip custom binding
 				_self.mapid = mapid;
@@ -162,17 +169,18 @@
 					return { controlsDescendantBindings: true };
 				};
 
-				_self.showBubble = function(key, shift, keyType, id) {
-					return helpVM.toggleHelpBubble(key, id);
+				_self.showBubble = function(key, id) {
+					return helpVM.toggleHelpBubble(mapid, key, id);
 				};
 
+				// when download map and data click, check to toggle grid layer if exist.
 				_self.showExtractGrid = function(event, ui) {
 					var panel = ui.newPanel;
 
 					if (panel.hasClass('gcviz-tbextract-content')) {
-						extractVM.showGrid(map, true);
+						extractVM.showGrid(mapid, true);
 					} else {
-						extractVM.showGrid(map, false);
+						extractVM.showGrid(mapid, false);
 					}
 				};
 
@@ -196,7 +204,7 @@
 					// Print the map
 					if (configPrint.type === 3) {
 						// this is the simple print. It doesn't use esri print task
-						printSimple(map, _self.printInfo);
+						printSimple(mapid, _self.printInfo);
 					} else {
 						// print from our custom esri services
 						printVM.togglePrint();
@@ -236,7 +244,7 @@
 				};
 
 				_self.helpClick = function() {
-					helpVM.toggleHelp();
+					helpVM.toggleHelp(mapid);
 				};
 
 				_self.aboutClick = function() {
@@ -250,24 +258,32 @@
 
 				_self.saveClick = function(ev) {
 					var mapUrl,
+						mapidString,
 						extentString,
 						dataString,
 						legendString,
-						extent = gisM.getMapExtent(map),
+						extent = mapVM.getExtentMap(mapid),
 						url = window.location.toString(),
 						url = url.substring(0, url.indexOf('html') + 4) + '?';
 
+					// set mapid
+					mapidString = 'id=' + mapid;
+
 					// set extent
-					extentString = 'extent=' + extent.xmin + ',' + extent.ymin + ',' + extent.xmax + ',' + extent.ymax;
+					extentString = '&extent=' + extent.xmin + ',' + extent.ymin + ',' + extent.xmax + ',' + extent.ymax;
 
 					// set legend
-					legendString = legendVM.getURL(_self.mapid);
+					require(['gcviz-vm-tblegend'], function(legendVM) {
+						legendString = legendVM.getURL(_self.mapid);
+					});
 
 					// set imported data
-					dataString = dataVM.getURL(_self.mapid);
+					require(['gcviz-vm-tbdata'], function(dataVM) {
+						dataString = dataVM.getURL(_self.mapid);
+					});
 
 					// set map url
-					mapUrl = url + extentString + dataString + legendString;
+					mapUrl = url + mapidString + extentString + dataString + legendString;
 					_self.saveURL(mapUrl);
 					_self.isSaveDialogOpen(true);
 
@@ -304,20 +320,19 @@
 
 					// set on resize event to know when to adjust menu height,
 					// put back focus on fs and reset tab
-					resizeEvt = map.on('resize', function() {
-						_self.adjustContainerHeight();
-						$btnFull.focus();
-
-						// create keydown event to keep tab in the map section
-						// remove the event that keeps tab in map section
-						$mapholder.off('keydown.fs');
-
-						// remove event
-						resizeEvt.remove();
-					});
+					mapVM.registerEventOne(mapid, 'resize', _self.canFullScreenEvt);
 
 					// resize map and keep the extent
-					gisM.manageScreenState(map, 500, false);
+					mapVM.manageScreenState(mapid, 500, false);
+				};
+
+				_self.canFullScreenEvt = function() {
+					_self.adjustContainerHeight();
+					$btnFull.focus();
+
+					// create keydown event to keep tab in the map section
+					// remove the event that keeps tab in map section
+					$mapholder.off('keydown.fs');
 				};
 
 				_self.requestFullScreen = function() {
@@ -325,7 +340,6 @@
 					var resizeEvt,
 						param = gcvizFunc.getFullscreenParam(),
 						h = param.height,
-						array = $mapholder.find('[tabindex = 0]'),
 						height = (h - (2 * _self.headerHeight) - 2); // minus 2 for the border
 
 					// set style for the map
@@ -344,28 +358,29 @@
 
 					// set on resize event to know when to adjust menu height,
 					// put back focus on fs and set tab
-					resizeEvt = map.on('resize', function() {
-						_self.adjustContainerHeight();
-						$mapElem.find('.gcviz-head-reg').focus();
-
-						// create keydown event to keep tab in the map section
-						_self.first = array[0];
-						_self.last = array[array.length - 1];
-						$mapholder.on('keydown.fs', function(event) {
-							_self.manageTabbingOrder(event);
-						});
-
-						// remove event
-						resizeEvt.remove();
-					});
+					mapVM.registerEventOne(mapid, 'resize', _self.reqFullScreenEvt);
 
 					// resize map and keep the extent
-					gisM.manageScreenState(map, 500, true);
+					mapVM.manageScreenState(mapid, 500, true);
+				};
+
+				_self.reqFullScreenEvt = function() {
+					var array = $mapholder.find('[tabindex = 0]');
+
+					_self.adjustContainerHeight();
+					$mapElem.find('.gcviz-head-reg').focus();
+
+					// create keydown event to keep tab in the map section
+					_self.first = array[0];
+					_self.last = array[array.length - 1];
+					$mapholder.on('keydown.fs', function(event) {
+						_self.manageTabbingOrder(event);
+					});
 				};
 
 				_self.adjustContainerHeight = function() {
 					var active = $menu.accordion('option', 'active'),
-						toolbarheight = parseInt(map.height, 10) - 5;
+						toolbarheight = parseInt(mapVM.getHeightMap(mapid).height, 10) - 5;
 
 					// set height
 					_self.xheightToolsInner('max-height:' + (toolbarheight - instrHeight) + 'px!important'); // remove the keyboard instruction height
@@ -412,103 +427,119 @@
 				_self.init();
 			};
 
-			vm = new headerViewModel($mapElem, mapid, config, isDataTbl);
-			ko.applyBindings(vm, $mapElem[0]); // This makes Knockout get to work
+			printSimple = function(mapid, printInfo) {
+				var style, rotation,
+					styles, lenStyles,
+					arrowStyle = '',
+					center = {},
+					node = $viz('#' + mapid + '_holder'),
+					arrow = $viz('#arrow' + mapid),
+					scalebar = $viz('#scalebar' + mapid),
+					zoomMax = $viz('.gcviz-map-zm'),
+					zoomBar = $viz('.dijitSlider'),
+					zoomPrevNext = $viz('.gcviz-map-zoompv'),
+					height = node.css('height'),
+					width = node.css('width');
+	
+				// get center map
+				center.point = mapVM.getCenterMap(mapid);
+	
+				// set map size to fit the print page
+				gcvizFunc.setStyle(node[0], { 'width': '10in', 'height': '5.25in' });
+				gcvizFunc.setStyle(node.find('#' + mapid + '_holder_root')[0], { 'width': '10in', 'height': '5.25in' });
+	
+				// resize map and center to keep scale
+				center.interval = 1500;
+				mapVM.resizeCenterMap(mapid, center);
+	
+				// open the print page here instead of timemeout because if we do so, it will act as popup.
+				// It needs to be in a click event to open without a warning
+				window.open(printInfo.template);
+	
+				// hide zoom max, zoom bar and prev next
+				zoomMax.addClass('gcviz-hidden');
+				zoomBar.addClass('gcviz-hidden');
+				zoomPrevNext.addClass('gcviz-hidden');
+	
+				// get rotation and remove decimal part
+				rotation = getRotationDegrees(arrow);
+				style = arrow.attr('style');
+				styles = style.split(';');
+				lenStyles = styles.length - 1;
+	
+				while (lenStyles--) {
+					arrowStyle += styles[lenStyles].split(':')[0] + ':' + 'rotate(' + rotation + 'deg);';
+				}
+	
+				// set the local storage (modify arrow because it wont print... it is an image background)
+				localStorage.setItem('gcvizTitle', printInfo.title);
+				setTimeout(function() {
+					localStorage.setItem('gcvizPrintNode', node[0].outerHTML);
+					localStorage.setItem('gcvizArrowNode', '<img src="../images/printNorthArrow.png" style="' + arrowStyle + '"></img>');
+					localStorage.setItem('gcvizScalebarNode', scalebar[0].outerHTML);
+					localStorage.setItem('gcvizURL', window.location.href);
+				}, 3500);
+	
+				// set map size to previous values
+				setTimeout (function() {
+					zoomMax.removeClass('gcviz-hidden');
+					zoomBar.removeClass('gcviz-hidden');
+					zoomPrevNext.removeClass('gcviz-hidden');
+					gcvizFunc.setStyle(node[0], { 'width': width, 'height': height });
+					gcvizFunc.setStyle(node.find('#' + mapid + '_holder_root')[0], { 'width': width, 'height': height });
+					mapVM.resizeCenterMap(mapid, center);
+				}, 15000);
+			};
+	
+			// http://stackoverflow.com/questions/8270612/get-element-moz-transformrotate-value-in-jquery
+			getRotationDegrees = function(obj) {
+				var values, a, b, angle,
+					matrix = obj.css('-webkit-transform') ||
+					obj.css('-moz-transform') ||
+					obj.css('-ms-transform') ||
+					obj.css('-o-transform') ||
+					obj.css('transform');
+	
+				if (matrix !== 'none') {
+					values = matrix.split('(')[1].split(')')[0].split(',');
+					a = values[0];
+					b = values[1];
+					angle = Math.round(Math.atan2(b, a) * (180/Math.PI));
+				} else {
+					angle = 0;
+				}
+	
+				if (angle < 0) {
+					angle +=360;
+				}
+	
+				return angle;
+			};
+
+			// put view model in an array because we can have more then one map in the page
+			vm[mapid] = new headerViewModel($mapElem, mapid, config, isDataTbl);
+			ko.applyBindings(vm[mapid], $mapElem[0]); // This makes Knockout get to work
 			return vm;
 		};
 
-		printSimple = function(map, printInfo) {
-			var style, rotation,
-				styles, lenStyles,
-				arrowStyle = '',
-				center = {},
-				mapid = map.vIdName,
-				node = $viz('#' + mapid + '_holder'),
-				arrow = $viz('#arrow' + mapid),
-				scalebar = $viz('#scalebar' + mapid),
-				zoomMax = $viz('.gcviz-map-zm'),
-				zoomBar = $viz('.dijitSlider'),
-				zoomPrevNext = $viz('.gcviz-map-zoompv'),
-				height = node.css('height'),
-				width = node.css('width');
-
-			// get center map
-			center.point = gisM.getMapCenter(map);
-
-			// set map size to fit the print page
-			gcvizFunc.setStyle(node[0], { 'width': '10in', 'height': '5.25in' });
-			gcvizFunc.setStyle(node.find('#' + mapid + '_holder_root')[0], { 'width': '10in', 'height': '5.25in' });
-
-			// resize map and center to keep scale
-			center.interval = 1500;
-			gisM.resizeCenterMap(map, center);
-
-			// open the print page here instead of timemeout because if we do so, it will act as popup.
-			// It needs to be in a click event to open without a warning
-			window.open(printInfo.template);
-
-			// hide zoom max, zoom bar and prev next
-			zoomMax.addClass('gcviz-hidden');
-			zoomBar.addClass('gcviz-hidden');
-			zoomPrevNext.addClass('gcviz-hidden');
-
-			// get rotation and remove decimal part
-			rotation = getRotationDegrees(arrow);
-			style = arrow.attr('style');
-			styles = style.split(';');
-			lenStyles = styles.length - 1;
-
-			while (lenStyles--) {
-				arrowStyle += styles[lenStyles].split(':')[0] + ':' + 'rotate(' + rotation + 'deg);';
-			}
-
-			// set the local storage (modify arrow because it wont print... it is an image background)
-			localStorage.setItem('gcvizTitle', printInfo.title);
-			setTimeout(function() {
-				localStorage.setItem('gcvizPrintNode', node[0].outerHTML);
-				localStorage.setItem('gcvizArrowNode', '<img src="../images/printNorthArrow.png" style="' + arrowStyle + '"></img>');
-				localStorage.setItem('gcvizScalebarNode', scalebar[0].outerHTML);
-				localStorage.setItem('gcvizURL', window.location.href);
-			}, 3500);
-
-			// set map size to previous values
-			setTimeout (function() {
-				zoomMax.removeClass('gcviz-hidden');
-				zoomBar.removeClass('gcviz-hidden');
-				zoomPrevNext.removeClass('gcviz-hidden');
-				gcvizFunc.setStyle(node[0], { 'width': width, 'height': height });
-				gcvizFunc.setStyle(node.find('#' + mapid + '_holder_root')[0], { 'width': width, 'height': height });
-				gisM.resizeCenterMap(map, center);
-			}, 15000);
+		// *** PUBLIC FUNCTIONS ***
+		toggleMenu = function(mapid) {
+			vm[mapid].toolsClick();
 		};
 
-		// http://stackoverflow.com/questions/8270612/get-element-moz-transformrotate-value-in-jquery
-		getRotationDegrees = function(obj) {
-			var values, a, b, angle,
-				matrix = obj.css('-webkit-transform') ||
-				obj.css('-moz-transform') ||
-				obj.css('-ms-transform') ||
-				obj.css('-o-transform') ||
-				obj.css('transform');
+		subscribeIsFullscreen = function(mapid, funct) {
+			return vm[mapid].isFullscreen.subscribe(funct);
+		};
 
-			if (matrix !== 'none') {
-				values = matrix.split('(')[1].split(')')[0].split(',');
-				a = values[0];
-				b = values[1];
-				angle = Math.round(Math.atan2(b, a) * (180/Math.PI));
-			} else {
-				angle = 0;
-			}
-
-			if (angle < 0) {
-				angle +=360;
-			}
-
-			return angle;
+		subscribeIsInsetVisible = function(mapid, funct) {
+			return vm[mapid].isInsetVisible.subscribe(funct);
 		};
 
 		return {
-			initialize: initialize
+			initialize: initialize,
+			toggleMenu: toggleMenu,
+			subscribeIsFullscreen: subscribeIsFullscreen,
+			subscribeIsInsetVisible: subscribeIsInsetVisible
 		};
 	});
 }).call(this);

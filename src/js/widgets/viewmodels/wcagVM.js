@@ -12,18 +12,19 @@
 			'knockout',
 			'gcviz-i18n',
 			'gcviz-func',
-			'gcviz-vm-help'
-	], function($viz, ko, i18n, gcvizFunc, helpVM) {
+			'gcviz-vm-help',
+			'gcviz-vm-map'
+	], function($viz, ko, i18n, gcvizFunc, helpVM, mapVM) {
 		var initialize,
-			vm;
+			subscribeIsWCAG,
+			vm = [];
 
 		initialize = function($mapElem, mapid) {
 
 			// data model				
 			var wcagViewModel = function($mapElem, mapid) {
 				var _self = this,
-					pathHelpBubble = locationPath + 'gcviz/images/helpBubble.png',
-					map = gcvizFunc.getElemValueVM(mapid, ['map', 'map'], 'js');
+					pathHelpBubble = locationPath + 'gcviz/images/helpBubble.png';
 
 				// viewmodel mapid to be access in tooltip custom binding
 				_self.mapid = mapid;
@@ -53,8 +54,8 @@
 					return { controlsDescendantBindings: true };
 				};
 
-				_self.showBubble = function(key, shift, keyType, id) {
-					return helpVM.toggleHelpBubble(key, id);
+				_self.showBubble = function(key, id) {
+					return helpVM.toggleHelpBubble(mapid, key, id);
 				};
 
 				_self.enableWCAG = function() {
@@ -66,19 +67,26 @@
 				_self.active = function() {
 					// we need to resize the map every time we open/close the panel
 					// because it change the section size
-					map.resize();
+					mapVM.resizeMap(mapid);
 				};
 
 				_self.init();
 			};
 
-			vm = new wcagViewModel($mapElem, mapid);
-			ko.applyBindings(vm, $mapElem[0]); // This makes Knockout get to work
+			// put view model in an array because we can have more then one map in the page
+			vm[mapid] = new wcagViewModel($mapElem, mapid);
+			ko.applyBindings(vm[mapid], $mapElem[0]); // This makes Knockout get to work
 			return vm;
 		};
 
+		// *** PUBLIC FUNCTIONS ***
+		subscribeIsWCAG = function(mapid, funct) {
+			return vm[mapid].isWCAG.subscribe(funct);
+		};
+
 		return {
-			initialize: initialize
+			initialize: initialize,
+			subscribeIsWCAG: subscribeIsWCAG
 		};
 	});
 }).call(this);

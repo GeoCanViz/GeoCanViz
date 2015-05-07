@@ -55,7 +55,7 @@
 			// set height and width for the map. Substract the header height
 			holder.css({ 'width': widthMax, 'height': height });
 
-			return mapVM.initialize($mapElem, side);
+			return mapVM.initialize($mapElem, mapid, side);
 		};
 
 		return {

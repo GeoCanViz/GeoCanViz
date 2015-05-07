@@ -14,22 +14,45 @@
 			'gcviz-gismap',
 			'gcviz-gisgeo',
 			'gcviz-gisnav',
+			'gcviz-gisdata',
 			'gcviz-gisgraphic',
-			'gcviz-gisdatagrid'
-	], function($viz, ko, i18n, gcvizFunc, gisM, gisGeo, gisNav, gisGraphic, gisDG) {
+			'gcviz-gisdatagrid',
+			'gcviz-vm-tbnav',
+			'gcviz-vm-header'
+	], function($viz, ko, i18n, gcvizFunc, gisMap, gisGeo, gisNav, gisData, gisGraphic, gisDG, tbnavVM, headerVM) {
 		var initialize,
 			disableZoomExtent,
-			$zmExtent,
-			vm;
+			setScaleBar,
+			setOverviewMap,
+			resize,
+			resizeCenter,
+			zoomLocation,
+			getExtent,
+			getScale,
+			setScale,
+			getSR,
+			getHeight,
+			getCenter,
+			focus,
+			addGraphic,
+			addLayerCSV,
+			addLayerFeature,
+			addLayerKML,
+			removeLayer,
+			registerEvent,
+			registerEventOne,
+			hideInfoWindow,
+			showInfoWindow,
+			manageScreenState,
+			vm = [];
 
-		initialize = function($mapElem, side) {
+		initialize = function($mapElem, mapid, side) {
 
 			// data model				
-			var mapViewModel = function($mapElem, side) {
+			var mapViewModel = function($mapElem, mapid, side) {
 				var _self = this,
 					map, menuState,
 					mapframe = $mapElem.mapframe,
-					mapid = mapframe.id,
 					config = mapframe.map,
 					extentCall = false,
 					extentBtnClick = '';
@@ -46,7 +69,7 @@
 				_self.mapfocus = ko.observable();
 
 				// set zoom extent button to be able to enable/disable
-				$zmExtent = $viz('#map-zmextent-' + mapid);
+				_self.zmExtent = $viz('#map-zmextent-' + mapid);
 
 				// previous / nest extent
 				_self.previous = i18n.getDict('%datagrid-previous');
@@ -57,7 +80,7 @@
 				_self.extentArray = ko.observableArray([]);
 
 				_self.init = function() {
-					var layer, base, panel,
+					var layer, base, panel, idmap,
 						extent, extentVal, extentInit,
 						layers = config.layers,
 						bases = config.bases,
@@ -71,7 +94,7 @@
 					gcvizFunc.setProgressBar(i18n.getDict('%mp-load'));
 
 					// set proxy for esri request (https://github.com/Esri/resource-proxy)
-					gisM.setProxy(config.urlproxy);
+					gisMap.setProxy(config.urlproxy);
 
 					// set the geometry server url
 					gisGeo.setGeomServ(config.urlgeomserv);
@@ -89,9 +112,10 @@
 
 					// check if extent is specify in the extent, if so modify config
 					// param look like this: extent=-535147.9538835107,12432.88706458224,-104177.95416573394,161860.56747549836
+					idmap = gcvizFunc.getURLParameter(window.location.toString(), 'id');
 					extent = gcvizFunc.getURLParameter(window.location.toString(), 'extent');
 
-					if (extent !== null) {
+					if (extent !== null && idmap === mapid) {
 						extentVal = extent.split(',');
 						extentInit = config.extentinit;
 						extentInit.xmin = parseFloat(extentVal[0], 10);
@@ -101,24 +125,27 @@
 					}
 
 					// create map	
-					map = gisM.createMap(mapid + '_holder', config, side);
+					map = gisMap.createMap(mapid + '_holder', config, side);
 
 					// add extent change event
-					gisM.extentMapEvent(map, _self.changeExtent);
+					gisMap.extentMapEvent(map, _self.changeExtent);
 
 					// add basemap
 					bases = bases.reverse();
 					while (lenBases--) {
 						base = bases[lenBases];
-						gisM.addLayer(map, base);
+						gisMap.addLayer(map, base);
 					}
 
 					// add layers
 					layers = layers.reverse();
 					while (lenLayers--) {
 						layer = layers[lenLayers];
-						gisM.addLayer(map, layer);
+						gisMap.addLayer(map, layer);
 					}
+
+					// add the graphic layer
+					gisMap.addGraphicLayer(map, 'gcviz-symbol');
 
 					// set class and remove cursor for container
 					$root = $viz('#' + mapid + '_holder_root');
@@ -144,7 +171,7 @@
 										'</button>');
 						btn = panel.find('.gcviz-wcag-close');
 						btn.on('click', function() {
-							gisM.hideInfoWindow(_self.map, 'location');
+							gisMap.hideInfoWindow(_self.map, 'location');
 						});
 					});
 
@@ -189,7 +216,7 @@
 					if (typeof geometry !== 'undefined') {
 						_self.map.setExtent(geometry);
 					} else {
-						gisM.zoomIn(_self.map);
+						gisMap.zoomIn(_self.map);
 					}
 
 					// open menu if it was open
@@ -277,7 +304,7 @@
 						}
 
 						// zoom to extent
-						gisM.zoomExtent(map, _self.extentArray()[pos], true);
+						gisMap.zoomExtent(map, _self.extentArray()[pos], true);
 					}, 500);
 				};
 
@@ -308,7 +335,7 @@
 						}
 
 						// zoom to extent
-						gisM.zoomExtent(map, _self.extentArray()[pos], true);
+						gisMap.zoomExtent(map, _self.extentArray()[pos], true);
 					}, 500);
 
 				};
@@ -325,24 +352,24 @@
 
 					if (_self.mapfocus()) {
 						if (key === 37) {
-							gisM.panLeft(map);
+							gisMap.panLeft(map);
 							prevent = true;
 						} else if (key === 38) {
-							gisM.panDown(map);
+							gisMap.panDown(map);
 							prevent = true;
 						} else if (key === 39) {
-							gisM.panRight(map);
+							gisMap.panRight(map);
 							prevent = true;
 						} else if (key === 40) {
-							gisM.panUp(map);
+							gisMap.panUp(map);
 							prevent = true;
 
 						// chrome/safari is different then firefox. Need to check for both.
 						} else if ((key === 187 && shift) || (key === 61 && shift)) {
-							gisM.zoomIn(map);
+							gisMap.zoomIn(map);
 							prevent = true;
 						} else if ((key === 189 && shift) || (key === 173 && shift)) {
-							gisM.zoomOut(map);
+							gisMap.zoomOut(map);
 							prevent = true;
 
 						// firefox trigger internal api zoom even if shift is not press. Grab this key and prevent default.
@@ -350,25 +377,21 @@
 							prevent = true;
 						// open tools if esc is press
 						} else if (key === 27) {
+// TODO
+							// // check if draw is active. If so apply event
+							// if (typeof gcvizFunc.getElemValueVM(mapid, ['draw'], 'js') !== 'undefined') {
+								// if (gcvizFunc.getElemValueVM(mapid, ['draw', 'activeTool'], 'ko') !== '') {
+									// gcvizFunc.getElemValueVM(mapid, ['draw', 'endDraw'], 'js')();
+									// flag = true;
+								// }
+							// }
 
-							// check if draw is active. If so apply event
-							if (typeof gcvizFunc.getElemValueVM(mapid, ['draw'], 'js') !== 'undefined') {
-								if (gcvizFunc.getElemValueVM(mapid, ['draw', 'activeTool'], 'ko') !== '') {
-									gcvizFunc.getElemValueVM(mapid, ['draw', 'endDraw'], 'js')();
-									flag = true;
-								}
-							}
 							// check if position is active. If so apply event
-							if (typeof gcvizFunc.getElemValueVM(mapid, ['nav'], 'js') !== 'undefined') {
-								if (gcvizFunc.getElemValueVM(mapid, ['nav', 'activeTool'], 'ko') === 'position') {
-									gcvizFunc.getElemValueVM(mapid, ['nav', 'endPosition'], 'js')();
-									flag = true;
-								}
-							}
+							flag = tbnavVM.endGetCoordinates(mapid);
 
 							// if not tools acitve, just toggle the menu
 							if (!flag) {
-								gcvizFunc.getElemValueVM(mapid, ['header', 'toolsClick'], 'js')();
+								headerVM.toggleMenu(mapid);
 							}
 						}
 					}
@@ -379,21 +402,159 @@
 				_self.init();
 			};
 
-			vm = new mapViewModel($mapElem, side);
-			ko.applyBindings(vm, $mapElem[0]); // This makes Knockout get to work
+			// put view model in an array because we can have more then one map in the page
+			vm[mapid] = new mapViewModel($mapElem, mapid, side);
+			ko.applyBindings(vm[mapid], $mapElem[0]); // This makes Knockout get to work
 			return vm;
 		};
 
-		disableZoomExtent = function(val) {
-			if (val) {
-				$zmExtent.addClass('gcviz-disable');
+		// *** PUBLIC FUNCTIONS ***
+		setScaleBar = function(mapid, scalebar) {
+			gisNav.setScaleBar(vm[mapid].map, scalebar);
+		};
+
+		setOverviewMap = function(mapid, overview) {
+			return gisNav.setOverview(vm[mapid].map, overview);
+		};
+
+		resize = function(mapid) {
+			vm[mapid].map.resize();
+		};
+
+		resizeCenter = function(mapid, center) {
+			gisMap.resizeCenterMap(vm[mapid].map, center);
+		};
+
+		zoomLocation = function(mapid, minx, miny, maxx, maxy, outSR) {
+			gisGeo.zoomLocation(minx, miny, maxx, maxy, vm[mapid].map, outSR);
+		};
+
+		getExtent = function(mapid) {
+			return gisMap.getMapExtent(vm[mapid].map);
+		};
+
+		getScale = function(mapid) {
+			return vm[mapid].map.getScale();
+		};
+
+		setScale = function(mapid, scale) {
+			return gisMap.zoomScale(vm[mapid].map, scale);
+		};
+
+		getSR = function(mapid) {
+			return vm[mapid].map.vWkid;
+		};
+		
+		getHeight = function(mapid) {
+			return vm[mapid].map.height;
+		};
+
+		getCenter = function(mapid) {
+			return gisMap.getMapCenter(vm[mapid].map);
+		};
+
+		registerEvent = function(mapid, evt, funct, time) {
+			var rtnEvent,
+				map = vm[mapid].map;
+
+			if (typeof time !== 'undefined') {
+				rtnEvent = map.on(evt, gcvizFunc.debounce(function(evt) {
+					funct(evt);
+				}, time, false));
 			} else {
-				$zmExtent.removeClass('gcviz-disable');
+				rtnEvent = map.on(evt, function(evt) {
+					funct(evt);
+				});
+			}
+
+			return rtnEvent;
+		};
+
+		focus = function(mapid, scroll) {
+			var element = document.getElementById(mapid + '_holder');
+
+			element.focus();
+			if (scroll) {
+				element.scrollIntoView();
+			}
+		};
+
+		addGraphic = function(mapid, type, geom, info, sr, id) {
+			gisGraphic.createGraphic(vm[mapid].map, type, geom, info, sr, id);
+		};
+
+		addLayerCSV = function(mapid, funct, result, id, fileName) {
+			gisData.addCSV(vm[mapid].map, result, id, fileName).done(funct);
+		};
+
+		addLayerFeature = function(mapid, funct, url, id, config) {
+			gisData.addFeatLayer(vm[mapid].map, url, id, config).done(funct);
+		};
+
+		addLayerKML = function(mapid, funct, url, id, name, config) {
+			gisData.addKML(vm[mapid].map, url, id, name, config).done(funct);
+		};
+
+		removeLayer = function(mapid, id) {
+			var map = vm[mapid].map;
+			map.removeLayer(map.getLayer(id));
+		};
+
+		registerEventOne = function(mapid, evt, funct) {
+			var rtnEvent;
+
+			rtnEvent = vm[mapid].map.on(evt, function(evt) {
+				funct(evt);
+				rtnEvent.remove();
+			});
+		};
+
+		hideInfoWindow = function(mapid, id) {
+			gisMap.hideInfoWindow(vm[mapid].map, id);
+		};
+
+		showInfoWindow = function(mapid, id, title, anchor, offx, offy) {
+			gisMap.showInfoWindow(vm[mapid].map, id, title, anchor, offx, offy);
+		};
+
+		manageScreenState = function(mapid, interval, fullscreen) {
+			gisMap.manageScreenState(vm[mapid].map, interval, fullscreen);
+		};
+
+		disableZoomExtent = function(mapid, val) {
+			var viewModel = vm[mapid];
+
+			if (val) {
+				viewModel.zmExtent.addClass('gcviz-disable');
+			} else {
+				viewModel.zmExtent.removeClass('gcviz-disable');
 			}
 		};
 
 		return {
 			initialize: initialize,
+			setScaleBar: setScaleBar,
+			setOverviewMap: setOverviewMap,
+			resizeMap: resize,
+			resizeCenterMap: resizeCenter,
+			zoomLocation: zoomLocation,
+			getExtentMap: getExtent,
+			getScaleMap: getScale,
+			setScaleMap: setScale,
+			getSR: getSR,
+			getHeightMap: getHeight,
+			getCenterMap: getCenter,
+			focusMap: focus,
+			addGraphic: addGraphic,
+			addLayerCSV: addLayerCSV,
+			addLayerFeature: addLayerFeature,
+			addLayerKML: addLayerKML,
+			removeLayer: removeLayer,
+			registerEvent: registerEvent,
+			registerEventOne: registerEventOne,
+			hideInfoWindow: hideInfoWindow,
+			showInfoWindow: showInfoWindow,
+			manageScreenState: manageScreenState,
 			disableZoomExtent: disableZoomExtent
 		};
 	});

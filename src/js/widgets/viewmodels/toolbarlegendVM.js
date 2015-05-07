@@ -24,7 +24,7 @@
 			innerGetLegendParam,
 			loopGetURL,
 			loopChildrenVisibility,
-			vm;
+			vm = [];
 
 		initialize = function($mapElem, mapid, config) {
 
@@ -43,10 +43,13 @@
 				_self.theme = i18n.getDict('%toolbarlegend-theme');
 
 				_self.init = function() {
-					var legend, lenLegend, legendParams,
+					var idmap, legend, lenLegend, legendParams,
 						basemaps = config.basemaps,
 						layers = config.items,
 						combLayers = basemaps.concat(layers);
+
+					// for wich map
+					idmap = gcvizFunc.getURLParameter(window.location.toString(), 'id');
 
 					// check if there is a url to load
 					// leged param can be like this:
@@ -54,7 +57,7 @@
 					// first the id, the expand state, the visibiity state and the opacity value
 					legend = gcvizFunc.getURLParameter(window.location.toString(), 'legend');
 
-					if (legend !== null) {
+					if (legend !== null && idmap === mapid) {
 						// update config file from legend parameters
 						legendParams = legend.split(';');
 						lenLegend = legendParams.length;
@@ -361,17 +364,21 @@
 				}
 			};
 
-			vm = new toolbarlegendViewModel($mapElem, mapid, config);
-			ko.applyBindings(vm, $mapElem[0]); // This makes Knockout get to work
+			// put view model in an array because we can have more then one map in the page
+			vm[mapid] = new toolbarlegendViewModel($mapElem, mapid, config);
+			ko.applyBindings(vm[mapid], $mapElem[0]); // This makes Knockout get to work
 			return vm;
 		};
 
+		// *** PUBLIC FUNCTIONS ***
 		addLegend = function(config) {
-			innerAddLegend(config);
+			// TODO: redo
+			//innerAddLegend(config);
 		};
 
 		removeLegend = function(id) {
-			innerRemoveLegend(id);
+			// TODO: redo
+			//innerRemoveLegend(id);
 		};
 
 		getLegendParam = function(id) {
@@ -379,8 +386,15 @@
 		};
 
 		getURL = function(mapid) {
+			var url = '',
+				viewModel = vm[mapid];
+
 			// link to view model to call the function inside
-			return gcvizFunc.getVM(mapid, 'legend').getURL();
+			if (typeof viewModel !== 'undefined') {
+				url = viewModel.getURL();
+			}
+
+			return url;
 		};
 		
 		return {

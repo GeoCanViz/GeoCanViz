@@ -113,7 +113,6 @@ var locationPath;
 				mapid = mapframe.id,
 				size = mapframe.size,
 				width = size.width,
-				vmArray = {},
 				cfgPrint = config.header.print,
 				maxWidth = parseInt($mapElem.parent().css('width'), 10) - (2 * $mapElem.position().left); // get container width;
 
@@ -133,65 +132,57 @@ var locationPath;
 
 			// create map and add layers
 			// save the result of every view model in an array of view models
-			vmArray.map = map.initialize($mapSection, width);
-
-			// set the global vm to retreive link vm together
-			// we do it here first because we need a value from mapVM inside headerVM
-			gcvizFunc.setVM(mapid, vmArray);
+			map.initialize($mapSection, width);
 
 			// add the WCAG section for keyboard user
-			vmArray.wcag = wcag.initialize($mapSection);
+			wcag.initialize($mapSection);
 
 			// add header and footer
-			vmArray.header = header.initialize($mapSection);
-			vmArray.footer = footer.initialize($mapSection);
+			header.initialize($mapSection);
+			footer.initialize($mapSection);
 
 			// add draw toolbar
 			if (config.toolbardraw.enable) {
-				vmArray.draw = tbdraw.initialize($mapSection);
+				tbdraw.initialize($mapSection);
 			}
 
 			// add navigation toolbar
 			if (config.toolbarnav.enable) {
-				vmArray.nav = tbnav.initialize($mapSection);
+				tbnav.initialize($mapSection);
 			}
 
 			// add legend
 			if (config.toolbarlegend.enable) {
-				vmArray.legend = tblegend.initialize($mapSection);
+				tblegend.initialize($mapSection);
 			}
 
 			// add datatable, popup and hover
 			if (config.datagrid.enable) {
-				vmArray.datagrid = datagrid.initialize($mapSection);
+				datagrid.initialize($mapSection);
 			}
 
 			// add data
 			if (config.toolbardata.enable) {
-				vmArray.data = tbdata.initialize($mapSection);
+				tbdata.initialize($mapSection);
 			}
 
 			// add data extraction
 			if (config.toolbarextract.enable) {
-				vmArray.extract = tbextract.initialize($mapSection);
+				tbextract.initialize($mapSection);
 			}
 
 			// add inset
 			if (config.insetframe.enable) {
-				vmArray.insets = inset.initialize($mapSection);
+				inset.initialize($mapSection);
 			}
 
 			// add print
 			if (cfgPrint.enable && cfgPrint.type !== 3) {
-				// add print
-				vmArray.print = print.initialize($mapSection);
+				print.initialize($mapSection);
 			}
 
 			// create the help for the map instance
-			vmArray.help = help.initialize($mapSection);
-
-			// set the global vm to retreive link vm together
-			gcvizFunc.setVM(mapid, vmArray);
+			help.initialize($mapSection);
 
 			// notify the map is ready and increment
 			$mapElem.trigger('gcviz-ready');

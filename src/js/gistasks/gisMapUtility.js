@@ -18,6 +18,7 @@
 			'gcviz-giscluster',
 			'esri/config',
 			'esri/map',
+			'esri/layers/GraphicsLayer',
 			'esri/layers/FeatureLayer',
 			'esri/layers/ArcGISTiledMapServiceLayer',
 			'esri/layers/ArcGISDynamicMapServiceLayer',
@@ -29,7 +30,7 @@
 			'esri/geometry/Extent',
 			'esri/geometry/Point',
 			'esri/IdentityManager'
-	], function($viz, kpan, func, menu, menuItem, menupopup, gisLegend, gisCluster, esriConfig, esriMap, esriFL, esriTiled, esriDyna, esriImage, webTiled, wms, wmsInfo, esriDynaLD, esriExt, esriPoint) {
+	], function($viz, kpan, func, menu, menuItem, menupopup, gisLegend, gisCluster, esriConfig, esriMap, esriGraph, esriFL, esriTiled, esriDyna, esriImage, webTiled, wms, wmsInfo, esriDynaLD, esriExt, esriPoint) {
 		var mapArray = {},
 			setProxy,
 			createMap,
@@ -40,6 +41,7 @@
 			connectEvent,
 			extentMapEvent,
 			addLayer,
+			addGraphicLayer,
 			setScaleInfo,
 			resizeMap,
 			resizeCenterMap,
@@ -386,6 +388,10 @@
 				// set scale info
 				setScaleInfo(map, layerInfo, type);
 			}
+		};
+
+		addGraphicLayer = function(map, id) {
+			map.addLayer(new esriGraph({ id: id }));
 		};
 
 		setScaleInfo = function(map, layerInfo, type) {
@@ -785,7 +791,9 @@
 			map.infoWindow.hide();
 
 			// focus the map
-			func.focusMap(map, false);
+			require(['gcviz-vm-map'], function(mapVM) {
+				mapVM.focusMap(map.vIdName, false);
+			});
 		};
 
 		return {
@@ -793,6 +801,7 @@
 			createMap: createMap,
 			createInset: createInset,
 			addLayer: addLayer,
+			addGraphicLayer: addGraphicLayer,
 			setScaleInfo: setScaleInfo,
 			extentMapEvent: extentMapEvent,
 			resizeMap: resizeMap,
