@@ -30,13 +30,17 @@
 			drawWCAGBox,
 			callbackCG,
 			privateMap,
-			gissymbols;
+			gissymbols,
+			mapVM,
+			tbdrawVM;
 
 		// there is a problem with the define. the gcviz-gissymbol is not able to be set. The weird thing
 		// is if I replace gisgeo with gissymbol in the define, gisgeo will be set as gissymbol but I can't
 		// have access to gisgeo anymore. With the require, we set the reference to gissymbol (hard way)
-		require(['gcviz-gissymbol'], function(gissymb) {
+		require(['gcviz-gissymbol', 'gcviz-vm-map', 'gcviz-vm-tbdraw'], function(gissymb, vmMap, vmDraw) {
 			gissymbols = gissymb;
+			mapVM = vmMap;
+			tbdrawVM = vmDraw;
 		});
 
 		initialize = function(mymap, stackU, stackR, lblDist, lblArea) {
@@ -56,6 +60,7 @@
 					stackUndo = [],
 					stackRedo = [],
 					map = mymap,
+					mapid = map.vIdName,
 					wkid = map.vWkid,
 					txtDist = lblDist,
 					txtArea = lblArea,
@@ -193,9 +198,10 @@
 					} else if (symbLayer.graphics.length === 1 && symbLayer.graphics[0]._extent.xmax === 0) {
 						isGraphics = false;
 					}
-
-					// focus map
-					gcvizFunc.focusMap(mymap, false);
+					
+					// focus the map. We need to specify this because when you use the keyboard to
+					// activate the tool, the focus sometimes doesnt go to the map.
+					mapVM.focusMap(mapid, false);
 				};
 
 				_self.eraseUnfinish = function() {
@@ -699,8 +705,9 @@
 							graphic = new esriGraph(geometry, symbol);
 
 							// focus the map. We need to specify this because when you use the keyboard to
-							// activate ta tool, the focus sometimes doesnt go to the map.
-							gcvizFunc.focusMap(mymap, false);
+							// activate the tool, the focus sometimes doesnt go to the map.
+							mapVM.focusMap(mapid, false);
+
 						} else if (geomType === 'point') {
 							symbol = gissymbols.getSymbText(gColor, gText, 10, 0, 0, 0, 'normal', 'left');
 							graphic = new esriGraph(geometry, symbol);
@@ -711,7 +718,7 @@
 
 							// reopen the dialog box and reactivate text tool
 							setTimeout(function() {
-								gcvizFunc.getElemValueVM(map.vIdName, ['draw', 'isTextDialogOpen'], 'js')(true);
+								tbdrawVM.openTextDialog(mapid, graphic);
 							}, 1000);
 							setTimeout(function() {
 								toolbar.activate(esriTools.POINT);

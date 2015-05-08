@@ -573,7 +573,7 @@
             }]
         },
         "toolbardraw": {
-            "enable": true,
+            "enable": false,
             "expand": false,
             "pos": 2,
             "drawline": {
@@ -632,7 +632,7 @@
             }
         },
         "toolbarextract": {
-            "enable": false,
+            "enable": true,
             "expand": false,
             "pos": 3,
             "grid": "bbbb469d-aaa1-c8f5-175c-645200a6b6fe",

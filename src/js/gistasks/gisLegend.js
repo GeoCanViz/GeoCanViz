@@ -15,32 +15,9 @@
 			'esri/renderers/jsonUtils',
 			'dojox/gfx'
 	], function($viz, Request, Renderer, domConstruct, esriJsonUtilS, esriJsonUtilR, gfx) {
-		var setLayerVisibility,
-			setLayerOpacity,
-			getFeatureLayerSymbol,
+		var getFeatureLayerSymbol,
 			createSymbols,
-			createSVGSurface,
-			getLayerParam;
-
-		setLayerVisibility = function(mymap, selectedLayer, visState) {
-			var layer = mymap.getLayer(selectedLayer);
-
-			// need to check for undefined because of cluster layer. They are not set
-			// when this code irun for the first time
-			if (typeof layer !== 'undefined') {
-				layer.setVisibility(visState);
-			}
-		};
-
-		setLayerOpacity = function(mymap, layerid, opacityValue) {
-			var layer = mymap.getLayer(layerid);
-
-			// need to check for undefined because of cluster layer. They are not set
-			// when this code irun for the first time
-			if (typeof layer !== 'undefined') {
-				layer.setOpacity(opacityValue);
-			}
-		};
+			createSVGSurface;
 
 		getFeatureLayerSymbol = function(renderer, node, layerid) {
 			var mySurface,
@@ -149,21 +126,8 @@
 			}
 		};
 
-		getLayerParam = function(map, id) {
-			var layer = map.getLayer(id),
-				vis = layer.visible ? 1 : 0,
-				opa = layer.opacity.toFixed(2),
-				param = { visible: vis,
-							opacity: opa };
-
-			return param;
-		};
-
 		return {
-			setLayerVisibility: setLayerVisibility,
-			setLayerOpacity: setLayerOpacity,
 			getFeatureLayerSymbol: getFeatureLayerSymbol,
-			getLayerParam: getLayerParam
 		};
 	});
 }());

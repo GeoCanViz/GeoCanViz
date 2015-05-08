@@ -204,7 +204,7 @@
 					// Print the map
 					if (configPrint.type === 3) {
 						// this is the simple print. It doesn't use esri print task
-						printSimple(mapid, _self.printInfo);
+						printSimple(mapVM, mapid, _self.printInfo);
 					} else {
 						// print from our custom esri services
 						printVM.togglePrint();
@@ -380,7 +380,7 @@
 
 				_self.adjustContainerHeight = function() {
 					var active = $menu.accordion('option', 'active'),
-						toolbarheight = parseInt(mapVM.getHeightMap(mapid).height, 10) - 5;
+						toolbarheight = parseInt(mapVM.getHeightMap(mapid), 10);
 
 					// set height
 					_self.xheightToolsInner('max-height:' + (toolbarheight - instrHeight) + 'px!important'); // remove the keyboard instruction height
@@ -427,7 +427,7 @@
 				_self.init();
 			};
 
-			printSimple = function(mapid, printInfo) {
+			printSimple = function(mapVM, mapid, printInfo) {
 				var style, rotation,
 					styles, lenStyles,
 					arrowStyle = '',

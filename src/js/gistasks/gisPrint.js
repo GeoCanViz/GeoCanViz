@@ -48,6 +48,7 @@
 						   'Layout': layout,
 						   'Projects': projects.join(',')},
 				dfd = $viz.Deferred();
+
 			gpFolders = new esriGeoProcessor(url);
 			gpFolders.submitJob(params, function(jobinfo) {
 				gpFolders.getResultData(jobinfo.jobId, 'Templates', function(results) {
@@ -328,7 +329,7 @@
 					
 					if (obj['gcviz-scalebar'] === 'true') {
 						printTaskScaleBar = new esriPrintTask(url, { async: true });
-						paramsScaleBar = new esriPrintParams()
+						paramsScaleBar = new esriPrintParams();
 						templateScaleBar = $viz.extend(true, {}, templateMap);
 						paramsScaleBar.map = map;
 						templateScaleBar.layout = 'Scalebar';
@@ -337,7 +338,7 @@
 
 					if (obj['gcviz-scaletext'] === 'true') {
 						printTaskScaleText = new esriPrintTask(url, { async: true });
-						paramsScaleText = new esriPrintParams()
+						paramsScaleText = new esriPrintParams();
 						templateScaleText = $viz.extend(true, {}, templateMap);
 						paramsScaleText.map = map;
 						templateScaleText.layout = 'Scaletext';
@@ -346,7 +347,7 @@
 
 					if (obj['gcviz-arrow'] === 'true') {
 						printTaskNorthArrow = new esriPrintTask(url, { async: true });
-						paramsNorthArrow = new esriPrintParams()
+						paramsNorthArrow = new esriPrintParams();
 						templateNorthArrow = $viz.extend(true, {}, templateMap);
 						paramsNorthArrow.map = map;
 						templateNorthArrow.layout = 'Northarrow';
@@ -358,7 +359,7 @@
 				    						callPrintTask(printTaskScaleText, paramsScaleText),
 				    						callPrintTask(printTaskNorthArrow, paramsNorthArrow))
 				    .done(function(responseMap, responseScaleBar, responseScaleText, responseNorthArrow) {
-			            generateHTMLPrint(obj, orig, mapholder, responseMap, scalebar, responseScaleBar, scaletext, responseScaleText, northarrow, responseNorthArrow, updatedHTML)	
+			            generateHTMLPrint(obj, orig, mapholder, responseMap, scalebar, responseScaleBar, scaletext, responseScaleText, northarrow, responseNorthArrow, updatedHTML);
 			         })
 				    .fail(function() {
 				    	console.log('Failed to get all responses to generate map');

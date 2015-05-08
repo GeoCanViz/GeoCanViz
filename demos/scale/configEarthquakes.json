@@ -210,7 +210,7 @@
             "logo": false
         },
         "toolbarlegend": {
-            "enable": false,
+            "enable": true,
             "expand": false,
             "pos": 1,
             "basemaps": [{
@@ -365,7 +365,7 @@
             }]
         },
         "toolbardraw": {
-            "enable": false,
+            "enable": true,
             "expand": true,
             "pos": 2,
             "drawline": {
@@ -475,7 +475,7 @@
             "enable": false
         },
         "datagrid": {
-            "enable": false,
+            "enable": true,
             "expand": false,
             "layers": [
 				{

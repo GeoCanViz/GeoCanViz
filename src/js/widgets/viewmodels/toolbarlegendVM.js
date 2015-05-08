@@ -11,17 +11,12 @@
 			'knockout',
 			'gcviz-i18n',
 			'gcviz-func',
-			'gcviz-gislegend',
-			'gcviz-ko'
+			'gcviz-gislegend'
 	], function($viz, ko, i18n, gcvizFunc, gisLegend) {
 		var initialize,
 			addLegend,
 			removeLegend,
-			getLegendParam,
 			getURL,
-			innerAddLegend,
-			innerRemoveLegend,
-			innerGetLegendParam,
 			loopGetURL,
 			loopChildrenVisibility,
 			vm = [];
@@ -30,10 +25,15 @@
 
 			// data model
 			var toolbarlegendViewModel = function($mapElem, mapid, config) {
-				var _self = this;
+				var _self = this,
+					mapVM,
+					nbToolsHeight, $toolHolder, $legContent;
 
-				// get map reference
-				_self.mymap = gcvizFunc.getElemValueVM(mapid, ['map', 'map'], 'js');
+				// there is a problem with the define. The gcviz-vm-map is not able to be set.
+				// We set the reference to gcviz-vm-map (hard way)
+				require(['gcviz-vm-map'], function(vmMap) {
+					mapVM = vmMap;
+				});
 
 				// viewmodel mapid to be access in tooltip custom binding
 				_self.mapid = mapid;
@@ -47,6 +47,12 @@
 						basemaps = config.basemaps,
 						layers = config.items,
 						combLayers = basemaps.concat(layers);
+
+					// set controls and tools height
+					// (max container height - nb of toolbars + 1 for menu * height)
+					nbToolsHeight = ($viz('#section' + mapid + ' .gcviz-tbcontent').length + 1) * 43;
+					$toolHolder = $viz('#section' + mapid + ' .gcviz-toolsholder');
+					$legContent = $viz('#section' + mapid + ' .gcviz-tbcontent-leg');
 
 					// for wich map
 					idmap = gcvizFunc.getURLParameter(window.location.toString(), 'id');
@@ -74,7 +80,9 @@
 					_self.allLayers = _self.layersArray().concat(_self.basesArray());
 
 					// subscribe to fullscreen so we cant change the max height
-					gcvizFunc.subscribeTo(_self.mapid, 'header', 'isFullscreen', _self.setHeight);
+					require(['gcviz-vm-header'], function(headerVM) {
+						headerVM.subscribeIsFullscreen(mapid, _self.setHeight);
+					});
 
 					// set max height for legend container (related to menu max height)
 					_self.setHeight();
@@ -106,13 +114,11 @@
 
 				_self.setHeight = function() {
 					setTimeout(function() {
-						var tb, height;
+						var height;
 
 						// find the maximum height for legend content
-						// (max container height - nb of toolbar + 1 for menu - the bottom spaces and margin)
-						tb = (($viz('.gcviz-tbcontent').length + 2) * 37) + 25;
-						height = parseInt($viz('.gcviz-toolsholder').css('max-height'), 10) - tb;
-						$viz('.gcviz-tbcontent-leg').css('max-height', height + 'px');
+						height = parseInt($toolHolder.css('max-height'), 10) - nbToolsHeight;
+						$legContent.css('max-height', height + 'px');
 					}, 1000);
 				};
 
@@ -191,11 +197,11 @@
 					// it could show a layer even if parent visibility is false
 					while (lenBases--) {
 						item = _self.basesArray()[lenBases];
-						loopChildrenVisibility(_self.mymap, item, item.visibility.initstate, loopChildrenVisibility);
+						loopChildrenVisibility(item, item.visibility.initstate, loopChildrenVisibility);
 					}
 					while (lenLayers--) {
 						item = _self.layersArray()[lenLayers];
-						loopChildrenVisibility(_self.mymap, item, item.visibility.initstate, loopChildrenVisibility);
+						loopChildrenVisibility(item, item.visibility.initstate, loopChildrenVisibility);
 					}
 
 					// Knockout doesn't prevent the default click action.
@@ -204,7 +210,7 @@
 
 				_self.switchRadioButtonVisibility = function(map, selectedItem, value) {
 					selectedItem.visibility.initstate = value;
-					gisLegend.setLayerVisibility(map, selectedItem.id, value);
+					mapVM.setLayerVisibility(mapid, selectedItem.id, value);
 
 					// call changeItemsVisibility that will loop trought the legend
 					// because if we change radio button layer and parent layer is of,
@@ -216,7 +222,7 @@
 					var opa = parseFloat(opacityValue.toFixed(2), 10);
 
 					// set opacity
-					gisLegend.setLayerOpacity(_self.mymap, layerid, opacityValue);
+					mapVM.setLayerOpacity(mapid, layerid, opacityValue);
 
 					// set value in layers array to retrieve to save legend
 					_self.assignOpacityValue(_self.allLayers, layerid, opa);
@@ -270,24 +276,20 @@
 					}			
 				};
 
-				innerAddLegend = function(config) {
+				_self.addLegend = function(config) {
 					_self.layersArray.push(config);
 
 					// concat all layers to access in determineTextCSS
 					_self.allLayers = _self.layersArray().concat(_self.basesArray());
 				};
 
-				innerRemoveLegend = function(id) {
+				_self.removeLegend = function(id) {
 					_self.layersArray.remove(function(layer) {
 						return layer.id == id;
 					});
 
 					// concat all layers to access in determineTextCSS
 					_self.allLayers = _self.layersArray().concat(_self.basesArray());
-				};
-
-				innerGetLegendParam = function(id) {
-					return gisLegend.getLayerParam(_self.mymap, id);
 				};
 
 				_self.getURL = function() {
@@ -298,7 +300,7 @@
 
 					while (len--) {
 						layer = layers[len];
-						returnURL = loopGetURL(_self.mymap, [layer], returnURL, loopGetURL);
+						returnURL = loopGetURL([layer], returnURL, loopGetURL);
 					}
 
 					// join the array and add legend type
@@ -311,7 +313,7 @@
 					return returnURL;
 				};
 
-				loopGetURL = function(map, items, url) {
+				loopGetURL = function(items, url) {
 					var layer, graphid,
 						isCheck, opa, vis, exp,
 						layers = items,
@@ -333,7 +335,7 @@
 
 							// if not the last item, loop trought children to get all layers
 							if (!layer.last) {
-								url = loopGetURL(map, layer.items, url, loopGetURL);
+								url = loopGetURL(layer.items, url, loopGetURL);
 							}
 						}
 					}
@@ -341,27 +343,27 @@
 					return url;
 				};
 
+				loopChildrenVisibility = function(itemMaster, isCheck) {
+					var items = itemMaster.items;
+	
+					// if value is false, set isCheck to false for all children because if parent
+					// is not visible, children should not be visible either
+					if (!itemMaster.visibility.initstate) {
+						isCheck = false;
+					}
+	
+					// if there is children, loop in them. otherwise, it is the last item, apply value.	
+					if (items.length > 0) {
+						Object.keys(items).forEach(function(key) {
+							loopChildrenVisibility(items[key], isCheck, loopChildrenVisibility);
+						});
+					}
+					else {
+						mapVM.setLayerVisibility(mapid, itemMaster.id, isCheck);
+					}
+				};
+
 				_self.init();
-			};
-
-			loopChildrenVisibility = function(map, itemMaster, isCheck) {
-				var items = itemMaster.items;
-
-				// if value is false, set isCheck to false for all children because if parent
-				// is not visible, children should not be visible either
-				if (!itemMaster.visibility.initstate) {
-					isCheck = false;
-				}
-
-				// if there is children, loop in them. otherwise, it is the last item, apply value.	
-				if (items.length > 0) {
-					Object.keys(items).forEach(function(key) {
-						loopChildrenVisibility(map, items[key], isCheck, loopChildrenVisibility);
-					});
-				}
-				else {
-					gisLegend.setLayerVisibility(map, itemMaster.id, isCheck);
-				}
 			};
 
 			// put view model in an array because we can have more then one map in the page
@@ -371,18 +373,23 @@
 		};
 
 		// *** PUBLIC FUNCTIONS ***
-		addLegend = function(config) {
-			// TODO: redo
-			//innerAddLegend(config);
+		addLegend = function(mapid, config) {
+			var viewModel = vm[mapid];
+
+			// link to view model to call the function inside
+			if (typeof viewModel !== 'undefined') {
+				viewModel.addLegend(config);
+			}
+
 		};
 
-		removeLegend = function(id) {
-			// TODO: redo
-			//innerRemoveLegend(id);
-		};
+		removeLegend = function(mapid, id) {
+			var viewModel = vm[mapid];
 
-		getLegendParam = function(id) {
-			return innerGetLegendParam(id);
+			// link to view model to call the function inside
+			if (typeof viewModel !== 'undefined') {
+				viewModel.removeLegend(id);
+			}
 		};
 
 		getURL = function(mapid) {
@@ -401,7 +408,6 @@
 			initialize: initialize,
 			addLegend: addLegend,
 			removeLegend: removeLegend,
-			getLegendParam: getLegendParam,
 			getURL: getURL
 		};
 	});

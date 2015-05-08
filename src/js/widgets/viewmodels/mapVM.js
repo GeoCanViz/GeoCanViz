@@ -16,16 +16,17 @@
 			'gcviz-gisnav',
 			'gcviz-gisdata',
 			'gcviz-gisgraphic',
-			'gcviz-gisdatagrid',
-			'gcviz-vm-tbnav',
-			'gcviz-vm-header'
-	], function($viz, ko, i18n, gcvizFunc, gisMap, gisGeo, gisNav, gisData, gisGraphic, gisDG, tbnavVM, headerVM) {
+			'gcviz-gisdatagrid'
+	], function($viz, ko, i18n, gcvizFunc, gisMap, gisGeo, gisNav, gisData, gisGraphic, gisDG) {
 		var initialize,
 			disableZoomExtent,
 			setScaleBar,
 			setOverviewMap,
 			resize,
 			resizeCenter,
+			setLayerVisibility,
+			setLayerOpacity,
+			getLayerParam,
 			zoomLocation,
 			getExtent,
 			getScale,
@@ -39,6 +40,9 @@
 			addLayerFeature,
 			addLayerKML,
 			removeLayer,
+			initGraphics,
+			importGraphics,
+			exportGraphics,
 			registerEvent,
 			registerEventOne,
 			hideInfoWindow,
@@ -377,22 +381,18 @@
 							prevent = true;
 						// open tools if esc is press
 						} else if (key === 27) {
-// TODO
-							// // check if draw is active. If so apply event
-							// if (typeof gcvizFunc.getElemValueVM(mapid, ['draw'], 'js') !== 'undefined') {
-								// if (gcvizFunc.getElemValueVM(mapid, ['draw', 'activeTool'], 'ko') !== '') {
-									// gcvizFunc.getElemValueVM(mapid, ['draw', 'endDraw'], 'js')();
-									// flag = true;
-								// }
-							// }
-
-							// check if position is active. If so apply event
-							flag = tbnavVM.endGetCoordinates(mapid);
-
-							// if not tools acitve, just toggle the menu
-							if (!flag) {
-								headerVM.toggleMenu(mapid);
-							}
+							require(['gcviz-vm-header', 'gcviz-vm-tbnav', 'gcviz-vm-tbdraw'], function(headerVM, tbnavVM, tbdrawVM) {
+								// check if draw is active. If so apply event
+								flag = tbdrawVM.endDraw(mapid);
+	
+								// check if position is active. If so apply event
+								flag = tbnavVM.endGetCoordinates(mapid);
+	
+								// if not tools acitve, just toggle the menu
+								if (!flag) {
+									headerVM.toggleMenu(mapid);
+								}
+							});
 						}
 					}
 
@@ -425,6 +425,36 @@
 			gisMap.resizeCenterMap(vm[mapid].map, center);
 		};
 
+		setLayerVisibility = function(mapid, layerid, visValue) {
+			var layer = vm[mapid].map.getLayer(layerid);
+
+			// need to check for undefined because of cluster layer. They are not set
+			// when this code irun for the first time
+			if (typeof layer !== 'undefined') {
+				layer.setVisibility(visValue);
+			}
+		};
+		
+		setLayerOpacity = function(mapid, layerid, opacityValue) {
+			var layer = vm[mapid].map.getLayer(layerid);
+
+			// need to check for undefined because of cluster layer. They are not set
+			// when this code irun for the first time
+			if (typeof layer !== 'undefined') {
+				layer.setOpacity(opacityValue);
+			}
+		};
+
+		getLayerParam = function(mapid, layerid) {
+			var layer = vm[mapid].map.getLayer(layerid),
+				vis = layer.visible ? 1 : 0,
+				opa = layer.opacity.toFixed(2),
+				param = { visible: vis,
+							opacity: opa };
+
+			return param;
+		};
+
 		zoomLocation = function(mapid, minx, miny, maxx, maxy, outSR) {
 			gisGeo.zoomLocation(minx, miny, maxx, maxy, vm[mapid].map, outSR);
 		};
@@ -451,23 +481,6 @@
 
 		getCenter = function(mapid) {
 			return gisMap.getMapCenter(vm[mapid].map);
-		};
-
-		registerEvent = function(mapid, evt, funct, time) {
-			var rtnEvent,
-				map = vm[mapid].map;
-
-			if (typeof time !== 'undefined') {
-				rtnEvent = map.on(evt, gcvizFunc.debounce(function(evt) {
-					funct(evt);
-				}, time, false));
-			} else {
-				rtnEvent = map.on(evt, function(evt) {
-					funct(evt);
-				});
-			}
-
-			return rtnEvent;
 		};
 
 		focus = function(mapid, scroll) {
@@ -498,6 +511,40 @@
 		removeLayer = function(mapid, id) {
 			var map = vm[mapid].map;
 			map.removeLayer(map.getLayer(id));
+		};
+
+		initGraphics = function(mapid, stackU, stackR, lblDist, lblArea) {
+			var viewModel = vm[mapid];
+
+			if (typeof viewModel.isInitGraphics === 'undefined') {
+				viewModel.isInitGraphics = true;
+				return new gisGraphic.initialize(viewModel.map, stackU, stackR, lblDist, lblArea);
+			}
+		};
+
+		importGraphics = function(mapid, jsonGraphics) {
+			return gisGraphic.importGraphics(vm[mapid].map, jsonGraphics);
+		};
+
+		exportGraphics = function(mapid) {
+			return gisGraphic.exportGraphics(vm[mapid].map);
+		};
+
+		registerEvent = function(mapid, evt, funct, time) {
+			var rtnEvent,
+				map = vm[mapid].map;
+
+			if (typeof time !== 'undefined') {
+				rtnEvent = map.on(evt, gcvizFunc.debounce(function(evt) {
+					funct(evt);
+				}, time, false));
+			} else {
+				rtnEvent = map.on(evt, function(evt) {
+					funct(evt);
+				});
+			}
+
+			return rtnEvent;
 		};
 
 		registerEventOne = function(mapid, evt, funct) {
@@ -537,6 +584,9 @@
 			setOverviewMap: setOverviewMap,
 			resizeMap: resize,
 			resizeCenterMap: resizeCenter,
+			setLayerVisibility: setLayerVisibility,
+			setLayerOpacity: setLayerOpacity,
+			getLayerParam: getLayerParam,
 			zoomLocation: zoomLocation,
 			getExtentMap: getExtent,
 			getScaleMap: getScale,
@@ -550,6 +600,9 @@
 			addLayerFeature: addLayerFeature,
 			addLayerKML: addLayerKML,
 			removeLayer: removeLayer,
+			initGraphics: initGraphics,
+			importGraphics: importGraphics,
+			exportGraphics: exportGraphics,
 			registerEvent: registerEvent,
 			registerEventOne: registerEventOne,
 			hideInfoWindow: hideInfoWindow,

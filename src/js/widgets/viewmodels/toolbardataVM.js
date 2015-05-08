@@ -253,8 +253,8 @@
 						_self.isDataProcess(true);
 
 						if (ext.toUpperCase() === 'KML') {
-							//http://geoappext.nrcan.gc.ca/GeoCanViz/CCMEO/toporama/building.kml
-							//http://geoappext.nrcan.gc.ca/GeoCanViz/CCMEO/toporama/combine.kml
+							// http://geoappext.nrcan.gc.ca/GeoCanViz/CCMEO/toporama/building.kml
+							// http://geoappext.nrcan.gc.ca/GeoCanViz/CCMEO/toporama/combine.kml
 							mapVM.addLayerKML(mapid, _self.closeAddUrl, url, uu, name, config);
 						}
 						//else if (ext.toUpperCase() === 'RSS') {
@@ -405,7 +405,7 @@
 							flagFile = true;
 						} else {
 							if (url.indexOf(layer.url) === -1) {
-								param = legendVM.getLegendParam(layer.id);
+								param = mapVM.getLayerParam(mapid, layer.id);
 								url += layer.url + ',1,' + param.visible + ',' + param.opacity +',0;';
 							}
 							flagURL = true;

@@ -182,7 +182,7 @@
 			// we cant add it from the VM because the projection can take few second and the symbol is not define before.
 			// to avoid this, we add the layer only when it is done.
 			// set legend
-			addLegend(gfileName, guuid, 7, JSON.stringify(featureLayer.renderer.toJson()), config);
+			addLegend(mymap.vIdName, gfileName, guuid, 7, JSON.stringify(featureLayer.renderer.toJson()), config);
 		};
 
 		getSeparator = function(string) {
@@ -375,7 +375,7 @@
 						vmDatagrid.addTab(map.vIdName, layerDef, name, id);
 
 						// set legend
-						addLegend(name, id, 7, JSON.stringify(featureLayer.renderer.toJson()), config);
+						addLegend(map.vIdName, name, id, 7, JSON.stringify(featureLayer.renderer.toJson()), config);
 
 						// add output info
 						output.push({ label: name, id: id, url: layerDefs.url });
@@ -434,7 +434,7 @@
 				vmDatagrid.addRestTab(url, layer, map.vIdName);
 
 				// set legend
-				addLegend(name, uuid, 5, JSON.stringify(layer.renderer.toJson()), config);
+				addLegend(map.vIdName, name, uuid, 5, JSON.stringify(layer.renderer.toJson()), config);
 
 				// return info
 				def.resolve(0, [{ label: name, id: uuid, url: layer.url }]);
@@ -496,7 +496,7 @@
 			});
 		};
 
-		addLegend = function(name, id, type, symbol, config) {
+		addLegend = function(mapid, name, id, type, symbol, config) {
 			var outConfig = {
 					'expand': config.expand,
 					'last': false,
@@ -534,7 +534,7 @@
 					'items': []
 				};
 
-			vmTbLegend.addLegend(outConfig);
+			vmTbLegend.addLegend(mapid, outConfig);
 		};
 
 		finishAdd = function(mymap, layer, zoom) {
