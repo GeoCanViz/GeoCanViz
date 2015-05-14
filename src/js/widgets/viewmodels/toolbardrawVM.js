@@ -401,7 +401,7 @@
 								_self.segmentMeasures(_self.segmentMeasures() + lblSeg + pt.distance + ' km<br/>');
 								_self.setTotalMeasure(array, nbSeg);
 							}
-						}, 1000);			
+						}, 1000);
 					} else {
 						// the array only have 1 point, it is a new line, reinitalize the value
 						_self.segmentMeasures('');
@@ -536,7 +536,7 @@
 						try {
 							jsonGraphics = JSON.parse(e.target.result);
 							graph = mapVM.importGraphics(mapid, jsonGraphics);
-							
+
 							// update stack and state for buttons with observable
 							_self.graphic.addUndoStack(graph.key, graph.graphics);
 							_self.updateStack();

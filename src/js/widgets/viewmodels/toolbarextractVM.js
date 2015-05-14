@@ -11,10 +11,9 @@
 			'knockout',
 			'gcviz-i18n',
 			'gcviz-gisgeo',
-			'gcviz-gislegend',
 			'gcviz-gisdatagrid',
 			'gcviz-gisnav'
-	], function($viz, ko, i18n, gisGeo, gisLeg, gisDG, gisNav) {
+	], function($viz, ko, i18n, gisGeo, gisDG, gisNav) {
 		var initialize,
 			showGrid,
 			vm = [];
@@ -309,15 +308,17 @@
 
 			// link to view model to call the function inside
 			if (typeof viewModel !== 'undefined') {
-				gridId = vm[mapid].gridId;
-				control = $viz('#checkbox' + gridId)[0];
+				gridId = viewModel.gridId;
+				control = $viz('#checkbox' + gridId + mapid)[0];
 
 				// to see if control exist
 				if (typeof control !== 'undefined') {
 					// if layer is already selected, do nothing
 					chk = control.checked;
 					if (!chk) {
-						gisLeg.setLayerVisibility(map, gridId, val);
+						require(['gcviz-vm-map'], function(mapVM) {
+							mapVM.setLayerVisibility(mapid, gridId, val);
+						});
 					}
 				}
 			}

@@ -558,10 +558,10 @@
 				// loop to get between wich scale we try to zoom for cache service
 				while (i < len) {
 					lod1 = lods[i].scale;
-	
+
 					if (i < len - 1) {
 						lod2 = lods[i + 1].scale;
-	
+
 						if (lod1 >= scale && lod2 <= scale) {
 							delta1 = lod1 - scale;
 							delta2 = scale - lod2;
@@ -585,7 +585,7 @@
 						break;
 					}
 
-					i++;			
+					i++;
 				}
 			} else {
 				out = ['dynamic'];

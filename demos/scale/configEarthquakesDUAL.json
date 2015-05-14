@@ -429,7 +429,7 @@
             "pos": 4,
             "grid":{ 
 				    "enable": true,
-				    "id":"bbbb469d-aaa1-c8f5-175c-645200a6b6fe"
+				    "id":"93f05b62-6c5c-0ca0-e03b-612d99293294"
             },
             "items": [{
 				    "title": "Maps (raster): ",
@@ -475,7 +475,7 @@
             "enable": false
         },
         "datagrid": {
-            "enable": false,
+            "enable": true,
             "expand": false,
             "layers": [
 				{

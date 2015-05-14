@@ -297,7 +297,7 @@
 							}));
 						} else if (typeof scale !== 'undefined') {
 							// if response is a scale
-							response($viz.map([scale], function(item) {
+							response($viz.map([scale], function() {
 								var value = scale,
 									parts = scale.split(':'),
 									geomType = 'scale';
@@ -395,7 +395,7 @@
 							_self.selectAutoComplete(autoCompleteArray[1]);
 						}
 						e.preventDefault();
-					};
+					}
 				});
 
 				_self.selectAutoComplete = function(acai) {
@@ -415,7 +415,7 @@
 					if (type !== 'scale') {
 						// zoom to location
 						mapVM.zoomLocation(mapid, minx, miny, maxx, maxy, _self.outSR);
-	
+
 						// add graphic representation
 						if (geolocation.graphic && acai.type === 'point') {
 							geometry = { 'x': coords[0], 'y': coords[1] };
@@ -444,7 +444,7 @@
 							scaleOut = _self.zoomScaleDyna + title;
 						}
 
-						infotitle = scaleOut; 
+						infotitle = scaleOut;
 					}
 
 					// reset the array (need to set a dummy value if not it is not reset)
@@ -611,7 +611,7 @@
 								ovMapWidget[1].startup();
 								_self.OVMapStart = true;
 							}
-	
+
 							ovMapWidget[1].show();
 							ovMapWidget[0].hide();
 							$ovMap.addClass('gcviz-ov-border');

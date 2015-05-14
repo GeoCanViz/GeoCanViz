@@ -73,7 +73,7 @@
 							// subscribe to the open add data event. When data is added we need to stop the
 							// show coordinate event because it corrupts the projection and creates errors
 							if (dataToolbar) {
-								
+
 								tbdataVM.subscribeIsAddData(mapid, function(val) {
 									if (val) {
 										coordEvt.remove();
@@ -159,7 +159,7 @@
 				_self.updateArrow = function(projectedPoints) {
 					var dLon, lat1, lat2,
 						x, y, pointB,
-						bearing, mapRotation,
+						bearing,
 						pointA = { x: -100, y: 90 };
 
 					pointB = projectedPoints[0];

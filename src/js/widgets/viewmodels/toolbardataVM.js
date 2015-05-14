@@ -26,8 +26,7 @@
 			var toolbardataViewModel = function($mapElem, mapid, config, isDatagrid) {
 				var _self = this,
 					mapVM,
-					$btnCSV = $viz('#btnAddCSV' + mapid),
-					configQuery = config.dataquery.enable;
+					$btnCSV = $viz('#btnAddCSV' + mapid);
 
 				// there is a problem with the define. The gcviz-vm-map is not able to be set.
 				// We set the reference to gcviz-vm-map (hard way)
@@ -142,10 +141,10 @@
 						}
 					}
 				};
-				
+
 				_self.addFileUrl = function(file, input) {
 					_self.files = file.split(';');
-	
+
 					// we cant open directly the file dialog for security reason. It need to be from a user event.
 					// Show a window where user will be able to click to add the file.
 					if (input && _self.files.length > 0) {

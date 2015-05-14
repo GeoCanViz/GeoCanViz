@@ -431,7 +431,7 @@
 			// Otherwise keep the outside one because it is use
 			if (window.flag$) {
 				require(['jqueryui', 'genfile'], function(ui, file) {
-					var noConflict = $viz.noConflict(true);
+					$viz.noConflict(true);
 
 					window.jQuery = outJQuery;
 					window.$ = out$;

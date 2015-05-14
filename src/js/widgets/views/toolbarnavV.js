@@ -62,7 +62,7 @@
 											'</div>' +
 										'</div>';
 							}
-							
+
 							// set scale display
 							if (configScaleDisplay) {
 								node += '<div class="row gcviz-nav-scale">' +

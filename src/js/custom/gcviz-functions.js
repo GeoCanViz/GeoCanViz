@@ -71,7 +71,7 @@
 		//gcvizFunc.closureFunc(function(id, colIdx) {
 			// ...
 		//}, id));
-		closureFunc = function(fn, varArgs) {
+		closureFunc = function(fn) {
 			var args = Array.prototype.slice.call(arguments, 1);
 			return function() {
 				// Clone the array (with slice()) and append additional arguments

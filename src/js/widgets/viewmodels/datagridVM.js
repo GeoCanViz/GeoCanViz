@@ -24,13 +24,14 @@
 			innerAddRestTab,
 			innerRemoveTab,
 			innerTable = 0,
-			vm;
+			vm = [];
 
 		initialize = function($mapElem, mapid, config) {
 
 			// data model				
 			var datagridViewModel = function($mapElem, mapid, config) {
 				var _self = this,
+					mapVM,
 					objDataTable, menuState,
 					drawTool = [],
 					triggerTableId = [],
@@ -45,13 +46,18 @@
 					currFeatIndex = 0,
 					totalFeatures = 0,
 					tableReady = false,
-					mymap = gcvizFunc.getElemValueVM(mapid, ['map', 'map'], 'js'),
 					$datagrid = $viz('#gcviz-datagrid' + mapid),
 					$datatab = $viz('#gcviz-datatab' + mapid),
 					$datatabUl = $datatab.find('ul'),
 					$popContent = $viz('#gcviz-popup-content' + mapid),
 					$container = $viz('#' + mapid + '_holder_layers'),
 					$menu = $viz('#gcviz-menu' + mapid);
+
+				// there is a problem with the define. The gcviz-vm-map is not able to be set.
+				// We set the reference to gcviz-vm-map (hard way)
+				require(['gcviz-vm-map'], function(vmMap) {
+					mapVM = vmMap;
+				});
 
 				// viewmodel mapid to be access in tooltip and wcag custom binding
 				_self.mapid = mapid;
@@ -146,56 +152,58 @@
 					$viz('.ui-accordion-header').hide();
 
 					// wait for the map to load
-					mymap.on('load', function() {
-						var interval,
-							layers = config.layers,
-							lenLayers = layers.length,
-							i = 0;
+					mapVM.registerEvent(mapid, 'load', _self.onLoadMap);				
+				};
 
-						// intialize gisdatagrid. It will create the grahic layer for selection
-						gisDG.initialize(mymap);
+				_self.onLoadMap = function(evt) {
+					var interval,
+						layers = config.layers,
+						lenLayers = layers.length,
+						i = 0;
 
-						// initialize array length to position the data at the right place later.
-						// if a table initialize slower then next one, position can be messed up.
-						objDataTable = new Array(lenLayers);
+					// intialize gisdatagrid. It will create the grahic layer for selection
+					gisDG.initialize(evt.map);
 
-						// if there is no tables, set is ready to true.
-						if (lenLayers === 0) {
-							_self.isTableReady(true);
-						} else {
-							// start progress dialog. Put in a timer if not, the variable is not initialize
-							intervalModal = setInterval(function() {
-								// check if identity manager window is open. If so wait until finish before show modal
-								var id = $viz('.esriSignInDialog');
+					// initialize array length to position the data at the right place later.
+					// if a table initialize slower then next one, position can be messed up.
+					objDataTable = new Array(lenLayers);
 
-								// if table are created, do not show modal
-								if (tableReady) {
-									_self.isWait(false);
-									clearInterval(intervalModal);
-								} else if (id.length === 0 || id[0].style.display === 'none') { // if no id or id is display, show modal
-									_self.isWait(true);
-								} else {
-									_self.isWait(false);
-								}
-							}, 1000);
+					// if there is no tables, set is ready to true.
+					if (lenLayers === 0) {
+						_self.isTableReady(true);
+					} else {
+						// start progress dialog. Put in a timer if not, the variable is not initialize
+						intervalModal = setInterval(function() {
+							// check if identity manager window is open. If so wait until finish before show modal
+							var id = $viz('.esriSignInDialog');
 
-							// loop all layers inside an interval to make sure there is no mess up with the index
-							// When they start at the same time, index can be switch to another table and the geometries
-							// doesn't match the table anymore.
-							interval = setInterval(function() {
-								_self.getData(layers[i], i);
-								i++;
+							// if table are created, do not show modal
+							if (tableReady) {
+								_self.isWait(false);
+								clearInterval(intervalModal);
+							} else if (id.length === 0 || id[0].style.display === 'none') { // if no id or id is display, show modal
+								_self.isWait(true);
+							} else {
+								_self.isWait(false);
+							}
+						}, 1000);
 
-								if (i === lenLayers) {
-									clearInterval(interval);
-								}
-							}, 500);
-						}
-					});
+						// loop all layers inside an interval to make sure there is no mess up with the index
+						// When they start at the same time, index can be switch to another table and the geometries
+						// doesn't match the table anymore.
+						interval = setInterval(function() {
+							_self.getData(layers[i], i);
+							i++;
+
+							if (i === lenLayers) {
+								clearInterval(interval);
+							}
+						}, 500);
+					}
 				};
 
 				_self.focusTables = function() {
-					var element = document.getElementById('table-' + mymap.vIdName + '-' + activeTableId + '_wrapper');
+					var element = document.getElementById('table-' + mapid + '-' + activeTableId + '_wrapper');
 
 					element.focus();
 					if (scroll) {
@@ -891,12 +899,12 @@
 
 							// there is a bug when in full screen and do a zoom to select. There is an offset in y
 							// so popup is not available. To resolve this, resize map.
-							mymap.resize();
+							mapVM.resizeMap(mapid);
 
 							drawTool = gisGraphic.drawBox(mymap, true, _self.selExtent);
 
 							// focus the map
-							gcvizFunc.focusMap(mymap, true);
+							mapVM.focusMap(mapid, true);
 						} else {
 							_self.isDialogWCAG(true);
 						}
@@ -1376,7 +1384,7 @@
 						xmax = _self.xValueMax();
 
 					// draw box
-					gisGraphic.drawWCAGBox(xmin, ymin, xmax, ymax, 4326, mymap.vWkid, _self.selExtent);
+					gisGraphic.drawWCAGBox(xmin, ymin, xmax, ymax, 4326, mapVM.getSR(mapid), _self.selExtent);
 
 					// close window
 					_self.isDialogWCAG(false);
@@ -1428,7 +1436,7 @@
 
 							// draw extent for spatial filter then call query task to get selection
 							gisDG.drawSpatialExtent(geometry, 'spatial-' + activeTableId, true);
-							gisDG.getSelection(url, mymap.vWkid, geometry, _self.setSelection);
+							gisDG.getSelection(url, mapVM.getSR(mapid), geometry, _self.setSelection);
 						} else {
 							graphics = mymap.getLayer(layerInfo.id).graphics;
 							features = [];
@@ -1779,7 +1787,7 @@
 
 				_self.clickZoom = function() {
 					var feature = selectIdFeatures[currFeatIndex].feature;
-					gisMap.zoomFeature(mymap, feature);
+					mapVM.zoomFeature(mapid, feature);
 				};
 
 				_self.clickPrevious = function() {
@@ -1845,11 +1853,13 @@
 				_self.init();
 			};
 
-			vm = new datagridViewModel($mapElem, mapid, config);
-			ko.applyBindings(vm, $mapElem[0]); // This makes Knockout get to work
+			// put view model in an array because we can have more then one map in the page
+			vm[mapid] = new datagridViewModel($mapElem, mapid, config);
+			ko.applyBindings(vm[mapid], $mapElem[0]); // This makes Knockout get to work
 			return vm;
 		};
 
+		// *** PUBLIC FUNCTIONS ***
 		addTab = function(mapid, featColl, title, layerId) {
 			var field, feat,
 				data = { },

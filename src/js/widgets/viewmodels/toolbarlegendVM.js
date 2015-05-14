@@ -17,8 +17,6 @@
 			addLegend,
 			removeLegend,
 			getURL,
-			loopGetURL,
-			loopChildrenVisibility,
 			vm = [];
 
 		initialize = function($mapElem, mapid, config) {
@@ -197,11 +195,11 @@
 					// it could show a layer even if parent visibility is false
 					while (lenBases--) {
 						item = _self.basesArray()[lenBases];
-						loopChildrenVisibility(item, item.visibility.initstate, loopChildrenVisibility);
+						_self.loopChildrenVisibility(item, item.visibility.initstate, _self.loopChildrenVisibility);
 					}
 					while (lenLayers--) {
 						item = _self.layersArray()[lenLayers];
-						loopChildrenVisibility(item, item.visibility.initstate, loopChildrenVisibility);
+						_self.loopChildrenVisibility(item, item.visibility.initstate, _self.loopChildrenVisibility);
 					}
 
 					// Knockout doesn't prevent the default click action.
@@ -270,10 +268,8 @@
 
 						if (layer.id === id) {
 							layer.opacity.initstate = parseFloat(value, 10);
-						} else {
-							
 						}
-					}			
+					}
 				};
 
 				_self.addLegend = function(config) {
@@ -285,7 +281,7 @@
 
 				_self.removeLegend = function(id) {
 					_self.layersArray.remove(function(layer) {
-						return layer.id == id;
+						return layer.id === id;
 					});
 
 					// concat all layers to access in determineTextCSS
@@ -300,7 +296,7 @@
 
 					while (len--) {
 						layer = layers[len];
-						returnURL = loopGetURL([layer], returnURL, loopGetURL);
+						returnURL = _self.loopGetURL([layer], returnURL, _self.loopGetURL);
 					}
 
 					// join the array and add legend type
@@ -313,7 +309,7 @@
 					return returnURL;
 				};
 
-				loopGetURL = function(items, url) {
+				_self.loopGetURL = function(items, url) {
 					var layer, graphid,
 						isCheck, opa, vis, exp,
 						layers = items,
@@ -335,7 +331,7 @@
 
 							// if not the last item, loop trought children to get all layers
 							if (!layer.last) {
-								url = loopGetURL(layer.items, url, loopGetURL);
+								url = _self.loopGetURL(layer.items, url, _self.loopGetURL);
 							}
 						}
 					}
@@ -343,19 +339,19 @@
 					return url;
 				};
 
-				loopChildrenVisibility = function(itemMaster, isCheck) {
+				_self.loopChildrenVisibility = function(itemMaster, isCheck) {
 					var items = itemMaster.items;
-	
+
 					// if value is false, set isCheck to false for all children because if parent
 					// is not visible, children should not be visible either
 					if (!itemMaster.visibility.initstate) {
 						isCheck = false;
 					}
-	
+
 					// if there is children, loop in them. otherwise, it is the last item, apply value.	
 					if (items.length > 0) {
 						Object.keys(items).forEach(function(key) {
-							loopChildrenVisibility(items[key], isCheck, loopChildrenVisibility);
+							_self.loopChildrenVisibility(items[key], isCheck, _self.loopChildrenVisibility);
 						});
 					}
 					else {
@@ -403,7 +399,7 @@
 
 			return url;
 		};
-		
+
 		return {
 			initialize: initialize,
 			addLegend: addLegend,

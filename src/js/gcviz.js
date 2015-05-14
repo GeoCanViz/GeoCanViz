@@ -48,7 +48,7 @@ var locationPath;
 			// extent or private AMD jQuery with the jQuery from outside project to get reference to some dependencies (magnificPopup, jqueryUI, slidesJS)
 			// we need to do this because those libraries are not AMD and use the window.jQuery object to initialize themselves.
 			// TODO: I put this in comment because no set jquerui as input in my define in the gcviz-config...it seems to solve the problem!
-			//		 The extend seems to corrupt the library...
+			// The extend seems to corrupt the library...
 			//$viz.extend(true, $viz, $);
 
 			// initialize map number and total for the ready event

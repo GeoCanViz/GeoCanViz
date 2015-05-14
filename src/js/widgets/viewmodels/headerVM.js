@@ -256,15 +256,23 @@
 					$btnAbout.focus();
 				};
 
-				_self.saveClick = function(ev) {
-					var mapUrl,
+				_self.saveClick = function() {
+					var mapUrl, url,
 						mapidString,
 						extentString,
 						dataString,
 						legendString,
 						extent = mapVM.getExtentMap(mapid),
-						url = window.location.toString(),
-						url = url.substring(0, url.indexOf('html') + 4) + '?';
+						urlWin = window.location.toString(),
+						index = urlWin.indexOf('?');
+						
+
+					// extract only first part of url
+					if (index !== -1) {
+						url = urlWin.substring(0, index + 1);
+					} else {
+						url = urlWin + '?';
+					}
 
 					// set mapid
 					mapidString = 'id=' + mapid;
@@ -298,8 +306,7 @@
 				};
 
 				_self.cancelFullScreen = function() {
-					var resizeEvt,
-						sectH = _self.heightSection,
+					var sectH = _self.heightSection,
 						sectW = _self.widthSection,
 						mapH = _self.heightMap,
 						mapW = _self.widthMap;
@@ -337,8 +344,7 @@
 
 				_self.requestFullScreen = function() {
 					// get maximal height and width from browser window and original height and width for the map
-					var resizeEvt,
-						param = gcvizFunc.getFullscreenParam(),
+					var param = gcvizFunc.getFullscreenParam(),
 						h = param.height,
 						height = (h - (2 * _self.headerHeight) - 2); // minus 2 for the border
 
@@ -440,37 +446,37 @@
 					zoomPrevNext = $viz('.gcviz-map-zoompv'),
 					height = node.css('height'),
 					width = node.css('width');
-	
+
 				// get center map
 				center.point = mapVM.getCenterMap(mapid);
-	
+
 				// set map size to fit the print page
 				gcvizFunc.setStyle(node[0], { 'width': '10in', 'height': '5.25in' });
 				gcvizFunc.setStyle(node.find('#' + mapid + '_holder_root')[0], { 'width': '10in', 'height': '5.25in' });
-	
+
 				// resize map and center to keep scale
 				center.interval = 1500;
 				mapVM.resizeCenterMap(mapid, center);
-	
+
 				// open the print page here instead of timemeout because if we do so, it will act as popup.
 				// It needs to be in a click event to open without a warning
 				window.open(printInfo.template);
-	
+
 				// hide zoom max, zoom bar and prev next
 				zoomMax.addClass('gcviz-hidden');
 				zoomBar.addClass('gcviz-hidden');
 				zoomPrevNext.addClass('gcviz-hidden');
-	
+
 				// get rotation and remove decimal part
 				rotation = getRotationDegrees(arrow);
 				style = arrow.attr('style');
 				styles = style.split(';');
 				lenStyles = styles.length - 1;
-	
+
 				while (lenStyles--) {
 					arrowStyle += styles[lenStyles].split(':')[0] + ':' + 'rotate(' + rotation + 'deg);';
 				}
-	
+
 				// set the local storage (modify arrow because it wont print... it is an image background)
 				localStorage.setItem('gcvizTitle', printInfo.title);
 				setTimeout(function() {
@@ -479,7 +485,7 @@
 					localStorage.setItem('gcvizScalebarNode', scalebar[0].outerHTML);
 					localStorage.setItem('gcvizURL', window.location.href);
 				}, 3500);
-	
+
 				// set map size to previous values
 				setTimeout (function() {
 					zoomMax.removeClass('gcviz-hidden');
@@ -490,7 +496,7 @@
 					mapVM.resizeCenterMap(mapid, center);
 				}, 15000);
 			};
-	
+
 			// http://stackoverflow.com/questions/8270612/get-element-moz-transformrotate-value-in-jquery
 			getRotationDegrees = function(obj) {
 				var values, a, b, angle,
@@ -499,7 +505,7 @@
 					obj.css('-ms-transform') ||
 					obj.css('-o-transform') ||
 					obj.css('transform');
-	
+
 				if (matrix !== 'none') {
 					values = matrix.split('(')[1].split(')')[0].split(',');
 					a = values[0];
@@ -508,11 +514,11 @@
 				} else {
 					angle = 0;
 				}
-	
+
 				if (angle < 0) {
 					angle +=360;
 				}
-	
+
 				return angle;
 			};
 

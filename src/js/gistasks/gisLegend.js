@@ -127,7 +127,7 @@
 		};
 
 		return {
-			getFeatureLayerSymbol: getFeatureLayerSymbol,
+			getFeatureLayerSymbol: getFeatureLayerSymbol
 		};
 	});
 }());

@@ -198,7 +198,7 @@
 					} else if (symbLayer.graphics.length === 1 && symbLayer.graphics[0]._extent.xmax === 0) {
 						isGraphics = false;
 					}
-					
+
 					// focus the map. We need to specify this because when you use the keyboard to
 					// activate the tool, the focus sometimes doesnt go to the map.
 					mapVM.focusMap(mapid, false);
@@ -394,16 +394,16 @@
 					if (drawMap) {
 						// set global then call the tool
 						gKey = key;
-	
+
 						// calculate values
 						while (len--) {
 							pt = array()[len];
-	
+
 							if (pt.hasOwnProperty('distance')) {
 								dist += pt.distance;
 							}
 						}
-	
+
 						// set good offset from angle and off
 						if (off === 0) {
 							offx = 20;
@@ -418,7 +418,7 @@
 							offx = -20;
 							offy = 10;
 						}
-	
+
 						// add text
 						dist = Math.floor(dist * 100) / 100;
 						text = txtDist + dist + ' ' + unit;
@@ -867,7 +867,7 @@
 
 			// add attributes
 			graphic.attributes = elem.attributes;
-			
+
 			// add graphic
 			layer.add(graphic);
 

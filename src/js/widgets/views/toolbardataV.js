@@ -77,7 +77,7 @@
 						'<div class="row">' +
 							'<div class="span1"><button id="btnWindowAddCSV' + mapid + '" class="gcviz-data-add" tabindex="0" data-bind="buttonBlur, click: launchDialog, attr: { alt: tpAdd }"></button></div>' +
 							'<div class="span11"><label class="gcviz-label gcviz-nav-lblpos" for="btnWindowAddCSV' + mapid + '" data-bind="text: lblImportParamFile"></label></div>' +
-						'</div>';
+						'</div>' +
 					'</div>';
 
 			$toolbar.append(node);

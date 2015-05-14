@@ -26,7 +26,7 @@
                     "ymax": 4172189.70508
                 },
                 "lods": {
-                    "enable": true,
+                    "enable": false,
                     "values": [{
                         "level": 0,
                         "resolution": 38364.660062653464,

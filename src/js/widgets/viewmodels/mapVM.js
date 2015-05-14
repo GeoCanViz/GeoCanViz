@@ -28,6 +28,7 @@
 			setLayerOpacity,
 			getLayerParam,
 			zoomLocation,
+			zoomFeature,
 			getExtent,
 			getScale,
 			setScale,
@@ -384,10 +385,10 @@
 							require(['gcviz-vm-header', 'gcviz-vm-tbnav', 'gcviz-vm-tbdraw'], function(headerVM, tbnavVM, tbdrawVM) {
 								// check if draw is active. If so apply event
 								flag = tbdrawVM.endDraw(mapid);
-	
+
 								// check if position is active. If so apply event
 								flag = tbnavVM.endGetCoordinates(mapid);
-	
+
 								// if not tools acitve, just toggle the menu
 								if (!flag) {
 									headerVM.toggleMenu(mapid);
@@ -434,7 +435,7 @@
 				layer.setVisibility(visValue);
 			}
 		};
-		
+
 		setLayerOpacity = function(mapid, layerid, opacityValue) {
 			var layer = vm[mapid].map.getLayer(layerid);
 
@@ -459,6 +460,10 @@
 			gisGeo.zoomLocation(minx, miny, maxx, maxy, vm[mapid].map, outSR);
 		};
 
+		zoomFeature = function(mapid, feature) {
+			gisMap.zoomFeature(vm[mapid].map, feature);
+		};
+
 		getExtent = function(mapid) {
 			return gisMap.getMapExtent(vm[mapid].map);
 		};
@@ -474,7 +479,7 @@
 		getSR = function(mapid) {
 			return vm[mapid].map.vWkid;
 		};
-		
+
 		getHeight = function(mapid) {
 			return vm[mapid].map.height;
 		};
@@ -588,6 +593,7 @@
 			setLayerOpacity: setLayerOpacity,
 			getLayerParam: getLayerParam,
 			zoomLocation: zoomLocation,
+			zoomFeature: zoomFeature,
 			getExtentMap: getExtent,
 			getScaleMap: getScale,
 			setScaleMap: setScale,

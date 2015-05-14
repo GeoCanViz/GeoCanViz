@@ -14,9 +14,8 @@
 			'dijit/form/HorizontalSlider',
 			'dijit/form/RadioButton',
 			'gcviz-i18n',
-			'jqueryui',
-			'gcviz-vm-header'
-	], function($viz, ko, gcvizFunc, slider, radio, i18n, headerVM) {
+			'jqueryui'
+	], function($viz, ko, gcvizFunc, slider, radio, i18n) {
 	var btnArray = [],
 		panelArray = [];
 
