@@ -12,13 +12,12 @@
 			'genfile',
 			'gcviz-i18n',
 			'gcviz-func',
-			'gcviz-gisgraphic',
-			'gcviz-gisdatagrid'
-	], function($viz, ko, generateFile, i18n, gcvizFunc, gisGraphic, gisDG) {
+			'gcviz-gisgraphic'
+	], function($viz, ko, generateFile, i18n, gcvizFunc, gisGraphic) {
 		var initialize,
 			openTextDialog,
 			endDraw,
-			vm = [];
+			vm = {};
 
 		initialize = function($mapElem, mapid, config) {
 
@@ -144,7 +143,7 @@
 				// end draw action on tools toolbar click
 				_self.endDraw = function() {
 					// set popup event
-					gisDG.addEvtPop();
+					mapVM.addPopupEvent(mapid);
 
 					// enable zoom extent button on map
 					mapVM.disableZoomExtent(mapid, false);
@@ -173,14 +172,16 @@
 					// hide measure window and reset values
 					_self.dialogMeasureClose();
 
+					// open menu
+					require(['gcviz-vm-header'], function(headerVM) {
+						headerVM.toggleMenu(mapid);
+					});
+
 					// set the focus back to the right tool
 					_self.setFocus();
 
 					// update stack and state for buttons with observable
 					_self.updateStack();
-
-					// open menu
-					$menu.accordion('option', 'active', 0);
 				};
 
 				// add text dialog buttons functions (ok and cancel)
@@ -559,7 +560,9 @@
 
 				_self.closeTools = function(tool) {
 					// close menu
-					$menu.accordion('option', 'active', false);
+					require(['gcviz-vm-header'], function(headerVM) {
+						headerVM.toggleMenu(mapid);
+					});
 
 					// set event for the toolbar
 					$menu.on('accordionbeforeactivate', function() {
@@ -568,7 +571,7 @@
 					});
 
 					// remove popup event
-					gisDG.removeEvtPop();
+					mapVM.removePopupEvent(mapid);
 
 					// disable zoom extent button on map
 					mapVM.disableZoomExtent(mapid, true);
@@ -633,7 +636,7 @@
 
 							// reset active tools
 							_self.activeTool('');
-						}, 1000);
+						}, 700);
 					});
 				};
 

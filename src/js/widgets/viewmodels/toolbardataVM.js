@@ -18,7 +18,7 @@
 			subscribeIsAddData,
 			notifyAdd,
 			getURL,
-			vm = [];
+			vm = {};
 
 		initialize = function($mapElem, mapid, config, isDatagrid) {
 
@@ -102,7 +102,7 @@
 					if (url !== null && idmap === mapid) {
 						if (isDatagrid) {
 							// subscribe to the isTableReady event to know when tables have been initialize
-							gcvizFunc.subscribeTo(mapid, 'datagrid', 'isTableReady', function(input) {
+							vmDatagrid.subscribeIsTableReady(mapid, function(input) {
 								_self.addUrlUrl(url, input);
 							});
 						} else {
@@ -116,7 +116,7 @@
 					if (file !== null && idmap === mapid) {
 						if (isDatagrid) {
 							// subscribe to the isTableReady event to know when tables have been initialize
-							gcvizFunc.subscribeTo(mapid, 'datagrid', 'isTableReady', function(input) {
+							vmDatagrid.subscribeIsTableReady(mapid, function(input) {
 								_self.addFileUrl(file, input);
 							});
 						} else {
@@ -197,7 +197,7 @@
 
 				_self.okParamUrlFile = function() {
 					// add entry in the legend for the missins layer
-					legendVM.addLegend(_self.getMissLegendCfg(_self.file + _self.lblMiss));
+					legendVM.addLegend(mapid, _self.getMissLegendCfg(_self.file + _self.lblMiss));
 
 					_self.closeParamUrlFile();
 				};
@@ -374,11 +374,8 @@
 					// focus back on add to keep focus
 					$btnCSV.focus();
 
-//TODO: mettre la verification si existe dans le VM
 					// remove table if datagrid is enable
-					if (typeof vmDatagrid !== 'undefined') {
-						vmDatagrid.removeTab(selectedItem.id);
-					}
+					vmDatagrid.removeTab(mapid, selectedItem.id);
 				};
 
 				_self.notifyAdd = function() {

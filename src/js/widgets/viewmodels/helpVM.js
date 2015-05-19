@@ -15,7 +15,7 @@
 		var initialize,
 			toggleHelp,
 			toggleHelpBubble,
-			vm = [];
+			vm = {};
 
 		initialize = function($mapElem, mapid) {
 

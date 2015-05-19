@@ -15,6 +15,8 @@
 			'esri/tasks/Geoprocessor'
 	], function($viz, func, esriPrintTemp, esriPrintTask, esriPrintParams, esriGeoProcessor) {
 		var printMap,
+			saveImageMap,
+			saveImageResult,
 			printResult,
 			printError,
 			htmlPage,
@@ -432,14 +434,39 @@
 			printTask.execute(params, printResult, printError);
 		};
 
+		saveImageMap = function(map) {
+			var printTask = esriPrintTask('http://sampleserver6.arcgisonline.com/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task'),
+				params = new esriPrintParams(),
+				template = new esriPrintTemp();
+
+			template.exportOptions = {
+				width: map.width,
+				height: map.height,
+				dpi: 300
+			};
+			template.format = 'JPG';
+			template.layout = 'MAP_ONLY';
+			template.preserveScale = false;
+
+			params.map = map;
+			params.template = template;
+
+			printTask.execute(params, saveImageResult);
+		};
+
+		saveImageResult = function(response) {
+			var link = document.createElement('a');
+			link.href = response.url;
+			link.click();
+		};
+
 		printResult = function(response) {
-			
+
 		};
 
 		printError = function(err) {
 			console.log('Printing broken: ', err);
 		};
-
 
 		return {
 			printMap : printMap,
@@ -447,7 +474,8 @@
 			getTemplates: getTemplates,
 			getMxdElements: getMxdElements,
 			printCustomMap: printCustomMap,
-			printBasicMap: printBasicMap
+			printBasicMap: printBasicMap,
+			saveImageMap: saveImageMap
 		};
 	});
 }());

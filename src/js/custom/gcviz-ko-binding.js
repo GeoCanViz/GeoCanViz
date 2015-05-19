@@ -108,21 +108,22 @@
 
 	ko.bindingHandlers.fullscreen = {
 		init: function(element, valueAccessor, allBindings, viewModel) {
-			var manageFullscreen,
-				mapid = viewModel.mapid,
-				vm = gcvizFunc.getElemValueVM(mapid, ['header'], 'js');
+			var info,
+				manageFullscreen,
+				mapid = viewModel.mapid;
+
+			require(['gcviz-vm-header'], function(headerVM) {
+				headerVM.subscribeIsFullscreen(mapid, manageFullscreen);
+				info = headerVM.getScreenParam(mapid);
+			});
 
 			manageFullscreen = function(fullscreen) {
 				if (fullscreen) {
-					viewModel.enterFullscreen(vm.widthSection, vm.heightSection);
+					viewModel.enterFullscreen(info.widthSection, info.heightSection);
 				} else {
 					viewModel.exitFullscreen();
 				}
 			};
-
-			require(['gcviz-vm-header'], function(headerVM) {
-				headerVM.subscribeIsFullscreen(mapid, manageFullscreen);
-			});
 		}
 	};
 

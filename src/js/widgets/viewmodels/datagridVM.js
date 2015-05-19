@@ -17,14 +17,11 @@
 			'gcviz-gisgraphic'
 	], function($viz, ko, i18n, gcvizFunc, gisMap, gisDG, gisGraphic) {
 		var initialize,
+			subscribeIsTableReady,
 			addTab,
 			addRestTab,
 			removeTab,
-			innerAddTab,
-			innerAddRestTab,
-			innerRemoveTab,
-			innerTable = 0,
-			vm = [];
+			vm = {};
 
 		initialize = function($mapElem, mapid, config) {
 
@@ -39,7 +36,6 @@
 					delay = 400, clicks = 0, timer = null,
 					arrLayerInfo = { },
 					lookPopups = [],
-					table = 0,
 					tables = config.layers.length,
 					selectIdFeatures = [],
 					allIdFeatures = [],
@@ -135,9 +131,9 @@
 				// variable to start export csv message
 				_self.isExport = ko.observable(false);
 
-				_self.init = function() {
-					var intervalModal;
+				_self.table = 0;
 
+				_self.init = function() {
 					// init accordion and hide header
 					$datagrid.accordion({
 						collapsible: true,
@@ -156,7 +152,7 @@
 				};
 
 				_self.onLoadMap = function(evt) {
-					var interval,
+					var interval, intervalModal,
 						layers = config.layers,
 						lenLayers = layers.length,
 						i = 0;
@@ -231,7 +227,7 @@
 						layerIndex = layerInfo.index,
 						type = layerInfo.type,
 						id = layerInfo.id,
-						url = mymap.getLayer(id).url,
+						url = mapVM.getLayerURL(mapid, id),
 						popup = layer.popups,
 						fields = layer.fields,
 						fieldsLen = fields.length;
@@ -262,11 +258,11 @@
 					if (type === 4) {
 						// datatable (dynamic layer, need layer index to select one layer in the dynamic service)
 						urlFull = url + layerIndex + '/query?where=OBJECTID+>+0&outFields=' + strField + '&dirty=' + (new Date()).getTime();
-						gisDG.getData(urlFull, layer, _self.createTab);
+						gisDG.getData(mapid, urlFull, layer, _self.createTab);
 
 						// popup
 						if (popup.enable) {
-							gisDG.createIdTask(url, layerIndex, id, 4, _self.returnIdTask);
+							gisDG.createIdTask(mapid, url, layerIndex, id, 4, _self.returnIdTask);
 
 							// add title and layer name alias to a lookup table for popups
 							lookPopups.push([popup.layeralias, layer.title]);
@@ -274,12 +270,12 @@
 					} else if (type === 5) {
 						// datatable (feature layer)
 						urlFull = url + '/query?where=OBJECTID+>+0&outFields=' + strField + '&dirty=' + (new Date()).getTime();
-						gisDG.getData(urlFull, layer, _self.createTab);
+						gisDG.getData(mapid, urlFull, layer, _self.createTab);
 
 						// popup (remove layer index)
 						if (popup.enable) {
 							url = url.substring(0, url.indexOf('MapServer/') + 10);
-							gisDG.createIdTask(url, layerIndex, id, 5, _self.returnIdTask);
+							gisDG.createIdTask(mapid, url, layerIndex, id, 5, _self.returnIdTask);
 
 							// add title and layer name alias to a lookup table for popups
 							lookPopups.push([popup.layeralias, layer.title]);
@@ -309,9 +305,8 @@
 									'<table id="table-' + mapid + '-' + pos + '" class="gcviz-datatable display">' +
 									'</table></div>');
 
-					// increment table and innerTable for the outside class function
-					table += 1;
-					innerTable = table;
+					// increment table
+					_self.table += 1;
 
 					// create datatable
 					_self.createTable(data, layer, pos);
@@ -771,7 +766,7 @@
 					_self.setEvents(pos);
 
 					// if all tables have been initialize
-					if (table >= tables) {
+					if (_self.table >= tables) {
 
 						// set tabs and refresh accordion
 						$datatab.tabs({
@@ -782,7 +777,7 @@
 								objDataTable[activeTableId].draw();
 
 								// show spatial filter only for this table
-								gisDG.showSpatialExtent('spatial-' + activeTableId);
+								gisDG.showSpatialExtent(mapid, 'spatial-' + activeTableId);
 							}
 						});
 						$datagrid.accordion('refresh');
@@ -792,7 +787,9 @@
 
 						// check if we need to open the table by default
 						if (config.expand) {
-							$datagrid.accordion('option', 'active', 0);
+							require(['gcviz-vm-footer'], function(footerVM) {
+								footerVM.toggleDatagrid(mapid);
+							});
 						}
 
 						// remove progress dialog and notify all table are created
@@ -800,7 +797,9 @@
 						tableReady = true;
 
 						// enable datagrid button in footerVM
-						gcvizFunc.setElemValueVM(mapid, 'footer', 'isTableReady', true);
+						require(['gcviz-vm-footer'], function(footerVM) {
+							footerVM.notifyTableReady();
+						});
 
 						// stop propagation of event on search by column field
 						$viz('.gcviz-dg-search').on('click', function(event) {
@@ -811,12 +810,14 @@
 
 						// subscribe to the full screen event. Redraw datatable because the width
 						// is modified
-						gcvizFunc.subscribeTo(mapid, 'header', 'isFullscreen', function() {
-							var len = objDataTable.length;
-
-							while (len--) {
-								objDataTable[len].draw();
-							}
+						require(['gcviz-vm-header'], function(headerVM) {
+							headerVM.subscribeIsFullscreen(mapid, function() {
+								var len = objDataTable.length;
+	
+								while (len--) {
+									objDataTable[len].draw();
+								}
+							});
 						});
 
 						// notify tables are ready
@@ -824,7 +825,7 @@
 					}
 
 					// new table have been added
-					if (table > tables) {
+					if (_self.table > tables) {
 						$datatab.tabs('refresh');
 						$datagrid.accordion('refresh');
 
@@ -895,13 +896,13 @@
 
 							// remove popup click event if it is there to avoid conflict then
 							// call graphic class to draw on map.
-							gisDG.removeEvtPop();
+							mapVM.removePopupEvent(mapid);
 
 							// there is a bug when in full screen and do a zoom to select. There is an offset in y
 							// so popup is not available. To resolve this, resize map.
 							mapVM.resizeMap(mapid);
 
-							drawTool = gisGraphic.drawBox(mymap, true, _self.selExtent);
+							drawTool = mapVM.drawBox(mapid, true, _self.selExtent);
 
 							// focus the map
 							mapVM.focusMap(mapid, true);
@@ -1081,9 +1082,9 @@
 					feat.gcvizcheck = check;
 					_self.highlightRow(row, check);
 					if (checkbox.checked) {
-						gisDG.selectFeature(feat.geometry, info);
+						gisDG.selectFeature(mapid, feat.geometry, info);
 					} else {
-						gisDG.unselectFeature('sel' + '-' + info.table + '-' + info.feat);
+						gisDG.unselectFeature(mapid, 'sel' + '-' + info.table + '-' + info.feat);
 					}
 				};
 
@@ -1108,9 +1109,9 @@
 						// set info and select or unselect
 						info.feat = parseInt(row.gcvizid.split('-')[1], 10);
 						if (!val || !graphic) {
-							gisDG.unselectFeature('sel' + '-' + activeTableId + '-' + info.feat);
+							gisDG.unselectFeature(mapid, 'sel' + '-' + activeTableId + '-' + info.feat);
 						} else {
-							gisDG.selectFeature(row.geometry, info);
+							gisDG.selectFeature(mapid, row.geometry, info);
 						}
 						i++;
 					}
@@ -1121,7 +1122,7 @@
 				_self.zoom = function(info) {
 					// get feature geometry, then call gisDatagrid to create graphic and zoom
 					var geom = [objDataTable[info.table].data()[info.feat].geometry];
-					gisDG.zoomFeatures(geom);
+					gisDG.zoomFeatures(mapid, geom);
 				};
 
 				_self.zoomSelect = function() {
@@ -1149,9 +1150,9 @@
 					// if there is 1 feature or more, call gisDatagrid to zoom to extent
 					// of selection. If not, call it with all filtered features
 					if (features.length > 0) {
-						gisDG.zoomFeatures(features);
+						gisDG.zoomFeatures(mapid, features);
 					} else {
-						gisDG.zoomFeatures(allFeatures);
+						gisDG.zoomFeatures(mapid, allFeatures);
 					}
 				};
 
@@ -1223,7 +1224,7 @@
 
 				_self.clearFilter = function(target) {
 					var $elems = $viz(target.parentElement.parentElement).find('.gcviz-dg-search'),
-						$process = $viz('.dataTables_processing'),
+						$process = $viz('#table-' + mapid + '-' + activeTableId + '_processing'),
 						index = triggerTableId.indexOf($viz(target).attr('tableid').split('-')[2]),
 						infoLayer = arrLayerInfo[activeTableId].layerinfo;
 
@@ -1236,7 +1237,7 @@
 					_self.selectAll(['gcvizspatial', 'gcvizcheck'], false, false);
 
 					// remove spatial filter extent
-					gisDG.unselectFeature('spatial-' + activeTableId);
+					gisDG.unselectFeature(mapid, 'spatial-' + activeTableId);
 
 					// clear definition query
 					_self.applyDefQuery(infoLayer, '');
@@ -1298,17 +1299,10 @@
 				};
 
 				_self.applyDefQuery = function(layerInfo, defQuery) {
-					var arrDef,
-						layerType = layerInfo.type,
+					var layerType = layerInfo.type,
 						layerId = layerInfo.id;
 
-					if (layerType === 4) {
-						arrDef = mymap.getLayer(layerId).layerDefinitions;
-						arrDef[layerInfo.index] = defQuery;
-						mymap.getLayer(layerId).setLayerDefinitions(arrDef);
-					} else if (layerType === 5) {
-						mymap.getLayer(layerId).setDefinitionExpression(defQuery);
-					}
+					mapVM.setDefQuery(mapid, defQuery, layerId, layerType, layerInfo.index);
 				};
 
 				_self.concatDefQuery = function(layerInfo, defQuery, nbFeatures, spatial) {
@@ -1320,11 +1314,7 @@
 						layerId = layerInfo.id;
 
 					// get actual def query
-					if (layerType === 4) {
-						lyrDef = mymap.getLayer(layerId).layerDefinitions[layerInfo.index];
-					} else if (layerType === 5) {
-						lyrDef = mymap.getLayer(layerId).getDefinitionExpression();
-					}
+					lyrDef = mapVM.getDefQuery(mapid, layerId, layerType, layerInfo.index);
 
 					// check if query never been initialize
 					if (typeof lyrDef === 'undefined') {
@@ -1411,7 +1401,7 @@
 					drawTool[1].remove();
 
 					// put back popup click event
-					gisDG.addEvtPop();
+					mapVM.addPopupEvent(mapid);
 
 					if (typeof geometry !== 'undefined') {
 						// geometry can be object or array
@@ -1427,7 +1417,7 @@
 						// if it as an added layer, the type is 7 and it is a graphic layer.
 						// graphic layer are process differently then other layers
 						if (type !== 7) {
-							url = mymap.getLayer(layerInfo.id).url;
+							url = mapVM.getLayerURL(mapid, layerInfo.id);
 
 							// add index if dynamic
 							if (layerInfo.type === 4) {
@@ -1435,10 +1425,10 @@
 							}
 
 							// draw extent for spatial filter then call query task to get selection
-							gisDG.drawSpatialExtent(geometry, 'spatial-' + activeTableId, true);
+							gisDG.drawSpatialExtent(mapid, geometry, 'spatial-' + activeTableId, true);
 							gisDG.getSelection(url, mapVM.getSR(mapid), geometry, _self.setSelection);
 						} else {
-							graphics = mymap.getLayer(layerInfo.id).graphics;
+							graphics = mapVM.getGraphics(mapid, layerInfo.id);
 							features = [];
 							len = graphics.length - 1;
 							i = 0;
@@ -1453,7 +1443,7 @@
 							}
 
 							// draw extent for spatial filter then set selection
-							gisDG.drawSpatialExtent(geometry, 'spatial-' + info.table, true);
+							gisDGj.drawSpatialExtent(mapid, geometry, 'spatial-' + info.table, true);
 							_self.setSelection(features);
 						}
 					}
@@ -1524,7 +1514,7 @@
 
 				// keep _self outiside initialize to be able to call it from outside
 				// in this case we will need it to add a new tab for csv data or remove one
-				innerAddTab = function(datas, title, layer) {
+				_self.innerAddTab = function(datas, title, layer) {
 					// add the popup title to lookup table
 					lookPopups.push([title, title]);
 
@@ -1535,16 +1525,16 @@
 					_self.createTab(datas);
 				};
 
-				innerAddRestTab = function(url, layer) {
+				_self.innerAddRestTab = function(url, layer) {
 					var urlFull = url + '/query?where=OBJECTID+>+0&outFields=*&dirty=' + (new Date()).getTime(),
 						layerInfo = layer.layerinfo;
 
 					// get data
-					gisDG.getData(urlFull, layer, _self.createTab);
+					gisDG.getData(mapid, urlFull, layer, _self.createTab);
 
 					// popup (remove layer index)
 					url = url.substring(0, url.indexOf('MapServer/') + 10);
-					gisDG.createIdTask(url, layerInfo.index, layerInfo.id, 5, _self.returnIdTask);
+					gisDG.createIdTask(mapid, url, layerInfo.index, layerInfo.id, 5, _self.returnIdTask);
 
 					// add title and layer name alias to a lookup table for popups
 					lookPopups.push([layer.popups.layeralias, layer.title]);
@@ -1552,8 +1542,6 @@
 					// add layer definition to config file
 					config.layers.push(layer);
 				};
-
-				innerRemoveTab = _self.removeTab;
 
 				// ********* popup section **********
 				_self.returnIdTask = function(array) {
@@ -1674,7 +1662,7 @@
 					}
 
 					// highlight the feature
-					gisDG.selectFeaturePop(feature.geometry);
+					gisDG.selectFeaturePop(mapid, feature.geometry);
 				};
 
 				_self.getLinkNode = function(linkInfo, layerId, objectID) {
@@ -1686,7 +1674,7 @@
 						node = '';
 
 					// get the feature attribute names and values
-					links = gisDG.getRelRecords(layerId, objectID);
+					links = gisDG.getRelRecords(mapid, layerId, objectID);
 					linkAttrNames = $viz.map(links[0], function(value, index) {
 						return [index];
 					});
@@ -1733,7 +1721,7 @@
 					_self.isPopupDialogOpen(false);
 
 					// remove highlight
-					gisDG.unselectFeature('popup');
+					gisDG.unselectFeature(mapid, 'popup');
 				};
 
 				_self.changeSelectLayer = function() {
@@ -1743,7 +1731,7 @@
 						len = allIdFeatures.length;
 
 					// remove highlight
-					gisDG.unselectFeature('popup');
+					gisDG.unselectFeature(mapid, 'popup');
 
 					// reset selected array of features
 					selectIdFeatures = [];
@@ -1809,8 +1797,8 @@
 						_self.popupCounter((currFeatIndex + 1) + ' / ' + totalFeatures);
 
 						// remove highlight on previous then highlight the current feature
-						gisDG.unselectFeature('popup');
-						gisDG.selectFeaturePop(currentFeature.feature.geometry);
+						gisDG.unselectFeature(mapid, 'popup');
+						gisDG.selectFeaturePop(mapid, currentFeature.feature.geometry);
 					}
 				};
 
@@ -1833,8 +1821,8 @@
 						_self.popupCounter((currFeatIndex + 1) + ' / ' + totalFeatures);
 
 						// remove highlight on previous then highlight the current feature
-						gisDG.unselectFeature('popup');
-						gisDG.selectFeaturePop(currentFeature.feature.geometry);
+						gisDG.unselectFeature(mapid, 'popup');
+						gisDG.selectFeaturePop(mapid, currentFeature.feature.geometry);
 					}
 				};
 
@@ -1860,80 +1848,86 @@
 		};
 
 		// *** PUBLIC FUNCTIONS ***
+		subscribeIsTableReady = function(mapid, funct) {
+			return vm[mapid].isTableReady.subscribe(funct);
+		};
+
 		addTab = function(mapid, featColl, title, layerId) {
-			var field, feat,
+			var field, feat, table,
 				data = { },
 				fields = [],
+				viewModel = vm[mapid],
 				i = 0,
 				datas = [],
 				fieldsOri = featColl.layerDefinition.fields,
 				lenField = fieldsOri.length,
 				layer = { },
 				feats = featColl.featureSet.features,
-				lenFeat = feats.length,
-				table = innerTable;
-
-			// setup fields
-			while (i < lenField) {
-				// add the field only if it is not a internal field
-				field = fieldsOri[i];
-				if (field.name.indexOf('OBJECTID') === -1) {
-					delete field.type;
-					delete field.render;
-					delete field.editable;
-					delete field.domain;
-					field.title = field.alias;
-					delete field.alias;
-					field.data = field.name;
-					field.dataalias = field.name;
-					delete field.name;
-					field.width = '80px';
-					field.searchable = true;
-					field.fieldtype = {
-						type: 1,
-						value: 1
-					};
-
-					fields.push(field);
-				}
-				i++;
-			}
-
-			// setup data
-			while (lenFeat--) {
-				feat = feats[lenFeat];
-				data = feat.attributes;
-				data.geometry = feat.geometry;
-
-				// add stuff for gcviz
-				data.layerid = layerId;
-				data.gcvizid = table + '-' + lenFeat;
-				data.gcvizcheck = false;
-				data.gcvizspatial = false;
-				datas.push(data);
-			}
-
-			// recreate layerinfo like we have in config file from data added from
-			// data toollbar.
-			layer.title = title;
-			layer.mapid = mapid;
-			layer.fields = fields;
-			layer.globalsearch = false;
-			layer.popups = { 'enable': true,
-							'layeralias': title };
-			layer.linktable = { 'enable': false };
-
-			// add layer info to first element
-			layer.layerinfo = {
-								'pos': table,
-								'id': layerId,
-								'type': 7
-							};
-			datas[0].layer = layer;
-
+				lenFeat = feats.length;
+				
 			// call the inner create tab function (if datagrid is enable)
-			if (typeof innerAddTab !== 'undefined') {
-				innerAddTab(datas, title, layer);
+			if (typeof viewModel !== 'undefined') {
+				table = viewModel.table;
+
+				// setup fields
+				while (i < lenField) {
+					// add the field only if it is not a internal field
+					field = fieldsOri[i];
+					if (field.name.indexOf('OBJECTID') === -1) {
+						delete field.type;
+						delete field.render;
+						delete field.editable;
+						delete field.domain;
+						field.title = field.alias;
+						delete field.alias;
+						field.data = field.name;
+						field.dataalias = field.name;
+						delete field.name;
+						field.width = '80px';
+						field.searchable = true;
+						field.fieldtype = {
+							type: 1,
+							value: 1
+						};
+
+						fields.push(field);
+					}
+					i++;
+				}
+
+				// setup data
+				while (lenFeat--) {
+					feat = feats[lenFeat];
+					data = feat.attributes;
+					data.geometry = feat.geometry;
+
+					// add stuff for gcviz
+					data.layerid = layerId;
+					data.gcvizid = table + '-' + lenFeat;
+					data.gcvizcheck = false;
+					data.gcvizspatial = false;
+					datas.push(data);
+				}
+
+				// recreate layerinfo like we have in config file from data added from
+				// data toollbar.
+				layer.title = title;
+				layer.mapid = mapid;
+				layer.fields = fields;
+				layer.globalsearch = false;
+				layer.popups = { 'enable': true,
+								'layeralias': title };
+				layer.linktable = { 'enable': false };
+
+				// add layer info to first element
+				layer.layerinfo = {
+									'pos': table,
+									'id': layerId,
+									'type': 7
+								};
+				datas[0].layer = layer;
+
+				viewModel.innerAddTab(datas, title, layer);
 			} else {
 				// there is a problem with the define. The gcviz-vm-tbdata is not able to be set.
 				// We set the reference to gcviz-vm-tbdata (hard way)
@@ -1944,67 +1938,68 @@
 		};
 
 		addRestTab = function(url, featLayer, mapid) {
-			var field, outfield, fieldName, fieldType,
+			var field, outfield, fieldName, fieldType, table,
 				defaultFields ='OBJECTID, Shape, SHAPE.AREA, SHAPE.LEN',
 				outFields = [],
 				layer = { },
+				viewModel = vm[mapid],
 				name = featLayer.name,
-				table = innerTable,
 				fields = featLayer.fields,
 				lenFields = fields.length;
 
-			// remove shape fields. Recreate fields instead of copying them because
-			// there is hidden key that makes datatable to crash.
-			while (lenFields--) {
-				field = fields[lenFields];
-				fieldName = field.name;
-				fieldType = field.fieldtype;
-
-				if (defaultFields.indexOf(fieldName) === -1) {
-					outfield = { },
-					outfield.title = field.alias;
-					outfield.data = field.name;
-					outfield.dataalias = field.name;
-					outfield.width = '100px';
-					outfield.searchable = true;
-
-					outfield.fieldtype = {
-							type: 1
-						};
-					if (fieldType === 'esriFieldTypeDate') {
-						outfield.fieldtype.value = 3;
-						outfield.fieldtype.informat = 1;
-						outfield.fieldtype.outformat = 1;
-						outfield.width = '200px';
-					} else if (fieldType === 'esriFieldTypeDouble' || fieldType === 'esriFieldTypeInteger' || fieldType === 'esriFieldTypeSmallInteger') {
-						outfield.fieldtype.value = 2;
-					} else {
-						outfield.fieldtype.value = 1;
-					}
-
-					outFields.push(outfield);
-				}
-			}
-
-			// recreate layerinfo like we have in config file from data added from
-			// data toollbar.
-			layer.title = name;
-			layer.mapid = mapid;
-			layer.fields = outFields;
-			layer.globalsearch = false;
-			layer.popups = { 'enable': true,
-							'layeralias': name };
-			layer.linktable = { 'enable': false };
-			layer.layerinfo = {
-								'pos': table,
-								'id': featLayer.id,
-								'type': 5,
-								'index': featLayer.layerId
-							};
-
 			// call the inner create tab function (if datagrid is enable)
-			if (typeof innerAddRestTab !== 'undefined') {
-				innerAddRestTab(url, layer);
+			if (typeof viewModel !== 'undefined') {
+				table = viewModel.table;
+
+				// remove shape fields. Recreate fields instead of copying them because
+				// there is hidden key that makes datatable to crash.
+				while (lenFields--) {
+					field = fields[lenFields];
+					fieldName = field.name;
+					fieldType = field.fieldtype;
+
+					if (defaultFields.indexOf(fieldName) === -1) {
+						outfield = { },
+						outfield.title = field.alias;
+						outfield.data = field.name;
+						outfield.dataalias = field.name;
+						outfield.width = '100px';
+						outfield.searchable = true;
+						outfield.fieldtype = {
+								type: 1
+							};
+						if (fieldType === 'esriFieldTypeDate') {
+							outfield.fieldtype.value = 3;
+							outfield.fieldtype.informat = 1;
+							outfield.fieldtype.outformat = 1;
+							outfield.width = '200px';
+						} else if (fieldType === 'esriFieldTypeDouble' || fieldType === 'esriFieldTypeInteger' || fieldType === 'esriFieldTypeSmallInteger') {
+							outfield.fieldtype.value = 2;
+						} else {
+							outfield.fieldtype.value = 1;
+						}
+
+						outFields.push(outfield);
+					}
+				}
+	
+				// recreate layerinfo like we have in config file from data added from
+				// data toollbar.
+				layer.title = name;
+				layer.mapid = mapid;
+				layer.fields = outFields;
+				layer.globalsearch = false;
+				layer.popups = { 'enable': true,
+								'layeralias': name };
+				layer.linktable = { 'enable': false };
+				layer.layerinfo = {
+									'pos': table,
+									'id': featLayer.id,
+									'type': 5,
+									'index': featLayer.layerId
+								};
+
+				viewModel.innerAddRestTab(url, layer);
 			} else {
 				// there is a problem with the define. The gcviz-vm-tbdata is not able to be set.
 				// We set the reference to gcviz-vm-tbdata (hard way)
@@ -2014,14 +2009,17 @@
 			}
 		};
 
-		removeTab = function(id) {
-			if (typeof innerRemoveTab !== 'undefined') {
-				innerRemoveTab(id);
+		removeTab = function(mapid, id) {
+			var viewModel = vm[mapid];
+
+			if (typeof viewModel !== 'undefined') {
+				viewModel.removeTab(id);
 			}
 		};
 
 		return {
 			initialize: initialize,
+			subscribeIsTableReady: subscribeIsTableReady,
 			addTab: addTab,
 			addRestTab: addRestTab,
 			removeTab: removeTab

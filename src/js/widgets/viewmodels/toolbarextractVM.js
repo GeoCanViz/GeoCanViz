@@ -11,19 +11,20 @@
 			'knockout',
 			'gcviz-i18n',
 			'gcviz-gisgeo',
-			'gcviz-gisdatagrid',
 			'gcviz-gisnav'
-	], function($viz, ko, i18n, gisGeo, gisDG, gisNav) {
+	], function($viz, ko, i18n, gisGeo, gisNav) {
 		var initialize,
 			showGrid,
-			vm = [];
+			endNTS,
+			vm = {};
 
 		initialize = function($mapElem, mapid, config) {
 
 			// data model				
 			var toolbarextractViewModel = function($mapElem, mapid) {
 				var _self = this,
-				mapVM,
+					mapVM,
+					ntsEvt,
 					item, lenQuery,
 					len = config.items.length,
 					grid = config.grid,
@@ -100,6 +101,9 @@
 				_self.isWCAG = ko.observable(false);
 				_self.isDialogWCAG = ko.observable(false);
 				_self.wcagok = false;
+
+				// set active tool
+				_self.activeTool = ko.observable('');
 
 				_self.init = function() {
 					mapVM.registerEvent(mapid, 'extent-change', _self.refreshArray);
@@ -189,18 +193,23 @@
 					item.hrefData(url + query);
 				};
 
-				_self.clickNTS = function(hrefData) {
+				_self.clickNTS = function(hrefData, control) {
 					// set the href
 					_self.hrefNTS = hrefData;
 
 					// close menu
-					$menu.accordion('option', 'active', false);
+					require(['gcviz-vm-header'], function(headerVM) {
+						headerVM.toggleMenu(mapid);
+					});
 
 					// set event for the toolbar
 					$menu.on('accordionbeforeactivate', function() {
 						$menu.off();
 						_self.endNTS();
 					});
+
+					// set active tool
+					_self.activeTool(control);
 
 					// check if WCAG mode is enable, if so use dialog box instead)
 					if (!_self.isWCAG()) {
@@ -209,10 +218,10 @@
 						$container.addClass('gcviz-nav-cursor-pos');
 
 						// remove popup event
-						gisDG.removeEvtPop();
+						mapVM.removePopupEvent(mapid);
 
 						// get user to click on map and capture event
-						mapVM.registerEventOne(mapid, 'click', _self.clickNTSEvt);
+						ntsEvt = mapVM.registerEventOne(mapid, 'click', _self.clickNTSEvt);
 					} else {
 						_self.isDialogWCAG(true);
 					}
@@ -276,21 +285,29 @@
 					// Reset cursor
 					$container.removeClass('gcviz-nav-cursor-pos');
 
+					// make sure event is removed
+					if (typeof ntsEvt !== 'undefined') {
+						ntsEvt.remove();
+					}
+
 					// set popup event
-					gisDG.addEvtPop();
+					mapVM.addPopupEvent(mapid);
 
 					$menu.on('accordionactivate', function() {
 						$menu.off('accordionactivate');
 
 						// bug with jQueryUI, focus does not work when menu open
 						setTimeout(function() {
-							// TODO: focus last active tool
-
-						}, 1000);
+							$viz('#' + _self.activeTool()).focus();
+							
+							_self.activeTool('');
+						}, 700);
 					});
 
 					// open menu
-					$menu.accordion('option', 'active', 0);
+					require(['gcviz-vm-header'], function(headerVM) {
+						headerVM.toggleMenu(mapid);
+					});
 				};
 
 				_self.init();
@@ -302,6 +319,7 @@
 			return vm;
 		};
 
+		// *** PUBLIC FUNCTIONS ***
 		showGrid = function(mapid, val) {
 			var chk, gridId, control,
 				viewModel = vm[mapid];
@@ -324,9 +342,25 @@
 			}
 		};
 
+		endNTS= function(mapid) {
+			var flag = false,
+				viewModel = vm[mapid];
+
+			// link to view model to call the function inside
+			if (typeof viewModel !== 'undefined') {
+				if (viewModel.activeTool() !== '') {
+					viewModel.endNTS();
+					flag = true;
+				}
+			}
+
+			return flag;
+		};
+
 		return {
 			initialize: initialize,
-			showGrid: showGrid
+			showGrid: showGrid,
+			endNTS: endNTS
 		};
 	});
 }).call(this);

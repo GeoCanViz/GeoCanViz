@@ -17,7 +17,7 @@
 			addLegend,
 			removeLegend,
 			getURL,
-			vm = [];
+			vm = {};
 
 		initialize = function($mapElem, mapid, config) {
 

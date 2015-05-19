@@ -128,7 +128,7 @@
                         "check": true
                     }]
                 },
-                "link": false,
+                "link": true,
                 "zoombar": {
                     "bar": true,
                     "zoom": true,
@@ -680,7 +680,7 @@
             "enable": false
         },
        "datagrid": {
-            "enable": false,
+            "enable": true,
             "expand": true,
             "layers": [{
                 "layerinfo": {

@@ -17,7 +17,10 @@
 			'gcviz-vm-tbdata'
 	], function($viz, ko, i18n, gcvizFunc, gisGeo, mapVM, tbdataVM) {
 		var initialize,
-			vm = [];
+			notifyTableReady,
+			toggleDatagrid,
+			subscribeIsDGOpen,
+			vm = {};
 
 		initialize = function($mapElem, mapid, config, dataToolbar) {
 
@@ -206,8 +209,34 @@
 			return vm;
 		};
 
+		// *** PUBLIC FUNCTIONS ***
+		notifyTableReady = function(mapid) {
+			var viewModel = vm[mapid];
+
+			// link to view model to call the function inside
+			if (typeof viewModel !== 'undefined') {
+				viewModel.isTableReady(true);
+			}
+		};
+
+		toggleDatagrid = function(mapid) {
+			var viewModel = vm[mapid];
+
+			// link to view model to call the function inside
+			if (typeof viewModel !== 'undefined') {
+				viewModel.datagridClick();
+			}
+		};
+
+		subscribeIsDGOpen = function(mapid, funct) {
+			return vm[mapid].isOpenDG.subscribe(funct);
+		};
+
 		return {
-			initialize: initialize
+			initialize: initialize,
+			notifyTableReady: notifyTableReady,
+			toggleDatagrid: toggleDatagrid,
+			subscribeIsDGOpen: subscribeIsDGOpen
 		};
 	});
 }).call(this);

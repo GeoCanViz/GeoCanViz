@@ -7,7 +7,7 @@
             },
             "map": {
                 "urlgeomserv": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/Utilities/Geometry/GeometryServer",
-                "urlproxy": "http://geoappext.nrcan.gc.ca/php/proxy.php",
+                "urlproxy": "http://geoappext.nrcan.gc.ca/php/proxy.ashx",
                 "urldownload": "http://geoappext.nrcan.gc.ca/php/download.php",
                 "urlprint": "http://s-bsc-geoappint.nrn.nrcan.gc.ca/arcgis/rest/services/Tools/GeoCanVizAdvancedPrint/GPServer/GeoCanVizAdvancedPrint",
                 "urlprintelements":"http://s-bsc-geoappint.nrn.nrcan.gc.ca/arcgis/rest/services/Tools/GeoCanVizGetMxdElements/GPServer/GeoCanVizGetMxdElements",
@@ -475,28 +475,18 @@
             "enable": false
         },
         "datagrid": {
-            "enable": false,
-            "expand": false,
+            "enable": true,
+            "expand": true,
             "layers": [
 				{
                     "layerinfo": {
                         "id": "93f05b62-6c5c-0ca0-e03b-612d99293294",
                         "type": 4,
-                        "index": 1
+                        "index": 0
                     },
-                    "title": "Earthquakes",
+                    "title": "Last Events",
                     "globalsearch": false,
                     "fields": [{
-                        "title": "Mag",
-                        "width": "100px",
-                        "data": "Mag",
-                        "dataalias": "Mag",
-                        "fieldtype": {
-                            "type": 1,
-                            "value": 2
-                        },
-                        "searchable": true
-                    },{
                         "title": "Mag",
                         "width": "100px",
                         "data": "Mag",
@@ -552,7 +542,7 @@
                     },
                     "popups": {
                         "enable": true,
-                        "layeralias": "Earthquakes"
+                        "layeralias": "Last Events"
                     },
                     "hover": {
                         "enable": false,

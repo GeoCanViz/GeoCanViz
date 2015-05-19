@@ -23,7 +23,7 @@
 			setHtml,
 			setMap,
 			setLightbox,
-			vm = [];
+			vm = {};
 
 		initialize = function($mapElem, mapid, inset) {
 

@@ -17,7 +17,8 @@
 	], function($viz, ko, i18n, gcvizFunc, helpVM, mapVM) {
 		var initialize,
 			subscribeIsWCAG,
-			vm = [];
+			subscribeIsOpen,
+			vm = {};
 
 		initialize = function($mapElem, mapid) {
 
@@ -50,8 +51,15 @@
 				_self.isWCAG = ko.observable(false);
 				_self.WCAGLabel = i18n.getDict('%wcag-lblenable');
 
+				// track if menu is open
+				_self.isMenuOpen = ko.observable(false);
+
 				_self.init = function() {
 					return { controlsDescendantBindings: true };
+				};
+
+				_self.openMenu = function() {
+					_self.isMenuOpen(!_self.isMenuOpen());
 				};
 
 				_self.showBubble = function(key, id) {
@@ -84,9 +92,14 @@
 			return vm[mapid].isWCAG.subscribe(funct);
 		};
 
+		subscribeIsOpen = function(mapid, funct) {
+			return vm[mapid].isMenuOpen.subscribe(funct);
+		};
+
 		return {
 			initialize: initialize,
-			subscribeIsWCAG: subscribeIsWCAG
+			subscribeIsWCAG: subscribeIsWCAG,
+			subscribeIsOpen: subscribeIsOpen
 		};
 	});
 }).call(this);

@@ -15,18 +15,18 @@
 			'gcviz-i18n',
 			'gcviz-ko',
 			'gcviz-func',
-			'gcviz-gismap',
 			'gcviz-vm-tbextract',
 			'gcviz-vm-print',
 			'gcviz-vm-help'
-	], function($viz, ko, media, gisPrint, i18n, binding, gcvizFunc, gisM, extractVM, printVM, helpVM) {
+	], function($viz, ko, media, gisPrint, i18n, binding, gcvizFunc, extractVM, printVM, helpVM) {
 		var initialize,
 			toggleMenu,
 			subscribeIsFullscreen,
 			subscribeIsInsetVisible,
+			getScreenParam,
 			printSimple,
 			getRotationDegrees,
-			vm = [];
+			vm = {};
 
 		initialize = function($mapElem, mapid, config, isDataTbl) {
 			// data model				
@@ -204,7 +204,8 @@
 					// Print the map
 					if (configPrint.type === 3) {
 						// this is the simple print. It doesn't use esri print task
-						printSimple(mapVM, mapid, _self.printInfo);
+						//printSimple(mapVM, mapid, _self.printInfo);
+						mapVM.saveImageMap(mapid);
 					} else {
 						// print from our custom esri services
 						printVM.togglePrint();
@@ -541,11 +542,22 @@
 			return vm[mapid].isInsetVisible.subscribe(funct);
 		};
 
+		getScreenParam = function(mapid) {
+			var info = { },
+				viewModel = vm[mapid];
+
+			info.width = viewModel.widthSection;
+			info.height = viewModel.heightSection;
+
+			return info;
+		};
+
 		return {
 			initialize: initialize,
 			toggleMenu: toggleMenu,
 			subscribeIsFullscreen: subscribeIsFullscreen,
-			subscribeIsInsetVisible: subscribeIsInsetVisible
+			subscribeIsInsetVisible: subscribeIsInsetVisible,
+			getScreenParam: getScreenParam
 		};
 	});
 }).call(this);

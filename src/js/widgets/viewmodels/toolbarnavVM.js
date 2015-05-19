@@ -12,12 +12,11 @@
 			'gcviz-i18n',
 			'gcviz-func',
 			'gcviz-gisgeo',
-			'gcviz-gisnav',
-			'gcviz-gisdatagrid'
-	], function($viz, ko, i18n, gcvizFunc, gisGeo, gisNav, gisDG) {
+			'gcviz-gisnav'
+	], function($viz, ko, i18n, gcvizFunc, gisGeo, gisNav) {
 		var initialize,
 			endGetCoordinates,
-			vm = [];
+			vm = {};
 
 		initialize = function($mapElem, mapid, config) {
 
@@ -90,6 +89,7 @@
 				_self.zoomScaleMin = i18n.getDict('%toolbarnav-zoomscalemin');
 				_self.zoomScaleMax = i18n.getDict('%toolbarnav-zoomscalemax');
 				_self.zoomScale = i18n.getDict('%toolbarnav-zoomscale');
+				_self.zoomScalePre = i18n.getDict('%toolbarnav-scalepre');
 				_self.zoomScaleDyna = i18n.getDict('%toolbarnav-zoomscaledyna');
 
 				// WCAG
@@ -212,17 +212,16 @@
 					formatScale = formatScale.split('').reverse().join('');
 
 					// update scale
-					_self.lblScale(_self.ScaleLabel + '1:' + formatScale);
-					$scaleMapSpan.textContent = _self.ScaleLabel + '1:' + formatScale;
+					_self.lblScale(_self.ScaleLabel + _self.zoomScalePre + formatScale);
+					$scaleMapSpan.textContent = _self.ScaleLabel + _self.zoomScalePre + formatScale;
 				};
 
 				_self.endPosition = function() {
 					// Reset cursor
 					$container.removeClass('gcviz-nav-cursor-pos');
 
-//TODO set this inside vm datagrid!!!
 					// set popup event
-					gisDG.addEvtPop();
+					mapVM.addPopupEvent(mapid);
 
 					// enable zoom extent button on map
 					mapVM.disableZoomExtent(mapid, false);
@@ -235,6 +234,10 @@
 					// close dialog box
 					$posDiag.dialog('close');
 
+					require(['gcviz-vm-header'], function(headerVM) {
+						headerVM.toggleMenu(mapid);
+					});
+
 					$menu.on('accordionactivate', function() {
 						$menu.off('accordionactivate');
 
@@ -245,11 +248,8 @@
 
 							// reset active tool
 							_self.activeTool('');
-						}, 1000);
+						}, 700);
 					});
-
-					// open menu
-					$menu.accordion('option', 'active', 0);
 				};
 
 				// Clear the input field on focus if it contains the default text
@@ -460,7 +460,9 @@
 
 				_self.getMapClick = function() {
 					// close menu
-					$menu.accordion('option', 'active', false);
+					require(['gcviz-vm-header'], function(headerVM) {
+						headerVM.toggleMenu(mapid);
+					});
 
 					// set event for the toolbar
 					$menu.on('accordionbeforeactivate', function() {
@@ -475,7 +477,7 @@
 						$container.addClass('gcviz-nav-cursor-pos');
 
 						// remove popup event
-						gisDG.removeEvtPop();
+						mapVM.removePopupEvent(mapid);
 
 						// disable zoom extent button on map
 						mapVM.disableZoomExtent(mapid, true);

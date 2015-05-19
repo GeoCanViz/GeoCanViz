@@ -21,7 +21,7 @@
 			$wcag = $mapElem.find('#wcag' + mapid);
 
 			// create the keyboard instruction
-			node = '<div data-bind="uiAccordion: { heightStyle: \'content\', collapsible: true, active: false, activate: $root.active }">' +
+			node = '<div data-bind="uiAccordion: { heightStyle: \'content\', collapsible: true, active: false, activate: $root.openMenu }">' +
 						'<h3 class="gcviz-wcag-head ui-accordion-header" data-bind="panelBlur"><span data-bind="contextHelp: { text: lblWCAGTitle, alt: helpAlt, img: imgHelpBubble, id: \'key' + mapid + '\', link: \'gcviz-help-key\' }"></span></h3>' +
 						'<div>' +
 							'<p class="gcviz-wcag-instr" data-bind="text: wcagInstr"></p>' +

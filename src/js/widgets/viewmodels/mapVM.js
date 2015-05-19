@@ -16,12 +16,14 @@
 			'gcviz-gisnav',
 			'gcviz-gisdata',
 			'gcviz-gisgraphic',
-			'gcviz-gisdatagrid'
-	], function($viz, ko, i18n, gcvizFunc, gisMap, gisGeo, gisNav, gisData, gisGraphic, gisDG) {
+			'gcviz-gisdatagrid',
+			'gcviz-gisprint'
+	], function($viz, ko, i18n, gcvizFunc, gisMap, gisGeo, gisNav, gisData, gisGraphic, gisDG, gisPrint) {
 		var initialize,
 			disableZoomExtent,
 			setScaleBar,
 			setOverviewMap,
+			repositionMaps,
 			resize,
 			resizeCenter,
 			setLayerVisibility,
@@ -29,6 +31,7 @@
 			getLayerParam,
 			zoomLocation,
 			zoomFeature,
+			drawBox,
 			getExtent,
 			getScale,
 			setScale,
@@ -36,6 +39,10 @@
 			getHeight,
 			getCenter,
 			focus,
+			getLayerURL,
+			getDefQuery,
+			setDefQuery,
+			getGraphics,
 			addGraphic,
 			addLayerCSV,
 			addLayerFeature,
@@ -44,12 +51,16 @@
 			initGraphics,
 			importGraphics,
 			exportGraphics,
+			addPopupEvent,
+			removePopupEvent,
 			registerEvent,
 			registerEventOne,
 			hideInfoWindow,
 			showInfoWindow,
+			saveImageMap,
 			manageScreenState,
-			vm = [];
+			maps = [],
+			vm = {};
 
 		initialize = function($mapElem, mapid, side) {
 
@@ -131,6 +142,7 @@
 
 					// create map	
 					map = gisMap.createMap(mapid + '_holder', config, side);
+					maps.push(map);
 
 					// add extent change event
 					gisMap.extentMapEvent(map, _self.changeExtent);
@@ -180,7 +192,30 @@
 						});
 					});
 
+					// subscribe to wcag and datagrid open to reposition the map. If not, there is offset
+					require(['gcviz-vm-wcag', 'gcviz-vm-footer'], function(wcagVM, footerVM) {
+						var interval;
+
+						interval = setInterval(function() {
+							if (typeof wcagVM !== 'undefined' && typeof footerVM !== 'undefined') {
+								wcagVM.subscribeIsOpen(mapid, _self.repositionMaps);
+								footerVM.subscribeIsDGOpen(mapid, _self.repositionMaps);
+								clearInterval(interval);
+							}
+						}, 1000);
+					});
+
 					return { controlsDescendantBindings: true };
+				};
+
+				_self.repositionMaps = function() {
+					setTimeout(function() {
+						var len = maps.length;
+
+						while (len--) {
+							maps[len].reposition();
+						}
+					}, 1000);
 				};
 
 				_self.extentClick = function() {
@@ -203,7 +238,7 @@
 
 					// remove popup click event if it is there to avoid conflict then
 					// call graphic class to draw on map.
-					gisDG.removeEvtPop();
+					gisDG.removeEvtPop(mapid);
 					gisGraphic.drawBox(_self.map, false, _self.zoomExtent);
 				};
 
@@ -217,7 +252,7 @@
 					// pup back popup click event and apply zoom
 					// if geometry is empty a click was made instead of draw
 					// do a zoom in.
-					gisDG.addEvtPop();
+					gisDG.addEvtPop(mapid);
 					if (typeof geometry !== 'undefined') {
 						_self.map.setExtent(geometry);
 					} else {
@@ -353,7 +388,9 @@
 				_self.applyKey = function(key, shift) {
 					var map = _self.map,
 						prevent = false,
-						flag = false;
+						flagDraw = false,
+						flagNav = false,
+						flagExtract = false;
 
 					if (_self.mapfocus()) {
 						if (key === 37) {
@@ -382,15 +419,18 @@
 							prevent = true;
 						// open tools if esc is press
 						} else if (key === 27) {
-							require(['gcviz-vm-header', 'gcviz-vm-tbnav', 'gcviz-vm-tbdraw'], function(headerVM, tbnavVM, tbdrawVM) {
+							require(['gcviz-vm-header', 'gcviz-vm-tbnav', 'gcviz-vm-tbdraw', 'gcviz-vm-tbextract'], function(headerVM, tbnavVM, tbdrawVM, tbextractVM) {
 								// check if draw is active. If so apply event
-								flag = tbdrawVM.endDraw(mapid);
+								flagDraw = tbdrawVM.endDraw(mapid);
 
 								// check if position is active. If so apply event
-								flag = tbnavVM.endGetCoordinates(mapid);
+								flagNav = tbnavVM.endGetCoordinates(mapid);
+
+								// check if select NTS is active. If so apply event
+								flagExtract = tbextractVM.endNTS(mapid);
 
 								// if not tools acitve, just toggle the menu
-								if (!flag) {
+								if (!flagDraw && !flagNav && !flagExtract) {
 									headerVM.toggleMenu(mapid);
 								}
 							});
@@ -464,6 +504,10 @@
 			gisMap.zoomFeature(vm[mapid].map, feature);
 		};
 
+		drawBox = function(mapid, densify, funct) {
+			return gisGraphic.drawBox(vm[mapid].map, densify, funct);
+		};
+
 		getExtent = function(mapid) {
 			return gisMap.getMapExtent(vm[mapid].map);
 		};
@@ -495,6 +539,41 @@
 			if (scroll) {
 				element.scrollIntoView();
 			}
+		};
+
+		getLayerURL = function(mapid, layerId) {
+			return vm[mapid].map.getLayer(layerId).url;
+		};
+
+		getDefQuery = function(mapid, layerId, layerType, layerIndex) {
+			var lyrDef,
+				map = vm[mapid].map;
+
+			// get actual def query
+			if (layerType === 4) {
+				lyrDef = map.getLayer(layerId).layerDefinitions[layerIndex];
+			} else if (layerType === 5) {
+				lyrDef = map.getLayer(layerId).getDefinitionExpression();
+			}
+
+			return lyrDef;
+		};
+
+		setDefQuery = function(mapid, defQuery, layerId, layerType, layerIndex) {
+			var arrDef,
+				map = vm[mapid].map;
+
+			if (layerType === 4) {
+				arrDef = map.getLayer(layerId).layerDefinitions;
+				arrDef[layerIndex] = defQuery;
+				map.getLayer(layerId).setLayerDefinitions(arrDef);
+			} else if (layerType === 5) {
+				map.getLayer(layerId).setDefinitionExpression(defQuery);
+			}
+		};
+
+		getGraphics = function(mapid, layerId) {
+			return vm[mapid].map.getLayer(layerId).graphics;
 		};
 
 		addGraphic = function(mapid, type, geom, info, sr, id) {
@@ -535,6 +614,14 @@
 			return gisGraphic.exportGraphics(vm[mapid].map);
 		};
 
+		addPopupEvent = function(mapid) {
+			gisDG.addEvtPop(mapid);
+		};
+
+		removePopupEvent = function(mapid) {
+			gisDG.removeEvtPop(mapid);
+		};
+			
 		registerEvent = function(mapid, evt, funct, time) {
 			var rtnEvent,
 				map = vm[mapid].map;
@@ -559,6 +646,8 @@
 				funct(evt);
 				rtnEvent.remove();
 			});
+
+			return rtnEvent;
 		};
 
 		hideInfoWindow = function(mapid, id) {
@@ -567,6 +656,10 @@
 
 		showInfoWindow = function(mapid, id, title, anchor, offx, offy) {
 			gisMap.showInfoWindow(vm[mapid].map, id, title, anchor, offx, offy);
+		};
+
+		saveImageMap = function(mapid) {
+			gisPrint.saveImageMap(vm[mapid].map);
 		};
 
 		manageScreenState = function(mapid, interval, fullscreen) {
@@ -594,6 +687,7 @@
 			getLayerParam: getLayerParam,
 			zoomLocation: zoomLocation,
 			zoomFeature: zoomFeature,
+			drawBox: drawBox,
 			getExtentMap: getExtent,
 			getScaleMap: getScale,
 			setScaleMap: setScale,
@@ -601,6 +695,10 @@
 			getHeightMap: getHeight,
 			getCenterMap: getCenter,
 			focusMap: focus,
+			getLayerURL: getLayerURL,
+			getDefQuery: getDefQuery,
+			setDefQuery: setDefQuery,
+			getGraphics: getGraphics,
 			addGraphic: addGraphic,
 			addLayerCSV: addLayerCSV,
 			addLayerFeature: addLayerFeature,
@@ -609,10 +707,13 @@
 			initGraphics: initGraphics,
 			importGraphics: importGraphics,
 			exportGraphics: exportGraphics,
+			addPopupEvent: addPopupEvent,
+			removePopupEvent: removePopupEvent,
 			registerEvent: registerEvent,
 			registerEventOne: registerEventOne,
 			hideInfoWindow: hideInfoWindow,
 			showInfoWindow: showInfoWindow,
+			saveImageMap: saveImageMap,
 			manageScreenState: manageScreenState,
 			disableZoomExtent: disableZoomExtent
 		};

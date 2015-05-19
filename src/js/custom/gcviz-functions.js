@@ -333,8 +333,15 @@
 		};
 
 		parseScale = function(input) {
-			var part1, part2, scale,
-				parts = input.split(':');
+			var part1, part2, scale, parts,
+				partsP = input.split(':'),
+				partsS = input.split('/');
+
+			if (partsP.length === 2) {
+				parts = partsP;
+			} else {
+				parts = partsS;
+			}
 
 			if (parts.length === 2) {
 				part1 = parseInt(parts[0], 10);
