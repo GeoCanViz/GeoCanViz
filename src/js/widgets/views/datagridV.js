@@ -50,18 +50,18 @@
 						'</div>' +
 
 						// add modal dialog until tables are loaded
-						'<div id="diagWait' + mapid + '" data-bind="uiDialog: { title: progressTitle, width: 490, height: 350, modal: true, openDialog: \'isWait\', closeOnEscape: false, ' +
+						'<div id="diagWait' + mapid + '" data-bind="uiDialog: { title: progressTitle, width: 490, modal: true, openDialog: \'isWait\', closeOnEscape: false, ' +
 																				'beforeClose: closeWait, open: openWait, position: { at: \'center\', of: \'#' + mapid + '_holder\' } }">' +
 							'<div><span data-bind="text: progressDesc"></span></div>' +
 						'</div>' +
 
 						// add modal dialog to notify export csv length
-						'<div id="gcviz-expcsv' + mapid + '" data-bind="uiDialog: { title: exportTitle, width: 490, height: 350, modal: true, ok: dialogExportOk, openDialog: \'isExport\' }">' +
+						'<div id="gcviz-expcsv' + mapid + '" data-bind="uiDialog: { title: exportTitle, width: 490, modal: true, ok: dialogExportOk, openDialog: \'isExport\' }">' +
 							'<div><span data-bind="text: exportDesc"></span></div>' +
 						'</div>' +
 
 						// WCAG dialog window
-						'<div id="gcviz-dg-wcag' + mapid + '" data-bind="wcag: { }, uiDialog: { title: WCAGTitle, width: 490, height: 210, ok: dialogWCAGOk, cancel: dialogWCAGCancel, close: dialogWCAGClose, openDialog: \'isDialogWCAG\' }">' +
+						'<div id="gcviz-dg-wcag' + mapid + '" data-bind="wcag: { }, uiDialog: { title: WCAGTitle, width: 490, ok: dialogWCAGOk, cancel: dialogWCAGCancel, close: dialogWCAGClose, openDialog: \'isDialogWCAG\' }">' +
 							'<div>' +
 								'<label for="gcviz-xvalue" class="gcviz-label gcviz-label-wcag" data-bind="text: lblWCAGx"></label>' +
 								'<input id="gcviz-xvalue" class="text ui-widget-content ui-corner-all gcviz-input-wcag" data-bind="value: xValueMin"/>' +

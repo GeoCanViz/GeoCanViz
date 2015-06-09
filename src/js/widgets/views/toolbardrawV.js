@@ -64,7 +64,7 @@
 			node += getImpExpBtn(config, mapid);
 
 			// WCAG dialog window
-			node += '<div id="diagDrawWCAG' + mapid + '" data-bind="wcag: { }, uiDialog: { title: WCAGTitle, width: 490, height: 350, ok: dialogWCAGOk, cancel: dialogWCAGCancel, close: dialogWCAGClose, openDialog: \'isDialogWCAG\' }">' +
+			node += '<div id="diagDrawWCAG' + mapid + '" data-bind="wcag: { }, uiDialog: { title: WCAGTitle, width: 490, ok: dialogWCAGOk, cancel: dialogWCAGCancel, close: dialogWCAGClose, openDialog: \'isDialogWCAG\' }">' +
 						'<div>' +
 							'<label for="gcviz-xvalue" class="gcviz-label gcviz-label-wcag" data-bind="text: lblWCAGx"></label>' +
 							'<input id="gcviz-xvalue" class="text ui-widget-content ui-corner-all gcviz-input-wcag" data-bind="value: xValue"/>' +
@@ -119,7 +119,7 @@
 					node += '<button class="gcviz-draw-length" tabindex="0" data-bind="buttonBlur, click: measureLengthClick, attr: { alt: tpMeasureLength }"></button>';
 
 					// show window with vertex and final distance or area
-					node += '<div data-bind="uiDialog: { title: lblMeasFull, width: 275, height: 220, modal: false, draggable: true, ok: dialogMeasureClose, close: dialogMeasureClose, openDialog: \'isMeasureDialogOpen\', ' +
+					node += '<div data-bind="uiDialog: { title: lblMeasFull, width: 275, modal: false, draggable: true, ok: dialogMeasureClose, close: dialogMeasureClose, openDialog: \'isMeasureDialogOpen\', ' +
 																'position: { within: \'#' + mapid + '_holder\', at: \'' + side + ' center\' } }">' +
 								'<div>' +
 									'<span data-bind="html: segmentMeasures"></span>' +
@@ -207,7 +207,7 @@
 
 			// if add text on, add the dialog window for annotation
 			if (drawText) {
-				node += '<div data-bind="uiDialog: { title: lblTextTitle, width: 450, height: 220, ok: dialogTextOk, cancel: dialogTextCancel, close: dialogTextClose, openDialog: \'isTextDialogOpen\' }">' +
+				node += '<div data-bind="uiDialog: { title: lblTextTitle, width: 450, ok: dialogTextOk, cancel: dialogTextCancel, close: dialogTextClose, openDialog: \'isTextDialogOpen\' }">' +
 							'<div id="gcviz-draw-inputbox">' +
 								'<form><fieldset>' +
 									'<input id="gcviz-textvalue" class="gcviz-draw-textinput text ui-widget-content ui-corner-all" data-bind="value: drawTextValue, valueUpdate: \'input\', returnKey: dialogTextOkEnter, attr: { alt: lblTextTitle }"/>' +

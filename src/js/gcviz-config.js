@@ -194,7 +194,7 @@
 	browserDetect.init();
 
 	// if browser not supported, redirect
-	if (window.browser !== 'Explorer' && window.browser !== 'Firefox' && window.browser !== 'Chrome' && window.browser !== 'Safari') {
+	if (window.browser !== 'Explorer' && window.browser !== 'Firefox' && window.browser !== 'Chrome' && window.browser !== 'Safari' && window.browser !== 'Mobile') {
 		if (language === 'en-min') {
 			alert('Browser not supported: needs to be Chrome, Firefox, Safari or Explorer. You will be redirected to project page. Make sure “Browser Mode” is “Internet Explorer 10” or above and “Document Mode is “Standards”. To access those settings, press F12 to open “developer tools”.');
 		} else {

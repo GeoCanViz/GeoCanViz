@@ -11,9 +11,8 @@
 			'knockout',
 			'genfile',
 			'gcviz-i18n',
-			'gcviz-func',
-			'gcviz-gisgraphic'
-	], function($viz, ko, generateFile, i18n, gcvizFunc, gisGraphic) {
+			'gcviz-func'
+	], function($viz, ko, generateFile, i18n, gcvizFunc) {
 		var initialize,
 			openTextDialog,
 			endDraw,

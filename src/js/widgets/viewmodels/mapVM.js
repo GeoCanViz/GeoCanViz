@@ -23,7 +23,6 @@
 			disableZoomExtent,
 			setScaleBar,
 			setOverviewMap,
-			repositionMaps,
 			resize,
 			resizeCenter,
 			setLayerVisibility,
@@ -36,7 +35,7 @@
 			getScale,
 			setScale,
 			getSR,
-			getHeight,
+			getSize,
 			getCenter,
 			focus,
 			getLayerURL,
@@ -58,6 +57,8 @@
 			hideInfoWindow,
 			showInfoWindow,
 			saveImageMap,
+			printBasic,
+			printCustom,
 			manageScreenState,
 			maps = [],
 			vm = {};
@@ -125,6 +126,9 @@
 					ko.utils.registerEventHandler(_self.mapholder, 'blur', function() {
 						_self.mapfocus(false);
 					});
+
+					// the print url to save map as image
+					_self.saveImgUrl = $mapElem.mapframe.map.urlsaveimage;
 
 					// check if extent is specify in the extent, if so modify config
 					// param look like this: extent=-535147.9538835107,12432.88706458224,-104177.95416573394,161860.56747549836
@@ -524,8 +528,14 @@
 			return vm[mapid].map.vWkid;
 		};
 
-		getHeight = function(mapid) {
-			return vm[mapid].map.height;
+		getSize = function(mapid) {
+			var map = vm[mapid].map,
+				size = {
+						height: map.height,
+						width: map.width,
+					};
+
+			return size;
 		};
 
 		getCenter = function(mapid) {
@@ -621,7 +631,7 @@
 		removePopupEvent = function(mapid) {
 			gisDG.removeEvtPop(mapid);
 		};
-			
+
 		registerEvent = function(mapid, evt, funct, time) {
 			var rtnEvent,
 				map = vm[mapid].map;
@@ -658,8 +668,18 @@
 			gisMap.showInfoWindow(vm[mapid].map, id, title, anchor, offx, offy);
 		};
 
-		saveImageMap = function(mapid) {
-			gisPrint.saveImageMap(vm[mapid].map);
+		saveImageMap = function(mapid, funct) {
+			var viewModel = vm[mapid];
+
+			gisPrint.saveImageMap(viewModel.map, viewModel.saveImgUrl).done(funct);
+		};
+
+		printBasic = function(mapid, url, tmplPath, preserve, forceScale, dpi) {
+			gisPrint.printBasicMap(vm[mapid].map, url, tmplPath, preserve, forceScale, dpi);
+		};
+
+		printCustom = function(mapid, url, selectValue, preserve, dpi, forceScale) {
+			gisPrint.printCustomMap(vm[mapid].map, url, selectValue, preserve, dpi, forceScale);
 		};
 
 		manageScreenState = function(mapid, interval, fullscreen) {
@@ -692,7 +712,7 @@
 			getScaleMap: getScale,
 			setScaleMap: setScale,
 			getSR: getSR,
-			getHeightMap: getHeight,
+			getSizeMap: getSize,
 			getCenterMap: getCenter,
 			focusMap: focus,
 			getLayerURL: getLayerURL,
@@ -714,6 +734,8 @@
 			hideInfoWindow: hideInfoWindow,
 			showInfoWindow: showInfoWindow,
 			saveImageMap: saveImageMap,
+			printBasic: printBasic,
+			printCustom: printCustom,
 			manageScreenState: manageScreenState,
 			disableZoomExtent: disableZoomExtent
 		};

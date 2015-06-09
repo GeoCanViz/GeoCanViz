@@ -26,6 +26,11 @@
 					pathOV = locationPath + 'gcviz/images/helpOV.png',
 					pathGCVizPNG = locationPath + 'gcviz/images/GCVizLogo.png',
 					pathZoombar = locationPath + 'gcviz/images/helpZoombar.png',
+					pathRadio = locationPath + 'gcviz/images/helpRadio.png',
+					pathChk = locationPath + 'gcviz/images/helpChk.png',
+					pathSlider = locationPath + 'gcviz/images/helpSlider.png',
+					pathArrow = locationPath + 'gcviz/images/helpArrow.png',
+					pathAddFile = locationPath + 'gcviz/images/helpAddFile.png',
 					$btnHelp = $mapElem.find('.gcviz-head-help'),
 					$dialog = $mapElem.find('#help-' + mapid),
 					$dialogBubble = $mapElem.find('#helpbubble-' + mapid).find('#gcviz-bubble'),
@@ -54,6 +59,11 @@
 				_self.imgHelpOV = pathOV;
 				_self.imgHelpLogo = pathGCVizPNG;
 				_self.imgHelpZoombar = pathZoombar;
+				_self.imgHelpRadio = pathRadio;
+				_self.imgHelpChk = pathChk;
+				_self.imgHelpSlider = pathSlider;
+				_self.imgHelpArrow = pathArrow;
+				_self.imgHelpAddFile = pathAddFile;
 
 				// text
 				_self.urlLogo = i18n.getDict('%footer-urlgcvizrepo');
@@ -87,13 +97,15 @@
 				_self.mapZoom = i18n.getDict('%help-map-zoom');
 				_self.mapZoombar = i18n.getDict('%help-map-zoombar');
 				_self.mapZoompv = i18n.getDict('%help-map-zoompv');
+				_self.mapZoombarAlt = i18n.getDict('%alt-zoombar');
 
 				// header
 				_self.headTitle = i18n.getDict('%help-head-title');
 				_self.headHelp = i18n.getDict('%help-head-help');
 				_self.headAbout = i18n.getDict('%help-head-about');
 				_self.headPrint = i18n.getDict('%help-head-print');
-				_self.headSave = i18n.getDict('%help-head-save');
+				_self.headSaveImg = i18n.getDict('%help-head-saveimg');
+				_self.headSaveUrl = i18n.getDict('%help-head-saveurl');
 				_self.headGoFS = i18n.getDict('%help-head-gofs');
 				_self.headExitFS = i18n.getDict('%help-head-exfs');
 				_self.headMenuTitle = i18n.getDict('%help-head-menutitle');
@@ -186,6 +198,11 @@
 				_self.legSlider = i18n.getDict('%help-leg-slider');
 				_self.legExpand = i18n.getDict('%help-leg-exp');
 				_self.legNewLayer = i18n.getDict('%help-leg-newLayer');
+				_self.legRadioAlt = i18n.getDict('%alt-radio');
+				_self.legChkAlt = i18n.getDict('%alt-chk');
+				_self.legSliderAlt = i18n.getDict('%alt-slider');
+				_self.legArrowAlt = i18n.getDict('%alt-arrow');
+				_self.legAddFileAlt = i18n.getDict('%alt-addfile');
 
 				// data text
 				_self.dataTitle = i18n.getDict('%help-data-title');

@@ -14,8 +14,7 @@
 			'esri/tasks/PrintParameters',
 			'esri/tasks/Geoprocessor'
 	], function($viz, func, esriPrintTemp, esriPrintTask, esriPrintParams, esriGeoProcessor) {
-		var printMap,
-			saveImageMap,
+		var saveImageMap,
 			saveImageResult,
 			printResult,
 			printError,
@@ -353,6 +352,9 @@
 						templateNorthArrow = $viz.extend(true, {}, templateMap);
 						paramsNorthArrow.map = map;
 						templateNorthArrow.layout = 'Northarrow';
+						if (map.wkid === 3978) {
+							templateNorthArrow.layout = 'Northarrow3978';
+						}
 						paramsNorthArrow.template = templateNorthArrow;
 					}
 
@@ -407,42 +409,16 @@
 			}
 		};
 
-		printMap = function(map, printInfo) {
-			// We cant use the print task for certain type now because it is not able to deal with
-			// cluster graphic layers.
-			// TODO try to solve this or stay with the new approach
-			var printTask = new esriPrintTask(printInfo.url),
-				params = new esriPrintParams(),
-				template = new esriPrintTemp();
-
-			// set the html page to open
-			htmlPage = printInfo.template;
-
-			// set the print template and print parameters then call the task
-			template.exportOptions = { dpi: 96 };
-			template.format = 'PNG8';
-			template.layout = 'Letter ANSI A Landscape';
-			template.layoutOptions = {
-				'scalebarUnit': 'Kilometers',
-				'copyrightText': printInfo.copyright,
-				'legendLayer': []
-			};
-			template.preserveScale = true;
-
-			params.template = template;
-			params.map = map;
-			printTask.execute(params, printResult, printError);
-		};
-
-		saveImageMap = function(map) {
-			var printTask = esriPrintTask('http://sampleserver6.arcgisonline.com/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task'),
+		saveImageMap = function(map, url) {
+			var def = $viz.Deferred(),
+				printTask = esriPrintTask(url, { async: true }),
 				params = new esriPrintParams(),
 				template = new esriPrintTemp();
 
 			template.exportOptions = {
-				width: map.width,
 				height: map.height,
-				dpi: 300
+				width: map.width,
+				dpi: 96
 			};
 			template.format = 'JPG';
 			template.layout = 'MAP_ONLY';
@@ -450,14 +426,16 @@
 
 			params.map = map;
 			params.template = template;
-
 			printTask.execute(params, saveImageResult);
+
+			printTask.on('complete, error', function() {
+				def.resolve();
+			});
+			return def;
 		};
 
 		saveImageResult = function(response) {
-			var link = document.createElement('a');
-			link.href = response.url;
-			link.click();
+			window.open(response.url);
 		};
 
 		printResult = function(response) {
@@ -469,7 +447,6 @@
 		};
 
 		return {
-			printMap : printMap,
 			generateHTMLPrint : generateHTMLPrint,
 			getTemplates: getTemplates,
 			getMxdElements: getMxdElements,

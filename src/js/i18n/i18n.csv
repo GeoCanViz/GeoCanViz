@@ -19,6 +19,12 @@ Global sys value#%gisurlalti#http://geogratis.gc.ca/services/elevation/cdem/alti
 #%lat#Latitude: #Latitude : 
 #%long#Longitude: #Longitude : 
 #%position#Position: #Position : 
+#%alt-radio#Radio button#Bouton radio
+#%alt-chk#Checbox#Case à cocher
+#%alt-slider#Transparency slider#Curseur de transparence
+#%alt-arrow#Close and open arrow#Flèche ouverte et fermée
+#%alt-addfile#Add file result#Résultat de l'ajout d'un fichier
+#%alt-zoombar#Zoom bar#Barre de zoom
 #%wcag-instrtitle#Instructions: Keyboard Navigation#Instruction : Naviguer dans la carte à l'aide du clavier
 #%wcag-instrtitlealt#Instructions: Keyboard Navigation - Help#Instruction : Naviguer dans la carte à l'aide du clavier - aide
 #%wcag-instr#Keyboard user: When the map is in focus, use the arrow keys to pan the map and the shift+plus and shift+minus keys to zoom. Setup your keyboard to control the mouse or enable the accessibility mode to have coordinates input box.#Utilisateur du clavier : Lorsque la carte a l'attention, utiliser les touches flèches pour déplacer la carte et utiliser les touches shift+plus et shift+négatif pour faire un zoom. Configurer votre clavier pour contrôler la souris ou activer le mode accessibilité afin d'avoir les boîtes d'entrée pour les coordonnées.
@@ -36,12 +42,14 @@ Global sys value#%gisurlalti#http://geogratis.gc.ca/services/elevation/cdem/alti
 #%header-abouttitle#about this map #À propos de cette carte 
 #%header-aboutread#Read #Lire 
 #%header-tpabout#About this map#À propos de cette carte
-#%header-tpsave#Save map URL#Sauvegarder l'URL de la carte
+#%header-tpsaveurl#Save map URL#Sauvegarder l'URL de la carte
+#%header-tpsaveimage#Save map as image#Sauvegarder une image de la carte
 #%header-tphelp#Help#Aide
 #%header-tpprint#Print map#Imprimer la carte
 #%header-tpinset#Show or hide insets#Afficher ou cacher les insertions
 #%header-tpfullscreen#Toggle between maximum and original map size#Basculer entre mode plein écran et régulier
-#%header-copyclip#To copy map URL to clipboard press CTRL+C keys or move your mouse over the text, press right click button then select copy.#Pour copier l'URL au presse-papier, pressez les touches CTRL+C ou bien déplacez votre souris au dessus du texte, clicquez sur le bouton droit et sélectionnez copier.
+#%header-copyclip#To copy map URL to clipboard press CTRL+C keys or move your mouse over the text, press right click button then select “Copy”.#Pour copier l'URL au presse-papier, pressez les touches CTRL+C ou bien déplacez votre souris au-dessus du texte, cliquez sur le bouton de droite et sélectionnez « Copier ».
+#%header-printinfo#The Print tool will preserve the viewing scale. Move/zoom the portion of the map you would like to print inside the grey box then click OK. To preserve the viewing extent, use the “Save Map as Image” tool.#L'outil d'impression préserve l'échelle d'affichage. Déplacer / zoomer la partie de la carte que vous souhaitez imprimer à l'intérieur de la boîte grise puis cliquez sur OK. Pour préserver l'étendue de la carte, utilisez l'outil « Sauvegarder une image de la carte ».
 #%print-dialogtitle#Print#Imprimer
 #%print-dialogtemplate#Template#Gabarit
 #%print-dialogParameters#Parameters#Paramètres
@@ -155,9 +163,9 @@ Global sys value#%gisurlalti#http://geogratis.gc.ca/services/elevation/cdem/alti
 #%toolbarnav-ovdrag#Drag to change map extent#Glisser pour changer l'étendue de la carte
 #%toolbarnav-scale#Approximate Scale #Échelle approximative 
 #%toolbarnav-scalepre#1:#1/
-#%toolbarnav-zoomscalemin#You are trying to set map scale below minimum zoom level. The map scale will be #Vous essayez de définir l'échelle de la carte en dessous du niveau de zoom minimum. L'échelle de la carte sera 
-#%toolbarnav-zoomscalemax#You are trying to set map scale above maximum zoom level. The map scale will be #Vous essayez de définir l'échelle de la carte au dessus du niveau de zoom maximum. L'échelle de la carte sera 
-#%toolbarnav-zoomscale#You are trying to set map scale between zoom levels. The map scale will be #Vous essayez de définir l'échelle de la carte entre les niveaux de zoom. L'échelle de la carte sera 
+#%toolbarnav-zoomscalemin#You are trying to set map scale below minimum zoom level. The map scale is #Vous essayez de définir l'échelle de la carte en dessous du niveau de zoom minimum. L'échelle de la carte est 
+#%toolbarnav-zoomscalemax#You are trying to set map scale above maximum zoom level. The map scale is #Vous essayez de définir l'échelle de la carte au dessus du niveau de zoom maximum. L'échelle de la carte est 
+#%toolbarnav-zoomscale#You are trying to set map scale between zoom levels. The map scale is #Vous essayez de définir l'échelle de la carte entre les niveaux de zoom. L'échelle de la carte est 
 #%toolbarnav-zoomscaledyna#Map scale = #L'échelle de la carte =
 #%toolbardata-alt#Import Data - Help#Importer des données - Aide
 #%toolbardata-name#Import Data#Importer des données
@@ -219,7 +227,8 @@ Global sys value#%gisurlalti#http://geogratis.gc.ca/services/elevation/cdem/alti
 #%help-head-help#Click to open the help window.#Cliquez pour ouvrir la fenêtre d'aide.
 #%help-head-about#Click to open a window containing a description of the map.#Cliquez pour ouvrir une fenêtre contenant une description de la carte.
 #%help-head-print#Click to print the current view of the map.#Cliquez pour imprimer l'aperçu actuel de la carte.
-#%help-head-save#Click to save map URL. This URL let you open the map in the same state.# Cliquez pour sauvegarder l'URL de la carte. Cette URL vous permet d'ouvrir la carte dans le même état.
+#%help-head-saveimg#Click to save map as image. The image will open in a new window. To save the image, move your mouse over it and press right click button then select “Save image As...”.#Cliquez pour sauvegarder une image de la carte. Cette image s'ouvrira dans une nouvelle fenêtre. Pour la sauvegarder, déplacez votre souris au dessus de celle-ci et clicquez sur le bouton droit puis sélectionnez « Sauvegarder Sous... ».
+#%help-head-saveurl#Click to save map URL. This URL let you open the map in the same state.#Cliquez pour sauvegarder l'URL de la carte. Cette URL vous permet d'ouvrir la carte dans le même état.
 #%help-head-gofs#Click to view the maximum map size.#Cliquez pour voir la taille maximale de la carte.
 #%help-head-exfs#Click to return to the default map size.#Cliquer pour retourner à la taille par défaut de la carte.
 #%help-head-menutitle#Menu#Menu

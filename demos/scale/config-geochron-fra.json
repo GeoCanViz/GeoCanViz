@@ -9,6 +9,7 @@
                 "urlgeomserv": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/Utilities/Geometry/GeometryServer",
                 "urlproxy": "http://geoappext.nrcan.gc.ca/php/proxy.ashx",
                 "urldownload": "http://geoappext.nrcan.gc.ca/php/download.php",
+                "urlsaveimage": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task",
                 "sr": {
                     "wkid": 3978
                 },
@@ -147,7 +148,7 @@
 					}
                 },
 				{
-                	"label": "Imagery Landsat7",
+                	"label": "Imagerie Landsat7",
                     "id":"99999999-0003-c8f5-175c-645270a6b6fe",
                     "type": 3,
                     "url": "http://maps.geogratis.gc.ca/wms/canimage_en",
@@ -164,10 +165,10 @@
           			}
           		},
 				{
-                    "label": "CBMT3978",
+                    "label": "CBCT3978",
                     "id": "62e7429b-b08a-9325-45dd-4fbff4f67858",
                     "type": 2,
-                    "url": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/BaseMaps/CBMT3978/MapServer",
+                    "url": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/BaseMaps/CBCT3978/MapServer",
                     "scale": {
                         "min": 0,
                         "max": 0
@@ -175,7 +176,7 @@
 				}
 				],
                 "layers": [
-					{"label":"Geochron",
+					{"label":"Géochronologie",
 					"id":"6f798c6b-f369-4e24-78dd-9bfa5a9bc59e",
 					"type":4,
 					"url":"http://geoappext.nrcan.gc.ca/arcgis/rest/services/GSCC/Geochronology/MapServer/",
@@ -188,8 +189,8 @@
         "header": {
             "side": 1,
             "title": {
-                "value": "Canadian Geochronology Knowledgebase",
-                "alttext": "Canadian Geochronology Knowledgebase"
+                "value": "Base nationale des données géochronologiques",
+                "alttext": "Base nationale des données géochronologiques"
             },
             "tools": {
                 "enable": true,
@@ -200,14 +201,20 @@
             "about": {
                 "enable": true,
                 "type": 1,
-                "value": "The CGKB compilation represents publicly available geochronological information for Canada. The data is compiled from federal, provincial and territorial government publications and reports, university theses, books and journal articles."
+                "value": "La compilation BNDG est composée d'information géochronologique pour le Canada auxquel le public a accèss. Elle provient de références bibliographiques incluant des publications et rapports du gouvernement fédéral, des gouvernements provinciaux et territoriaux, de thèses universitaires, livres et journaux scientifiques."
             },
             "print": {
                 "enable": true,
-                "type": 3
+                "type": 3,
+                "printlayout": ["Portrait", "Landscape"],
+                "project": ["Default", "Topo"],
+                "DPI": [96, 300]
             },
-			"save": {
-            	"enable": true
+		 "saveurl": {
+              "enable": true
+            },
+            "saveimage": {
+              "enable": true
             },
             "fullscreen": true
         },
@@ -242,8 +249,8 @@
 					"graphid": "cc7fde4c-0003-1cf2-8358-7ca86eefb13c",
 					"displayfields": false,
 					"label": {
-						"value": "Canada Base Map",
-						"alttext": "Canada Base Map"
+						"value": "Carte de fond du Canada",
+						"alttext": "Carte de fond du Canada"
 					},
 					"metadata": {
 						"enable": false
@@ -279,8 +286,8 @@
 					"graphid": "762eb7ed-0001-242f-6fcf-af08f5605eb1",
 					"displayfields": false,
 					"label": {
-						"value": "Hillshade",
-						"alttext": "Hillshade"
+						"value": "Ombrage",
+						"alttext": "Ombrage"
 					},
 					"metadata": {
 						"enable": false
@@ -316,8 +323,8 @@
 					"graphid":"e5511402-0002-5cbe-0d3c-f537c612b7df",
 					"displayfields":false,
 					"label":{
-						"value":"Landsat Imagery",
-						"alttext":"Landsat Imagery"
+						"value":"Imagerie Landsat",
+						"alttext":"Imagerie Landsat"
 					},
 					"metadata":
 						{"enable":false,
@@ -356,7 +363,7 @@
 					"id":"6f798c6b-f369-4e24-78dd-9bfa5a9bc59e",
 					"graphid":"68865be1-057c-7faf-9521-029baa08899a",
 					"displayfields":false,
-					"label":{"value":"Geochronology","alttext":"Geochronology"},
+					"label":{"value":"Géochronologie","alttext":"Géochronologie"},
 					"metadata":{"enable":false},
 					"opacity":{"enable":false,"min":0,"max":1,"initstate":1},
 					"visibility":{"enable":true,"initstate":true,"type":1,"radioid":0},
@@ -365,7 +372,7 @@
 					},
 					"customimage":{
 						"enable":false,
-						"description": "Geochronology",
+						"description": "",
 						"images":[]
 					},
 					"items":[]
@@ -411,7 +418,7 @@
             },
             "overview": {
                 "enable": true,
-                    "url": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/BaseMaps/CBMT3978/MapServer",
+                    "url": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/BaseMaps/CBCT3978/MapServer",
                 "type": 2
             },
             "position": {
@@ -426,7 +433,7 @@
                 "enable": true
             },
             "dataurl": {
-                "enable": true
+                "enable": false
             },
             "dataquery": {
             	"enable": false
@@ -444,30 +451,41 @@
 							"type": 4,
 							"index": 0
 					   },
-					   "title": "Geochronology",
+					   "title": "Géochronologie",
 					   "globalsearch": false,
-					   "fields": [{
-					           "title": "Lab No",
-					           "width": "100px",
-					           "data": "LABNO",
-					           "dataalias": "labno",
+					   "fields": [
+					       {
+					           "title": "Prov.",
+					           "width": "40px",
+					           "data": "PROV",
+					           "dataalias": "Province",
 								"fieldtype": {
 								"type": 1,
-								"value": 2
+								"value": 4
 							},
 								"searchable": true
 					       }, {
-					           "title": "Sample No",
+					           "title": "Province Géologique",
 					           "width": "90px",
-					           "data": "SAMPLENO",
-					           "dataalias": "Sample Number",
-				    "fieldtype": {
-				      "type": 1,
-				      "value": 1
-				     },
+					           "data": "GEOLOGICAL_PROVINCE",
+					           "dataalias": "Geological Province",
+								"fieldtype": {
+								"type": 1,
+								"value": 4
+							},
 								"searchable": true
 					       }, {
-					           "title": "Age (Million years)",
+					           "title": "Type de roche",
+					           "width": "70px",
+					           "data": "ROCKTYPE",
+					           "dataalias": "Rock Type",
+								"fieldtype": {
+								"type": 1,
+								"value": 4
+							},
+								"searchable": true
+					       }, {
+					           "title": "Âge (Million d'années)",
 					           "width": "100px",
 					           "data": "AGE",
 					           "dataalias": "Age",
@@ -477,8 +495,8 @@
 							},
 								"searchable": true
 					       }, {
-					           "title": "Error Plus",
-					           "width": "100px",
+					           "title": "Erreur +",
+					           "width": "80px",
 					           "data": "ERR_PLUS",
 					           "dataalias": "Error Plus",
 								"fieldtype": {
@@ -487,8 +505,8 @@
 							},
 								"searchable": true
 					       }, {
-					           "title": "Error Minus",
-					           "width": "100px",
+					           "title": "Erreur -",
+					           "width": "80px",
 					           "data": "ERR_MINUS",
 					           "dataalias": "Error Minus",
 								"fieldtype": {
@@ -497,7 +515,17 @@
 							},
 								"searchable": true
 					       }, {
-					           "title": "Age Method",
+					           "title": "Âge-Interprétation",
+					           "width": "110px",
+					           "data": "AGE_INTERP",
+					           "dataalias": "Age Interp",
+								"fieldtype": {
+								"type": 1,
+								"value": 4
+							},
+								"searchable": true
+					       }, {
+					           "title": "Âge-méthode",
 					           "width": "60px",
 					           "data": "AGE_METHOD",
 					           "dataalias": "Method",
@@ -507,27 +535,7 @@
 							},
 								"searchable": true
 					       }, {
-					           "title": "Age Interpretation",
-					           "width": "110px",
-					           "data": "AGE_INTERP",
-					           "dataalias": "Age Interp",
-								"fieldtype": {
-								"type": 1,
-								"value": 1
-							},
-								"searchable": true
-					       }, {
-					           "title": "Age Note",
-					           "width": "90px",
-					           "data": "AGE_NOTE",
-					           "dataalias": "Note",
-								"fieldtype": {
-								"type": 1,
-								"value": 1
-							},
-								"searchable": true
-					       }, {
-					           "title": "Material",
+					           "title": "Matériel",
 					           "width": "60px",
 					           "data": "AGE_MATERIAL",
 					           "dataalias": "Material",
@@ -547,7 +555,7 @@
 							},
 								"searchable": true
 					       }, {
-					           "title": "Qualifier",
+					           "title": "Qualificatif",
 					           "width": "70px",
 					           "data": "AGE_QUALIFIER",
 					           "dataalias": "Age Qualifier",
@@ -557,77 +565,27 @@
 							},
 								"searchable": true
 					       }, {
-					           "title": "Geological Province",
+					           "title": "Âge-Note",
 					           "width": "90px",
-					           "data": "GEOLOGICAL_PROVINCE",
-					           "dataalias": "Geological Province",
+					           "data": "AGE_NOTE",
+					           "dataalias": "Note",
 								"fieldtype": {
 								"type": 1,
 								"value": 1
 							},
 								"searchable": true
 					       }, {
-					           "title": "Province",
-					           "width": "70px",
-					           "data": "PROV",
-					           "dataalias": "Province",
+					           "title": "Num. Échant.",
+					           "width": "90px",
+					           "data": "SAMPLENO",
+					           "dataalias": "Sample Number",
 								"fieldtype": {
-								"type": 1,
-								"value": 1
-							},
+								  "type": 1,
+								  "value": 1
+								 },
 								"searchable": true
 					       }, {
-					           "title": "Lat.",
-					           "width": "100px",
-					           "data": "LATITUDE",
-					           "dataalias": "Latitude",
-								"fieldtype": {
-								"type": 1,
-								"value": 2
-							},
-								"searchable": true
-					       }, {
-					           "title": "Long.",
-					           "width": "100px",
-					           "data": "LONGITUDE",
-					           "dataalias": "Longitude",
-								"fieldtype": {
-								"type": 1,
-								"value": 2
-							},
-								"searchable": true
-					       }, {
-					           "title": "Location",
-					           "width": "70px",
-					           "data": "LOCATION",
-					           "dataalias": "Location",
-								"fieldtype": {
-								"type": 1,
-								"value": 1
-							},
-								"searchable": true
-					       }, {
-					           "title": "Geological Info.",
-					           "width": "75px",
-					           "data": "GEOLOGICAL_INFO",
-					           "dataalias": "Geological Info",
-								"fieldtype": {
-								"type": 1,
-								"value": 1
-							},
-								"searchable": true
-					       }, {
-					           "title": "Rock Type",
-					           "width": "60px",
-					           "data": "ROCKTYPE",
-					           "dataalias": "Rock Type",
-								"fieldtype": {
-								"type": 1,
-								"value": 1
-							},
-								"searchable": true
-					       }, {
-					           "title": "Rock Descr.",
+					           "title": "Descr.-Roche",
 					           "width": "60px",
 					           "data": "ROCKDESC",
 					           "dataalias": "Rock Description",
@@ -637,7 +595,47 @@
 							},
 								"searchable": true
 					       }, {
-					           "title": "Authors",
+					           "title": "Lat.",
+					           "width": "140px",
+					           "data": "LATITUDE",
+					           "dataalias": "Latitude",
+								"fieldtype": {
+								"type": 1,
+								"value": 2
+							},
+								"searchable": true
+					       }, {
+					           "title": "Long.",
+					           "width": "170px",
+					           "data": "LONGITUDE",
+					           "dataalias": "Longitude",
+								"fieldtype": {
+								"type": 1,
+								"value": 2
+							},
+								"searchable": true
+					       }, {
+					           "title": "Emplacement",
+					           "width": "70px",
+					           "data": "LOCATION",
+					           "dataalias": "Location",
+								"fieldtype": {
+								"type": 1,
+								"value": 1
+							},
+								"searchable": true
+					       }, {
+					           "title": "Info. géologique",
+					           "width": "75px",
+					           "data": "GEOLOGICAL_INFO",
+					           "dataalias": "Geological Info",
+								"fieldtype": {
+								"type": 1,
+								"value": 1
+							},
+								"searchable": true
+					       }, {
+					           "title": "Auteurs",
 					           "width": "60px",
 					           "data": "AUTHORS",
 					           "dataalias": "Authors",
@@ -647,8 +645,8 @@
 							},
 								"searchable": true
 					       }, {
-					           "title": "Year",
-					           "width": "100px",
+					           "title": "Année",
+					           "width": "90px",
 					           "data": "YEAR_",
 					           "dataalias": "Year",
 								"fieldtype": {
@@ -657,17 +655,7 @@
 							},
 								"searchable": true
 					       }, {
-					           "title": "Title",
-					           "width": "60px",
-					           "data": "AGE_NOTE",
-					           "dataalias": "Title",
-								"fieldtype": {
-								"type": 1,
-								"value": 1
-							},
-								"searchable": true
-					       }, {
-					           "title": "Ref. Info.",
+					           "title": "Réf.-Info.",
 					           "width": "60px",
 					           "data": "REFERENCE_INFO",
 					           "dataalias": "Reference Info",
@@ -677,13 +665,13 @@
 							},
 								"searchable": true
 					       }, {
-					           "title": "Comp. Name",
-					           "width": "60px",
-					           "data": "COMPILATION_NAME",
-					           "dataalias": "Compilation Name",
+					           "title": "Num. Lab",
+					           "width": "90px",
+					           "data": "LABNO",
+					           "dataalias": "labno",
 								"fieldtype": {
 								"type": 1,
-								"value": 1
+								"value": 2
 							},
 								"searchable": true
 					       }],

@@ -1,0 +1,1853 @@
+{
+    "gcviz": {
+        "mapframe": {
+            "size": {
+                "height": 600,
+                "width": 2000
+
+            },
+            "map": {
+                "urlgeomserv": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/Utilities/Geometry/GeometryServer",
+                "urlproxy": "http://geoappext.nrcan.gc.ca/php/proxy.ashx",
+                "urldownload": "http://geoappext.nrcan.gc.ca/php/download.php",
+                "urlsaveimage": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task",
+                "sr": {
+                    "wkid": 3978
+                },
+                "extentmax": {
+                    "xmin": -3744824.40769,
+                    "ymin": -1233258.60581,
+                    "xmax": 4192691.46735,
+                    "ymax": 4323002.50671
+                },
+                "extentinit": {
+                    "xmin": -4942810.52762,
+                    "ymin": -1069712.7058,
+                    "xmax": 6963463.28493,
+                    "ymax": 4221964.54422
+                },
+                "lods": {
+                    "enable": true,
+                    "values": [{
+                        "level": 0,
+                        "resolution": 38364.660062653464,
+                        "scale": 145000000,
+                        "check": true
+                    }, {
+                        "level": 1,
+                        "resolution": 22489.62831258996,
+                        "scale": 85000000,
+                        "check": true
+                    }, {
+                        "level": 2,
+                        "resolution": 13229.193125052918,
+                        "scale": 50000000,
+                        "check": true
+                    }, {
+                        "level": 3,
+                        "resolution": 7937.5158750317505,
+                        "scale": 30000000,
+                        "check": true
+                    }, {
+                        "level": 4,
+                        "resolution": 4630.2175937685215,
+                        "scale": 17500000,
+                        "check": true
+                    }, {
+                        "level": 5,
+                        "resolution": 2645.8386250105837,
+                        "scale": 10000000,
+                        "check": true
+                    }, {
+                        "level": 6,
+                        "resolution": 1587.5031750063501,
+                        "scale": 6000000,
+                        "check": true
+                    }, {
+                        "level": 7,
+                        "resolution": 926.0435187537042,
+                        "scale": 3500000,
+                        "check": true
+                    }, {
+                        "level": 8,
+                        "resolution": 529.1677250021168,
+                        "scale": 2000000,
+                        "check": true
+                    }, {
+                        "level": 9,
+                        "resolution": 317.50063500127004,
+                        "scale": 1200000,
+                        "check": true
+                    }, {
+                        "level": 10,
+                        "resolution": 185.20870375074085,
+                        "scale": 700000,
+                        "check": true
+                    }, {
+                        "level": 11,
+                        "resolution": 111.12522225044451,
+                        "scale": 420000,
+                        "check": true
+                    }, {
+                        "level": 12,
+                        "resolution": 66.1459656252646,
+                        "scale": 250000,
+                        "check": true
+                    }, {
+                        "level": 13,
+                        "resolution": 38.36466006265346,
+                        "scale": 145000,
+                        "check": true
+                    }, {
+                        "level": 14,
+                        "resolution": 22.48962831258996,
+                        "scale": 85000,
+                        "check": true
+                    }, {
+                        "level": 15,
+                        "resolution": 13.229193125052918,
+                        "scale": 50000,
+                        "check": true
+                    }, {
+                        "level": 16,
+                        "resolution": 7.9375158750317505,
+                        "scale": 30000,
+                        "check": true
+                    }, {
+                        "level": 17,
+                        "resolution": 4.6302175937685215,
+                        "scale": 17500,
+                        "check": true
+                    }]
+                },
+                "link": false,
+                "zoombar": {
+                    "bar": true,
+                    "zoom": true,
+                    "zoomfull": true,
+                    "previousnext": true
+                },
+                "bases": [{
+                    "label": "CBME_CBCE_HS_RO_3978",
+                    "id": "34ad6a2c-2bcf-bd20-111f-ce0421f62a53",
+                    "type": 2,
+                    "url": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/BaseMaps/CBME_CBCE_HS_RO_3978/MapServer",
+                    "scale": {
+                        "min": 0,
+                        "max": 0
+                    }
+                }, {
+                    "label": "CBMT3978",
+                    "id": "62e7429b-b08a-9325-45dd-4fbff4f67858",
+                    "type": 2,
+                    "url": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/BaseMaps/CBMT3978/MapServer",
+                    "scale": {
+                        "min": 0,
+                        "max": 0
+                    }
+                }, {
+                    "label": "toporama",
+                    "id": "bbbb469d-gggg-c8f5-175c-645270a6b6fe",
+                    "type": 3,
+                    "url": "http://wms.ess-ws.nrcan.gc.ca/wms/toporama_en",
+                    "options": {
+                        "layerinfos": [{
+                            "name": "WMS-Toporama",
+                            "title": "WMS-Toporama"
+                        }],
+                        "visiblelayers": ["WMS-Toporama"]
+                    },
+					"scale": {
+                            "min": 0,
+                            "max": 0
+                        },
+                        "cluster": {
+                            "enable": false,
+                            "distance": 50,
+                            "label": false,
+                            "symbol": false,
+                            "maxsizeprop": 50,
+                            "maxdataprop": 1000
+                        }
+
+                }, {
+                    "label": "Imagery Lansat7",
+                    "id": "99999999-0003-c8f5-175c-645270a6b6fe",
+                    "type": 3,
+                    "url": "http://maps.geogratis.gc.ca/wms/canimage_en",
+                    "scale": {
+                        "min": 0,
+                        "max": 0
+                    },
+                    "options": {
+                        "layerinfos": [{
+                            "name": "canimage",
+                            "title": "canimage"
+                        }],
+                        "visiblelayers": ["canimage"]
+                    }
+                }],
+                "layers": [{
+                    "label": "Geology",
+                    "id": "bbbb469d-aab2-c8f5-175c-645200a6b6fe",
+                    "type": 4,
+                    "url": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/MMS/GMRC_E/MapServer/",
+                    "scale": {
+                        "min": 0,
+                        "max": 0
+                    },
+					"cluster": {
+                            "enable": false,
+                            "distance": 50,
+                            "label": false,
+                            "symbol": false,
+                            "maxsizeprop": 50,
+                            "maxdataprop": 1000
+                        }
+                }, {
+                    "label": "Oil and Gas",
+                    "id": "bc9204ec-1573-e90c-dd4b-58b29e200478",
+                    "type": 4,
+                    "url": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/MMS/OG_E/MapServer/",
+                    "beforebase": false,
+                    "scale": {
+                        "min": 0,
+                        "max": 0
+                    },
+					"cluster": {
+                            "enable": false,
+                            "distance": 50,
+                            "label": false,
+                            "symbol": false,
+                            "maxsizeprop": 50,
+                            "maxdataprop": 1000
+                        }
+                }, {
+                    "label": "Oil sands mines",
+                    "id": "262d92e2-c0d8-c373-f750-2d06596d45b7",
+                    "type": 4,
+                    "url": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/MMS/PM_E/MapServer/",
+                    "visiblelayers": [3],
+                    "beforebase": false,
+                    "scale": {
+                        "min": 0,
+                        "max": 0
+                    },
+					"cluster": {
+                            "enable": false,
+                            "distance": 50,
+                            "label": false,
+                            "symbol": false,
+                            "maxsizeprop": 50,
+                            "maxdataprop": 1000
+                        }
+                }, {
+                    "label": "Coal mines",
+                    "id": "7ee0a175-dcda-3050-a493-2be425ec5bc5",
+                    "type": 4,
+                    "url": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/MMS/PM_E/MapServer/",
+                    "visiblelayers": [2],
+                    "beforebase": false,
+                    "scale": {
+                        "min": 0,
+                        "max": 0
+                    },
+					"cluster": {
+                            "enable": false,
+                            "distance": 50,
+                            "label": false,
+                            "symbol": false,
+                            "maxsizeprop": 50,
+                            "maxdataprop": 1000
+                        }
+                }, {
+                    "label": "Nonmetal mines",
+                    "id": "00af8c8f-2fa1-4a6b-7d5e-052d9f7e9970",
+                    "type": 4,
+                    "url": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/MMS/PM_E/MapServer/",
+                    "visiblelayers": [1],
+                    "beforebase": false,
+                    "scale": {
+                        "min": 0,
+                        "max": 0
+                    },
+					"cluster": {
+                            "enable": false,
+                            "distance": 50,
+                            "label": false,
+                            "symbol": false,
+                            "maxsizeprop": 50,
+                            "maxdataprop": 1000
+                        }
+                }, {
+                    "label": "Metal mines",
+                    "id": "1ea1f1db-5b0f-b960-42df-90cecedfad10",
+                    "type": 4,
+                    "url": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/MMS/PM_E/MapServer/",
+                    "visiblelayers": [0],
+                    "beforebase": false,
+                    "scale": {
+                        "min": 0,
+                        "max": 0
+                    },
+					"cluster": {
+                            "enable": false,
+                            "distance": 50,
+                            "label": false,
+                            "symbol": false,
+                            "maxsizeprop": 50,
+                            "maxdataprop": 1000
+                        }
+                }, {
+                    "label": "T100EP_E",
+                    "id": "c23e1d3c-9735-4a34-ac36-bfd2eccdf6fd",
+                    "type": 4,
+                    "url": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/MMS/T100EP_E/MapServer/",
+                    "beforebase": false,
+                    "scale": {
+                        "min": 0,
+                        "max": 0
+                    },
+					"cluster": {
+                            "enable": false,
+                            "distance": 50,
+                            "label": false,
+                            "symbol": false,
+                            "maxsizeprop": 50,
+                            "maxdataprop": 1000
+                        }
+                }, {
+                    "label": "Metallurgical Works",
+                    "id": "5695651f-1d33-56d9-95bc-e80cc6d01de9",
+                    "type": 4,
+                    "url": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/MMS/MW_E/MapServer/",
+                    "beforebase": false,
+                    "scale": {
+                        "min": 0,
+                        "max": 0
+                    },
+					"cluster": {
+                            "enable": false,
+                            "distance": 50,
+                            "label": false,
+                            "symbol": false,
+                            "maxsizeprop": 50,
+                            "maxdataprop": 1000
+                        }
+                }]
+            }
+        },
+        "header": {
+            "side": 1,
+            "title": {
+                "value": "Minerals and Mining Map 2014",
+                "alttext": "Minerals and Mining Map 2014"
+            },
+            "tools": {
+                "enable": true,
+                "expand": true
+            },
+            "link": false,
+            "inset": false,
+            "about": {
+                "enable": true,
+                "type": 1,
+                "value": "This map depicts the location of Canada's principal producing mines for the given reference year. It includes locations for significant metallic, non-metallic and industrial mineral mines (except clay products, peat, and most construction materials [most stone, sand and gravel]), coal mines, oil sands mines, and oil and gas fields across the country. Also depicted are the locations of significant metallurgical facilities across Canada. The data in this map are based on Natural Resources Canada's annual Map 900A – Principal Mineral Areas of Canada. Pertinent information for each mine is provided, including operation name, owner/operator, commodities extracted, and on-site facilities. This map also depicts the location of the top 100 exploration and deposit appraisal projects for the given reference year.The data in this map are based on Natural Resources Canada 's annual Map of Top 100 Exploration and Deposit Appraisal Projects. Pertinent information for each project is provided, including operation name, commodity sought, and province or territory."
+            },
+            "print": {
+                "enable": true,
+                "type": 3,
+                "printlayout": ["Portrait", "Landscape"],
+                "project": ["Default", "Topo"],
+                "DPI": [96, 300]
+            },
+			"saveurl": {
+              "enable": true
+            },
+            "saveimage": {
+              "enable": true
+            },
+            "fullscreen": true
+        },
+        "footer": {
+            "northarrow": {
+                "enable": true,
+                "inwkid": 3978
+            },
+            "mousecoords": {
+                "enable": true,
+                "outwkid": 4326
+            },
+            "scalebar": {
+                "enable": true,
+                "unit": 1
+            },
+            "datatgrid": {
+                "direction": "in"
+            },
+            "logo": false
+        },
+        "toolbarlegend": {
+            "enable": true,
+            "expand": true,
+            "pos": 1,
+            "basemaps": [{
+                "expand": false,
+                "last": true,
+                "type": 2,
+                "id": "",
+                "graphid": "762eb7ed-cccc-242f-6fcf-af08f5605eb1",
+                "displayfields": false,
+                "label": {
+                    "value": "No base",
+                    "alttext": "No base"
+                },
+                "metadata": {
+                    "enable": false
+                },
+                "opacity": {
+                    "enable": false
+                },
+                "visibility": {
+                    "enable": true,
+                    "initstate": false,
+                    "type": 2,
+                    "radioid": 5
+                },
+                "displaychild": {
+                    "enable": false
+                },
+                "customimage": {
+                    "enable": false,
+                    "description": "",
+                    "images": []
+                },
+                "items": []
+            }, {
+                "expand": false,
+                "last": true,
+                "type": 3,
+                "id": "99999999-0003-c8f5-175c-645270a6b6fe",
+                "graphid": "e5511402-0002-5cbe-0d3c-f537c612b7df",
+                "displayfields": false,
+                "label": {
+                    "value": "Landsat imagery",
+                    "alttext": "Landsat imagery"
+                },
+                "metadata": {
+                    "enable": false,
+                    "value": "",
+                    "alttext": ""
+                },
+                "opacity": {
+                    "enable": true,
+                    "min": 0,
+                    "max": 1,
+                    "initstate": 0.7
+                },
+                "visibility": {
+                    "enable": true,
+                    "initstate": false,
+                    "type": 2,
+                    "radioid": 5
+                },
+                "displaychild": {
+                    "enable": false,
+                    "symbol": ""
+                },
+                "customimage": {
+                    "enable": false,
+                    "description": "",
+                    "images": []
+                },
+                "items": []
+
+            }, {
+                "expand": false,
+                "last": false,
+                "type": 3,
+                "id": "bbbb469d-gggg-c8f5-175c-645270a6b6fe",
+                "graphid": "e5511402-0004-5cbe-0d3c-f537c612b7df",
+                "displayfields": false,
+                "label": {
+                    "value": "Toporama",
+                    "alttext": "Toporama"
+                },
+                "metadata": {
+                    "enable": false
+                },
+                "opacity": {
+                    "enable": true,
+                    "min": 0,
+                    "max": 1,
+                    "initstate": 1
+                },
+                "visibility": {
+                    "enable": true,
+                    "initstate": false,
+                    "type": 2,
+                    "radioid": 5
+                },
+                "displaychild": {
+                    "enable": false,
+                    "symbol": ""
+                },
+                "customimage": {
+                    "enable": false,
+                    "description": "",
+                    "images": []
+                },
+                "items": []
+            }, {
+                "expand": false,
+                "last": true,
+                "type": 2,
+                "id": "62e7429b-b08a-9325-45dd-4fbff4f67858",
+                "graphid": "cc7fde4c-0003-1cf2-8358-7ca86eefb13c",
+                "displayfields": false,
+                "label": {
+                    "value": "Canada base map",
+                    "alttext": "Canada base map"
+                },
+                "metadata": {
+                    "enable": false
+                },
+                "opacity": {
+                    "enable": true,
+                    "min": 0,
+                    "max": 1,
+                    "initstate": 1
+                },
+                "visibility": {
+                    "enable": true,
+                    "initstate": true,
+                    "type": 2,
+                    "radioid": 5
+                },
+                "displaychild": {
+                    "enable": false,
+                    "symbol": ""
+                },
+                "customimage": {
+                    "enable": false,
+                    "description": "",
+                    "images": []
+                },
+                "items": []
+            }, {
+                "expand": false,
+                "last": true,
+                "type": 2,
+                "id": "34ad6a2c-2bcf-bd20-111f-ce0421f62a53",
+                "graphid": "762eb7ed-0001-242f-6fcf-af08f5605eb1",
+                "displayfields": false,
+                "label": {
+                    "value": "Hillshade",
+                    "alttext": "Hillshade"
+                },
+                "metadata": {
+                    "enable": false
+                },
+                "opacity": {
+                    "enable": true,
+                    "min": 0,
+                    "max": 1,
+                    "initstate": 1
+                },
+                "visibility": {
+                    "enable": true,
+                    "initstate": false,
+                    "type": 1,
+                    "radioid": 0
+                },
+                "displaychild": {
+                    "enable": false,
+                    "symbol": "{\"type\":\"simple\",\"symbol\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[0,0,0,0],\"width\":2},\"label\":\"\",\"description\":\"\"}"
+                },
+                "customimage": {
+                    "enable": false,
+                    "description": "",
+                    "images": []
+                },
+                "items": []
+            }],
+            "items": [{
+                "expand": false,
+                "last": false,
+                "type": 4,
+                "id": "bbbb469d-aab2-c8f5-175c-645200a6b6fe",
+                "graphid": "e5511402-0028-5cbe-0d3c-f537c612b7df",
+                "displayfields": false,
+                "label": {
+                    "value": "Geology - Major Rock Categories",
+                    "alttext": "Geology - Major Rock Categories"
+                },
+                "metadata": {
+                    "enable": false
+                },
+                "opacity": {
+                    "enable": true,
+                    "min": 0,
+                    "max": 1,
+                    "initstate": 0.5
+                },
+                "visibility": {
+                    "enable": true,
+                    "initstate": false,
+                    "type": 1,
+                    "radioid": 0
+                },
+                    "displaychild": {
+                        "enable": true,
+                        "symbol": "{\"type\":\"uniqueValue\",\"field1\":\"GEO_EDESC\",\"field2\":null,\"field3\":null,\"fieldDelimiter\":\", \",\"defaultSymbol\":null,\"defaultLabel\":null,\"uniqueValueInfos\":[{\"symbol\":{\"type\":\"esriSFS\",\"style\":\"esriSFSSolid\",\"color\":[255,204,255,255],\"outline\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[0,0,0,0],\"width\":0.4}},\"value\":\"Intrusive rocks\",\"label\":\"Intrusive rocks\",\"description\":\"\"},{\"symbol\":{\"type\":\"esriSFS\",\"style\":\"esriSFSSolid\",\"color\":[255,204,153,255],\"outline\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[0,0,0,0],\"width\":0.4}},\"value\":\"Metamorphic rocks\",\"label\":\"Metamorphic rocks\",\"description\":\"\"},{\"symbol\":{\"type\":\"esriSFS\",\"style\":\"esriSFSSolid\",\"color\":[211,255,190,255],\"outline\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[0,0,0,0],\"width\":0.4}},\"value\":\"Sedimentary and volcanic rocks\",\"label\":\"Sedimentary and volcanic rocks\",\"description\":\"\"},{\"symbol\":{\"type\":\"esriSFS\",\"style\":\"esriSFSSolid\",\"color\":[255,235,190,255],\"outline\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[0,0,0,0],\"width\":0.4}},\"value\":\"Sedimentary rocks\",\"label\":\"Sedimentary rocks\",\"description\":\"\"},{\"symbol\":{\"type\":\"esriSFS\",\"style\":\"esriSFSSolid\",\"color\":[173,250,255,255],\"outline\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[0,0,0,0],\"width\":0.4}},\"value\":\"Volcanic rocks\",\"label\":\"Volcanic rocks\",\"description\":\"\"}]}"
+                    },
+                "customimage": {
+                    "enable": false,
+                    "description": "",
+                    "images": []
+                },
+                "items": []
+            }, {
+                "expand": false,
+                "last": true,
+                "type": 4,
+                "id": "bc9204ec-1573-e90c-dd4b-58b29e200478",
+                "graphid": "8878550b-b0cb-7d29-9ec5-95ca47495674",
+                "displayfields": false,
+                "label": {
+                    "value": "Oil and gas",
+                    "alttext": "Oil and gas"
+                },
+                "metadata": {
+                    "enable": false
+                },
+                "opacity": {
+                    "enable": true,
+                    "min": 0,
+                    "max": 1,
+                    "initstate": 1
+                },
+                "visibility": {
+                    "enable": true,
+                    "initstate": true,
+                    "type": 1,
+                    "radioid": 0
+                },
+                "displaychild": {
+                    "enable": true,
+                    "symbol": "{\"type\":\"uniqueValue\",\"field1\":\"Type_\",\"field2\":null,\"field3\":null,\"fieldDelimiter\":\", \",\"defaultSymbol\":null,\"defaultLabel\":null,\"uniqueValueInfos\":[{\"symbol\":{\"type\":\"esriPMS\",\"url\":\"c6ee9e0435fb780cf91c575fb21fdaab\",\"imageData\":\"iVBORw0KGgoAAAANSUhEUgAAABoAAAAaCAYAAACpSkzOAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAA9NJREFUSInNlk1oXFUUx3/nvjeZmWRm0oRMyUcTbZKSqbGWmoCakhrowiqtKah0oW4Ed1LcWBcuigrBrSAIIoJViG4UUTetIhoaSCV2YVMS2ySQNjZpk5rMR+fNZN47Lpqv6XupX1A88ODde+79/+4599PmHpn9vwI5TvZ+8I6g0o3QiGIjLKJ6QZHT0Wh8+D+B8vn0g4IMoHoYRCSfQXJpxC2hoQo0Vv0MFZUnnXxmXOHNaDT+2T8GOfnMa8AAnmvbM+OYqVEkc93XzqttwWvvSrkNrYNOPvMi4r0QiVT/8bdATj7zLnBcMjcJ/fxNIGDNzM0ZzLkZTN1OSt2HntJw1VChkO0Lh2MLdwU5TuZVlONm6Qb22c+RklPmVyuMuAU/cGGa0I+DrPQe69Ro/CtVfVxESoGgQiG9Sz3ekaKDPfKFDwLg7jmINTGM5Jd8PskvERr5muKBYz2Okz0BDASC1JO3gLA1MYI4GZ+QVtXgtnSACPb5b31+AFn+HWv6V9y2va87zvL7a/O1DioWs0nP1WeleAtrejRQxO3sA7FwmzuwpkaR5bnAdtalYdzWhxKKeR54rwzkeXoIsM38FVDP19mrbcZtaF0dtqHU2UdoOHg1S+EWZvEabl3TYR8IpQtAluaDo0ntB2QDnNyBt70dc/1yMCy9iNQ1PbxWXgcp1AsgTtbXSasb8ZJNfnjHI1uDnBxAUlVtESmtg0SwUMCy/II795ZFsx5VbT1aXR88V8as/ixZwAZIlUUBtHKbX7DOH83q8PAaUlgBIK1MAGRFagqwKXUiOoYKXm0Dd8ak0fgWINBYdWC9V1OPwthaedOqM2eMKF6yCY3Ey/eR+NO2oRiwQmua0HgNAqd9oMrK2LiTz5xFrP3u7gNlG9IsL+JtSwZyzPy0r87d3QvgIvqxD3R75JxE+c5tTmGuTWLmxgGwxobweo6CmLLmZmEWM3uhHNL2KF5yB8CpSCQxGQiKROLfO076I5CXVrqeIHRuBXNjErMwRWj4S9wHevGqa5FSEevqZayLP5SnrGUfpc4egFkxcmKzz3d6F4u8UhHSXdih3pXH+rF/+wVrYgizMI35yZ8mALUjuHsO4rakANKI9P/lNZFIJPK5XO5Jy3iDiDlS6ujGvS+FuXoJMz+FLM8hpQIarry9kRvacRvbIBQGmEE4GonEzt+pG3jxVVVV5VS1v+BkXwbe1khsu9u+D7d9X2BEwArwIeK9EXS7bgkCEBEFPkin059UVMhzwNOr52HDar9FYEzhDPBpNBq/spXWXUFrlkgk8sCp1e9f2z171/0Jqg9+rHkwfTMAAAAASUVORK5CYII=\",\"contentType\":\"image/png\",\"width\":19,\"height\":19,\"angle\":0,\"xoffset\":0,\"yoffset\":0},\"value\":\"BITUMEN\",\"label\":\"Bitumen\",\"description\":\"\"},{\"symbol\":{\"type\":\"esriPMS\",\"url\":\"387d666808c4d384067c35eb4965948e\",\"imageData\":\"iVBORw0KGgoAAAANSUhEUgAAABoAAAAaCAYAAACpSkzOAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAA8VJREFUSInNll1sVFUQgL+5u93udru3VOjPbtvYRrZibROBxpIiFQ0kUKkQwSclJia+GeKL+OADUZPGVxMTE2NU0AQSA8EHgwIaf8A0KkEbqqW1tLC2pLVr6f64d7fdOz60W7q9V0VNiJPc5J45M/OdOT9zjpfbJN7/FciyUo1g96DSjhBB8SLEUb2kyOlAIPT1fwJlMolWQXpR3QUiyTTMJmA+D74SobKCvQE/h6xMclDhpUAgdOwfg6xM8nmgN2/jHbgs9PULk/GVVkJTBDru03VrG/WolUnuR+wn/f6KmVsCWZnka8CB+A04/onhArgpoxMwOiFEG4SebXZ3MGB8lc2mtpaWlk//Jciyks+hHJicFg6fFLK54n5fCeTmnMDhGLxzwuCpPfa9oaB+qKoPisi8KyibTUTV5lUrC8dOOSEA3V3KF98JM7POvplZOH7KYP9jdqdlpQ4Cva4gteVloPT8BSGRdAZavQpaooohcOKsOA2A2BR8/6OwsdV+wbJm3yis1xIol0tV2Xndl7Ggr989yPZOxWPAPVGlrl8Yn3I148sLwvoWMcWQJ4DXi0C2rTsA71hMsG2nc1ME1jYqAIbA9k6bd08arqBUGiYmoS7MLgcIZSPA9WlXX7ruV5bn2RCBdY0wOOZuP/WbUB/WDYX2EkihVoDU706n+mpoiKhDv3mjMjjmPs3phThVquoVkfklkAgeFAzD6djeWpxNQcI1Sl21+1oZnsLfDQ9wE6RKXIBKU2FF2PqwMxsWrVruUsannMNYVQ5ASqQyC8umTkQHUKG+1hnQDLlyAKiscNfXVoHCQKG9bNcZZwxR6sOKGSo+R+K+DADk807dnWFYXakApx2gsrLyQSuTPO8x2LytQ4sO5K9xoWaN+/RdiTl1D3XYAHlEDztAC0PnEMrZlqgyNCpcGllQf94n7OteOKzL5ZfrcHGwON0tG5SGCABH/H5zxBXk94c+tazE24I8/cjDNnPzBpevwtA1+OAjg62bbNbcsVBUh64IH58rhnS0KV0dCjAuhhxc3ueo3rkcz/pKNOorkS17d9p8+4Pw2TfCcAyGY+6VoMwPOx5QWpoVQROIsftvrwnTNDPpdHqnx7CPegx6Nq1X2u5WfhoRfr4K41OClYVgEBpqlOZGaG5SSn0AXENkj99ffnFlXNeLLxgMplV1d9ZKPQO8Eiyjur1NaW8DcN0Uc8BbiP2i2+36pyAAEVHgzUQi8Z7PJ48Djy7Ww/CiXxwYUDgDvB8IhFz23y2ACmKaZgY4svj9a7lt77o/AN3fZX8RTYM+AAAAAElFTkSuQmCC\",\"contentType\":\"image/png\",\"width\":19,\"height\":19,\"angle\":0,\"xoffset\":0,\"yoffset\":0},\"value\":\"GAS\",\"label\":\"Gas\",\"description\":\"\"},{\"symbol\":{\"type\":\"esriPMS\",\"url\":\"702179a61e13ff5e2e649c9423ec6393\",\"imageData\":\"iVBORw0KGgoAAAANSUhEUgAAABoAAAAaCAYAAACpSkzOAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAABCJJREFUSInNlm1MVWUcwH/PObf7wuUeQKB4vYDplXhbSCTqUKQSVFBLqQ9prrZaq+b6kn3og6s217fWcnNrpolOXekH1wemxMiZ2lz5giBeUzEQ4xIE3hfvuRfuffoQkHgO9ra5/tvZzvN/+53/8/Y/Fh6QWP5XIF0P5kO8ESmeQJCFxIJgGCk7JeKYw+E69Z9A4bC/RCC2IWUDCBHw+7k9Osr42BhWu52UlOR1jgTnVj0cuCzhfYfDdfAfg/Rw4B1gWyw2bum6cJHTx08w8HOvwa/gsXksrFlSOMfjOaCHAxsR8Q12e9LI3wLp4cAnwObhoSEO7d1vCpiUnm4vPd1ePGUlrH5h/UqnM/FEJBKssdkSh+4L0vXA20g2+wYG2P3pDiKh0DS7NSGB6J07BuCVjk4+9w3y8puvF7s07YiUcqkQYtwUFIn458o4H+l6mP07dxsgAA3PP0d7SysjPp/BNuIb5Ks9+9j0xmuLdD24BdhmCpJx8QFgO9l+HP/QsCFRamYGRaWlCEXh8K5mgx2g79p1zv9wlooFle/q+u0dk+s1BYpGg+nxmFwfvhPiVNu3pknq1jaiqipFJSV8Pzuf/us3TP2OH22lvLJCE4r6IrB9Gigel/WApedaD/HxcUNwQaGHOR4PAIqisHxNA7s/3m4KCvw2wq2b/WS73Q0GEJIKgF9u9ZsG19QvRwgxNXbn5VM4/3Eunz1v6j844CPH7Z4/OZ4CScgQQPB2wBCUM7uA3Pw8g776qWUzgoLBEEC6lNIihBifAgmBigTVYjxaldWLEAiDPjM7i+wZ1kpVlYm3URX4EyQlwwJITp1lCMrNM1YDIBAUl5ebgpJSkgGCQqRE4K6pE0J2IQU57lxDkJakmYIAZqWmmOozs7KR0DU5vmvXKa2KkOS63WhpqdPOkVAUZpJYLGbQ5c2bS2paKsAxAyghIfGyHg6cVFV18TOrV007kL/6BnkkI8MUdNX7k0FXu7IOIIaQewygPz6drUi+KS4twftkBZ1nfgSgveUoTZs2ot5T2c3eXs59N70VLV1VjzsvH6DZbteumYLsdlebrvt3CZRXGtevYyw6hvd8B94LF/nyi2aWragjLT2daDSCt6ublkOHp0EW1Naw5OlagH6hiC132wx7ORrlLetDcq7Vaq1uemkDZx49TduRr7nS0cmVjk7DNAE4XC5WNj1LcVkpAvwIseYv24SmaeFQKLRCVeIHVEVpXFi9mLLyMi51dnH1Ujd9N/qIhEIkJieRO7sAT1Eh84qKsNlsAL0I1trtiefuzWva+JxOZ0hKuSaiB18FPnQmuh6urKqisqrKtCJgDNiJiL9n1l1nBAEIISTwmd/v32u1iiZg9cR9mDkRNwx0SWgF9jkcrr6Zct0XNCmapoWB5onnX8sD+6/7HcuFgO7xTIY1AAAAAElFTkSuQmCC\",\"contentType\":\"image/png\",\"width\":19,\"height\":19,\"angle\":0,\"xoffset\":0,\"yoffset\":0},\"value\":\"OIL\",\"label\":\"Oil\",\"description\":\"\"},{\"symbol\":{\"type\":\"esriPMS\",\"url\":\"9c171bb9f97c45e70884ae3edf27213d\",\"imageData\":\"iVBORw0KGgoAAAANSUhEUgAAABoAAAAaCAYAAACpSkzOAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAABAlJREFUSInNll1sU2UYx3/PabuermvXdawb64CN2W2AMtkEI8hHgp8LiBG9mt6YeGeIN+KFF0RNiLcmJibGmAgaTIwxeAmoKKBBZxhkI3MrbM6NwrZu47TjnHbdeb2QTrpzwK+E+E/Oxft8/c77/Xq5S/L+r0CWlW0EezdKHkCoR+FFSKNUn0KOBQKh7/8TyDSNewU5iFK7QCRzw8TImhQWFijzeYmEgnsD/rIDlpkZUPBGIBD69B+DLDPzKnBwwba9Fy+P89PgKNeMrCOusSbCxrbGtuZ47IhlZl5A7Od1vXLmb4EsM/MOsC9tZDh6+oIroKiRyVlGJnu5Jxala/P6rqDuP5XLZXf4/RVTdwRZVuYVFPsmpq/zydc9WIVCid/v9ZJbYgNITkxz+NhZuh/ZtC5Urh9VSm0XkcXAElAuZySUzdtWfp7Pvut1QAAe72jhVN8wMzdMh2/mhskXp87R/eiDmy0rux846ApStrwJ+H/oS2JYlqNQNBigrTEOInx5tt/hBxifMTifHKWjZdVrlnX9veJ8LYLy+WyNvaCeNXN5fhwacy2ys6MVj6axpjFOzy+jXJnNuMad7h/m/sTKsKB1A++WgGxbPQF4R1JT2Mp2JK9aVklzPAaAJsLODa0c/qbHFTSXy5OanKU+Ft3lAKHoBLg2c901eet9CQRZbDfUVtOyvJrBVNo1fnLWIB6LdhTbiyAFdQJkzZwjKV4VpqE26rBvXtd8W9CclQeoUUp5RaSwCBLBgwKPpjmSNiQaSnpTVN2yCPWRkOtcaVoxftYD/AlSirQAkYqAI2lFzNkbAEFYs7LWFRQOBgCyIlU5uGXoRFQ/SqhfVuVICpU74UVFKspd7cujERQs7oFbVp12XBNFQyxKWNdL9pGIc9iKWrCVw7aiupJoZQXAMQeovLxiwDIzZzyatmVHe3PJhpyaMYhFK11Bl1NTDtuO9QmABUR95AD98escQHFibWOc5NgEF8cnAfj2/CB7t3eiLVkoYxNpLvyaKrFtaVtFQ201wCFdD19yBel66CvLMj4U5MWuh9qZP32Ooatpktem+fzkz2xrT1AdCZEvFBgavcqJ3sESyMbVcR5ubwUYF0323+pznN75PC+X+VTC5/VsfWZbBz0Dw5zsu0xyYprk8bOOYQLQfT4e62hhbVMcAQORPX95TYTDYXNubu5Jj2Yf0TRt96a1zaxbHWdgJMWl1CRXprPkCgWC/jLi1WES8RoSK+rw+3wAowhP63rFuaV1XS++YDA4p5Tak7OyLwFvBXU91tnWRGdbk2uPgHngA8R+3e12vS0IQEQU8L5hGIfLyuQ54Kmb5+Hym3lpoF/BceDjQCD02+1q3RFUVDgcNoFDN79/rbv2rvsdlkmDMLLgC9YAAAAASUVORK5CYII=\",\"contentType\":\"image/png\",\"width\":19,\"height\":19,\"angle\":0,\"xoffset\":0,\"yoffset\":0},\"value\":\"OILGAS\",\"label\":\"Oil/Gas\",\"description\":\"\"}]}"
+                },
+                "customimage": {
+                    "enable": false,
+                    "description": "",
+                    "images": []
+                },
+                "items": []
+
+            }, {
+                "expand": true,
+                "last": false,
+                "type": 4,
+                "id": "262d92e2-c0d8-c373-f750-2d06596d45b7",
+                "graphid": "d478ca39-5cc4-145a-aeac-6afd2f6d3d40",
+                "displayfields": false,
+                "label": {
+                    "value": "Producing Mines",
+                    "alttext": "Producing Mines"
+                },
+                "metadata": {
+                    "enable": false
+                },
+                "opacity": {
+                    "enable": true,
+                    "min": 0,
+                    "max": 1,
+                    "initstate": 1
+                },
+                "visibility": {
+                    "enable": true,
+                    "initstate": true,
+                    "type": 1,
+                    "radioid": 0
+                },
+                "displaychild": {
+                    "enable": true
+                },
+                "customimage": {
+                    "enable": false,
+                    "description": "",
+                    "images": []
+                },
+                "items": [{
+                    "expand": true,
+                    "last": true,
+                    "type": 4,
+                    "id": "1ea1f1db-5b0f-b960-42df-90cecedfad10",
+                    "graphid": "aaae1941-1757-56db-0057-de12f5ce6660",
+                    "displayfields": false,
+                    "label": {
+                        "value": "Metal mines",
+                        "alttext": "Metal mines"
+                    },
+                    "metadata": {
+                        "enable": false
+                    },
+                    "opacity": {
+                        "enable": false,
+                        "min": 0,
+                        "max": 1,
+                        "initstate": 1
+                    },
+                    "visibility": {
+                        "enable": true,
+                        "initstate": true,
+                        "type": 1,
+                        "radioid": 0
+                    },
+                    "displaychild": {
+                        "enable": true,
+                        "symbol": "{\"type\":\"uniqueValue\",\"field1\":\"Commodity_Group_EN_Spelt\",\"field2\":null,\"field3\":null,\"fieldDelimiter\":\", \",\"defaultSymbol\":null,\"defaultLabel\":null,\"uniqueValueInfos\":[{\"symbol\":{\"type\":\"esriPMS\",\"url\":\"3061aac81ae4c1e7d07aa2199a3d67ae\",\"imageData\":\"iVBORw0KGgoAAAANSUhEUgAAABoAAAAaCAYAAACpSkzOAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAA9FJREFUSInN1ltoHFUYwPH/mdndzKwzs6l7Iy1N25S+FCLaF69gg5cHq6S2FUSaS5OqD6YxASklgUpTCgqCIki1uTRF0QcDIlJpaWpES4UgrljBh7RRqsVmN5fNbpo52ezO+JBkcZtkk2gRv9fznfObc77vHMbDfxSe/wUkZWoriDdx3eIfJMQPmmZ2/CNIyltbcJ0BYCOIog4u1dJOr9N0s3VNkJRTmxeQcxPf8vFU/7JGSLE4Eq4n4gu2SDutaLr56qog254qx3UHgE3nJy5xJn2+6Gai6jpOJHpojzQQ8QabpZ0Wmm42F4VsO71R4A4Amy8kL9GbPgeAgoKDswjxCpUDwWqybo7TY59RH9xN1Bs6JO2U0HTr0JLQ9HRqg4ABoKI/eZme1Bxycv1hLI/JaGacLya/pt+O5SfPujnab77P65EGmiIv8F78E+ruribqCzXNY00FkOv+6Z2RYgDYejH5Hd2pL/OLWR4DBUHEF+RAeA+bkmUF4zNkmHYkURGmLljNG/FejoTrifpCr0g7Pa7p5tE8ZNuBEkXktg3L63SlzhYcTyIzTtQXmj9CwUR2Mj9WIry0hWqxVIPmG2+xz3iUR7RKTiR6eHfDYcC9Z8kaZZzZRXX4PPkVByPPoSBwcLDdmQKk1GPRMdJN0pmiK3WWJ/T7SDq3Fq2z4sswIH+ifKKMdG6KHA7Ph3bhjDo8bOyg1GNyPN7NmJPK51+wY3iFunYIKGhxBUFd+FnGZpN0xDtJ5FJFZq4RWogS4WWHsZ2J7CR+tYQtnrI7D3mFSluoFkO5i6M3T3Gvr4IXQ3sg0cdgZujOQB6h0h6qw1INjsd7GHfSXJQ/MjuWozG8FyfxKd9nrv07yCNU2oI1WKrBsfhcdy3EN/IK2dEsjeG95BJ9xDLDxSHHcRxFxSnX1iuV3nKuzF7PJ1R6N+FXdY6NdDPpLm7byzO/kE1k2R2oIpaYg2rNJ+cGhcjfFw+AYRjTUqYb/Ire0xLdr7wz8lEei2WGiY2cLLrrwcwQg4m5OjVaT/F46UOA+ysorxVAAJpmnpEyLfyKv7slul95e+RDfp79vShwexy0dvFY6YMAwy5Kla4Z+aMpqJGmmb0LWGu0RqwFe8l6mqrSBwCuuVCl60bBxEXNoGnmaWmnFb/i71wt9nLgGXYG7ge4OoeYf9yes2TXabrZLe2U8Cv+U63RGvGbvLEsoiklVGjlAFcd193p91tLJi/b3ppudc1jH2z3b1vhp4Ehx3WrlkOKQvNYp5STfUKoi1/Jv4WUualAICCL5ax4YTUtMLFSzmriL1z5gWQ67XYNAAAAAElFTkSuQmCC\",\"contentType\":\"image/png\",\"width\":19,\"height\":19,\"angle\":0,\"xoffset\":0,\"yoffset\":0},\"value\":\"Base metals\",\"label\":\"Base metals\",\"description\":\"\"},{\"symbol\":{\"type\":\"esriPMS\",\"url\":\"632a9c03bc7a632355da75b6deca06d2\",\"imageData\":\"iVBORw0KGgoAAAANSUhEUgAAABoAAAAaCAYAAACpSkzOAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAA8FJREFUSInN1k9sFFUcwPHve7NlZ7YzuymlJQpVKkrin2C8SA+orQc0WmKVg3axjfFgINJ/0YMnDx4UIyieVNraViISxH9cjAoUTEUSEw5WUmOpWKHxIi2d2d15bXfnedjSP+52tzXG+K7vN7/PvPn93i8T4j9aof8FpJS7EcTraF34hYQ4b5rOK/8IUipZjQ76gSoQBR00jynfKzMtp2NFkFKJDdeREwNJPj89taSx2ha0NEWpKDfale9J03LalgX5fuImtO4Hbj75XZJjp5ZGAMrLJG8fcmlrjlKx2mhVvidMy2ktCPm+VyXQ/cCGU2eTfHwyiwgBWud5Swnx7TbptObD4wni220qy40W5bvCtKIteaFUyl0noB+45fS5FEdPZJG9HTGituTqeMBX3yYZGEzPPZwO4LWDk7zwjMNzTzp0HvVorC+lsjy0ZxbbswjS+o+SKSX6gY1nzqU48rWaSxa1JVIIKsoN4g0O62/wF+1Pp8Gf0qwtETTW2xz4wKW9yaFyTeh55XvjpuW8PAf5fiwsRea23y5P89GCJAB/Xs1QuSZ7cCkEE5PB/OcwoG2njVMqeemta9RvDbPlrhIOHPJ4taMM0Jvz1mh6JrcOX55J0fSEgxSCQGumpvQc0v60Tcwx2NfjkvA1R75RbN0cwk3mFrToZPj+Qpp1a1N4SY3Wmh2P2GSCBDX3hIk5kjf7XCYXJB74MU1I5uZZ1gha2OKCJPEGh/GJDPt7Xca9PO2YZ61o1oUMuPuOVVybzGBZgqpKybiX+XehkMzWpDQi2dvlcme1QfPjDr2feQyOFMeWBRlyvrv293i4vubsT2lm0gmaGxx6P/W4cKkwVhQyJLQ2ZpE3ejwS/nxNfvg5TSbjZU/2icfQ6NJYCCAIgkAaBFU3huSm9ZJfrszflU1VBpYl2NfrkVC5hT8/nGHmC49Hay2G+hIA7HgwnN0UYu7ChABs204p5T1rmfL9XfGofPewO4cNjWYY6vIKnnpwJMPgSBZ5aptJbU0E0JdAvrgIAjBNp08pT0RM2b2rMSrfOewyPBbkZi2wGreZPFATAfhVI+ss0/49B5rFepXyRMSS3bvjUbESLP6Qyf1bIgAjGuosy768cD+nGUzT6VG+JyOW7FwutvNhk/vujQBczCLOlb/H5O0603K6le+KiCUP7o5HxehYniF4PTYsqK5aBXAx0Lo2EomO5Ytbsr1NK9o1i713+63hIj8NDAda1y2FFIRmsU6lJo8JYRiF4pTKJGKxmCoUU/TCmmZsoljMctZfxj+CWesB/SsAAAAASUVORK5CYII=\",\"contentType\":\"image/png\",\"width\":19,\"height\":19,\"angle\":0,\"xoffset\":0,\"yoffset\":0},\"value\":\"Precious metals\",\"label\":\"Precious metals\",\"description\":\"\"},{\"symbol\":{\"type\":\"esriPMS\",\"url\":\"560f9b44fc4d6144cafb86064824fe10\",\"imageData\":\"iVBORw0KGgoAAAANSUhEUgAAABoAAAAaCAYAAACpSkzOAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAA8pJREFUSInN1ltvVFUUwPH/Pp3LPoeZTqeitEBL27ESyy0hCEpLQxslqSZCFb+AMb4IqInPPvjmRxDEywsRWtPEBI21MJgUWpH40IuJnelFnE4pFQtz2jm7nc5sHzoO1JlOixLjft3rrN8+a62zc1z8R8v1v4CUSoRAfIjWxQ8kxE9S+j/4R5BS87XoTBioAlHUQXNUOXZQmv53HwpSaq7mL2Tgh0l+7r+9quHd4KL11ScJBM13lGMb0vS/vS7Iceaq0ToMbBu4Hme4b3UEwPK7udwZofV4PYGgeUo5tpCm/1RRyHHsKoEOAzWDP8YZvjYNLBdOF0CEgGePbCOdztDf/SsHjlRTFrROKichpFl6siCUTCa2CAgDdUM34gxdXUZefqMBa4OHxF3FQF+c2Egi97DW0H1uhNbXQhw+GuL7r0bZ/3w1ZeXWiSx2YgWk9ZR7QYkwEBq+McVg73QumbnBgxCCQNCkqa2O4SdW7qeXMiwupHG5S9j/QjXhjlFajocoK7feUo79hzT97+cgxwl4DZGun44nGOi9taI8iVmHsnIrWypB0l7M7RmGoLm9Bmm56To9xNPPbGTr9gCXO6O88uZuQO8u2KOlVCavDwPX4hx6KYQQgozWpLIxy0gtls9Dz/kIqYU0A73TbH2qlEUnnZdnzZthMmozeD2OSqbQGg601qDTE4R2Pobl83CpI8Kiup84NpJAFPjs1nUFPTjiAmhsq2PunuK78yMsJPNPX2g91F1nGILq7UHmEwt4pIvARsntm/OPFhICmttrkdLNt+d+4fEqi8a2WnovjjETSz4aSJBFLDc9HVFSKs1kxKY/PUHji3X0fj3K7zHn30ECOHSsBtNyc+lClNTC/Z5Mjc3R1z3OwbY6rl4c4058dcwFkMlkMkYJmY0VPiNYIZm9pXIB5ZtNPNJFz4VRlhbzGz89MU/fN+Pseq6SK1+OAbDj4KbsKUVqBeTz+ZJK2a97va5PWtrrjXBXJIfdiTv0fBEt+tYzsSRXYsvIrqZN7Ny3GdDjYLy3AgKQ0v+5Urbwel1nW47VG5e7ItydVvlZi6zdTRXs2FcJMKYxWkzpu5kHZbHPlLKFV7rOtrbXi4fB9jRX0LC3EmBUQ4tp+n57cD9vGKT0f6oc2/BK15n1YnuaK2nYWwEQXUb8sb/HFJw6afrPKichvNJ1urW9XsxM2asibk8Jm7aUAkQzWh+2rNLJQnGrjrc0Sz/OYh9trQ2u8dNAJKN1y2pIUSiLnVHqXqcQJSXF4pRKzwUCgaL1XfODlTIwu1bMetaf2oeCdyg77RQAAAAASUVORK5CYII=\",\"contentType\":\"image/png\",\"width\":19,\"height\":19,\"angle\":0,\"xoffset\":0,\"yoffset\":0},\"value\":\"Base metals, Precious metals\",\"label\":\"Base metals, Precious metals\",\"description\":\"\"},{\"symbol\":{\"type\":\"esriPMS\",\"url\":\"f6b3c9726ac47a91ef2eb78855c77e1e\",\"imageData\":\"iVBORw0KGgoAAAANSUhEUgAAABoAAAAaCAYAAACpSkzOAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAA+xJREFUSInN1ltMHFUYwPH/Gdgws7uzi0CBiNgLijYaTdTWC71IWlGJSbNYAyWSJqYRwk1ri2lBfdBQVC6NNRrbihYfSKGrRNNiwASildJaow+NaQJYKVKsVUB2kRlgd8aHxU23wALaGM/r9835nTnfOd9MJP/RiPxfQLruSQHxBqYZfkFCfCfL6qv/CNL1P1diGp1AMoiwDiZbdM17g6yoO5cE6fr4ir+R0x0nOP3pO/MatugkniypJCYu/nld80qyoj63KEjTxm/GNDuB5Wc6Wul2V4d9GTU2GfeBPWwtrSImLqFU17xCVtTSsJCmeZMFZiew4pvOVk653wwEpEgwfLMQYbGSkZuP3+ejvfFdMrYVErMsoUTXPEJWHCVzQhMTniQBncCqs1+20XUsgOyoasHucDI6/DvdbW56upqDD5vTEzS+XsJTL9SwZUcZn9XXsjmngNhlCcUzWHEIZJq/WCZ10QmkfPtVO183VQUnszmcCCERExdPZm4B8TelhMR90+NMahqW+CgeySng2IFytpZUEhufWKRr3hFZUV8JQprmjJKE/9ZLF/s4eXRfyPaM/naF2PjEwFYJifHR4WBMsqi4SquxqQ4OVWxnbeZ2bluTgfvtPeS/dgQw75qzRtOTU7PqcKrNzRNPFyKEhGEaTE1qVyE12J3RNNWVMekd4mRTFalp2WieK7PmWbAz9HW7OZO0Es0zhmH62ZSVh+H3cccD6aiOaJrfehH9j4Fgfk9XE8JiXToEhBxxISQey32WsZFhmvbvZmK4fzFTLK3XSRaV1LvX4hkdQVYU4pJWM3C9IWGx4iqtQbHZaazeSfLq+8nMK+T4RwaD59quExQRhau4FpvqoLmuDN0zSG/3AH6fj8y8IlobDAZ/+OJfQhFRuErqsKoOmmp3MekdCoYunG2h3TfN43lFnGjwM3S+IzxkGIYhRWAkJi+XElPTuNzTFUy4MTWNKMVK8/5dTHkvz5qg//vjfO6b5sHMbD6egR5yzXQfIaZDILvdPqHr3mdkxfaBK79cajm4L4gNne/gaJiVAgyeawvWaV32XtZsfBQwfwJpdwgEIMtqg657hazY6l35e6VP3qvk197usMC1Y31OOfdtyAC4YCKlK7I9eMFCaiTL6pEAZq/PKqgQS8E2bHuJe9dvBvjRhHRFsf98dXzWYZBl9cPAB8x+eLHYxtyXuWfdJoC+AKIOXpsz56mTFbU+0Obth7IKKsTQxf55kShZJmnFLQB9hmk+bLU6Ls2VN+/xlhXH+zPYwVW337nATwO9hmmmz4eEhWaww7o+5hYiIiJcnq77x51Opx4uZ8ELK8vO0YVyFjP+AkHCgu+lKysbAAAAAElFTkSuQmCC\",\"contentType\":\"image/png\",\"width\":19,\"height\":19,\"angle\":0,\"xoffset\":0,\"yoffset\":0},\"value\":\"Iron ore\",\"label\":\"Iron ore\",\"description\":\"\"},{\"symbol\":{\"type\":\"esriPMS\",\"url\":\"d28c91850da326cbea6474ccc9b17b16\",\"imageData\":\"iVBORw0KGgoAAAANSUhEUgAAABoAAAAaCAYAAACpSkzOAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAA+xJREFUSInN1l1QVGUYwPH/e3Zlz1l2l6WRxWJQEJ1xnJHJHL3og4BGAm+avAhw6EIyqPgoR6aLSoSYLpxKayhLDTMvanKcnCFpoYZ25AJLDchhGmYiMc0JP0DZRc4Lu3tOF+DWurCKOU3P7fuc5/d+PO87x8p/FNb/BSSlPwvETkwz/oSE6FFV55t3BUl5IxPT8AHpIOI6mDwl9UCyqjm3zguScjzjJtLZ205r38E5jWTNQ1XhdlLcKa9IPaComvPlO4J0fXwxpukDlnT2tvNVz764i7nP/gDN3kZqiupJcXtqpR4QquasjQvpeiBdYPqADF9fRwQRQsE0jdhZKgmU5pQTDof4oquFkpzn8Lg9NVL3C1Vz1cwKTUz40wT4gKXHz3zHkZ/2AvBWyQFcdhcjYyN09BzlxFB75OOQMcXO1lfZWtTElidraOn4gOKczXjcqdUzWHUUZJp/LpiUwgdkdZ3p5PCpjyLFXHYXilBIcaewKW8L6Qszo8aDYYkM6iRYF1GcU06zt4mawjfwJKdWST0wqmrO+gik60k2RYSXnxs+y5enPozanqvXr+BJTgVAEQrXAqN/b4dFpaagAYfm5PXPX2JDdjFrM3Jp9jbStGkPYGbPekZTwcmYc2jvOUpZfgWKUDBMg8mQjCC1BQ247G52t9UzPjXC4dN7eDizCP/kaEyd274MP577lrS+DAITY5imwcZHSjHCIdatyCEp0c37bTsYk5cj+d1DXqxKwvwhIKrFhVAoyS9n1D/Ce8fqGdWH76TE/N46q0Ule+kargeuYbdppLmX3XvIqiRQW9CAQ3XwdutrrFy0mmfzn+dQp0H/cPe9gSzCSvVMd+3+Zgd+eYUT5zoIhkOU5VVw6HuDXy798O8gi7BStb4Rp+Zi17Hp7roZpy90Eu4KUZZfwaFOg4HLJ+NDhmEYigUjPXWJsmzhgwxe7YskLE95CM2msattOzemrsUU6L14nKAvyIY1GxnwTkNPr948PShEMApyOBwTUgbKtQT7gRcKtykft78bwQYun2Tg67lnCtA/3E2/d/qcnln7Io9nrwfMIVDqoiAAVXV+JmVAaLbElsrCbcpe7zsMjvwcF7g1itdWkZP9BMBZEyVPUx3nY6AZ7KCUAWG3JbZUFtWJ+WAl66p5bFU+wG8m5Gma48I/x2OaQVWdn0o9oNhtifvvFCtdV8ujq3IBBqcR5x+35szadarmbJG6X9htifsqi+rE+Uu/z4moC2xk3J8FMGiYZq7d7ro4W96c7a1qrk9msL0rFq+8zU8DvxqmmTcXEheawfZLOXZECIslXp6U4fGkpCQZL+e2F1ZVk2Ivz13EX4xYhJl/dA2bAAAAAElFTkSuQmCC\",\"contentType\":\"image/png\",\"width\":19,\"height\":19,\"angle\":0,\"xoffset\":0,\"yoffset\":0},\"value\":\"Uranium\",\"label\":\"Uranium\",\"description\":\"\"},{\"symbol\":{\"type\":\"esriPMS\",\"url\":\"a8baecde85c5ba5d91771c5774c69376\",\"imageData\":\"iVBORw0KGgoAAAANSUhEUgAAABoAAAAaCAYAAACpSkzOAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAA7JJREFUSInN1k1vG0UYwPH/rB3vromzThXIIXGb0oKa9yC11K1dx4mPHIgEn4ArbQGJMwdufAQo4eWO4MABUtuxaVBaekDEdlMhCkg4CXmPYjveiR3vcmiyInXiJFAhnus8M795Zp5ZrZv/KNz/C0jKwjkQH2DbjTckxI+a5nv/H0FSbp3FtlJAAERDB5tXpVls1XTfOyeCpCx17SEzmSyzsz8faqiqh9hoFMNoeVuaRUXTfW8dCzLN0mlsOwWcyWRz5HIPGxbj9T5DIpkiFoviN4yb0iwKTffdbAiZZjEgsFNAVyabI5udBUAIgW3bdYiiKASDF7FqFvfu3ScYfBm/YdyQZkFoesuNA6FyudAhIAU8n83NOsjY2Ct4dS+FQpGZTJZ8ft6ZbFkWExNJYrFhRqIRUukpgsFL+A3j+i52fR9k2382bUuRAs49ePCQTCbnLKbrOkIIDKOFa+Gr5J4YtyyLarWK2+0mGLxEMvkdsdEIfr//TWkW1zXd954DmaahKqL2wtLSMj/NZPcdT2GzgN/vd46wXC47Yy6Xi0jkKpqm8eVXX9N94UUCgU4SyTSvvzYG2AMH3tFObafuHmYyOSLXQgghsGyLnZ0dBxkeDqHrOvF4ikqlwkwmRyDQQbVav86RX4a5uQUy2RxSbmPbFpcvX8SybM6fP4vX6yUen6RSqTj5+fw8iqKcHAL2tbhAEA4HKRVLTNxOsr1daTDzhNBeuFwuznSdZqu0hUf14PcbLC2tPF1IURSGh0Noqso33yZob3+WcOgKU99Ps7y8+nQgIQTDkRCaphFPpKlUKuTz89RqNcKhK9yZmmZ1de3fQUKIxy2sayR2kb1YWFhk+u59wuEgU1N3WVtbbwxZlmUpLqy2tjaltdVgY2PTSTh1qhXVo5JIpKlWq3ULLC4uMT39A4ODfUxO3gGgr697b5fOBDdAc3NzWcriG6rH80ksFlWSybSDra2tczs+2bDq5eVVBxkY6KO/rwewfwfl3X0QgKb5PpeyKFSPOh4bjSrJyfS+yo4TQ4P99PZ2A/xmo4zoWvMfddAu9pmURaGq6nhsNCpOgg0N9dPb0w3wqw0jut6c//t4XTNomu9TaRYVVVVvHRd7aWiAnp4LAI8eI765J3MO7DpN941LsyBUVf0oNhoVKyuHv5Ompiba258DeGTZdtTrbZk/KO/Q9tb0lo93sQ87OzuO+GngF8u2Rw5DGkK72C0pN78QwuVqlCdlrWQYhmyUc+SD1TRj46ic48Rfv8GHVWaJyoEAAAAASUVORK5CYII=\",\"contentType\":\"image/png\",\"width\":19,\"height\":19,\"angle\":0,\"xoffset\":0,\"yoffset\":0},\"value\":\"Other metals\",\"label\":\"Other metals\",\"description\":\"\"}]}"
+                    },
+                "customimage": {
+                    "enable": false,
+                    "description": "",
+                    "images": []
+                },
+                    "items": []
+                }, {
+                    "expand": false,
+                    "last": true,
+                    "type": 4,
+                    "id": "00af8c8f-2fa1-4a6b-7d5e-052d9f7e9970",
+                    "graphid": "bfa89884-8ada-e10c-7a66-63f4a207be07",
+                    "displayfields": false,
+                    "label": {
+                        "value": "Nonmetal mines",
+                        "alttext": "Nonmetal mines"
+                    },
+                    "metadata": {
+                        "enable": false
+                    },
+                    "opacity": {
+                        "enable": false,
+                        "min": 0,
+                        "max": 1,
+                        "initstate": 1
+                    },
+                    "visibility": {
+                        "enable": true,
+                        "initstate": true,
+                        "type": 1,
+                        "radioid": 0
+                    },
+                    "displaychild": {
+                        "enable": true,
+                        "symbol": "{\"type\":\"uniqueValue\",\"field1\":\"Commodity_Group_EN_Spelt\",\"field2\":null,\"field3\":null,\"fieldDelimiter\":\", \",\"defaultSymbol\":null,\"defaultLabel\":null,\"uniqueValueInfos\":[{\"symbol\":{\"type\":\"esriPMS\",\"url\":\"6e93fa9e35fcbdaaa47b318b230de556\",\"imageData\":\"iVBORw0KGgoAAAANSUhEUgAAABoAAAAaCAYAAACpSkzOAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAA79JREFUSInN1ktMXFUYwPH/uVxmzoV5tBUGDe+SGmnwFWVBqQHUhYmJxo1xKZg2Pmh91IVJFWx140JXTapC62NtoombYmgHmoZQSUxUKDVWpuVheQ2tzAz3zMDc42KmIAwMUBvjtz3f/X7nnu87N9fkPwrzfwEpNV8F4iO0zr4hIX6S0nv8tiClYpVoJwiUgsjqoHlW2ZGd0vK+uS1IqWjFLWRy8Azhy19vaOS4A1Q0HEX6Ct9QdsSQlvf1LUG2HS1D6yBQPjnURXi4M+vLmHn3EOo5TmXje0hf4LCyI0Ja3sNZIduOlAp0EKiYvNRF+FJHakEYoJ1MRbgoqW1GJ5cYHzhNSW0L0hc4pOx5IS3foXWhhYX5YgFBYPfUcDfhoRSy5+lOci0f8UiYqcHviE50rTytE4ycfYeKhmNU7G/l2oUTFD/ajPQXtaax1lWQ1tdz40oEgaqp4bPMDn66XCvX8iGEgfQVUlb3EtOXK1et66QiuWhjmHdTXNtCqOdDKhuOIv1Fryk7Mictb9syZNt+tyGSe6LTI8wOnlx1OvH5GaS/KHVSwmApNrdycoakpL4N0+3lt+9b2XXv8/hKGgj1fkD1MycA/cC6PUomExltmPz1W8rrDyKEgdYOySW1jJTubyPX2kEo+D7OYpjZoZN4ip/CScxl1Nn0yxC73s3UUAVJNY/WSUpqX2DMWWJX1WMppOcYTmJ6OT86cQaEa/sQsGbEDcr3NROPzjFyrh0nPrmVEtv71glD4i9/hHjsBjkuidu3G3vmTkPCleqJ28NI97vkFTxEad0BRvsc1Gz/HYKESWl9O6bbm278LNE/f2DixyXK6g4y2qdR4Yv/EhImJfvayZVervakputWxCbPMX5xidK6A4z1Oai5geyQ4ziOkYOTf1eZ4drxIImbPy8nyJ0PY7osQr3t6MUbGQUWps8z1p8gUPMco+dTUMHeF9ObFIurII/Hs6BUpMV05Z2ubHjLCPV+soypuQGuBjfeKYCa7Wf0fKpPBTUvU1T9JKBDYLy9CgKQ0vuVUhFhuvJPpbCPSdz8JSuwNgpqXqGo+gmAEY3RZEnPaAaUxr5cwY6I7WCFNa8SqH4c4A8NTZblGfvnesYwSOn9QtkRw3Tld2wVK7y/lcB9jQBXUoh3fG3OulMnLe8pZc8L05X/eWXDERGbubYhkpPrxhOoArjiaN2Yl+ebWC9vw/GWlq8zjX3mL967yU8DvztaN22EZIXSWIdSf30jRE5OtjylklG/36+y5Wx6YaX0Z16e24i/AWg1hRJKTWppAAAAAElFTkSuQmCC\",\"contentType\":\"image/png\",\"width\":19,\"height\":19,\"angle\":0,\"xoffset\":0,\"yoffset\":0},\"value\":\"Industrial minerals\",\"label\":\"Industrial minerals\",\"description\":\"\"},{\"symbol\":{\"type\":\"esriPMS\",\"url\":\"d7c3b3f0f1f53dd9da5a4c59d4be770e\",\"imageData\":\"iVBORw0KGgoAAAANSUhEUgAAABoAAAAaCAYAAACpSkzOAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAA+dJREFUSInN1mtoHFUUwPH/nSS7M5udfcRHs0qbNq/iB5O+EwUxIZampEWhgq+IEqUV7Ms2KPqhaMGICIVCBNNaHyiCUE3bTaHYyBakTdImaQp+MI+2qNU0TR9pNsncNLtz/ZB1Tdxks9Ui3q/nzPnNnXvuYdL5j1b6/wKScjgPxPsolfyFhOjUdXP3P4KkHF2EskPAfBBJHRSPSyvs1w3ztduCpBxZ+CfS2NHNjs7zsxrLXA4+rCoh22dul1ZY0w1zW0qQZY0sQKkQkHOos5tn2vuSbmZRpsGmYBsN60vI9plbpRUWumFuTQpZVni+QIWAhYc7u3n6zCTiFIJxpRKQgCaoLSsiErX54MQ5asuKCfjMLdIaFrrh2TIjNDY2fL+AEJDbdLaHp2LI79Xl+FwGV26O8FV7N2+dH4g/3G8rnvj2JF+vL+GdypW8faydnY8+SMDv2RzDNk+DlOrPGJciBOQd7erlydO98WI+l4EmBNk+k+0Vyym8a3p8IGozemuC+zLS2VlWxCvBNj5at4qA3/OqtMLXdcPcFYcsy+vURLSgp/8qG9p6pn2egaEwAb8HAE0IBkdlPJaTJmhcuwKf4WTNl83sKMplQ+48Nja1EXx+NaCKZjyj8Ug04Ry+OPMTtatXogmBrRSjE5FpSFamwYtHWjglI5w63cN7+fP4UU4k1JlzMuy6OEhBZw9D1jhRpdj4SDERW7HmgQVkuXReDrZywvqr8Jt9AwS0xHuX0gia2uIagm0Vy7g6PErN4RaOj91KpcTtzbqcNMHDeQGuhcdwOR0s8bs5Pnb9zkIBbfJMPIaT6saTrA74ef2xZUS/62BP/407A2UJQVPlZHe9cKSVH+QEJy5cYTx6bhJr7mBv/9C/g7KE4FjlcrwuB9XBVk7JSDy2++dBIqEu3qhYSrT5LPWXZ8fSAWzbtrU07Nx7/dqme0waBsPxhGfnecl0ZvBcsI228UhCgbpL15Dfd1GzooD6pjMA7F2RPxkUIt6O6QBut3tMynBNptPxSV1VqcbR1jhWf3mI+kMtSXe9p/8Ge2LIwVUFrFtaCKiLoNVOgwB03fxcyrDIdDoOvFtVqqmjreybsrNU1jclhVQtKQC4oNDKDd39SwIUwz6TMizcTseBuqpSwW1gjaWLWVucD3BeQblhuH+dGk9oBl03P5VWWHM7HftTxQ49tJjKonyAvknEvPT3nBm7TjfMA9IaFm6nY19dVal46fK1WRHDkUFh4G6APlupMpfL89tMebO2t254Po5hDcU5gTl+Gui1lSqfDUkKxbD9Ut48KERaWrI8KaMjXq9XJsuZ88Lqunfu+ZLC+gMXBoFQwegmtwAAAABJRU5ErkJggg==\",\"contentType\":\"image/png\",\"width\":19,\"height\":19,\"angle\":0,\"xoffset\":0,\"yoffset\":0},\"value\":\"Diamonds\",\"label\":\"Diamonds\",\"description\":\"\"}]}"
+                    },
+                "customimage": {
+                    "enable": false,
+                    "description": "",
+                    "images": []
+                },
+                    "items": []
+                }, {
+                    "expand": false,
+                    "last": true,
+                    "type": 4,
+                    "id": "7ee0a175-dcda-3050-a493-2be425ec5bc5",
+                    "graphid": "646400c2-995e-a4df-b602-0fe4eb0d2185",
+                    "displayfields": false,
+                    "label": {
+                        "value": "Coal mines",
+                        "alttext": "Coal mines"
+                    },
+                    "metadata": {
+                        "enable": false
+                    },
+                    "opacity": {
+                        "enable": false,
+                        "min": 0,
+                        "max": 1,
+                        "initstate": 1
+                    },
+                    "visibility": {
+                        "enable": true,
+                        "initstate": true,
+                        "type": 1,
+                        "radioid": 0
+                    },
+                    "displaychild": {
+                        "enable": true,
+                        "symbol": "{\"type\":\"uniqueValue\",\"field1\":\"Commodity_Group_EN_Spelt\",\"field2\":null,\"field3\":null,\"fieldDelimiter\":\", \",\"defaultSymbol\":null,\"defaultLabel\":null,\"uniqueValueInfos\":[{\"symbol\":{\"type\":\"esriPMS\",\"url\":\"9ece9367381b10f6549da83cc0ba3a16\",\"imageData\":\"iVBORw0KGgoAAAANSUhEUgAAABoAAAAaCAYAAACpSkzOAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAA+hJREFUSInN1n9MVWUYwPHvOfeC51zvubeQiwtDCS37sZxbP5YaKbVqaw1W/DKCQiaEBfYD19ZabrlaMp0tNREItJBoDabWrC2pK1qbxXRMmoMwDav1R8GFe4DzAvee0x/iTbpwuZRrPf++z/t8znPe57w7dv6jsP8vICH8i0GqxLIiP5AknVYUbcs/goQYvgHL9AJJIEV0sMgQhn6tomovzgoSYij5MnLU20bzkc+nNeKucfNSaQme+HkvCEOXFVV7PirIMIYWYlleYFHrsTaaDn8asRlPXBzbqqrZtKGEhPj4jcLQJUXVNkaEDENPkrC8QPKXbcf58NAlRJJlLNMMQ2LsdvJzMgkGgjR83ExBThYJ8fHlwvBLiuoqnxIaGfEvkMALpHx14gSNBz8BYMeW13BpGn19Pj472krbt+2hzeOBAFt27OSVslJKCwuo3t/Ak9mZzPd4yiawskmQZf0WMyokL7D42IlvONByOFTMpWnIkownfh4Fa7NJuj5x0vr42BgjQpAQm0B+Thbb99RQsaGY+R7Pc8LQ+xVV2xyCDMM9R5aCN17o7eWDloOTXs/vf/Qx3+MBQJZkfL7B0Fqs3U7FsyW4nE5efv1N0h96gBV3LGdbVQ3bN78KWMumPKOxsfGwczjyRSuFebnIkoxpmYyOjU5C3C4XW3dVMajrNLQcYvU9d6H79bA6M94MX7efIikxEb+uY1om2RnpBIImK+++E7fLReW7exkY/KvLtpPtxNjDy0Z1BV054rIkU5CbRX+/j7d2V9Hf74umxOzuuli7neW334ZvYBBVVViUeN3Vh2ImzsQ5dy5vvL2LZUuXsO6JHKzGj+g423V1IJvNRkXpelxOJ5W79zLg93P8u1OMBYKsy8ul7kATZ7p++HeQzWaj4pn1aJoWmq7LcfJ0B8FAgMK8texrbKKzuycyZJqmKdswFyYtkG9OSabr/E+hhFuXpKCqClt37kEfHg4r0H7me8YDAR59+MEQlJP+yKVFSQp9L3YAp9M5IoRepCpqfVlxkby7tj6EdXb30Nn9TsSuO852hc4pPzOD+1NTAesCyJsmQQCKor0vhC45VEddWXGRvKu2nu4rOosmnsp8jDWpqwDOW8hpquK8GAZNYPsvY+XFRdJssKezHmf1vSsBfrQgTVWdP1+5HjYMiqLtE4YuO1RHbbRYYXYm961aAXDuEqL98vecKadOUbU6Yfglh+qoKS8uknovhu0LxRwllpRFyQDnTMta43C4fp0qb9rxVlTXexNY9S1Lb5rhp4Ee07LSpkMiQhNYrRCDzZJks0XKEyI45Ha7RaScGT9YRXFHd5nNEH8C+eGD9m6tNTgAAAAASUVORK5CYII=\",\"contentType\":\"image/png\",\"width\":19,\"height\":19,\"angle\":0,\"xoffset\":0,\"yoffset\":0},\"value\":\"Coal\",\"label\":\"Coal\",\"description\":\"\"}]}"
+                    },
+                "customimage": {
+                    "enable": false,
+                    "description": "",
+                    "images": []
+                },
+                    "items": []
+                },{
+                    "expand": false,
+                    "last": true,
+                    "type": 4,
+                    "id": "262d92e2-c0d8-c373-f750-2d06596d45b7",
+                    "graphid": "5ee45b9a-2b04-54b7-add3-e2bb6e7f5e7c",
+                    "displayfields": false,
+                    "label": {
+                        "value": "Oil sands mines",
+                        "alttext": "Oil sands mines"
+                    },
+                    "metadata": {
+                        "enable": false
+                    },
+                    "opacity": {
+                        "enable": false,
+                        "min": 0,
+                        "max": 1,
+                        "initstate": 1
+                    },
+                    "visibility": {
+                        "enable": true,
+                        "initstate": true,
+                        "type": 1,
+                        "radioid": 0
+                    },
+                    "displaychild": {
+                        "enable": true,
+                        "symbol": "{\"type\":\"uniqueValue\",\"field1\":\"Commodity_Group_EN_Spelt\",\"field2\":null,\"field3\":null,\"fieldDelimiter\":\", \",\"defaultSymbol\":null,\"defaultLabel\":null,\"uniqueValueInfos\":[{\"symbol\":{\"type\":\"esriPMS\",\"url\":\"66ba4ab93a75aad93a313b9c914e22b8\",\"imageData\":\"iVBORw0KGgoAAAANSUhEUgAAABoAAAAaCAYAAACpSkzOAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAA9VJREFUSInN1l9QVFUcwPHvucDuucveXZqCHXOkZakexFkcmHypRon+PFYPNT1UY0zAiEBKJmjiKDqF04zUWA+IWk0PvTiNNtWI5hDj+CCwFskb/8JyKvk37gL3uLD39sC2hguLmNN0Xn+/+/ucP79z5qbzH430/wWkVDgfxCFsO/WEhLgspdF0V5BS03nYVgewBkRKB5vnlRm5T+rG9hVBSk35/0b6v23natsXSxoZq7Ip2r8bd072NmVGNKkbb90RZJpTudh2B/BQ/3ftjHx8POVinA+u4vKeAxQd3IM7J6dWmREhdaM2JWSakTUCuwPwD5xpZ+RIHNE0sKwkRDgdFFRuJjY3R1/rCdZVlOH25dQoMyyk7qlZFJqZCa8W0AEEBs9+zy8fzSOPf3kU6fUwPTrOwFenGTt9NvGxfTNKV+0uij7YR1FdNT+2fMLa8s0YPl91HKteANn27xk3legA8ofOnWe45WiimPR6EELDnZNNYWUZQwH/gritbjJrKtKdTgrK3+By43sUHdiF2+fbqszIhNSNvQnINL1OTcQeGR8cYuhw64Ltmb4+itvnm98qoaHGJ25tnS4Jvr8H6THoLKsh99WXeKD0SULvHmTjsSOAHVz0jGLRaNI59J88xfqqcoTQsG2LmKluIc2N6FleeuqbiI1OMNzSSvYLzzE3NplUZ9mXYfyb8wz4/UTDN8CyKXjtFey5GKs3PYHMyiK0u4m5P64n8kdPtSOcjpVDwMIWFxCs2Iw5NkF3wz5mr/15JyVW9tYJXeJ7rBhzYpJ0l8T1aIAb9xoSTgfB5kachpuut/eStaGQYNWb9FoW4c5L9wjKSCfY3Ij0GITqm5i7PsbY1+foi85SWFXOT5ZF5EL3v4TiiNNj0LNzH7HRW+09eeYH+mIxglXl/GzZRC72pIYsy7K0NKwsf66WuaGQ6a7eRIKxYT0ZLp3Qzv3ExpPbdvLcBa5EowRefpHeOOTf8vp8UIjZBZDb7Z5RKlLm0F0niuu3aaFDHyawyMUeQilmChDuvERv/JzytleQ/+zTgD0M2o4FEICUxudKRYTDlXm8uH6bFmo+zHT3lZTA7SNQV0ngmVKAIRutRJfuq0lQHPssgTXUiZVggR1bCJSWAAzaUKLr7l//GU9qBimNT5UZ0RyuzLY7xfLf2UreUxsBBuYR47fbcxbtOqkbx5UZFg5X5tHihjoxOTSyJJIundz/cD7AgGXbm1wuz7VF85YqIHXPsTjW6lu3dpmfBvot2y5ZCkkJxbE2pW6cFCItLVWeUrEpr9erUuUse2Gl9CZfnrsYfwFqWYQCxROHDQAAAABJRU5ErkJggg==\",\"contentType\":\"image/png\",\"width\":19,\"height\":19,\"angle\":0,\"xoffset\":0,\"yoffset\":0},\"value\":\"Oil\",\"label\":\"Upgraded crude oil\",\"description\":\"\"}]}"
+                    },
+                "customimage": {
+                    "enable": false,
+                    "description": "",
+                    "images": []
+                },
+                    "items": []
+                } ]
+            }, {
+                "expand": false,
+                "last": false,
+                "type": 4,
+                "id": "5695651f-1d33-56d9-95bc-e80cc6d01de9",
+                "graphid": "01a93ce4-2f8c-3e57-b69d-a408728aea72",
+                "displayfields": false,
+                "label": {
+                    "value": "Metallurgical Works",
+                    "alttext": "Metallurgical Works"
+                },
+                "metadata": {
+                    "enable": false
+                },
+                "opacity": {
+                    "enable": true,
+                    "min": 0,
+                    "max": 1,
+                    "initstate": 1
+                },
+                "visibility": {
+                    "enable": true,
+                    "initstate": true,
+                    "type": 1,
+                    "radioid": 0
+                },
+                "displaychild": {
+                    "enable": true
+                },
+                "customimage": {
+                    "enable": false,
+                    "description": "",
+                    "images": []
+                },
+                "items": [{
+                    "expand": false,
+                    "last": true,
+                    "type": 4,
+                    "id": "5695651f-1d33-56d9-95bc-e80cc6d01de9",
+                    "graphid": "2589a549-b661-5f31-ee01-f856bc9a70f8",
+                    "displayfields": false,
+                    "label": {
+                        "value": "Smelters and refineries",
+                        "alttext": "Smelters and refineries"
+                    },
+                    "metadata": {
+                        "enable": false
+                    },
+                    "opacity": {
+                        "enable": false,
+                        "min": 0,
+                        "max": 1,
+                        "initstate": 1
+                    },
+                    "visibility": {
+                        "enable": false,
+                        "initstate": true,
+                        "type": 1,
+                        "radioid": 0
+                    },
+                    "displaychild": {
+                        "enable": true,
+                        "symbol": "{\"type\":\"uniqueValue\",\"field1\":\"Commodity_Group_E_Spelt\",\"field2\":null,\"field3\":null,\"fieldDelimiter\":\", \",\"defaultSymbol\":null,\"defaultLabel\":null,\"uniqueValueInfos\":[{\"symbol\":{\"type\":\"esriPMS\",\"url\":\"e14583e1e55e7544a6b464ead1f2d297\",\"imageData\":\"iVBORw0KGgoAAAANSUhEUgAAABoAAAAaCAYAAACpSkzOAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAZhJREFUSInt090rQ3Ecx/H372znbGfHHpgzMRfKylPLnZSiXCjcKP+BOynij+CP8Ce4UZJcSMmVhwtJJFLKEDZrD4Ztx4UsNY/b2XHjc/d7fP1+v28/OxbFbjmUeUjMAr1mAwa5YVX1xd/dyGgH0XMeTZB8ypYNVKsK9V4NSbLL8MHTLZ9csxC5LxuaaA4wGtYKbetr9JPYgEHdjVuxFfruMlk2oikyhlE65JUkxkI6QY9KjctBreakyiEXzZvO5tg4vWbuMFIa1F3jYqgtiE1IAOxfRsnlDTqDfp5zeVaOLugIeAjpXsL1PigVWr1NcrV2QHfAzXHsgfVYCoCpWJrdmwSb8TT62S2T7Q1sXcW/2ur7Gu0lH9lLPhbaA/4qWnQ3TdUuNrfPmAk34nXKGOXU6KPUqQqtdT7Sz69/LaR78Lsc7EZi5kKl5u8hpxDM97UCBkIIxFu/8rpEle0sDXWiyj8766ezbAiCPu2zYQSgKcV/6teQ2fmHzIdSRp7+xZ3KQ2anCBrvCjFuBVSpFCCn6hmxBKp0XgBjxmpLZEN8mAAAAABJRU5ErkJggg==\",\"contentType\":\"image/png\",\"width\":19,\"height\":19,\"angle\":0,\"xoffset\":0,\"yoffset\":0},\"value\":\"Aluminum\",\"label\":\"Aluminum\",\"description\":\"\"},{\"symbol\":{\"type\":\"esriPMS\",\"url\":\"759cb736b90e6b16175acf17e3dc6904\",\"imageData\":\"iVBORw0KGgoAAAANSUhEUgAAABoAAAAaCAYAAACpSkzOAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAZpJREFUSInt079LG2Ecx/H3c/dcLndJTfTSSiSDDlUJONgOQgWh0K1QqpP/hoOCdBEH6dzBWVBXJ3FzUgrdrGMLpepg7K9wltR43t3jEAiFJBqSy3XpB57heXi+z4vn+fJIYoqMHape/V4DZqIGFMFLy8q6f91IFUFMn/hlLkOva8DRLYb0PjRNGtDk6Xauv7DsXXQNbZjDzNvF+jz+HrUTE1iUDhnNqK99Dz02gzLnSnUOjQmNFXOEgp7G0Wwe6jYPhNmw743y2a9+Za76qTNoVs/yynqMjgbAR6+ET8iTRB5PhexWPzMhc4waOSYTg9Ap9Nb/xZl7wHPD4dh3eRe4AGwFLu9vfrIeXDIlTlm1Rjm8+XbXUff3aDussH1dqc+X5ABF6TCiZ1ivHLFmj9MvkqhuetQsec2kaDzij6r9tXHp4GgpPnilaKFO8++hvBAcpJ+BAEFtgCApaiWWMPiRfYEtjFZHtAclgILMtCwUCNIi0RZyJxR1/kPRQydKkSzv9R6KOg3QQuopC6kYoF6lDiWtvtexQL3OLYH8ZymZWtEIAAAAAElFTkSuQmCC\",\"contentType\":\"image/png\",\"width\":19,\"height\":19,\"angle\":0,\"xoffset\":0,\"yoffset\":0},\"value\":\"Base metals\",\"label\":\"Base metals\",\"description\":\"\"},{\"symbol\":{\"type\":\"esriPMS\",\"url\":\"24423371ff1e735bad287525e2689974\",\"imageData\":\"iVBORw0KGgoAAAANSUhEUgAAABoAAAAaCAYAAACpSkzOAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAbNJREFUSInt071LW1EYx/HvuUnMvTEmeq+KUaFKiS8pDslgB1HQVRAVpO3/IIhDhLYg4iCdOwhughU6FIVSAw66pPjSrTq4KL4hohVt4ns0iYMQBDXGeHNd/G3ncM7z4ZznHDMGxWw4dHZ6OAA06A3EiTYrSm7oxoniHhB16xv/CR9Gngxoqkyxy4EkmS1wx9WN/Vzl49Duk6Hh3le873Akxsb3KJVYTQL/BxWn05KY+7d3zshEiO2jWPpQZaFEX1cZpSXZaJpCQb6NHLv11rrPPVGmptdo9y+nB7U1OWlpfo3JJAHwd3GHy4sYPl8RkUiMX4EVat5oVLg1vN5CIE3oy/cDNrdmaKxXWVgK83U8BMC3/jAzc/sMBsK8Ld+k3+/m92zyB/Rgj0aDx4wGjxPjnnd5eKpVysscDAYWGPhUSV6ulXg8eZ1HvzpXkYynqoCT0wsAqtwqmmZj/s+OvlC6eX7IZZcI/qgFQAgQQgAgK9d/SFHM7M01YrNZ7iuRGpRlgtIS570bBQJ7dlZKSFJI77xA+kProRhyzWTmIb1zC+ru9NLdaQCUqSQgWXG0GgJlOle9oWdJLU3zVQAAAABJRU5ErkJggg==\",\"contentType\":\"image/png\",\"width\":19,\"height\":19,\"angle\":0,\"xoffset\":0,\"yoffset\":0},\"value\":\"Precious metals\",\"label\":\"Precious metals\",\"description\":\"\"},{\"symbol\":{\"type\":\"esriPMS\",\"url\":\"fcd0ea9f3a6286225ea5d904466b1b06\",\"imageData\":\"iVBORw0KGgoAAAANSUhEUgAAABoAAAAaCAYAAACpSkzOAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAbFJREFUSInt0TtIW1EAgOH/XGNyr3pjYmogUaNB+0ootBIsqPiYBAu+cFDcpatDBduldJBC6eLgLKjt1slVFAxSQRCfmEWNj/qqFCsaiYm3WxDfJDdx6b+dwznn45xjIEUZUg6dho56gSq9AY3oG0WxHF64keYBURHc2+Jv6DhhwKZacObYkSRDOlzzdD9mxukJTCQMDfgaaCuvj41T/0f3ySQk3hWWkq2osbn94z8Mbi6yfX4WP/TUYOSjr5H8HDs21UKu2YqqZF1Z9+EszOj8T1r83+KDmvO8NPhqSJPSAJhdXSYSjVBa4iUciTAyPcYL12OeON28cj8Hf5w3+hycYeP7F2pdXuZ2g/T9WgBgqKyZyfUl+ncCvJ4186myFf/K/G1H3f1HwwdrDB+sxcbdrpd48opx2wvoHwnQW92ONVNF07TEoMs5VBueghJOwiEAnjmLsJmtTK0s6AvF28NDDimdibb3AAghEAgQAtlkAkAxyvzu/EqGSUkMMgpB/iPHjRsFgiw5817IrZDe/Yf0h4LRMHLf2+RDencF6qrroKuuI/lQsopBsmJuSgmU7P4B8ktn0WaY/NIAAAAASUVORK5CYII=\",\"contentType\":\"image/png\",\"width\":19,\"height\":19,\"angle\":0,\"xoffset\":0,\"yoffset\":0},\"value\":\"Uranium\",\"label\":\"Uranium\",\"description\":\"\"}]}"
+                    },
+                "customimage": {
+                    "enable": false,
+                    "description": "",
+                    "images": []
+                },
+                    "items": []
+                }, {
+                    "expand": false,
+                    "last": true,
+                    "type": 4,
+                    "id": "5695651f-1d33-56d9-95bc-e80cc6d01de9",
+                    "graphid": "67a661ce-2137-3d38-6c26-d324e577fc4c",
+                    "displayfields": false,
+                    "label": {
+                        "value": "Steel mills",
+                        "alttext": "Steel mills"
+                    },
+                    "metadata": {
+                        "enable": false
+                    },
+                    "opacity": {
+                        "enable": false,
+                        "min": 0,
+                        "max": 1,
+                        "initstate": 1
+                    },
+                    "visibility": {
+                        "enable": false,
+                        "initstate": true,
+                        "type": 1,
+                        "radioid": 0
+                    },
+                    "displaychild": {
+                        "enable": true,
+                        "symbol": "{\"type\":\"uniqueValue\",\"field1\":\"OperationType\",\"field2\":null,\"field3\":null,\"fieldDelimiter\":\", \",\"defaultSymbol\":null,\"defaultLabel\":null,\"uniqueValueInfos\":[{\"symbol\":{\"type\":\"esriPMS\",\"url\":\"89ba4bbd4af1b5944db714f42845e346\",\"imageData\":\"iVBORw0KGgoAAAANSUhEUgAAABoAAAAaCAYAAACpSkzOAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAbNJREFUSInt0r1LW1EYx/HvucbkXvNiEm2I0fhOrRZFNA5Vau2i4gutiJChU4XQQVf/hA7iouD/0HZ1EJzEYqUEqi2GUBSspkqbISCiRm9v0y0UNDEmN3Hxt53DOc+H5zzHQIFiKDgUPz95C/TqDSTQhhXFfvxfR4kWED2Roygnp/GcAWepBbfLiSQZiuGap1te22JpfSdn6PVIB2MDT5Lrws8ok0iS4Hl7DTazKbkXOz5jI3zIpfo3e8hiKuLVUCcelwOnw0qZ3YrFXHLl3MWlysfP28x/+JQd5HtUyWBfJ0WSBEDo+w/+aBptLfWoqsbK2heaG6toqPHQ2lwLZAmtfj3g99x7uh5Xs7MfZSN8BEDghY/N0E+Cu79wmL/xZrybYGgvXambZxSOxAhHYsn1szYvD+s8VHseENxdZsr/lFJrCYlE+jq3/nUuh4WmBi/n8QsAGmsrcNptbG7n2JFeuXvIWCyxMDOBEAACIUAgkGUjALJs5N3sJIpsSlUiM0hCUOkuT3lRIDArckZIWkjv3EP6Q3FVY3R6Mf+Q3rkCBfz9BPz9+YfylSQkK7aXBYHynX/tUmc8YkJuUQAAAABJRU5ErkJggg==\",\"contentType\":\"image/png\",\"width\":19,\"height\":19,\"angle\":0,\"xoffset\":0,\"yoffset\":0},\"value\":\"Steel Mills\",\"label\":\"Steel mills\",\"description\":\"\"}]}"
+                    },
+                "customimage": {
+                    "enable": false,
+                    "description": "",
+                    "images": []
+                },
+                    "items": []
+                }, {
+                    "expand": false,
+                    "last": true,
+                    "type": 4,
+                    "id": "5695651f-1d33-56d9-95bc-e80cc6d01de9",
+                    "graphid": "40e2b246-ec3d-0d08-420f-3cd9bd700c5b",
+                    "displayfields": false,
+                    "label": {
+                        "value": "Ferroalloy plants",
+                        "alttext": "Ferroalloy plants"
+                    },
+                    "metadata": {
+                        "enable": false
+                    },
+                    "opacity": {
+                        "enable": false,
+                        "min": 0,
+                        "max": 1,
+                        "initstate": 1
+                    },
+                    "visibility": {
+                        "enable": false,
+                        "initstate": true,
+                        "type": 1,
+                        "radioid": 0
+                    },
+                    "displaychild": {
+                        "enable": true,
+                        "symbol": "{\"type\":\"uniqueValue\",\"field1\":\"OperationType\",\"field2\":null,\"field3\":null,\"fieldDelimiter\":\", \",\"defaultSymbol\":null,\"defaultLabel\":null,\"uniqueValueInfos\":[{\"symbol\":{\"type\":\"esriPMS\",\"url\":\"f3fcafddc7c9241c4b90ad22737af03c\",\"imageData\":\"iVBORw0KGgoAAAANSUhEUgAAABoAAAAaCAYAAACpSkzOAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAaBJREFUSInt009LG0EYx/HvbHaT3WySdbvaYApitSpqEURvWo966MEeeuilB8mh78RTz74AX0OhSG+SU4tGPAixlEIVDPFPdE3YsGx3PQhpwRrTuFkv/m4zzDMfZp4ZmYgiRw41nMtVYCFsIOD3a03rufjrRMEEiLn6YRWv5t4biJsaWjaDJMkK/OPqjjd+YH8u3xuy3j/n2fJkcxx9j9qKJNBfWcQySnPKq7o4X6sErt85JHQJ690Qai5N3NRIPNFRUokb63zXo1L4SWWt1BmUnDbpXxpFSBIA53tHBJ6POZXDd33KX/ZJj/eRHurFeJmlQodQvXBK6XiT1IyF893G+VYFwFmxqe2c0ChecNbzi2x+DHur9QO6s0duqcZZqfbnlPMW+oiFNmBwUNym/8M4sqFC0Hqf/351Sp+KMfoUr3H911IvLBKmjl0sUw8T6jQPD4m4xPDHORABAgECEIKYel0iqwoT64vENOW2LdqDkCCZM1qUCuRkvC2kNRRyHqHwoaDhs/v2U/ehsHMDGszPQj4CqFtpQqqWeRMJ1O1cAdCLaZ+o++eVAAAAAElFTkSuQmCC\",\"contentType\":\"image/png\",\"width\":19,\"height\":19,\"angle\":0,\"xoffset\":0,\"yoffset\":0},\"value\":\"Ferroalloy\",\"label\":\"Ferroalloy plants\",\"description\":\"\"}]}"
+                    },
+                "customimage": {
+                    "enable": false,
+                    "description": "",
+                    "images": []
+                },
+                    "items": []
+                }, {
+                    "expand": false,
+                    "last": true,
+                    "type": 4,
+                    "id": "5695651f-1d33-56d9-95bc-e80cc6d01de9",
+                    "graphid": "184c63a6-6cc6-460e-e7c3-d3f405b65698",
+                    "displayfields": false,
+                    "label": {
+                        "value": "Automobile shredders",
+                        "alttext": "Automobile shredders"
+                    },
+                    "metadata": {
+                        "enable": false
+                    },
+                    "opacity": {
+                        "enable": false,
+                        "min": 0,
+                        "max": 1,
+                        "initstate": 1
+                    },
+                    "visibility": {
+                        "enable": false,
+                        "initstate": true,
+                        "type": 1,
+                        "radioid": 0
+                    },
+                    "displaychild": {
+                        "enable": true,
+                        "symbol": "{\"type\":\"uniqueValue\",\"field1\":\"OperationType\",\"field2\":null,\"field3\":null,\"fieldDelimiter\":\", \",\"defaultSymbol\":null,\"defaultLabel\":null,\"uniqueValueInfos\":[{\"symbol\":{\"type\":\"esriPMS\",\"url\":\"8bbbca6d06d0f3c4ce30d8b0d2bad3ff\",\"imageData\":\"iVBORw0KGgoAAAANSUhEUgAAABoAAAAaCAYAAACpSkzOAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAaNJREFUSInt0c0rbHEcx/H3OXPmnvlxhjMHgxuRmYg8lWIhipKixMZmNjZE3T/hrmVl5W+wsbm7W0qENBssDGExMqKM8jQu08yYsZBJ12MzZ8bGZ/Gr3+Or7++rkKUoWYfCd6FJoNNsIMF9vxD61bOKEnUgtV8dHxH5d5M2IHQdzVmKLCtWeOXrDpf+crbyJ22obGCUmr6h5Dz7PfpMJMmC3tKDVdOSa5HLc659a8Rj4dQhi6pRNjCC5ixFdRjkOAzUXPuLc/eRCAHvMv7Z6dQge10bVV29yLIFgODuNvFYlOL6JuLRKP7FeQqqazEqXRTVNuBPtaLLzQW8U6cYDa1cH+wT2lkFIDQ0wcXOJqE9LydaIa7hcYJb6+899XGP7gI+jgO+5Fxv7sbhqsZeXsH2nhe35xeqPR8SifSg/6MaTgrdNUTDtwAYlW6EwyC4tWEulGq+HpIVGy2/Z5CAp0GSQLGJx4s2Qcf0HFYh0oNAJq/k55u7EhI/cnI/hXwAmZtvyHwoHrtlYbwv85DZeQE1esbAM5Z5KFNJQjaRN5gVKNN5APOdZ48TRajFAAAAAElFTkSuQmCC\",\"contentType\":\"image/png\",\"width\":19,\"height\":19,\"angle\":0,\"xoffset\":0,\"yoffset\":0},\"value\":\"Metal Shredder\",\"label\":\"Automobile shredders\",\"description\":\"\"}]}"
+                    },
+                "customimage": {
+                    "enable": false,
+                    "description": "",
+                    "images": []
+                },
+                    "items": []
+                }]
+            }, {
+                "expand": false,
+                "last": true,
+                "type": 4,
+                "id": "c23e1d3c-9735-4a34-ac36-bfd2eccdf6fd",
+                "graphid": "599bf604-f688-3ab2-3716-bdc9f347088d",
+                "displayfields": false,
+                "label": {
+                    "value": "Top 100 Exploration Projects",
+                    "alttext": "Top 100 Exploration Projects"
+                },
+                "metadata": {
+                    "enable": false
+                },
+                "opacity": {
+                    "enable": true,
+                    "min": 0,
+                    "max": 1,
+                    "initstate": 1
+                },
+                "visibility": {
+                    "enable": true,
+                    "initstate": false,
+                    "type": 1,
+                    "radioid": 0
+                },
+                "displaychild": {
+                    "enable": true,
+                    "symbol": "{\"type\":\"simple\",\"symbol\":{\"type\":\"esriPMS\",\"url\":\"69e807eeba5c77363f279bf742d9a0ac\",\"imageData\":\"iVBORw0KGgoAAAANSUhEUgAAABYAAAAWCAYAAADEtGw7AAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAsNJREFUOI211VtIFFEYB/D/N7O7c3Ydd8ttMyFLRBIrjC5WKqkghXQBfQmCeuteWlQPRRepBwu7YReKIMyiHkJDyS7QmxYVSFBqdDHyIYjCLded3ZnZy5weysvkJqPSH+blnPl+fOeDmWPDf4rNykt6ODjHIGQDSAJ4P0BdTmfylwnBiqK4RNGoItC2uBbKMPx+8GgE5HRB9PqgqcE3AOokJt8gIsMSrIcH8jjxu5GeDxn6oyZE20+a9smZBcfqylxWuva67sN2TVPWMyb3jglr2kCxEY0/DDU2uCL39iY8DVd7oDftgd5yHK6qW3lsedFzXR8okiT3x4RwOBxI4waaQrevuiIPDv1rSsOJ/UD43BrwyuYZbEXpfUVRFsmyHB4FCyTUai/avJbQEVEvlsOW0ZltT884COCYCVbV4ExDVzeoDafGhQ7V37sJ+55jlYFAoMbj8WhDMBGviLzrFrm/3VTgudwzCon3fYdSXWBaiz07jfimnVMcKdNWArg/PApOS2Kf3o9CRF+q5a5jX3ohpXgXm2AOpBr+b5aRRDECAQCUCoyYMQFREu2Tgkm0AUDUBAO8V0hLnxQseH0A0PsXTG22OXN3TxQlRxpss2YDxNtMcCTKWx2ZWX5xwVZv/PW1oYIf65MtwY7yIxCcSd2MJXeYYLfbrWpqsMa1cdfZYGcDYOjWu51WAmdZOUB0ZHDN9OVJTK7D7Mx1rn0tJeEzZdZQ92LIhy5AkN31jMnNCWEiimtaoEJaWvhYOPFiWejKUfCvT/6Jigt3QN5yAKJveqMkKdtG7o36uzHm6ef8ZzHlzKux196p0l+9tEU7niH29il4oBtCWiFsuQVw5BXBnjNfIRKqJUk+T5TMx4R/dz5VB7Bf00KXWH7xZpZfvAoYvEHQD6ALQCsJVC9Jcl8iY8yribGkzwAO/3nGFUt33kTyCw3R9E8VCS7lAAAAAElFTkSuQmCC\",\"contentType\":\"image/png\",\"width\":16,\"height\":16,\"angle\":0,\"xoffset\":0,\"yoffset\":0},\"label\":\"\",\"description\":\"\"}"
+                },
+                "customimage": {
+                    "enable": false,
+                    "description": "",
+                    "images": []
+                },
+                "items": []
+
+            }]
+        },
+        "toolbardraw": {
+            "enable": true,
+            "expand": false,
+            "pos": 2,
+            "drawline": {
+                "enable": true
+            },
+            "drawtext": {
+                "enable": true
+            },
+            "measureline": {
+                "enable": true,
+                "unit": 1
+            },
+            "measurearea": {
+                "enable": true,
+                "unit": 1
+            },
+            "importexport": {
+                "enable": true
+            }
+        },
+        "toolbarnav": {
+            "enable": true,
+            "expand": false,
+            "pos": 0,
+            "mapwkid": 3978,
+            "geolocation": {
+                "enable": true,
+                "graphic": true,
+                "info": true
+            },
+            "scaledisplay": {
+                "enable": true,
+                "format": 1
+            },
+            "overview": {
+                "enable": true,
+                "url": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/BaseMaps/CBMT3978/MapServer",
+                "type": 2
+            },
+            "position": {
+                "enable": true
+            }
+        },
+        "toolbardata": {
+            "enable": true,
+            "expand": false,
+            "pos": 4,
+            "datafile": {
+                "enable": true
+            },
+            "dataurl": {
+                "enable": false
+            },
+            "dataquery": {
+            	"enable": false
+            }
+        },
+        "toolbarextract": {
+            "enable": true,
+            "expand": false,
+            "pos": 3,
+            "grid":{ 
+				"enable": false,
+				"id":"bbbb469d-aaa1-c8f5-175c-645200a6b6fe"
+            },
+            "items": [{
+				"title": "Maps with Data: ",
+                "subtitle": "Principal mineral areas of Canada",
+                "scale": 30000000,
+                "url": "http://geogratis.gc.ca/api/en/nrcan-rncan/ess-sst/-/AND/AND/AND/OR/(urn:atom:author)minerals-and-metals-sector-natural-resources-canada/(urn:atom:author)minerals-and-metals-sector-natural-resources-canada-secteur-des-mineraux-et-des-metaux-ressources-naturelles-canada/(urn:iso:series)geological-survey-of-canada-a-series-map/(urn:iso:type)data/(urn:iso:type)map",
+                "query": [{
+                    "type": 2,
+                    "param": "?published-min=2012-01-01T00:00:00.000Z&q=Principal+mineral+areas+of+Canada&sort-field=relevance",
+                    "label": "Search for maps that have data"
+                }]
+            }, {
+				"title": "Maps without Data: ",
+                "subtitle": "Principal mineral areas of Canada",
+                "scale": 30000000,
+                "url": "http://geogratis.gc.ca/api/en/nrcan-rncan/ess-sst/-/AND/AND/OR/OR/(urn:atom:author)minerals-and-metals-sector-natural-resources-canada/(urn:atom:author)minerals-and-metals-sector-natural-resources-canada-secteur-des-mineraux-et-des-metaux-ressources-naturelles-canada/(urn:atom:author)Geological-Survey-of-Canada/(urn:iso:series)geological-survey-of-canada-a-series-map/(urn:iso:type)map",
+                "query": [{
+                    "type": 2,
+                    "param": "?published-max=2011-12-31T23:59:59.999Z&q=Principal+mineral+areas+of+Canada&sort-field=relevance",
+                    "label": "Search for maps that have no data"
+                }]
+            }]
+        },
+        "insetframe": {
+            "enable": false
+        },
+       "datagrid": {
+            "enable": true,
+            "expand": true,
+            "layers": [{
+                "layerinfo": {
+                    "id": "bc9204ec-1573-e90c-dd4b-58b29e200478",
+                    "type": 4,
+                    "index": 0
+                },
+                "title": "Oil and Gas",
+                "globalsearch": false,
+                "fields": [{
+                    "title": "Mine site",
+                    "width": "200px",
+                    "data": "Minesite_E",
+                    "dataalias": "Minesite_E",
+				    "fieldtype": {
+				      "type": 1,
+				      "value": 1
+				     },
+				    "searchable": true
+                },{
+                    "title": "Province / Territory",
+                    "width": "200px",
+                    "data": "Province_E",
+                    "dataalias": "Province_E",
+				    "fieldtype": {
+				      "type": 1,
+				      "value": 4
+				     },
+				    "searchable": true
+                },{
+                    "title": "Product",
+                    "width": "200px",
+                    "data": "Product_E",
+                    "dataalias": "Product_E",
+				    "fieldtype": {
+				      "type": 1,
+				      "value": 1
+				     },
+				    "searchable": true
+                }],
+                "linktable": {
+                    "enable": false
+                 },
+                 "popups": {
+                    "enable": true,
+                    "layeralias": "Oil and gas"
+                 },
+                 "hover": {
+                     "enable": false,
+                     "hoverfield": "OilandGas"
+                 }
+            },{
+                "layerinfo": {
+                    "id": "1ea1f1db-5b0f-b960-42df-90cecedfad10",
+                    "type": 4,
+                    "index": 0
+                },
+                "title": "Metal mines",
+                "globalsearch": false,
+                "fields": [{
+                    "title": "Operation",
+                    "width": "200px",
+                    "data": "OperationE",
+                    "dataalias": "OperationE",
+				    "fieldtype": {
+				      "type": 1,
+				      "value": 1
+				     },
+				    "searchable": true
+                },{
+                    "title": "Operator / Owner",
+                    "width": "200px",
+                    "data": "Operator_OwnersE",
+                    "dataalias": "Operator_OwnersE",
+				    "fieldtype": {
+				      "type": 1,
+				      "value": 1
+				     },
+				    "searchable": true
+                },{
+                    "title": "Province / Territory",
+                    "width": "200px",
+                    "data": "Province_E",
+                    "dataalias": "Province_E",
+				    "fieldtype": {
+				      "type": 1,
+				      "value": 4
+				     },
+				    "searchable": true
+                },{
+                    "title": "Mine Type / Facility",
+                    "width": "200px",
+                    "data": "Facilities_Code_E_Spelt",
+                    "dataalias": "Facilities_Code_E_Spelt",
+				    "fieldtype": {
+				      "type": 1,
+				      "value": 1
+				     },
+				    "searchable": true
+                },{
+                    "title": "Commodity Group",
+                    "width": "200px",
+                    "data": "Commodity_Group_EN_Spelt",
+                    "dataalias": "Commodity_Group_EN_Spelt",
+				    "fieldtype": {
+				      "type": 1,
+				      "value": 4
+				     },
+				    "searchable": true
+                },{
+                    "title": "Commodity",
+                    "width": "200px",
+                    "data": "Commodity_EN_Spelt",
+                    "dataalias": "Commodity_EN_Spelt",
+				    "fieldtype": {
+				      "type": 1,
+				      "value": 1
+				     },
+				    "searchable": true
+                }],
+                "linktable": {
+                    "enable": false
+                 },
+                 "popups": {
+                    "enable": true,
+                    "layeralias": "Metal mines"
+                 },
+                 "hover": {
+                     "enable": true,
+                     "hoverfield": "Metal mines"
+                 }
+            },{
+                "layerinfo": {
+                    "id": "00af8c8f-2fa1-4a6b-7d5e-052d9f7e9970",
+                    "type": 4,
+                    "index": 1
+                },
+                "title": "Nonmetal mines",
+                "globalsearch": false,
+                "fields": [{
+                    "title": "Operation",
+                    "width": "200px",
+                    "data": "OperationE",
+                    "dataalias": "OperationE",
+				    "fieldtype": {
+				      "type": 1,
+				      "value": 1
+				     },
+				    "searchable": true
+                },{
+                    "title": "Operator / Owner",
+                    "width": "200px",
+                    "data": "Operator_OwnersE",
+                    "dataalias": "Operator_OwnersE",
+				    "fieldtype": {
+				      "type": 1,
+				      "value": 1
+				     },
+				    "searchable": true
+                },{
+                    "title": "Province / Territory",
+                    "width": "200px",
+                    "data": "Province_E",
+                    "dataalias": "Province_E",
+				    "fieldtype": {
+				      "type": 1,
+				      "value": 4
+				     },
+				    "searchable": true
+                },{
+                    "title": "Mine Type / Facility",
+                    "width": "200px",
+                    "data": "Facilities_Code_E_Spelt",
+                    "dataalias": "Facilities_Code_E_Spelt",
+				    "fieldtype": {
+				      "type": 1,
+				      "value": 4
+				     },
+				    "searchable": true
+                },{
+                    "title": "Commodity Group",
+                    "width": "200px",
+                    "data": "Commodity_Group_EN_Spelt",
+                    "dataalias": "Commodity_Group_EN_Spelt",
+				    "fieldtype": {
+				      "type": 1,
+				      "value": 4
+				     },
+				    "searchable": true
+                },{
+                    "title": "Commodity",
+                    "width": "200px",
+                    "data": "Commodity_EN_Spelt",
+                    "dataalias": "Commodity_EN_Spelt",
+				    "fieldtype": {
+				      "type": 1,
+				      "value": 1
+				     },
+				    "searchable": true
+                }],
+                "linktable": {
+                    "enable": false
+                 },
+                 "popups": {
+                    "enable": true,
+                    "layeralias": "Nonmetal mines"
+                 },
+                 "hover": {
+                     "enable": true,
+                     "hoverfield": "Nonmetal mines"
+                 }
+            },{
+                "layerinfo": {
+                    "id": "7ee0a175-dcda-3050-a493-2be425ec5bc5",
+                    "type": 4,
+                    "index": 2
+                },
+                "title": "Coal mines",
+                "globalsearch": false,
+                "fields": [{
+                    "title": "Operation",
+                    "width": "200px",
+                    "data": "OperationE",
+                    "dataalias": "OperationE",
+				    "fieldtype": {
+				      "type": 1,
+				      "value": 1
+				     },
+				    "searchable": true
+                },{
+                    "title": "Operator / Owner",
+                    "width": "200px",
+                    "data": "Operator_OwnersE",
+                    "dataalias": "Operator_OwnersE",
+				    "fieldtype": {
+				      "type": 1,
+				      "value": 1
+				     },
+				    "searchable": true
+                },{
+                    "title": "Province / Territory",
+                    "width": "200px",
+                    "data": "Province_E",
+                    "dataalias": "Province_E",
+				    "fieldtype": {
+				      "type": 1,
+				      "value": 4
+				     },
+				    "searchable": true
+                },{
+                    "title": "Mine Type / Facility",
+                    "width": "200px",
+                    "data": "Facilities_Code_E_Spelt",
+                    "dataalias": "Facilities_Code_E_Spelt",
+				    "fieldtype": {
+				      "type": 1,
+				      "value": 4
+				     },
+				    "searchable": true
+                },{
+                    "title": "Commodity Group",
+                    "width": "200px",
+                    "data": "Commodity_Group_EN_Spelt",
+                    "dataalias": "Commodity_Group_EN_Spelt",
+				    "fieldtype": {
+				      "type": 1,
+				      "value": 4
+				     },
+				    "searchable": true
+                },{
+                    "title": "Commodity",
+                    "width": "200px",
+                    "data": "Commodity_EN_Spelt",
+                    "dataalias": "Commodity_EN_Spelt",
+				    "fieldtype": {
+				      "type": 1,
+				      "value": 1
+				     },
+				    "searchable": true
+                }],
+                "linktable": {
+                    "enable": false
+                 },
+                 "popups": {
+                    "enable": true,
+                    "layeralias": "Coal mines"
+                 },
+                 "hover": {
+                     "enable": true,
+                     "hoverfield": "Coal mines"
+                 }
+            },{
+                "layerinfo": {
+                    "id": "262d92e2-c0d8-c373-f750-2d06596d45b7",
+                    "type": 4,
+                    "index": 3
+                },
+                "title": "Oil sands mines",
+                "globalsearch": false,
+                "fields": [{
+                    "title": "Operation",
+                    "width": "200px",
+                    "data": "OperationE",
+                    "dataalias": "OperationE",
+				    "fieldtype": {
+				      "type": 1,
+				      "value": 1
+				     },
+				    "searchable": true
+                },{
+                    "title": "Operator / Owner",
+                    "width": "200px",
+                    "data": "Operator_OwnersE",
+                    "dataalias": "Operator_OwnersE",
+				    "fieldtype": {
+				      "type": 1,
+				      "value": 1
+				     },
+				    "searchable": true
+                },{
+                    "title": "Province / Territory",
+                    "width": "200px",
+                    "data": "Province_E",
+                    "dataalias": "Province_E",
+				    "fieldtype": {
+				      "type": 1,
+				      "value": 4
+				     },
+				    "searchable": true
+                },{
+                    "title": "Mine Type / Facility",
+                    "width": "200px",
+                    "data": "Facilities_Code_E_Spelt",
+                    "dataalias": "Facilities_Code_E_Spelt",
+				    "fieldtype": {
+				      "type": 1,
+				      "value": 4
+				     },
+				    "searchable": true
+                },{
+                    "title": "Commodity Group",
+                    "width": "200px",
+                    "data": "Commodity_Group_EN_Spelt",
+                    "dataalias": "Commodity_Group_EN_Spelt",
+				    "fieldtype": {
+				      "type": 1,
+				      "value": 4
+				     },
+				    "searchable": true
+                },{
+                    "title": "Commodity",
+                    "width": "200px",
+                    "data": "Commodity_EN_Spelt",
+                    "dataalias": "Commodity_EN_Spelt",
+				    "fieldtype": {
+				      "type": 1,
+				      "value": 1
+				     },
+				    "searchable": true
+                }],
+                "linktable": {
+                    "enable": false
+                 },
+                 "popups": {
+                    "enable": true,
+                    "layeralias": "Oil sands mines"
+                 },
+                 "hover": {
+                     "enable": true,
+                     "hoverfield": "Oil sands mines"
+                 }
+            },{
+                "layerinfo": {
+                    "id": "5695651f-1d33-56d9-95bc-e80cc6d01de9",
+                    "type": 4,
+                    "index": 0
+                },
+                "title": "Smelters and refineries",
+                "globalsearch": false,
+                "fields": [{
+                    "title": "Operation",
+                    "width": "200px",
+                    "data": "Operation_E",
+                    "dataalias": "Operation_E",
+				    "fieldtype": {
+				      "type": 1,
+				      "value": 1
+				     },
+				    "searchable": true
+                },{
+                    "title": "Operator / Owner",
+                    "width": "200px",
+                    "data": "Operator_Owners_E",
+                    "dataalias": "Operator_Owners_E",
+				    "fieldtype": {
+				      "type": 1,
+				      "value": 1
+				     },
+				    "searchable": true
+                },{
+                    "title": "Province / Territory",
+                    "width": "200px",
+                    "data": "Province_E",
+                    "dataalias": "Province_E",
+				    "fieldtype": {
+				      "type": 1,
+				      "value": 4
+				     },
+				    "searchable": true
+                },{
+                    "title": "Facility",
+                    "width": "200px",
+                    "data": "Facilities_Code_E_Spelt",
+                    "dataalias": "Facilities_Code_E_Spelt",
+				    "fieldtype": {
+				      "type": 1,
+				      "value": 4
+				     },
+				    "searchable": true
+                },{
+                    "title": "Commodity Group",
+                    "width": "200px",
+                    "data": "Commodity_Group_E_Spelt",
+                    "dataalias": "Commodity_Group_E_Spelt",
+				    "fieldtype": {
+				      "type": 1,
+				      "value": 4
+				     },
+				    "searchable": true
+                },{
+                    "title": "Commodity",
+                    "width": "200px",
+                    "data": "Commodity_E_Spelt",
+                    "dataalias": "Commodity_E_Spelt",
+				    "fieldtype": {
+				      "type": 1,
+				      "value": 1
+				     },
+				    "searchable": true
+                }],
+                "linktable": {
+                    "enable": false
+                 },
+                 "popups": {
+                    "enable": true,
+                    "layeralias": "Smelters and refineries"
+                 },
+                 "hover": {
+                     "enable": true,
+                     "hoverfield": "Smelters and refineries"
+                 }
+            },{
+                "layerinfo": {
+                    "id": "5695651f-1d33-56d9-95bc-e80cc6d01de9",
+                    "type": 4,
+                    "index": 1
+                },
+                "title": "Steel mills",
+                "globalsearch": false,
+                "fields": [{
+                    "title": "Operation",
+                    "width": "200px",
+                    "data": "Operation_E",
+                    "dataalias": "Operation_E",
+				    "fieldtype": {
+				      "type": 1,
+				      "value": 1
+				     },
+				    "searchable": true
+                },{
+                    "title": "Operator / Owner",
+                    "width": "200px",
+                    "data": "Operator_Owners_E",
+                    "dataalias": "Operator_Owners_E",
+				    "fieldtype": {
+				      "type": 1,
+				      "value": 1
+				     },
+				    "searchable": true
+                },{
+                    "title": "Province / Territory",
+                    "width": "200px",
+                    "data": "Province_E",
+                    "dataalias": "Province_E",
+				    "fieldtype": {
+				      "type": 1,
+				      "value": 4
+				     },
+				    "searchable": true
+                },{
+                    "title": "Facility",
+                    "width": "200px",
+                    "data": "Facilities_Code_E_Spelt",
+                    "dataalias": "Facilities_Code_E_Spelt",
+				    "fieldtype": {
+				      "type": 1,
+				      "value": 4
+				     },
+				    "searchable": true
+                },{
+                    "title": "Commodity Group",
+                    "width": "200px",
+                    "data": "Commodity_Group_E_Spelt",
+                    "dataalias": "Commodity_Group_E_Spelt",
+				    "fieldtype": {
+				      "type": 1,
+				      "value": 4
+				     },
+				    "searchable": true
+                },{
+                    "title": "Commodity",
+                    "width": "200px",
+                    "data": "Commodity_E_Spelt",
+                    "dataalias": "Commodity_E_Spelt",
+				    "fieldtype": {
+				      "type": 1,
+				      "value": 1
+				     },
+				    "searchable": true
+                }],
+                "linktable": {
+                    "enable": false
+                 },
+                 "popups": {
+                    "enable": true,
+                    "layeralias": "Steel mills"
+                 },
+                 "hover": {
+                     "enable": true,
+                     "hoverfield": "Steel mills"
+                 }
+            },{
+                "layerinfo": {
+                    "id": "5695651f-1d33-56d9-95bc-e80cc6d01de9",
+                    "type": 4,
+                    "index": 2
+                },
+                "title": "Ferroalloy plants",
+                "globalsearch": false,
+                "fields": [{
+                    "title": "Operation",
+                    "width": "200px",
+                    "data": "Operation_E",
+                    "dataalias": "Operation_E",
+				    "fieldtype": {
+				      "type": 1,
+				      "value": 1
+				     },
+				    "searchable": true
+                },{
+                    "title": "Operator / Owner",
+                    "width": "200px",
+                    "data": "Operator_Owners_E",
+                    "dataalias": "Operator_Owners_E",
+				    "fieldtype": {
+				      "type": 1,
+				      "value": 1
+				     },
+				    "searchable": true
+                },{
+                    "title": "Province / Territory",
+                    "width": "200px",
+                    "data": "Province_E",
+                    "dataalias": "Province_E",
+				    "fieldtype": {
+				      "type": 1,
+				      "value": 4
+				     },
+				    "searchable": true
+                },{
+                    "title": "Facility",
+                    "width": "200px",
+                    "data": "Facilities_Code_E_Spelt",
+                    "dataalias": "Facilities_Code_E_Spelt",
+				    "fieldtype": {
+				      "type": 1,
+				      "value": 4
+				     },
+				    "searchable": true
+                },{
+                    "title": "Commodity Group",
+                    "width": "200px",
+                    "data": "Commodity_Group_E_Spelt",
+                    "dataalias": "Commodity_Group_E_Spelt",
+				    "fieldtype": {
+				      "type": 1,
+				      "value": 4
+				     },
+				    "searchable": true
+                },{
+                    "title": "Commodity",
+                    "width": "200px",
+                    "data": "Commodity_E_Spelt",
+                    "dataalias": "Commodity_E_Spelt",
+				    "fieldtype": {
+				      "type": 1,
+				      "value": 1
+				     },
+				    "searchable": true
+                }],
+                "linktable": {
+                    "enable": false
+                 },
+                 "popups": {
+                    "enable": true,
+                    "layeralias": "Ferroalloy plants"
+                 },
+                 "hover": {
+                     "enable": true,
+                     "hoverfield": "Ferroalloy plants"
+                 }
+            },{
+                "layerinfo": {
+                    "id": "5695651f-1d33-56d9-95bc-e80cc6d01de9",
+                    "type": 4,
+                    "index": 3
+                },
+                "title": "Automobile shredders",
+                "globalsearch": false,
+                "fields": [{
+                    "title": "Operation",
+                    "width": "200px",
+                    "data": "Operation_E",
+                    "dataalias": "Operation_E",
+				    "fieldtype": {
+				      "type": 1,
+				      "value": 1
+				     },
+				    "searchable": true
+                },{
+                    "title": "Operator / Owner",
+                    "width": "200px",
+                    "data": "Operator_Owners_E",
+                    "dataalias": "Operator_Owners_E",
+				    "fieldtype": {
+				      "type": 1,
+				      "value": 1
+				     },
+				    "searchable": true
+                },{
+                    "title": "Province / Territory",
+                    "width": "200px",
+                    "data": "Province_E",
+                    "dataalias": "Province_E",
+				    "fieldtype": {
+				      "type": 1,
+				      "value": 4
+				     },
+				    "searchable": true
+                }],
+                "linktable": {
+                    "enable": false
+                 },
+                 "popups": {
+                    "enable": true,
+                    "layeralias": "Automobile shredders"
+                 },
+                 "hover": {
+                     "enable": true,
+                     "hoverfield": "Automobile shredders"
+                 }
+            },{
+                "layerinfo": {
+                    "id": "c23e1d3c-9735-4a34-ac36-bfd2eccdf6fd",
+                    "type": 4,
+                    "index": 0
+                },
+                "title": "Top 100 Exploration Projects",
+                "globalsearch": false,
+                "fields": [{
+                    "title": "Project Name",
+                    "width": "200px",
+                    "data": "Property_Name",
+                    "dataalias": "Property_Name",
+				    "fieldtype": {
+				      "type": 1,
+				      "value": 1
+				     },
+				    "searchable": true
+                },{
+                    "title": "Province / Territory",
+                    "width": "200px",
+                    "data": "Province_E",
+                    "dataalias": "Province_E",
+				    "fieldtype": {
+				      "type": 1,
+				      "value": 4
+				     },
+				    "searchable": true
+                },{
+                    "title": "Commodity Group",
+                    "width": "200px",
+                    "data": "Commodity_Group_E",
+                    "dataalias": "Commodity_Group_E",
+				    "fieldtype": {
+				      "type": 1,
+				      "value": 1
+				     },
+				    "searchable": true
+                }],
+                "linktable": {
+                    "enable": false
+                 },
+                 "popups": {
+                    "enable": true,
+                    "layeralias": "Top 100 Exploration Projects"
+                 },
+                 "hover": {
+                     "enable": true,
+                     "hoverfield": "Top 100 Exploration Projects"
+                 }
+            }]
+        },
+        "customwidgets": []
+    }
+}

@@ -42,7 +42,7 @@
 			$help = $mapElem.find('.gcviz-help-cont');
 
 			// the full help dialog window
-			node += '<div id="help-' + mapid + '" class="gcviz-help-sect" data-bind="uiDialog: { title: lblHelpTitle, width: 600, height: 350, ok: dialogHelpOk, close: dialogHelpOk, openDialog: \'isHelpDialogOpen\', modal: false, draggable: true }">' +
+			node += '<div id="help-' + mapid + '" class="gcviz-help-sect" data-bind="uiDialog: { title: lblHelpTitle, width: 600, height: 1000, ok: dialogHelpOk, close: dialogHelpOk, openDialog: \'isHelpDialogOpen\', modal: false, draggable: true }">' +
 						// menu
 						'<section id="gcviz-help-menu" class="gcviz-help">' +
 							'<ul>' +
@@ -170,7 +170,7 @@
 				if (zoombar) {
 					node += '<div class="row">' +
 								'<div class="span1">' +
-									'<img class="gcviz-foot-logo" data-bind="attr: { src: imgHelpZoombar, alt: devLogoAlt }" tabindex="-1"></img>' +
+									'<img class="gcviz-foot-logo" data-bind="attr: { src: imgHelpZoombar, alt: mapZoombarAlt }" tabindex="-1"></img>' +
 								'</div>' +
 								'<span class="span11" data-bind="text: mapZoombar"></span>' +
 							'</div>';
@@ -205,7 +205,8 @@
 			var menu = config.tools.enable,
 				about = config.about.enable,
 				print = config.print.enable,
-				save = config.save.enable,
+				saveurl = config.saveurl.enable,
+				saveimage = config.saveimage.enable,
 				fullscreen = config.fullscreen,
 				node = '';
 
@@ -236,12 +237,21 @@
 						'</div>';
 			}
 
-			if (save) {
+			if (saveimage) {
 				node += '<div class="row">' +
 							'<div class="span1">' +
-								'<button class="gcviz-help-save" tabindex="-1"></button>' +
+								'<button class="gcviz-help-saveimage" tabindex="-1"></button>' +
 							'</div>' +
-							'<span class="span11 gcviz-help-textbtn" data-bind="text: headSave"></span>' +
+							'<span class="span11 gcviz-help-textbtn" data-bind="text: headSaveImg"></span>' +
+						'</div>';
+			}
+
+			if (saveurl) {
+				node += '<div class="row">' +
+							'<div class="span1">' +
+								'<button class="gcviz-help-saveurl" tabindex="-1"></button>' +
+							'</div>' +
+							'<span class="span11 gcviz-help-textbtn" data-bind="text: headSaveUrl"></span>' +
 						'</div>';
 			}
 
@@ -472,11 +482,36 @@
 				}
 
 				node +=	'<div class="row"><span class="span12" data-bind="text: legDesc1"></span></div>' +
-						'<div class="row"><span class="span12" data-bind="text: legDesc2"></span></div>' +
-						'<div class="row"><span class="span12" data-bind="text: legDesc3"></span></div>' +
-						'<div class="row"><span class="span12" data-bind="text: legSlider"></span></div>' +
-						'<div class="row"><span class="span12" data-bind="text: legExpand"></span></div>' +
-						'<div class="row"><span class="span12" data-bind="text: legNewLayer"></span></div>' +
+						'<div class="row">' +
+							'<div class="span1">' +
+								'<img class="gcviz-foot-logo" data-bind="attr: { src: imgHelpRadio, alt: legRadioAlt }" tabindex="-1"></img>' +
+							'</div>' +
+							'<div class="row"><span class="span11" data-bind="text: legDesc2"></span></div>' +
+						'</div>' +
+						'<div class="row">' +
+							'<div class="span1">' +
+								'<img class="gcviz-foot-logo" data-bind="attr: { src: imgHelpChk, alt: legChkAlt }" tabindex="-1"></img>' +
+							'</div>' +
+							'<div class="row"><span class="span11" data-bind="text: legDesc3"></span></div>' +
+						'</div>' +
+						'<div class="row">' +
+							'<div class="span2">' +
+								'<img class="gcviz-foot-logo" data-bind="attr: { src: imgHelpSlider, alt: legSliderAlt }" tabindex="-1"></img>' +
+							'</div>' +
+							'<div class="row"><span class="span10" data-bind="text: legSlider"></span></div>' +
+						'</div>' +
+						'<div class="row">' +
+							'<div class="span2">' +
+								'<img class="gcviz-foot-logo" data-bind="attr: { src: imgHelpArrow, alt: legArrowAlt }" tabindex="-1"></img>' +
+							'</div>' +
+							'<div class="row"><span class="span10" data-bind="text: legExpand"></span></div>' +
+						'</div>' +
+						'<div class="row">' +
+							'<div class="span5">' +
+								'<img class="gcviz-foot-logo" data-bind="attr: { src: imgHelpAddFile, alt: legAddFileAlt }" tabindex="-1"></img>' +
+							'</div>' +
+							'<div class="row"><span class="span7" data-bind="text: legNewLayer"></span></div>' +
+						'</div>' +
 					'</section>';
 			}
 

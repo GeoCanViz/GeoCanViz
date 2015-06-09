@@ -148,7 +148,7 @@
 					$viz('.ui-accordion-header').hide();
 
 					// wait for the map to load
-					mapVM.registerEvent(mapid, 'load', _self.onLoadMap);				
+					mapVM.registerEvent(mapid, 'load', _self.onLoadMap);
 				};
 
 				_self.onLoadMap = function(evt) {
@@ -541,7 +541,7 @@
 										value = value.replace(/\*/g, '.*');
 										value = '^' + value + '.*$';
 									}
-									
+
 									table.column(colIdx).search(value, true, false).draw();
 									$process.css('display', 'none');
 								}, val), 100);
@@ -813,7 +813,7 @@
 						require(['gcviz-vm-header'], function(headerVM) {
 							headerVM.subscribeIsFullscreen(mapid, function() {
 								var len = objDataTable.length;
-	
+
 								while (len--) {
 									objDataTable[len].draw();
 								}
@@ -1255,7 +1255,7 @@
 				};
 
 				_self.applyFilterMap = function(target) {
-					var input, val, name, dateTmp,
+					var input, val, name, dateTmp, valClean,
 						defs = [],
 						definition = '',
 						info = arrLayerInfo[activeTableId].layerinfo,
@@ -1269,7 +1269,8 @@
 
 						if (val !== '') {
 							if (input.hasClass('gcviz-dg-searchstr')) {
-								defs.push('UPPER(' + name + ') LIKE \'%' + val.toUpperCase() + '%\'');
+								valClean = val.toUpperCase().replace(/\*/g, '%');
+								defs.push('UPPER(' + name + ') LIKE \'' + valClean + '%\'');
 							} else if (input.hasClass('gcviz-dg-searchnum')) {
 								if (input.attr('placeholder') === 'Min') {
 									defs.push(name + ' >= ' + val);
@@ -1443,7 +1444,7 @@
 							}
 
 							// draw extent for spatial filter then set selection
-							gisDGj.drawSpatialExtent(mapid, geometry, 'spatial-' + info.table, true);
+							gisDG.drawSpatialExtent(mapid, geometry, 'spatial-' + info.table, true);
 							_self.setSelection(features);
 						}
 					}
@@ -1864,7 +1865,7 @@
 				layer = { },
 				feats = featColl.featureSet.features,
 				lenFeat = feats.length;
-				
+
 			// call the inner create tab function (if datagrid is enable)
 			if (typeof viewModel !== 'undefined') {
 				table = viewModel.table;
@@ -1909,6 +1910,9 @@
 					datas.push(data);
 				}
 
+				// reverse the array to have data in the right order
+				datas = datas.reverse();
+				
 				// recreate layerinfo like we have in config file from data added from
 				// data toollbar.
 				layer.title = title;
@@ -1982,7 +1986,7 @@
 						outFields.push(outfield);
 					}
 				}
-	
+
 				// recreate layerinfo like we have in config file from data added from
 				// data toollbar.
 				layer.title = name;

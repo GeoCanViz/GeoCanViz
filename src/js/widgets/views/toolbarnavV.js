@@ -79,7 +79,7 @@
 			}
 
 			// WCAG dialog window
-			node += '<div data-bind="wcag: { }, uiDialog: { title: WCAGTitle, width: 490, height: 210, ok: dialogWCAGOk, cancel: dialogWCAGCancel, close: dialogWCAGClose, openDialog: \'isDialogWCAG\' }">' +
+			node += '<div data-bind="wcag: { }, uiDialog: { title: WCAGTitle, width: 490, ok: dialogWCAGOk, cancel: dialogWCAGCancel, close: dialogWCAGClose, openDialog: \'isDialogWCAG\' }">' +
 						'<div>' +
 							'<label for="gcviz-xvalue" class="gcviz-label gcviz-label-wcag" data-bind="text: lblWCAGx"></label>' +
 							'<input id="gcviz-xvalue" class="text ui-widget-content ui-corner-all gcviz-input-wcag" data-bind="value: xValue"/>' +
@@ -95,7 +95,7 @@
 			// position information
 			if (configPosition) {
 				// Setup a dialog box to show results
-				node += '<div id="gcviz-pos' + mapid + '" data-bind="uiDialog: { title: lblLocTitle, width: 400, height: 625, modal: false, draggable: true, ok: dialogLocOk, close: dialogLocOk, openDialog: \'isLocDialogOpen\' }">' +
+				node += '<div id="gcviz-pos' + mapid + '" data-bind="uiDialog: { title: lblLocTitle, width: 400, modal: false, draggable: true, ok: dialogLocOk, close: dialogLocOk, openDialog: \'isLocDialogOpen\' }">' +
 							'<div class="gcviz-navinfo-content">' +
 								'<strong>&nbsp;<span data-bind="text: infoTopoCoord"></span></strong>' +
 								'<p><strong data-bind="text: infoDecDeg"></strong></p>' +

@@ -102,7 +102,7 @@
 			param.idTasksArr = [];
 			param.idTaskIndex = 0;
 			param.deferredGraph = [];
-			
+
 			params[map.vIdName] = param;
 		};
 
@@ -514,12 +514,13 @@
 				index,
 				query = new esriQuery(),
 				param = params[mapid],
+				lastLayerId = param.lastLayerId,
 				map = param.map,
 				graphId = map.graphicsLayerIds,
 				len = graphId.length - 2; // gcviz-symbol and gcviz-datagrid
 
 			// if !== -1, use layer id to find index. If === -1, no layer was added at init, use 0.
-			if (param.lastLayerId !== -1) {
+			if (lastLayerId !== -1) {
 				index = gcvizFunc.returnIndexMatch(graphId, lastLayerId) + 1;
 			} else {
 				index = 0;

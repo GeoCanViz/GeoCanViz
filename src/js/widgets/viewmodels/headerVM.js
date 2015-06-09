@@ -33,6 +33,7 @@
 			var headerViewModel = function($mapElem, mapid, config, isDataTbl) {
 				var _self = this,
 					mapVM,
+					menuState,
 					configAbout = config.about,
 					configPrint = config.print,
 					pathPrint = locationPath + 'gcviz/print/defaultPrint-' + window.langext + '.html',
@@ -41,8 +42,10 @@
 					$mapholder = $viz('#' + mapid),
 					$map = $viz('#' + mapid + '_holder'),
 					$btnAbout = $mapElem.find('.gcviz-head-about'),
-					$btnSave = $mapElem.find('.gcviz-head-save'),
-					$saveUrl = $mapElem.find('#gcviz-head-save'),
+					$saveUrl = $mapElem.find('#gcviz-head-saveurltext'),
+					$btnSaveUrl = $mapElem.find('.gcviz-head-saveurl'),
+					$btnSaveImg = $mapElem.find('.gcviz-head-saveimage'),
+					$btnPrint = $mapElem.find('.gcviz-head-print'),
 					$menu = $mapElem.find('#gcviz-menu' + mapid),
 					$btnFull = $mapElem.find('.gcviz-head-pop'),
 					instrHeight = 36;
@@ -71,7 +74,8 @@
 				_self.tpPrint = i18n.getDict('%header-tpprint');
 				_self.tpInset = i18n.getDict('%header-tpinset');
 				_self.tpAbout = i18n.getDict('%header-tpabout');
-				_self.tpSave = i18n.getDict('%header-tpsave');
+				_self.tpSaveUrl = i18n.getDict('%header-tpsaveurl');
+				_self.tpSaveImg = i18n.getDict('%header-tpsaveimage');
 				_self.tpFullScreen = i18n.getDict('%header-tpfullscreen');
 				_self.lblMenu = i18n.getDict('%header-tools');
 
@@ -108,6 +112,12 @@
 					template: pathPrint,
 					title: _self.headTitle()
 				};
+				_self.isPrintDialogOpen = ko.observable(false);
+				_self.printInfoText = i18n.getDict('%header-printinfo');
+				_self.isPrint = ko.observable(true);
+
+				// save map image
+				_self.isSaveImg = ko.observable(true);
 
 				// save map url dialog box
 				_self.lblSaveDesc = i18n.getDict('%header-copyclip');
@@ -201,15 +211,77 @@
 				};
 
 				_self.printClick = function() {
-					// Print the map
+					var node, height, width, size,
+						newHeight, newWidth;
+
+					// this is the simple print. It doesn't use esri print task
 					if (configPrint.type === 3) {
-						// this is the simple print. It doesn't use esri print task
-						//printSimple(mapVM, mapid, _self.printInfo);
-						mapVM.saveImageMap(mapid);
+						// print the map (first show extent for the print to scale)
+						// open dialog and disable print
+						_self.isPrintDialogOpen(true);
+						_self.isPrint(false);
+
+						// close menu
+						menuState = _self.toolsClick(false);
+
+						// get map height
+						node = $viz('#' + mapid + '_holder');
+						height = parseInt(node.css('height'), 10);
+						width = parseInt(node.css('width'), 10);
+
+						// set map size to fit the print page
+						gcvizFunc.setStyle(node[0], { 'width': '10in', 'height': '5.5in' });
+						gcvizFunc.setStyle(node.find('#' + mapid + '_holder_root')[0], { 'width': '10in', 'height': '5.5in' });
+
+						// On resize end, get heigh and width to add a polygon to show the user the print extent
+						mapVM.registerEventOne(mapid, 'resize', function() {
+							size = mapVM.getSizeMap(mapid);
+							newHeight = size.height;
+							newWidth = size.width;
+
+							// if new value are higher then original map size, keep original
+							if (newHeight > height) {
+								newHeight = height;
+							}
+							if (newWidth > width) {
+								newWidth = width;
+							}
+
+							// create the print extent polygon
+							$viz('#' + mapid + '_holder').prepend('<svg id="' + mapid + 'printext" class="gcviz-printext" height="' + newHeight + '" width="' + newWidth + '">' +
+																	'<polygon points="0,0 0,' + newHeight + ' ' + newWidth + ',' + newHeight + ' ' + newWidth + ',0">/<polygon></svg>');
+							gcvizFunc.setStyle(node[0], { 'width': width + 'px', 'height': height + 'px' });
+							gcvizFunc.setStyle(node.find('#' + mapid + '_holder_root')[0], { 'width': width, 'height': height });
+							mapVM.resizeMap(mapid);
+						});
+						mapVM.resizeMap(mapid);
 					} else {
 						// print from our custom esri services
 						printVM.togglePrint();
 					}
+				};
+
+				_self.dialogPrintOk = function() {
+					_self.isPrintDialogOpen(false);
+					printSimple(mapVM, mapid, _self.printInfo);
+				};
+
+				_self.dialogPrintCancel = function() {
+					_self.isPrintDialogOpen(false);
+				};
+
+				_self.dialogPrintClose = function() {
+					_self.isPrintDialogOpen(false);
+
+					if (menuState !== false) {
+						_self.toolsClick(true);
+					}
+
+					// enable button and remove extent
+					_self.isPrint(true);
+					$viz('#' + mapid + 'printext').remove();
+
+					$btnPrint.focus();
 				};
 
 				_self.insetClick = function() {
@@ -233,15 +305,23 @@
 					}, 1000);
 				};
 
-				_self.toolsClick = function() {
-					var open = $menu.accordion('option', 'active');
+				_self.toolsClick = function(force) {
+					var isOpen = $menu.accordion('option', 'active');
 
 					// Toggle the tools container
-					if (open === 0) {
-						$menu.accordion('option', 'active', false);
-					} else {
+					if (typeof force === 'undefined') {
+						if (isOpen === 0) {
+							$menu.accordion('option', 'active', false);
+						} else {
+							$menu.accordion('option', 'active', 0);
+						}
+					} else if (force === true) {
 						$menu.accordion('option', 'active', 0);
+					} else {
+						$menu.accordion('option', 'active', false);
 					}
+
+					return isOpen;
 				};
 
 				_self.helpClick = function() {
@@ -257,7 +337,17 @@
 					$btnAbout.focus();
 				};
 
-				_self.saveClick = function() {
+				_self.saveImgClick = function() {
+					mapVM.saveImageMap(mapid, _self.enableSaveImg);
+					_self.isSaveImg(false);
+				};
+
+				_self.enableSaveImg = function() {
+					_self.isSaveImg(true);
+					$btnSaveImg.focus();
+				};
+
+				_self.saveUrlClick = function() {
 					var mapUrl, url,
 						mapidString,
 						extentString,
@@ -266,7 +356,6 @@
 						extent = mapVM.getExtentMap(mapid),
 						urlWin = window.location.toString(),
 						index = urlWin.indexOf('?');
-						
 
 					// extract only first part of url
 					if (index !== -1) {
@@ -298,12 +387,12 @@
 
 					// select the url and focus to input
 					$saveUrl[0].setSelectionRange(0, mapUrl.length);
-					$saveUrl.focus();
+					$btnSaveUrl.focus();
 				};
 
 				_self.dialogSaveOk = function() {
 					_self.isSaveDialogOpen(false);
-					$btnSave.focus();
+					$btnSaveUrl.focus();
 				};
 
 				_self.cancelFullScreen = function() {
@@ -387,7 +476,7 @@
 
 				_self.adjustContainerHeight = function() {
 					var active = $menu.accordion('option', 'active'),
-						toolbarheight = parseInt(mapVM.getHeightMap(mapid), 10);
+						toolbarheight = parseInt(mapVM.getSizeMap(mapid).height, 10);
 
 					// set height
 					_self.xheightToolsInner('max-height:' + (toolbarheight - instrHeight) + 'px!important'); // remove the keyboard instruction height
@@ -452,12 +541,12 @@
 				center.point = mapVM.getCenterMap(mapid);
 
 				// set map size to fit the print page
-				gcvizFunc.setStyle(node[0], { 'width': '10in', 'height': '5.25in' });
-				gcvizFunc.setStyle(node.find('#' + mapid + '_holder_root')[0], { 'width': '10in', 'height': '5.25in' });
+				gcvizFunc.setStyle(node[0], { 'width': '10in', 'height': '5.5in' });
+				gcvizFunc.setStyle(node.find('#' + mapid + '_holder_root')[0], { 'width': '10in', 'height': '5.5in' });
 
 				// resize map and center to keep scale
 				center.interval = 1500;
-				mapVM.resizeCenterMap(mapid, center);
+				mapVM.resizeMap(mapid);
 
 				// open the print page here instead of timemeout because if we do so, it will act as popup.
 				// It needs to be in a click event to open without a warning
@@ -494,7 +583,7 @@
 					zoomPrevNext.removeClass('gcviz-hidden');
 					gcvizFunc.setStyle(node[0], { 'width': width, 'height': height });
 					gcvizFunc.setStyle(node.find('#' + mapid + '_holder_root')[0], { 'width': width, 'height': height });
-					mapVM.resizeCenterMap(mapid, center);
+					mapVM.resizeMap(mapid);
 				}, 15000);
 			};
 

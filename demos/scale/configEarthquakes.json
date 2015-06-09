@@ -9,6 +9,7 @@
                 "urlgeomserv": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/Utilities/Geometry/GeometryServer",
                 "urlproxy": "http://geoappext.nrcan.gc.ca/php/proxy.ashx",
                 "urldownload": "http://geoappext.nrcan.gc.ca/php/download.php",
+                "urlsaveimage": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task",
                 "urlprint": "http://s-bsc-geoappint.nrn.nrcan.gc.ca/arcgis/rest/services/Tools/GeoCanVizAdvancedPrint/GPServer/GeoCanVizAdvancedPrint",
                 "urlprintelements":"http://s-bsc-geoappint.nrn.nrcan.gc.ca/arcgis/rest/services/Tools/GeoCanVizGetMxdElements/GPServer/GeoCanVizGetMxdElements",
                 "urltemplates": "http://s-bsc-geoappint.nrn.nrcan.gc.ca/arcgis/rest/services/Tools/GeoCanVizGetTemplates/GPServer/GeoCanVizGetTemplates",
@@ -186,8 +187,11 @@
                 "project": ["Default", "Topo"],
                 "DPI": [96, 300]
             },
-            "save": {
+            "saveurl": {
             	"enable": true
+            },
+            "saveimage": {
+              "enable": true
             },
             "fullscreen": true
         },

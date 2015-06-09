@@ -41,7 +41,7 @@
 							'<div class="span1"><button id="btnAddUrl' + mapid + '" class="gcviz-data-add" tabindex="0" data-bind="buttonBlur, click: addURLClick, attr: { alt: tpAdd }"></button></div>' +
 							'<div class="span11"><label class="gcviz-label gcviz-nav-lblpos" for="btnAddUrl' + mapid + '" data-bind="text: lblUrl"></label></div>' +
 						'</div>' +
-						'<div data-bind="uiDialog: { title: lblUrlTitle, width: 450, height: 220, ok: dialogUrlOk, cancel: dialogUrlCancel, close: dialogUrlClose, openDialog: \'isUrlDialogOpen\' }">' +
+						'<div data-bind="uiDialog: { title: lblUrlTitle, width: 450, ok: dialogUrlOk, cancel: dialogUrlCancel, close: dialogUrlClose, openDialog: \'isUrlDialogOpen\' }">' +
 							'<div>' +
 								'<form><fieldset>' +
 									'<span data-bind="text: lblAddUrl"></span>' +
@@ -61,17 +61,17 @@
 			node += '</script>';
 
 			// add dialog error message
-			node += '<div data-bind="uiDialog: { title: lblErrTitle, width: 500, height: 200, ok: dialogDataClose, close: dialogDataClose, openDialog: \'isErrDataOpen\' }">' +
+			node += '<div data-bind="uiDialog: { title: lblErrTitle, width: 500, ok: dialogDataClose, close: dialogDataClose, openDialog: \'isErrDataOpen\' }">' +
 						'<span data-bind="text: errMsg"></span>' +
 					'</div>';
 
 			// add dialog load message
-			node += '<div data-bind="uiDialog: { title: lblAddTitle, width: 500, height: 200, modal: true, open: openWait, openDialog: \'isDataProcess\', closeOnEscape: false }">' +
+			node += '<div data-bind="uiDialog: { title: lblAddTitle, width: 500, modal: true, open: openWait, openDialog: \'isDataProcess\', closeOnEscape: false }">' +
 						'<span data-bind="text: lblAddDesc"></span>' +
 					'</div>';
 
 			// add dialog file load message for layer loaded from the url
-			node += '<div data-bind="uiDialog: { title: lblAddTitle, width: 500, height: 290, ok: okParamUrlFile, close: closeParamUrlFile, openDialog: \'isFileProcess\', ' +
+			node += '<div data-bind="uiDialog: { title: lblAddTitle, width: 500, ok: okParamUrlFile, close: closeParamUrlFile, openDialog: \'isFileProcess\', ' +
 												'position: { within: \'#' + mapid + '_holder\', at: \'center center\' } }">' +
 						'<span data-bind="text: lblAddParamDesc"></span>' +
 						'<div class="row">' +

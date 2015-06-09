@@ -299,7 +299,7 @@
 						// bug with jQueryUI, focus does not work when menu open
 						setTimeout(function() {
 							$viz('#' + _self.activeTool()).focus();
-							
+
 							_self.activeTool('');
 						}, 700);
 					});

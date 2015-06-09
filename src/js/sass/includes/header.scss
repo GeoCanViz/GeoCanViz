@@ -65,7 +65,12 @@
 	@include marg-button;
 }
 
-.gcviz-head-save {
+.gcviz-head-saveimage {
+	@include sprite($img-spritebtn, -1842, -2);
+	@include marg-button;
+}
+
+.gcviz-head-saveurl {
 	@include sprite($img-spritebtn, -1805, -2);
 	@include marg-button;
 }
@@ -93,4 +98,17 @@
 
 .gcviz-head-textinput {
 	width: 95%;
+}
+
+.gcviz-printext {
+	z-index: 1000;
+	position: absolute;
+	pointer-events: none;
+
+	polygon {
+		opacity: 0.5;
+		fill: gray;
+		stroke: black;
+		stroke-width: 5;
+	}
 }

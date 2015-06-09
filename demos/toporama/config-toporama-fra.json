@@ -10,6 +10,7 @@
                 "urlgeomserv": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/Utilities/Geometry/GeometryServer",
                 "urlproxy": "http://geoappext.nrcan.gc.ca/php/proxy.ashx",
                 "urldownload": "http://geoappext.nrcan.gc.ca/php/download.php",
+                "urlsaveimage": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task",
                 "sr": {
                     "wkid": 3978
                 },
@@ -184,7 +185,7 @@
                         "visiblelayers": ["Limites"] 
                     },
                     "scale": {
-                            "min": 0,
+                            "min": 145000000,
                             "max": 420000
                         },
                         "cluster": {
@@ -662,8 +663,11 @@
                 "template": [],
                 "DPI": [100, 300]
             },
-			"save": {
-            	"enable": true
+			      "saveurl": {
+              "enable": true
+            },
+            "saveimage": {
+              "enable": true
             },
             "fullscreen": true
         },
@@ -2223,7 +2227,7 @@
                 "last": false,
                 "type": 4,
                 "id": "bbbb469d-aaaa-c8f5-175c-645200a6b6fe",
-                "graphid": "e5511402-0028-5cbe-0d3c-f537c612b7df",
+                "graphid": "e5511402-0029-5cbe-0d3c-f537c612b7df",
                 "displayfields": false,
                 "label": {
                     "value": "Grille topographique nationale",
@@ -2324,8 +2328,8 @@
 				"id":"bbbb469d-aaaa-c8f5-175c-645200a6b6fe"
             },
 			"items": [{
-                "title": "Carte (matriciel): ",
-                "subtitle": "Toporama, CanMatrix prêt à imprimer et géoréférencée.",
+                "title": "Cartes matricielles : ",
+                "subtitle": "Toporama, CanMatrix prêt à imprimer et géoréférencée",
                 "scale": 15000000,
                 "url": "http://geogratis.gc.ca/api/fr/nrcan-rncan/ess-sst/-/OR/(urn:iso:series)toporama/(urn:iso:series)canmatrix-georeference",
                 "query": [{
@@ -2335,25 +2339,25 @@
                 }, {
                     "type": 2,
                     "param": "?bbox=XXX&sort-field=spatial",
-                    "label": "Obtenir toutes les données pour la zone présentés"
+                    "label": "Obtenir toutes les cartes pour la zone présentée"
                 }]
             }, {
-                "title": "Données (vectoriel): ",
-                "subtitle": "CanVec+.",
+                "title": "Données vectorielles : ",
+                "subtitle": "CanVec+",
                 "scale": 15000000,
                 "url": "http://geogratis.gc.ca/api/fr/nrcan-rncan/ess-sst/-/(urn:iso:series)canvec-plus",
                 "query": [{
                     "type": 1,
                     "param": "?q=XXX",
-                    "label": "Obtenez une seule carte"
+                    "label": "Obtenez un ensemble de données"
                 }, {
                     "type": 2,
                     "param": "?bbox=XXX&sort-field=spatial",
-                    "label": "Obtenir toutes les données pour la zone présentés"
+                    "label": "Obtenir toutes les données pour la zone présentée"
                 }]
             }, {
-                "title": "Données: ",
-                "subtitle": "CanVec+ (vectoriel) et les données d'élévation (matriciel) utilisant un étendue géographique personnalisé.",
+                "title": "Données : ",
+                "subtitle": "CanVec+ (vectorielles) et les données d'élévation (matricielles) utilisant un étendue géographique personnalisé",
                 "scale": 15000000,
                 "url": "http://geogratis.gc.ca/site/fra/extraction",
                 "query": [{
@@ -2368,8 +2372,7 @@
         },
         "datagrid": {
             "enable": false,
-            "expand": false,
-            "layers": []
+            "expand": false
         },
         "customwidgets": []
     }
