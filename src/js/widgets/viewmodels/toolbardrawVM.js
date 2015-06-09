@@ -11,26 +11,26 @@
 			'knockout',
 			'genfile',
 			'gcviz-i18n',
-			'gcviz-vm-map',
-			'gcviz-func',
-			'gcviz-gisgraphic',
-			'gcviz-gisdatagrid'
-	], function($viz, ko, generateFile, i18n, mapVM, gcvizFunc, gisGraphic, gisDG) {
+			'gcviz-func'
+	], function($viz, ko, generateFile, i18n, gcvizFunc) {
 		var initialize,
-			vm;
+			openTextDialog,
+			endDraw,
+			vm = {};
 
 		initialize = function($mapElem, mapid, config) {
 
 			// data model				
 			var toolbardrawViewModel = function($mapElem, mapid) {
 				var _self = this,
+					mapVM,
 					globalKey,
 					clickMeasureLength, clickMeasureArea,
 					dblclickMeasure,
+					aSegments, lSegments,
 					lblDist = i18n.getDict('%toolbardraw-dist'),
 					lblSeg = i18n.getDict('%toolbardraw-seg'),
 					lblArea = i18n.getDict('%toolbardraw-area'),
-					mymap = gcvizFunc.getElemValueVM(mapid, ['map', 'map'], 'js'),
 					$container = $viz('#' + mapid + '_holder_layers'),
 					$btnDraw = $mapElem.find('.gcviz-draw-line'),
 					$btnText = $mapElem.find('.gcviz-draw-text'),
@@ -38,6 +38,12 @@
 					$btnArea = $mapElem.find('.gcviz-draw-area'),
 					$btnDelsel = $mapElem.find('.gcviz-draw-delsel'),
 					$menu = $viz('#gcviz-menu' + mapid);
+
+				// there is a problem with the define. The gcviz-vm-map is not able to be set.
+				// We set the reference to gcviz-vm-map (hard way)
+				require(['gcviz-vm-map'], function(vmMap) {
+					mapVM = vmMap;
+				});
 
 				// viewmodel mapid to be access in tooltip and wcag custom binding
 				_self.mapid = mapid;
@@ -80,7 +86,7 @@
 				_self.drawTextValue = ko.observable('');
 
 				// dialog window for length
-				_self.measureDisplayLabel = i18n.getDict('%toolbarnav-lbllengthdisplay');
+				_self.measureDisplayLabel = i18n.getDict('%toolbardraw-lbllengthdisplay');
 				_self.isMeasureDialogOpen = ko.observable();
 				_self.segmentMeasures = ko.observable('');
 				_self.totalMeasures = ko.observable('');
@@ -89,17 +95,14 @@
 				// keep color setting
 				_self.selectedColor = ko.observable();
 
-				// enable buttons (undo, export)
-				_self.stackUndo = ko.observableArray([]);
-				_self.stackRedo = ko.observableArray([]);
-				_self.isGraphics = ko.observable(false);
-
-				// graphic object
-				_self.graphic = new gisGraphic.initialize(mymap, _self.isGraphics, _self.stackUndo, _self.stackRedo, lblDist, lblArea);
-
 				// measure array and info
 				_self.measureHolder = ko.observableArray([]);
 				_self.measureType = '';
+
+				// enable buttons (undo, redo)
+				_self.stackUndo = ko.observableArray([]);
+				_self.stackRedo = ko.observableArray([]);
+				_self.isGraphics = ko.observable(false);
 
 				// set active tool
 				_self.activeTool = ko.observable('');
@@ -124,16 +127,25 @@
 					// select black by default
 					_self.selectColorClick('black');
 
+					// init the graphics object
+					_self.graphic = mapVM.initGraphics(mapid, _self.stackU, _self.stackR, lblDist, lblArea);
+
 					return { controlsDescendantBindings: true };
+				};
+
+				_self.updateStack = function() {
+					_self.isGraphics(_self.graphic.getIsGraphics());
+					_self.stackUndo(_self.graphic.getStackUndo());
+					_self.stackRedo(_self.graphic.getStackRedo());
 				};
 
 				// end draw action on tools toolbar click
 				_self.endDraw = function() {
 					// set popup event
-					gisDG.addEvtPop();
+					mapVM.addPopupEvent(mapid);
 
 					// enable zoom extent button on map
-					mapVM.disableZoomExtent(false);
+					mapVM.disableZoomExtent(mapid, false);
 
 					// remove cursor and event only if WCAG mode is not enable
 					if (!_self.isWCAG()) {
@@ -159,11 +171,16 @@
 					// hide measure window and reset values
 					_self.dialogMeasureClose();
 
+					// open menu
+					require(['gcviz-vm-header'], function(headerVM) {
+						headerVM.toggleMenu(mapid);
+					});
+
 					// set the focus back to the right tool
 					_self.setFocus();
 
-					// open menu
-					$menu.accordion('option', 'active', 0);
+					// update stack and state for buttons with observable
+					_self.updateStack();
 				};
 
 				// add text dialog buttons functions (ok and cancel)
@@ -225,6 +242,10 @@
 						_self.isDialogWCAG(true);
 						_self.enableOkWCAG('disable');
 					}
+
+					// focus the map. We need to specify this because when you use the keyboard to
+					// activate ta tool, the focus sometimes doesnt go to the map.
+					mapVM.focusMap(mapid, false);
 				};
 
 				_self.textClick = function() {
@@ -253,6 +274,9 @@
 					// workaround to remove tooltip on undo. The tooltip appears
 					// even if the button is disable
 					$viz('.ui-tooltip').remove();
+
+					// update stack and state for buttons with observable
+					_self.updateStack();
 				};
 
 				_self.eraseSelClick = function() {
@@ -265,7 +289,7 @@
 
 					// focus the map. We need to specify this because when you use the keyboard to
 					// activate ta tool, the focus sometimes doesnt go to the map.
-					gcvizFunc.focusMap(mymap, false);
+					mapVM.focusMap(mapid, false);
 				};
 
 				_self.undoClick = function() {
@@ -280,6 +304,10 @@
 					// workaround to remove tooltip on undo. The tooltip appears
 					// even if the button is disable
 					$viz('.ui-tooltip').remove();
+
+					// update stack and state for buttons with observable
+					_self.updateStack();
+
 				};
 
 				_self.redoClick = function() {
@@ -294,6 +322,10 @@
 					// workaround to remove tooltip on undo. The tooltip appears
 					// even if the button is disable
 					$viz('.ui-tooltip').remove();
+
+					// update stack and state for buttons with observable
+					_self.updateStack();
+
 				};
 
 				_self.dialogMeasureClose = function() {
@@ -303,7 +335,7 @@
 				};
 
 				_self.measureLengthClick = function() {
-					var segments = 0;
+					lSegments = 0;
 
 					globalKey = gcvizFunc.getUUID();
 					_self.closeTools('length');
@@ -318,28 +350,10 @@
 						$container.css('cursor', '');
 						$container.addClass('gcviz-draw-cursor-measure');
 
-						clickMeasureLength = mymap.on('click', function(event) {
-											_self.graphic.addMeasure(_self.measureHolder, globalKey, 0, 'km', _self.selectedColor(), _self.isMeasureOnMap(), event);
-											_self.setSegmentLength(segments);
-											segments++;
-										});
+						clickMeasureLength = mapVM.registerEvent(mapid, 'click', _self.clickMeasureLengthEvt);
 
 						// on double click, close line and show total length
-						dblclickMeasure = mymap.on('dbl-click', function(event) {
-							// add last point then close
-							_self.graphic.addMeasure(_self.measureHolder, globalKey, 0, 'km', _self.selectedColor(), _self.isMeasureOnMap(), event);
-							_self.setSegmentLength(segments);
-							segments = 0;
-
-							// remove mouse mouve event that shows distance after the element is finish
-							_self.graphic.removeMouseMove();
-
-							// add a small time out to let the last point to go in. If not,
-							// the last point is not in the sum length
-							setTimeout(function() {
-								_self.endMeasureLength();
-							}, 300);
-						});
+						dblclickMeasure = mapVM.registerEvent(mapid, 'dbl-click', _self.dblclickMeasureLengthEvt);
 					} else {
 						_self.isDialogWCAG(true);
 						_self.enableOkWCAG('disable');
@@ -347,7 +361,29 @@
 
 					// focus the map. We need to specify this because when you use the keyboard to
 					// activate ta tool, the focus sometimes doesnt go to the map.
-					gcvizFunc.focusMap(mymap, false);
+					mapVM.focusMap(mapid, false);
+				};
+
+				_self.clickMeasureLengthEvt = function(event) {
+					_self.graphic.addMeasure(_self.measureHolder, globalKey, 0, 'km', _self.selectedColor(), _self.isMeasureOnMap(), event);
+					_self.setSegmentLength(lSegments);
+					lSegments++;
+				};
+
+				_self.dblclickMeasureLengthEvt = function(event) {
+					// add last point then close
+					_self.graphic.addMeasure(_self.measureHolder, globalKey, 0, 'km', _self.selectedColor(), _self.isMeasureOnMap(), event);
+					_self.setSegmentLength(lSegments);
+					lSegments = 0;
+
+					// remove mouse mouve event that shows distance after the element is finish
+					_self.graphic.removeMouseMove();
+
+					// add a small time out to let the last point to go in. If not,
+					// the last point is not in the sum length
+					setTimeout(function() {
+						_self.endMeasureLength();
+					}, 300);
 				};
 
 				_self.setSegmentLength = function(segments) {
@@ -365,7 +401,7 @@
 								_self.segmentMeasures(_self.segmentMeasures() + lblSeg + pt.distance + ' km<br/>');
 								_self.setTotalMeasure(array, nbSeg);
 							}
-						}, 1000);			
+						}, 1000);
 					} else {
 						// the array only have 1 point, it is a new line, reinitalize the value
 						_self.segmentMeasures('');
@@ -404,6 +440,8 @@
 				};
 
 				_self.measureAreaClick = function() {
+					aSegments = 0;
+
 					globalKey = gcvizFunc.getUUID();
 					_self.closeTools('area');
 					_self.measureType = 'area';
@@ -417,15 +455,10 @@
 						$container.css('cursor', '');
 						$container.addClass('gcviz-draw-cursor-measure');
 
-						clickMeasureArea = mymap.on('click', function(event) {
-											_self.graphic.addMeasure(_self.measureHolder, globalKey, 1, 'km', _self.selectedColor(), false, event);
-										});
+						clickMeasureArea = mapVM.registerEvent(mapid, 'click', _self.clickMeasureAreaEvt);
+
 						// on double click, close polygon and show total length and area
-						dblclickMeasure = mymap.on('dbl-click', function(event) {
-							// add last point then close
-							_self.graphic.addMeasure(_self.measureHolder, globalKey, 1, 'km', _self.selectedColor(), false, event);
-							_self.endMeasureArea();
-						});
+						dblclickMeasure = mapVM.registerEvent(mapid, 'dbl-click', _self.dblclickMeasureAreaEvt);
 					} else {
 						_self.isDialogWCAG(true);
 						_self.enableOkWCAG('disable');
@@ -433,7 +466,22 @@
 
 					// focus the map. We need to specify this because when you use the keyboard to
 					// activate ta tool, the focus sometimes doesnt go to the map.
-					gcvizFunc.focusMap(mymap, false);
+					mapVM.focusMap(mapid, false);
+				};
+
+				_self.clickMeasureAreaEvt = function(event) {
+					if (aSegments === 0) {
+						_self.totalMeasures('');
+					}
+					_self.graphic.addMeasure(_self.measureHolder, globalKey, 1, 'km', _self.selectedColor(), false, event);
+					aSegments++;
+				};
+
+				_self.dblclickMeasureAreaEvt = function(event) {
+					// add last point then close
+					_self.graphic.addMeasure(_self.measureHolder, globalKey, 1, 'km', _self.selectedColor(), false, event);
+					_self.endMeasureArea();
+					aSegments = 0;
 				};
 
 				_self.endMeasureArea = function() {
@@ -459,7 +507,7 @@
 					// launch the dialog. We cant put the dialog in the button because
 					// Firefox will not launch the window. To be able to open the window,
 					// we mimic the click
-					$viz(document.getElementById('fileDialogAnno'))[0].click();
+					$viz(document.getElementById('fileDialogAnno' + _self.mapid))[0].click();
 				};
 
 				_self.importClick = function(vm, event) {
@@ -477,16 +525,21 @@
 					}
 
 					// clear the selected file
-					document.getElementById('fileDialogAnno').value = '';
+					document.getElementById('fileDialogAnno' + _self.mapid).value = '';
 				};
 
 				_self.loadFile = function() {
 					return function(e) {
-						var jsonGraphics;
+						var graph,
+							jsonGraphics;
 
 						try {
 							jsonGraphics = JSON.parse(e.target.result);
-							gisGraphic.importGraphics(mymap, jsonGraphics, _self.isGraphics);
+							graph = mapVM.importGraphics(mapid, jsonGraphics);
+
+							// update stack and state for buttons with observable
+							_self.graphic.addUndoStack(graph.key, graph.graphics);
+							_self.updateStack();
 						} catch(error) {
 							console.log('Not able to load graphics' + ': ' + error);
 						}
@@ -494,7 +547,7 @@
 				};
 
 				_self.exportClick = function() {
-					var graphics = gisGraphic.exportGraphics(mymap);
+					var graphics = mapVM.exportGraphics(mapid);
 
 					$viz.generateFile({
 						filename	: 'graphics.json',
@@ -506,7 +559,9 @@
 
 				_self.closeTools = function(tool) {
 					// close menu
-					$menu.accordion('option', 'active', false);
+					require(['gcviz-vm-header'], function(headerVM) {
+						headerVM.toggleMenu(mapid);
+					});
 
 					// set event for the toolbar
 					$menu.on('accordionbeforeactivate', function() {
@@ -515,11 +570,16 @@
 					});
 
 					// remove popup event
-					gisDG.removeEvtPop();
+					mapVM.removePopupEvent(mapid);
 
 					// disable zoom extent button on map
-					mapVM.disableZoomExtent(true);
+					mapVM.disableZoomExtent(mapid, true);
 
+					// resize map to make sure it will draw at the right place. We do this because if we have more then
+					// 1 map with diff height or wcag is open n diff map it creates problem.
+					mapVM.resizeMap(mapid);
+
+					// set active tool for other functions
 					_self.activeTool(tool);
 				};
 
@@ -575,7 +635,7 @@
 
 							// reset active tools
 							_self.activeTool('');
-						}, 1000);
+						}, 700);
 					});
 				};
 
@@ -652,13 +712,38 @@
 				_self.init();
 			};
 
-			vm = new toolbardrawViewModel($mapElem, mapid);
-			ko.applyBindings(vm, $mapElem[0]); // This makes Knockout get to work
+			// put view model in an array because we can have more then one map in the page
+			vm[mapid] = new toolbardrawViewModel($mapElem, mapid);
+			ko.applyBindings(vm[mapid], $mapElem[0]); // This makes Knockout get to work
 			return vm;
 		};
 
+		// *** PUBLIC FUNCTIONS ***
+		openTextDialog = function(mapid, graphic) {
+			if (graphic.symbol.type === 'textsymbol') {
+				vm[mapid].isTextDialogOpen(true);
+			}
+		};
+
+		endDraw = function(mapid) {
+			var flag = false,
+				viewModel = vm[mapid];
+
+			// link to view model to call the function inside
+			if (typeof viewModel !== 'undefined') {
+				if (viewModel.activeTool() !== '') {
+					viewModel.endDraw();
+					flag = true;
+				}
+			}
+
+			return flag;
+		};
+
 		return {
-			initialize: initialize
+			initialize: initialize,
+			openTextDialog: openTextDialog,
+			endDraw: endDraw
 		};
 	});
 }).call(this);

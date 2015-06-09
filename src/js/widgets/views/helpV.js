@@ -42,7 +42,7 @@
 			$help = $mapElem.find('.gcviz-help-cont');
 
 			// the full help dialog window
-			node += '<div id="help-' + mapid + '" class="gcviz-help-sect" data-bind="uiDialog: { title: lblHelpTitle, width: 600, height: 350, ok: dialogHelpOk, close: dialogHelpOk, openDialog: \'isHelpDialogOpen\', modal: false, draggable: true }">' +
+			node += '<div id="help-' + mapid + '" class="gcviz-help-sect" data-bind="uiDialog: { title: lblHelpTitle, width: 600, height: 1000, ok: dialogHelpOk, close: dialogHelpOk, openDialog: \'isHelpDialogOpen\', modal: false, draggable: true }">' +
 						// menu
 						'<section id="gcviz-help-menu" class="gcviz-help">' +
 							'<ul>' +
@@ -170,7 +170,7 @@
 				if (zoombar) {
 					node += '<div class="row">' +
 								'<div class="span1">' +
-									'<img class="gcviz-foot-logo" data-bind="attr: { src: imgHelpZoombar, alt: devLogoAlt }" tabindex="-1"></img>' +
+									'<img class="gcviz-foot-logo" data-bind="attr: { src: imgHelpZoombar, alt: mapZoombarAlt }" tabindex="-1"></img>' +
 								'</div>' +
 								'<span class="span11" data-bind="text: mapZoombar"></span>' +
 							'</div>';
@@ -205,6 +205,8 @@
 			var menu = config.tools.enable,
 				about = config.about.enable,
 				print = config.print.enable,
+				saveurl = config.saveurl.enable,
+				saveimage = config.saveimage.enable,
 				fullscreen = config.fullscreen,
 				node = '';
 
@@ -232,6 +234,24 @@
 								'<button class="gcviz-help-print" tabindex="-1"></button>' +
 							'</div>' +
 							'<span class="span11 gcviz-help-textbtn" data-bind="text: headPrint"></span>' +
+						'</div>';
+			}
+
+			if (saveimage) {
+				node += '<div class="row">' +
+							'<div class="span1">' +
+								'<button class="gcviz-help-saveimage" tabindex="-1"></button>' +
+							'</div>' +
+							'<span class="span11 gcviz-help-textbtn" data-bind="text: headSaveImg"></span>' +
+						'</div>';
+			}
+
+			if (saveurl) {
+				node += '<div class="row">' +
+							'<div class="span1">' +
+								'<button class="gcviz-help-saveurl" tabindex="-1"></button>' +
+							'</div>' +
+							'<span class="span11 gcviz-help-textbtn" data-bind="text: headSaveUrl"></span>' +
 						'</div>';
 			}
 
@@ -314,7 +334,7 @@
 				node = '<section id="gcviz-help-tbdraw" class="gcviz-help gcviz-help-tbdraw">' +
 						'<div class="row"><span class="gcviz-help-tbtitle" data-bind="text: drawTitle"></span></div>' +
 						'<div class="row">' +
-							'<div class="span4 gcviz-draw-cholder">' +
+							'<div class="span3 gcviz-draw-cholder">' +
 								'<button class="gcviz-help-black" tabindex="-1"></button>' +
 								'<button class="gcviz-help-blue" tabindex="-1"></button>' +
 								'<button class="gcviz-help-green" tabindex="-1"></button>' +
@@ -322,7 +342,7 @@
 								'<button class="gcviz-help-yellow" tabindex="-1"></button>' +
 								'<button class="gcviz-help-white" tabindex="-1"></button>' +
 							'</div>' +
-							'<span class="span8" data-bind="text: drawColorSelect"></span>' +
+							'<span class="span9" data-bind="text: drawColorSelect"></span>' +
 						'</div>';
 
 				if (drawline) {
@@ -462,11 +482,36 @@
 				}
 
 				node +=	'<div class="row"><span class="span12" data-bind="text: legDesc1"></span></div>' +
-						'<div class="row"><span class="span12" data-bind="text: legDesc2"></span></div>' +
-						'<div class="row"><span class="span12" data-bind="text: legDesc3"></span></div>' +
-						'<div class="row"><span class="span12" data-bind="text: legSlider"></span></div>' +
-						'<div class="row"><span class="span12" data-bind="text: legExpand"></span></div>' +
-						'<div class="row"><span class="span12" data-bind="text: legNewLayer"></span></div>' +
+						'<div class="row">' +
+							'<div class="span1">' +
+								'<img class="gcviz-foot-logo" data-bind="attr: { src: imgHelpRadio, alt: legRadioAlt }" tabindex="-1"></img>' +
+							'</div>' +
+							'<div class="row"><span class="span11" data-bind="text: legDesc2"></span></div>' +
+						'</div>' +
+						'<div class="row">' +
+							'<div class="span1">' +
+								'<img class="gcviz-foot-logo" data-bind="attr: { src: imgHelpChk, alt: legChkAlt }" tabindex="-1"></img>' +
+							'</div>' +
+							'<div class="row"><span class="span11" data-bind="text: legDesc3"></span></div>' +
+						'</div>' +
+						'<div class="row">' +
+							'<div class="span2">' +
+								'<img class="gcviz-foot-logo" data-bind="attr: { src: imgHelpSlider, alt: legSliderAlt }" tabindex="-1"></img>' +
+							'</div>' +
+							'<div class="row"><span class="span10" data-bind="text: legSlider"></span></div>' +
+						'</div>' +
+						'<div class="row">' +
+							'<div class="span2">' +
+								'<img class="gcviz-foot-logo" data-bind="attr: { src: imgHelpArrow, alt: legArrowAlt }" tabindex="-1"></img>' +
+							'</div>' +
+							'<div class="row"><span class="span10" data-bind="text: legExpand"></span></div>' +
+						'</div>' +
+						'<div class="row">' +
+							'<div class="span5">' +
+								'<img class="gcviz-foot-logo" data-bind="attr: { src: imgHelpAddFile, alt: legAddFileAlt }" tabindex="-1"></img>' +
+							'</div>' +
+							'<div class="row"><span class="span7" data-bind="text: legNewLayer"></span></div>' +
+						'</div>' +
 					'</section>';
 			}
 
@@ -499,7 +544,9 @@
 										'<li class="gcviz-help-textlist" data-bind="text: navZoomto1b3"></li>' +
 										'<li class="gcviz-help-textlist" data-bind="text: navZoomto1b4"></li>' +
 										'<li class="gcviz-help-textlist" data-bind="text: navZoomto1b5"></li>' +
+										'<li class="gcviz-help-textlist" data-bind="text: navZoomto1b6"></li>' +
 									'</ul>' +
+									'<span class="gcviz-help-textlist" data-bind="text: navZoomto1c"></span>' +
 									'<span class="gcviz-help-textlist" data-bind="text: navZoomto2"></span>' +
 									'<span class="gcviz-help-textlist" data-bind="text: navZoomto3"></span>' +
 									'<span class="gcviz-help-textlist" data-bind="text: navZoomto4"></span>' +

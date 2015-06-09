@@ -15,31 +15,46 @@
 			'gcviz-i18n',
 			'gcviz-ko',
 			'gcviz-func',
-			'gcviz-gismap',
 			'gcviz-vm-tbextract',
 			'gcviz-vm-print',
 			'gcviz-vm-help'
-	], function($viz, ko, media, gisPrint, i18n, binding, gcvizFunc, gisM, extractVM, printVM, helpVM) {
+	], function($viz, ko, media, gisPrint, i18n, binding, gcvizFunc, extractVM, printVM, helpVM) {
 		var initialize,
+			toggleMenu,
+			subscribeIsFullscreen,
+			subscribeIsInsetVisible,
+			getScreenParam,
 			printSimple,
 			getRotationDegrees,
-			vm;
+			vm = {};
 
 		initialize = function($mapElem, mapid, config, isDataTbl) {
 			// data model				
 			var headerViewModel = function($mapElem, mapid, config, isDataTbl) {
 				var _self = this,
+					mapVM,
+					menuState,
 					configAbout = config.about,
-					pathPrint = locationPath + 'gcviz/print/toporamaPrint-' + window.langext + '.html',
+					configPrint = config.print,
+					pathPrint = locationPath + 'gcviz/print/defaultPrint-' + window.langext + '.html',
 					pathHelpBubble = locationPath + 'gcviz/images/helpBubble.png',
 					$section = $viz('#section' + mapid),
 					$mapholder = $viz('#' + mapid),
 					$map = $viz('#' + mapid + '_holder'),
 					$btnAbout = $mapElem.find('.gcviz-head-about'),
+					$saveUrl = $mapElem.find('#gcviz-head-saveurltext'),
+					$btnSaveUrl = $mapElem.find('.gcviz-head-saveurl'),
+					$btnSaveImg = $mapElem.find('.gcviz-head-saveimage'),
+					$btnPrint = $mapElem.find('.gcviz-head-print'),
 					$menu = $mapElem.find('#gcviz-menu' + mapid),
 					$btnFull = $mapElem.find('.gcviz-head-pop'),
-					map = gcvizFunc.getElemValueVM(mapid, ['map', 'map'], 'js'),
 					instrHeight = 36;
+
+				// there is a problem with the define. The gcviz-vm-map is not able to be set.
+				// We set the reference to gcviz-vm-map (hard way)
+				require(['gcviz-vm-map'], function(vmMap) {
+					mapVM = vmMap;
+				});
 
 				// viewmodel mapid to be access in tooltip custom binding
 				_self.mapid = mapid;
@@ -51,11 +66,16 @@
 				_self.xheightToolsOuter = ko.observable('max-height:100px!important');
 				_self.xheightToolsInner = ko.observable('max-height:100px!important');
 
+				// application title
+				_self.headTitle = ko.observable(config.title.value);
+
 				// tooltip, text strings
 				_self.tpHelp = i18n.getDict('%header-tphelp');
 				_self.tpPrint = i18n.getDict('%header-tpprint');
 				_self.tpInset = i18n.getDict('%header-tpinset');
 				_self.tpAbout = i18n.getDict('%header-tpabout');
+				_self.tpSaveUrl = i18n.getDict('%header-tpsaveurl');
+				_self.tpSaveImg = i18n.getDict('%header-tpsaveimage');
 				_self.tpFullScreen = i18n.getDict('%header-tpfullscreen');
 				_self.lblMenu = i18n.getDict('%header-tools');
 
@@ -89,8 +109,23 @@
 				_self.printInfo = {
 					url: i18n.getDict('%header-printurl'),
 					copyright: i18n.getDict('%header-printcopyright'),
-					template: pathPrint
+					template: pathPrint,
+					title: _self.headTitle()
 				};
+				_self.isPrintDialogOpen = ko.observable(false);
+				_self.printInfoText = i18n.getDict('%header-printinfo');
+				_self.isPrint = ko.observable(true);
+
+				// save map image
+				_self.isSaveImg = ko.observable(true);
+
+				// save map url dialog box
+				_self.lblSaveDesc = i18n.getDict('%header-copyclip');
+				if (window.browserOS === 'mac') {
+					_self.lblSaveDesc = _self.lblSaveDesc.replace('CTRL+C', 'CMD+C');
+				}
+				_self.isSaveDialogOpen = ko.observable(false);
+				_self.saveURL = ko.observable('');
 
 				// fullscreen
 				_self.isFullscreen = ko.observable(false);
@@ -144,17 +179,18 @@
 					return { controlsDescendantBindings: true };
 				};
 
-				_self.showBubble = function(key, shift, keyType, id) {
-					return helpVM.toggleHelpBubble(key, id);
+				_self.showBubble = function(key, id) {
+					return helpVM.toggleHelpBubble(mapid, key, id);
 				};
 
+				// when download map and data click, check to toggle grid layer if exist.
 				_self.showExtractGrid = function(event, ui) {
 					var panel = ui.newPanel;
 
 					if (panel.hasClass('gcviz-tbextract-content')) {
-						extractVM.showGrid(map, true);
+						extractVM.showGrid(mapid, true);
 					} else {
-						extractVM.showGrid(map, false);
+						extractVM.showGrid(mapid, false);
 					}
 				};
 
@@ -175,10 +211,77 @@
 				};
 
 				_self.printClick = function() {
-					// Print the map
-					// This is the simple print. It doesn't use esri print task
-					//printSimple(map, _self.printInfo.template);
-					printVM.togglePrint();
+					var node, height, width, size,
+						newHeight, newWidth;
+
+					// this is the simple print. It doesn't use esri print task
+					if (configPrint.type === 3) {
+						// print the map (first show extent for the print to scale)
+						// open dialog and disable print
+						_self.isPrintDialogOpen(true);
+						_self.isPrint(false);
+
+						// close menu
+						menuState = _self.toolsClick(false);
+
+						// get map height
+						node = $viz('#' + mapid + '_holder');
+						height = parseInt(node.css('height'), 10);
+						width = parseInt(node.css('width'), 10);
+
+						// set map size to fit the print page
+						gcvizFunc.setStyle(node[0], { 'width': '10in', 'height': '5.5in' });
+						gcvizFunc.setStyle(node.find('#' + mapid + '_holder_root')[0], { 'width': '10in', 'height': '5.5in' });
+
+						// On resize end, get heigh and width to add a polygon to show the user the print extent
+						mapVM.registerEventOne(mapid, 'resize', function() {
+							size = mapVM.getSizeMap(mapid);
+							newHeight = size.height;
+							newWidth = size.width;
+
+							// if new value are higher then original map size, keep original
+							if (newHeight > height) {
+								newHeight = height;
+							}
+							if (newWidth > width) {
+								newWidth = width;
+							}
+
+							// create the print extent polygon
+							$viz('#' + mapid + '_holder').prepend('<svg id="' + mapid + 'printext" class="gcviz-printext" height="' + newHeight + '" width="' + newWidth + '">' +
+																	'<polygon points="0,0 0,' + newHeight + ' ' + newWidth + ',' + newHeight + ' ' + newWidth + ',0">/<polygon></svg>');
+							gcvizFunc.setStyle(node[0], { 'width': width + 'px', 'height': height + 'px' });
+							gcvizFunc.setStyle(node.find('#' + mapid + '_holder_root')[0], { 'width': width, 'height': height });
+							mapVM.resizeMap(mapid);
+						});
+						mapVM.resizeMap(mapid);
+					} else {
+						// print from our custom esri services
+						printVM.togglePrint();
+					}
+				};
+
+				_self.dialogPrintOk = function() {
+					_self.isPrintDialogOpen(false);
+					printSimple(mapVM, mapid, _self.printInfo);
+				};
+
+				_self.dialogPrintCancel = function() {
+					_self.isPrintDialogOpen(false);
+				};
+
+				_self.dialogPrintClose = function() {
+					_self.isPrintDialogOpen(false);
+
+					if (menuState !== false) {
+						_self.toolsClick(true);
+					}
+
+					// enable button and remove extent
+					_self.isPrint(true);
+					$viz('#' + mapid + 'printext').remove();
+
+					$btnPrint.focus();
 				};
 
 				_self.insetClick = function() {
@@ -202,19 +305,27 @@
 					}, 1000);
 				};
 
-				_self.toolsClick = function() {
-					var open = $menu.accordion('option', 'active');
+				_self.toolsClick = function(force) {
+					var isOpen = $menu.accordion('option', 'active');
 
 					// Toggle the tools container
-					if (open === 0) {
-						$menu.accordion('option', 'active', false);
-					} else {
+					if (typeof force === 'undefined') {
+						if (isOpen === 0) {
+							$menu.accordion('option', 'active', false);
+						} else {
+							$menu.accordion('option', 'active', 0);
+						}
+					} else if (force === true) {
 						$menu.accordion('option', 'active', 0);
+					} else {
+						$menu.accordion('option', 'active', false);
 					}
+
+					return isOpen;
 				};
 
 				_self.helpClick = function() {
-					helpVM.toggleHelp();
+					helpVM.toggleHelp(mapid);
 				};
 
 				_self.aboutClick = function() {
@@ -226,9 +337,66 @@
 					$btnAbout.focus();
 				};
 
+				_self.saveImgClick = function() {
+					mapVM.saveImageMap(mapid, _self.enableSaveImg);
+					_self.isSaveImg(false);
+				};
+
+				_self.enableSaveImg = function() {
+					_self.isSaveImg(true);
+					$btnSaveImg.focus();
+				};
+
+				_self.saveUrlClick = function() {
+					var mapUrl, url,
+						mapidString,
+						extentString,
+						dataString,
+						legendString,
+						extent = mapVM.getExtentMap(mapid),
+						urlWin = window.location.toString(),
+						index = urlWin.indexOf('?');
+
+					// extract only first part of url
+					if (index !== -1) {
+						url = urlWin.substring(0, index + 1);
+					} else {
+						url = urlWin + '?';
+					}
+
+					// set mapid
+					mapidString = 'id=' + mapid;
+
+					// set extent
+					extentString = '&extent=' + extent.xmin + ',' + extent.ymin + ',' + extent.xmax + ',' + extent.ymax;
+
+					// set legend
+					require(['gcviz-vm-tblegend'], function(legendVM) {
+						legendString = legendVM.getURL(_self.mapid);
+					});
+
+					// set imported data
+					require(['gcviz-vm-tbdata'], function(dataVM) {
+						dataString = dataVM.getURL(_self.mapid);
+					});
+
+					// set map url
+					mapUrl = url + mapidString + extentString + dataString + legendString;
+					_self.saveURL(mapUrl);
+					_self.isSaveDialogOpen(true);
+
+					// select the url and focus to input
+					$saveUrl[0].setSelectionRange(0, mapUrl.length);
+					$btnSaveUrl.focus();
+				};
+
+				_self.dialogSaveOk = function() {
+					_self.isSaveDialogOpen(false);
+					$btnSaveUrl.focus();
+				};
+
 				_self.cancelFullScreen = function() {
-					var resizeEvt,
-						sectH = _self.heightSection,
+					var sectH = _self.heightSection,
 						sectW = _self.widthSection,
 						mapH = _self.heightMap,
 						mapW = _self.widthMap;
@@ -249,28 +417,25 @@
 
 					// set on resize event to know when to adjust menu height,
 					// put back focus on fs and reset tab
-					resizeEvt = map.on('resize', function() {
-						_self.adjustContainerHeight();
-						$btnFull.focus();
-
-						// create keydown event to keep tab in the map section
-						// remove the event that keeps tab in map section
-						$mapholder.off('keydown.fs');
-
-						// remove event
-						resizeEvt.remove();
-					});
+					mapVM.registerEventOne(mapid, 'resize', _self.canFullScreenEvt);
 
 					// resize map and keep the extent
-					gisM.manageScreenState(map, 500, false);
+					mapVM.manageScreenState(mapid, 500, false);
+				};
+
+				_self.canFullScreenEvt = function() {
+					_self.adjustContainerHeight();
+					$btnFull.focus();
+
+					// create keydown event to keep tab in the map section
+					// remove the event that keeps tab in map section
+					$mapholder.off('keydown.fs');
 				};
 
 				_self.requestFullScreen = function() {
 					// get maximal height and width from browser window and original height and width for the map
-					var resizeEvt,
-						param = gcvizFunc.getFullscreenParam(),
+					var param = gcvizFunc.getFullscreenParam(),
 						h = param.height,
-						array = $mapholder.find('[tabindex = 0]'),
 						height = (h - (2 * _self.headerHeight) - 2); // minus 2 for the border
 
 					// set style for the map
@@ -289,28 +454,29 @@
 
 					// set on resize event to know when to adjust menu height,
 					// put back focus on fs and set tab
-					resizeEvt = map.on('resize', function() {
-						_self.adjustContainerHeight();
-						$mapElem.find('.gcviz-head-reg').focus();
-
-						// create keydown event to keep tab in the map section
-						_self.first = array[0];
-						_self.last = array[array.length - 1];
-						$mapholder.on('keydown.fs', function(event) {
-							_self.manageTabbingOrder(event);
-						});
-
-						// remove event
-						resizeEvt.remove();
-					});
+					mapVM.registerEventOne(mapid, 'resize', _self.reqFullScreenEvt);
 
 					// resize map and keep the extent
-					gisM.manageScreenState(map, 500, true);
+					mapVM.manageScreenState(mapid, 500, true);
+				};
+
+				_self.reqFullScreenEvt = function() {
+					var array = $mapholder.find('[tabindex = 0]');
+
+					_self.adjustContainerHeight();
+					$mapElem.find('.gcviz-head-reg').focus();
+
+					// create keydown event to keep tab in the map section
+					_self.first = array[0];
+					_self.last = array[array.length - 1];
+					$mapholder.on('keydown.fs', function(event) {
+						_self.manageTabbingOrder(event);
+					});
 				};
 
 				_self.adjustContainerHeight = function() {
 					var active = $menu.accordion('option', 'active'),
-						toolbarheight = parseInt(map.height, 10) - 5;
+						toolbarheight = parseInt(mapVM.getSizeMap(mapid).height, 10);
 
 					// set height
 					_self.xheightToolsInner('max-height:' + (toolbarheight - instrHeight) + 'px!important'); // remove the keyboard instruction height
@@ -357,116 +523,130 @@
 				_self.init();
 			};
 
-			vm = new headerViewModel($mapElem, mapid, config, isDataTbl);
-			ko.applyBindings(vm, $mapElem[0]); // This makes Knockout get to work
+			printSimple = function(mapVM, mapid, printInfo) {
+				var style, rotation,
+					styles, lenStyles,
+					arrowStyle = '',
+					center = {},
+					node = $viz('#' + mapid + '_holder'),
+					arrow = $viz('#arrow' + mapid),
+					scalebar = $viz('#scalebar' + mapid),
+					zoomMax = $viz('.gcviz-map-zm'),
+					zoomBar = $viz('.dijitSlider'),
+					zoomPrevNext = $viz('.gcviz-map-zoompv'),
+					height = node.css('height'),
+					width = node.css('width');
+
+				// get center map
+				center.point = mapVM.getCenterMap(mapid);
+
+				// set map size to fit the print page
+				gcvizFunc.setStyle(node[0], { 'width': '10in', 'height': '5.5in' });
+				gcvizFunc.setStyle(node.find('#' + mapid + '_holder_root')[0], { 'width': '10in', 'height': '5.5in' });
+
+				// resize map and center to keep scale
+				center.interval = 1500;
+				mapVM.resizeMap(mapid);
+
+				// open the print page here instead of timemeout because if we do so, it will act as popup.
+				// It needs to be in a click event to open without a warning
+				window.open(printInfo.template);
+
+				// hide zoom max, zoom bar and prev next
+				zoomMax.addClass('gcviz-hidden');
+				zoomBar.addClass('gcviz-hidden');
+				zoomPrevNext.addClass('gcviz-hidden');
+
+				// get rotation and remove decimal part
+				rotation = getRotationDegrees(arrow);
+				style = arrow.attr('style');
+				styles = style.split(';');
+				lenStyles = styles.length - 1;
+
+				while (lenStyles--) {
+					arrowStyle += styles[lenStyles].split(':')[0] + ':' + 'rotate(' + rotation + 'deg);';
+				}
+
+				// set the local storage (modify arrow because it wont print... it is an image background)
+				localStorage.setItem('gcvizTitle', printInfo.title);
+				setTimeout(function() {
+					localStorage.setItem('gcvizPrintNode', node[0].outerHTML);
+					localStorage.setItem('gcvizArrowNode', '<img src="../images/printNorthArrow.png" style="' + arrowStyle + '"></img>');
+					localStorage.setItem('gcvizScalebarNode', scalebar[0].outerHTML);
+					localStorage.setItem('gcvizURL', window.location.href);
+				}, 3500);
+
+				// set map size to previous values
+				setTimeout (function() {
+					zoomMax.removeClass('gcviz-hidden');
+					zoomBar.removeClass('gcviz-hidden');
+					zoomPrevNext.removeClass('gcviz-hidden');
+					gcvizFunc.setStyle(node[0], { 'width': width, 'height': height });
+					gcvizFunc.setStyle(node.find('#' + mapid + '_holder_root')[0], { 'width': width, 'height': height });
+					mapVM.resizeMap(mapid);
+				}, 15000);
+			};
+
+			// http://stackoverflow.com/questions/8270612/get-element-moz-transformrotate-value-in-jquery
+			getRotationDegrees = function(obj) {
+				var values, a, b, angle,
+					matrix = obj.css('-webkit-transform') ||
+					obj.css('-moz-transform') ||
+					obj.css('-ms-transform') ||
+					obj.css('-o-transform') ||
+					obj.css('transform');
+
+				if (matrix !== 'none') {
+					values = matrix.split('(')[1].split(')')[0].split(',');
+					a = values[0];
+					b = values[1];
+					angle = Math.round(Math.atan2(b, a) * (180/Math.PI));
+				} else {
+					angle = 0;
+				}
+
+				if (angle < 0) {
+					angle +=360;
+				}
+
+				return angle;
+			};
+
+			// put view model in an array because we can have more then one map in the page
+			vm[mapid] = new headerViewModel($mapElem, mapid, config, isDataTbl);
+			ko.applyBindings(vm[mapid], $mapElem[0]); // This makes Knockout get to work
 			return vm;
 		};
 
-		printSimple = function(map, template) {
-			var style, rotation,
-				sub, ind1, ind2, reg1, reg2, reg3, reg4,
-				center = {},
-				mapid = map.vIdName,
-				node = $viz('#' + mapid + '_holder'),
-				arrow = $viz('#arrow' + mapid),
-				scalebar = $viz('#scalebar' + mapid),
-				zoomMax = $viz('.gcviz-map-zm'),
-				zoomBar = $viz('.dijitSlider'),
-				zoomPrevNext = $viz('.gcviz-map-zoompv'),
-				height = node.css('height'),
-				width = node.css('width');
-
-			// get center map
-			center.point = gisM.getMapCenter(map);
-
-			// set map size to fit the print page
-			gcvizFunc.setStyle(node[0], { 'width': '10in', 'height': '5.25in' });
-			gcvizFunc.setStyle(node.find('#' + mapid + '_holder_root')[0], { 'width': '10in', 'height': '5.25in' });
-
-			// resize map and center to keep scale
-			center.interval = 1500;
-			gisM.resizeCenterMap(map, center);
-
-			// open the print page here instead of timemeout because if we do so, it will act as popup.
-			// It needs to be in a click event to open without a warning
-			window.open(template);
-
-			// hide zoom max, zoom bar and prev next
-			zoomMax.addClass('gcviz-hidden');
-			zoomBar.addClass('gcviz-hidden');
-			zoomPrevNext.addClass('gcviz-hidden');
-
-			// get rotation and remove decimal part
-			rotation = getRotationDegrees(arrow);
-			style = arrow.attr('style');
-
-			// create 3 reg because we dont know where to round the decimal
-			reg2 = new RegExp(rotation - 1, 'g'),
-			reg3 = new RegExp(rotation, 'g'),
-			reg4 = new RegExp(rotation + 1, 'g'),
-			ind1 = style.indexOf('.');
-			ind2 = style.indexOf('deg');
-
-			// check if we need to remove decimal part
-			if (ind1 !== -1) {
-				sub = style.substring(ind1, ind2);
-
-				// remove decimal
-				reg1 = new RegExp(sub, 'g');
-				style = style.replace(reg1, '');
-			}
-
-			// because it was round we need to check minus 1 value and plus one
-			style = style.replace(reg2, rotation);
-			style = style.replace(reg3, rotation);
-			style = style.replace(reg4, rotation);
-
-			// set the local storage (modify arrow because it wont print... it is an image background)
-			setTimeout(function() {
-				localStorage.setItem('gcvizPrintNode', node[0].outerHTML);
-				localStorage.setItem('gcvizArrowNode', '<img src="../images/printNorthArrow.png" style="' + style + '"></img>');
-				localStorage.setItem('gcvizScalebarNode', scalebar[0].outerHTML);
-				localStorage.setItem('gcvizURL', window.location.href);
-			}, 3500);
-
-			// set map size to previous values
-			setTimeout (function() {
-				zoomMax.removeClass('gcviz-hidden');
-				zoomBar.removeClass('gcviz-hidden');
-				zoomPrevNext.removeClass('gcviz-hidden');
-				gcvizFunc.setStyle(node[0], { 'width': width, 'height': height });
-				gcvizFunc.setStyle(node.find('#' + mapid + '_holder_root')[0], { 'width': width, 'height': height });
-				gisM.resizeCenterMap(map, center);
-			}, 15000);
+		// *** PUBLIC FUNCTIONS ***
+		toggleMenu = function(mapid) {
+			vm[mapid].toolsClick();
 		};
 
-		// http://stackoverflow.com/questions/8270612/get-element-moz-transformrotate-value-in-jquery
-		getRotationDegrees = function(obj) {
-			var values, a, b, angle,
-				matrix = obj.css('-webkit-transform') ||
-				obj.css('-moz-transform') ||
-				obj.css('-ms-transform') ||
-				obj.css('-o-transform') ||
-				obj.css('transform');
+		subscribeIsFullscreen = function(mapid, funct) {
+			return vm[mapid].isFullscreen.subscribe(funct);
+		};
 
-			if (matrix !== 'none') {
-				values = matrix.split('(')[1].split(')')[0].split(',');
-				a = values[0];
-				b = values[1];
-				angle = Math.round(Math.atan2(b, a) * (180/Math.PI));
-			} else {
-				angle = 0;
-			}
+		subscribeIsInsetVisible = function(mapid, funct) {
+			return vm[mapid].isInsetVisible.subscribe(funct);
+		};
 
-			if (angle < 0) {
-				angle +=360;
-			}
+		getScreenParam = function(mapid) {
+			var info = { },
+				viewModel = vm[mapid];
 
-			return angle;
+			info.width = viewModel.widthSection;
+			info.height = viewModel.heightSection;
+
+			return info;
 		};
 
 		return {
-			initialize: initialize
+			initialize: initialize,
+			toggleMenu: toggleMenu,
+			subscribeIsFullscreen: subscribeIsFullscreen,
+			subscribeIsInsetVisible: subscribeIsInsetVisible,
+			getScreenParam: getScreenParam
 		};
 	});
 }).call(this);

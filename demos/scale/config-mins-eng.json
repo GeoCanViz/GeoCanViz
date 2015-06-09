@@ -10,6 +10,7 @@
                 "urlgeomserv": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/Utilities/Geometry/GeometryServer",
                 "urlproxy": "http://geoappext.nrcan.gc.ca/php/proxy.ashx",
                 "urldownload": "http://geoappext.nrcan.gc.ca/php/download.php",
+                "urlsaveimage": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task",
                 "sr": {
                     "wkid": 3978
                 },
@@ -20,13 +21,13 @@
                     "ymax": 4323002.50671
                 },
                 "extentinit": {
-                    "xmin": -3657511.73306,
-                    "ymin": -590319.81993,
-                    "xmax": 3486252.55447,
-                    "ymax": 4172189.70508
+                    "xmin": -4942810.52762,
+                    "ymin": -1069712.7058,
+                    "xmax": 6963463.28493,
+                    "ymax": 4221964.54422
                 },
                 "lods": {
-                    "enable": false,
+                    "enable": true,
                     "values": [{
                         "level": 0,
                         "resolution": 38364.660062653464,
@@ -117,16 +118,6 @@
                         "resolution": 4.6302175937685215,
                         "scale": 17500,
                         "check": true
-                    }, {
-                        "level": 18,
-                        "resolution": 2.6458386250105836,
-                        "scale": 10000,
-                        "check": true
-                    }, {
-                        "level": 19,
-                        "resolution": 1.5875031750063502,
-                        "scale": 6000,
-                        "check": true
                     }]
                 },
                 "link": false,
@@ -143,7 +134,7 @@
                     "url": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/BaseMaps/CBME_CBCE_HS_RO_3978/MapServer",
                     "scale": {
                         "min": 0,
-                        "max": 17500
+                        "max": 0
                     }
                 }, {
                     "label": "CBMT3978",
@@ -152,7 +143,7 @@
                     "url": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/BaseMaps/CBMT3978/MapServer",
                     "scale": {
                         "min": 0,
-                        "max": 17500
+                        "max": 0
                     }
                 }, {
                     "label": "toporama",
@@ -164,8 +155,9 @@
                             "name": "WMS-Toporama",
                             "title": "WMS-Toporama"
                         }],
-                        "visiblelayers": ["WMS-Toporama"],
-                        "scale": {
+                        "visiblelayers": ["WMS-Toporama"]
+                    },
+					"scale": {
                             "min": 0,
                             "max": 0
                         },
@@ -177,7 +169,7 @@
                             "maxsizeprop": 50,
                             "maxdataprop": 1000
                         }
-                    }
+
                 }, {
                     "label": "Imagery Lansat7",
                     "id": "99999999-0003-c8f5-175c-645270a6b6fe",
@@ -185,7 +177,7 @@
                     "url": "http://maps.geogratis.gc.ca/wms/canimage_en",
                     "scale": {
                         "min": 0,
-                        "max": 10000
+                        "max": 0
                     },
                     "options": {
                         "layerinfos": [{
@@ -231,10 +223,11 @@
                             "maxdataprop": 1000
                         }
                 }, {
-                    "label": "PM_E***Oil sands mines",
+                    "label": "Oil sands mines",
                     "id": "262d92e2-c0d8-c373-f750-2d06596d45b7",
-                    "type": 5,
-                    "url": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/MMS/PM_E/MapServer/3",
+                    "type": 4,
+                    "url": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/MMS/PM_E/MapServer/",
+                    "visiblelayers": [3],
                     "beforebase": false,
                     "scale": {
                         "min": 0,
@@ -249,10 +242,11 @@
                             "maxdataprop": 1000
                         }
                 }, {
-                    "label": "PM_E***Coal mines",
+                    "label": "Coal mines",
                     "id": "7ee0a175-dcda-3050-a493-2be425ec5bc5",
-                    "type": 5,
-                    "url": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/MMS/PM_E/MapServer/2",
+                    "type": 4,
+                    "url": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/MMS/PM_E/MapServer/",
+                    "visiblelayers": [2],
                     "beforebase": false,
                     "scale": {
                         "min": 0,
@@ -267,10 +261,11 @@
                             "maxdataprop": 1000
                         }
                 }, {
-                    "label": "PM_E***Nonmetal mines",
+                    "label": "Nonmetal mines",
                     "id": "00af8c8f-2fa1-4a6b-7d5e-052d9f7e9970",
-                    "type": 5,
-                    "url": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/MMS/PM_E/MapServer/1",
+                    "type": 4,
+                    "url": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/MMS/PM_E/MapServer/",
+                    "visiblelayers": [1],
                     "beforebase": false,
                     "scale": {
                         "min": 0,
@@ -285,10 +280,11 @@
                             "maxdataprop": 1000
                         }
                 }, {
-                    "label": "PM_E***Metal mines",
+                    "label": "Metal mines",
                     "id": "1ea1f1db-5b0f-b960-42df-90cecedfad10",
-                    "type": 5,
-                    "url": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/MMS/PM_E/MapServer/0",
+                    "type": 4,
+                    "url": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/MMS/PM_E/MapServer/",
+                    "visiblelayers": [0],
                     "beforebase": false,
                     "scale": {
                         "min": 0,
@@ -360,9 +356,16 @@
             },
             "print": {
                 "enable": true,
-                "type": 1,
-                "template": [],
-                "DPI": [100, 300]
+                "type": 3,
+                "printlayout": ["Portrait", "Landscape"],
+                "project": ["Default", "Topo"],
+                "DPI": [96, 300]
+            },
+			"saveurl": {
+              "enable": true
+            },
+            "saveimage": {
+              "enable": true
             },
             "fullscreen": true
         },
@@ -626,7 +629,7 @@
                 },
                 "visibility": {
                     "enable": true,
-                    "initstate": false,
+                    "initstate": true,
                     "type": 1,
                     "radioid": 0
                 },
@@ -644,7 +647,7 @@
             }, {
                 "expand": true,
                 "last": false,
-                "type": 5,
+                "type": 4,
                 "id": "262d92e2-c0d8-c373-f750-2d06596d45b7",
                 "graphid": "d478ca39-5cc4-145a-aeac-6afd2f6d3d40",
                 "displayfields": false,
@@ -663,7 +666,7 @@
                 },
                 "visibility": {
                     "enable": true,
-                    "initstate": false,
+                    "initstate": true,
                     "type": 1,
                     "radioid": 0
                 },
@@ -676,9 +679,9 @@
                     "images": []
                 },
                 "items": [{
-                    "expand": false,
+                    "expand": true,
                     "last": true,
-                    "type": 5,
+                    "type": 4,
                     "id": "1ea1f1db-5b0f-b960-42df-90cecedfad10",
                     "graphid": "aaae1941-1757-56db-0057-de12f5ce6660",
                     "displayfields": false,
@@ -697,7 +700,7 @@
                     },
                     "visibility": {
                         "enable": true,
-                        "initstate": false,
+                        "initstate": true,
                         "type": 1,
                         "radioid": 0
                     },
@@ -712,9 +715,9 @@
                 },
                     "items": []
                 }, {
-                    "expand": true,
+                    "expand": false,
                     "last": true,
-                    "type": 5,
+                    "type": 4,
                     "id": "00af8c8f-2fa1-4a6b-7d5e-052d9f7e9970",
                     "graphid": "bfa89884-8ada-e10c-7a66-63f4a207be07",
                     "displayfields": false,
@@ -733,7 +736,7 @@
                     },
                     "visibility": {
                         "enable": true,
-                        "initstate": false,
+                        "initstate": true,
                         "type": 1,
                         "radioid": 0
                     },
@@ -748,9 +751,9 @@
                 },
                     "items": []
                 }, {
-                    "expand": true,
+                    "expand": false,
                     "last": true,
-                    "type": 5,
+                    "type": 4,
                     "id": "7ee0a175-dcda-3050-a493-2be425ec5bc5",
                     "graphid": "646400c2-995e-a4df-b602-0fe4eb0d2185",
                     "displayfields": false,
@@ -784,9 +787,9 @@
                 },
                     "items": []
                 },{
-                    "expand": true,
+                    "expand": false,
                     "last": true,
-                    "type": 5,
+                    "type": 4,
                     "id": "262d92e2-c0d8-c373-f750-2d06596d45b7",
                     "graphid": "5ee45b9a-2b04-54b7-add3-e2bb6e7f5e7c",
                     "displayfields": false,
@@ -805,7 +808,7 @@
                     },
                     "visibility": {
                         "enable": true,
-                        "initstate": false,
+                        "initstate": true,
                         "type": 1,
                         "radioid": 0
                     },
@@ -1076,8 +1079,8 @@
             },
             "overview": {
                 "enable": true,
-                "url": "",
-                "type": "4"
+                "url": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/BaseMaps/CBMT3978/MapServer",
+                "type": 2
             },
             "position": {
                 "enable": true
@@ -1091,54 +1094,39 @@
                 "enable": true
             },
             "dataurl": {
-                "enable": true
+                "enable": false
             },
             "dataquery": {
             	"enable": false
             }
         },
         "toolbarextract": {
-            "enable": false,
+            "enable": true,
             "expand": false,
             "pos": 3,
-            "grid": "bbbb469d-aaa1-c8f5-175c-645200a6b6fe",
+            "grid":{ 
+				"enable": false,
+				"id":"bbbb469d-aaa1-c8f5-175c-645200a6b6fe"
+            },
             "items": [{
-                "title": "Maps (raster): ",
-                "subtitle": "Toporama, CanMatrix Print-ready and Georeferenced.",
-                "scale": -1,
-                "url": "http://geogratis.gc.ca/api/en/nrcan-rncan/ess-sst/-/OR/(urn:iso:series)toporama/(urn:iso:series)canmatrix-georeferenced",
+				"title": "Maps with Data: ",
+                "subtitle": "Principal mineral areas of Canada",
+                "scale": 30000000,
+                "url": "http://geogratis.gc.ca/api/en/nrcan-rncan/ess-sst/-/AND/AND/AND/OR/(urn:atom:author)minerals-and-metals-sector-natural-resources-canada/(urn:atom:author)minerals-and-metals-sector-natural-resources-canada-secteur-des-mineraux-et-des-metaux-ressources-naturelles-canada/(urn:iso:series)geological-survey-of-canada-a-series-map/(urn:iso:type)data/(urn:iso:type)map",
                 "query": [{
-                    "type": 1,
-                    "param": "?q=XXX",
-                    "label": "Get single map"
-                }, {
                     "type": 2,
-                    "param": "?bbox=XXX&sort-field=spatial",
-                    "label": "Get all maps for area shown"
+                    "param": "?published-min=2012-01-01T00:00:00.000Z&q=Principal+mineral+areas+of+Canada&sort-field=relevance",
+                    "label": "Search for maps that have data"
                 }]
             }, {
-                "title": "Data (vector): ",
-                "subtitle": "CanVec+.",
-                "scale": -1,
-                "url": "http://geogratis.gc.ca/api/en/nrcan-rncan/ess-sst/-/(urn:iso:series)canvec-plus",
-                "query": [{
-                    "type": 1,
-                    "param": "?q=XXX",
-                    "label": "Get single map"
-                }, {
-                    "type": 2,
-                    "param": "?bbox=XXX&sort-field=spatial",
-                    "label": "Get all data for area shown"
-                }]
-            }, {
-                "title": "Data: ",
-                "subtitle": "CanVec (vector) and Elevation (raster) data using custom geographic extent.",
-                "scale": -1,
-                "url": "http://geogratis.gc.ca/site/eng/extraction",
+				"title": "Maps without Data: ",
+                "subtitle": "Principal mineral areas of Canada",
+                "scale": 30000000,
+                "url": "http://geogratis.gc.ca/api/en/nrcan-rncan/ess-sst/-/AND/AND/OR/OR/(urn:atom:author)minerals-and-metals-sector-natural-resources-canada/(urn:atom:author)minerals-and-metals-sector-natural-resources-canada-secteur-des-mineraux-et-des-metaux-ressources-naturelles-canada/(urn:atom:author)Geological-Survey-of-Canada/(urn:iso:series)geological-survey-of-canada-a-series-map/(urn:iso:type)map",
                 "query": [{
                     "type": 2,
-                    "param": "?bbox=XXX",
-                    "label": "Get data using the Data Extraction Tool"
+                    "param": "?published-max=2011-12-31T23:59:59.999Z&q=Principal+mineral+areas+of+Canada&sort-field=relevance",
+                    "label": "Search for maps that have no data"
                 }]
             }]
         },
@@ -1155,15 +1143,15 @@
                     "index": 0
                 },
                 "title": "Oil and Gas",
-                "globalsearch": true,
+                "globalsearch": false,
                 "fields": [{
                     "title": "Mine site",
                     "width": "200px",
                     "data": "Minesite_E",
                     "dataalias": "Minesite_E",
-				    "type": {
-				      "field": "field",
-				      "value": "string"
+				    "fieldtype": {
+				      "type": 1,
+				      "value": 1
 				     },
 				    "searchable": true
                 },{
@@ -1171,9 +1159,9 @@
                     "width": "200px",
                     "data": "Province_E",
                     "dataalias": "Province_E",
-				    "type": {
-				      "field": "field",
-				      "value": "select"
+				    "fieldtype": {
+				      "type": 1,
+				      "value": 4
 				     },
 				    "searchable": true
                 },{
@@ -1181,9 +1169,9 @@
                     "width": "200px",
                     "data": "Product_E",
                     "dataalias": "Product_E",
-				    "type": {
-				      "field": "field",
-				      "value": "string"
+				    "fieldtype": {
+				      "type": 1,
+				      "value": 1
 				     },
 				    "searchable": true
                 }],
@@ -1201,19 +1189,19 @@
             },{
                 "layerinfo": {
                     "id": "1ea1f1db-5b0f-b960-42df-90cecedfad10",
-                    "type": 5,
+                    "type": 4,
                     "index": 0
                 },
-                "title": "Metal Mine",
+                "title": "Metal mines",
                 "globalsearch": false,
                 "fields": [{
                     "title": "Operation",
                     "width": "200px",
                     "data": "OperationE",
                     "dataalias": "OperationE",
-				    "type": {
-				      "field": "field",
-				      "value": "string"
+				    "fieldtype": {
+				      "type": 1,
+				      "value": 1
 				     },
 				    "searchable": true
                 },{
@@ -1221,9 +1209,9 @@
                     "width": "200px",
                     "data": "Operator_OwnersE",
                     "dataalias": "Operator_OwnersE",
-				    "type": {
-				      "field": "field",
-				      "value": "string"
+				    "fieldtype": {
+				      "type": 1,
+				      "value": 1
 				     },
 				    "searchable": true
                 },{
@@ -1231,9 +1219,9 @@
                     "width": "200px",
                     "data": "Province_E",
                     "dataalias": "Province_E",
-				    "type": {
-				      "field": "field",
-				      "value": "select"
+				    "fieldtype": {
+				      "type": 1,
+				      "value": 4
 				     },
 				    "searchable": true
                 },{
@@ -1241,9 +1229,9 @@
                     "width": "200px",
                     "data": "Facilities_Code_E_Spelt",
                     "dataalias": "Facilities_Code_E_Spelt",
-				    "type": {
-				      "field": "field",
-				      "value": "select"
+				    "fieldtype": {
+				      "type": 1,
+				      "value": 1
 				     },
 				    "searchable": true
                 },{
@@ -1251,9 +1239,9 @@
                     "width": "200px",
                     "data": "Commodity_Group_EN_Spelt",
                     "dataalias": "Commodity_Group_EN_Spelt",
-				    "type": {
-				      "field": "field",
-				      "value": "select"
+				    "fieldtype": {
+				      "type": 1,
+				      "value": 4
 				     },
 				    "searchable": true
                 },{
@@ -1261,9 +1249,9 @@
                     "width": "200px",
                     "data": "Commodity_EN_Spelt",
                     "dataalias": "Commodity_EN_Spelt",
-				    "type": {
-				      "field": "field",
-				      "value": "string"
+				    "fieldtype": {
+				      "type": 1,
+				      "value": 1
 				     },
 				    "searchable": true
                 }],
@@ -1281,19 +1269,19 @@
             },{
                 "layerinfo": {
                     "id": "00af8c8f-2fa1-4a6b-7d5e-052d9f7e9970",
-                    "type": 5,
+                    "type": 4,
                     "index": 1
                 },
-                "title": "Nonmetal mine",
+                "title": "Nonmetal mines",
                 "globalsearch": false,
                 "fields": [{
                     "title": "Operation",
                     "width": "200px",
                     "data": "OperationE",
                     "dataalias": "OperationE",
-				    "type": {
-				      "field": "field",
-				      "value": "string"
+				    "fieldtype": {
+				      "type": 1,
+				      "value": 1
 				     },
 				    "searchable": true
                 },{
@@ -1301,9 +1289,9 @@
                     "width": "200px",
                     "data": "Operator_OwnersE",
                     "dataalias": "Operator_OwnersE",
-				    "type": {
-				      "field": "field",
-				      "value": "string"
+				    "fieldtype": {
+				      "type": 1,
+				      "value": 1
 				     },
 				    "searchable": true
                 },{
@@ -1311,9 +1299,9 @@
                     "width": "200px",
                     "data": "Province_E",
                     "dataalias": "Province_E",
-				    "type": {
-				      "field": "field",
-				      "value": "select"
+				    "fieldtype": {
+				      "type": 1,
+				      "value": 4
 				     },
 				    "searchable": true
                 },{
@@ -1321,9 +1309,9 @@
                     "width": "200px",
                     "data": "Facilities_Code_E_Spelt",
                     "dataalias": "Facilities_Code_E_Spelt",
-				    "type": {
-				      "field": "field",
-				      "value": "select"
+				    "fieldtype": {
+				      "type": 1,
+				      "value": 4
 				     },
 				    "searchable": true
                 },{
@@ -1331,9 +1319,9 @@
                     "width": "200px",
                     "data": "Commodity_Group_EN_Spelt",
                     "dataalias": "Commodity_Group_EN_Spelt",
-				    "type": {
-				      "field": "field",
-				      "value": "select"
+				    "fieldtype": {
+				      "type": 1,
+				      "value": 4
 				     },
 				    "searchable": true
                 },{
@@ -1341,9 +1329,9 @@
                     "width": "200px",
                     "data": "Commodity_EN_Spelt",
                     "dataalias": "Commodity_EN_Spelt",
-				    "type": {
-				      "field": "field",
-				      "value": "string"
+				    "fieldtype": {
+				      "type": 1,
+				      "value": 1
 				     },
 				    "searchable": true
                 }],
@@ -1361,7 +1349,7 @@
             },{
                 "layerinfo": {
                     "id": "7ee0a175-dcda-3050-a493-2be425ec5bc5",
-                    "type": 5,
+                    "type": 4,
                     "index": 2
                 },
                 "title": "Coal mines",
@@ -1371,9 +1359,9 @@
                     "width": "200px",
                     "data": "OperationE",
                     "dataalias": "OperationE",
-				    "type": {
-				      "field": "field",
-				      "value": "string"
+				    "fieldtype": {
+				      "type": 1,
+				      "value": 1
 				     },
 				    "searchable": true
                 },{
@@ -1381,9 +1369,9 @@
                     "width": "200px",
                     "data": "Operator_OwnersE",
                     "dataalias": "Operator_OwnersE",
-				    "type": {
-				      "field": "field",
-				      "value": "string"
+				    "fieldtype": {
+				      "type": 1,
+				      "value": 1
 				     },
 				    "searchable": true
                 },{
@@ -1391,9 +1379,9 @@
                     "width": "200px",
                     "data": "Province_E",
                     "dataalias": "Province_E",
-				    "type": {
-				      "field": "field",
-				      "value": "select"
+				    "fieldtype": {
+				      "type": 1,
+				      "value": 4
 				     },
 				    "searchable": true
                 },{
@@ -1401,9 +1389,9 @@
                     "width": "200px",
                     "data": "Facilities_Code_E_Spelt",
                     "dataalias": "Facilities_Code_E_Spelt",
-				    "type": {
-				      "field": "field",
-				      "value": "select"
+				    "fieldtype": {
+				      "type": 1,
+				      "value": 4
 				     },
 				    "searchable": true
                 },{
@@ -1411,9 +1399,9 @@
                     "width": "200px",
                     "data": "Commodity_Group_EN_Spelt",
                     "dataalias": "Commodity_Group_EN_Spelt",
-				    "type": {
-				      "field": "field",
-				      "value": "select"
+				    "fieldtype": {
+				      "type": 1,
+				      "value": 4
 				     },
 				    "searchable": true
                 },{
@@ -1421,9 +1409,9 @@
                     "width": "200px",
                     "data": "Commodity_EN_Spelt",
                     "dataalias": "Commodity_EN_Spelt",
-				    "type": {
-				      "field": "field",
-				      "value": "string"
+				    "fieldtype": {
+				      "type": 1,
+				      "value": 1
 				     },
 				    "searchable": true
                 }],
@@ -1441,7 +1429,7 @@
             },{
                 "layerinfo": {
                     "id": "262d92e2-c0d8-c373-f750-2d06596d45b7",
-                    "type": 5,
+                    "type": 4,
                     "index": 3
                 },
                 "title": "Oil sands mines",
@@ -1451,9 +1439,9 @@
                     "width": "200px",
                     "data": "OperationE",
                     "dataalias": "OperationE",
-				    "type": {
-				      "field": "field",
-				      "value": "string"
+				    "fieldtype": {
+				      "type": 1,
+				      "value": 1
 				     },
 				    "searchable": true
                 },{
@@ -1461,9 +1449,9 @@
                     "width": "200px",
                     "data": "Operator_OwnersE",
                     "dataalias": "Operator_OwnersE",
-				    "type": {
-				      "field": "field",
-				      "value": "string"
+				    "fieldtype": {
+				      "type": 1,
+				      "value": 1
 				     },
 				    "searchable": true
                 },{
@@ -1471,9 +1459,9 @@
                     "width": "200px",
                     "data": "Province_E",
                     "dataalias": "Province_E",
-				    "type": {
-				      "field": "field",
-				      "value": "select"
+				    "fieldtype": {
+				      "type": 1,
+				      "value": 4
 				     },
 				    "searchable": true
                 },{
@@ -1481,9 +1469,9 @@
                     "width": "200px",
                     "data": "Facilities_Code_E_Spelt",
                     "dataalias": "Facilities_Code_E_Spelt",
-				    "type": {
-				      "field": "field",
-				      "value": "select"
+				    "fieldtype": {
+				      "type": 1,
+				      "value": 4
 				     },
 				    "searchable": true
                 },{
@@ -1491,9 +1479,9 @@
                     "width": "200px",
                     "data": "Commodity_Group_EN_Spelt",
                     "dataalias": "Commodity_Group_EN_Spelt",
-				    "type": {
-				      "field": "field",
-				      "value": "select"
+				    "fieldtype": {
+				      "type": 1,
+				      "value": 4
 				     },
 				    "searchable": true
                 },{
@@ -1501,9 +1489,9 @@
                     "width": "200px",
                     "data": "Commodity_EN_Spelt",
                     "dataalias": "Commodity_EN_Spelt",
-				    "type": {
-				      "field": "field",
-				      "value": "string"
+				    "fieldtype": {
+				      "type": 1,
+				      "value": 1
 				     },
 				    "searchable": true
                 }],
@@ -1531,9 +1519,9 @@
                     "width": "200px",
                     "data": "Operation_E",
                     "dataalias": "Operation_E",
-				    "type": {
-				      "field": "field",
-				      "value": "string"
+				    "fieldtype": {
+				      "type": 1,
+				      "value": 1
 				     },
 				    "searchable": true
                 },{
@@ -1541,9 +1529,9 @@
                     "width": "200px",
                     "data": "Operator_Owners_E",
                     "dataalias": "Operator_Owners_E",
-				    "type": {
-				      "field": "field",
-				      "value": "string"
+				    "fieldtype": {
+				      "type": 1,
+				      "value": 1
 				     },
 				    "searchable": true
                 },{
@@ -1551,19 +1539,19 @@
                     "width": "200px",
                     "data": "Province_E",
                     "dataalias": "Province_E",
-				    "type": {
-				      "field": "field",
-				      "value": "select"
+				    "fieldtype": {
+				      "type": 1,
+				      "value": 4
 				     },
 				    "searchable": true
                 },{
-                    "title": "Mine Type / Facility",
+                    "title": "Facility",
                     "width": "200px",
                     "data": "Facilities_Code_E_Spelt",
                     "dataalias": "Facilities_Code_E_Spelt",
-				    "type": {
-				      "field": "field",
-				      "value": "select"
+				    "fieldtype": {
+				      "type": 1,
+				      "value": 4
 				     },
 				    "searchable": true
                 },{
@@ -1571,9 +1559,9 @@
                     "width": "200px",
                     "data": "Commodity_Group_E_Spelt",
                     "dataalias": "Commodity_Group_E_Spelt",
-				    "type": {
-				      "field": "field",
-				      "value": "select"
+				    "fieldtype": {
+				      "type": 1,
+				      "value": 4
 				     },
 				    "searchable": true
                 },{
@@ -1581,9 +1569,9 @@
                     "width": "200px",
                     "data": "Commodity_E_Spelt",
                     "dataalias": "Commodity_E_Spelt",
-				    "type": {
-				      "field": "field",
-				      "value": "string"
+				    "fieldtype": {
+				      "type": 1,
+				      "value": 1
 				     },
 				    "searchable": true
                 }],
@@ -1611,9 +1599,9 @@
                     "width": "200px",
                     "data": "Operation_E",
                     "dataalias": "Operation_E",
-				    "type": {
-				      "field": "field",
-				      "value": "string"
+				    "fieldtype": {
+				      "type": 1,
+				      "value": 1
 				     },
 				    "searchable": true
                 },{
@@ -1621,9 +1609,9 @@
                     "width": "200px",
                     "data": "Operator_Owners_E",
                     "dataalias": "Operator_Owners_E",
-				    "type": {
-				      "field": "field",
-				      "value": "string"
+				    "fieldtype": {
+				      "type": 1,
+				      "value": 1
 				     },
 				    "searchable": true
                 },{
@@ -1631,19 +1619,39 @@
                     "width": "200px",
                     "data": "Province_E",
                     "dataalias": "Province_E",
-				    "type": {
-				      "field": "field",
-				      "value": "select"
+				    "fieldtype": {
+				      "type": 1,
+				      "value": 4
 				     },
 				    "searchable": true
                 },{
-                    "title": "Mine Type / Facility",
+                    "title": "Facility",
                     "width": "200px",
                     "data": "Facilities_Code_E_Spelt",
                     "dataalias": "Facilities_Code_E_Spelt",
-				    "type": {
-				      "field": "field",
-				      "value": "select"
+				    "fieldtype": {
+				      "type": 1,
+				      "value": 4
+				     },
+				    "searchable": true
+                },{
+                    "title": "Commodity Group",
+                    "width": "200px",
+                    "data": "Commodity_Group_E_Spelt",
+                    "dataalias": "Commodity_Group_E_Spelt",
+				    "fieldtype": {
+				      "type": 1,
+				      "value": 4
+				     },
+				    "searchable": true
+                },{
+                    "title": "Commodity",
+                    "width": "200px",
+                    "data": "Commodity_E_Spelt",
+                    "dataalias": "Commodity_E_Spelt",
+				    "fieldtype": {
+				      "type": 1,
+				      "value": 1
 				     },
 				    "searchable": true
                 }],
@@ -1671,9 +1679,9 @@
                     "width": "200px",
                     "data": "Operation_E",
                     "dataalias": "Operation_E",
-				    "type": {
-				      "field": "field",
-				      "value": "string"
+				    "fieldtype": {
+				      "type": 1,
+				      "value": 1
 				     },
 				    "searchable": true
                 },{
@@ -1681,9 +1689,9 @@
                     "width": "200px",
                     "data": "Operator_Owners_E",
                     "dataalias": "Operator_Owners_E",
-				    "type": {
-				      "field": "field",
-				      "value": "string"
+				    "fieldtype": {
+				      "type": 1,
+				      "value": 1
 				     },
 				    "searchable": true
                 },{
@@ -1691,9 +1699,19 @@
                     "width": "200px",
                     "data": "Province_E",
                     "dataalias": "Province_E",
-				    "type": {
-				      "field": "field",
-				      "value": "select"
+				    "fieldtype": {
+				      "type": 1,
+				      "value": 4
+				     },
+				    "searchable": true
+                },{
+                    "title": "Facility",
+                    "width": "200px",
+                    "data": "Facilities_Code_E_Spelt",
+                    "dataalias": "Facilities_Code_E_Spelt",
+				    "fieldtype": {
+				      "type": 1,
+				      "value": 4
 				     },
 				    "searchable": true
                 },{
@@ -1701,9 +1719,9 @@
                     "width": "200px",
                     "data": "Commodity_Group_E_Spelt",
                     "dataalias": "Commodity_Group_E_Spelt",
-				    "type": {
-				      "field": "field",
-				      "value": "select"
+				    "fieldtype": {
+				      "type": 1,
+				      "value": 4
 				     },
 				    "searchable": true
                 },{
@@ -1711,9 +1729,9 @@
                     "width": "200px",
                     "data": "Commodity_E_Spelt",
                     "dataalias": "Commodity_E_Spelt",
-				    "type": {
-				      "field": "field",
-				      "value": "string"
+				    "fieldtype": {
+				      "type": 1,
+				      "value": 1
 				     },
 				    "searchable": true
                 }],
@@ -1741,9 +1759,9 @@
                     "width": "200px",
                     "data": "Operation_E",
                     "dataalias": "Operation_E",
-				    "type": {
-				      "field": "field",
-				      "value": "string"
+				    "fieldtype": {
+				      "type": 1,
+				      "value": 1
 				     },
 				    "searchable": true
                 },{
@@ -1751,9 +1769,9 @@
                     "width": "200px",
                     "data": "Operator_Owners_E",
                     "dataalias": "Operator_Owners_E",
-				    "type": {
-				      "field": "field",
-				      "value": "string"
+				    "fieldtype": {
+				      "type": 1,
+				      "value": 1
 				     },
 				    "searchable": true
                 },{
@@ -1761,9 +1779,9 @@
                     "width": "200px",
                     "data": "Province_E",
                     "dataalias": "Province_E",
-				    "type": {
-				      "field": "field",
-				      "value": "select"
+				    "fieldtype": {
+				      "type": 1,
+				      "value": 4
 				     },
 				    "searchable": true
                 }],
@@ -1777,6 +1795,56 @@
                  "hover": {
                      "enable": true,
                      "hoverfield": "Automobile shredders"
+                 }
+            },{
+                "layerinfo": {
+                    "id": "c23e1d3c-9735-4a34-ac36-bfd2eccdf6fd",
+                    "type": 4,
+                    "index": 0
+                },
+                "title": "Top 100 Exploration Projects",
+                "globalsearch": false,
+                "fields": [{
+                    "title": "Project Name",
+                    "width": "200px",
+                    "data": "Property_Name",
+                    "dataalias": "Property_Name",
+				    "fieldtype": {
+				      "type": 1,
+				      "value": 1
+				     },
+				    "searchable": true
+                },{
+                    "title": "Province / Territory",
+                    "width": "200px",
+                    "data": "Province_E",
+                    "dataalias": "Province_E",
+				    "fieldtype": {
+				      "type": 1,
+				      "value": 4
+				     },
+				    "searchable": true
+                },{
+                    "title": "Commodity Group",
+                    "width": "200px",
+                    "data": "Commodity_Group_E",
+                    "dataalias": "Commodity_Group_E",
+				    "fieldtype": {
+				      "type": 1,
+				      "value": 1
+				     },
+				    "searchable": true
+                }],
+                "linktable": {
+                    "enable": false
+                 },
+                 "popups": {
+                    "enable": true,
+                    "layeralias": "Top 100 Exploration Projects"
+                 },
+                 "hover": {
+                     "enable": true,
+                     "hoverfield": "Top 100 Exploration Projects"
                  }
             }]
         },

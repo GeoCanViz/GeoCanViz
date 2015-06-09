@@ -26,18 +26,13 @@
 			getLookup,
 			getRandomColor,
 			getObjectIds,
-			getElemValueVM,
-			setElemValueVM,
-			setVM,
-			subscribeTo,
 			getTextWidth,
-			focusMap,
 			padDigits,
 			parseLonLat,
 			parseDMS,
+			parseScale,
 			convertDdToDms,
-			timer,
-			vmObject = { };
+			timer;
 
 		debounce = function(func, threshold, execAsap) {
 			var timeout;
@@ -76,7 +71,7 @@
 		//gcvizFunc.closureFunc(function(id, colIdx) {
 			// ...
 		//}, id));
-		closureFunc = function(fn, varArgs) {
+		closureFunc = function(fn) {
 			var args = Array.prototype.slice.call(arguments, 1);
 			return function() {
 				// Clone the array (with slice()) and append additional arguments
@@ -256,36 +251,6 @@
 			return arr;
 		};
 
-		getElemValueVM = function(name, elements, type) {
-			var val,
-				len = elements.length;
-
-			if (len === 1) {
-				val = vmObject[name][elements[0]];
-			} else if (len === 2) {
-				val = vmObject[name][elements[0]][elements[1]];
-			} else if (len === 3) {
-				val = vmObject[name][elements[0]][elements[1]][elements[2]];
-			}
-
-			if (type === 'ko') {
-				val = val();
-			}
-			return val;
-		};
-
-		setElemValueVM = function(vm, name, element, val) {
-			return vmObject[vm][name][element](val);
-		};
-
-		setVM = function(name, vm) {
-			vmObject[name] = vm;
-		};
-
-		subscribeTo = function(name, vm, value, funct) {
-			vmObject[name][vm][value].subscribe(funct);
-		};
-
 		// Uses canvas.measureText to compute and return the width of the given text of given font in pixels.
 		// http://stackoverflow.com/questions/118241/calculate-text-width-with-javascript/21015393#21015393
 		getTextWidth = function(text, font) {
@@ -296,15 +261,6 @@
 			context.font = font;
 			metric = context.measureText(text);
 			return metric.width;
-		};
-
-		focusMap = function(map, scroll) {
-			var element = document.getElementById(map.vIdName + '_holder');
-
-			element.focus();
-			if (scroll) {
-				element.scrollIntoView();
-			}
 		};
 
 		padDigits = function(number, digits) {
@@ -320,7 +276,7 @@
 
 		parseLonLat = function(input) {
 			var x, y, lonlat,
-				ddregex = /^([-+]?([1-8]?\d(\.\d+)?|90(\.0+)?))([\s+])([-+]?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?))$/g,
+				ddregex = /^([-+]?([1-8]?\d(\.\d+)?|90(\.0+)?))([\s+|,])([-+]?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?))$/g,
 				dd = ddregex.exec(input),
 				dmsregex = /(-)?(\d{2,3})([:°d|\s+])\s*([0-5][0-9])([:\'m]|\s*)(\s*([0-5][0-9])([\.,](\d+))?([\"s]|\s*))?\s*([NnWwOo])?[ |,]\s*(-)?(\d{2,3})([:°d|\s+])\s*([0-5][0-9])([:\'m]|\s*)(\s*([0-5][0-9])([\.,](\d+))?([\"s]|\s*))?\s*([NnWwOo])?/g,
 				dms = dmsregex.exec(input);
@@ -376,6 +332,29 @@
 			return dd;
 		};
 
+		parseScale = function(input) {
+			var part1, part2, scale, parts,
+				partsP = input.split(':'),
+				partsS = input.split('/');
+
+			if (partsP.length === 2) {
+				parts = partsP;
+			} else {
+				parts = partsS;
+			}
+
+			if (parts.length === 2) {
+				part1 = parseInt(parts[0], 10);
+				part2 = parseFloat(parts[1], 10);
+
+				if (part1 === 1 && part2 > 999) {
+					scale =  '1:' + part2;
+				}
+			}
+
+			return scale;
+		};
+
 		convertDdToDms = function(degX, degY, digit) {
 			var yLabel, xLabel,
 				dx = parseInt(degX, 10),
@@ -421,14 +400,10 @@
 			getLookup: getLookup,
 			getRandomColor: getRandomColor,
 			getObjectIds: getObjectIds,
-			getElemValueVM: getElemValueVM,
-			setElemValueVM: setElemValueVM,
-			setVM: setVM,
-			subscribeTo: subscribeTo,
 			getTextWidth: getTextWidth,
-			focusMap: focusMap,
 			padDigits: padDigits,
 			parseLonLat: parseLonLat,
+			parseScale: parseScale,
 			convertDdToDms: convertDdToDms
 		};
 	});

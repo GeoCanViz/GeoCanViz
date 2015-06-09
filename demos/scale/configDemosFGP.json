@@ -350,7 +350,10 @@
             },
             "print": {
                 "enable": true,
-                "type": 1
+                "type": 2,
+                "printlayout": ["Portrait", "Landscape"],
+                "project": ["Default", "Topo"],
+                "DPI": [96, 300]
             },
             "fullscreen": true
         },
@@ -1111,11 +1114,14 @@
             "enable": true,
             "expand": false,
             "pos": 4,
-            "data": {
+            "datafile": {
+                "enable": true
+            },
+            "dataurl": {
                 "enable": true
             },
             "dataquery": {
-            	"enable": false
+            	"enable": true
             }
         },
         "toolbarextract": {
@@ -1175,30 +1181,30 @@
                     "width": "200px",
                     "data": "Minesite_E",
                     "dataalias": "Minesite_E",
-                                                                    "type": {
-                                                                      "field": "field",
-                                                                      "value": "string"
-                                                                     },
+                                                                    "fieldtype": {
+                            "type": 1,
+                            "value": 2
+                        },
                                                                     "searchable": true
                 },{
                     "title": "Province / Territory",
                     "width": "200px",
                     "data": "Province_E",
                     "dataalias": "Province_E",
-                                                                    "type": {
-                                                                      "field": "field",
-                                                                      "value": "select"
-                                                                     },
+                                                                   "fieldtype": {
+                            "type": 1,
+                            "value": 2
+                        },
                                                                     "searchable": true
                 },{
                     "title": "Product",
                     "width": "200px",
                     "data": "Product_E",
                     "dataalias": "Product_E",
-                                                                    "type": {
-                                                                      "field": "field",
-                                                                      "value": "string"
-                                                                     },
+                                                                    "fieldtype": {
+                            "type": 1,
+                            "value": 2
+                        },
                                                                     "searchable": true
                 }],
                 "linktable": {
@@ -1230,60 +1236,60 @@
                     "width": "200px",
                     "data": "OperationE",
                     "dataalias": "OperationE",
-                                                                    "type": {
-                                                                      "field": "field",
-                                                                      "value": "string"
-                                                                     },
+                                                                   "fieldtype": {
+                            "type": 1,
+                            "value": 2
+                        },
                                                                     "searchable": true
                 },{
                     "title": "Operator / Owner",
                     "width": "200px",
                     "data": "Operator_OwnersE",
                     "dataalias": "Operator_OwnersE",
-                                                                    "type": {
-                                                                      "field": "field",
-                                                                      "value": "string"
-                                                                     },
+                                                                    "fieldtype": {
+                            "type": 1,
+                            "value": 2
+                        },
                                                                     "searchable": true
                 },{
                     "title": "Province / Territory",
                     "width": "200px",
                     "data": "Province_E",
                     "dataalias": "Province_E",
-                                                                    "type": {
-                                                                      "field": "field",
-                                                                      "value": "select"
-                                                                     },
+                                                                  "fieldtype": {
+                            "type": 1,
+                            "value": 2
+                        },
                                                                     "searchable": true
                 },{
                     "title": "Mine Type / Facility",
                     "width": "200px",
                     "data": "Facilities_Code_E_Spelt",
                     "dataalias": "Facilities_Code_E_Spelt",
-                                                                    "type": {
-                                                                      "field": "field",
-                                                                      "value": "select"
-                                                                     },
+                                                                    "fieldtype": {
+                            "type": 1,
+                            "value": 2
+                        },
                                                                     "searchable": true
                 },{
                     "title": "Commodity Group",
                     "width": "200px",
                     "data": "Commodity_Group_EN_Spelt",
                     "dataalias": "Commodity_Group_EN_Spelt",
-                                                                    "type": {
-                                                                      "field": "field",
-                                                                      "value": "select"
-                                                                     },
+                                                                    "fieldtype": {
+                            "type": 1,
+                            "value": 2
+                        },
                                                                     "searchable": true
                 },{
                     "title": "Commodity",
                     "width": "200px",
                     "data": "Commodity_EN_Spelt",
                     "dataalias": "Commodity_EN_Spelt",
-                                                                    "type": {
-                                                                      "field": "field",
-                                                                      "value": "string"
-                                                                     },
+                                                                    "fieldtype": {
+                            "type": 1,
+                            "value": 2
+                        },
                                                                     "searchable": true
                 }],
                 "linktable": {
@@ -1300,352 +1306,6 @@
                  "hover": {
                      "enable": true,
                      "hoverfield": "Metal mines"
-                 }
-            },{
-                "layerinfo": {
-                    "id": "00af8c8f-2fa1-4a6b-7d5e-052d9f7e9970",
-                    "type": 5,
-                    "index": 1
-                },
-                "title": "Nonmetal mine",
-                "globalsearch": false,
-                "fields": [{
-                    "title": "Operation",
-                    "width": "200px",
-                    "data": "OperationE",
-                    "dataalias": "OperationE",
-                                                                    "type": {
-                                                                      "field": "field",
-                                                                      "value": "string"
-                                                                     },
-                                                                    "searchable": true
-                },{
-                    "title": "Operator / Owner",
-                    "width": "200px",
-                    "data": "Operator_OwnersE",
-                    "dataalias": "Operator_OwnersE",
-                                                                    "type": {
-                                                                      "field": "field",
-                                                                      "value": "string"
-                                                                     },
-                                                                    "searchable": true
-                },{
-                    "title": "Province / Territory",
-                    "width": "200px",
-                    "data": "Province_E",
-                    "dataalias": "Province_E",
-                                                                    "type": {
-                                                                      "field": "field",
-                                                                      "value": "string"
-                                                                     },
-                                                                    "searchable": true
-                },{
-                    "title": "Mine Type / Facility",
-                    "width": "200px",
-                    "data": "Facilities_Code_E_Spelt",
-                    "dataalias": "Facilities_Code_E_Spelt",
-                                                                    "type": {
-                                                                      "field": "field",
-                                                                      "value": "string"
-                                                                     },
-                                                                    "searchable": true
-                },{
-                    "title": "Commodity Group",
-                    "width": "200px",
-                    "data": "Commodity_Group_EN_Spelt",
-                    "dataalias": "Commodity_Group_EN_Spelt",
-                                                                    "type": {
-                                                                      "field": "field",
-                                                                      "value": "string"
-                                                                     },
-                                                                    "searchable": true
-                },{
-                    "title": "Commodity",
-                    "width": "200px",
-                    "data": "Commodity_EN_Spelt",
-                    "dataalias": "Commodity_EN_Spelt",
-                                                                    "type": {
-                                                                      "field": "field",
-                                                                      "value": "string"
-                                                                     },
-                                                                    "searchable": true
-                }],
-                "linktable": {
-                    "enable": false,
-                    "relationshipid": 0,
-                    "title": "",
-                    "subtitle": "",
-                    "fields": []
-                 },
-                 "popups": {
-                    "enable": true,
-                    "layeralias": "Nonmetal mines"
-                 },
-                 "hover": {
-                     "enable": true,
-                     "hoverfield": "Nonmetal mines"
-                 }
-            },{
-                "layerinfo": {
-                    "id": "7ee0a175-dcda-3050-a493-2be425ec5bc5",
-                    "type": 5,
-                    "index": 2
-                },
-                "title": "Coal mines",
-                "globalsearch": false,
-                "fields": [{
-                    "title": "Operation",
-                    "width": "200px",
-                    "data": "OperationE",
-                    "dataalias": "OperationE",
-                                                                    "type": {
-                                                                      "field": "field",
-                                                                      "value": "string"
-                                                                     },
-                                                                    "searchable": true
-                },{
-                    "title": "Operator / Owner",
-                    "width": "200px",
-                    "data": "Operator_OwnersE",
-                    "dataalias": "Operator_OwnersE",
-                                                                    "type": {
-                                                                      "field": "field",
-                                                                      "value": "string"
-                                                                     },
-                                                                    "searchable": true
-                },{
-                    "title": "Province / Territory",
-                    "width": "200px",
-                    "data": "Province_E",
-                    "dataalias": "Province_E",
-                                                                    "type": {
-                                                                      "field": "field",
-                                                                      "value": "string"
-                                                                     },
-                                                                    "searchable": true
-                },{
-                    "title": "Mine Type / Facility",
-                    "width": "200px",
-                    "data": "Facilities_Code_E_Spelt",
-                    "dataalias": "Facilities_Code_E_Spelt",
-                                                                    "type": {
-                                                                      "field": "field",
-                                                                      "value": "string"
-                                                                     },
-                                                                    "searchable": true
-                },{
-                    "title": "Commodity Group",
-                    "width": "200px",
-                    "data": "Commodity_Group_EN_Spelt",
-                    "dataalias": "Commodity_Group_EN_Spelt",
-                                                                    "type": {
-                                                                      "field": "field",
-                                                                      "value": "string"
-                                                                     },
-                                                                    "searchable": true
-                },{
-                    "title": "Commodity",
-                    "width": "200px",
-                    "data": "Commodity_EN_Spelt",
-                    "dataalias": "Commodity_EN_Spelt",
-                                                                    "type": {
-                                                                      "field": "field",
-                                                                      "value": "string"
-                                                                     },
-                                                                    "searchable": true
-                }],
-                "linktable": {
-                    "enable": false,
-                    "relationshipid": 0,
-                    "title": "",
-                    "subtitle": "",
-                    "fields": []
-                 },
-                 "popups": {
-                    "enable": true,
-                    "layeralias": "Coal mines"
-                 },
-                 "hover": {
-                     "enable": true,
-                     "hoverfield": "Coal mines"
-                 }
-            },{
-                "layerinfo": {
-                    "id": "262d92e2-c0d8-c373-f750-2d06596d45b7",
-                    "type": 5,
-                    "index": 3
-                },
-                "title": "Oil sands mines",
-                "globalsearch": false,
-                "fields": [{
-                    "title": "Operation",
-                    "width": "200px",
-                    "data": "OperationE",
-                    "dataalias": "OperationE",
-                                                                    "type": {
-                                                                      "field": "field",
-                                                                      "value": "string"
-                                                                     },
-                                                                    "searchable": true
-                },{
-                    "title": "Operator / Owner",
-                    "width": "200px",
-                    "data": "Operator_OwnersE",
-                    "dataalias": "Operator_OwnersE",
-                                                                    "type": {
-                                                                      "field": "field",
-                                                                      "value": "string"
-                                                                     },
-                                                                    "searchable": true
-                },{
-                    "title": "Province / Territory",
-                    "width": "200px",
-                    "data": "Province_E",
-                    "dataalias": "Province_E",
-                                                                    "type": {
-                                                                      "field": "field",
-                                                                      "value": "string"
-                                                                     },
-                                                                    "searchable": true
-                },{
-                    "title": "Mine Type / Facility",
-                    "width": "200px",
-                    "data": "Facilities_Code_E_Spelt",
-                    "dataalias": "Facilities_Code_E_Spelt",
-                                                                    "type": {
-                                                                      "field": "field",
-                                                                      "value": "string"
-                                                                     },
-                                                                    "searchable": true
-                },{
-                    "title": "Commodity Group",
-                    "width": "200px",
-                    "data": "Commodity_Group_EN_Spelt",
-                    "dataalias": "Commodity_Group_EN_Spelt",
-                                                                    "type": {
-                                                                      "field": "field",
-                                                                      "value": "string"
-                                                                     },
-                                                                    "searchable": true
-                },{
-                    "title": "Commodity",
-                    "width": "200px",
-                    "data": "Commodity_EN_Spelt",
-                    "dataalias": "Commodity_EN_Spelt",
-                                                                    "type": {
-                                                                      "field": "field",
-                                                                      "value": "string"
-                                                                     },
-                                                                    "searchable": true
-                }],
-                "linktable": {
-                    "enable": false,
-                    "fields": []
-                 },
-                 "popups": {
-                    "enable": true,
-                    "layeralias": "Oil sands mines"
-                 },
-                 "hover": {
-                     "enable": true,
-                     "hoverfield": "Oil sands mines"
-                 }
-            },
-{
-                "layerinfo": {
-                    "id": "6f798c6b-dddd1-4e24-78dd-9bfa5a9bc59e",
-                    "type": 5,
-                    "index": 0
-                },
-                "title": "Mining Agreement",
-                "globalsearch": false,
-                "fields": [{
-                    "title": "Project Satus",
-                    "width": "250px",
-                    "data": "PROJ_STATUS_EN",
-                    "dataalias": "PROJ_STATUS_EN",
-				    "type": {
-				      "field": "field",
-				      "value": "string"
-				     },
-				    "searchable": true
-                }, {
-                    "title": "Commodities",
-                    "width": "250px",
-                    "data": "COM_EN",
-                    "dataalias": "COM_EN",
-				     "type": {
-				      	"field": "field",
-				      	"value": "select"
-				     },
-				     "searchable": true
-                }, {
-                    "title": "latitude",
-                    "width": "110px",
-                    "data": "LAT_DD",
-                    "dataalias": "LAT_DD",
-				     "type": {
-				      	"field": "field",
-				      	"value": "number"
-				     },
-				     "searchable": true
-                }, {
-                    "title": "longitude",
-                    "width": "110px",
-                    "data": "LONG_DD",
-                    "dataalias": "LONG_DD",
-				     "type": {
-				      	"field": "field",
-				      	"value": "number"
-				     },
-				     "searchable": true
-                },{
-                    "title": "Company Name",
-                    "width": "250px",
-                    "data": "PROJECT_NAME_EN",
-                    "dataalias": "PROJECT_NAME_EN",
-				    "type": {
-				      "field": "field",
-				      "value": "string"
-				     },
-				    "searchable": true
-                },{
-                    "title": "Old Company Name",
-                    "width": "250px",
-                    "data": "PAST_MINING_COMP_NAME",
-                    "dataalias": "PAST_MINING_COMP_NAME",
-				    "type": {
-				      "field": "field",
-				      "value": "string"
-				     },
-				    "searchable": true
-                }],
-                "linktable": {
-                    "enable": true,
-                    "relationshipid": 0,
-                    "title": "Agreements",
-                    "subtitle": "",
-                    "fields": [{
-                    	"title": "Date",
-                    	"data": "DATE_AGRMT_SIGNED"
-                    }, {
-                    	"title": "Type",
-                    	"data": "AGRMNT_TYPE_EN"
-                    }, {
-                    	"title": "Note",
-                    	"data": "AGRMNT_NOTES"
-                    }, {
-                    	"title": "Signatories",
-                    	"data": "FN_EN"
-                    }]
-                 },
-                 "popups": {
-                    "enable": true,
-                    "layeralias": "Mining Project Status"
-                 },
-                 "hover": {
-                     "enable": false,
-                     "hoverfield": "Community Well-Being"
                  }
             }]
         },

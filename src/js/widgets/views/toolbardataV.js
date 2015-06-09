@@ -18,6 +18,7 @@
 				mapid = $mapElem.mapframe.id,
 				datafile = config.datafile,
 				dataurl = config.dataurl,
+				isDatagrid = $mapElem.datagrid.enable,
 				node = '';
 
 			// find toolbar and start to add items
@@ -26,7 +27,7 @@
 			// set add data from file button
 			if (datafile.enable) {
 				// CSV file
-				node += '<input id="fileDialogData" type="file" accept=".csv" data-bind="event: { change: addFileClick }" tabindex="-1"></input>' +
+				node += '<input id="fileDialogData' + mapid + '" type="file" accept=".csv" data-bind="event: { change: addFileClick }" tabindex="-1"></input>' +
 						'<div class="row">' +
 							'<div class="span1"><button id="btnAddCSV' + mapid + '" class="gcviz-data-add" tabindex="0" data-bind="buttonBlur, click: launchDialog, attr: { alt: tpAdd }"></button></div>' +
 							'<div class="span11"><label class="gcviz-label gcviz-nav-lblpos" for="btnAddCSV' + mapid + '" data-bind="text: lblCSV"></label></div>' +
@@ -40,7 +41,7 @@
 							'<div class="span1"><button id="btnAddUrl' + mapid + '" class="gcviz-data-add" tabindex="0" data-bind="buttonBlur, click: addURLClick, attr: { alt: tpAdd }"></button></div>' +
 							'<div class="span11"><label class="gcviz-label gcviz-nav-lblpos" for="btnAddUrl' + mapid + '" data-bind="text: lblUrl"></label></div>' +
 						'</div>' +
-						'<div data-bind="uiDialog: { title: lblUrlTitle, width: 450, height: 220, ok: dialogUrlOk, cancel: dialogUrlCancel, close: dialogUrlClose, openDialog: \'isUrlDialogOpen\' }">' +
+						'<div data-bind="uiDialog: { title: lblUrlTitle, width: 450, ok: dialogUrlOk, cancel: dialogUrlCancel, close: dialogUrlClose, openDialog: \'isUrlDialogOpen\' }">' +
 							'<div>' +
 								'<form><fieldset>' +
 									'<span data-bind="text: lblAddUrl"></span>' +
@@ -60,17 +61,27 @@
 			node += '</script>';
 
 			// add dialog error message
-			node += '<div data-bind="uiDialog: { title: lblErrTitle, width: 500, height: 200, ok: dialogDataClose, close: dialogDataClose, openDialog: \'isErrDataOpen\' }">' +
+			node += '<div data-bind="uiDialog: { title: lblErrTitle, width: 500, ok: dialogDataClose, close: dialogDataClose, openDialog: \'isErrDataOpen\' }">' +
 						'<span data-bind="text: errMsg"></span>' +
 					'</div>';
 
-			// add dialog error message
-			node += '<div data-bind="uiDialog: { title: lblAddTitle, width: 500, height: 200, openDialog: \'isDataProcess\' }">' +
+			// add dialog load message
+			node += '<div data-bind="uiDialog: { title: lblAddTitle, width: 500, modal: true, open: openWait, openDialog: \'isDataProcess\', closeOnEscape: false }">' +
 						'<span data-bind="text: lblAddDesc"></span>' +
 					'</div>';
 
+			// add dialog file load message for layer loaded from the url
+			node += '<div data-bind="uiDialog: { title: lblAddTitle, width: 500, ok: okParamUrlFile, close: closeParamUrlFile, openDialog: \'isFileProcess\', ' +
+												'position: { within: \'#' + mapid + '_holder\', at: \'center center\' } }">' +
+						'<span data-bind="text: lblAddParamDesc"></span>' +
+						'<div class="row">' +
+							'<div class="span1"><button id="btnWindowAddCSV' + mapid + '" class="gcviz-data-add" tabindex="0" data-bind="buttonBlur, click: launchDialog, attr: { alt: tpAdd }"></button></div>' +
+							'<div class="span11"><label class="gcviz-label gcviz-nav-lblpos" for="btnWindowAddCSV' + mapid + '" data-bind="text: lblImportParamFile"></label></div>' +
+						'</div>' +
+					'</div>';
+
 			$toolbar.append(node);
-			return (tbdataVM.initialize($toolbar, mapid, config));
+			return (tbdataVM.initialize($toolbar, mapid, config, isDatagrid));
 		};
 
 		return {

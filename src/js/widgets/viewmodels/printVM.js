@@ -26,8 +26,8 @@
 		initialize = function($mapElem, mapid, printOption, mapframe) {
 			// data model				
 			var printViewModel = function($mapElem, mapid, printOption) {
-
 				var _self = this,
+					mapVM,
 					$btnPrint = $mapElem.find('.gcviz-head-print'),
 					$dialog = $mapElem.find('#print-' + mapid),
 					printlayout = [],
@@ -45,6 +45,12 @@
                     template,
                     printTypeString;
 
+				// there is a problem with the define. The gcviz-vm-map is not able to be set.
+				// We set the reference to gcviz-vm-map (hard way)
+				require(['gcviz-vm-map'], function(vmMap) {
+					mapVM = vmMap;
+				});
+
 				// viewmodel mapid to be access in tooltip custom binding
 				_self.mapid = mapid;
 
@@ -60,7 +66,6 @@
 				_self.lblForceScale = i18n.getDict('%print-dialogForceScale');
 				_self.lblLayout = i18n.getDict('%print-dialogLayout');
 				_self.noTemplateMessage =  i18n.getDict('%print-dialogNoTemplates');
-				_self.mymap = gcvizFunc.getElemValueVM(mapid, ['map', 'map'], 'js');
 
 				printOption.printlayout.forEach(function(value) {
 					printlayout.push(new PrintLayoutItem(value));
@@ -133,10 +138,10 @@
 
 					if (printType === 1) {
 						templatepath = _self.urlhtml + '/' + lang + '/' + _self.selectedValue().toString();
-						gisprint.printBasicMap(_self.mymap, _self.printUrl, templatepath, _self.preserve().toString(), _self.forceScaleValue().toString().trim(), _self.selectedDPIValue());
+						mapVM.printBasic(mapid, _self.printUrl, templatepath, _self.preserve().toString(), _self.forceScaleValue().toString().trim(), _self.selectedDPIValue());
 					}
 					else {
-						gisprint.printCustomMap(_self.mymap, _self.printUrl, _self.selectedValue().toString(), _self.preserve().toString(), _self.selectedDPIValue(), _self.forceScaleValue().toString().trim());
+						mapVM.printCustom(mapid, _self.printUrl, _self.selectedValue().toString(), _self.preserve().toString(), _self.selectedDPIValue(), _self.forceScaleValue().toString().trim());
 					}
 				};
 

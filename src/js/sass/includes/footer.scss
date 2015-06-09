@@ -62,14 +62,6 @@
 	@include marg-button;
 }
 
-.gcviz-foot-loaddata {
-	background: url("images/footLoadData.gif") no-repeat;
-	height: 32px;
-	width: 32px;
-	border: none;
-	margin: (0.4 * $rembase) + rem;
-}
-
 .gcviz-foot-logo {
 	float: left;
 	margin-left: (0.5 * $rembase) + rem;

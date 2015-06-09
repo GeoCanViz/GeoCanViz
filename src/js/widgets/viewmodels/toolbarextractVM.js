@@ -9,31 +9,33 @@
 	'use strict';
 	define(['jquery-private',
 			'knockout',
-			'gcviz-func',
 			'gcviz-i18n',
 			'gcviz-gisgeo',
-			'gcviz-gislegend',
-			'gcviz-gisdatagrid',
-			'gcviz-gisgeo',
 			'gcviz-gisnav'
-	], function($viz, ko, gcvizFunc, i18n, gisgeo, gisLeg, gisDG, gisGeo, gisNav) {
+	], function($viz, ko, i18n, gisGeo, gisNav) {
 		var initialize,
 			showGrid,
-			gridId,
-			vm;
+			endNTS,
+			vm = {};
 
 		initialize = function($mapElem, mapid, config) {
 
 			// data model				
 			var toolbarextractViewModel = function($mapElem, mapid) {
 				var _self = this,
+					mapVM,
+					ntsEvt,
 					item, lenQuery,
-					clickNTS,
 					len = config.items.length,
 					grid = config.grid,
 					$menu = $viz('#gcviz-menu' + mapid),
-					$container = $viz('#' + mapid + '_holder_layers'),
-					mymap = gcvizFunc.getElemValueVM(mapid, ['map', 'map'], 'js');
+					$container = $viz('#' + mapid + '_holder_layers');
+
+				// there is a problem with the define. The gcviz-vm-map is not able to be set.
+				// We set the reference to gcviz-vm-map (hard way)
+				require(['gcviz-vm-map'], function(vmMap) {
+					mapVM = vmMap;
+				});
 
 				// viewmodel mapid to be access in tooltip and wcag custom binding
 				_self.mapid = mapid;
@@ -43,9 +45,9 @@
 
 				// set the grid id if specified
 				if (grid.enable) {
-					gridId = grid.id;
+					_self.gridId = grid.id;
 				} else {
-					gridId = '';
+					_self.gridId = '';
 				}
 
 				// hold the larger scale. It will help to do the reprojection on map-extent
@@ -54,7 +56,7 @@
 				_self.mapScale = 0;
 
 				// hold the map wkid
-				_self.mapWkid = mymap.vWkid;
+				_self.mapWkid = mapVM.getSR(mapid);
 
 				// array of user layer. Loop trough the array and add observables
 				// hrefData will be set true when extend is good and set href observable
@@ -100,26 +102,31 @@
 				_self.isDialogWCAG = ko.observable(false);
 				_self.wcagok = false;
 
+				// set active tool
+				_self.activeTool = ko.observable('');
+
 				_self.init = function() {
-					mymap.on('extent-change', function(values) {
-						var len,
-							largeScale = _self.largeScale,
-							extent = values.extent;
-
-						// set map scale. It will be use in the callback function
-						_self.mapScale = mymap.getScale();
-
-						if (_self.mapScale <= largeScale || largeScale === -1) {
-							gisgeo.projectCoords([[extent.xmin, extent.ymin], [extent.xmax, extent.ymax]], _self.mapWkid, 4326, _self.createURL);
-						} else {
-							len = _self.itemsArray().length;
-							while (len--) {
-								_self.itemsArray()[len].isReady(false);
-							}
-						}
-					});
+					mapVM.registerEvent(mapid, 'extent-change', _self.refreshArray);
 
 					return { controlsDescendantBindings: true };
+				};
+
+				_self.refreshArray = function(values) {
+					var len,
+						largeScale = _self.largeScale,
+						extent = values.extent;
+
+					// set map scale. It will be use in the callback function
+					_self.mapScale = mapVM.getScaleMap(mapid);
+
+					if (_self.mapScale <= largeScale || largeScale === -1) {
+						gisGeo.projectCoords([[extent.xmin, extent.ymin], [extent.xmax, extent.ymax]], _self.mapWkid, 4326, _self.createURL);
+					} else {
+						len = _self.itemsArray().length;
+						while (len--) {
+							_self.itemsArray()[len].isReady(false);
+						}
+					}
 				};
 
 				_self.createURL = function(extent) {
@@ -162,9 +169,22 @@
 					// in the top corner. To avoid this, limit your query with the scale dependecy.
 					// we cant reapply default value here because we dont want to restrict coordinates
 					// to Canada.
-					var min = extent[0],
+					var extentVal, tmpy,
+						min = extent[0],
 						max = extent[1],
-						extentVal = min.x + ',' + min.y + ','+ max.x + ',' + max.y;
+						xmin = min.x,
+						ymin = min.y,
+						xmax = max.x,
+						ymax = max.y;
+
+					// due to projection sometimes ymin is higher then ymax. Make sure to reverse if happens
+					// because it crash the api
+					if (ymin > ymax) {
+						tmpy = ymax;
+						ymax = ymin;
+						ymin = tmpy;
+					}
+					extentVal = xmin + ',' + ymin + ','+ xmax + ',' + ymax;
 
 					item.hrefData(url + query.replace('XXX', extentVal));
 				};
@@ -173,18 +193,23 @@
 					item.hrefData(url + query);
 				};
 
-				_self.clickNTS = function(hrefData) {
+				_self.clickNTS = function(hrefData, control) {
 					// set the href
 					_self.hrefNTS = hrefData;
 
 					// close menu
-					$menu.accordion('option', 'active', false);
+					require(['gcviz-vm-header'], function(headerVM) {
+						headerVM.toggleMenu(mapid);
+					});
 
 					// set event for the toolbar
 					$menu.on('accordionbeforeactivate', function() {
 						$menu.off();
 						_self.endNTS();
 					});
+
+					// set active tool
+					_self.activeTool(control);
 
 					// check if WCAG mode is enable, if so use dialog box instead)
 					if (!_self.isWCAG()) {
@@ -193,26 +218,28 @@
 						$container.addClass('gcviz-nav-cursor-pos');
 
 						// remove popup event
-						gisDG.removeEvtPop();
+						mapVM.removePopupEvent(mapid);
 
 						// get user to click on map and capture event
-						clickNTS = mymap.on('click', function(evt) {
-							gisGeo.projectPoints([evt.mapPoint], 4326, _self.selectNTS);
-						});
+						ntsEvt = mapVM.registerEventOne(mapid, 'click', _self.clickNTSEvt);
 					} else {
 						_self.isDialogWCAG(true);
 					}
 
 					// focus the map. We need to specify this because when you use the keyboard to
 					// activate the tool, the focus sometimes doesnt go to the map.
-					gcvizFunc.focusMap(mymap, false);
+					mapVM.focusMap(mapid, false);
+				};
+
+				_self.clickNTSEvt = function(evt) {
+					gisGeo.projectPoints([evt.mapPoint], 4326, _self.selectNTS);
 				};
 
 				_self.dialogWCAGOk = function() {
 					var x = _self.xValue() * -1,
 						y = _self.yValue();
 
-					gisGeo.projectCoords([[x, y]], mymap.vWkid, 4326, _self.selectNTS);
+					gisGeo.projectCoords([[x, y]], _self.mapWkid, 4326, _self.selectNTS);
 					_self.isDialogWCAG(false);
 					_self.wcagok = true;
 				};
@@ -258,53 +285,82 @@
 					// Reset cursor
 					$container.removeClass('gcviz-nav-cursor-pos');
 
-					// set popup event
-					gisDG.addEvtPop();
-
-					// remove click event
-					if (typeof clickNTS !== 'undefined') {
-						clickNTS.remove();
+					// make sure event is removed
+					if (typeof ntsEvt !== 'undefined') {
+						ntsEvt.remove();
 					}
+
+					// set popup event
+					mapVM.addPopupEvent(mapid);
 
 					$menu.on('accordionactivate', function() {
 						$menu.off('accordionactivate');
 
 						// bug with jQueryUI, focus does not work when menu open
 						setTimeout(function() {
-							// TODO: focus last active tool
+							$viz('#' + _self.activeTool()).focus();
 
-						}, 1000);
+							_self.activeTool('');
+						}, 700);
 					});
 
 					// open menu
-					$menu.accordion('option', 'active', 0);
+					require(['gcviz-vm-header'], function(headerVM) {
+						headerVM.toggleMenu(mapid);
+					});
 				};
 
 				_self.init();
 			};
 
-			vm = new toolbarextractViewModel($mapElem, mapid);
-			ko.applyBindings(vm, $mapElem[0]); // This makes Knockout get to work
+			// put view model in an array because we can have more then one map in the page
+			vm[mapid] = new toolbarextractViewModel($mapElem, mapid);
+			ko.applyBindings(vm[mapid], $mapElem[0]); // This makes Knockout get to work
 			return vm;
 		};
 
-		showGrid = function(map, val) {
-			var chk,
-				control = $viz('#checkbox' + gridId)[0];
+		// *** PUBLIC FUNCTIONS ***
+		showGrid = function(mapid, val) {
+			var chk, gridId, control,
+				viewModel = vm[mapid];
 
-			// to see if control exist
-			if (typeof control !== 'undefined') {
-				// if layer is already selected, do nothing
-				chk = control.checked;
-				if (!chk) {
-					gisLeg.setLayerVisibility(map, gridId, val);
+			// link to view model to call the function inside
+			if (typeof viewModel !== 'undefined') {
+				gridId = viewModel.gridId;
+				control = $viz('#checkbox' + gridId + mapid)[0];
+
+				// to see if control exist
+				if (typeof control !== 'undefined') {
+					// if layer is already selected, do nothing
+					chk = control.checked;
+					if (!chk) {
+						require(['gcviz-vm-map'], function(mapVM) {
+							mapVM.setLayerVisibility(mapid, gridId, val);
+						});
+					}
 				}
 			}
 		};
 
+		endNTS= function(mapid) {
+			var flag = false,
+				viewModel = vm[mapid];
+
+			// link to view model to call the function inside
+			if (typeof viewModel !== 'undefined') {
+				if (viewModel.activeTool() !== '') {
+					viewModel.endNTS();
+					flag = true;
+				}
+			}
+
+			return flag;
+		};
+
 		return {
 			initialize: initialize,
-			showGrid: showGrid
+			showGrid: showGrid,
+			endNTS: endNTS
 		};
 	});
 }).call(this);

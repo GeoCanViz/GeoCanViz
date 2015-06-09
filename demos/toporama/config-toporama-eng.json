@@ -10,6 +10,7 @@
                 "urlgeomserv": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/Utilities/Geometry/GeometryServer",
                 "urlproxy": "http://geoappext.nrcan.gc.ca/php/proxy.ashx",
                 "urldownload": "http://geoappext.nrcan.gc.ca/php/download.php",
+                "urlsaveimage": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task",
                 "sr": {
                     "wkid": 3978
                 },
@@ -26,7 +27,7 @@
                     "ymax": 4172189.70508
                 },
                 "lods": {
-                    "enable": false,
+                    "enable": true,
                     "values": [{
                         "level": 0,
                         "resolution": 38364.660062653464,
@@ -184,7 +185,7 @@
                         "visiblelayers": ["Limits"]
                     	},
                     "scale": {
-                            "min": 0,
+                            "min": 145000000,
                             "max": 420000
                         },
                         "cluster": {
@@ -658,9 +659,15 @@
             },
             "print": {
                 "enable": true,
-                "type": 1,
+                "type": 3,
                 "template": [],
                 "DPI": [100, 300]
+            },
+			      "saveurl": {
+              "enable": true
+            },
+            "saveimage": {
+              "enable": true
             },
             "fullscreen": true
         },
@@ -2222,7 +2229,7 @@
                 "last": false,
                 "type": 4,
                 "id": "bbbb469d-aaa1-c8f5-175c-645200a6b6fe",
-                "graphid": "e5511402-0028-5cbe-0d3c-f537c612b7df",
+                "graphid": "e5511402-0029-5cbe-0d3c-f537c612b7df",
                 "displayfields": false,
                 "label": {
                     "value": "National topographic Grid",
@@ -2323,28 +2330,28 @@
 				"id":"bbbb469d-aaa1-c8f5-175c-645200a6b6fe"
             },
             "items": [{
-				"title": "Maps (raster): ",
-                "subtitle": "Toporama, CanMatrix Print ready and Georeferenced.",
+				"title": "Raster Maps: ",
+                "subtitle": "Toporama, CanMatrix Print ready and Georeferenced",
                 "scale": 15000000,
                 "url": "http://geogratis.gc.ca/api/en/nrcan-rncan/ess-sst/-/OR/(urn:iso:series)toporama/(urn:iso:series)canmatrix-georeferenced",
                 "query": [{
                     "type": 1,
                     "param": "?q=XXX",
-                    "label": "Get single map"
+                    "label": "Get a single map"
                 }, {
                     "type": 2,
                     "param": "?bbox=XXX&sort-field=spatial",
                     "label": "Get all maps for area shown"
                 }]
             }, {
-                "title": "Data (vector): ",
-                "subtitle": "CanVec+.",
+                "title": "Vector Data: ",
+                "subtitle": "CanVec+",
                 "scale": 15000000,
                 "url": "http://geogratis.gc.ca/api/en/nrcan-rncan/ess-sst/-/(urn:iso:series)canvec-plus",
                 "query": [{
                     "type": 1,
                     "param": "?q=XXX",
-                    "label": "Get single map"
+                    "label": "Get a single data set"
                 }, {
                     "type": 2,
                     "param": "?bbox=XXX&sort-field=spatial",
@@ -2352,7 +2359,7 @@
                 }]
             }, {
                 "title": "Data: ",
-                "subtitle": "CanVec+ (vector) and Elevation (raster) data using custom geographic extent.",
+                "subtitle": "CanVec+ (vector) and Elevation (raster) data using custom geographic extent",
                 "scale": 15000000,
                 "url": "http://geogratis.gc.ca/site/eng/extraction",
                 "query": [{
@@ -2368,7 +2375,6 @@
         "datagrid": {
             "enable": false,
             "expand": false
-
         },
         "customwidgets": []
     }

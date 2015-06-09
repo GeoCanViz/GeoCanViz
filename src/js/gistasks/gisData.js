@@ -138,7 +138,7 @@
 					// and sometimes layer will not be created.
 					setTimeout(function() {
 						gisGeo.projectPoints(ptArr, outWkid, createLayer);
-						def.resolve(0);
+						def.resolve(0, { label: gfileName, id: guuid });
 					}, 0);
 				},
 				onError: function (error) {
@@ -170,27 +170,19 @@
 
 			featureLayer = new esriFeatLayer(featCollection, { 'id': guuid });
 			featureLayer.name = gfileName;
+			featureLayer.type = 5;
 
 			// finish add by reordering layer and add the layer to map
 			finishAdd(mymap, featureLayer, config.zoom);
 
-			// add to user array so knockout will generate legend
-			// we cant add it from the VM because the projection can take few second and the symbol is not define before.
-			// to avoid this, we add the layer only when it is done.
-			//gArray.push({ label: gReader.fileName, id: guuid });
-
-			// set legend
-			addLegend(gfileName, guuid, 7, JSON.stringify(featureLayer.renderer.toJson()), config);
-
 			// add the data to the datagrid
 			vmDatagrid.addTab(mymap.vIdName, featCollection, gfileName, guuid);
 
-			// there is a problem with the define. the gcviz-vm-tbdata is not able to be set.
-			// With the require, we set the reference to gcviz-vm-tbdata (hard way)
-			require(['gcviz-vm-tbdata'], function(vmTbData) {
-				// notify toolbar data the new layer is finish
-				vmTbData.notifyAdd();
-			});
+			// add to user array so knockout will generate legend
+			// we cant add it from the VM because the projection can take few second and the symbol is not define before.
+			// to avoid this, we add the layer only when it is done.
+			// set legend
+			addLegend(mymap.vIdName, gfileName, guuid, 7, JSON.stringify(featureLayer.renderer.toJson()), config);
 		};
 
 		getSeparator = function(string) {
@@ -300,9 +292,12 @@
 					field, fields, lenFields, outFields,
 					layerDef, featureLayer,
 					output = [],
-
-					layerDefs = input.layer._fLayers,
+					layer = input.layer,
+					layerDefs = layer._fLayers,
 					lenLayerDef = layerDefs.length;
+
+				// set url to retreive in view model
+				layerDefs.url = layer.url;
 
 				// remove the kml layer
 				map.removeLayer(map.getLayer('tempAddDataKML'));
@@ -318,7 +313,7 @@
 						featureLayer = new esriFeatLayer(layerDef);
 
 						// set feature layer parameters
-						featureLayer.visible = config.visibility;
+						layer.setVisibility(config.visibility);
 						featureLayer.type = 5;
 						featureLayer.name = name;
 						featureLayer.id = id;
@@ -327,24 +322,27 @@
 						finishAdd(map, featureLayer, config.zoom);
 
 						// clean fields to keep name and description
-						fields = layerDef.layerDefinition.fields;
+						fields = Object.keys(layerDef.featureSet.features[0].attributes);
 						lenFields = fields.length;
 						defaultFields ='id, snippet, visibility, styleUrl, balloonStyleText';
 
 						while (lenFields--) {
-							field = fields[lenFields];
-							fieldName = field.name;
+							fieldName = fields[lenFields];
+							field = {};
 
 							// filter to remove default internal fields
 							if (defaultFields.indexOf(fieldName) === -1) {
 								if (fieldName === 'name') {
 									field.alias = 'name';
+									field.name = 'name';
 									outFields[0] = field;
 								} else if (fieldName === 'description') {
 									field.alias = 'description';
+									field.name = 'description';
 									outFields[1] = field;
 								} else {
 									field.alias = fieldName;
+									field.name = fieldName;
 									outFields.push(field);
 								}
 							}
@@ -373,14 +371,14 @@
 							}
 						}
 
-						// set legend
-						addLegend(name, id, 7, JSON.stringify(featureLayer.renderer.toJson()), config);
-
 						// add the data to the datagrid
 						vmDatagrid.addTab(map.vIdName, layerDef, name, id);
 
+						// set legend
+						addLegend(map.vIdName, name, id, 7, JSON.stringify(featureLayer.renderer.toJson()), config);
+
 						// add output info
-						output.push({ name: name, id: id });
+						output.push({ label: name, id: id, url: layerDefs.url });
 					}
 
 					// layers created, remove interval
@@ -424,18 +422,22 @@
 				var layer = input.layer,
 					name = layer.name;
 
-				// set legend
-				layer.visible = config.visibility;
-				addLegend(name, uuid, 5, JSON.stringify(layer.renderer.toJson()), config);
+				// set feature layer parameters
+				layer.setVisibility(config.visibility);
+				layer.type = 5;
+				//layer._map = map;
 
 				// finish add by reordering layer and add the layer to map
 				finishAdd(map, layer, config.zoom);
 
 				// add the data to the datagrid
-				vmDatagrid.addRestTab(url, layer);
+				vmDatagrid.addRestTab(url, layer, map.vIdName);
+
+				// set legend
+				addLegend(map.vIdName, name, uuid, 5, JSON.stringify(layer.renderer.toJson()), config);
 
 				// return info
-				def.resolve(0, { name: name, id: uuid });
+				def.resolve(0, [{ label: name, id: uuid, url: layer.url }]);
 			}, map, uuid, config));
 
 			return def;
@@ -494,7 +496,7 @@
 			});
 		};
 
-		addLegend = function(name, id, type, symbol, config) {
+		addLegend = function(mapid, name, id, type, symbol, config) {
 			var outConfig = {
 					'expand': config.expand,
 					'last': false,
@@ -532,7 +534,7 @@
 					'items': []
 				};
 
-			vmTbLegend.addLegend(outConfig);
+			vmTbLegend.addLegend(mapid, outConfig);
 		};
 
 		finishAdd = function(mymap, layer, zoom) {
@@ -545,8 +547,8 @@
 			mymap.addLayer(layer);
 
 			// set map scale
-			layer.minScale = 0;
-			layer.maxScale = 0;
+			layer.setMinScale(0);
+			layer.setMaxScale(0);
 
 			// reoder layers to make sure symbol and datagrid are on top
 			if (layerIds.indexOf('gcviz-symbol') !== -1) {

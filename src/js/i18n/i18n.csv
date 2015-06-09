@@ -19,8 +19,14 @@ Global sys value#%gisurlalti#http://geogratis.gc.ca/services/elevation/cdem/alti
 #%lat#Latitude: #Latitude : 
 #%long#Longitude: #Longitude : 
 #%position#Position: #Position : 
-#%wcag-instrtitle#Instructions: Keyboard Navigation#Instruction: Naviguer dans la carte à l'aide du clavier
-#%wcag-instrtitlealt#Instructions: Keyboard Navigation - Help#Instruction: Naviguer dans la carte à l'aide du clavier - aide
+#%alt-radio#Radio button#Bouton radio
+#%alt-chk#Checbox#Case à cocher
+#%alt-slider#Transparency slider#Curseur de transparence
+#%alt-arrow#Close and open arrow#Flèche ouverte et fermée
+#%alt-addfile#Add file result#Résultat de l'ajout d'un fichier
+#%alt-zoombar#Zoom bar#Barre de zoom
+#%wcag-instrtitle#Instructions: Keyboard Navigation#Instruction : Naviguer dans la carte à l'aide du clavier
+#%wcag-instrtitlealt#Instructions: Keyboard Navigation - Help#Instruction : Naviguer dans la carte à l'aide du clavier - aide
 #%wcag-instr#Keyboard user: When the map is in focus, use the arrow keys to pan the map and the shift+plus and shift+minus keys to zoom. Setup your keyboard to control the mouse or enable the accessibility mode to have coordinates input box.#Utilisateur du clavier : Lorsque la carte a l'attention, utiliser les touches flèches pour déplacer la carte et utiliser les touches shift+plus et shift+négatif pour faire un zoom. Configurer votre clavier pour contrôler la souris ou activer le mode accessibilité afin d'avoir les boîtes d'entrée pour les coordonnées.
 #%wcag-lblenable#Enable accessibility mode#Activer le mode accessibilité
 #%wcag-xlong#Longitude West (x): #Longitude ouest (x) : 
@@ -36,10 +42,14 @@ Global sys value#%gisurlalti#http://geogratis.gc.ca/services/elevation/cdem/alti
 #%header-abouttitle#about this map #À propos de cette carte 
 #%header-aboutread#Read #Lire 
 #%header-tpabout#About this map#À propos de cette carte
+#%header-tpsaveurl#Save map URL#Sauvegarder l'URL de la carte
+#%header-tpsaveimage#Save map as image#Sauvegarder une image de la carte
 #%header-tphelp#Help#Aide
 #%header-tpprint#Print map#Imprimer la carte
 #%header-tpinset#Show or hide insets#Afficher ou cacher les insertions
 #%header-tpfullscreen#Toggle between maximum and original map size#Basculer entre mode plein écran et régulier
+#%header-copyclip#To copy map URL to clipboard press CTRL+C keys or move your mouse over the text, press right click button then select “Copy”.#Pour copier l'URL au presse-papier, pressez les touches CTRL+C ou bien déplacez votre souris au-dessus du texte, cliquez sur le bouton de droite et sélectionnez « Copier ».
+#%header-printinfo#The Print tool will preserve the viewing scale. Move/zoom the portion of the map you would like to print inside the grey box then click OK. To preserve the viewing extent, use the “Save Map as Image” tool.#L'outil d'impression préserve l'échelle d'affichage. Déplacer / zoomer la partie de la carte que vous souhaitez imprimer à l'intérieur de la boîte grise puis cliquez sur OK. Pour préserver l'étendue de la carte, utilisez l'outil « Sauvegarder une image de la carte ».
 #%print-dialogtitle#Print#Imprimer
 #%print-dialogtemplate#Template#Gabarit
 #%print-dialogParameters#Parameters#Paramètres
@@ -57,7 +67,7 @@ Global sys value#%gisurlalti#http://geogratis.gc.ca/services/elevation/cdem/alti
 #%footer-tpdatagrid#Hide/Show data tables#Ouvrir ou fermer les tableaux des données
 #%footer-tpformat#Toggle between decimal degree and degree minute second format#Basculer entre le format degré décimal et degré minute seconde
 #%datagrid-processing#Processing...#Traitement en cours...
-#%datagrid-search#Filter...#Filtrer...:
+#%datagrid-search#Filter...#Filtrer... :
 #%datagrid-lengthMenu#Show _MENU_ entries#Afficher _MENU_ éléments
 #%datagrid-info#Showing _START_ to _END_ of _TOTAL_#Affichage de _START_ à _END_ sur _TOTAL_
 #%datagrid-infoEmpty#Showing 0 to 0 of 0#Affichage de 0 à 0 sur 0
@@ -71,8 +81,8 @@ Global sys value#%gisurlalti#http://geogratis.gc.ca/services/elevation/cdem/alti
 #%datagrid-previous#Previous#Précédent
 #%datagrid-next#Next#Suivant
 #%datagrid-last#Last#Dernier
-#%datagrid-sortAscending#: activate to sort column ascending#: activer pour trier la colonne par ordre croissant
-#%datagrid-sortDescending#: activate to sort column descending#: activer pour trier la colonne par ordre décroissant
+#%datagrid-sortAscending#: activate to sort column ascending# : activer pour trier la colonne par ordre croissant
+#%datagrid-sortDescending#: activate to sort column descending# : activer pour trier la colonne par ordre décroissant
 #%datagrid-selectall#Select All#Sélectionner tout
 #%datagrid-zoomselect#Zoom to selected#Zoom à la sélection
 #%datagrid-tpclearfilters#Clear all filters#Effacer tous les filtres
@@ -88,7 +98,7 @@ Global sys value#%gisurlalti#http://geogratis.gc.ca/services/elevation/cdem/alti
 #%datagrid-popalllayers#All layers#Toutes les couches
 #%datagrid-popselect#Select the features from the following layer#Sélectionnez une couche dans les suivantes
 #%datagrid-protitle#Table Creation#Création des tables
-#%datagrid-prodesc#Please wait until all tables are created. This operation could take up to 30 seconds. If tables are not created after that, refresh your browser.#S'il vous plaît, attendre que les toutes tables soient créées. Cette opération pourrait prendre jusqu'à 30 secondes. Si les tables ne sont pas créées après cela, veuillez rafraîchir navigateur.
+#%datagrid-prodesc#Please wait until all tables are created. This operation could take up to 30 seconds. If tables are not created after that, refresh your browser.#S'il vous plaît, attendre que toutes les tables soient créées. Cette opération pourrait prendre jusqu'à 30 secondes. Si les tables ne sont pas créées après cela, veuillez rafraîchir navigateur.
 #%datagrid-exptitle#Table Export#Exporter la table
 #%datagrid-expdesc#Table selection is being exported to a Comma-Separated Value file in your download folder. Due to amount of elements, it can take up to few minutes.#La sélection de la table est exportée dans un fichier CSV (Comma-separated values) dans votre répertoire téléchargement. Du au nombre élevé d'éléments, ceci peut prendre jusqu'a quelques minutes.
 #%toolbardraw-alt#Measuring and Drawing Tools - Help#Mesures et outils de dessin - Aide
@@ -114,8 +124,8 @@ Global sys value#%gisurlalti#http://geogratis.gc.ca/services/elevation/cdem/alti
 #%toolbardraw-dist#Total Length: #Longueur totale : 
 #%toolbardraw-seg#Segment: #Segment : 
 #%toolbardraw-area#Area: #Aire : 
-#%toolbarnav-lbllengthdisplay#Draw values on map#Dessiner les valeurs sur la carte
-#%toolbardraw-lblselcolor#Select a colour#Selectionnez une couleur
+#%toolbardraw-lbllengthdisplay#Draw values on map#Dessiner les valeurs sur la carte
+#%toolbardraw-lblselcolor#Select a colour#Selectionner une couleur
 #%toolbardraw-lblmeasfull#Measure a path / Area#Mesurer ligne / surface
 #%toolbardraw-lblmeasline#Measure a path#Mesurer ligne
 #%toolbardraw-lblmeasarea#Measure an area#Mesurer surface
@@ -134,7 +144,7 @@ Global sys value#%gisurlalti#http://geogratis.gc.ca/services/elevation/cdem/alti
 #%toolbarnav-alt#Search and Map Information - Help#Recherche et information sur la carte - Aide
 #%toolbarnav-name#Search and Map Information#Recherche et information sur la carte
 #%toolbarnav-zoomgrp#Find a Location#Trouver un lieu
-#%toolbarnav-lblgeoloc#Enter and select a geographical name, topographic map number, postal code or latitude and longitude coordinate#Entrez et sélectionnez un nom géographique ou topographique, un numéro de carte, un code postal ou une coordonnée (latitude et longitude).
+#%toolbarnav-lblgeoloc#Enter and select a name, National Topographic System (NTS) number, postal FSA (K1G), latitude and longitude coordinate or map scale#Entrez et sélectionnez un nom, un numéro du Système national de référence cartographique (SNRC), un code RTA (K1G), une coordonnée (latitude et longitude) ou une échelle de la carte
 #%toolbarnav-inskeyboard#When entering a geographic location suggested names will appear in the auto-fill list below the text entry box. Suggestions will start appearing after you type 3 characters.#Lorsque vous spécifiez un lieu géographique, des suggestions apparaissent dans la liste d'auto-remplissage en dessous de la zone de texte. Les suggestions commenceront à apparaître après avoir tapé 3 caractères.
 #%toolbarnav-mapinfogrp#Map Information#Information sur la carte
 #%toolbarnav-lblinfo#Get coordinates from map#Obtenir les coordonnées de la carte
@@ -148,27 +158,35 @@ Global sys value#%gisurlalti#http://geogratis.gc.ca/services/elevation/cdem/alti
 #%toolbarnav-infoutmz#Zone: #Zone : 
 #%toolbarnav-infonts#NTS Mapsheet#Carte du SNRC
 #%toolbarnav-infoaltitude#Elevation#Élévation
-#%toolbarnav-lblov#Overview Map#Carte aperçu
+#%toolbarnav-lblov#Overview Map#Carte de vue d'ensemble
 #%toolbarnav-lblovdisplay#Show on map#Afficher sur la carte
 #%toolbarnav-ovdrag#Drag to change map extent#Glisser pour changer l'étendue de la carte
 #%toolbarnav-scale#Approximate Scale #Échelle approximative 
+#%toolbarnav-scalepre#1:#1/
+#%toolbarnav-zoomscalemin#You are trying to set map scale below minimum zoom level. The map scale is #Vous essayez de définir l'échelle de la carte en dessous du niveau de zoom minimum. L'échelle de la carte est 
+#%toolbarnav-zoomscalemax#You are trying to set map scale above maximum zoom level. The map scale is #Vous essayez de définir l'échelle de la carte au dessus du niveau de zoom maximum. L'échelle de la carte est 
+#%toolbarnav-zoomscale#You are trying to set map scale between zoom levels. The map scale is #Vous essayez de définir l'échelle de la carte entre les niveaux de zoom. L'échelle de la carte est 
+#%toolbarnav-zoomscaledyna#Map scale = #L'échelle de la carte =
 #%toolbardata-alt#Import Data - Help#Importer des données - Aide
 #%toolbardata-name#Import Data#Importer des données
 #%toolbardata-tpadd#Import Data#Importer des données
 #%toolbardata-lbladdcsv#Import points in CSV format#Importer des points en format CSV
-#%toolbardata-lbladdurl#Import from URL#Importer d'un URL
-#%toolbardata-lbladdurldesc#Specify the URL of the data to import. Supported formats are KML and ArcGIS REST “feature layer”.#Spécifiez le URL de la donnée à importer. Les formats supportés sont KML et ArcGIS REST « feature layer ».
-#%toolbardata-lbladdurltitle#URL from import#URL à importer
+#%toolbardata-lbladdurl#Import from URL#Importer d'une URL
+#%toolbardata-lbladdparamdesc#The map you are trying to load contains a link to a local file. If you have this file and wants to add it, click on the button below. Otherwise click “Ok”.#L'URL que vous essayez de charger contient lien vers un fichier local. Si vous cavez ce fichier et vous désirez l'ajouter, cliquez sur le bouton ci-dessous. Sinon, cliquez sur « Ok ».
+#%toolbardata-lbladdparam#File to import: #Fichier à importer : 
+#%toolbardata-lbladdurldesc#Specify the URL of the data to import. Supported formats are KML and ArcGIS REST “feature layer”.#Spécifiez l'URL de la donnée à importer. Les formats supportés sont KML et ArcGIS REST « feature layer ».
+#%toolbardata-lbladdurltitle#URL to import#URL à importer
 #%toolbardata-lbladdtitle#Import Data#Importer des données
 #%toolbardata-lbladddesc#Wait for the process to finish. When it is done, you will find the symbology in “Map Layers and Legend(s)” toolbar. If available, you will have a new table in the “Data Table” section.#Attendez que le processus se termine. Lorsque cela est fait, vous trouverez la symbologie dans la barre d'outils « Couvertures de la carte et légende(s) ». Si disponible, vous aurez une nouvelle table dans la section « Tableau des données ».
+#%toolbardata-lblmiss#  - Missing -#  - Manquant -
 #%toolbardata-tpdelete#Remove Data#Enlever des données
 #%toolbardata-errtitle#Add Data Error#Erreur dans l'ajout des données
 #%toolbardata-err1#There must be a field for y coordinates (latitude, lat, y or ycenter), and a field for x coordinates (longitude, long, x or xcenter).#Il doit y avoir un champ (latitude, lat, y ou ycenter) pour les coordonnées y et un champ (longitude, long, x ou xcenter) pour les coordonnées x.
 #%toolbardata-err2#Unable to determine the field separator. It should be one of these characters (, ; |).#Incapable de déterminer le séparateur. Il devrait être l'un des caractères suivants : (, ; |).
 #%toolbardata-err3#Presence of element(s) with invalid latitude and/or longitude.#Présence d'élément(s) dont les valeurs de latitude et/ou de longitude sont invalides.
 #%toolbardata-err4#Error fetching items from CSV file: #Erreur de récupération des items du fichier CSV : 
-#%toolbardata-errurl#Wrong URL format.#Mauvais format de URL.
-#%toolbardata-errload#Unable to add: XXX. File not found, wrong URL or out of memory#Impossible d'ajouter : XXX. Fichier non trouvé, mauvais URL ou manque de mémoire.
+#%toolbardata-errurl#Wrong URL format.#Mauvais format d'URL.
+#%toolbardata-errload#Unable to add: XXX. File not found, wrong URL or out of memory#Impossible d'ajouter : XXX. Fichier non trouvé, mauvaise URL ou manque de mémoire.
 #%toolbardata-errformat#Unable to recognize format or format not supported.#Impossible de reconnaître le format ou format non supporté.
 #%toolbardata-ie9#This tool is not available in Internet Explorer version 9. You need Internet Explorer version 10 and higher or another browser (Chrome, FireFox or Safari).#Cet outil n'est pas disponible dans Internet Explorer 9. Vous devez avoir la version 10 et plus ou un autre navigateur (Chrome, Firefox ou Safari).
 #%toolbarextract-alt#Download Maps and Data - Help#Téléchager cartes et données - Aide
@@ -209,6 +227,8 @@ Global sys value#%gisurlalti#http://geogratis.gc.ca/services/elevation/cdem/alti
 #%help-head-help#Click to open the help window.#Cliquez pour ouvrir la fenêtre d'aide.
 #%help-head-about#Click to open a window containing a description of the map.#Cliquez pour ouvrir une fenêtre contenant une description de la carte.
 #%help-head-print#Click to print the current view of the map.#Cliquez pour imprimer l'aperçu actuel de la carte.
+#%help-head-saveimg#Click to save map as image. The image will open in a new window. To save the image, move your mouse over it and press right click button then select “Save image As...”.#Cliquez pour sauvegarder une image de la carte. Cette image s'ouvrira dans une nouvelle fenêtre. Pour la sauvegarder, déplacez votre souris au dessus de celle-ci et clicquez sur le bouton droit puis sélectionnez « Sauvegarder Sous... ».
+#%help-head-saveurl#Click to save map URL. This URL let you open the map in the same state.#Cliquez pour sauvegarder l'URL de la carte. Cette URL vous permet d'ouvrir la carte dans le même état.
 #%help-head-gofs#Click to view the maximum map size.#Cliquez pour voir la taille maximale de la carte.
 #%help-head-exfs#Click to return to the default map size.#Cliquer pour retourner à la taille par défaut de la carte.
 #%help-head-menutitle#Menu#Menu
@@ -220,7 +240,7 @@ Global sys value#%gisurlalti#http://geogratis.gc.ca/services/elevation/cdem/alti
 #%help-foot-coord#The coordinates shown are the latitude and longitude of the mouse cursor location on the map.#Les coordonnées illustrées sont la latitude et la longitude de l'emplacement du curseur de la souris sur la carte.
 #%help-foot-arrow#This north arrow shows the direction of the geographic north also known as the North Pole. This direction will change based on the geographic area shown in the map window and the map's projection.#Cette flèche nord montre la direction du nord géographique qu'on appelle aussi le pôle Nord. Cette direction dépend de la région géographique montrée dans la fenêtre et de la projection de la carte.
 #%help-draw-title#Measuring and Drawing Tools#Outils de mesure et de dessin
-#%help-draw-colorselect#The colour selector is used to select a colour for measured paths and area, drawn lines and added text.#Le sélectionneur de couleur est utilisé pour sélectionner une couleur pour les longueurs et les surfaces mesurées, les lignes tracées et le texte ajouté.
+#%help-draw-colorselect#The colour selector is used to select a colour for measured paths and area, drawn lines and added text.#Le sélectionneur de couleur est utilisé pour sélectionner une couleur pour les longueurs et les surfaces mesurées, les lignes tracées et le texte ajoutés.
 #%help-draw-line#Use the pencil tool to draw lines on the map:#Utilisez l'outil crayon pour tracer des lignes sur la carte :
 #%help-draw-line1#1. Click the pencil tool, the menu will then close.#1. Cliquez sur l'outil crayon. Le menu se fermera.
 #%help-draw-line2#2. Click on the map, keeping the left mouse button depressed#2. Cliquez sur la carte en maintenant enfoncé le bouton gauche de la souris.
@@ -238,23 +258,23 @@ Global sys value#%gisurlalti#http://geogratis.gc.ca/services/elevation/cdem/alti
 #%help-draw-length#Use the Measure a Path tool to measure single or multiple connected distances on the map (it is possible to measure multiple distances).#Utilisez l'outil Mesurer une longueur sur la carte pour mesurer une ou plusieurs distances reliées sur la carte (il est possible de mesurer plusieurs distances).
 #%help-draw-length1#1. Click the Measure a Path tool, the menu will then close.#1. Cliquez sur l'outil Mesurer une longueur sur la carte. Le menu se fermera.
 #%help-draw-length2#2. Click the start location on the map.#2. Cliquez sur l'emplacement de départ sur la carte.
-#%help-draw-length3#3. If a single path is measured, either double click the second location on the map or single click the second location followed by pressing the ESC key on your keyboard (when focus is on the map). The total distance will be displayed.#3. Si une longueur unique est mesurée, double cliquez sur le second emplacement sur la carte ou cliquez une fois sur le second emplacement et appuyez ensuite sur la touche ESC sur votre clavier (lorsque la carte a l'attention). La distance totale s'affichera.
-#%help-draw-length4#4. If multiple connected paths are measured, click all locations on the map ensuring the last location is either a double click or a single click followed by pressing the ESC key on your keyboard (when focus is on the map). The total distance will be displayed.#4. Si plusieurs distances reliées sont mesurées, cliquez sur tous les emplacements de la carte en prenant soin de double cliquer sur le dernier emplacement ou de faire un simple clic et d'appuyer ensuite sur la touche ESC sur votre clavier (lorsque la carte a l'attention). La distance totale s'affichera.
-#%help-draw-length5#5. When finished, press the ESC key on your keyboard (when focus is on the map) or click on the Menu title and the menu will reopen.#5. Lorsque vous avez terminé, appuyer sur la touche ESC sur votre clavier (lorsque la carte a l'attention) ou cliquez sur le titre du menu et le menu se rouvrira.
+#%help-draw-length3#3. If a single path is measured, either double click the second location on the map or single click the second location followed by pressing the ESC key on your keyboard (when focus is on the map). The total distance will be displayed.#3. Si une longueur unique est mesurée, double cliquez sur le second emplacement de la carte ou cliquez une fois sur le second emplacement et appuyez ensuite sur la touche ESC de votre clavier (lorsque la carte a l'attention). La distance totale s'affichera.
+#%help-draw-length4#4. If multiple connected paths are measured, click all locations on the map ensuring the last location is either a double click or a single click followed by pressing the ESC key on your keyboard (when focus is on the map). The total distance will be displayed.#4. Si plusieurs distances reliées sont mesurées, cliquez sur tous les emplacements de la carte en prenant soin de double cliquer sur le dernier emplacement ou de faire un simple clic et d'appuyer ensuite sur la touche ESC de votre clavier (lorsque la carte a l'attention). La distance totale s'affichera.
+#%help-draw-length5#5. When finished, press the ESC key on your keyboard (when focus is on the map) or click on the Menu title and the menu will reopen.#5. Lorsque vous avez terminé, appuyer sur la touche ESC de votre clavier (lorsque la carte a l'attention) ou cliquez sur le titre du menu et le menu se rouvrira.
 #%help-draw-lengtherase#* To erase one or all measured distances, click on the Menu title and use the Erase annotations or Erase selected annotations tools.#* Pour effacer une des distances mesurées ou toutes les distances, cliquez sur le titre du menu et utilisez les outils Effacer les annotations ou Effacer les annotations sélectionnées.
 #%help-draw-area#Use the Measure an Area tool to measure areas on the map (it is possible to measure multiple areas).#Utilisez l'outil Mesurer une surface sur la carte pour mesurer des surfaces sur la carte (il est possible de mesurer plusieurs surfaces).
 #%help-draw-area1#1. Click the Measure an Area tool, the menu will then close.#1. Cliquez sur l'outil Mesurer une surface sur la carte. Le menu se fermera.
 #%help-draw-area2#2. Click the start location on the map.#2. Cliquez sur l'emplacement de départ sur la carte.
 #%help-draw-area3#3. Click at least three or more other locations on the map to create a polygon.#3. Cliquez sur au moins trois autres emplacements sur la carte pour créer un polygone.
-#%help-draw-area4#4. When the polygon on the map covers the desired area, either double click the final location or single click it, followed by pressing the ESC key on your keyboard (when focus is on the map). The area will be shown.#4. Lorsque le polygone couvre la surface désirée sur la carte, double cliquez sur le dernier emplacement ou faites un simple clic sur celui-ci et appuyez ensuite sur la touche ESC sur votre clavier (lorsque la carte a l'attention). La surface s'affichera.
-#%help-draw-area5#5. When finished, press the ESC key on your keyboard (when focus is on the map) or click on the Menu title and the menu will reopen.#5. Lorsque vous avez terminé, appuyez sur la touche ESC sur votre clavier (lorsque la carte a l'attention) ou cliquez sur le titre du menu et le menu se rouvrira.
+#%help-draw-area4#4. When the polygon on the map covers the desired area, either double click the final location or single click it, followed by pressing the ESC key on your keyboard (when focus is on the map). The area will be shown.#4. Lorsque le polygone couvre la surface désirée sur la carte, double cliquez sur le dernier emplacement ou faites un simple clic sur celui-ci et appuyez ensuite sur la touche ESC de votre clavier (lorsque la carte a l'attention). La surface s'affichera.
+#%help-draw-area5#5. When finished, press the ESC key on your keyboard (when focus is on the map) or click on the Menu title and the menu will reopen.#5. Lorsque vous avez terminé, appuyez sur la touche ESC de votre clavier (lorsque la carte a l'attention) ou cliquez sur le titre du menu et le menu se rouvrira.
 #%help-draw-areaerase#* To erase one or all measured areas, click on the Menu title and use the Erase annotations or Erase selected annotations tools.#* Pour effacer une des surfaces mesurées ou toutes, cliquez sur le titre du menu et utilisez les outils Effacer les annotations ou Effacer les annotations sélectionnées.
 #%help-draw-eraseall#Click the Erase annotations tool to erase all lines, text and distances on the map.#Cliquez sur l'outil Effacer les annotations pour effacer toutes les lignes, le texte et les distances sur la carte.
 #%help-draw-eraseselect#Click the Erase selected annotations tool to erase selected lines, text and distances on the map.#Cliquez sur l'outil Effacer les annotations sélectionnées pour effacer les lignes, le texte et les distances sélectionnés sur la carte.
 #%help-draw-eraseselect1#1. Click the Erase selected annotations tool, the menu will then close.#1. Cliquez sur l'outil Effacer les annotations sélectionnées. Le menu se fermera.
 #%help-draw-eraseselect2#2. Click on the map, keeping the left mouse button depressed and draw a polygon over the feature(s) to be erased.#2. Cliquez sur la carte en maintenant enfoncé le bouton gauche de la souris et dessinez un polygone sur le ou les éléments à effacer.
 #%help-draw-eraseselect3#3. Release the left mouse button and the feature(s) will disappear.#3. Relâchez le bouton gauche de la souris et le ou les éléments disparaîtront.
-#%help-draw-eraseselect4#4. When finished, press the ESC key on your keyboard (when focus is on the map) or click on the Menu title and the menu will reopen.#4. Lorsque vous avez terminé, appuyez sur la touche ESC sur votre clavier (lorsque la carte a l'attention) ou cliquez sur le titre du menu et le menu se rouvrira.
+#%help-draw-eraseselect4#4. When finished, press the ESC key on your keyboard (when focus is on the map) or click on the Menu title and the menu will reopen.#4. Lorsque vous avez terminé, appuyez sur la touche ESC de votre clavier (lorsque la carte a l'attention) ou cliquez sur le titre du menu et le menu se rouvrira.
 #%help-draw-undo#Use the Undo tool to undo past actions such as adding lines, text and distance measurements.#Utilisez l'outil Annuler la dernière opération pour annuler les actions antérieures comme l'ajout de lignes ou de texte et la mesure des distances.
 #%help-draw-redo#Use the Redo tool to redo actions such as adding lines, text and distance measurements after they have been deleted.#Utilisez l'outil Refaire la dernière opération pour refaire les actions comme l'ajout de lignes ou de texte et la mesure des distances après qu'elles aient été annulées.
 #%help-draw-import#Use the Import File tool to import a file that contains drawings that were previously saved. This file must be in JavaScript Object Notation (JSON) format.#Utilisez l'outil Importer des annotations pour importer un fichier qui contient des dessins qui ont été sauvegardés auparavant. Ce fichier doit être en format JavaScript Object Notation (JSON).
@@ -262,27 +282,29 @@ Global sys value#%gisurlalti#http://geogratis.gc.ca/services/elevation/cdem/alti
 #%help-nav-title#Search and Map Information#Recherche et information sur la carte
 #%help-nav-zoomtotitle#Find a Location#Trouver un lieu
 #%help-nav-zoomto#Use this tool to search, then zoom to, a geographic location:#Utilisez cet outil pour chercher un lieu géographique puis faire un zoom sur celui-ci :
-#%help-nav-zoomto1#1. Enter a geographic name, such as a province, town, lake, river, National Topographic System map number, postal code or latitude longitude coordinate, in the text box.#1. Entrez un nom géographique comme une province, une ville, un lac, une rivière, un numéro de carte du Système national de référence cartographique, un code postal ou une coordonnée (latitude longitude) dans la zone de texte.
+#%help-nav-zoomto1#1. Enter a geographic name, such as a province, town, lake, river, National Topographic System (NTS) number, postal FSA (K1G), latitude longitude coordinate or scale, in the text box.#1. Entrez un nom géographique comme une province, une ville, un lac, une rivière, un numéro du Système national de référence cartographique (SNRC), un code RTA (K1G), une coordonnée (latitude longitude) ou une échelle dans la zone de texte.
 #%help-nav-zoomto1b#1b. The coordinates can be entered in decimal degrees or degrees/minutes/seconds. The coordinates must be separated by a space. Latitude (N/S) should be first, followed by the longitude (E/O). The negative sign “-” must be present to indicate west longitude or south latitude. When a valid coordinate is entered, it is displayed in the dropdown menu. Examples of accepted geographical coordinates formats:#1b. Les coordonnées peuvent être entrées en degrés décimaux ou degrés/minutes/secondes. Les coordonnées doivent être séparées par un espace. La latitude (N/S) doit être en premier suivi de la longitude (E/O). Le signe négatif « - » doit être présent pour indiquer une longitude ouest ou une latitude sud. Lorsqu'une coordonnée valide est entrée, elle s'affiche dans le menu déroulant. Exemples de formats des coordonnées géographiques acceptés :
 #%help-nav-zoomto1b1#46 -72#46 -72
 #%help-nav-zoomto1b2#46.53 -72.685658#46.53 -72.685658
-#%help-nav-zoomto1b3#46 15 00 N -72 30 00 W#46 15 00 N -72 30 00 W
-#%help-nav-zoomto1b4#46d15m00s -72d30m00s#46d15m00s -72d30m00s
-#%help-nav-zoomto1b5#46d15m00sN -72d30m00sW#46d15m00sN -72d30m00sW
-#%help-nav-zoomto2#2. A drop down list will then appear containing place name choices from the Canadian Geographical Names Database (http://www.nrcan.gc.ca/earth-sciences/geography/place-names/10786).#2. Un menu déroulant contenant les noms de lieu disponibles dans la Base de données toponymiques du Canada (http://www.nrcan.gc.ca/earth-sciences/geography/place-names/10786) apparaîtra alors.
-#%help-nav-zoomto3#3. Select one of the place names from the list by clicking on it.#3. Sélectionnez l'un des noms de lieu dans la liste en cliquant dessus.
+#%help-nav-zoomto1b3#46.3,-72.78#46.3,-72.78
+#%help-nav-zoomto1b4#46 15 00 N -72 30 00 W#46 15 00 N -72 30 00 W
+#%help-nav-zoomto1b5#46d15m00s -72d30m00s#46d15m00s -72d30m00s
+#%help-nav-zoomto1b6#46d15m00sN -72d30m00sW#46d15m00sN -72d30m00sW
+#%help-nav-zoomto1c#1c. Enter a map scale (e.g. 1:50000 or 1/50000) to zoom to a specific map scale. If zoom levels are specified for the map, map scale will be set to the nearest zoom level.#1c. Entrez une échelle de la carte (par exemple, 1:50000 ou 1/50000) pour zoomer sur cette échelle spécifique. Si des niveaux de zoom sont spécifiés pour cette carte, l'échelle de la carte sera réglée sur le niveau de zoom le plus près.
+#%help-nav-zoomto2#2. A drop down list will then appear containing place name choices from the Canadian Geographical Names Database (http://www.nrcan.gc.ca/earth-sciences/geography/place-names/10786).#2. Un menu déroulant contenant les noms de lieu disponibles dans la Base de données toponymiques du Canada (http://www.nrcan.gc.ca/earth-sciences/geography/place-names/10786) apparaîtra.
+#%help-nav-zoomto3#3. Select one of the place names from the list by clicking on it or press ENTER key and it will select the first place name.#3. Sélectionnez l'un des noms de lieu dans la liste en cliquant dessus ou bien presser la touche ENTER le premier nom de lieu sera sélectionné.
 #%help-nav-zoomto4#4. The map will then zoom to the selected place name.#4. La carte fera alors un zoom sur le nom de lieu sélectionné.
 #%help-nav-mapinfotitle#Map Information#Information de localisation sur la carte
-#%help-nav-pos#Use the Map Information tool to get information about a specific location on the map. The information includes the geographic and UTM co-ordinates, the National Topographic System (NTS) map number and the elevation.#Utilisez l'outil Information de localisation sur la carte pour obtenir de l'information sur un lieu en particulier sur la carte. L'information comprend les coordonnées géographiques et UTM, le numéro de carte du Système national de référence cartographique (SNRC) et l'élévation.
-#%help-nav-pos1#1. Click the Get Coordinates Information tool, the menu will then close.#1. Cliquez sur l'outil Information de localisation sur la carte. Le menu se fermera alors.
+#%help-nav-pos#Use the Map Information tool to get information about a specific location on the map. The information includes the geographic and UTM co-ordinates, the National Topographic System (NTS) map number and the elevation.#Utilisez l'outil Information de localisation sur la carte pour obtenir de l'information d'un lieu en particulier sur la carte. L'information comprend les coordonnées géographiques et UTM, le numéro de carte du Système national de référence cartographique (SNRC) et l'élévation.
+#%help-nav-pos1#1. Click the Get Coordinates Information tool, the menu will then close.#1. Cliquez sur l'outil Information de localisation sur la carte. Le menu se fermera.
 #%help-nav-pos2#2. Click a specific location on the map.#2. Cliquez sur un lieu en particulier sur la carte.
 #%help-nav-pos3#3. A pop-up window will appear showing the map location information.#3. Une fenêtre contextuelle contenant l'information de localisation de la carte apparaîtra.
-#%help-nav-pos4#4. When finished, click “Ok” or press the ESC key on your keyboard. It will close the window.#4. Lorsque vous avez terminé, cliquez sur « Ok » ou appuyez sur la touche ESC sur votre clavier. La fenêtre se fermera.
-#%help-nav-pos5#5. Repeat steps 2 to 4 to view information of another specific map location. Press the ESC key on your keyboard (when focus is on the map) or click on the Menu title to finish.#5. Répétez les étapes 2 à 4 pour voir l'information sur un autre lieu sur la carte. Appuyez sur la touche ESC sur votre clavier (lorsque la carte a l'attention) ou cliquez sur le titre du menu pour terminer.
-#%help-nav-ovalt#Overview Map#Carte aperçu
-#%help-nav-ov#The Overview Map Window shows a red rectangle identifying your current map extent in a regional context. Click, hold and drag this rectangle to quickly pan the map to a different location.#La fenêtre de la Carte aperçu montre un rectangle rouge qui indique l'étendue actuelle de votre carte dans un contexte régional. Cliquez sur ce rectangle et faites-le glisser pour parcourir rapidement la carte et atteindre un autre lieu.
+#%help-nav-pos4#4. When finished, click “Ok” or press the ESC key on your keyboard. It will close the window.#4. Lorsque vous avez terminé, cliquez sur « Ok » ou appuyez sur la touche ESC de votre clavier. La fenêtre se fermera.
+#%help-nav-pos5#5. Repeat steps 2 to 4 to view information of another specific map location. Press the ESC key on your keyboard (when focus is on the map) or click on the Menu title to finish.#5. Répétez les étapes 2 à 4 pour voir l'information sur un autre lieu sur la carte. Appuyez sur la touche ESC de votre clavier (lorsque la carte a l'attention) ou cliquez sur le titre du menu pour terminer.
+#%help-nav-ovalt#Overview Map#Carte de vue d'ensemble
+#%help-nav-ov#The Overview Map Window shows a red rectangle identifying your current map extent in a regional context. Click, hold and drag this rectangle to quickly pan the map to a different location.#La fenêtre de la Carte de vue d'ensemble montre un rectangle rouge qui indique l'étendue actuelle de votre carte dans un contexte régional. Cliquez sur ce rectangle et faites-le glisser pour parcourir rapidement la carte et atteindre un autre lieu.
 #%help-nav-scaletitle#Approximate map scale:#Échelle approximative de la carte :
-#%help-nav-scale#The map scale number displays the relationship or ratio between a distance on the map and the same distance on the ground. Note: the distance is approximate.#L'échelle de la carte représente la relation ou le rapport entre une distance sur la carte et la même distance sur le terrain. Note : la distance est approximative.
+#%help-nav-scale#Approximate map scale: the map scale number displays the relationship or ratio between a distance on the map and the same distance on the ground. Note: the distance is approximate.#Échelle approximative de la carte : l'échelle de la carte représente la relation ou le rapport entre une distance sur la carte et la même distance sur le terrain. Note : la distance est approximative.
 #%help-leg-title#Map Layers and Legend(s)#Couches de la carte et légende(s)
 #%help-leg-about#Click to open a window containing a description of the map.#Cliquez pour ouvrir une fenêtre contenant une description de la carte.
 #%help-leg-desc1#This panel displays the map's layer(s) and legend(s). The layers are grouped into Theme(s), at the top of the panel, and Bases(s) at the bottom of the panel. Themes and bases can both be individual layers and multi-layered maps. Please see the map description for more information.#Ce panneau affiche la ou les couches et légendes de la carte. Les couches sont groupées en un ou plusieurs thèmes (au haut du panneau) et en une ou plusieurs cartes de fond (au bas du panneau). Les thèmes et les bases peuvent être des couches individuelles ou des cartes à plusieurs couches. Voyez la description de la carte pour de plus amples informations.
@@ -293,11 +315,11 @@ Global sys value#%gisurlalti#http://geogratis.gc.ca/services/elevation/cdem/alti
 #%help-leg-newLayer#If you add a layer with the “Import Data” toolbar or the layer is imported from the url, the layer name will be in dark orange instead of black.#Si vous ajoutez une couche avec la barre d'outils « Importer des données » ou si la couche est importée de l'URL, le nom de la couche sera en orange foncé au lieu de noir.
 #%help-data-title#Import Data#Importer des données
 #%help-data-addfile#Use the “Import points in CSV format” tool to import a Comma Separated Values (CSV) file that contains geolocation information and to display it on the map. This file must contain geolocation fields that hold the geometry. The field names should be (latitude, lat, y, or ycenter) for y coordinates, and (longitude, long, x, or xcenter) for x coordinates. The data must be in NAD 83 geographical coordinates. The field separator must be one of these characters (, ; |).#Utilisez l'outil « Importer des points en format CSV » pour importer un fichier Comma Separated Values (CSV) contenant de l'information de géolocalisation et l'afficher sur la carte. Ce fichier doit comprendre des champs de géolocalisation qui contiennent la géométrie. Le nom du champ doit être (latitude, lat, y, ou ycenter) pour les coordonnées y et (longitude, long, x, ou xcenter) pour les coordonnées x. Les données doivent être en coordonnées géographiques NAD 83. Le séparateur doit être l'un des caractères suivants : (, ; |).
-#%help-data-addurl#Use the “Import from URL” tool to import data in various formats.  When clicked, you will be prompted to enter a valid URL pointing to your data. We currently support KML and ESRI REST “Feature Layer”.#Utilisez l'outil « Importer d'un URL » pour importer des données dans différents formats. Lorsque vous cliquez dessus, vous serez invité à entrer un URL valide pointant à vos données. Nous soutenons actuellement les formats KML et ESRI REST « Feature layer ».
-#%help-data-sample#When the data has been added, the name of the layer and a button to remove the layer are shown. To see the symbology for the data added, go to “Map Layers and Legend(s)” toolbar.#Lorsque des données sont ajouté, le nom et un bouton pour enlever la couche sont affichées. Pour voir la symbologie pour la donnée ajoutée, aller à la barre d'outils « Couvertures de la carte et légende(s) ».
+#%help-data-addurl#Use the “Import from URL” tool to import data in various formats.  When clicked, you will be prompted to enter a valid URL pointing to your data. We currently support KML and ESRI REST “Feature Layer”.#Utilisez l'outil « Importer d'une URL » pour importer des données dans différents formats. Lorsque vous cliquez dessus, vous serez invité à entrer une URL valide pointant à vos données. Nous soutenons actuellement les formats KML et ESRI REST « Feature layer ».
+#%help-data-sample#When the data has been added, the name of the layer and a button to remove the layer are shown. To see the symbology for the data added, go to “Map Layers and Legend(s)” toolbar.#Lorsque des données sont ajoutées, le nom et un bouton pour enlever la couche sont affichés. Pour voir la symbologie pour la donnée ajoutée, aller à la barre d'outils « Couvertures de la carte et légende(s) ».
 #%help-extract-title#Download Maps and Data#Télécharger cartes et données
 #%help-extract-desc1#Use this tool to get access to available maps and data. When you open this tool, if you have a grid layer like the NTS grid for example, it will automatically be turned on. The tool may present two ways to get information. #Utilisez cet outil pour avoir accès à des cartes ou des données disponibles. Quand vous ouvrez cet outil, si vous avez une grille dans les couches disponibles, par exemple une grille SNRC, celle-ci sera automatiquement affichée. L’outil peut présenter deux façons d’obtenir de l’information.
-#%help-extract-click#This option use a tool to point on the map to indicate the desired grid box.#Cet option utilise un outil pour pointer sur un élément désiré de la grille.
+#%help-extract-click#This option use a tool to point on the map to indicate the desired grid box.#Cette option utilise un outil pour pointer sur un élément désiré de la grille.
 #%help-extract-link#The url link option use the map extent.#L'option lien URL utilise l'étendue de la carte.
 #%help-extract-desc2#As you zoom in and out, options may activate or deactivate based on your current map extent. The desired information is displayed in a new browser window. For the tool to function properly, you need to configure your browser to allow pop-up windows.#Quand vous faites un zoom avant ou arrière, les options s’activent ou se désactivent en fonction de l’étendue de la carte. L’information sera affichée dans une nouvelle fenêtre du navigateur. Pour que cet outil fonctionne correctement, vous devez configurer votre navigateur pour permettre les fenêtres contextuelles « pop-up windows ».
 #%help-datagrid-title#Data Table#Tableau des données
@@ -314,7 +336,7 @@ Global sys value#%gisurlalti#http://geogratis.gc.ca/services/elevation/cdem/alti
 #%help-datagrid-filterdesc#There are many ways to filter the data in the table. Filters can also be combined (e.g. a date range filter and a spatial filter). If you want to combine a spatial filter and a table filter, you probably want to start with the spatial filter, because there is the possibility to end up with an empty table. This can happen if your spatial filter does not contain any features in an already filtered table. If this happens, you can remove you table filter to see the results of your spatial filter.#Il existe de nombreuses façons de filtrer la table de données. Les filtres peuvent également être combinés (par exemple, un filtre d’intervalle de date et un filtre spatial). Si vous voulez combiner un filtre spatial et un filtre de la table de données, vous voudrez probablement commencer par le filtre spatial, parce qu’il y a une possibilité de se retrouver avec une table vide. Cela peut se produire si votre filtre spatial ne contient pas d’entité dans une table déjà filtrée. Si cela se produit, vous pouvez enlever le filtre de la table pour voir les résultats de votre filtre spatial.
 #%help-datagrid-filterclear#You can reset a filter by removing its value in the input field for that column. To reset all filters including removing a spatial filter, use the “Clear filters” button. This unselects all rows as well.#Vous pouvez réinitialiser le filtre en enlevant sa valeur dans le champ de saisie pour cette colonne. Pour réinitialiser tous les filtres, y compris la suppression d’un filtre spatial, utilisez le bouton « Effacer les filtres ». Cela désélectionne également de toutes les lignes.
 #%help-datagrid-filtertypedesc#The author can also enable search by column. A column is searchable if you have an input field below the title for that column in the header. There are 4 types of searchable fields:#L’usager peut aussi chercher par colonne. Une colonne est interrogeable si vous avez un champ de saisie sous le titre de l’entête de la colonne. Il y a 4 types de champs interrogeables :
-#%help-datagrid-filtertypestring#String search field.#Champ de saisie de type caractère.
+#%help-datagrid-filtertypestring#String search field. Use wildcard character * to replace any sequence of zero or more characters (e.g. *levo* will find Charlevoix).#Champ de saisie de type caractère. Utilisez le caractère joker * pour remplacer une séquence de zéro ou plusieurs caractères (par exemple, *levo* va trouver Charlevoix).
 #%help-datagrid-filtertypenum#Numeric range filter.#Filtre d’intervalle de type numérique.
 #%help-datagrid-filtertypeselect#Drop down menu to select an item.#Menu déroulant pour sélectionner un élément.
 #%help-datagrid-filtertypedate#Date range filter and uses a calendar widget to select a date.#Filtre d’intervalle de date et utilise un widget calendrier pour sélectionner une date.

@@ -20,7 +20,6 @@
 				configAbout = config.about,
 				isDatatable = $mapElem.datagrid.enable,
 				mapid = $mapElem.mapframe.id,
-				title = config.title.value,
 				node = '',
 				menu = '';
 
@@ -32,9 +31,7 @@
 			ext = config.side === 1 ? '-r' : '-l';
 
 			// set title (always configure with menu right so use ext = -r)
-			if (typeof title !== 'undefined') {
-				node += '<label class="gcviz-head-title-r unselectable">' + title + '</label>';
-			}
+			node += '<span class="gcviz-head-title-r unselectable" data-bind="text: headTitle"></span>';
 
 			// add buttons (always configure with menu right so use ext = -r)
 			node += '<div class="gcviz-head-btn-r">';
@@ -44,10 +41,10 @@
 				node += '<button class="gcviz-head-about" tabindex="0" data-bind="buttonBlur, click: aboutClick, tooltip: { content: tpAbout }"></button>';
 
 				// dialog text to show about
-				node += '<div data-bind="uiDialog: { title: lblAboutTitle, width: 400, height: 300, ok: dialogAboutOk, close: dialogAboutOk, openDialog: \'isAboutDialogOpen\' }">' +
-						'<span data-bind="text: aboutInfo1"></span>' +
-						'<div data-bind="if: aboutType === 2"><a data-bind="attr: { href: aboutURL, title: aboutURLText }, text: aboutURLText" tabindex="0" target="_blank"></a>' +
-						'<span data-bind="text: aboutInfo2"></span></div>' +
+				node += '<div data-bind="uiDialog: { title: lblAboutTitle, width: 400, ok: dialogAboutOk, close: dialogAboutOk, openDialog: \'isAboutDialogOpen\' }">' +
+							'<span data-bind="text: aboutInfo1"></span>' +
+						'	<div data-bind="if: aboutType === 2"><a data-bind="attr: { href: aboutURL, title: aboutURLText }, text: aboutURLText" tabindex="0" target="_blank"></a>' +
+						'	<span data-bind="text: aboutInfo2"></span></div>' +
 					'</div>';
 			}
 
@@ -64,7 +61,28 @@
 
 			// add print button
 			if (config.print.enable) {
-				node += '<button class="gcviz-head-print" tabindex="0" data-bind="buttonBlur, click: printClick, tooltip: { content: tpPrint }"></button>';
+				node += '<button class="gcviz-head-print" tabindex="0" data-bind="buttonBlur, click: printClick, tooltip: { content: tpPrint }, enable: isPrint"></button>';
+
+				// dialog text to show print options
+				node += '<div data-bind="uiDialog: { title: tpPrint, width: 400, modal: false, ok: dialogPrintOk, cancel: dialogPrintCancel, close: dialogPrintClose, openDialog: \'isPrintDialogOpen\', draggable: true }">' +
+							'<span data-bind="text: printInfoText"></span>' +
+					'</div>';
+			}
+
+			// add save map as image button
+			if (config.saveimage.enable) {
+				node += '<button class="gcviz-head-saveimage" tabindex="0" data-bind="buttonBlur, click: saveImgClick, tooltip: { content: tpSaveImg }, enable: isSaveImg"></button>';
+			}
+
+			// add save url button
+			if (config.saveurl.enable) {
+				node += '<button class="gcviz-head-saveurl" tabindex="0" data-bind="buttonBlur, click: saveUrlClick, tooltip: { content: tpSaveUrl }"></button>';
+
+				// dialog text to show map url
+				node += '<div data-bind="uiDialog: { title: tpSaveUrl, width: 400, ok: dialogSaveOk, close: dialogSaveOk, openDialog: \'isSaveDialogOpen\' }">' +
+							'<span data-bind="text: lblSaveDesc"></span>' +
+							'<input id="gcviz-head-saveurltext" class="gcviz-head-textinput text ui-widget-content ui-corner-all" readOnly="true" data-bind="value: saveURL"></input>' +
+					'</div>';
 			}
 
 			// add fullscreen button

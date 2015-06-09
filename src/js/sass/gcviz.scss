@@ -53,10 +53,6 @@ text, .unselectable {
 	@include unselectable;
 }
 
-svg {
-	margin-bottom: -10px;
-}
-
 .gcviz-section {
 	background: #FFF;
 	display: inline-block;

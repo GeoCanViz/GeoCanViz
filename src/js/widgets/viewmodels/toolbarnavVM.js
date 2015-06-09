@@ -10,23 +10,20 @@
 	define(['jquery-private',
 			'knockout',
 			'gcviz-i18n',
-			'gcviz-vm-map',
 			'gcviz-func',
-			'gcviz-gismap',
 			'gcviz-gisgeo',
-			'gcviz-gisnav',
-			'gcviz-gisdatagrid',
-			'gcviz-gisgraphic'
-	], function($viz, ko, i18n, mapVM, gcvizFunc, gisMap, gisGeo, gisNav, gisDG, gisGraph) {
+			'gcviz-gisnav'
+	], function($viz, ko, i18n, gcvizFunc, gisGeo, gisNav) {
 		var initialize,
-			gblOVMap = false,
-			vm;
+			endGetCoordinates,
+			vm = {};
 
 		initialize = function($mapElem, mapid, config) {
 
 			// data model				
 			var toolbarnavViewModel = function($mapElem, mapid) {
 				var _self = this,
+					mapVM,
 					ovMapWidget,
 					clickPosition,
 					geolocation = config.geolocation,
@@ -41,11 +38,19 @@
 					$menu = $viz('#gcviz-menu' + mapid),
 					$panel = $viz('#gcviz-menu-cont' + mapid),
 					$posDiag = $mapElem.find('#gcviz-pos' + mapid),
-					mymap = gcvizFunc.getElemValueVM(mapid, ['map', 'map'], 'js'),
 					autoCompleteArray = [{ minx: 0 , miny: 0, maxx: 0, maxy: 0, title: 'ddd' }];
+
+				// there is a problem with the define. The gcviz-vm-map is not able to be set.
+				// We set the reference to gcviz-vm-map (hard way)
+				require(['gcviz-vm-map'], function(vmMap) {
+					mapVM = vmMap;
+				});
 
 				// viewmodel mapid to be access in tooltip and wcag custom binding
 				_self.mapid = mapid;
+
+				// know if overview widget has been started
+				_self.OVMapStart = false;
 
 				// get language code for scale formating
 				_self.langCode = i18n.getDict('%lang-code');
@@ -81,6 +86,11 @@
 				_self.ScaleLabel = _self.lblScale();
 				_self.zoomGrp = i18n.getDict('%toolbarnav-zoomgrp');
 				_self.mapInfoGrp = i18n.getDict('%toolbarnav-mapinfogrp');
+				_self.zoomScaleMin = i18n.getDict('%toolbarnav-zoomscalemin');
+				_self.zoomScaleMax = i18n.getDict('%toolbarnav-zoomscalemax');
+				_self.zoomScale = i18n.getDict('%toolbarnav-zoomscale');
+				_self.zoomScalePre = i18n.getDict('%toolbarnav-scalepre');
+				_self.zoomScaleDyna = i18n.getDict('%toolbarnav-zoomscaledyna');
 
 				// WCAG
 				_self.WCAGTitle = i18n.getDict('%wcag-title');
@@ -127,12 +137,11 @@
 				_self.activeTool = ko.observable('');
 
 				_self.init = function() {
-					var currentScale;
 					_self.theAutoCompleteArray = ko.observableArray(autoCompleteArray);
 
 					// See if user wanted an overview map. If so, initialize it here
 					if (overview.enable) {
-						ovMapWidget = gisNav.setOverview(mymap, overview);
+						ovMapWidget = mapVM.setOverviewMap(mapid, overview);
 
 						// event to know when the panel is open for the first time to start
 						// the overview map
@@ -183,24 +192,28 @@
 					}
 
 					if (scaledisplay) {
-						mymap.on('extent-change', function() {
-							var formatScale;
-
-							// get scale
-							currentScale = Math.round(mymap.getScale()).toString();
-
-							// set formating
-							formatScale = currentScale.split('').reverse().join('');
-							formatScale = formatScale.replace(/(\d{3})(?=\d)/g, '$1' + ' ');
-							formatScale = formatScale.split('').reverse().join('');
-
-							// update scale
-							_self.lblScale(_self.ScaleLabel + '1:' + formatScale);
-							$scaleMapSpan.textContent = _self.ScaleLabel + '1:' + formatScale;
-						});
+						// set on extent-change event to display scale
+						mapVM.registerEvent(mapid, 'extent-change', _self.displayScale);
 					}
 
 					return { controlsDescendantBindings: true };
+				};
+
+				_self.displayScale = function() {
+					var formatScale,
+						currentScale;
+
+					// get scale
+					currentScale = Math.round(mapVM.getScaleMap(mapid)).toString();
+
+					// set formating
+					formatScale = currentScale.split('').reverse().join('');
+					formatScale = formatScale.replace(/(\d{3})(?=\d)/g, '$1' + ' ');
+					formatScale = formatScale.split('').reverse().join('');
+
+					// update scale
+					_self.lblScale(_self.ScaleLabel + _self.zoomScalePre + formatScale);
+					$scaleMapSpan.textContent = _self.ScaleLabel + _self.zoomScalePre + formatScale;
 				};
 
 				_self.endPosition = function() {
@@ -208,10 +221,10 @@
 					$container.removeClass('gcviz-nav-cursor-pos');
 
 					// set popup event
-					gisDG.addEvtPop();
+					mapVM.addPopupEvent(mapid);
 
 					// enable zoom extent button on map
-					mapVM.disableZoomExtent(false);
+					mapVM.disableZoomExtent(mapid, false);
 
 					// remove click event
 					if (typeof clickPosition !== 'undefined') {
@@ -220,6 +233,10 @@
 
 					// close dialog box
 					$posDiag.dialog('close');
+
+					require(['gcviz-vm-header'], function(headerVM) {
+						headerVM.toggleMenu(mapid);
+					});
 
 					$menu.on('accordionactivate', function() {
 						$menu.off('accordionactivate');
@@ -231,11 +248,8 @@
 
 							// reset active tool
 							_self.activeTool('');
-						}, 1000);
+						}, 700);
 					});
-
-					// open menu
-					$menu.accordion('option', 'active', 0);
 				};
 
 				// Clear the input field on focus if it contains the default text
@@ -246,12 +260,20 @@
 				// Set the input field has an autocomplete field and define the source and events for it
 				inMapField.autocomplete({
 					source: function(request, response) {
-						var lonlat = gcvizFunc.parseLonLat(request.term);
+						var term = request.term,
+							lonlat = gcvizFunc.parseLonLat(term),
+							scale = gcvizFunc.parseScale(term);
+
+						// reset the array (need to set a dummy value if not it is not reset)
+						autoCompleteArray = [{ minx: 0, miny: 0, maxx: 0, maxy: 0, title: 'ddd' }];
+
 						if (typeof lonlat !== 'undefined') {
+							// if response is a coordinnate
 							lonlat = [lonlat[0] + ';' + lonlat[1] + ';' + lonlat[2]];
 							response($viz.map(lonlat, function(item) {
 								var pt1, pt2, add, value,
 									miny, maxy, minx, maxx,
+									geomType = 'point',
 									lonlat = item.split(';'),
 									bufVal = 0.01799856; // 2km = 0.01799856 degrees
 
@@ -266,7 +288,21 @@
 								add = gcvizFunc.convertDdToDms(pt2, pt1, 0);
 								value = add.y.join().replace(/,/g,'') + ' ' + add.x.join().replace(/,/g,'');
 								value += ' | ' + pt1.toFixed(3) + ' ' + pt2.toFixed(3);
-								autoCompleteArray.push({ minx: minx, miny: miny, maxx: maxx, maxy: maxy, coords: lonlat, title: value });
+								autoCompleteArray.push({ minx: minx, miny: miny, maxx: maxx, maxy: maxy, coords: lonlat, type: geomType, title: value });
+
+								return {
+									label: value,
+									value: value
+								};
+							}));
+						} else if (typeof scale !== 'undefined') {
+							// if response is a scale
+							response($viz.map([scale], function() {
+								var value = scale,
+									parts = scale.split(':'),
+									geomType = 'scale';
+
+								autoCompleteArray.push({ minx: 0, miny: 0, maxx: 0, maxy: 0, coords: parts[1], type: geomType, title: value });
 
 								return {
 									label: value,
@@ -274,22 +310,24 @@
 								};
 							}));
 						} else {
+							// if not, call the api because it is a name, NTS or postal FSA
 							$viz.ajax({
 								url: _self.geoLocUrl,
 								cache: false,
 								dataType: 'jsonp', // jsonp because it is cross domain
 								data: {
-									q: request.term + '*'
+									q: term + '*'
 								},
 								success: function(data) {
 									response($viz.map(data, function(item) {
-										var geom, coords, pt1, pt2,
+										var geom, coords, pt1, pt2, geomType,
 											miny, maxy, minx, maxx,
 											txtLabel, valItem,
 											bbox = item.bbox,
 											bufVal = 0.01799856; // 2km = 0.01799856 degrees
 
 										if (typeof bbox === 'object') {
+											geomType = 'polygon';
 											coords = item.geometry.coordinates;
 											geom = bbox;
 											miny = geom[1];
@@ -297,7 +335,8 @@
 											minx = geom[0];
 											maxx = geom[2];
 										} else {
-											// Convert the lat/long to a bbox with 2km width
+											// convert the lat/long to a bbox with 2km width
+											geomType = 'point';
 											geom = item.geometry.coordinates;
 											coords = geom;
 											pt1 = geom[1];
@@ -310,7 +349,7 @@
 
 										txtLabel = item.title;
 										valItem = item.title;
-										autoCompleteArray.push({ minx: minx, miny: miny, maxx: maxx, maxy: maxy, coords: coords, title: item.title });
+										autoCompleteArray.push({ minx: minx, miny: miny, maxx: maxx, maxy: maxy, coords: coords, type: geomType, title: item.title });
 
 										return {
 											label: txtLabel,
@@ -323,45 +362,19 @@
 					},
 					minLength: 3,
 					select: function(event, ui) {
-						var acai, title, infotitle, geometry, coords;
+						var acai, title;
 
-						// Find selection and zoom to it
-						for (var i=0; i<autoCompleteArray.length; i++) {
+						// find selection and zoom to it
+						for (var i = 0; i < autoCompleteArray.length; i++) {
 							acai = autoCompleteArray[i],
 							title = acai.title;
-							coords = acai.coords;
 
 							if (ui.item.label === title) {
-								geometry = { 'polygon': [[[acai.minx, acai.miny],
-															[acai.maxx, acai.miny],
-															[acai.maxx, acai.maxy],
-															[acai.minx, acai.maxy],
-															[acai.minx, acai.miny]]] };
-								gisGeo.zoomLocation(acai.minx, acai.miny, acai.maxx, acai.maxy, mymap, _self.outSR);
-
-								// remove previous info window if there is one.
-								gisMap.hideInfoWindow(mymap, 'location');
-
-								// add graphic representation
-								if (geolocation.graphic) {
-									geometry = { 'x': coords[0], 'y': coords[1] };
-									gisGraph.createGraphic(mymap, 'point', geometry, { title: title }, 4326, 'location');
-								}
-
-								// show info window (keep title because it will be overides before the timeout occurs)
-								infotitle = title;
-
-								if (geolocation.info) {
-									setTimeout(function() {
-										gisMap.showInfoWindow(mymap, 'Location', infotitle, 'location', 12, 0);
-									}, 1000);
-								}
+								_self.selectAutoComplete(acai);
 							}
 						}
-						// Reset the array
-						autoCompleteArray = [{ minx: 0, miny: 0, maxx: 0, maxy: 0, title: 'ddd' }];
 
-						// Put focus back on input field
+						// put focus back on input field
 						inMapField.focus();
 					},
 					open: function() {
@@ -375,11 +388,81 @@
 						collision: 'fit',
 						within: '#' + mapid
 					}
+				}).keypress(function (e) {
+					if (e.keyCode === 13) {
+						// check if there is more then 1 item. The first one is just place holder.
+						if (autoCompleteArray.length > 1) {
+							_self.selectAutoComplete(autoCompleteArray[1]);
+						}
+						e.preventDefault();
+					}
 				});
+
+				_self.selectAutoComplete = function(acai) {
+					var anchor, geometry, output, scaleOut, scaleType,
+						title = acai.title,
+						infotitle = title, // need this because title will be reset before the timeout
+						coords = acai.coords,
+						minx = acai.minx,
+						miny = acai.miny,
+						maxx = acai.maxx,
+						maxy = acai.maxy,
+						type = acai.type;
+
+					// remove previous info window if there is one.
+					mapVM.hideInfoWindow(mapid, 'location');
+
+					if (type !== 'scale') {
+						// zoom to location
+						mapVM.zoomLocation(mapid, minx, miny, maxx, maxy, _self.outSR);
+
+						// add graphic representation
+						if (geolocation.graphic && acai.type === 'point') {
+							geometry = { 'x': coords[0], 'y': coords[1] };
+							mapVM.addGraphic(mapid, 'point', geometry, { title: title }, 4326, 'location');
+						} else {
+							geometry = { 'polygon': [[[minx, miny],
+												[maxx, miny],
+												[maxx, maxy],
+												[minx, maxy],
+												[minx, miny]]] };
+							mapVM.addGraphic(mapid, 'polygon', geometry, { title: title }, 4326, 'location');
+						}
+
+						anchor = 'location';
+					} else {
+						output = mapVM.setScaleMap(mapid, coords);
+						scaleType = output[0];
+
+						if (scaleType === 'cache') {
+							scaleOut = _self.zoomScale + output[1] + '.';
+						} else if (scaleType === 'cache-min') {
+							scaleOut = _self.zoomScaleMin + output[1] + '.';
+						} else if (scaleType === 'cache-max') {
+							scaleOut = _self.zoomScaleMax + output[1] + '.';
+						} else {
+							scaleOut = _self.zoomScaleDyna + title;
+						}
+
+						infotitle = scaleOut;
+					}
+
+					// reset the array (need to set a dummy value if not it is not reset)
+					autoCompleteArray = [{ minx: 0, miny: 0, maxx: 0, maxy: 0, coords: 0, type: '', title: 'ddd' }];
+
+					// show info window
+					if (geolocation.info) {
+						setTimeout(function() {
+							mapVM.showInfoWindow(mapid, 'Location', infotitle, anchor, 12, 0);
+						}, 1000);
+					}
+				};
 
 				_self.getMapClick = function() {
 					// close menu
-					$menu.accordion('option', 'active', false);
+					require(['gcviz-vm-header'], function(headerVM) {
+						headerVM.toggleMenu(mapid);
+					});
 
 					// set event for the toolbar
 					$menu.on('accordionbeforeactivate', function() {
@@ -394,15 +477,13 @@
 						$container.addClass('gcviz-nav-cursor-pos');
 
 						// remove popup event
-						gisDG.removeEvtPop();
+						mapVM.removePopupEvent(mapid);
 
 						// disable zoom extent button on map
-						mapVM.disableZoomExtent(true);
+						mapVM.disableZoomExtent(mapid, true);
 
 						// Get user to click on map and capture event
-						clickPosition = mymap.on('click', function(evt) {
-							gisGeo.projectPoints([evt.mapPoint], 4326, _self.displayInfo);
-						});
+						clickPosition = mapVM.registerEvent(mapid, 'click', _self.projectMapClick);
 					} else {
 						_self.isDialogWCAG(true);
 					}
@@ -412,14 +493,18 @@
 
 					// focus the map. We need to specify this because when you use the keyboard to
 					// activate the tool, the focus sometimes doesnt go to the map.
-					gcvizFunc.focusMap(mymap, false);
+					mapVM.focusMap(mapid, false);
+				};
+
+				_self.projectMapClick = function(evt) {
+					gisGeo.projectPoints([evt.mapPoint], 4326, _self.displayInfo);
 				};
 
 				_self.dialogWCAGOk = function() {
 					var x = _self.xValue() * -1,
 						y = _self.yValue();
 
-					gisGeo.projectCoords([[x, y]], mymap.vWkid, 4326, _self.displayInfo);
+					gisGeo.projectCoords([[x, y]], mapVM.getSR(mapid), 4326, _self.displayInfo);
 					_self.isDialogWCAG(false);
 					_self.wcagok = true;
 				};
@@ -524,11 +609,11 @@
 							$ovMap.removeClass('gcviz-ov-border');
 						} else {
 							// start the dijiit if not already started
-							if (!gblOVMap) {
+							if (!_self.OVMapStart) {
 								ovMapWidget[1].startup();
-								gblOVMap = true;
+								_self.OVMapStart = true;
 							}
-	
+
 							ovMapWidget[1].show();
 							ovMapWidget[0].hide();
 							$ovMap.addClass('gcviz-ov-border');
@@ -548,13 +633,31 @@
 				_self.init();
 			};
 
-			vm = new toolbarnavViewModel($mapElem, mapid);
-			ko.applyBindings(vm, $mapElem[0]); // This makes Knockout get to work
+			// put view model in an array because we can have more then one map in the page
+			vm[mapid] = new toolbarnavViewModel($mapElem, mapid);
+			ko.applyBindings(vm[mapid], $mapElem[0]); // This makes Knockout get to work
 			return vm;
 		};
 
+		// *** PUBLIC FUNCTIONS ***
+		endGetCoordinates = function(mapid) {
+			var flag = false,
+				viewModel = vm[mapid];
+
+			// link to view model to call the function inside
+			if (typeof viewModel !== 'undefined') {
+				if (viewModel.activeTool() === 'position') {
+					viewModel.endPosition();
+					flag = true;
+				}
+			}
+
+			return flag;
+		};
+
 		return {
-			initialize: initialize
+			initialize: initialize,
+			endGetCoordinates: endGetCoordinates
 		};
 	});
 }).call(this);

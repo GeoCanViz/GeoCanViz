@@ -18,12 +18,12 @@
 			'magnificpopup'
 	], function($viz, ko, i18n, binding, gcvizfunc, gisM) {
 		var initialize,
-			vm,
 			setImage,
 			setVideo,
 			setHtml,
 			setMap,
-			setLightbox;
+			setLightbox,
+			vm = {};
 
 		initialize = function($mapElem, mapid, inset) {
 
@@ -261,8 +261,9 @@
 				_self.init();
 			};
 
-			vm = new insetViewModel($mapElem, mapid, inset);
-			ko.applyBindings(vm, $mapElem[0]); // This makes Knockout get to work
+			// put view model in an array because we can have more then one map in the page
+			vm[mapid] = new insetViewModel($mapElem, mapid, inset);
+			ko.applyBindings(vm[mapid], $mapElem[0]); // This makes Knockout get to work
 			return vm;
 		};
 

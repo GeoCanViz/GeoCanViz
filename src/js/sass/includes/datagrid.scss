@@ -167,9 +167,10 @@ table.dataTable.no-footer {
 	color: $black!important;
 	border-radius: 0rem!important;
 	padding-top: (0.5 * $rembase) + rem!important;
-	padding-left: (0.5 * $rembase) + rem!important;
-	padding-right: (0.5 * $rembase) + rem!important;
+	padding-left: 2% + !important;
+	padding-right: 2% + !important;
 	padding-bottom: (2 * $rembase) + rem!important;
+	width: 96%;
 }
 
 .gcviz-datagrid-tab {

@@ -15,31 +15,9 @@
 			'esri/renderers/jsonUtils',
 			'dojox/gfx'
 	], function($viz, Request, Renderer, domConstruct, esriJsonUtilS, esriJsonUtilR, gfx) {
-		var setLayerVisibility,
-			setLayerOpacity,
-			getFeatureLayerSymbol,
+		var getFeatureLayerSymbol,
 			createSymbols,
 			createSVGSurface;
-
-		setLayerVisibility = function(mymap, selectedLayer, visState) {
-			var layer = mymap.getLayer(selectedLayer);
-
-			// need to check for undefined because of cluster layer. They are not set
-			// when this code irun for the first time
-			if (typeof layer !== 'undefined') {
-				layer.setVisibility(visState);
-			}
-		};
-
-		setLayerOpacity = function(mymap, layerid, opacityValue) {
-			var layer = mymap.getLayer(layerid);
-
-			// need to check for undefined because of cluster layer. They are not set
-			// when this code irun for the first time
-			if (typeof layer !== 'undefined') {
-				layer.setOpacity(opacityValue);
-			}
-		};
 
 		getFeatureLayerSymbol = function(renderer, node, layerid) {
 			var mySurface,
@@ -49,6 +27,7 @@
 				anode,
 				nodeImage,
 				nodeLabel,
+				nodeOutter,
 				jsonRen = JSON.parse(renderer),
 				ren = esriJsonUtilR.fromJson(jsonRen),
 				renDefSym = ren.defaultSymbol,
@@ -84,6 +63,7 @@
 				//domConstruct.place(domConstruct.create('br'), symbolLocation);
 
 				$viz.each(legs, function(key, value) {
+					nodeOutter = domConstruct.create('div', { 'class': 'gcviz-leg-outholder' });
 					nodeImage = domConstruct.create('div', { 'class': 'gcviz-leg-uniqueSymbolHolder' });
 					nodeLabel = domConstruct.create('div', { 'class': 'gcviz-leg-uniqueSpan' });
 					descriptors = esriJsonUtilS.getShapeDescriptors(value.symbol);
@@ -91,8 +71,9 @@
 					shape = mySurface.createShape(descriptors.defaultShape);
 					createSymbols(descriptors, shape, value);
 					nodeLabel.innerHTML = value.label;
-					domConstruct.place(nodeImage, symbolLocation);
-					domConstruct.place(nodeLabel, symbolLocation);
+					domConstruct.place(nodeImage, nodeOutter);
+					domConstruct.place(nodeLabel, nodeOutter);
+					domConstruct.place(nodeOutter, symbolLocation);
 					domConstruct.place(domConstruct.create('br'), symbolLocation);
 				});
 			} else {
@@ -146,8 +127,6 @@
 		};
 
 		return {
-			setLayerVisibility: setLayerVisibility,
-			setLayerOpacity: setLayerOpacity,
 			getFeatureLayerSymbol: getFeatureLayerSymbol
 		};
 	});

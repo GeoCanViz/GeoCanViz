@@ -11,23 +11,28 @@
 			'knockout',
 			'gcviz-func',
 			'gcviz-i18n',
-			'gcviz-gismap',
-			'gcviz-gisdata',
-			'gcviz-vm-datagrid'
-	], function($viz, ko, gcvizFunc, i18n, gisMap, gisData, vmDatagrid) {
+			'gcviz-vm-datagrid',
+			'gcviz-vm-tblegend'
+	], function($viz, ko, gcvizFunc, i18n, vmDatagrid, legendVM) {
 		var initialize,
+			subscribeIsAddData,
 			notifyAdd,
-			innerNotifyAdd,
-			vm;
+			getURL,
+			vm = {};
 
-		initialize = function($mapElem, mapid, config) {
+		initialize = function($mapElem, mapid, config, isDatagrid) {
 
 			// data model				
-			var toolbardataViewModel = function($mapElem, mapid, config) {
+			var toolbardataViewModel = function($mapElem, mapid, config, isDatagrid) {
 				var _self = this,
-					$btnCSV = $viz('#btnAddCSV' + mapid),
-					configQuery = config.dataquery.enable,
-					mymap = gcvizFunc.getElemValueVM(mapid, ['map', 'map'], 'js');
+					mapVM,
+					$btnCSV = $viz('#btnAddCSV' + mapid);
+
+				// there is a problem with the define. The gcviz-vm-map is not able to be set.
+				// We set the reference to gcviz-vm-map (hard way)
+				require(['gcviz-vm-map'], function(vmMap) {
+					mapVM = vmMap;
+				});
 
 				// viewmodel mapid to be access in tooltip custom binding
 				_self.mapid = mapid;
@@ -62,6 +67,15 @@
 				_self.lblAddDesc = i18n.getDict('%toolbardata-lbladddesc');
 				_self.isDataProcess = ko.observable(false);
 
+				// dialog window for datafile url parameter
+				_self.lblAddParamDesc = i18n.getDict('%toolbardata-lbladdparamdesc');
+				_self.lblImportParam = i18n.getDict('%toolbardata-lbladdparam');
+				_self.lblMiss = i18n.getDict('%toolbardata-lblmiss');
+				_self.lblImportParamFile = ko.observable('');
+				_self.isFileProcess = ko.observable(false);
+				_self.files = [];
+				_self.file = '';
+
 				// array of user layer
 				_self.userArray = ko.observableArray([]);
 
@@ -69,42 +83,85 @@
 				_self.isAddData = ko.observable(false);
 
 				_self.init = function() {
-					var url;
+					var idmap, url, file;
 
-					// to expose the observable to know when the layer has been added
-					innerNotifyAdd = _self.notifyAdd;
+					// for wich map
+					idmap = gcvizFunc.getURLParameter(window.location.toString(), 'id');
 
 					// check if there is a url to load
-					if (configQuery) {
-						// data param can be like this:
-						// data=http://maps.ottawa.ca/arcgis/rest/services/Schools/MapServer/2,1,1,0.5,0;http://geoappext.nrcan.gc.ca/GeoCanViz/CCMEO/toporama/combine.kml,0,0,1,0
-						// first the url, the expand state, the visibiity state, the opacity value, zoom to extent value
-						url = gcvizFunc.getURLParameter(window.location.toString(), 'data');
+					// dataurl param can be like this:
+					// dataurl=http://maps.ottawa.ca/arcgis/rest/services/Schools/MapServer/1,1,1,0.5,0;http://geoappext.nrcan.gc.ca/GeoCanViz/CCMEO/toporama/combine.kml,0,0,1,0
+					// first the url, the expand state, the visibiity state, the opacity value, zoom to extent value
+					url = gcvizFunc.getURLParameter(window.location.toString(), 'dataurl');
 
-						if (url !== null) {
+					// datafile param can be like this:
+					// datafile=ParksVan.csv;ExportCSV.csv,1,1,1,1
+					// first the file name, the expand state, the visibiity state, the opacity value, zoom to extent value
+					file = gcvizFunc.getURLParameter(window.location.toString(), 'datafile');
+
+					if (url !== null && idmap === mapid) {
+						if (isDatagrid) {
 							// subscribe to the isTableReady event to know when tables have been initialize
-							gcvizFunc.subscribeTo(mapid, 'datagrid', 'isTableReady', function(input) {
-								var layer = url.split(';'),
-									len = layer.length;
-
-								if (input) {
-									while (len--) {
-										_self.addUrlValue(layer[len]);
-										_self.dialogUrlOk();
-									}
-								}
+							vmDatagrid.subscribeIsTableReady(mapid, function(input) {
+								_self.addUrlUrl(url, input);
 							});
+						} else {
+							// set in a timeout. if not dialog box not launch
+							setTimeout(function() {
+								_self.addUrlUrl(url, true);
+							}, 0);
+						}
+					}
+
+					if (file !== null && idmap === mapid) {
+						if (isDatagrid) {
+							// subscribe to the isTableReady event to know when tables have been initialize
+							vmDatagrid.subscribeIsTableReady(mapid, function(input) {
+								_self.addFileUrl(file, input);
+							});
+						} else {
+							// set in a timeout. if not dialog box not launch
+							setTimeout(function() {
+								_self.addFileUrl(file, true);
+							}, 0);
 						}
 					}
 
 					return { controlsDescendantBindings: true };
 				};
 
+				_self.addUrlUrl = function(url, input) {
+					var layer = url.split(';'),
+						len = layer.length;
+
+					if (input) {
+						while (len--) {
+							_self.addUrlValue(layer[len]);
+							_self.dialogUrlOk();
+						}
+					}
+				};
+
+				_self.addFileUrl = function(file, input) {
+					_self.files = file.split(';');
+
+					// we cant open directly the file dialog for security reason. It need to be from a user event.
+					// Show a window where user will be able to click to add the file.
+					if (input && _self.files.length > 0) {
+						_self.addParamUrlFile();
+					}
+				};
+
 				_self.launchDialog = function() {
 					// launch the dialog. We cant put the dialog in the button because
 					// Firefox will not launch the window. To be able to open the window,
 					// we mimic the click
-					$viz(document.getElementById('fileDialogData'))[0].click();
+					document.getElementById('fileDialogData' + mapid).click();
+				};
+
+				_self.openWait = function(event) {
+					// remove close icon to have a real modal window.
+					$viz(event.target.parentElement).find('.ui-dialog-titlebar-close').addClass('gcviz-dg-wait');
 				};
 
 				_self.dialogDataClose = function() {
@@ -112,6 +169,37 @@
 
 					// focus back on add to keep focus
 					$btnCSV.focus();
+				};
+
+				_self.addParamUrlFile = function() {
+					// shift the first item
+					var item = _self.files.shift();
+
+					if (typeof item !== 'undefined') {
+						_self.file = item;
+						_self.lblImportParamFile(_self.lblImportParam + _self.file);
+						_self.isFileProcess(true);
+					}
+				};
+
+				_self.closeParamUrlFile = function() {
+					_self.isFileProcess(false);
+					_self.file = '';
+
+					// relaunch the add witht he global file object from param url. If there is still file
+					// in it, the dialog can be launch again to add those file. If not file left or no file
+					// initially, there is nothing
+					// put a time out so the close will not interfere witht he open
+					setTimeout(function() {
+						_self.addParamUrlFile();
+					}, 1000);
+				};
+
+				_self.okParamUrlFile = function() {
+					// add entry in the legend for the missins layer
+					legendVM.addLegend(mapid, _self.getMissLegendCfg(_self.file + _self.lblMiss));
+
+					_self.closeParamUrlFile();
 				};
 
 				_self.addFileClick = function(vm, event) {
@@ -127,6 +215,11 @@
 						// added projection. We put back the event after.
 						setTimeout(function() {
 							_self.add(vm, event);
+
+							// relaunch the add witht he global file object from param url. If there is still file
+							// in it, the dialog can be launch again to add those file. If not file left or no file
+							// initially, there is nothing
+							_self.closeParamUrlFile();
 						}, 1000);
 					}
 
@@ -159,42 +252,16 @@
 						_self.isDataProcess(true);
 
 						if (ext.toUpperCase() === 'KML') {
-							//http://geoappext.nrcan.gc.ca/GeoCanViz/CCMEO/toporama/building.kml
-							//https://developers.google.com/kml/documentation/KML_Samples.kml
-							gisData.addKML(mymap, url, uu, name, config)
-								.done(function(err, data) {
-									if (err === 0) {
-										var item,
-											len = data.length;
-
-										while (len--) {
-											item = data[len];
-
-											// add to user array so knockout will generate legend
-											_self.userArray.push({ label: item.name, id: item.id });
-										}
-									} else {
-										_self.errMsg(_self.errLoad.replace('XXX', data));
-										_self.isDataProcess(false);
-										_self.isErrDataOpen(true);
-									}
-							});
+							// http://geoappext.nrcan.gc.ca/GeoCanViz/CCMEO/toporama/building.kml
+							// http://geoappext.nrcan.gc.ca/GeoCanViz/CCMEO/toporama/combine.kml
+							mapVM.addLayerKML(mapid, _self.closeAddUrl, url, uu, name, config);
 						}
 						//else if (ext.toUpperCase() === 'RSS') {
 							//gisData.addGeoRSS(mymap, 'http://geoscan.ess.nrcan.gc.ca/rss/newpub_e.rss', uu, name);
 						//} 
 						else if (url.indexOf(esri) !== -1) {
-							gisData.addFeatLayer(mymap, url, uu, config)
-								.done(function(err, data) {
-									if (err === 0) {
-										// add to user array so knockout will generate legend
-										_self.userArray.push({ label: data.name, id: data.id });
-									} else {
-										_self.errMsg(_self.errLoad.replace('XXX', data));
-										_self.isDataProcess(false);
-										_self.isErrDataOpen(true);
-									}
-							});
+							// http://geoappext.nrcan.gc.ca/arcgis/rest/services/test/earthqhakes/MapServer/0
+							mapVM.addLayerFeature(mapid, _self.closeAddUrl, url, uu, config);
 						}
 						else {
 							_self.errMsg(_self.errFormat);
@@ -219,7 +286,7 @@
 				};
 
 				_self.add = function(vm, event) {
-					var file, reader,
+					var file, reader, name,
 						files = event.target.files,
 						len = files.length;
 
@@ -229,7 +296,11 @@
 						reader = new FileReader();
 
 						// keep track of file name
-						reader.fileName = file.name;
+						name = file.name;
+						reader.fileName = name;
+
+						// make sure the layer was not missing from a datafile url parameter before
+						legendVM.removeLegend(file.name + _self.lblMiss);
 
 						// closure to capture the file information and launch the process
 						reader.onload = function() {
@@ -240,48 +311,111 @@
 							_self.isDataProcess(true);
 
 							// use deffered object to wait for the result
-							gisData.addCSV(mymap, reader.result, uuid, fileName)
-								.done(function(data) {
-									if (data === 0) {
-										// add to user array so knockout will generate legend
-										_self.userArray.push({ label: fileName, id: uuid });
-									} else {
-										_self.isErrDataOpen(true);
-										_self.isAddData(false);
-										if (data === 1) {
-											_self.errMsg(_self.errMsg1);
-										} else if (data === 2) {
-											_self.errMsg(_self.errMsg2);
-										} else if (data === 3) {
-											_self.errMsg(_self.errMsg3);
-										} else {
-											_self.errMsg(_self.errMsg4 + data);
-										}
-									}
-								});
+							mapVM.addLayerCSV(mapid, _self.closeAddFile, reader.result, uuid, fileName);
 						};
 
 						reader.readAsText(file);
 					}
 
-					// clear the selected file
-					document.getElementById('fileDialogData').value = '';
+					// clear the selected file (we need to clear because if we tru to the same file twice it wont work
+					// because the change event will not be triggered)
+					document.getElementById('fileDialogData' + mapid).value = '';
+				};
+
+				_self.closeAddUrl = function(data, info) {
+					if (data === 0) {
+						var item,
+							len = info.length;
+
+						while (len--) {
+							item = info[len];
+
+							// add to user array so knockout will generate legend
+							_self.userArray.push(item);
+						}
+					} else {
+						_self.errMsg(_self.errLoad.replace('XXX', data));
+						_self.isDataProcess(false);
+						_self.isErrDataOpen(true);
+					}
+				};
+
+				_self.closeAddFile = function(data, info) {
+					if (data === 0) {
+						// add to user array so knockout will generate legend
+						_self.userArray.push({ label: info.label, id: info.id, type: 'file' });
+					} else {
+						_self.isErrDataOpen(true);
+						_self.isAddData(false);
+						if (data === 1) {
+							_self.errMsg(_self.errMsg1);
+						} else if (data === 2) {
+							_self.errMsg(_self.errMsg2);
+						} else if (data === 3) {
+							_self.errMsg(_self.errMsg3);
+						} else {
+							_self.errMsg(_self.errMsg4 + data);
+						}
+					}
 				};
 
 				_self.removeClick = function(selectedItem) {
+					var id = selectedItem.id;
+
 					// remove the layer from the map then from the array
 					// In the view we use click: function($data) { $root.removeClick($data) } to avoid
-					// to ave the function call when we add the item to the array.
-					mymap.removeLayer(mymap.getLayer(selectedItem.id));
+					// to have the function call when we add the item to the array.
+					mapVM.removeLayer(mapid, id);
 					_self.userArray.remove(selectedItem);
+
+					// remove fromlegend
+					legendVM.removeLegend(id);
 
 					// focus back on add to keep focus
 					$btnCSV.focus();
 
 					// remove table if datagrid is enable
-					if (typeof vmDatagrid !== 'undefined') {
-						vmDatagrid.removeTab(selectedItem.id);
+					vmDatagrid.removeTab(mapid, selectedItem.id);
+				};
+
+				_self.notifyAdd = function() {
+					_self.isAddData(false);
+					_self.isDataProcess(false);
+				};
+
+				_self.getURL = function() {
+					var layer, param,
+						returnURL = '',
+						flagFile = false,
+						flagURL = false,
+						file = 'datafile=',
+						url = 'dataurl=',
+						layers = _self.userArray(),
+						len = layers.length;
+
+					while (len--) {
+						layer = layers[len];
+
+						if (layer.type === 'file') {
+							file += layer.label + ';';
+							flagFile = true;
+						} else {
+							if (url.indexOf(layer.url) === -1) {
+								param = mapVM.getLayerParam(mapid, layer.id);
+								url += layer.url + ',1,' + param.visible + ',' + param.opacity +',0;';
+							}
+							flagURL = true;
+						}
 					}
+
+					if (flagFile) {
+						returnURL = '&' + file.slice(0,-1);
+					}
+					if (flagURL) {
+						returnURL += '&' + url.slice(0,-1);
+					}
+
+					return returnURL;
 				};
 
 				_self.setConfig = function(param) {
@@ -311,26 +445,87 @@
 					return config;
 				};
 
-				_self.notifyAdd = function() {
-					_self.isAddData(false);
-					_self.isDataProcess(false);
+				_self.getMissLegendCfg = function(name) {
+					var config = {
+							'expand': false,
+							'last': true,
+							'type': 5,
+							'id': name,
+							'graphid': 'custom',
+							'displayfields': false,
+							'label': {
+								'value': name,
+								'alttext': name
+							},
+							'metadata': {
+								'enable': false
+							},
+							'opacity': {
+								'enable': false,
+								'min': 0,
+								'max': 1,
+								'initstate': 1
+							},
+							'visibility': {
+								'enable': false,
+								'initstate': 1,
+								'type': 1,
+								'radioid': 0
+							},
+							'displaychild': {
+								'enable': false,
+								'symbol': ''
+							},
+							'customimage': {
+								'enable': false,
+								'images': []
+							},
+							'items': []
+					};
+
+					return config;
 				};
 
 				_self.init();
 			};
 
-			vm = new toolbardataViewModel($mapElem, mapid, config);
-			ko.applyBindings(vm, $mapElem[0]); // This makes Knockout get to work
+			// put view model in an array because we can have more then one map in the page
+			vm[mapid] = new toolbardataViewModel($mapElem, mapid, config, isDatagrid);
+			ko.applyBindings(vm[mapid], $mapElem[0]); // This makes Knockout get to work
 			return vm;
 		};
 
-		notifyAdd = function() {
-			innerNotifyAdd();
+		// *** PUBLIC FUNCTIONS ***
+		subscribeIsAddData = function(mapid, funct) {
+			return vm[mapid].isAddData.subscribe(funct);
+		};
+
+		notifyAdd = function(mapid) {
+			var viewModel = vm[mapid];
+
+			// link to view model to call the function inside
+			if (typeof viewModel !== 'undefined') {
+				viewModel.notifyAdd();
+			}
+		};
+
+		getURL = function(mapid) {
+			var url = '',
+				viewModel = vm[mapid];
+
+			// link to view model to call the function inside
+			if (typeof viewModel !== 'undefined') {
+				url = viewModel.getURL();
+			}
+
+			return url;
 		};
 
 		return {
 			initialize: initialize,
-			notifyAdd: notifyAdd
+			subscribeIsAddData: subscribeIsAddData,
+			notifyAdd: notifyAdd,
+			getURL: getURL
 		};
 	});
 }).call(this);

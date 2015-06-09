@@ -51,49 +51,39 @@
 			getRelRecords,
 			removeEvtPop,
 			addEvtPop,
-			wkid,
-			selectLayer,
-			symbPoint,
-			symbLine,
-			symbPoly,
-			symbSpatial,
-			mymap,
-			lastLayerId,
-			relRecords = {},
-			idTask,
-			idTasksArr = [],
-			idTaskIndex = 0,
-			layerIndex,
-			idParams = new esriIdParams(),
-			deferredGraph = [],
-			idFeatures,
-			idRtnFunc;
+			gMapid,
+			params = { };
 
 		initialize = function(map) {
-			var color = [224,255,255,50],
+			var idParams,
+				param = { },
+				color = [224,255,255,50],
 				colorOut = [0,255,255,255],
 				spatial = [230, 230, 250, 50],
 				spatialOut = [221, 160, 221, 255],
 				graphIds = map.graphicsLayerIds;
 
-			wkid = map.vWkid;
-			mymap = map;
+			param.wkid = map.vWkid;
+			param.mapid =  map.vIdName;
+			param.map = map;
 
 			// event and params for identify task
-			idFeatures = mymap.on('click', executeIdTask);
+			param.idFeatures = map.on('click', executeIdTask);
+			idParams = new esriIdParams();
 			idParams.tolerance = 3;
 			idParams.returnGeometry = true;
 			idParams.layerOption = esriIdParams.LAYER_OPTION_VISIBLE; // layer option all
+			param.idParams = idParams;
 
 			// add the graphic layers to the map and set global variable
-			mymap.addLayer(new esriGraphLayer({ id: 'gcviz-datagrid' }));
-			selectLayer = map.getLayer('gcviz-datagrid');
+			map.addLayer(new esriGraphLayer({ id: 'gcviz-datagrid' }));
+			param.selectLayer = map.getLayer('gcviz-datagrid');
 
 			// get the last layer loaded from service id. If there is no layer before symbol and datagrid
 			// set lastLayerId to -1
-			lastLayerId = graphIds[graphIds.length - 3];
+			param.lastLayerId = graphIds[graphIds.length - 3];
 			if (typeof lastLayerId === 'undefined') {
-				lastLayerId = -1;
+				param.lastLayerId = -1;
 			}
 
 			// there is a problem with the define. the gcviz-gissymbol is not able to be set. The weird thing
@@ -101,14 +91,22 @@
 			// have access to gisgeo anymore. With the require, we set the reference to gissymbol (hard way)
 			require(['gcviz-gissymbol'], function(gissymb) {
 				// set symbologies
-				symbPoint = gissymb.getSymbPoint(color, 14, colorOut, 1.5);
-				symbLine = gissymb.getSymbLine(colorOut, 3);
-				symbPoly = gissymb.getSymbPoly(colorOut, color, 1.5);
-				symbSpatial = gissymb.getSymbPoly(spatialOut, spatial, 1);
+				param.symbPoint = gissymb.getSymbPoint(color, 14, colorOut, 1.5);
+				param.symbLine = gissymb.getSymbLine(colorOut, 3);
+				param.symbPoly = gissymb.getSymbPoly(colorOut, color, 1.5);
+				param.symbSpatial = gissymb.getSymbPoly(spatialOut, spatial, 1);
 			});
+
+			// set params for futher use
+			param.relRecords = {};
+			param.idTasksArr = [];
+			param.idTaskIndex = 0;
+			param.deferredGraph = [];
+
+			params[map.vIdName] = param;
 		};
 
-		getData = function(url, layer, success) {
+		getData = function(mapid, url, layer, success) {
 			esriRequest({
 				url: url,
 				content: { f: 'json' },
@@ -125,7 +123,8 @@
 						sr = response.spatialReference,
 						data = [],
 						features = response.features,
-						len = features.length;
+						len = features.length,
+						map = params[mapid].map;
 
 					// if there is a link table to retrieve info from, set it here.
 					// it only work with feature layer who have a valid OBJECTID field
@@ -146,17 +145,17 @@
 						relatedQuery.objectIds = gcvizFunc.getObjectIds(response.features);
 
 						// query the link table
-						featLayer = mymap.getLayer(id);
+						featLayer = map.getLayer(id);
 						featLayer.queryRelatedFeatures(relatedQuery, function(relatedRecords) {
 							data = createDataArray(features, len, fields, sr, id, pos, relatedRecords);
-							closeGetData(data, layer, success);
+							closeGetData(mapid, data, layer, success);
 
 							// keep related records to be access later by popups
-							setRelRecords(id, relatedRecords);
+							setRelRecords(mapid, id, relatedRecords);
 						});
 					} else {
 						data = createDataArray(features, len, fields, sr, id, pos);
-						closeGetData(data, layer, success);
+						closeGetData(mapid, data, layer, success);
 					}
 				},
 				error: function(err) { console.log('datagrid error: ' + err); }
@@ -276,17 +275,17 @@
 			return data;
 		};
 
-		closeGetData = function(data, layer, success) {
+		closeGetData = function(mapid, data, layer, success) {
 			var feat,
 				i = 0,
 				len = data.length,
 				features = new Array(len),
 				item = data[0],
-				mapWkid = mymap.vWkid;
+				mapWkid = params[mapid].wkid;
 
 			// set mapid to layer to make the function more global for data added with
 			// data toolbar
-			layer.mapid = mymap.vIdName;
+			layer.mapid = mapid;
 
 			// check if we need to reproject geometries
 			// add layer info to first element. This way we will be able to get back to it
@@ -308,7 +307,7 @@
 			}
 		};
 
-		createGraphic = function(geometry, key, spatial) {
+		createGraphic = function(mapid, geometry, key, spatial) {
 			var symb,
 				graphic,
 				type = geometry.type;
@@ -316,14 +315,14 @@
 			// from geometry type, select symbol
 			if (!spatial) {
 				if (type === 'point') {
-					symb = symbPoint;
+					symb = params[mapid].symbPoint;
 				} else if (type === 'polyline') {
-					symb = symbLine;
+					symb = params[mapid].symbLine;
 				} else if (type === 'polygon'){
-					symb = symbPoly;
+					symb = params[mapid].symbPoly;
 				}
 			} else {
-				symb = symbSpatial;
+				symb = params[mapid].symbSpatial;
 			}
 
 			// generate graphic and asign symbol
@@ -336,48 +335,51 @@
 			return graphic;
 		};
 
-		zoomFeatures = function(geometries) {
+		zoomFeatures = function(mapid, geometries) {
 			var graphic,
 				i = 0,
 				len = geometries.length,
-				graphics = new Array(len);
+				graphics = new Array(len),
+				map = params[mapid].map;
 
 			// if only one element, zoom feature instead
 			if (len === 1) {
-				graphic = createGraphic(geometries[0], 'zoom', false);
-				gisMap.zoomFeature(mymap, graphic);
+				graphic = createGraphic(mapid, geometries[0], 'zoom', false);
+				gisMap.zoomFeature(map, graphic);
 			} else {
 				// create an array of graphics to get extent. Do not add them
 				// to the map because it is already there from the selection
 				while (i !== len) {
-					graphic = createGraphic(geometries[i], 'zoom', false);
+					graphic = createGraphic(mapid, geometries[i], 'zoom', false);
 					graphics[i] = graphic;
 					i++;
 				}
 
 				// get the extent then zoom
-				gisMap.zoomGraphics(mymap, graphics);
+				gisMap.zoomGraphics(map, graphics);
 			}
 
 			// there is a bug when in full screen and do a zoom to select. There is an offset in y
 			// so popup is not available. To resolve this, resize map.
-			mymap.resize();
+			map.resize();
 
 			// focus the map
-			gcvizFunc.focusMap(mymap, true);
+			require(['gcviz-vm-map'], function(mapVM) {
+				mapVM.focusMap(mapid, true);
+			});
 		};
 
-		drawSpatialExtent = function(geometry, key) {
-			var graphic = createGraphic(geometry, key, true);
+		drawSpatialExtent = function(mapid, geometry, key) {
+			var graphic = createGraphic(mapid, geometry, key, true);
 
 			// remove previous graphic then add new graphic
-			unselectFeature(key);
-			selectLayer.add(graphic);
+			unselectFeature(mapid, key);
+			params[mapid].selectLayer.add(graphic);
 		};
 
-		showSpatialExtent = function(key) {
+		showSpatialExtent = function(mapid, key) {
 			var graphic,
-				graphics = selectLayer.graphics,
+				graphics = params[mapid].selectLayer.graphics,
 				len = graphics.length;
 
 			while (len--) {
@@ -390,22 +392,23 @@
 			}
 		};
 
-		selectFeature = function(geometry, info) {
-			var graphic = createGraphic(geometry, 'sel' + '-' + info.table + '-' + info.feat, false);
+		selectFeature = function(mapid, geometry, info) {
+			var graphic = createGraphic(mapid, geometry, 'sel' + '-' + info.table + '-' + info.feat, false);
 
 			// remove previous graphic then add new graphic
-			selectLayer.add(graphic);
+			params[mapid].selectLayer.add(graphic);
 		};
 
-		selectFeaturePop = function(geometry) {
+		selectFeaturePop = function(mapid, geometry) {
 			var graphic = createGraphic(geometry, 'popup', false);
 
 			// add graphic
-			selectLayer.add(graphic);
+			params[mapid].selectLayer.add(graphic);
 		};
 
-		unselectFeature = function(key) {
+		unselectFeature = function(mapid, key) {
 			var graphic,
+				selectLayer = params[mapid].selectLayer,
 				graphics = selectLayer.graphics,
 				len = graphics.length;
 
@@ -418,12 +421,12 @@
 			}
 		};
 
-		createIdTask = function(url, index, id, type, success) {
-			// set return function
-			idRtnFunc = success;
+		createIdTask = function(mapid, url, index, id, type, success) {
+			var idTask,
+				param = params[mapid];
 
-			// set layer index for identify task parameters
-			layerIndex = index;
+			// set return function
+			param.idRtnFunc = success;
 
 			// create id task (set the layer index on the task to retrieve it later)
 			// keep layer id to set on and off popup in function of visibility
@@ -431,8 +434,8 @@
 			idTask.layerIndex = index;
 			idTask.layerId = id;
 			idTask.layerType = type;
-			idTasksArr[idTaskIndex] = idTask;
-			idTaskIndex++;
+			param.idTasksArr[param.idTaskIndex] = idTask;
+			param.idTaskIndex++;
 		};
 
 		executeIdTask = function(event) {
@@ -440,28 +443,33 @@
 				info, layerType, layerIndex, lyrDef,
 				layer, arrDef,
 				i = 0,
+				mapid = event.currentTarget.id.split('_')[0],
 				deferred = [],
 				defList = [],
-				lenTask = idTasksArr.length;
+				param = params[mapid],
+				idParams = param.idParams,
+				idTasksArr = param.idTasksArr,
+				lenTask = idTasksArr.length,
+				map = param.map;
 
 			// reset task for file layer
-			deferredGraph = [];
+			param.deferredGraph = [];
 
 			// set all the info for added file layer
-			setFileLayerTask(event);
+			setFileLayerTask(event, mapid);
 
 			// returnIdentifyResults will be called after all tasks have completed
 			while (i < lenTask) {
 				info = idTasksArr[i];
 				layerType = info.layerType;
 				layerIndex = info.layerIndex;
-				layer = mymap.getLayer(info.layerId);
+				layer = map.getLayer(info.layerId);
 
 				// identify tasks setup parameters
 				idParams.geometry = event.mapPoint;
-				idParams.mapExtent = mymap.extent;
-				idParams.width = mymap.width;
-				idParams.height = mymap.height;
+				idParams.mapExtent = map.extent;
+				idParams.width = map.width;
+				idParams.height = map.height;
 				idParams.tolerance = 10;
 
 				// set definition query
@@ -494,17 +502,21 @@
 
 			// launch task (put a time out to let the file layer be executed before)
 			setTimeout(function() {
+				gMapid = mapid;
 				dlTasks = new dojoDefList(defList);
 				dlTasks.then(returnIdResults);
 			}, 100);
 		};
 
-		setFileLayerTask = function(event) {
+		setFileLayerTask = function(event, mapid) {
 			var task, results, item, layer, featLen,
 				feature, features,
 				index,
 				query = new esriQuery(),
-				graphId = mymap.graphicsLayerIds,
+				param = params[mapid],
+				lastLayerId = param.lastLayerId,
+				map = param.map,
+				graphId = map.graphicsLayerIds,
 				len = graphId.length - 2; // gcviz-symbol and gcviz-datagrid
 
 			// if !== -1, use layer id to find index. If === -1, no layer was added at init, use 0.
@@ -515,9 +527,9 @@
 			}
 
 			// loop trought all the file layer added with add data
-			query.geometry = gisGeo.createExtent(event.mapPoint, mymap, 10);
+			query.geometry = gisGeo.createExtent(event.mapPoint, map, 10);
 			while (index < len) {
-				layer = mymap.getLayer(graphId[index]);
+				layer = map.getLayer(graphId[index]);
 
 				// do it only for visible layer, not internal esri graphic layer or REST feature layer
 				if (layer.visible && layer.id.search('graphicsLayer') !== 0 && layer.id.search('gcviz-') !== 0 && layer.type !== 'Feature Layer') {
@@ -547,7 +559,7 @@
 								0: true,
 								1: features
 						};
-						deferredGraph.push(item);
+						param.deferredGraph.push(item);
 					}
 				}
 
@@ -556,7 +568,12 @@
 		};
 
 		returnIdResults = function(response) {
-			var len = deferredGraph.length;
+			var mapid = gMapid,
+				deferredGraph = params[mapid].deferredGraph,
+				len = deferredGraph.length;
+
+			// clean global mapid
+			gMapid = '';
 
 			// clean response if all layer are not visible
 			if (response[0] === 0) {
@@ -573,16 +590,16 @@
 			}
 
 			// send the resonse to the calling view model
-			idRtnFunc(response);
+			params[mapid].idRtnFunc(response);
 		};
 
-		setRelRecords = function(id, data) {
-			relRecords[id] = data;
+		setRelRecords = function(mapid, id, data) {
+			params[mapid].relRecords[id] = data;
 		};
 
-		getRelRecords = function(layerID, objectID) {
+		getRelRecords = function(mapid, layerID, objectID) {
 			var i = 0,
-				items = relRecords[layerID][objectID].features,
+				items = params[mapid].relRecords[layerID][objectID].features,
 				len = items.length,
 				outArr = new Array(len);
 
@@ -594,17 +611,21 @@
 			return outArr;
 		};
 
-		removeEvtPop = function() {
-			if (typeof idFeatures !== 'undefined') {
-				idFeatures.remove();
+		removeEvtPop = function(mapid) {
+			var param = params[mapid];
+
+			if (typeof param !== 'undefined') {
+				params[mapid].idFeatures.remove();
 			}
 		};
 
-		addEvtPop = function() {
-			if (typeof idFeatures !== 'undefined') {
+		addEvtPop = function(mapid) {
+			var param = params[mapid];
+
+			if (typeof param !== 'undefined') {
 				// make sure there is no event then add it
-				idFeatures.remove();
-				idFeatures = mymap.on('click', executeIdTask);
+				param.idFeatures.remove();
+				param.idFeatures = param.map.on('click', executeIdTask);
 			}
 		};
 

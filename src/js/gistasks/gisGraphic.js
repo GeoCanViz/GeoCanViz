@@ -13,7 +13,6 @@
 			'gcviz-gissymbol',
 			'gcviz-gisgeo',
 			'gcviz-gismap',
-			'esri/layers/GraphicsLayer',
 			'esri/toolbars/draw',
 			'esri/symbols/SimpleLineSymbol',
 			'esri/geometry/ScreenPoint',
@@ -22,7 +21,7 @@
 			'esri/geometry/Polyline',
 			'esri/graphic',
 			'dojo/on'
-	], function($viz, ko, gcvizFunc, gissymb, gisgeo, gisMap, esriGraphLayer, esriTools, esriLine, esriScreenPt, esriPt, esriPoly, esriPolyline, esriGraph, dojoOn) {
+	], function($viz, ko, gcvizFunc, gissymb, gisgeo, gisMap, esriTools, esriLine, esriScreenPt, esriPt, esriPoly, esriPolyline, esriGraph, dojoOn) {
 		var initialize,
 			importGraphics,
 			exportGraphics,
@@ -30,21 +29,24 @@
 			drawBox,
 			drawWCAGBox,
 			callbackCG,
-			addUndoStack,
 			privateMap,
-			gissymbols;
+			gissymbols,
+			mapVM,
+			tbdrawVM;
 
-		initialize = function(mymap, isGraphics, stackUndo, stackRedo, lblDist, lblArea) {
+		// there is a problem with the define. the gcviz-gissymbol is not able to be set. The weird thing
+		// is if I replace gisgeo with gissymbol in the define, gisgeo will be set as gissymbol but I can't
+		// have access to gisgeo anymore. With the require, we set the reference to gissymbol (hard way)
+		require(['gcviz-gissymbol', 'gcviz-vm-map', 'gcviz-vm-tbdraw'], function(gissymb, vmMap, vmDraw) {
+			gissymbols = gissymb;
+			mapVM = vmMap;
+			tbdrawVM = vmDraw;
+		});
 
-			// there is a problem with the define. the gcviz-gissymbol is not able to be set. The weird thing
-			// is if I replace gisgeo with gissymbol in the define, gisgeo will be set as gissymbol but I can't
-			// have access to gisgeo anymore. With the require, we set the reference to gissymbol (hard way)
-			require(['gcviz-gissymbol'], function(gissymb) {
-				gissymbols = gissymb;
-			});
+		initialize = function(mymap, stackU, stackR, lblDist, lblArea) {
 
 			// data model				
-			var graphic = function(mymap, isGraphics, undo, redo, lblDist, lblArea) {
+			var graphic = function(mymap, stackU, stackR, lblDist, lblArea) {
 				var _self = this,
 					symbLayer,
 					lengthWCAG, areaWCAG,
@@ -54,9 +56,11 @@
 					setColor,
 					toolbar,
 					gText, gColor, gKey, gUnit, gBackColor, gColorName,
-					stackUndo = undo,
-					stackRedo = redo,
+					isGraphics = false,
+					stackUndo = [],
+					stackRedo = [],
 					map = mymap,
+					mapid = map.vIdName,
 					wkid = map.vWkid,
 					txtDist = lblDist,
 					txtArea = lblArea,
@@ -70,13 +74,24 @@
 					isWCAG = false;
 
 				_self.init = function() {
-					// add the graphic layers to the map
-					mymap.addLayer(new esriGraphLayer({ id: 'gcviz-symbol' }));
+					// get the graphic layer
 					symbLayer = map.getLayer('gcviz-symbol');
 
 					// create esri toolbar
 					toolbar = new esriTools(map, { showTooltips: false });
 					dojoOn(toolbar, 'DrawEnd', addToMap);
+				};
+
+				_self.getStackUndo = function() {
+					return stackUndo;
+				};
+
+				_self.getStackRedo = function() {
+					return stackRedo;
+				};
+
+				_self.getIsGraphics = function() {
+					return isGraphics;
 				};
 
 				_self.deactivate = function() {
@@ -139,7 +154,7 @@
 					// and set isGraphics
 					symbLayer.clear();
 					map.graphics.clear();
-					isGraphics(false);
+					isGraphics = false;
 				};
 
 				_self.eraseSelect = function(geometry) {
@@ -179,13 +194,14 @@
 					// check if there is graphics. Check if the only one is a point at x:0;y:0
 					// this point is created by the API sometimes
 					if (symbLayer.graphics.length === 0) {
-						isGraphics(false);
+						isGraphics = false ;
 					} else if (symbLayer.graphics.length === 1 && symbLayer.graphics[0]._extent.xmax === 0) {
-						isGraphics(false);
+						isGraphics = false;
 					}
 
-					// focus map
-					gcvizFunc.focusMap(mymap, false);
+					// focus the map. We need to specify this because when you use the keyboard to
+					// activate the tool, the focus sometimes doesnt go to the map.
+					mapVM.focusMap(mapid, false);
 				};
 
 				_self.eraseUnfinish = function() {
@@ -203,7 +219,9 @@
 					}
 
 					// remove mouse move event and clear the dump graphics
-					mouseMeasureLength.remove();
+					if (typeof mouseMeasureLength !== 'undefined') {
+						mouseMeasureLength.remove();
+					}
 					mymap.graphics.clear();
 				};
 
@@ -228,11 +246,11 @@
 					// check if there is graphics. Check if the only one is a point at x:0;y:0
 					// this point is created by the API sometimes
 					if (symbLayer.graphics.length === 0) {
-						isGraphics(false);
+						isGraphics = false;
 					} else if (symbLayer.graphics.length === 1 && symbLayer.graphics[0]._extent.xmax === 0) {
-						isGraphics(false);
+						isGraphics = false;
 					} else {
-						isGraphics(true);
+						isGraphics = true;
 					}
 				};
 
@@ -257,11 +275,11 @@
 					// check if there is graphics. Check if the only one is a point at x:0;y:0
 					// this point is created by the API sometimes
 					if (symbLayer.graphics.length === 0) {
-						isGraphics(false);
+						isGraphics = false;
 					} else if (symbLayer.graphics.length === 1 && symbLayer.graphics[0]._extent.xmax === 0) {
-						isGraphics(false);
+						isGraphics = false;
 					} else {
-						isGraphics(true);
+						isGraphics = true;
 					}
 				};
 
@@ -376,16 +394,16 @@
 					if (drawMap) {
 						// set global then call the tool
 						gKey = key;
-	
+
 						// calculate values
 						while (len--) {
 							pt = array()[len];
-	
+
 							if (pt.hasOwnProperty('distance')) {
 								dist += pt.distance;
 							}
 						}
-	
+
 						// set good offset from angle and off
 						if (off === 0) {
 							offx = 20;
@@ -400,7 +418,7 @@
 							offx = -20;
 							offy = 10;
 						}
-	
+
 						// add text
 						dist = Math.floor(dist * 100) / 100;
 						text = txtDist + dist + ' ' + unit;
@@ -409,7 +427,8 @@
 					}
 
 					// add to stack
-					addUndoStack(gKey);
+					_self.addUndoStack(gKey, symbLayer.graphics);
+					isGraphics = true;
 
 					// remove mouse move event and clear the dump graphics
 					if (!isWCAG) {
@@ -466,6 +485,10 @@
 					// get label coordinnate from geoprocessing
 					if (drawMap) {
 						gisgeo.labelPoints(poly, info, measureLabelCallback);
+					} else {
+						// add to stack
+						_self.addUndoStack(gKey, symbLayer.graphics);
+						isGraphics = true;
 					}
 				};
 
@@ -479,7 +502,8 @@
 					measureText(text, 0, 0, 0);
 
 					// add to stack
-					addUndoStack(gKey);
+					_self.addUndoStack(gKey, symbLayer.graphics);
+					isGraphics = true;
 				};
 
 				measureLength = function(array, unit, drawMap) {
@@ -516,7 +540,7 @@
 							}
 
 							// change offset if vertical
-							off = Math.round(Math.abs(angle)/90);
+							off = Math.round(Math.abs(angle) / 90);
 							if (off === 1) {
 								offx = 15;
 								offy = 0;
@@ -620,7 +644,7 @@
 					// add background then text
 					addBackgroundText(graphic, gBackColor, 'center', 12, angle, offX, offY - 2, symbLayer);
 					symbLayer.add(graphic);
-					isGraphics(true);
+					isGraphics = true;
 				};
 
 				addBackgroundText = function(item, backColor, align, size, angle, offX, offY, graphLayer) {
@@ -681,8 +705,9 @@
 							graphic = new esriGraph(geometry, symbol);
 
 							// focus the map. We need to specify this because when you use the keyboard to
-							// activate ta tool, the focus sometimes doesnt go to the map.
-							gcvizFunc.focusMap(mymap, false);
+							// activate the tool, the focus sometimes doesnt go to the map.
+							mapVM.focusMap(mapid, false);
+
 						} else if (geomType === 'point') {
 							symbol = gissymbols.getSymbText(gColor, gText, 10, 0, 0, 0, 'normal', 'left');
 							graphic = new esriGraph(geometry, symbol);
@@ -693,7 +718,7 @@
 
 							// reopen the dialog box and reactivate text tool
 							setTimeout(function() {
-								gcvizFunc.getElemValueVM(map.vIdName, ['draw', 'isTextDialogOpen'], 'js')(true);
+								tbdrawVM.openTextDialog(mapid, graphic);
 							}, 1000);
 							setTimeout(function() {
 								toolbar.activate(esriTools.POINT);
@@ -703,23 +728,23 @@
 						// add graphic
 						graphic.key = gKey;
 						symbLayer.add(graphic);
-						isGraphics(true);
+						isGraphics = true;
 
 						// add to stack
-						addUndoStack(gKey);
+						_self.addUndoStack(gKey, symbLayer.graphics);
 					}
 				};
 
-				addUndoStack = function(key) {
+				_self.addUndoStack = function(key, graphics) {
 					var graphic,
 						grp = [],
-						graphics = symbLayer.graphics,
-						len = symbLayer.graphics.length;
+						len = graphics.length;
 
 					while (len--) {
 						graphic = graphics[len];
 						if (graphic.key === key) {
 							grp.push(graphic);
+							isGraphics = true;
 						}
 					}
 
@@ -753,21 +778,17 @@
 				_self.init();
 			};
 
-			return new graphic(mymap, isGraphics, stackUndo, stackRedo, lblDist, lblArea);
+			return new graphic(mymap, stackU, stackR, lblDist, lblArea);
 		};
 
-		importGraphics = function(map, graphics, isGraphics) {
+		// *** PUBLIC FUNCTIONS ***
+		importGraphics = function(map, graphics) {
 			var item,
 				graphic,
 				extents = [],
 				key = gcvizFunc.getUUID(),
 				layer = map.getLayer('gcviz-symbol'),
 				len = graphics.length;
-
-			// enable delete
-			if (len > 0) {
-				isGraphics(true);
-			}
 
 			while (len--) {
 				item = graphics[len];
@@ -780,8 +801,7 @@
 			// get the extent then zoom
 			gisMap.zoomGraphics(map, extents);
 
-			// add undo stack
-			addUndoStack(key);
+			return { key: key, graphics: layer.graphics };
 		};
 
 		exportGraphics = function(map) {
@@ -835,7 +855,7 @@
 			} else if (type === 'polyline') {
 				symb = gissymbols.getSymbLine([229,0,51,255], 2);
 			} else if (type === 'polygon') {
-				symb = gissymbols.getSymbPoly([205,197,197,100], [229,0,51,255], 2);
+				symb = gissymbols.getSymbPoly([229,0,51,255], [205,197,197,100], 2);
 			}
 
 			// generate graphic and asign symbol
@@ -844,6 +864,9 @@
 
 			// add the key to be able to find back the graphic
 			graphic.key = elem.attributes.key;
+
+			// add attributes
+			graphic.attributes = elem.attributes;
 
 			// add graphic
 			layer.add(graphic);

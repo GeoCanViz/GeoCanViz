@@ -139,20 +139,34 @@
 .gcviz-legendSymbolDiv {
 	vertical-align: middle;
 	padding-left: (3.5 * $rembase) + rem;
+	padding-top: (1 * $rembase) + rem;
 	border: (1 * $rembase) + rem;
+	line-height: 0;
 	@include app-text(1, normal);
 }
 
+// for item in legend
+.gcviz-legendSymbolDiv svg {
+	margin-right: 10px;
+}
+
+.gcviz-leg-outholder {
+	display: table;
+	line-height: 1;
+}
+
 .gcviz-leg-uniqueSymbolHolder {
-	display: inline;
+	display: table-cell;
 	vertical-align: middle;
-	padding-top: 0rem;
 }
 
 .gcviz-leg-uniqueSpan {
-	display: inline;
+	display: table-cell;
+	vertical-align: middle;
 	padding-left: (0.5 * $rembase) + rem;
 	white-space: nowrap;
+
+
 }
 
 .gcviz-leg-uniqueFieldHolder {

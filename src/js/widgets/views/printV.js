@@ -23,7 +23,7 @@
 
 			$print = $mapElem.find('.gcviz-print-cont');
 
-			node += '<div class="gcviz-printDiv" id="print-' + mapid + '"  data-bind="uiDialog: { title: lblPrintTitle, width: 600, height: 350, ok: dialogPrintOk, cancel: dialogPrintClose, close: dialogPrintClose, openDialog: \'isPrintDialogOpen\', modal: false, draggable: true }">' +
+			node += '<div class="gcviz-printDiv" id="print-' + mapid + '"  data-bind="uiDialog: { title: lblPrintTitle, width: 600, ok: dialogPrintOk, cancel: dialogPrintClose, close: dialogPrintClose, openDialog: \'isPrintDialogOpen\', modal: false, draggable: true }">' +
 						'<div><span class="gcviz-subtitle gcviz-printLabel" data-bind="text: lblLayout"></span>' +
 							'<select id="printlayoutSelect" data-bind="value: layoutValue, optionsText: \'Name\', optionsValue: \'Name\', options: printlayouts "></select></div>' +
 						'<div><span class="gcviz-subtitle gcviz-printLabel" data-bind="text: lblPrintTemplate"></span>' +

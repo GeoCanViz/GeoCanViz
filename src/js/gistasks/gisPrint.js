@@ -14,7 +14,8 @@
 			'esri/tasks/PrintParameters',
 			'esri/tasks/Geoprocessor'
 	], function($viz, func, esriPrintTemp, esriPrintTask, esriPrintParams, esriGeoProcessor) {
-		var printMap,
+		var saveImageMap,
+			saveImageResult,
 			printResult,
 			printError,
 			htmlPage,
@@ -43,12 +44,12 @@
 			addImagetoHtmlPrint;
 
 		getTemplates = function(url, layout, printType, projects) {
-				
 			var params = { 'Folder': lang,
 						   'PrintType': printType,
 						   'Layout': layout,
 						   'Projects': projects.join(',')},
 				dfd = $viz.Deferred();
+
 			gpFolders = new esriGeoProcessor(url);
 			gpFolders.submitJob(params, function(jobinfo) {
 				gpFolders.getResultData(jobinfo.jobId, 'Templates', function(results) {
@@ -329,7 +330,7 @@
 					
 					if (obj['gcviz-scalebar'] === 'true') {
 						printTaskScaleBar = new esriPrintTask(url, { async: true });
-						paramsScaleBar = new esriPrintParams()
+						paramsScaleBar = new esriPrintParams();
 						templateScaleBar = $viz.extend(true, {}, templateMap);
 						paramsScaleBar.map = map;
 						templateScaleBar.layout = 'Scalebar';
@@ -338,7 +339,7 @@
 
 					if (obj['gcviz-scaletext'] === 'true') {
 						printTaskScaleText = new esriPrintTask(url, { async: true });
-						paramsScaleText = new esriPrintParams()
+						paramsScaleText = new esriPrintParams();
 						templateScaleText = $viz.extend(true, {}, templateMap);
 						paramsScaleText.map = map;
 						templateScaleText.layout = 'Scaletext';
@@ -347,10 +348,13 @@
 
 					if (obj['gcviz-arrow'] === 'true') {
 						printTaskNorthArrow = new esriPrintTask(url, { async: true });
-						paramsNorthArrow = new esriPrintParams()
+						paramsNorthArrow = new esriPrintParams();
 						templateNorthArrow = $viz.extend(true, {}, templateMap);
 						paramsNorthArrow.map = map;
 						templateNorthArrow.layout = 'Northarrow';
+						if (map.wkid === 3978) {
+							templateNorthArrow.layout = 'Northarrow3978';
+						}
 						paramsNorthArrow.template = templateNorthArrow;
 					}
 
@@ -359,7 +363,7 @@
 				    						callPrintTask(printTaskScaleText, paramsScaleText),
 				    						callPrintTask(printTaskNorthArrow, paramsNorthArrow))
 				    .done(function(responseMap, responseScaleBar, responseScaleText, responseNorthArrow) {
-			            generateHTMLPrint(obj, orig, mapholder, responseMap, scalebar, responseScaleBar, scaletext, responseScaleText, northarrow, responseNorthArrow, updatedHTML)	
+			            generateHTMLPrint(obj, orig, mapholder, responseMap, scalebar, responseScaleBar, scaletext, responseScaleText, northarrow, responseNorthArrow, updatedHTML);
 			         })
 				    .fail(function() {
 				    	console.log('Failed to get all responses to generate map');
@@ -405,49 +409,50 @@
 			}
 		};
 
-		printMap = function(map, printInfo) {
-			// We cant use the print task for certain type now because it is not able to deal with
-			// cluster graphic layers.
-			// TODO try to solve this or stay with the new approach
-			var printTask = new esriPrintTask(printInfo.url),
+		saveImageMap = function(map, url) {
+			var def = $viz.Deferred(),
+				printTask = esriPrintTask(url, { async: true }),
 				params = new esriPrintParams(),
 				template = new esriPrintTemp();
 
-			// set the html page to open
-			htmlPage = printInfo.template;
-
-			// set the print template and print parameters then call the task
-			template.exportOptions = { dpi: 96 };
-			template.format = 'PNG8';
-			template.layout = 'Letter ANSI A Landscape';
-			template.layoutOptions = {
-				'scalebarUnit': 'Kilometers',
-				'copyrightText': printInfo.copyright,
-				'legendLayer': []
+			template.exportOptions = {
+				height: map.height,
+				width: map.width,
+				dpi: 96
 			};
-			template.preserveScale = true;
+			template.format = 'JPG';
+			template.layout = 'MAP_ONLY';
+			template.preserveScale = false;
 
-			params.template = template;
 			params.map = map;
-			printTask.execute(params, printResult, printError);
+			params.template = template;
+			printTask.execute(params, saveImageResult);
+
+			printTask.on('complete, error', function() {
+				def.resolve();
+			});
+			return def;
+		};
+
+		saveImageResult = function(response) {
+			window.open(response.url);
 		};
 
 		printResult = function(response) {
-			
+
 		};
 
 		printError = function(err) {
 			console.log('Printing broken: ', err);
 		};
 
-
 		return {
-			printMap : printMap,
 			generateHTMLPrint : generateHTMLPrint,
 			getTemplates: getTemplates,
 			getMxdElements: getMxdElements,
 			printCustomMap: printCustomMap,
-			printBasicMap: printBasicMap
+			printBasicMap: printBasicMap,
+			saveImageMap: saveImageMap
 		};
 	});
 }());

@@ -14,8 +14,6 @@ var locationPath;
 		mapsNum;
 
 	define(['jquery-private',
-			'magnificpopup',
-			'jqueryui',
 			'gcviz-i18n',
 			'gcviz-func',
 			'gcviz-v-map',
@@ -31,7 +29,7 @@ var locationPath;
 			'gcviz-v-tbdata',
 			'gcviz-v-tbextract',
 			'gcviz-v-print'
-	], function($viz, mp, jqui, i18n, gcvizFunc, map, inset, help, wcag, datagrid, header, footer, tbdraw, tbnav, tblegend, tbdata, tbextract, print) {
+	], function($viz, i18n, gcvizFunc, map, inset, help, wcag, datagrid, header, footer, tbdraw, tbnav, tblegend, tbdata, tbextract, print) {
 		var initialize,
 			readConfig,
 			execConfig,
@@ -49,7 +47,9 @@ var locationPath;
 
 			// extent or private AMD jQuery with the jQuery from outside project to get reference to some dependencies (magnificPopup, jqueryUI, slidesJS)
 			// we need to do this because those libraries are not AMD and use the window.jQuery object to initialize themselves.
-			$viz.extend(true, $viz, $);
+			// TODO: I put this in comment because no set jquerui as input in my define in the gcviz-config...it seems to solve the problem!
+			// The extend seems to corrupt the library...
+			//$viz.extend(true, $viz, $);
 
 			// initialize map number and total for the ready event
 			mapsTotal = len;
@@ -63,7 +63,7 @@ var locationPath;
 			setLocationPath();
 
 			// set local for magnificpopup plugin
-			setLocalMP();
+			//setLocalMP();
 
 			// set scrollTo function
 			setScrollTo();
@@ -113,7 +113,7 @@ var locationPath;
 				mapid = mapframe.id,
 				size = mapframe.size,
 				width = size.width,
-				vmArray = {},
+				cfgPrint = config.header.print,
 				maxWidth = parseInt($mapElem.parent().css('width'), 10) - (2 * $mapElem.position().left); // get container width;
 
 			// check if the container width is smaller then gcviz. If so, set width to container width
@@ -132,65 +132,57 @@ var locationPath;
 
 			// create map and add layers
 			// save the result of every view model in an array of view models
-			vmArray.map = map.initialize($mapSection, width);
-
-			// set the global vm to retreive link vm together
-			// we do it here first because we need a value from mapVM inside headerVM
-			gcvizFunc.setVM(mapid, vmArray);
+			map.initialize($mapSection, width);
 
 			// add the WCAG section for keyboard user
-			vmArray.wcag = wcag.initialize($mapSection);
+			wcag.initialize($mapSection);
 
 			// add header and footer
-			vmArray.header = header.initialize($mapSection);
-			vmArray.footer = footer.initialize($mapSection);
+			header.initialize($mapSection);
+			footer.initialize($mapSection);
 
 			// add draw toolbar
 			if (config.toolbardraw.enable) {
-				vmArray.draw = tbdraw.initialize($mapSection);
+				tbdraw.initialize($mapSection);
 			}
 
 			// add navigation toolbar
 			if (config.toolbarnav.enable) {
-				vmArray.nav = tbnav.initialize($mapSection);
+				tbnav.initialize($mapSection);
 			}
 
 			// add legend
 			if (config.toolbarlegend.enable) {
-				vmArray.legend = tblegend.initialize($mapSection);
+				tblegend.initialize($mapSection);
 			}
 
 			// add datatable, popup and hover
 			if (config.datagrid.enable) {
-				vmArray.datagrid = datagrid.initialize($mapSection);
+				datagrid.initialize($mapSection);
 			}
 
 			// add data
 			if (config.toolbardata.enable) {
-				vmArray.data = tbdata.initialize($mapSection);
+				tbdata.initialize($mapSection);
 			}
 
 			// add data extraction
 			if (config.toolbarextract.enable) {
-				vmArray.extract = tbextract.initialize($mapSection);
+				tbextract.initialize($mapSection);
 			}
 
 			// add inset
 			if (config.insetframe.enable) {
-				vmArray.insets = inset.initialize($mapSection);
+				inset.initialize($mapSection);
 			}
 
 			// add print
-			if (config.header.print.enable) {
-				// add print
-				vmArray.print = print.initialize($mapSection);
+			if (cfgPrint.enable && cfgPrint.type !== 3) {
+				print.initialize($mapSection);
 			}
 
 			// create the help for the map instance
-			vmArray.help = help.initialize($mapSection);
-
-			// set the global vm to retreive link vm together
-			gcvizFunc.setVM(mapid, vmArray);
+			help.initialize($mapSection);
 
 			// notify the map is ready and increment
 			$mapElem.trigger('gcviz-ready');
@@ -272,7 +264,7 @@ var locationPath;
 
 		setLocalMP = function() {
 			// keep $ because $viz wont work
-			$viz.extend(true, $.magnificPopup.defaults, {
+			$viz.extend({}, $.magnificPopup.defaults, {
 				tClose: i18n.getDict('%mp-close'), // Alt text on close button
 				tLoading: i18n.getDict('%mp-load'), // Text that is displayed during loading. Can contain %curr% and %total% keys
 				gallery: {

@@ -13,10 +13,14 @@
 			'gcviz-i18n',
 			'gcviz-func',
 			'gcviz-gisgeo',
-			'gcviz-gisnav'
-	], function($viz, ko, i18n, gcvizFunc, gisGeo, gisNav) {
+			'gcviz-vm-map',
+			'gcviz-vm-tbdata'
+	], function($viz, ko, i18n, gcvizFunc, gisGeo, mapVM, tbdataVM) {
 		var initialize,
-			vm;
+			notifyTableReady,
+			toggleDatagrid,
+			subscribeIsDGOpen,
+			vm = {};
 
 		initialize = function($mapElem, mapid, config, dataToolbar) {
 
@@ -64,46 +68,39 @@
 				_self.isOpenDG = ko.observable(false);
 
 				_self.init = function() {
-					var mymap = gcvizFunc.getElemValueVM(mapid, ['map', 'map'], 'js');
-
+					// See if user wanted the map coordinnates
 					if (configMouse.enable) {
-						coordEvt = mymap.on('mouse-move', function(evt) {
-							_self.showCoordinates(evt);
-						});
+						coordEvt = mapVM.registerEvent(mapid, 'mouse-move', _self.showCoordinates, 200);
 
 						$viz('#' + mapid).on('gcviz-ready', function() {
 							// subscribe to the open add data event. When data is added we need to stop the
 							// show coordinate event because it corrupts the projection and creates errors
 							if (dataToolbar) {
-								gcvizFunc.subscribeTo(mapid, 'data', 'isAddData', function(val) {
+
+								tbdataVM.subscribeIsAddData(mapid, function(val) {
 									if (val) {
 										coordEvt.remove();
 									} else {
-										coordEvt = mymap.on('mouse-move', function(evt) {
-											_self.showCoordinates(evt);
-										});
+										coordEvt = mapVM.registerEvent(mapid, 'mouse-move', _self.showCoordinates, 200);
 									}
 								});
 							}
 						});
 					}
 
+					// see if user wanted a north arrow
 					if (configNorth.enable) {
 						// set init state
-						gisGeo.getNorthAngle(mymap.extent, inwkid, _self.updateArrow);
+						gisGeo.getNorthAngle(mapVM.getExtentMap(mapid), inwkid, _self.updateArrow);
 
-						mymap.on('pan-end', function(evt) {
-							_self.showNorthArrow(evt);
-						});
-
-						mymap.on('zoom-end', function(evt) {
-							_self.showNorthArrow(evt);
-						});
+						// pan end and zoom end events
+						mapVM.registerEvent(mapid, 'pan-end', _self.showNorthArrow);
+						mapVM.registerEvent(mapid, 'zoom-end', _self.showNorthArrow);
 					}
 
-					// See if user wanted a scalebar. If so, initialize it here
+					// see if user wanted a scalebar
 					if (scalebar.enable) {
-						gisNav.setScaleBar(mymap, scalebar);
+						mapVM.setScaleBar(mapid, scalebar);
 					}
 
 					return { controlsDescendantBindings: true };
@@ -176,7 +173,6 @@
 					x = Math.cos(lat1) * Math.sin(lat2) - Math.sin(lat1) * Math.cos(lat2) * Math.cos(dLon);
 					bearing = Math.atan2(y, x) * 180 / Math.PI;
 					bearing = ((bearing + 360) % 360).toFixed(1) - 90; //Converting -ve to +ve (0-360)
-
 					_self.rotateArrow('rotate(' + bearing + 'deg)');
 				};
 
@@ -207,13 +203,40 @@
 				_self.init();
 			};
 
-			vm = new footerViewModel($mapElem, mapid, config, dataToolbar);
-			ko.applyBindings(vm, $mapElem[0]); // This makes Knockout get to work
+			// put view model in an array because we can have more then one map in the page
+			vm[mapid] = new footerViewModel($mapElem, mapid, config, dataToolbar);
+			ko.applyBindings(vm[mapid], $mapElem[0]); // This makes Knockout get to work
 			return vm;
 		};
 
+		// *** PUBLIC FUNCTIONS ***
+		notifyTableReady = function(mapid) {
+			var viewModel = vm[mapid];
+
+			// link to view model to call the function inside
+			if (typeof viewModel !== 'undefined') {
+				viewModel.isTableReady(true);
+			}
+		};
+
+		toggleDatagrid = function(mapid) {
+			var viewModel = vm[mapid];
+
+			// link to view model to call the function inside
+			if (typeof viewModel !== 'undefined') {
+				viewModel.datagridClick();
+			}
+		};
+
+		subscribeIsDGOpen = function(mapid, funct) {
+			return vm[mapid].isOpenDG.subscribe(funct);
+		};
+
 		return {
-			initialize: initialize
+			initialize: initialize,
+			notifyTableReady: notifyTableReady,
+			toggleDatagrid: toggleDatagrid,
+			subscribeIsDGOpen: subscribeIsDGOpen
 		};
 	});
 }).call(this);

@@ -9,6 +9,7 @@
                 "urlgeomserv": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/Utilities/Geometry/GeometryServer",
                 "urlproxy": "http://geoappext.nrcan.gc.ca/php/proxy.ashx",
                 "urldownload": "http://geoappext.nrcan.gc.ca/php/download.php",
+                "urlsaveimage": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task",
                 "sr": {
                     "wkid": 3978
                 },
@@ -25,7 +26,7 @@
                     "ymax": 4172189.70508
                 },
                 "lods": {
-                    "enable": false,
+                    "enable": true,
                     "values": [{
                         "level": 0,
                         "resolution": 38364.660062653464,
@@ -120,12 +121,12 @@
                         "level": 18,
                         "resolution": 2.6458386250105836,
                         "scale": 10000,
-                        "check": true
+                        "check": false
                     }, {
                         "level": 19,
                         "resolution": 1.5875031750063502,
                         "scale": 6000,
-                        "check": true
+                        "check": false
                     }]
                 },
                 "link": false,
@@ -143,17 +144,17 @@
                     "url": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/BaseMaps/CBME_CBCE_HS_RO_3978/MapServer",
 					"scale": {
                         "min": 0,
-                        "max": 17500
+                        "max": 0
 					}
                 },
 				{
-                	"label": "Imagery Lansat7",
+                	"label": "Imagerie Landsat7",
                     "id":"99999999-0003-c8f5-175c-645270a6b6fe",
                     "type": 3,
                     "url": "http://maps.geogratis.gc.ca/wms/canimage_en",
                     "scale": {
                         "min": 0,
-                        "max": 10000
+                        "max": 0
 					},
                     "options": {
 	                    "layerinfos": [{
@@ -164,18 +165,18 @@
           			}
           		},
 				{
-                    "label": "CBMT3978",
+                    "label": "CBCT3978",
                     "id": "62e7429b-b08a-9325-45dd-4fbff4f67858",
                     "type": 2,
-                    "url": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/BaseMaps/CBMT3978/MapServer",
+                    "url": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/BaseMaps/CBCT3978/MapServer",
                     "scale": {
                         "min": 0,
-                        "max": 17500
+                        "max": 0
 					}
 				}
 				],
                 "layers": [
-					{"label":"Geochron",
+					{"label":"Géochronologie",
 					"id":"6f798c6b-f369-4e24-78dd-9bfa5a9bc59e",
 					"type":4,
 					"url":"http://geoappext.nrcan.gc.ca/arcgis/rest/services/GSCC/Geochronology/MapServer/",
@@ -188,8 +189,8 @@
         "header": {
             "side": 1,
             "title": {
-                "value": "Canadian Geochronology Knowledgebase",
-                "alttext": "Canadian Geochronology Knowledgebase"
+                "value": "Base nationale des données géochronologiques",
+                "alttext": "Base nationale des données géochronologiques"
             },
             "tools": {
                 "enable": true,
@@ -200,11 +201,20 @@
             "about": {
                 "enable": true,
                 "type": 1,
-                "value": "The CGKB compilation represents publicly available geochronological information for Canada. The data is compiled from federal, provincial and territorial government publications and reports, university theses, books and journal articles."
+                "value": "La compilation BNDG est composée d'information géochronologique pour le Canada auxquel le public a accèss. Elle provient de références bibliographiques incluant des publications et rapports du gouvernement fédéral, des gouvernements provinciaux et territoriaux, de thèses universitaires, livres et journaux scientifiques."
             },
             "print": {
                 "enable": true,
-                "type": 1
+                "type": 3,
+                "printlayout": ["Portrait", "Landscape"],
+                "project": ["Default", "Topo"],
+                "DPI": [96, 300]
+            },
+		 "saveurl": {
+              "enable": true
+            },
+            "saveimage": {
+              "enable": true
             },
             "fullscreen": true
         },
@@ -239,8 +249,8 @@
 					"graphid": "cc7fde4c-0003-1cf2-8358-7ca86eefb13c",
 					"displayfields": false,
 					"label": {
-						"value": "Canada Base Map",
-						"alttext": "Canada Base Map"
+						"value": "Carte de fond du Canada",
+						"alttext": "Carte de fond du Canada"
 					},
 					"metadata": {
 						"enable": false
@@ -276,8 +286,8 @@
 					"graphid": "762eb7ed-0001-242f-6fcf-af08f5605eb1",
 					"displayfields": false,
 					"label": {
-						"value": "Hillshade",
-						"alttext": "Hillshade"
+						"value": "Ombrage",
+						"alttext": "Ombrage"
 					},
 					"metadata": {
 						"enable": false
@@ -313,8 +323,8 @@
 					"graphid":"e5511402-0002-5cbe-0d3c-f537c612b7df",
 					"displayfields":false,
 					"label":{
-						"value":"Landsat Imagery",
-						"alttext":"Landsat Imagery"
+						"value":"Imagerie Landsat",
+						"alttext":"Imagerie Landsat"
 					},
 					"metadata":
 						{"enable":false,
@@ -353,16 +363,16 @@
 					"id":"6f798c6b-f369-4e24-78dd-9bfa5a9bc59e",
 					"graphid":"68865be1-057c-7faf-9521-029baa08899a",
 					"displayfields":false,
-					"label":{"value":"Geochronology","alttext":"Geochronology"},
+					"label":{"value":"Géochronologie","alttext":"Géochronologie"},
 					"metadata":{"enable":false},
 					"opacity":{"enable":false,"min":0,"max":1,"initstate":1},
 					"visibility":{"enable":true,"initstate":true,"type":1,"radioid":0},
-					"displaychild":{"enable":false,
-								"symbol":""
+					"displaychild":{"enable":true,
+								"symbol":"{\"type\":\"classBreaks\",\"field\":\"AGE\",\"classificationMethod\":\"esriClassifyManual\",\"minValue\":0,\"classBreakInfos\":[{\"symbol\":{\"type\":\"esriPMS\",\"url\":\"8f6be4ca42cc59c427319812487e543f\",\"imageData\":\"iVBORw0KGgoAAAANSUhEUgAAAAYAAAAGCAYAAADgzO9IAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAGxJREFUCJlVzKENwlAUheHvJi+5hA5A96hD4mAKHAswABrPAuwBW9Rh6qrqqx6CksBRJ//JfwpQ15n1QnR4zLNrWYYbcfx0u8y6KpAZe3+Jw2Losfnipql9gbZ1Gkd3dHhOU5wLDEO8sP09ewN+GBYFTY43owAAAABJRU5ErkJggg==\",\"contentType\":\"image/png\",\"width\":4,\"height\":4,\"angle\":0,\"xoffset\":0,\"yoffset\":0},\"classMaxValue\":65,\"label\":\"0.000 - 65.000\",\"description\":\"\"},{\"symbol\":{\"type\":\"esriPMS\",\"url\":\"2fdf6c180cf50741167a2c3529c8bfc4\",\"imageData\":\"iVBORw0KGgoAAAANSUhEUgAAAAYAAAAGCAYAAADgzO9IAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAHFJREFUCJlVzDEOAVEYAOHv5b2IrJ6DbLeljl6v4gIOoNaKC7gHjcQNttNKxA2Iza9QYMrJZArMtlHdBrF+Rqp7HE53mwLXKnYizTM6xs0w+gVIE3+kafGp2szo66MtkDtL2R41jo9XWhU4L9IFze/sDeTjHB+KjL1XAAAAAElFTkSuQmCC\",\"contentType\":\"image/png\",\"width\":4,\"height\":4,\"angle\":0,\"xoffset\":0,\"yoffset\":0},\"classMaxValue\":251,\"label\":\"65.001 - 251.000\",\"description\":\"\"},{\"symbol\":{\"type\":\"esriPMS\",\"url\":\"4f1bc0c5e000e2b0152a9393e2b79f78\",\"imageData\":\"iVBORw0KGgoAAAANSUhEUgAAAAYAAAAGCAYAAADgzO9IAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAHNJREFUCJlNzKENwlAUQNHzfj4pwSJgjzokDkZA4VgAg0MjSVgAxRKwRR0ehYSkov040mtPcjMcbiZf1TFFW/fFfT51yvAJlyjtti9g+XpX4wxRrAyKaNcZUmj6YvaXXpOh6+wiuaJOPEadfYbzxhOL4e4HReMeI2f0OeAAAAAASUVORK5CYII=\",\"contentType\":\"image/png\",\"width\":4,\"height\":4,\"angle\":0,\"xoffset\":0,\"yoffset\":0},\"classMaxValue\":542,\"label\":\"251.001 - 542.000\",\"description\":\"\"},{\"symbol\":{\"type\":\"esriPMS\",\"url\":\"4b6f68645954040a62e32e96029b06cb\",\"imageData\":\"iVBORw0KGgoAAAANSUhEUgAAAAYAAAAGCAYAAADgzO9IAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAG1JREFUCJlNzKENAkEUANHH5ocjNECo4xwSB8lJPI4GKACNpwE6QCChi3N4WrhF7GIguVGTTDIBu7f5UJsTuU08bh/ngIELeQ+FdTdtZgGqjRFJ3sbPeyz+odAHlIlDqq5o8YzkGHBfemE13n0BdhQYKUynkYAAAAAASUVORK5CYII=\",\"contentType\":\"image/png\",\"width\":4,\"height\":4,\"angle\":0,\"xoffset\":0,\"yoffset\":0},\"classMaxValue\":1600,\"label\":\"542.001 - 1600.000\",\"description\":\"\"},{\"symbol\":{\"type\":\"esriPMS\",\"url\":\"a363385d7825d9c4a96e7b1de60858ec\",\"imageData\":\"iVBORw0KGgoAAAANSUhEUgAAAAYAAAAGCAYAAADgzO9IAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAHJJREFUCJlNzKENwlAUQNHz2g9pWIBB6pAkCPB4HAtgcGDxLMAOCARsUccQxZLwP4KQ9NqT3ARlv56Upj8Erbq6q2+nBKXpzxE2IOd5sWgSRFgaFNkqgaITpn8oPt0P8nhr9L7IWjyieu1+q+P1idlw9wX3IxwckRMCVgAAAABJRU5ErkJggg==\",\"contentType\":\"image/png\",\"width\":4,\"height\":4,\"angle\":0,\"xoffset\":0,\"yoffset\":0},\"classMaxValue\":2500,\"label\":\"1600.001 - 2500.000\",\"description\":\"\"},{\"symbol\":{\"type\":\"esriPMS\",\"url\":\"c59369f4dd06a735c69d62329adf5028\",\"imageData\":\"iVBORw0KGgoAAAANSUhEUgAAAAYAAAAGCAYAAADgzO9IAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAGFJREFUCJlNzLENwjAUANH3JUuOWIBB0lGmC1PQsQADpKZnAfaALdJlkV+ZgljKVSeddAUap1brEpkjPniWPbwi8+bP1GodCgSzA5F5LbuvOPfQWHu4440R3+DRVxsux90PWGIUJ1JYcM0AAAAASUVORK5CYII=\",\"contentType\":\"image/png\",\"width\":4,\"height\":4,\"angle\":0,\"xoffset\":0,\"yoffset\":0},\"classMaxValue\":4673,\"label\":\"2500.001 - 4673.000\",\"description\":\"\"}]}"
 					},
 					"customimage":{
-						"enable":true,
-						"description": "Geochronology",
+						"enable":false,
+						"description": "",
 						"images":[]
 					},
 					"items":[]
@@ -408,8 +418,8 @@
             },
             "overview": {
                 "enable": true,
-                "url": "",
-                "type": "4"
+                    "url": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/BaseMaps/CBCT3978/MapServer",
+                "type": 2
             },
             "position": {
                 "enable": true
@@ -423,7 +433,7 @@
                 "enable": true
             },
             "dataurl": {
-                "enable": true
+                "enable": false
             },
             "dataquery": {
             	"enable": false
@@ -441,247 +451,228 @@
 							"type": 4,
 							"index": 0
 					   },
-					   "title": "Geochronology",
+					   "title": "Géochronologie",
 					   "globalsearch": false,
-					   "fields": [{
-					           "title": "Lab No",
-					           "width": "100px",
-					           "data": "LABNO",
-					           "dataalias": "labno",
-								"type": {
-									"field": "field",
-									"value": "number"
-								},
+					   "fields": [
+					       {
+					           "title": "Prov.",
+					           "width": "40px",
+					           "data": "PROV",
+					           "dataalias": "Province",
+								"fieldtype": {
+								"type": 1,
+								"value": 4
+							},
 								"searchable": true
 					       }, {
-					           "title": "Sample No",
+					           "title": "Province Géologique",
 					           "width": "90px",
-					           "data": "SAMPLENO",
-					           "dataalias": "Sample Number",
-								"type": {
-									"field": "field",
-									"value": "string"
-								},
+					           "data": "GEOLOGICAL_PROVINCE",
+					           "dataalias": "Geological Province",
+								"fieldtype": {
+								"type": 1,
+								"value": 4
+							},
 								"searchable": true
 					       }, {
-					           "title": "Age (Million years)",
+					           "title": "Type de roche",
+					           "width": "70px",
+					           "data": "ROCKTYPE",
+					           "dataalias": "Rock Type",
+								"fieldtype": {
+								"type": 1,
+								"value": 4
+							},
+								"searchable": true
+					       }, {
+					           "title": "Âge (Million d'années)",
 					           "width": "100px",
 					           "data": "AGE",
 					           "dataalias": "Age",
-								"type": {
-									"field": "field",
-									"value": "number"
-								},
+								"fieldtype": {
+								"type": 1,
+								"value": 2
+							},
 								"searchable": true
 					       }, {
-					           "title": "Error Plus",
-					           "width": "100px",
+					           "title": "Erreur +",
+					           "width": "80px",
 					           "data": "ERR_PLUS",
 					           "dataalias": "Error Plus",
-								"type": {
-									"field": "field",
-									"value": "number"
-								},
+								"fieldtype": {
+								"type": 1,
+								"value": 2
+							},
 								"searchable": true
 					       }, {
-					           "title": "Error Minus",
-					           "width": "100px",
+					           "title": "Erreur -",
+					           "width": "80px",
 					           "data": "ERR_MINUS",
 					           "dataalias": "Error Minus",
-								"type": {
-									"field": "field",
-									"value": "number"
-								},
+								"fieldtype": {
+								"type": 1,
+								"value": 2
+							},
 								"searchable": true
 					       }, {
-					           "title": "Age Method",
-					           "width": "60px",
-					           "data": "AGE_METHOD",
-					           "dataalias": "Method",
-								"type": {
-									"field": "field",
-									"value": "select"
-								},
-								"searchable": true
-					       }, {
-					           "title": "Age Interpretation",
+					           "title": "Âge-Interprétation",
 					           "width": "110px",
 					           "data": "AGE_INTERP",
 					           "dataalias": "Age Interp",
-								"type": {
-									"field": "field",
-									"value": "string"
-								},
+								"fieldtype": {
+								"type": 1,
+								"value": 4
+							},
 								"searchable": true
 					       }, {
-					           "title": "Age Note",
-					           "width": "90px",
-					           "data": "AGE_NOTE",
-					           "dataalias": "Note",
-								"type": {
-									"field": "field",
-									"value": "string"
-								},
+					           "title": "Âge-méthode",
+					           "width": "60px",
+					           "data": "AGE_METHOD",
+					           "dataalias": "Method",
+								"fieldtype": {
+								"type": 1,
+								"value": 4
+							},
 								"searchable": true
 					       }, {
-					           "title": "Material",
+					           "title": "Matériel",
 					           "width": "60px",
 					           "data": "AGE_MATERIAL",
 					           "dataalias": "Material",
-								"type": {
-									"field": "field",
-									"value": "select"
-								},
+								"fieldtype": {
+								"type": 1,
+								"value": 4
+							},
 								"searchable": true
 					       }, {
 					           "title": "Technique",
 					           "width": "75px",
 					           "data": "AGE_TECHNIQUE",
 					           "dataalias": "Technique",
-								"type": {
-									"field": "field",
-									"value": "string"
-								},
+								"fieldtype": {
+								"type": 1,
+								"value": 1
+							},
 								"searchable": true
 					       }, {
-					           "title": "Qualifier",
+					           "title": "Qualificatif",
 					           "width": "70px",
 					           "data": "AGE_QUALIFIER",
 					           "dataalias": "Age Qualifier",
-								"type": {
-									"field": "field",
-									"value": "string"
-								},
+								"fieldtype": {
+								"type": 1,
+								"value": 1
+							},
 								"searchable": true
 					       }, {
-					           "title": "Geological Province",
+					           "title": "Âge-Note",
 					           "width": "90px",
-					           "data": "GEOLOGICAL_PROVINCE",
-					           "dataalias": "Geological Province",
-								"type": {
-									"field": "field",
-									"value": "string"
-								},
+					           "data": "AGE_NOTE",
+					           "dataalias": "Note",
+								"fieldtype": {
+								"type": 1,
+								"value": 1
+							},
 								"searchable": true
 					       }, {
-					           "title": "Province",
-					           "width": "70px",
-					           "data": "PROV",
-					           "dataalias": "Province",
-								"type": {
-									"field": "field",
-									"value": "string"
-								},
+					           "title": "Num. Échant.",
+					           "width": "90px",
+					           "data": "SAMPLENO",
+					           "dataalias": "Sample Number",
+								"fieldtype": {
+								  "type": 1,
+								  "value": 1
+								 },
 								"searchable": true
 					       }, {
-					           "title": "Lat.",
-					           "width": "100px",
-					           "data": "LATITUDE",
-					           "dataalias": "Latitude",
-								"type": {
-									"field": "field",
-									"value": "number"
-								},
-								"searchable": true
-					       }, {
-					           "title": "Long.",
-					           "width": "100px",
-					           "data": "LONGITUDE",
-					           "dataalias": "Longitude",
-								"type": {
-									"field": "field",
-									"value": "number"
-								},
-								"searchable": true
-					       }, {
-					           "title": "Location",
-					           "width": "70px",
-					           "data": "LOCATION",
-					           "dataalias": "Location",
-								"type": {
-									"field": "field",
-									"value": "string"
-								},
-								"searchable": true
-					       }, {
-					           "title": "Geological Info.",
-					           "width": "75px",
-					           "data": "GEOLOGICAL_INFO",
-					           "dataalias": "Geological Info",
-								"type": {
-									"field": "field",
-									"value": "string"
-								},
-								"searchable": true
-					       }, {
-					           "title": "Rock Type",
-					           "width": "60px",
-					           "data": "ROCKTYPE",
-					           "dataalias": "Rock Type",
-								"type": {
-									"field": "field",
-									"value": "string"
-								},
-								"searchable": true
-					       }, {
-					           "title": "Rock Descr.",
+					           "title": "Descr.-Roche",
 					           "width": "60px",
 					           "data": "ROCKDESC",
 					           "dataalias": "Rock Description",
-								"type": {
-									"field": "field",
-									"value": "string"
-								},
+								"fieldtype": {
+								"type": 1,
+								"value": 1
+							},
 								"searchable": true
 					       }, {
-					           "title": "Authors",
+					           "title": "Lat.",
+					           "width": "140px",
+					           "data": "LATITUDE",
+					           "dataalias": "Latitude",
+								"fieldtype": {
+								"type": 1,
+								"value": 2
+							},
+								"searchable": true
+					       }, {
+					           "title": "Long.",
+					           "width": "170px",
+					           "data": "LONGITUDE",
+					           "dataalias": "Longitude",
+								"fieldtype": {
+								"type": 1,
+								"value": 2
+							},
+								"searchable": true
+					       }, {
+					           "title": "Emplacement",
+					           "width": "70px",
+					           "data": "LOCATION",
+					           "dataalias": "Location",
+								"fieldtype": {
+								"type": 1,
+								"value": 1
+							},
+								"searchable": true
+					       }, {
+					           "title": "Info. géologique",
+					           "width": "75px",
+					           "data": "GEOLOGICAL_INFO",
+					           "dataalias": "Geological Info",
+								"fieldtype": {
+								"type": 1,
+								"value": 1
+							},
+								"searchable": true
+					       }, {
+					           "title": "Auteurs",
 					           "width": "60px",
 					           "data": "AUTHORS",
 					           "dataalias": "Authors",
-								"type": {
-									"field": "field",
-									"value": "string"
-								},
+								"fieldtype": {
+								"type": 1,
+								"value": 1
+							},
 								"searchable": true
 					       }, {
-					           "title": "Year",
-					           "width": "100px",
+					           "title": "Année",
+					           "width": "90px",
 					           "data": "YEAR_",
 					           "dataalias": "Year",
-								"type": {
-									"field": "field",
-									"value": "number"
-								},
+								"fieldtype": {
+								"type": 1,
+								"value": 2
+							},
 								"searchable": true
 					       }, {
-					           "title": "Title",
-					           "width": "60px",
-					           "data": "AGE_NOTE",
-					           "dataalias": "Title",
-								"type": {
-									"field": "field",
-									"value": "string"
-								},
-								"searchable": true
-					       }, {
-					           "title": "Ref. Info.",
+					           "title": "Réf.-Info.",
 					           "width": "60px",
 					           "data": "REFERENCE_INFO",
 					           "dataalias": "Reference Info",
-								"type": {
-									"field": "field",
-									"value": "string"
-								},
+								"fieldtype": {
+								"type": 1,
+								"value": 1
+							},
 								"searchable": true
 					       }, {
-					           "title": "Comp. Name",
-					           "width": "60px",
-					           "data": "COMPILATION_NAME",
-					           "dataalias": "Compilation Name",
-								"type": {
-									"field": "field",
-									"value": "string"
-								},
+					           "title": "Num. Lab",
+					           "width": "90px",
+					           "data": "LABNO",
+					           "dataalias": "labno",
+								"fieldtype": {
+								"type": 1,
+								"value": 2
+							},
 								"searchable": true
 					       }],
 						"linktable": {

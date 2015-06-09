@@ -21,7 +21,8 @@
 			var $toolbar,
 				config = $mapElem.toolbardraw,
 				mapid = $mapElem.mapframe.id,
-				node = '';
+				node = '',
+				side = $mapElem.header.side === 1 ? 'left' : 'right'; //measure window side from menu side
 
 			// add the url for dowload page to config
 			config.urldownload = $mapElem.mapframe.map.urldownload;
@@ -48,7 +49,7 @@
 					'</div>';
 
 			// set measure buttons
-			node += getMeasureBtn(config, mapid);
+			node += getMeasureBtn(config, mapid, side);
 
 			// set draw and add text buttons
 			node += getDrawBtn(config);
@@ -60,10 +61,10 @@
 			node += getUndoRedoBtn();
 
 			// set import and export buttons
-			node += getImpExpBtn(config);
+			node += getImpExpBtn(config, mapid);
 
 			// WCAG dialog window
-			node += '<div id="diagDrawWCAG' + mapid + '" data-bind="wcag: { }, uiDialog: { title: WCAGTitle, width: 490, height: 350, ok: dialogWCAGOk, cancel: dialogWCAGCancel, close: dialogWCAGClose, openDialog: \'isDialogWCAG\' }">' +
+			node += '<div id="diagDrawWCAG' + mapid + '" data-bind="wcag: { }, uiDialog: { title: WCAGTitle, width: 490, ok: dialogWCAGOk, cancel: dialogWCAGCancel, close: dialogWCAGClose, openDialog: \'isDialogWCAG\' }">' +
 						'<div>' +
 							'<label for="gcviz-xvalue" class="gcviz-label gcviz-label-wcag" data-bind="text: lblWCAGx"></label>' +
 							'<input id="gcviz-xvalue" class="text ui-widget-content ui-corner-all gcviz-input-wcag" data-bind="value: xValue"/>' +
@@ -92,7 +93,7 @@
 			return(tbdrawVM.initialize($toolbar, mapid, config));
 		};
 
-		getMeasureBtn = function(config, mapid) {
+		getMeasureBtn = function(config, mapid, side) {
 			var measLabel,
 				classSpan = 'span2',
 				node = '',
@@ -118,7 +119,8 @@
 					node += '<button class="gcviz-draw-length" tabindex="0" data-bind="buttonBlur, click: measureLengthClick, attr: { alt: tpMeasureLength }"></button>';
 
 					// show window with vertex and final distance or area
-					node += '<div data-bind="uiDialog: { title: lblMeasFull, width: 275, height: 220, modal: false, draggable: true, ok: dialogMeasureClose, close: dialogMeasureClose, openDialog: \'isMeasureDialogOpen\' }">' +
+					node += '<div data-bind="uiDialog: { title: lblMeasFull, width: 275, modal: false, draggable: true, ok: dialogMeasureClose, close: dialogMeasureClose, openDialog: \'isMeasureDialogOpen\', ' +
+																'position: { within: \'#' + mapid + '_holder\', at: \'' + side + ' center\' } }">' +
 								'<div>' +
 									'<span data-bind="html: segmentMeasures"></span>' +
 									'<span data-bind="html: totalMeasures"></span>' +
@@ -205,7 +207,7 @@
 
 			// if add text on, add the dialog window for annotation
 			if (drawText) {
-				node += '<div data-bind="uiDialog: { title: lblTextTitle, width: 450, height: 220, ok: dialogTextOk, cancel: dialogTextCancel, close: dialogTextClose, openDialog: \'isTextDialogOpen\' }">' +
+				node += '<div data-bind="uiDialog: { title: lblTextTitle, width: 450, ok: dialogTextOk, cancel: dialogTextCancel, close: dialogTextClose, openDialog: \'isTextDialogOpen\' }">' +
 							'<div id="gcviz-draw-inputbox">' +
 								'<form><fieldset>' +
 									'<input id="gcviz-textvalue" class="gcviz-draw-textinput text ui-widget-content ui-corner-all" data-bind="value: drawTextValue, valueUpdate: \'input\', returnKey: dialogTextOkEnter, attr: { alt: lblTextTitle }"/>' +
@@ -264,7 +266,7 @@
 			return node;
 		};
 
-		getImpExpBtn = function(config) {
+		getImpExpBtn = function(config, mapid) {
 			var node = '';
 
 			if (config.importexport.enable) {
@@ -272,7 +274,7 @@
 				node = '<div class="row"><div class="span4">' +
 
 						// add import and export buttons
-						'<input id="fileDialogAnno" type="file" accept="application/json" data-bind="event: { change: importClick }" tabindex="-1"></input>' +
+						'<input id="fileDialogAnno' + mapid + '" type="file" accept="application/json" data-bind="event: { change: importClick }" tabindex="-1"></input>' +
 						'<button class="gcviz-draw-imp" tabindex="0" data-bind="buttonBlur, click: launchDialog, attr: { alt: tpImport }"></button>' +
 						'<div class="gcviz-tbseparator"></div>' +
 						'<button class="gcviz-draw-exp" tabindex="0" data-bind="buttonBlur, click: exportClick, attr: { alt: tpExport }, enable: isGraphics"></button>' +

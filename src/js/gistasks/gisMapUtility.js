@@ -18,6 +18,7 @@
 			'gcviz-giscluster',
 			'esri/config',
 			'esri/map',
+			'esri/layers/GraphicsLayer',
 			'esri/layers/FeatureLayer',
 			'esri/layers/ArcGISTiledMapServiceLayer',
 			'esri/layers/ArcGISDynamicMapServiceLayer',
@@ -29,7 +30,7 @@
 			'esri/geometry/Extent',
 			'esri/geometry/Point',
 			'esri/IdentityManager'
-	], function($viz, kpan, func, menu, menuItem, menupopup, gisLegend, gisCluster, esriConfig, esriMap, esriFL, esriTiled, esriDyna, esriImage, webTiled, wms, wmsInfo, esriDynaLD, esriExt, esriPoint) {
+	], function($viz, kpan, func, menu, menuItem, menupopup, gisLegend, gisCluster, esriConfig, esriMap, esriGraph, esriFL, esriTiled, esriDyna, esriImage, webTiled, wms, wmsInfo, esriDynaLD, esriExt, esriPoint) {
 		var mapArray = {},
 			setProxy,
 			createMap,
@@ -40,6 +41,7 @@
 			connectEvent,
 			extentMapEvent,
 			addLayer,
+			addGraphicLayer,
 			setScaleInfo,
 			resizeMap,
 			resizeCenterMap,
@@ -47,7 +49,9 @@
 			zoomFeature,
 			zoomGraphics,
 			zoomExtent,
+			zoomScale,
 			getMapCenter,
+			getMapExtent,
 			createMapMenu,
 			zoomIn,
 			zoomOut,
@@ -85,7 +89,8 @@
 				fullExtent = new esriExt({ 'xmin': fExtent.xmin, 'ymin': fExtent.ymin,
 										'xmax': fExtent.xmax, 'ymax': fExtent.ymax,
 										'spatialReference': { 'wkid': wkid } }),
-				initLods = config.lods.values.reverse(),
+				lodsCfg = config.lods,
+				initLods = lodsCfg.values.reverse(),
 				lenLods = initLods.length,
 				lods = [],
 				options,
@@ -102,7 +107,7 @@
 			}
 
 			// set options
-			if (lods.length) {
+			if (lods.length && lodsCfg.enable) {
 				options = {
 					extent: initExtent,
 					spatialReference: { 'wkid': wkid },
@@ -110,14 +115,9 @@
 					showAttribution: false,
 					lods: lods,
 					wrapAround180: true,
-					smartNavigation: false
+					smartNavigation: false,
+					autoResize: false
 				};
-
-				if (config.zoombar.bar) {
-					options.slider = true;
-					options.sliderPosition = side === 1 ? 'top-left' : 'top-right';
-					options.sliderStyle = 'large';
-				}
 			} else {
 				options = {
 					extent: initExtent,
@@ -125,8 +125,15 @@
 					logo: false,
 					showAttribution: false,
 					wrapAround180: true,
-					smartNavigation: false
+					smartNavigation: false,
+					autoResize: false
 				};
+			}
+
+			if (config.zoombar.bar) {
+					options.slider = true;
+					options.sliderPosition = side === 1 ? 'top-left' : 'top-right';
+					options.sliderStyle = 'large';
 			}
 
 			map = new esriMap(id, options);
@@ -330,6 +337,7 @@
 
 		addLayer = function(map, layerInfo) {
 			var layer, layerDef,
+				visLayers,
 				options,
 				resourceInfo,
 				type = layerInfo.type;
@@ -356,6 +364,12 @@
 				layerDef.layerDefinitions = [''];
 
 				layer = new esriDyna(layerInfo.url, { 'id': layerInfo.id, 'imageParameters': layerDef });
+
+				// if visible layers are set
+				visLayers = layerInfo.visiblelayers;
+				if (typeof visLayers !== 'undefined') {
+					layer.setVisibleLayers(visLayers);
+				}
 			} else if (type === 5) {
 				layer = new esriFL(layerInfo.url, {
 					mode: esriFL.MODE_ONDEMAND,
@@ -374,6 +388,10 @@
 				// set scale info
 				setScaleInfo(map, layerInfo, type);
 			}
+		};
+
+		addGraphicLayer = function(map, id) {
+			map.addLayer(new esriGraph({ id: id }));
 		};
 
 		setScaleInfo = function(map, layerInfo, type) {
@@ -523,6 +541,59 @@
 			map.setExtent(mapExtent);
 		};
 
+		zoomScale = function(map, inScale) {
+			var lod1, lod2, out, len,
+				delta1, delta2,
+				i = 0,
+				lods = map._mapParams.lods,
+				scale = parseFloat(inScale, 10);
+
+			// zoom to scale
+			map.setScale(scale);
+
+			// check if lods is enable
+			if (typeof lods !== 'undefined') {
+				len = lods.length;
+
+				// loop to get between wich scale we try to zoom for cache service
+				while (i < len) {
+					lod1 = lods[i].scale;
+
+					if (i < len - 1) {
+						lod2 = lods[i + 1].scale;
+
+						if (lod1 >= scale && lod2 <= scale) {
+							delta1 = lod1 - scale;
+							delta2 = scale - lod2;
+
+							// check from wich lods we are the nearest
+							if (delta1 > delta2) {
+								out = ['cache', lod2];
+							} else {
+								out = ['cache', lod1];
+							}
+
+							break;
+						} else if (lod1 <= scale) {
+							// outsisde zoom level (above max)
+							out = ['cache-max', lod1];
+							break;
+						}
+					} else {
+						// outsisde zoom level (below min)
+						out = ['cache-min', lod1];
+						break;
+					}
+
+					i++;
+				}
+			} else {
+				out = ['dynamic'];
+			}
+
+			return out;
+		};
+
 		getMapCenter = function(map) {
 			var extent,
 				point;
@@ -532,6 +603,10 @@
 								(extent.ymin + extent.ymax) / 2, map.vWkid);
 
 			return point;
+		};
+
+		getMapExtent = function(map) {
+			return map.extent;
 		};
 
 		manageScreenState = function(map, interval, fullscreen) {
@@ -655,8 +730,8 @@
 				anchor = (map.vSideMenu !== 1) ? 'upperright' : 'upperleft';
 
 			// if no geom value get the point where to put the window as the map center
-			// If there is a string get the point from the graphic with this key.
-			//if the geom is a geometry, use it directly
+			// If there is a string get the geometry from the graphic with this key.
+			// If the geom is a geometry, use it directly.
 			if (typeof geom === 'undefined') {
 				point = getMapCenter(map);
 			} else if (typeof geom === 'string') {
@@ -673,6 +748,11 @@
 				}
 			} else {
 				point = geom;
+			}
+
+			// if the graphic is a polygon get the centroid
+			if (point.type === 'polygon') {
+				point = point.getCentroid();
 			}
 
 			map.infoWindow.setTitle(title);
@@ -711,7 +791,9 @@
 			map.infoWindow.hide();
 
 			// focus the map
-			func.focusMap(map, false);
+			require(['gcviz-vm-map'], function(mapVM) {
+				mapVM.focusMap(map.vIdName, false);
+			});
 		};
 
 		return {
@@ -719,6 +801,7 @@
 			createMap: createMap,
 			createInset: createInset,
 			addLayer: addLayer,
+			addGraphicLayer: addGraphicLayer,
 			setScaleInfo: setScaleInfo,
 			extentMapEvent: extentMapEvent,
 			resizeMap: resizeMap,
@@ -727,6 +810,8 @@
 			zoomFeature: zoomFeature,
 			zoomGraphics: zoomGraphics,
 			zoomExtent: zoomExtent,
+			zoomScale: zoomScale,
+			getMapExtent: getMapExtent,
 			getOverviewLayer: getOverviewLayer,
 			getMapCenter: getMapCenter,
 			manageScreenState: manageScreenState,

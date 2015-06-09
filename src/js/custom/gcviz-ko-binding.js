@@ -87,50 +87,58 @@
 			}
 
 			// add bubble (set the alt text, id to match the label, click function and keyboard input)
-			$element.append('<img id="' + options.id + '" tabindex="-1" data-bind="click: function() { showBubble(32, 0, 0, \'' + options.link + '\') }, clickBubble: false, enterkey: { func: \'showBubble\', keyType: \'keydown\', params: \'' + options.link + '\' }" class="' + bubbleClass + '" src="' + options.img + '" alt="' + options.alt + '"></img>');
+			$element.append('<img id="' + options.id + '" tabindex="-1" data-bind="click: function() { showBubble(32, \'' + options.link + '\') }, clickBubble: false, enterkey: { func: \'showBubble\', keyType: \'keydown\', params: \'' + options.link + '\' }" class="' + bubbleClass + '" src="' + options.img + '" alt="' + options.alt + '"></img>');
 		}
 	};
 
 	ko.bindingHandlers.wcag = {
 		init: function(element, valueAccessor, allBindings, viewModel) {
 			var manageWCAG,
-				mapid = viewModel.mapid,
-				vm = gcvizFunc.getElemValueVM(mapid, ['wcag'], 'js');
+				mapid = viewModel.mapid;
 
 			manageWCAG = function() {
 				viewModel.isWCAG(!viewModel.isWCAG());
 			};
-			vm.isWCAG.subscribe(manageWCAG);
+
+			require(['gcviz-vm-wcag'], function(wcagVM) {
+				wcagVM.subscribeIsWCAG(mapid, manageWCAG);
+			});
 		}
 	};
 
 	ko.bindingHandlers.fullscreen = {
 		init: function(element, valueAccessor, allBindings, viewModel) {
-			var manageFullscreen,
-				mapid = viewModel.mapid,
-				vm = gcvizFunc.getElemValueVM(mapid, ['header'], 'js');
+			var info,
+				manageFullscreen,
+				mapid = viewModel.mapid;
+
+			require(['gcviz-vm-header'], function(headerVM) {
+				headerVM.subscribeIsFullscreen(mapid, manageFullscreen);
+				info = headerVM.getScreenParam(mapid);
+			});
 
 			manageFullscreen = function(fullscreen) {
 				if (fullscreen) {
-					viewModel.enterFullscreen(vm.widthSection, vm.heightSection);
+					viewModel.enterFullscreen(info.widthSection, info.heightSection);
 				} else {
 					viewModel.exitFullscreen();
 				}
 			};
-			vm.isFullscreen.subscribe(manageFullscreen);
 		}
 	};
 
 	ko.bindingHandlers.insetVisibility = {
 		init: function(element, valueAccessor, allBindings, viewModel) {
 			var manageInsetVisibility,
-				mapid = viewModel.mapid,
-				vm = gcvizFunc.getElemValueVM(mapid, ['header'], 'js');
-			vm.isInsetVisible.subscribe(manageInsetVisibility);
+				mapid = viewModel.mapid;
 
 			manageInsetVisibility = function(visible) {
 				viewModel.setVisibility(visible);
 			};
+
+			require(['gcviz-vm-header'], function(headerVM) {
+				headerVM.subscribeIsInsetVisible(mapid, manageInsetVisibility);
+			});
 		}
 	};
 
@@ -274,7 +282,8 @@
 			widget = new radio({
 				name: options.group,
 				value: options.value,
-				checked: options.value
+				checked: options.value,
+				id: options.id
 			}).placeAt(element);
 
 			widget.on('Change', function(e) {
