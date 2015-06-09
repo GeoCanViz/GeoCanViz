@@ -12,9 +12,12 @@
 }
 
 %imgsize_leg_icons {
-	height: (0.9 * $rembase) + rem;
-	width: (0.9 * $rembase) + rem;
-	margin-top: (0.8 * $rembase) + rem;
+	height: (1.6 * $rembase) + rem;
+	width: (1.6 * $rembase) + rem;
+	margin-top: (0.5 * $rembase) + rem;
+	transform: scale(0.85);
+	-moz-transform:scale(0.85);
+  -webkit-transform:scale(0.85);
 	background-repeat: no-repeat;
 	cursor: pointer;
 }
@@ -23,6 +26,33 @@
 	display: inline-block;
 	padding-left: 0rem;
 	white-space: nowrap;
+}
+
+.gcviz-leg-limit {
+  position: relative;
+}
+.gcviz-leg-limit:before, .gcviz-leg-limit:after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: -1px;
+  
+}
+.gcviz-leg-limit:before {
+  top: -1px;
+  width: 1px;
+  background-image: -webkit-gradient(linear, 0 100%, 0 0, from(#ACACAC), to(#DBDBDB));
+  background-image: -webkit-linear-gradient(#DBDBDB, #ACACAC);
+  background-image: -moz-linear-gradient(#DBDBDB, #ACACAC);
+  background-image: -o-linear-gradient(#DBDBDB, #ACACAC);
+}
+.gcviz-leg-limit:after {
+  right: -1px;
+  height: 1px;
+  background-image: -webkit-gradient(linear, 0 0, 100% 0, from(#ACACAC), to(transparent));
+  background-image: -webkit-linear-gradient(left, #ACACAC, transparent);
+  background-image: -moz-linear-gradient(left, #ACACAC, transparent);
+  background-image: -o-linear-gradient(left, #ACACAC, transparent);
 }
 
 // set disable the layer li tag when layer is out of scale
@@ -76,14 +106,25 @@
 	margin: 0!important;
 }
 
-.gcviz-legendHolderDiv {
+.gcviz-leg-item {
 	display: inline-block;
 	padding-right: (0.5 * $rembase) + rem;
+}
+
+.gcviz-legendHolderDiv {
+	display: block;
+	padding-right: (0.5 * $rembase) + rem;
+	padding-bottom: (1.0 * $rembase) + rem;
+	margin-left: (0.9 * $rembase) + rem;
+	margin-top: (0.7 * $rembase) + rem;
 }
 
 .gcviz-legendHolderImgDiv {
 	display: block;
 	padding-right: (0.5 * $rembase) + rem;
+	padding-bottom: (1.0 * $rembase) + rem;
+	margin-left: (0.9 * $rembase) + rem;
+	margin-top: (0.7 * $rembase) + rem;
 }
 
 .gcviz-leg-check {
@@ -138,10 +179,12 @@
 
 .gcviz-legendSymbolDiv {
 	vertical-align: middle;
-	padding-left: (3.5 * $rembase) + rem;
+	padding-left: (2.5 * $rembase) + rem;
 	padding-top: (1 * $rembase) + rem;
-	border: (1 * $rembase) + rem;
+	padding-bottom: (1.0 * $rembase) + rem;
 	line-height: 0;
+	margin-left: (0.9 * $rembase) + rem;
+	margin-top: (0.7 * $rembase) + rem;
 	@include app-text(1, normal);
 }
 
@@ -165,8 +208,7 @@
 	vertical-align: middle;
 	padding-left: (0.5 * $rembase) + rem;
 	white-space: nowrap;
-
-
+	@include app-text(1.2, normal);
 }
 
 .gcviz-leg-uniqueFieldHolder {

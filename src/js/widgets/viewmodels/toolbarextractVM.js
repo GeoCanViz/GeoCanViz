@@ -268,10 +268,10 @@
 							var name,
 								nts = data.nts;
 
-							if (nts.length === 2) {
+							if (nts.length === 3) {
+								name = nts[2].properties.identifier;
+							} else if (nts.length === 2) {
 								name = nts[1].properties.identifier;
-							} else if (nts.length === 1) {
-								name = nts[0].properties.identifier;
 							}
 
 						// open the link

@@ -5,24 +5,27 @@
 	vertical-align: middle;
 }
 
-.gcviz-dg-searchdrop {
+%fields {
 	display: block;
 	margin: auto;
-	width: 80%;
+	margin-top: (0.5 * $rembase) + rem;
+	width: 70%;
+}
+
+.gcviz-dg-searchdrop {
+	@extend %fields;
 }
 
 .gcviz-dg-searchstr {
-	display: block;
-	margin: auto;
-	width: 80%;
+	@extend %fields;
 }
 
 .gcviz-dg-searchnum {
-	display: inline-block;
-	margin: auto;
-	width: 30%;
-	margin-left: (0.5 * $rembase) + rem;
-	margin-right: (0.5 * $rembase) + rem;
+	@extend %fields;
+}
+
+.gcviz-dg-searchdate {
+	@extend %fields;
 }
 
 .gcviz-dg-pad {
@@ -34,6 +37,7 @@
 .gcviz-gd-zoomlbl {
 	@include app-text(1.2, bold);
 }
+
 // buttons zoom selected, clear filter, export csv and holder
 .gcviz-dg-zoomsel {
 	@include sprite($img-spritebtn, -1516, -2);
@@ -171,6 +175,7 @@ table.dataTable.no-footer {
 	padding-right: 2% + !important;
 	padding-bottom: (2 * $rembase) + rem!important;
 	width: 96%;
+	height: auto!important;
 }
 
 .gcviz-datagrid-tab {

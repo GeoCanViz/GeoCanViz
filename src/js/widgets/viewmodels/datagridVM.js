@@ -199,7 +199,7 @@
 				};
 
 				_self.focusTables = function() {
-					var element = document.getElementById('table-' + mapid + '-' + activeTableId + '_wrapper');
+					var element = document.getElementById('gcviz-datatab' + mapid);
 
 					element.focus();
 					if (scroll) {
@@ -699,7 +699,15 @@
 						// if nothing, add ... to string field when length is more then 40 characters
 						if (typeObj.type === 3) {
 							field.render = gcvizFunc.closureFunc(function(typeObj, data, type, full) {
-								return '<a href="' + full[typeObj.urlfield] + '" target="_blank">' + data + '</a>';
+								var field,
+									urlLink = full[typeObj.urlfield];
+
+								if (urlLink !== null) {
+									field = '<a href="' + urlLink + '" target="_blank">' + data + '</a>';
+								} else {
+									field = '<span>' + data + '</span>';
+								}
+								return field;
 							}, typeObj);
 						} else {
 							field.render = function(data, type) {
