@@ -618,7 +618,25 @@
 
 							// set language then create date picker
 							if (lang === 'fr') {
-								$viz.datepicker.setDefaults($.datepicker.regional[lang]);
+								$viz.datepicker.regional['fr'] = {
+									clearText: 'Effacer', clearStatus: '',
+								    closeText: 'Fermer', closeStatus: 'Fermer sans modifier',
+								    prevText: '&lt;Préc', prevStatus: 'Voir le mois précédent',
+								    nextText: 'Suiv&gt;', nextStatus: 'Voir le mois suivant',
+								    currentText: 'Courant', currentStatus: 'Voir le mois courant',
+								    monthNames: ['Janvier','Février','Mars','Avril','Mai','Juin',
+								    'Juillet','Août','Septembre','Octobre','Novembre','Décembre'],
+								    monthNamesShort: ['Jan','Fév','Mar','Avr','Mai','Jun',
+								    'Jul','Aoû','Sep','Oct','Nov','Déc'],
+								    monthStatus: 'Voir un autre mois', yearStatus: 'Voir un autre année',
+								    weekHeader: 'Sm', weekStatus: '',
+								    dayNames: ['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'],
+								    dayNamesShort: ['Dim','Lun','Mar','Mer','Jeu','Ven','Sam'],
+								    dayNamesMin: ['Di','Lu','Ma','Me','Je','Ve','Sa'],
+								    dayStatus: 'Utiliser DD comme premier jour de la semaine', dateStatus: 'Choisir le DD, MM d',
+								    dateFormat: 'dd/mm/yy', firstDay: 0, 
+								    initStatus: 'Choisir la date', isRTL: false};
+								$viz.datepicker.setDefaults($viz.datepicker.regional[lang]);
 							}
 							$viz($inputs[0]).datepicker(opts);
 							$viz($inputs[1]).datepicker(opts);
@@ -683,8 +701,8 @@
 						fields = layer.fields,
 						lenFields = fields.length;
 
-					// field type can be (field: 1, keyurl: 2, url: 3, fieldurl: 4, fieldkeyurl: 5, control: 99)
-					// field value can be (string: 1, number: 2, date: 3, select: 4, image: 5, string-list: 6, image-list: 7)
+					// field value can be (field: 1, keyurl: 2, url: 3, fieldurl: 4, fieldkeyurl: 5, control: 99)
+					// field type can be (string: 1, number: 2, date: 3, select: 4, image: 5, string-list: 6, image-list: 7)
 					// for field, nothing special, value can be anything
 					// for keyurl, (value: string, display: value to display, url: url to use with the key)
 					// for url, nothing special, just display the link (value: string, image, string-list, image-list)
