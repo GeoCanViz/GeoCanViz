@@ -41,10 +41,12 @@
 							'<div class="span1"><button id="btnAddUrl' + mapid + '" class="gcviz-data-add" tabindex="0" data-bind="buttonBlur, click: addURLClick, attr: { alt: tpAdd }"></button></div>' +
 							'<div class="span11"><label class="gcviz-label gcviz-nav-lblpos" for="btnAddUrl' + mapid + '" data-bind="text: lblUrl"></label></div>' +
 						'</div>' +
-						'<div data-bind="uiDialog: { title: lblUrlTitle, width: 450, ok: dialogUrlOk, cancel: dialogUrlCancel, close: dialogUrlClose, openDialog: \'isUrlDialogOpen\' }">' +
+						'<div data-bind="uiDialog: { title: lblUrlTitle, width: 700, ok: dialogUrlOk, cancel: dialogUrlCancel, close: dialogUrlClose, openDialog: \'isUrlDialogOpen\' }">' +
 							'<div>' +
 								'<form><fieldset>' +
-									'<span data-bind="text: lblAddUrl"></span>' +
+									'<div data-bind="text: lblAddUrl1"></div>' +
+									'<div data-bind="text: lblAddUrl2"></div>' +
+									'<div data-bind="text: lblAddUrl3"></div>' +
 									'<input class="gcviz-data-textinput text ui-widget-content ui-corner-all" data-bind="value: addUrlValue, valueUpdate: \'input\', returnKey: dialogUrlOkEnter, attr: { alt: lblUrlTitle }"/>' +
 								'</fieldset></form>' +
 							'</div>' +

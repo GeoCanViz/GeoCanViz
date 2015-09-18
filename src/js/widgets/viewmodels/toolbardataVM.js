@@ -58,7 +58,9 @@
 
 				// dialog window for url
 				_self.lblUrlTitle = i18n.getDict('%toolbardata-lbladdurltitle');
-				_self.lblAddUrl = i18n.getDict('%toolbardata-lbladdurldesc');
+				_self.lblAddUrl1 = i18n.getDict('%toolbardata-lbladdurldesc1');
+				_self.lblAddUrl2 = i18n.getDict('%toolbardata-lbladdurldesc2');
+				_self.lblAddUrl3 = i18n.getDict('%toolbardata-lbladdurldesc3');
 				_self.isUrlDialogOpen = ko.observable();
 				_self.addUrlValue = ko.observable('');
 

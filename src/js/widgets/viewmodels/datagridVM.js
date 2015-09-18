@@ -199,7 +199,7 @@
 				};
 
 				_self.focusTables = function() {
-					var element = document.getElementById('table-' + mapid + '-' + activeTableId + '_wrapper');
+					var element = document.getElementById('gcviz-datatab' + mapid);
 
 					element.focus();
 					if (scroll) {
@@ -239,12 +239,15 @@
 					strField = '';
 					while (fieldsLen--) {
 						field = fields[fieldsLen];
-						fieldType = field.fieldtype;
-						strField += field.data + ',';
 
-						// add url value field if type field === url
-						if (fieldType.type === 3) {
-							strField += fieldType.urlfield + ',';
+						if (field.enable) {
+							fieldType = field.fieldtype;
+							strField += field.data + ',';
+	
+							// add url value field if type field === url
+							if (fieldType.type === 3) {
+								strField += fieldType.urlfield + ',';
+							}
 						}
 					}
 
@@ -618,7 +621,25 @@
 
 							// set language then create date picker
 							if (lang === 'fr') {
-								$viz.datepicker.setDefaults($.datepicker.regional[lang]);
+								$viz.datepicker.regional['fr'] = {
+									clearText: 'Effacer', clearStatus: '',
+								    closeText: 'Fermer', closeStatus: 'Fermer sans modifier',
+								    prevText: '&lt;Préc', prevStatus: 'Voir le mois précédent',
+								    nextText: 'Suiv&gt;', nextStatus: 'Voir le mois suivant',
+								    currentText: 'Courant', currentStatus: 'Voir le mois courant',
+								    monthNames: ['Janvier','Février','Mars','Avril','Mai','Juin',
+								    'Juillet','Août','Septembre','Octobre','Novembre','Décembre'],
+								    monthNamesShort: ['Jan','Fév','Mar','Avr','Mai','Jun',
+								    'Jul','Aoû','Sep','Oct','Nov','Déc'],
+								    monthStatus: 'Voir un autre mois', yearStatus: 'Voir un autre année',
+								    weekHeader: 'Sm', weekStatus: '',
+								    dayNames: ['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'],
+								    dayNamesShort: ['Dim','Lun','Mar','Mer','Jeu','Ven','Sam'],
+								    dayNamesMin: ['Di','Lu','Ma','Me','Je','Ve','Sa'],
+								    dayStatus: 'Utiliser DD comme premier jour de la semaine', dateStatus: 'Choisir le DD, MM d',
+								    dateFormat: 'dd/mm/yy', firstDay: 0, 
+								    initStatus: 'Choisir la date', isRTL: false};
+								$viz.datepicker.setDefaults($viz.datepicker.regional[lang]);
 							}
 							$viz($inputs[0]).datepicker(opts);
 							$viz($inputs[1]).datepicker(opts);
@@ -679,12 +700,13 @@
 				};
 
 				_self.createFields = function(layer, link) {
-					var field, typeObj,
+					var field, typeObj, isEnable,
+						outFields = [],
 						fields = layer.fields,
 						lenFields = fields.length;
 
-					// field type can be (field: 1, keyurl: 2, url: 3, fieldurl: 4, fieldkeyurl: 5, control: 99)
-					// field value can be (string: 1, number: 2, date: 3, select: 4, image: 5, string-list: 6, image-list: 7)
+					// field value can be (field: 1, keyurl: 2, url: 3, fieldurl: 4, fieldkeyurl: 5, control: 99)
+					// field type can be (string: 1, number: 2, date: 3, select: 4, image: 5, string-list: 6, image-list: 7)
 					// for field, nothing special, value can be anything
 					// for keyurl, (value: string, display: value to display, url: url to use with the key)
 					// for url, nothing special, just display the link (value: string, image, string-list, image-list)
@@ -695,37 +717,56 @@
 						field = fields[lenFields];
 						typeObj = field.fieldtype;
 
-						// if url, construct it.
-						// if nothing, add ... to string field when length is more then 40 characters
-						if (typeObj.type === 3) {
-							field.render = gcvizFunc.closureFunc(function(typeObj, data, type, full) {
-								return '<a href="' + full[typeObj.urlfield] + '" target="_blank">' + data + '</a>';
-							}, typeObj);
+						// check if field is enable
+						if (typeof field.enable === 'undefined') {
+							isEnable = true;
 						} else {
-							field.render = function(data, type) {
-								if (data !== null && typeof data !== 'undefined') {
-									// remove double quote
-									if (typeof data === 1) {
-										data = data.replace(/"/g, '');
+							isEnable = field.enable;
+						}
+						
+						if (isEnable) {
+							// if url, construct it.
+							// if nothing, add ... to string field when length is more then 40 characters
+							if (typeObj.type === 3) {
+								field.render = gcvizFunc.closureFunc(function(typeObj, data, type, full) {
+									var field,
+										urlLink = full[typeObj.urlfield];
+	
+									if (urlLink !== null) {
+										field = '<a href="' + urlLink + '" target="_blank">' + data + '</a>';
+									} else {
+										field = '<span>' + data + '</span>';
 									}
+									return field;
+								}, typeObj);
+							} else {
+								field.render = function(data, type) {
+									if (data !== null && typeof data !== 'undefined') {
+										// remove double quote
+										if (typeof data === 1) {
+											data = data.replace(/"/g, '');
+										}
+	
+										// for wcag we add a text input read only. This element is focusable so we can have
+										// the tooltip. Wrap in a relative position div to have the tooltip at the right
+										// after a scroll
+										return type === 'display' && data.length > 40 ?
+										'<div style="position: relative;"><span title="'+ data +'">' + data.substr(0, 38) + '</span>' +
+										'<input type="text" readOnly=true value= "..." class="gcviz-datagrid-stringbtn"></input>' +
+										'<span class="gcviz-datagrid-stringtp">' + data + '</span></div>' : data;
+									} else {
+										return data;
+									}
+								};
+							}
 
-									// for wcag we add a text input read only. This element is focusable so we can have
-									// the tooltip. Wrap in a relative position div to have the tooltip at the right
-									// after a scroll
-									return type === 'display' && data.length > 40 ?
-									'<div style="position: relative;"><span title="'+ data +'">' + data.substr(0, 38) + '</span>' +
-									'<input type="text" readOnly=true value= "..." class="gcviz-datagrid-stringbtn"></input>' +
-									'<span class="gcviz-datagrid-stringtp">' + data + '</span></div>' : data;
-								} else {
-									return data;
-								}
-							};
+						outFields.push(field);
 						}
 					}
 
 					// if there is a link table, add link column
 					if (link) {
-						fields.unshift({
+						outFields.unshift({
 							data: null,
 							className: 'gcviz-dg-link',
 							title: '',
@@ -740,7 +781,7 @@
 					}
 
 					// add select column
-					fields.unshift({
+					outFields.unshift({
 						data: 'gcvizcheck',
 						className: 'dt-body-center',
 						title: '',
@@ -758,7 +799,7 @@
 								}
 					});
 
-					return fields;
+					return outFields;
 				};
 
 				_self.finishInit = function(pos) {

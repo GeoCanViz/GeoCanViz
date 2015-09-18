@@ -143,8 +143,8 @@
                 "layers": [{
                     "label": "earthquakes",
                     "id": "93f05b62-6c5c-0ca0-e03b-612d99293294",
-                    "type": 4,
-                    "url": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/test/earthqhakes/MapServer/",
+                    "type": 5,
+                    "url": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/test/earthqhakes/MapServer/0",
                     "visiblelayers": [0],
                     "beforebase": false,
                     "scale": {
@@ -315,7 +315,7 @@
                         "radioid": 0
                     },
                     "displaychild": {
-                        "enable": true,
+                        "enable": false,
                         "symbol": "{\"type\":\"uniqueValue\",\"field1\":\"Date_\",\"field2\":null,\"field3\":null,\"fieldDelimiter\":\", \",\"defaultSymbol\":null,\"defaultLabel\":null,\"uniqueValueInfos\":[{\"symbol\":{\"type\":\"esriSMS\",\"style\":\"esriSMSCircle\",\"color\":[255,255,0,255],\"size\":11,\"angle\":0,\"xoffset\":0,\"yoffset\":0,\"outline\":{\"color\":[0,0,0,255],\"width\":1}},\"value\":\"2015-03-26\",\"label\":\"2015-03-26\",\"description\":\"\"}]}"
                     },
                     "customimage": {

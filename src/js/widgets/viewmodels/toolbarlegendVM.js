@@ -172,6 +172,8 @@
 
 					if (child.enable && typeof child.symbol !== 'undefined') {
 						gisLegend.getFeatureLayerSymbol(child.symbol, node, data.graphid);
+					} else {
+						node.className += ' gcviz-hidden';
 					}
 
 					// to close the symbol if not expanded
@@ -230,25 +232,35 @@
 					var keyCode = 32,
 						evtTarget = $viz(event.target),
 						evtTargetLi = evtTarget.parent().parent(),
-						className = evtTarget[0].className;
+						className = evtTarget[0].className,
+						$holderDiv = evtTargetLi.children('.gcviz-legendHolderDiv'),
+						$holderImgDiv = evtTargetLi.children('.gcviz-legendHolderImgDiv'),
+						$holderSymbolDiv = evtTargetLi.children('.gcviz-legendSymbolDiv');
 
 					// we use keyup instead of keypress because FireFox wont work with keypress
 					if (event.type !== 'keyup' || (event.type === 'keyup' && event.keyCode === keyCode)) {
 						if (className === 'gcviz-leg-imgli') {
 							evtTarget.removeClass('gcviz-leg-imgli');
 							evtTarget.addClass('gcviz-leg-imgliopen');
+							$holderDiv.addClass('gcviz-leg-limit');
+							$holderImgDiv.addClass('gcviz-leg-limit');
+							$holderSymbolDiv.addClass('gcviz-leg-limit');
 
 							// set value in layers array to retrieve to save legend
 							selectedLayer.expand = true;
 						} else if (className === 'gcviz-leg-imgliopen') {
 							evtTarget.removeClass('gcviz-leg-imgliopen');
 							evtTarget.addClass('gcviz-leg-imgli');
+							$holderDiv.removeClass('gcviz-leg-limit');
+							$holderImgDiv.removeClass('gcviz-leg-limit');
+							$holderSymbolDiv.removeClass('gcviz-leg-limit');
 
 							// set value in layers array to retrieve to save legend
 							selectedLayer.expand = false;
 						}
+
 						evtTargetLi.children('div#childItems.gcviz-legendHolderDiv').toggle();
-						evtTargetLi.children('.gcviz-legendSymbolDiv').toggle();
+						$holderSymbolDiv.toggle();
 						evtTargetLi.children('div#customImage.gcviz-legendHolderImgDiv').toggle();
 						event.stopPropagation(); // prevent toggling of inner nested lists
 					}

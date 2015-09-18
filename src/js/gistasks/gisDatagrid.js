@@ -113,10 +113,11 @@
 				handleAs: 'json',
 				callbackParamName: 'callback',
 				load: function(response) {
-					var relatedQuery, featLayer,
+					var relatedQuery, featLayer, field,
+						fields = [],
 						layerInfo = layer.layerinfo,
 						linkFields, lenLinkFields, strLinkFields,
-						fields = layer.fields,
+						oriFields = layer.fields,
 						pos = layerInfo.pos,
 						linkInfo = layer.linktable,
 						id = layerInfo.id,
@@ -124,7 +125,18 @@
 						data = [],
 						features = response.features,
 						len = features.length,
-						map = params[mapid].map;
+						map = params[mapid].map,
+						lenFields = oriFields.length;
+
+					// remove fields if they are not enable
+					while (lenFields--) {
+						field = oriFields[lenFields];
+						if (typeof field !== 'undefined') {
+							if (field.enable || field.data === 'OBJECTID') {
+								fields.push(oriFields[lenFields]);
+							}
+						}
+					}
 
 					// if there is a link table to retrieve info from, set it here.
 					// it only work with feature layer who have a valid OBJECTID field

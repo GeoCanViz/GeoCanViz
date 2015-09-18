@@ -574,7 +574,7 @@
 					localStorage.setItem('gcvizArrowNode', '<img src="../images/printNorthArrow.png" style="' + arrowStyle + '"></img>');
 					localStorage.setItem('gcvizScalebarNode', scalebar[0].outerHTML);
 					localStorage.setItem('gcvizURL', window.location.href);
-				}, 3500);
+				}, 4000);
 
 				// set map size to previous values
 				setTimeout (function() {

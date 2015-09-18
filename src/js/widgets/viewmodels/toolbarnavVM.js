@@ -545,14 +545,14 @@
 							var prop,
 								nts = data.nts;
 
-							if (nts.length === 2) {
-								prop = nts[0].properties;
+							if (nts.length === 3) {
+								prop = nts[1].properties;
 								_self.spnNTS250(prop.identifier + ' - ' + prop.name);
 
-								prop = nts[1].properties;
+								prop = nts[2].properties;
 								_self.spnNTS50(prop.identifier + ' - ' + prop.name);
-							} else if (nts.length === 1) {
-								prop = nts[0].properties;
+							} else if (nts.length === 2) {
+								prop = nts[1].properties;
 								_self.spnNTS250(prop.identifier + ' - ' + prop.name);
 								_self.spnNTS50('');
 							} else {

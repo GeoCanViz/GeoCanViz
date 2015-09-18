@@ -9,6 +9,7 @@
                 "urlgeomserv": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/Utilities/Geometry/GeometryServer",
                 "urlproxy": "http://geoappext.nrcan.gc.ca/php/proxy.php",
                 "urldownload": "http://geoappext.nrcan.gc.ca/php/download.php",
+				"urlsaveimage": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task",
                 "sr": {
                     "wkid": 3978
                 },
@@ -126,37 +127,79 @@
                     "previousnext": true
                 },
                 "bases": [{
-                    "label": "CBCT3978",
-                    "id": "380a923d-466f-4e97-88af-7e6d66f2570a",
+                    "label": "CBME_CBCE_HS_RO_3978",
+                    "id": "34ad6a2c-2bcf-bd20-111f-ce0421f62a53",
                     "type": 2,
-                    "url": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/BaseMaps/CBCT3978/MapServer",
+                    "url": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/BaseMaps/CBME_CBCE_HS_RO_3978/MapServer",
                     "scale": {
                         "min": 0,
                         "max": 0
                     }
-                }],
-                "layers": [{
-                    "label": "mining",
-                    "id": "6f798c6b-dddd1-4e24-78dd-9bfa5a9bc59e",
-                    "type": 5,
-                    "url": "http://s-bsc-geoappint.nrn.nrcan.gc.ca/arcgis/rest/services/Test/MiningAgree/MapServer/0",
+                },{
+                    "label": "Canada base map",
+                    "id": "380a923d-466f-4e97-88af-7e6d66f2570b",
+                    "type": 2,
+                    "url": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/BaseMaps/CBMT_CBCT_GEOM_3978/MapServer",
+                    "scale": {
+                        "min": 0,
+                        "max": 0
+                    }
+                }, {
+                    "label": "Base text",
+                    "id": "380a923d-466f-4e97-88af-7e6d66f2570a",
+                    "type": 2,
+                    "url": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/BaseMaps/CBMT_TXT_3978/MapServer",
+                    "scale": {
+                        "min": 0,
+                        "max": 0
+                    }
+                }, {
+                    "label": "toporama",
+                    "id": "bbbb469d-gggg-c8f5-175c-645270a6b6fe",
+                    "type": 3,
+                    "url": "http://wms.ess-ws.nrcan.gc.ca/wms/toporama_en",
+                    "options": {
+                        "layerinfos": [{
+                            "name": "WMS-Toporama",
+                            "title": "WMS-Toporama"
+                        }],
+                        "visiblelayers": ["WMS-Toporama"]
+                    },
+					"scale": {
+                            "min": 0,
+                            "max": 0
+                        },
+                        "cluster": {
+                            "enable": false,
+                            "distance": 50,
+                            "label": false,
+                            "symbol": false,
+                            "maxsizeprop": 50,
+                            "maxdataprop": 1000
+                        }
+
+                }, {
+                    "label": "Imagery Lansat7",
+                    "id": "99999999-0003-c8f5-175c-645270a6b6fe",
+                    "type": 3,
+                    "url": "http://maps.geogratis.gc.ca/wms/canimage_en",
                     "scale": {
                         "min": 0,
                         "max": 0
                     },
-                    "cluster": {
-                        "enable": false,
-                        "distance": 50,
-                        "label": false,
-                        "symbol": true,
-                        "maxsizeprop": 50,
-                        "maxdataprop": 1000
+                    "options": {
+                        "layerinfos": [{
+                            "name": "canimage",
+                            "title": "canimage"
+                        }],
+                        "visiblelayers": ["canimage"]
                     }
-                },{
-                    "label": "Donnees_Ouvertes-Open_Data/Conseil_Tribal_Tribal_Council***Conseil tribal / Tribal Council ",
-                    "id": "f529a8d1-b665-e0fd-40d8-f6ff1efe3d81",
-                    "type": 5,
-                    "url": "http://services.aadnc-aandc.gc.ca/geomatics/rest/services/Donnees_Ouvertes-Open_Data/Conseil_Tribal_Tribal_Council/MapServer/0",
+                }],
+                "layers": [ {
+                    "label": "Indian Reserve",
+                    "id": "0c05b13b-cd43-ed79-8818-da9a42c8cf2f",
+                    "type": 4,
+                    "url": "http://geoviewer-geovisualiseur.aandc-aadnc.gc.ca/gisprd/rest/services/OCIP/Indian_Reserves/MapServer/",
                     "beforebase": false,
                     "scale": {
                         "min": 0,
@@ -172,10 +215,48 @@
                         "maxdataprop": 1000
                     }
                 }, {
-                    "label": "Collectivite_Inuite_Inuit_Community***Collectivité inuite / Inuit Community",
+                    "label": "Indian Reserve Annotation",
+                    "id": "0c05b13b-cd43-ed79-8818-da9a42c8cf1f",
+                    "type": 4,
+                    "url": "http://geoviewer-geovisualiseur.aandc-aadnc.gc.ca/gisprd/rest/services/OCIP/Indian_Reserves_Anno/MapServer/",
+                    "beforebase": false,
+                    "scale": {
+                        "min": 250000,
+                        "max": 0
+                    },
+                    "usecluster": false,
+                    "cluster": {
+                        "enable": false,
+                        "distance": 50,
+                        "label": false,
+                        "symbol": false,
+                        "maxsizeprop": 50,
+                        "maxdataprop": 1000
+                    }
+                },{
+                    "label": "Tribal Council ",
+                    "id": "f529a8d1-b665-e0fd-40d8-f6ff1efe3d81",
+                    "type": 4,
+                    "url": "http://geoviewer-geovisualiseur.aandc-aadnc.gc.ca/gisprd/rest/services/GEOVIEWER_II/TRIBAL_COUNCIL_E/MapServer/",
+                    "beforebase": false,
+                    "scale": {
+                        "min": 0,
+                        "max": 0
+                    },
+                    "usecluster": false,
+                    "cluster": {
+                        "enable": false,
+                        "distance": 50,
+                        "label": false,
+                        "symbol": false,
+                        "maxsizeprop": 50,
+                        "maxdataprop": 1000
+                    }
+                }, {
+                    "label": "Inuit Community",
                     "id": "91284222-5cf2-c7f9-43eb-3a6f8a8cd855",
-                    "type": 5,
-                    "url": "http://services.aadnc-aandc.gc.ca/geomatics/rest/services/Donnees_Ouvertes-Open_Data/Collectivite_Inuite_Inuit_Community/MapServer/0",
+                    "type": 4,
+                    "url": "http://geoviewer-geovisualiseur.aandc-aadnc.gc.ca/gisprd/rest/services/AGOL_FEATURE_SERVICES/Inuit_Communities/MapServer/",
                     "beforebase": false,
                     "scale": {
                         "min": 0,
@@ -191,10 +272,10 @@
                         "maxdataprop": 1000
                     }
                 }, {
-                    "label": "Premiere_Nation_First_Nation***Première Nation / First Nation",
+                    "label": "First Nation",
                     "id": "f147e85a-200b-09b0-091b-7c42546b1c89",
-                    "type": 5,
-                    "url": "http://services.aadnc-aandc.gc.ca/geomatics/rest/services/Donnees_Ouvertes-Open_Data/Premiere_Nation_First_Nation/MapServer/0",
+                    "type": 4,
+                    "url": "http://geoviewer-geovisualiseur.aandc-aadnc.gc.ca/gisprd/rest/services/OCIP/First_Nations/MapServer/",
                     "beforebase": false,
                     "scale": {
                         "min": 0,
@@ -206,6 +287,42 @@
                         "distance": 50,
                         "label": false,
                         "symbol": false,
+                        "maxsizeprop": 50,
+                        "maxdataprop": 1000
+                    }
+                }, {
+                    "label": "First Nation label",
+                    "id": "f147e85a-200b-09b0-091b-7c42546b1c90",
+                    "type": 4,
+                    "url": "http://geoviewer-geovisualiseur.aandc-aadnc.gc.ca/gisprd/rest/services/OCIP/First_Nations_Anno/MapServer/",
+                    "beforebase": false,
+                    "scale": {
+                        "min": 2000000,
+                        "max": 0
+                    },
+                    "usecluster": true,
+                    "cluster": {
+                        "enable": false,
+                        "distance": 50,
+                        "label": false,
+                        "symbol": false,
+                        "maxsizeprop": 50,
+                        "maxdataprop": 1000
+                    }
+                }, {
+                    "label": "mining",
+                    "id": "6f798c6b-dddd1-4e24-78dd-9bfa5a9bc59e",
+                    "type": 4,
+                    "url": "http://s-bsc-geoappint.nrn.nrcan.gc.ca/arcgis/rest/services/Test/MiningAgree/MapServer/",
+                    "scale": {
+                        "min": 0,
+                        "max": 0
+                    },
+                    "cluster": {
+                        "enable": false,
+                        "distance": 50,
+                        "label": false,
+                        "symbol": true,
                         "maxsizeprop": 50,
                         "maxdataprop": 1000
                     }
@@ -227,17 +344,20 @@
             "about": {
                 "enable": true,
                 "type": 1,
-                "value": "This is use to explain specific information about map and/or data."
+                "value": "Over the last few decades, Aboriginal-industry relationships and partnerships have evolved tremendously through the conclusion of various types of agreements related to mine development that have proven to be successful in securing benefits for many Aboriginal communities. The Interactive Map of Aboriginal Mining Agreements, developed in partnership with Aboriginal Affairs and Northern Development Canada, shows where these agreements are taking place across the country and provides specific information on exploration projects and mines, Aboriginal communities, and the types of agreements signed between communities and mining companies. "
             },
             "print": {
-                "enable": false,
-                "type": 2,
+                "enable": true,
+                "type": 3,
                 "printlayout": ["Portrait", "Landscape"],
                 "project": ["Default", "Topo"],
                 "DPI": [96, 300]
             },
-      "save": {
-              "enable": true
+            "saveimage": {
+            	"enable": true
+            },
+			"saveurl": {
+            	"enable": true
             },
             "fullscreen": true
         },
@@ -266,20 +386,132 @@
             "basemaps": [{
                 "expand": false,
                 "last": true,
+                "type": 3,
+                "id": "99999999-0003-c8f5-175c-645270a6b6fe",
+                "graphid": "e5511402-0002-5cbe-0d3c-f537c612b7df",
+                "displayfields": false,
+                "label": {
+                    "value": "Satellite imagery",
+                    "alttext": "Satellite imagery"
+                },
+                "metadata": {
+                    "enable": true,
+                    "value": "https://www.nrcan.gc.ca/mining-materials/aboriginal/11894",
+                    "alttext": "FAQs for the map"
+                },
+                "opacity": {
+                    "enable": true,
+                    "min": 0,
+                    "max": 1,
+                    "initstate": 0.7
+                },
+                "visibility": {
+                    "enable": true,
+                    "initstate": false,
+                    "type": 2,
+                    "radioid": 5
+                },
+                "displaychild": {
+                    "enable": false,
+                    "symbol": ""
+                },
+                "customimage": {
+                    "enable": false,
+                    "description": "",
+                    "images": []
+                },
+                "items": []
+
+            }, {
+                "expand": false,
+                "last": false,
+                "type": 3,
+                "id": "bbbb469d-gggg-c8f5-175c-645270a6b6fe",
+                "graphid": "e5511402-0004-5cbe-0d3c-f537c612b7df",
+                "displayfields": false,
+                "label": {
+                    "value": "Topographic Base Map",
+                    "alttext": "Topographic Base Map"
+                },
+                "metadata": {
+                    "enable": true,
+                    "value": "http://atlas.gc.ca/toporama/en/index.html",
+                    "alttext": "Toporama"
+                },
+                "opacity": {
+                    "enable": true,
+                    "min": 0,
+                    "max": 1,
+                    "initstate": 1
+                },
+                "visibility": {
+                    "enable": true,
+                    "initstate": false,
+                    "type": 2,
+                    "radioid": 5
+                },
+                "displaychild": {
+                    "enable": false,
+                    "symbol": ""
+                },
+                "customimage": {
+                    "enable": false,
+                    "description": "",
+                    "images": []
+                },
+                "items": []
+            },{
+                "expand": false,
+                "last": true,
                 "type": 2,
                 "id": "380a923d-466f-4e97-88af-7e6d66f2570a",
                 "graphid": "93fa722d-8208-95c3-a64a-5d63ac4b5216",
                 "displayfields": false,
                 "label": {
-                    "value": "CBCT3978",
-                    "alttext": "CBCT3978"
+                    "value": "Canada Transportation Base Map",
+                    "alttext": "Canada Transportation Base Map"
+                },
+                "metadata": {
+                    "enable": true,
+                    "value": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/BaseMaps/CBMT3978/MapServer",
+                    "alttext": "CBMT"
+                },
+                "opacity": {
+                    "enable": true,
+                    "min": 0,
+                    "max": 1,
+                    "initstate": 1
+                },
+                "visibility": {
+                    "enable": true,
+                    "initstate": true,
+                    "type": 2,
+                    "radioid": 5
+                },
+                "displaychild": {
+                    "enable": false
+                },
+                "customimage": {
+                    "enable": false,
+                    "images": []
+                },
+                "items": [{
+                "expand": false,
+                "last": true,
+                "type": 2,
+                "id": "380a923d-466f-4e97-88af-7e6d66f2570a",
+                "graphid": "93fa722d-8208-95c3-a64a-5d63ac4b5216",
+                "displayfields": false,
+                "label": {
+                    "value": "Base Text",
+                    "alttext": "Base Text"
                 },
                 "metadata": {
                     "enable": false,
                     "value": ""
                 },
                 "opacity": {
-                    "enable": false,
+                    "enable": true,
                     "min": 0,
                     "max": 1,
                     "initstate": 1
@@ -300,17 +532,90 @@
                     "images": []
                 },
                 "items": []
+            }, {
+                "expand": false,
+                "last": true,
+                "type": 2,
+                "id": "380a923d-466f-4e97-88af-7e6d66f2570b",
+                "graphid": "93fa722d-8208-95c3-a64a-5d63ac4b5216",
+                "displayfields": false,
+                "label": {
+                    "value": "Canada Base Map",
+                    "alttext": "Canada Base Map"
+                },
+                "metadata": {
+                    "enable": false,
+                    "value": ""
+                },
+                "opacity": {
+                    "enable": true,
+                    "min": 0,
+                    "max": 1,
+                    "initstate": 1
+                },
+                "visibility": {
+                    "enable": true,
+                    "initstate": true,
+                    "type": 1,
+                    "val": "checkbox",
+                    "radioid": 0
+                },
+                "displaychild": {
+                    "enable": false,
+                    "symbol": "{\"type\":\"simple\",\"symbol\":{\"type\":\"esriSFS\",\"style\":\"esriSFSSolid\",\"color\":[0,0,0,0],\"outline\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[0,0,0,0],\"width\":0.4}},\"label\":\"\",\"description\":\"\"}"
+                },
+                "customimage": {
+                    "enable": false,
+                    "images": []
+                },
+                "items": []
+            }]}, {
+                "expand": false,
+                "last": true,
+                "type": 2,
+                "id": "34ad6a2c-2bcf-bd20-111f-ce0421f62a53",
+                "graphid": "762eb7ed-0001-242f-6fcf-af08f5605eb1",
+                "displayfields": false,
+                "label": {
+                    "value": "Hillshade",
+                    "alttext": "Hillshade"
+                },
+                "metadata": {
+                    "enable": false
+                },
+                "opacity": {
+                    "enable": true,
+                    "min": 0,
+                    "max": 1,
+                    "initstate": 1
+                },
+                "visibility": {
+                    "enable": true,
+                    "initstate": false,
+                    "type": 1,
+                    "radioid": 0
+                },
+                "displaychild": {
+                    "enable": false,
+                    "symbol": "{\"type\":\"simple\",\"symbol\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[0,0,0,0],\"width\":2},\"label\":\"\",\"description\":\"\"}"
+                },
+                "customimage": {
+                    "enable": false,
+                    "description": "",
+                    "images": []
+                },
+                "items": []
             }],
             "items": [{
                 "expand": true,
                 "last": false,
-                "type": 5,
+                "type": 4,
                 "id": "6f798c6b-dddd1-4e24-78dd-9bfa5a9bc59e",
                 "graphid": "68865be1-aaa1-7faf-9521-029baa08899a",
                 "displayfields": false,
                 "label": {
-                    "value": "Mining Agreement",
-                    "alttext": "Mining Agreement"
+                    "value": "Mining Project Status",
+                    "alttext": "Mining Project Status"
                 },
                 "metadata": {
                     "enable": false
@@ -329,135 +634,272 @@
                 },
                 "displaychild": {
                     "enable": true,
-                   "symbol": "{\"type\":\"uniqueValue\",\"field1\":\"proj_status_en\",\"field2\":null,\"field3\":null,\"fieldDelimiter\":\", \",\"defaultSymbol\":null,\"defaultLabel\":null,\"uniqueValueInfos\":[{\"symbol\":{\"type\":\"esriPMS\",\"url\":\"11fcbee619ee16c2ce821b97969edcb2\",\"imageData\":\"iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAYAAABWzo5XAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAY1JREFUOI2t0D0sA2EcBvBH7miCob0S/SKmChfU9E5UJBIDVcFoZ7EQBnYfk1gMTDaJNMHEIDVocpEmRxgUk6aqohgqOX0vNWiPa9/riXjmJ7/8nz+PfwpvViCE2BVFmZNleRFA9k8QIcROIZxUu3tEYmlolaTDUSPMECogFtewyPG1gGNwiJDsriQdj7EwJvSNBEWOrwEAcFU2wDESIARMrARiIYV8YUEmxpdDKrkKTE+0oblRwMVVEpuhG3BVAhPji5FqV1BE/pKFyS70+VsBAJ3tTcghh63QLRPTIErpjsU1oCEA0OJ16KZ1iE4gdJufKQB1/QFCMkuSJM1qkKqqM8rzadjjHbamMzkAQOLhFW6nTYPu46/fKn2H+hKJUUpXddNkWT73+dAbj+1p2MrGGeanAI9bwHUsibXtSw35eDyIUSXRHY1GUyXP1mMBa+oti5nliG4eCymB9Nh+2OMNWNMZc4QJGWJlEEOoGLPUd1vVpyNDpCz0E1Pid+sAxo0QU6iAAfCb9Uyh3+YTLKLuJNc4Y+kAAAAASUVORK5CYII=\",\"contentType\":\"image/png\",\"width\":13,\"height\":13,\"angle\":0,\"xoffset\":0,\"yoffset\":0},\"value\":\"Exploration\",\"label\":\"Exploration\",\"description\":\"\"},{\"symbol\":{\"type\":\"esriPMS\",\"url\":\"408c23b9a23ad2f9fcb37529013f1e4f\",\"imageData\":\"iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAT1JREFUOI2l0E9OwkAUx/Ff2wERE6kkqKR3YYl/SAQxsmXTC3TJCbqcC7Bxi1F0wcbzOAGpsdTYpB3q1AUWCrTFxLd9+X4y8wj+OSRtQXW6JzNnICHMuceFdu+u5/0ZWMSzh5ysNObiG/vv3rPZNZtJyBYQxYfkoFHNV2AHDqbcrhcn3pPZNVubCMmKAQlHRAUATLl9Vpx6Q6rTltE3/C0gKY4mhpwrbDakOr2OELIrjiMhAIvbFzKzH6lO20bf8AkAyMwZZMXRlH9fYnH7UmKzewBXyy9USDkzXiElOMEXfDFf3UBopc5kbL1UCyc1BXJGHmLMLXAxH4WaersEjL7hU53WMX7LQBbxZ+COhKberB1xN5IcrwHpSHq8BWwip/lKzQo+UuNEII647HUAAEJTO0lxKhAhAJpp+2h+AD7Ky8AueQi0AAAAAElFTkSuQmCC\",\"contentType\":\"image/png\",\"width\":12,\"height\":12,\"angle\":0,\"xoffset\":0,\"yoffset\":0},\"value\":\"Development\",\"label\":\"Development\",\"description\":\"\"},{\"symbol\":{\"type\":\"esriPMS\",\"url\":\"7ffbffaf377658a4765bd27ab22d3402\",\"imageData\":\"iVBORw0KGgoAAAANSUhEUgAAABIAAAAPCAYAAADphp8SAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAZpJREFUOI2tz7FrE3EYxvFvf5fz0stpzvZCQi4xidEODcJBhgMlEBw6mNB2LohQqDhI505dxEFKqtAtg+2fkGq6OAWKw20HTu3WtYn10CoNuaOdWioxJhGf8X0fPrxviP+U0N+WmWYpr/HjswxrbtXd+WdI41ctaubjCLbKDb3RWmx5Y0PFj8XHgaIuRLImgHbifd0AVsaD6khnE8G7WP4eQkgAqOnscmbX3jhacA5HhgrJwko4Gn+gTOtXM3X6tjASxvYRPBoJKjfKehvvVTSf7StH06mH1p4151bcT0MhL+Sta8mcIUfUPkiOqCjJ+++puxmeEwyEMrv2TE/yX8bumH+6HoBbqbhpdcqrLq23AyFN6tamsrOykOWBkLghczNlvi7tlXb2K/vf+iCrac1Jk3o1nIgNRC4TThiT7fZxDVj+Haoj9WBTv5tDCDEUEkKgp1PP7Kb9xqk6B1dQIVl8AUEh6Pl0v/8cCgEEPV+c0t0EKtdeC54CnBx+GQm5lif2B9tw5p1OCKA7cbqknCuz4yo+fseZdzsAF7Wma1La1xyAAAAAAElFTkSuQmCC\",\"contentType\":\"image/png\",\"width\":13,\"height\":11,\"angle\":0,\"xoffset\":0,\"yoffset\":0},\"value\":\"Producing\",\"label\":\"Producing\",\"description\":\"\"},{\"symbol\":{\"type\":\"esriPMS\",\"url\":\"68eba3cc52aff9fc7eb320d688ea0830\",\"imageData\":\"iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAYAAAAfSC3RAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAPNJREFUKJHV0TFKA0EUxvH/6vCmkEUdEXYL2UK8gL02umhjlUoEISfwFB4jpRcQFJIQDNjpKRaFIQiDJNWM4FqEbCTsJmDnV83A+817vFH8MerXOXrKspudEA7rCj+duzv2vrsIo0GadvahHYvUdjDGXD2LXBwVxWMF+2naORBpx0tG2xBZy+B+oPXpifdDBSBwvQzNEsO6SpJLimKoVpfX57/BsuELFlMCTCbfFfwKYfwG23srHngHgtYf81G9Px9p3YtC2EwakAVG8DC29raCuXMvXWNyq3XPwlYdjKao1QI/7wicOffah10aFpZPQTm7/wB92EXH5zQv9AAAAABJRU5ErkJggg==\",\"contentType\":\"image/png\",\"width\":10,\"height\":10,\"angle\":0,\"xoffset\":0,\"yoffset\":0},\"value\":\"Closed or in Reclamation\",\"label\":\"Closed or in Reclamation\",\"description\":\"\"},{\"symbol\":{\"type\":\"esriPMS\",\"url\":\"63378621f9d43df6d1783b90227ee759\",\"imageData\":\"iVBORw0KGgoAAAANSUhEUgAAABAAAAAOCAYAAAAmL5yKAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAWxJREFUKJGlkb1OwlAYht+GmkIgkbQsMOHA5u7qLZimBBdiTIyTcdCY6OTAYGK8AbbGWJMem7owOhhdjDcBRCilpUWghgZLHRQCUhTjN52f93nOz0fjn0UDAC8ItwmWXV8Kh+lFoEG/P2ja9o4qyzefAEV1WI5bZhhmoVNd14VlWY3xDULAiaZpQjqdDi8iMEzznhDyOBbIsvyyIQhnPcc5jUWjP8KO43gtw9gazemJwXm9VtvNZDJJiqICYd/30TSMoqqq5RkBIeRNEISDlmVJCY4LFNi23TObzaPJtalfJ4RcZ3O5/Xg8vkaHQlPwu+eh1W4flkql3lwBAAxcd8/Q9adkKjX1Dss0y1eiWPyenxGoqvrM8/wly3H5UVtd14Wu63kA/q8CAGAY5riuadmVr7Y2dP1OUZSHoGygQJKkOp/NFl673QIFeL1OZzsoN1cAALFI5KJaqWxiOJQURan+WSCKYh/A6rz9UX0AsRaTeURh1swAAAAASUVORK5CYII=\",\"contentType\":\"image/png\",\"width\":12,\"height\":10,\"angle\":0,\"xoffset\":0,\"yoffset\":0},\"value\":\"On Hold\",\"label\":\"On Hold\",\"description\":\"\"}]}"
-          
+                    "symbol": "{\"type\":\"uniqueValue\",\"field1\":\"proj_status_en\",\"field2\":null,\"field3\":null,\"fieldDelimiter\":\", \",\"defaultSymbol\":null,\"defaultLabel\":null,\"uniqueValueInfos\":[{\"symbol\":{\"type\":\"esriPMS\",\"url\":\"11fcbee619ee16c2ce821b97969edcb2\",\"imageData\":\"iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAYAAABWzo5XAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAY1JREFUOI2t0D0sA2EcBvBH7miCob0S/SKmChfU9E5UJBIDVcFoZ7EQBnYfk1gMTDaJNMHEIDVocpEmRxgUk6aqohgqOX0vNWiPa9/riXjmJ7/8nz+PfwpvViCE2BVFmZNleRFA9k8QIcROIZxUu3tEYmlolaTDUSPMECogFtewyPG1gGNwiJDsriQdj7EwJvSNBEWOrwEAcFU2wDESIARMrARiIYV8YUEmxpdDKrkKTE+0oblRwMVVEpuhG3BVAhPji5FqV1BE/pKFyS70+VsBAJ3tTcghh63QLRPTIErpjsU1oCEA0OJ16KZ1iE4gdJufKQB1/QFCMkuSJM1qkKqqM8rzadjjHbamMzkAQOLhFW6nTYPu46/fKn2H+hKJUUpXddNkWT73+dAbj+1p2MrGGeanAI9bwHUsibXtSw35eDyIUSXRHY1GUyXP1mMBa+oti5nliG4eCymB9Nh+2OMNWNMZc4QJGWJlEEOoGLPUd1vVpyNDpCz0E1Pid+sAxo0QU6iAAfCb9Uyh3+YTLKLuJNc4Y+kAAAAASUVORK5CYII=\",\"contentType\":\"image/png\",\"width\":13,\"height\":13,\"angle\":0,\"xoffset\":0,\"yoffset\":0},\"value\":\"Exploration\",\"label\":\"Exploration\",\"description\":\"\"},{\"symbol\":{\"type\":\"esriPMS\",\"url\":\"408c23b9a23ad2f9fcb37529013f1e4f\",\"imageData\":\"iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAT1JREFUOI2l0E9OwkAUx/Ff2wERE6kkqKR3YYl/SAQxsmXTC3TJCbqcC7Bxi1F0wcbzOAGpsdTYpB3q1AUWCrTFxLd9+X4y8wj+OSRtQXW6JzNnICHMuceFdu+u5/0ZWMSzh5ysNObiG/vv3rPZNZtJyBYQxYfkoFHNV2AHDqbcrhcn3pPZNVubCMmKAQlHRAUATLl9Vpx6Q6rTltE3/C0gKY4mhpwrbDakOr2OELIrjiMhAIvbFzKzH6lO20bf8AkAyMwZZMXRlH9fYnH7UmKzewBXyy9USDkzXiElOMEXfDFf3UBopc5kbL1UCyc1BXJGHmLMLXAxH4WaersEjL7hU53WMX7LQBbxZ+COhKberB1xN5IcrwHpSHq8BWwip/lKzQo+UuNEII647HUAAEJTO0lxKhAhAJpp+2h+AD7Ky8AueQi0AAAAAElFTkSuQmCC\",\"contentType\":\"image/png\",\"width\":12,\"height\":12,\"angle\":0,\"xoffset\":0,\"yoffset\":0},\"value\":\"Development\",\"label\":\"Development\",\"description\":\"\"},{\"symbol\":{\"type\":\"esriPMS\",\"url\":\"7ffbffaf377658a4765bd27ab22d3402\",\"imageData\":\"iVBORw0KGgoAAAANSUhEUgAAABIAAAAPCAYAAADphp8SAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAZpJREFUOI2tz7FrE3EYxvFvf5fz0stpzvZCQi4xidEODcJBhgMlEBw6mNB2LohQqDhI505dxEFKqtAtg+2fkGq6OAWKw20HTu3WtYn10CoNuaOdWioxJhGf8X0fPrxviP+U0N+WmWYpr/HjswxrbtXd+WdI41ctaubjCLbKDb3RWmx5Y0PFj8XHgaIuRLImgHbifd0AVsaD6khnE8G7WP4eQkgAqOnscmbX3jhacA5HhgrJwko4Gn+gTOtXM3X6tjASxvYRPBoJKjfKehvvVTSf7StH06mH1p4151bcT0MhL+Sta8mcIUfUPkiOqCjJ+++puxmeEwyEMrv2TE/yX8bumH+6HoBbqbhpdcqrLq23AyFN6tamsrOykOWBkLghczNlvi7tlXb2K/vf+iCrac1Jk3o1nIgNRC4TThiT7fZxDVj+Haoj9WBTv5tDCDEUEkKgp1PP7Kb9xqk6B1dQIVl8AUEh6Pl0v/8cCgEEPV+c0t0EKtdeC54CnBx+GQm5lif2B9tw5p1OCKA7cbqknCuz4yo+fseZdzsAF7Wma1La1xyAAAAAAElFTkSuQmCC\",\"contentType\":\"image/png\",\"width\":13,\"height\":11,\"angle\":0,\"xoffset\":0,\"yoffset\":0},\"value\":\"Producing\",\"label\":\"Producing\",\"description\":\"\"},{\"symbol\":{\"type\":\"esriPMS\",\"url\":\"68eba3cc52aff9fc7eb320d688ea0830\",\"imageData\":\"iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAYAAAAfSC3RAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAPNJREFUKJHV0TFKA0EUxvH/6vCmkEUdEXYL2UK8gL02umhjlUoEISfwFB4jpRcQFJIQDNjpKRaFIQiDJNWM4FqEbCTsJmDnV83A+817vFH8MerXOXrKspudEA7rCj+duzv2vrsIo0GadvahHYvUdjDGXD2LXBwVxWMF+2naORBpx0tG2xBZy+B+oPXpifdDBSBwvQzNEsO6SpJLimKoVpfX57/BsuELFlMCTCbfFfwKYfwG23srHngHgtYf81G9Px9p3YtC2EwakAVG8DC29raCuXMvXWNyq3XPwlYdjKao1QI/7wicOffah10aFpZPQTm7/wB92EXH5zQv9AAAAABJRU5ErkJggg==\",\"contentType\":\"image/png\",\"width\":10,\"height\":10,\"angle\":0,\"xoffset\":0,\"yoffset\":0},\"value\":\"Closed or in Reclamation\",\"label\":\"Closed or in Reclamation\",\"description\":\"\"},{\"symbol\":{\"type\":\"esriPMS\",\"url\":\"63378621f9d43df6d1783b90227ee759\",\"imageData\":\"iVBORw0KGgoAAAANSUhEUgAAABAAAAAOCAYAAAAmL5yKAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAWxJREFUKJGlkb1OwlAYht+GmkIgkbQsMOHA5u7qLZimBBdiTIyTcdCY6OTAYGK8AbbGWJMem7owOhhdjDcBRCilpUWghgZLHRQCUhTjN52f93nOz0fjn0UDAC8ItwmWXV8Kh+lFoEG/P2ja9o4qyzefAEV1WI5bZhhmoVNd14VlWY3xDULAiaZpQjqdDi8iMEzznhDyOBbIsvyyIQhnPcc5jUWjP8KO43gtw9gazemJwXm9VtvNZDJJiqICYd/30TSMoqqq5RkBIeRNEISDlmVJCY4LFNi23TObzaPJtalfJ4RcZ3O5/Xg8vkaHQlPwu+eh1W4flkql3lwBAAxcd8/Q9adkKjX1Dss0y1eiWPyenxGoqvrM8/wly3H5UVtd14Wu63kA/q8CAGAY5riuadmVr7Y2dP1OUZSHoGygQJKkOp/NFl673QIFeL1OZzsoN1cAALFI5KJaqWxiOJQURan+WSCKYh/A6rz9UX0AsRaTeURh1swAAAAASUVORK5CYII=\",\"contentType\":\"image/png\",\"width\":12,\"height\":10,\"angle\":0,\"xoffset\":0,\"yoffset\":0},\"value\":\"On Hold\",\"label\":\"On Hold\",\"description\":\"\"}]}"
+
                 },
                 "customimage": {
                     "enable": false,
                     "images": [{
-                                "url": "http://s-bsc-geoappint.nrn.nrcan.gc.ca/GeoCanViz/datatable/gcviz/images/mining.png",
-                                "label": ""
-                            }]
+                        "url": "http://s-bsc-geoappint.nrn.nrcan.gc.ca/GeoCanViz/datatable/gcviz/images/mining.png",
+                        "label": ""
+                    }]
+                },
+                "items": []
+            }, {
+                "expand": true,
+                "last": true,
+                "type": 4,
+                "id": "f529a8d1-b665-e0fd-40d8-f6ff1efe3d81",
+                "graphid": "594b625a-e7db-182a-9aaa-c0b530d5e7de",
+                "displayfields": false,
+                "label": {
+                    "value": "Tribal Council",
+                    "alttext": "Tribal Council"
+                },
+                "metadata": {
+                    "enable": false
+                },
+                "opacity": {
+                    "enable": false,
+                    "min": 0,
+                    "max": 1,
+                    "initstate": 1
+                },
+                "visibility": {
+                    "enable": true,
+                    "initstate": false,
+                    "type": 1,
+                    "radioid": 0
+                },
+                "displaychild": {
+                    "enable": true,
+                    "symbol": "{\"type\":\"simple\",\"symbol\":{\"type\":\"esriPMS\",\"url\":\"ce301c528e3635d1dd2f9f295fcac27e\",\"imageData\":\"iVBORw0KGgoAAAANSUhEUgAAAA4AAAAMCAYAAABSgIzaAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAVhJREFUKJFjYcABPD09pf78+fNl9+7dn7DJs+DSyMbGtoyNje0eAwNDEtEaAwMDQw2+Sdi/YPlkFxwcPG3t2rVnCGqMj4/n+P7hS0/4JXOGF0LvGftVDkxkYGCwJqjx3bt3pbFvTeX4nnMy8D3nZDCTkbb65+sbvXnz5qU4Nbq7u0vL/uOrMD+rDBfzvWHEcM7gaae/v/+GjRs3fsWqkYODoyvkoTEX60+EsMhDXgYfOW3pDUJXKxkYGGowNPr6+loa/pCIUr8ghe56BrurmgwHrO8UBwYGzlm/fv0DZI2MTExMk/xvGDMwMjBiaOR8x8YQ9sqIY47UyV4GBoZguMbAwMAEz/caJuIP+TE0wYD+BXkGFaGbQYGBgY7r16/fz8LAwMDw79+/Mtv7ajg1MTAwMDD9ZGLwfq7P0C+/v4qBgQGicePGjZobGTbi1cjAwMDAcAGKGRgYAK9TaTHxoeKqAAAAAElFTkSuQmCC\",\"contentType\":\"image/png\",\"width\":10,\"height\":9,\"angle\":0,\"xoffset\":0,\"yoffset\":0},\"label\":\"\",\"description\":\"\"}"
+                },
+                "customimage": {
+                    "enable": false,
+                    "images": []
+                },
+                "items": []
+
+            }, {
+                "expand": true,
+                "last": true,
+                "type": 4,
+                "id": "0c05b13b-cd43-ed79-8818-da9a42c8cf2f",
+                "graphid": "1403ea21-89c8-0294-e971-d2c75a756524",
+                "displayfields": false,
+                "label": {
+                    "value": "First Nation",
+                    "alttext": "First Nation"
+                },
+                "metadata": {
+                    "enable": false
+                },
+                "opacity": {
+                    "enable": false,
+                    "min": 0,
+                    "max": 1,
+                    "initstate": 0.5
+                },
+                "visibility": {
+                    "enable": true,
+                    "initstate": false,
+                    "type": 1,
+                    "radioid": 0
+                },
+                "displaychild": {
+                    "enable": true
+                },
+                "customimage": {
+                    "enable": false,
+                    "images": []
+                },
+                "items": [{
+                "expand": false,
+                "last": true,
+                "type": 4,
+                "id": "f147e85a-200b-09b0-091b-7c42546b1c90",
+                "graphid": "d8df07b1-3f17-ee93-a18c-8ea1c383970d",
+                "displayfields": false,
+                "label": {
+                    "value": "First Nation label",
+                    "alttext": "First Nation label"
+                },
+                "metadata": {
+                    "enable": true,
+                    "value": "http://geoviewer-geovisualiseur.aandc-aadnc.gc.ca/gisprd/rest/services/OCIP/Indian_Reserves_Anno/MapServer"
+                },
+                "opacity": {
+                    "enable": false,
+                    "min": 0,
+                    "max": 1,
+                    "initstate": 1
+                },
+                "visibility": {
+                    "enable": true,
+                    "initstate": true,
+                    "type": 1,
+                    "radioid": 0
+                },
+                "displaychild": {
+                    "enable": false,
+                    "symbol": "{\"type\":\"simple\",\"symbol\":{\"type\":\"esriPMS\",\"url\":\"546fd2f39982c4632ed3b6aaaf3a48b3\",\"imageData\":\"iVBORw0KGgoAAAANSUhEUgAAAAsAAAALCAYAAACprHcmAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAATtJREFUGJV10D1IQmEUgOHX4+cVNdLIguifaMnGGoqg0cJB7nCprSmiqdpdorHNMZKGlkjIScSttaEhghocGiqakn4Q4fZ5ahEpyHc8PAcOx9DOdd0NVd0HxtujL+DC9/29SqXyAmAAstnsgarmACQCEgb7QQhlzXGcxXQ6vVCtVp9NJpNZAnJOEpJzghMXAFpf8FlT3m51NBqNHgOrxhizZRIwtGwIGDoFQ5CYERB4u9EVz/PGjIik+mb5A38XnxY+7hVrbcqoqg33dZFAIAjhAaHxaK0Brr5V50G6LmhLNRaLXRtrbb756myHegj+B1s+tOoUzotndVMul2vesLsZHdSCiUjgj/yG95reCc5u58/Fo9LJetx96B3RgpOQCRHENmm8P/mn/Z+TO/li3u9ggLPD0iUw1fVw4AdZFm1b9fTS4gAAAABJRU5ErkJggg==\",\"contentType\":\"image/png\",\"width\":8,\"height\":8,\"angle\":0,\"xoffset\":0,\"yoffset\":0},\"label\":\"\",\"description\":\"\"}"
+                },
+                "customimage": {
+                    "enable": false,
+                    "images": []
                 },
                 "items": []
             },{
-                    "expand": false,
-                    "last": true,
-                    "type": 5,
-                    "id": "f529a8d1-b665-e0fd-40d8-f6ff1efe3d81",
-                    "graphid": "594b625a-e7db-182a-9aaa-c0b530d5e7de",
-                    "displayfields": false,
-                    "label": {
-                        "value": "Conseil tribal / Tribal Council",
-                        "alttext": "Conseil tribal / Tribal Council"
-                    },
-                    "metadata": {
-                        "enable": false
-                    },
-                    "opacity": {
-                        "enable": false,
-                        "min": 0,
-                        "max": 1,
-                        "initstate": 1
-                    },
-                    "visibility": {
-                        "enable": true,
-                        "initstate": false,
-                        "type": 1,
-                        "radioid": 0
-                    },
-                    "displaychild": {
-                        "enable": true,
-                        "symbol": "{\"type\":\"simple\",\"symbol\":{\"type\":\"esriPMS\",\"url\":\"ce301c528e3635d1dd2f9f295fcac27e\",\"imageData\":\"iVBORw0KGgoAAAANSUhEUgAAAA4AAAAMCAYAAABSgIzaAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAVhJREFUKJFjYcABPD09pf78+fNl9+7dn7DJs+DSyMbGtoyNje0eAwNDEtEaAwMDQw2+Sdi/YPlkFxwcPG3t2rVnCGqMj4/n+P7hS0/4JXOGF0LvGftVDkxkYGCwJqjx3bt3pbFvTeX4nnMy8D3nZDCTkbb65+sbvXnz5qU4Nbq7u0vL/uOrMD+rDBfzvWHEcM7gaae/v/+GjRs3fsWqkYODoyvkoTEX60+EsMhDXgYfOW3pDUJXKxkYGGowNPr6+loa/pCIUr8ghe56BrurmgwHrO8UBwYGzlm/fv0DZI2MTExMk/xvGDMwMjBiaOR8x8YQ9sqIY47UyV4GBoZguMbAwMAEz/caJuIP+TE0wYD+BXkGFaGbQYGBgY7r16/fz8LAwMDw79+/Mtv7ajg1MTAwMDD9ZGLwfq7P0C+/v4qBgQGicePGjZobGTbi1cjAwMDAcAGKGRgYAK9TaTHxoeKqAAAAAElFTkSuQmCC\",\"contentType\":\"image/png\",\"width\":10,\"height\":9,\"angle\":0,\"xoffset\":0,\"yoffset\":0},\"label\":\"\",\"description\":\"\"}"
-                    },
-                    "customimage": {
-                        "enable": false,
-                        "images": []
-                    },
-                    "items": []
-                
+                "expand": false,
+                "last": true,
+                "type": 5,
+                "id": "f147e85a-200b-09b0-091b-7c42546b1c89",
+                "graphid": "d8df07b1-3f17-ee93-a18c-8ea1c383969d",
+                "displayfields": false,
+                "label": {
+                    "value": "First Nation",
+                    "alttext": "First Nation"
+                },
+                "metadata": {
+                    "enable": false
+                },
+                "opacity": {
+                    "enable": false,
+                    "min": 0,
+                    "max": 1,
+                    "initstate": 1
+                },
+                "visibility": {
+                    "enable": true,
+                    "initstate": true,
+                    "type": 1,
+                    "radioid": 0
+                },
+                "displaychild": {
+                    "enable": true,
+                    "symbol": "{\"type\":\"simple\",\"symbol\":{\"type\":\"esriPMS\",\"url\":\"546fd2f39982c4632ed3b6aaaf3a48b3\",\"imageData\":\"iVBORw0KGgoAAAANSUhEUgAAAAsAAAALCAYAAACprHcmAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAATtJREFUGJV10D1IQmEUgOHX4+cVNdLIguifaMnGGoqg0cJB7nCprSmiqdpdorHNMZKGlkjIScSttaEhghocGiqakn4Q4fZ5ahEpyHc8PAcOx9DOdd0NVd0HxtujL+DC9/29SqXyAmAAstnsgarmACQCEgb7QQhlzXGcxXQ6vVCtVp9NJpNZAnJOEpJzghMXAFpf8FlT3m51NBqNHgOrxhizZRIwtGwIGDoFQ5CYERB4u9EVz/PGjIik+mb5A38XnxY+7hVrbcqoqg33dZFAIAjhAaHxaK0Brr5V50G6LmhLNRaLXRtrbb756myHegj+B1s+tOoUzotndVMul2vesLsZHdSCiUjgj/yG95reCc5u58/Fo9LJetx96B3RgpOQCRHENmm8P/mn/Z+TO/li3u9ggLPD0iUw1fVw4AdZFm1b9fTS4gAAAABJRU5ErkJggg==\",\"contentType\":\"image/png\",\"width\":8,\"height\":8,\"angle\":0,\"xoffset\":0,\"yoffset\":0},\"label\":\"\",\"description\":\"\"}"
+                },
+                "customimage": {
+                    "enable": false,
+                    "images": []
+                },
+                "items": []
+            }]}, {
+
+                "expand": false,
+                "last": true,
+                "type": 4,
+                "id": "91284222-5cf2-c7f9-43eb-3a6f8a8cd855",
+                "graphid": "3f072934-141a-486c-d083-8b8a6fd10474",
+                "displayfields": false,
+                "label": {
+                    "value": "Inuit Community",
+                    "alttext": "Inuit Community"
+                },
+                "metadata": {
+                    "enable": false
+                },
+                "opacity": {
+                    "enable": false,
+                    "min": 0,
+                    "max": 1,
+                    "initstate": 1
+                },
+                "visibility": {
+                    "enable": true,
+                    "initstate": false,
+                    "type": 1,
+                    "radioid": 0
+                },
+                "displaychild": {
+                    "enable": true,
+                    "symbol": "{\"type\":\"simple\",\"symbol\":{\"type\":\"esriPMS\",\"url\":\"defaf90641d591c289faf467cfcf0b36\",\"imageData\":\"iVBORw0KGgoAAAANSUhEUgAAAAsAAAALCAYAAACprHcmAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAYZJREFUGJVtkb1rU3EUhp+cnPQ2RAJ+9EMhlaCTRpBCg9Slk4NyCSgJgh/gYkEXXQrdXPQPqEMJpZTSQb2lg8gFh/oHtFQHIy0iorQWK8VgQ2rIzclPB0vw6xlfnhdezlH28H3/uojcA7J7UVNEgiiKxsIw3AJQgEKh8AAYB5AkiAdWw3POXVPVkVKpNBwEwSf1fX8YGPf6hIODwuljZ0gm9vFmc5nPa9+oVVym2WyWgQuqqqOSdpw4l+HmyBiH0r2/NrSusHBkjhexRWqv3flisZhRM8v1nlQu50c7IoCX6OZi/iqrWyvUVquYWU5FxLwDwkBPlr/pTiTJHc7zse85jQ0zBZZ+OJe3dguN6z+FRqsObdqpVOqlmtnDxteuW5X1V/Gh42f/ELd3vlDZXKZdZSaYf1zVMAzfXer3bz9ampwEYqcGBtF4gvXtDzxZKbPz1tYs4k7nzgvTz8o3+ovvZ+sTU11pOSpxYq3vbre+YbP7d7N3555ORB0ZYOb+/OJv3/svPwGZxY7HBqBSHwAAAABJRU5ErkJggg==\",\"contentType\":\"image/png\",\"width\":8,\"height\":8,\"angle\":0,\"xoffset\":0,\"yoffset\":0},\"label\":\"\",\"description\":\"\"}"
+                },
+                "customimage": {
+                    "enable": false,
+                    "images": []
+                },
+                "items": []
             }, {
-                    "expand": false,
-                    "last": true,
-                    "type": 5,
-                    "id": "f147e85a-200b-09b0-091b-7c42546b1c89",
-                    "graphid": "d8df07b1-3f17-ee93-a18c-8ea1c383969d",
-                    "displayfields": false,
-                    "label": {
-                        "value": "Première Nation / First Nation",
-                        "alttext": "Première Nation / First Nation"
-                    },
-                    "metadata": {
-                        "enable": false
-                    },
-                    "opacity": {
-                        "enable": false,
-                        "min": 0,
-                        "max": 1,
-                        "initstate": 1
-                    },
-                    "visibility": {
-                        "enable": true,
-                        "initstate": false,
-                        "type": 1,
-                        "radioid": 0
-                    },
-                    "displaychild": {
-                        "enable": true,
-                        "symbol": "{\"type\":\"simple\",\"symbol\":{\"type\":\"esriPMS\",\"url\":\"546fd2f39982c4632ed3b6aaaf3a48b3\",\"imageData\":\"iVBORw0KGgoAAAANSUhEUgAAAAsAAAALCAYAAACprHcmAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAATtJREFUGJV10D1IQmEUgOHX4+cVNdLIguifaMnGGoqg0cJB7nCprSmiqdpdorHNMZKGlkjIScSttaEhghocGiqakn4Q4fZ5ahEpyHc8PAcOx9DOdd0NVd0HxtujL+DC9/29SqXyAmAAstnsgarmACQCEgb7QQhlzXGcxXQ6vVCtVp9NJpNZAnJOEpJzghMXAFpf8FlT3m51NBqNHgOrxhizZRIwtGwIGDoFQ5CYERB4u9EVz/PGjIik+mb5A38XnxY+7hVrbcqoqg33dZFAIAjhAaHxaK0Brr5V50G6LmhLNRaLXRtrbb756myHegj+B1s+tOoUzotndVMul2vesLsZHdSCiUjgj/yG95reCc5u58/Fo9LJetx96B3RgpOQCRHENmm8P/mn/Z+TO/li3u9ggLPD0iUw1fVw4AdZFm1b9fTS4gAAAABJRU5ErkJggg==\",\"contentType\":\"image/png\",\"width\":8,\"height\":8,\"angle\":0,\"xoffset\":0,\"yoffset\":0},\"label\":\"\",\"description\":\"\"}"
-                    },
-                    "customimage": {
-                        "enable": false,
-                        "images": []
-                    },
-                    "items": []
-            }, {
-                
-                    "expand": false,
-                    "last": true,
-                    "type": 5,
-                    "id": "91284222-5cf2-c7f9-43eb-3a6f8a8cd855",
-                    "graphid": "3f072934-141a-486c-d083-8b8a6fd10474",
-                    "displayfields": false,
-                    "label": {
-                        "value": "Collectivité inuite / Inuit Community",
-                        "alttext": "Collectivité inuite / Inuit Community"
-                    },
-                    "metadata": {
-                        "enable": false
-                    },
-                    "opacity": {
-                        "enable": false,
-                        "min": 0,
-                        "max": 1,
-                        "initstate": 1
-                    },
-                    "visibility": {
-                        "enable": true,
-                        "initstate": false,
-                        "type": 1,
-                        "radioid": 0
-                    },
-                    "displaychild": {
-                        "enable": true,
-                        "symbol": "{\"type\":\"simple\",\"symbol\":{\"type\":\"esriPMS\",\"url\":\"defaf90641d591c289faf467cfcf0b36\",\"imageData\":\"iVBORw0KGgoAAAANSUhEUgAAAAsAAAALCAYAAACprHcmAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAYZJREFUGJVtkb1rU3EUhp+cnPQ2RAJ+9EMhlaCTRpBCg9Slk4NyCSgJgh/gYkEXXQrdXPQPqEMJpZTSQb2lg8gFh/oHtFQHIy0iorQWK8VgQ2rIzclPB0vw6xlfnhdezlH28H3/uojcA7J7UVNEgiiKxsIw3AJQgEKh8AAYB5AkiAdWw3POXVPVkVKpNBwEwSf1fX8YGPf6hIODwuljZ0gm9vFmc5nPa9+oVVym2WyWgQuqqqOSdpw4l+HmyBiH0r2/NrSusHBkjhexRWqv3flisZhRM8v1nlQu50c7IoCX6OZi/iqrWyvUVquYWU5FxLwDwkBPlr/pTiTJHc7zse85jQ0zBZZ+OJe3dguN6z+FRqsObdqpVOqlmtnDxteuW5X1V/Gh42f/ELd3vlDZXKZdZSaYf1zVMAzfXer3bz9ampwEYqcGBtF4gvXtDzxZKbPz1tYs4k7nzgvTz8o3+ovvZ+sTU11pOSpxYq3vbre+YbP7d7N3555ORB0ZYOb+/OJv3/svPwGZxY7HBqBSHwAAAABJRU5ErkJggg==\",\"contentType\":\"image/png\",\"width\":8,\"height\":8,\"angle\":0,\"xoffset\":0,\"yoffset\":0},\"label\":\"\",\"description\":\"\"}"
-                    },
-                    "customimage": {
-                        "enable": false,
-                        "images": []
-                    },
-                    "items": []             
-            }, {
-                
+                "expand": false,
+                "last": true,
+                "type": 4,
+                "id": "0c05b13b-cd43-ed79-8818-da9a42c8cf2f",
+                "graphid": "1403ea21-89c8-0294-e971-d2c75a756513",
+                "displayfields": false,
+                "label": {
+                    "value": "Indian Reserve",
+                    "alttext": "Indian Reserve"
+                },
+                "metadata": {
+                    "enable": false
+                },
+                "opacity": {
+                    "enable": false,
+                    "min": 0,
+                    "max": 1,
+                    "initstate": 0.5
+                },
+                "visibility": {
+                    "enable": true,
+                    "initstate": false,
+                    "type": 1,
+                    "radioid": 0
+                },
+                "displaychild": {
+                    "enable": true
+                },
+                "customimage": {
+                    "enable": false,
+                    "images": []
+                },
+                "items": [{
                     "expand": false,
                     "last": true,
                     "type": 4,
-                    "id": "f147e85a-200b-09b0-091b-7c42546b1c11",
-                    "graphid": "3f072934-141a-486c-d083-8b8a6fd10474",
+                    "id": "0c05b13b-cd43-ed79-8818-da9a42c8cf1f",
+                    "graphid": "1403ea21-89c8-0294-e971-d2c75a756513",
                     "displayfields": false,
                     "label": {
-                        "value": "Aboriginal Land",
-                        "alttext": "Aboriginal Land"
+                        "value": "Indian Reserve Annotation",
+                        "alttext": "Indian Reserve Annotation"
+                    },
+                    "metadata": {
+                        "enable": false
+                    },
+                    "opacity": {
+                        "enable": false,
+                        "min": 0,
+                        "max": 1,
+                        "initstate": 1
+                    },
+                    "visibility": {
+                        "enable": true,
+                        "initstate": true,
+                        "type": 1,
+                        "radioid": 0
+                    },
+                    "displaychild": {
+                        "enable": false,
+                        "symbol": "{\"type\":\"simple\",\"symbol\":{\"type\":\"esriSFS\",\"style\":\"esriSFSSolid\",\"color\":[176,153,204,255],\"outline\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[128,99,166,255],\"width\":0.5}},\"label\":\"\",\"description\":\"\"}"
+                    },
+                    "customimage": {
+                        "enable": false,
+                        "images": []
+                    },
+                    "items": []
+
+                }, {
+                    "expand": false,
+                    "last": true,
+                    "type": 4,
+                    "id": "0c05b13b-cd43-ed79-8818-da9a42c8cf2f",
+                    "graphid": "1403ea21-89c8-0294-e971-d2c75a756513",
+                    "displayfields": false,
+                    "label": {
+                        "value": "Indian Reserve",
+                        "alttext": "Indian Reserve"
                     },
                     "metadata": {
                         "enable": false
@@ -466,24 +908,27 @@
                         "enable": true,
                         "min": 0,
                         "max": 1,
-                        "initstate": 1
+                        "initstate": 0.5
                     },
                     "visibility": {
                         "enable": true,
-                        "initstate": false,
+                        "initstate": true,
                         "type": 1,
                         "radioid": 0
                     },
                     "displaychild": {
-                        "enable": false,
-                        "symbol": "{\"type\":\"simple\",\"symbol\":{\"type\":\"esriPMS\",\"url\":\"defaf90641d591c289faf467cfcf0b36\",\"imageData\":\"iVBORw0KGgoAAAANSUhEUgAAAAsAAAALCAYAAACprHcmAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAYZJREFUGJVtkb1rU3EUhp+cnPQ2RAJ+9EMhlaCTRpBCg9Slk4NyCSgJgh/gYkEXXQrdXPQPqEMJpZTSQb2lg8gFh/oHtFQHIy0iorQWK8VgQ2rIzclPB0vw6xlfnhdezlH28H3/uojcA7J7UVNEgiiKxsIw3AJQgEKh8AAYB5AkiAdWw3POXVPVkVKpNBwEwSf1fX8YGPf6hIODwuljZ0gm9vFmc5nPa9+oVVym2WyWgQuqqqOSdpw4l+HmyBiH0r2/NrSusHBkjhexRWqv3flisZhRM8v1nlQu50c7IoCX6OZi/iqrWyvUVquYWU5FxLwDwkBPlr/pTiTJHc7zse85jQ0zBZZ+OJe3dguN6z+FRqsObdqpVOqlmtnDxteuW5X1V/Gh42f/ELd3vlDZXKZdZSaYf1zVMAzfXer3bz9ampwEYqcGBtF4gvXtDzxZKbPz1tYs4k7nzgvTz8o3+ovvZ+sTU11pOSpxYq3vbre+YbP7d7N3555ORB0ZYOb+/OJv3/svPwGZxY7HBqBSHwAAAABJRU5ErkJggg==\",\"contentType\":\"image/png\",\"width\":8,\"height\":8,\"angle\":0,\"xoffset\":0,\"yoffset\":0},\"label\":\"\",\"description\":\"\"}"
+                        "enable": true,
+                        "symbol": "{\"type\":\"simple\",\"symbol\":{\"type\":\"esriSFS\",\"style\":\"esriSFSSolid\",\"color\":[176,153,204,255],\"outline\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[128,99,166,255],\"width\":0.5}},\"label\":\"\",\"description\":\"\"}"
                     },
                     "customimage": {
                         "enable": false,
                         "images": []
                     },
-                    "items": []             
+                    "items": []
+
+                }]
             }]
+
         },
         "toolbardraw": {
             "enable": true,
@@ -539,10 +984,10 @@
                 "enable": true
             },
             "dataurl": {
-                "enable": true
+                "enable": false
             },
             "dataquery": {
-              "enable": false
+                "enable": false
             }
         },
         "toolbarextract": {
@@ -550,8 +995,8 @@
             "expand": false,
             "pos": 4,
             "grid": {
-              "enable": false,
-              "id": ""
+                "enable": false,
+                "id": ""
             },
             "items": [{
                 "title": "Maps (raster): ",
@@ -578,7 +1023,7 @@
             "layers": [{
                 "layerinfo": {
                     "id": "6f798c6b-dddd1-4e24-78dd-9bfa5a9bc59e",
-                    "type": 5,
+                    "type": 4,
                     "index": 0
                 },
                 "title": "Mining Agreement",
@@ -588,115 +1033,158 @@
                     "width": "200px",
                     "data": "project_name_en",
                     "dataalias": "project_name_en",
-            "fieldtype": {
-              "type": 1,
-              "value": 1
-             },
-            "searchable": true
-                },{
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    },
+                    "searchable": true
+                }, {
                     "title": "Company Name",
                     "width": "225px",
                     "data": "mining_comp_name",
                     "dataalias": "mining_comp_name",
                     "sType": "html",
-            "fieldtype": {
-              "type": 3,
-              "value": 1,
-              "urlfield": "mining_comp_web_link",
-              "urlfieldalias": "mining_comp_web_link"
-             },
-            "searchable": true
-                },{
+                    "fieldtype": {
+                        "type": 3,
+                        "value": 1,
+                        "urlfield": "mining_comp_web_link",
+                        "urlfieldalias": "mining_comp_web_link"
+                    },
+                    "searchable": true
+                }, {
                     "title": "Commodities",
                     "width": "250px",
                     "data": "com_en",
                     "dataalias": "com_en",
-             "fieldtype": {
-                "type": 1,
-                "value": 1
-             },
-             "searchable": true
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    },
+                    "searchable": true
                 }, {
                     "title": "Project Status",
                     "width": "175px",
                     "data": "proj_status_en",
                     "dataalias": "proj_status_en",
-            "fieldtype": {
-              "type": 1,
-              "value": 4
-             },
-            "searchable": true
-                },{
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 4
+                    },
+                    "searchable": true
+                }, {
                     "title": "Agreement Date",
                     "width": "100px",
-                    "data": "date_agrmnt_signed",
-                    "dataalias": "date_agrmnt_signed",
-            "fieldtype": {
-              "type": 1,
-              "value": 2
-             },
-            "searchable": true
-                },{
+                    "data": "date_agrmnt_signed_",
+                    "dataalias": "date_agrmnt_signed_",
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 2
+                    },
+                    "searchable": true
+                }, {
                     "title": "Agreement Type",
                     "width": "200px",
                     "data": "agrmnt_type_en",
                     "dataalias": "agrmnt_type_en",
-            "fieldtype": {
-              "type": 1,
-              "value": 4
-             },
-            "searchable": true
-                },{
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 4
+                    },
+                    "searchable": true
+                }, {
                     "title": "Signatories",
                     "width": "300px",
                     "data": "fn_en",
                     "dataalias": "fn_en",
-            "fieldtype": {
-              "type": 1,
-              "value": 1
-             },
-            "searchable": true
-                },{
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    },
+                    "searchable": true
+                }, {
                     "title": "Old Company Name",
                     "width": "250px",
                     "data": "past_mining_comp_name",
                     "dataalias": "past_mining_comp_name",
-            "fieldtype": {
-              "type": 1,
-              "value": 1
-             },
-            "searchable": true
-                },  {
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    },
+                    "searchable": true
+                }, {
                     "title": "latitude",
                     "width": "120px",
                     "data": "lat_dd",
                     "dataalias": "lat_dd",
-            "fieldtype": {
-              "type": 1,
-              "value": 2
-             },
-             "searchable": true
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 2
+                    },
+                    "searchable": true
                 }, {
                     "title": "longitude",
                     "width": "120px",
                     "data": "long_dd",
                     "dataalias": "long_dd",
-            "fieldtype": {
-              "type": 1,
-              "value": 2
-             },
-             "searchable": true
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 2
+                    },
+                    "searchable": true
+                }],
+                "linktable": {
+                    "enable": false
+                },
+                "popups": {
+                    "enable": true,
+                    "layeralias": "Mining Project Status"
+                },
+                "hover": {
+                    "enable": false,
+                    "hoverfield": "past_mining_comp_name"
+                }
+            },{
+                "layerinfo": {
+                    "id": "91284222-5cf2-c7f9-43eb-3a6f8a8cd855",
+                    "type": 4,
+                    "index": 0
+                },
+                "title": "Innuit Communities",
+                "globalsearch": false,
+                "fields": [{
+                    "title": "Name",
+                    "width": "200px",
+                    "data": "NAME",
+                    "dataalias": "Community Name",
+				    "sType": "html",
+                    "fieldtype": {
+                        "type": 3,
+                        "value": 1,
+                        "urlfield": "WEBSITE",
+                        "urlfieldalias": "Community Website"
+                    },
+				    "searchable": true
+                },{
+                    "title": "Population",
+                    "width": "200px",
+                    "data": "POPULATION",
+                    "dataalias": "Population",
+				    "fieldtype": {
+				      "type": 1,
+				      "value": 2
+				     },
+				    "searchable": true
                 }],
                 "linktable": {
                     "enable": false
                  },
                  "popups": {
-                    "enable": true,
-                    "layeralias": "Mining Project Status"
+                    "enable": false,
+                    "layeralias": ""
                  },
                  "hover": {
                      "enable": false,
-                     "hoverfield": "Community Well-Being"
+                     "hoverfield": ""
                  }
             }]
         },

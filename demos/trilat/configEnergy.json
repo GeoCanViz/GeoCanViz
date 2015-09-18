@@ -1,0 +1,2572 @@
+{
+    "gcviz": {
+        "mapframe": {
+            "size": {
+                "height": 550,
+                "width": 1200
+            },
+            "map": {
+                "urlgeomserv": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/Utilities/Geometry/GeometryServer",
+                "urlproxy": "http://geoappext.nrcan.gc.ca/php/proxy.ashx",
+                "urldownload": "http://geoappext.nrcan.gc.ca/php/download.php",
+				"urlsaveimage": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task",
+                "sr": {
+                    "wkid": 102100
+                },
+                "extentmax": {
+                    "xmin": -22463925.36866803,
+                    "ymin": 993732.835391813,
+                    "xmax": 1017529.7205318696,
+                    "ymax": 13091248.304091755
+                },
+                "extentinit": {
+                    "xmin": -22463925.36866803,
+                    "ymin": 993732.835391813,
+                    "xmax": 1017529.7205318696,
+                    "ymax": 13091248.304091755
+				},
+                "lods": {
+                    "enable": true,
+                    "values": [
+						{  
+						   "level":1,
+						   "resolution":156543.03392800014,
+						   "scale":5.91657527591555E8,
+						   "check": false
+						},
+						{  
+						   "level":2,
+						   "resolution":78271.51696399994,
+						   "scale":295828763.795777,
+						   "check": false
+						},
+						{  
+						   "level":3,
+						   "resolution":39135.75848200009,
+						   "scale":147914381.897889,
+						   "check": false
+						},
+						{  
+						   "level":4,
+						   "resolution":19567.87924099992,
+						   "scale":73957190.948944,
+						   "check": true
+						},
+						{  
+						   "level":5,
+						   "resolution":9783.93962049996,
+						   "scale":36978595.474472,
+						   "check": true
+						},
+						{  
+						   "level":6,
+						   "resolution":4891.96981024998,
+						   "scale":18489297.737236,
+						   "check": true
+						},
+						{  
+						   "level":7,
+						   "resolution":2445.98490512499,
+						   "scale":9244648.868618,
+						   "check": true
+						},
+						{  
+						   "level":8,
+						   "resolution":1222.992452562495,
+						   "scale":4622324.434309,
+						   "check": true
+						},
+						{  
+						   "level":9,
+						   "resolution":611.4962262813797,
+						   "scale":2311162.217155,
+						   "check": true
+						},
+						{  
+						   "level":10,
+						   "resolution":305.74811314055756,
+						   "scale":1155581.108577,
+						   "check": true
+						},
+						{  
+						   "level":11,
+						   "resolution":152.87405657041106,
+						   "scale":577790.554289,
+						   "check": true
+						},
+						{  
+						   "level":12,
+						   "resolution":76.43702828507324,
+						   "scale":288895.277144,
+						   "check": true
+						},
+						{  
+						   "level":13,
+						   "resolution":38.21851414253662,
+						   "scale":144447.638572,
+						   "check": true
+						},
+						{  
+						   "level":14,
+						   "resolution":19.10925707126831,
+						   "scale":72223.819286,
+						   "check": true
+						},
+						{  
+						   "level":15,
+						   "resolution":9.554628535634155,
+						   "scale":36111.909643,
+						   "check": true
+						},
+						{  
+						   "level":16,
+						   "resolution":4.77731426794937,
+						   "scale":18055.954822,
+						   "check": true
+						},
+						{  
+						   "level":17,
+						   "resolution":2.388657133974685,
+						   "scale":9027.977411,
+						   "check": true
+						},
+						{  
+						   "level":18,
+						   "resolution":2.388657133974685,
+						   "scale":9027.977411,
+						   "check": true
+						},
+						{  
+						   "level":19,
+						   "resolution":0.5971642835598172,
+						   "scale":2256.994353,
+						   "check": true
+						},
+						{  
+						   "level":20,
+						   "resolution":0.29858214164761665,
+						   "scale":1128.497176,
+						   "check": true
+						}
+					]
+                },
+                "link": false,
+                "zoombar": {
+                    "bar": true,
+                    "zoom": true,
+                    "zoomfull": true,
+                    "previousnext": true
+                },
+                 "bases": [{
+                    "label": "CBCT3857",
+                    "id": "cc77bc0a-8480-1a52-2740-55b581f40616",
+                    "type": 2,
+                    "url": "http://services.arcgisonline.com/arcgis/rest/services/World_Topo_Map/MapServer",
+                    "scale": {
+                        "min": 0,
+                        "max": 0
+                    }
+                },{
+                                        "label": "worldimagery",
+                                        "id": "cc77bc0a-8480-1a52-2740-55b581f40617",
+                                        "type": 2,
+                                        "url": "http://services.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer",
+                                        "scale": {
+                                          "min": 0,
+                                          "max": 0
+                                        }
+                },{
+                                        "label": "worldterrain",
+                                        "id": "cc77bc0a-8480-1a52-2740-55b581f40618",
+                                        "type": 2,
+                                        "url": "http://services.arcgisonline.com/arcgis/rest/services/World_Terrain_Base/MapServer",
+                                        "scale": {
+                                          "min": 0,
+                                          "max": 0
+                                        }
+                },{
+                                        "label": "worldstreet",
+                                        "id": "cc77bc0a-8480-1a52-2740-55b581f40619",
+                                        "type": 2,
+                                        "url": "http://services.arcgisonline.com/arcgis/rest/services/World_Street_Map/MapServer",
+                                        "scale": {
+                                          "min": 0,
+                                          "max": 0
+                                        }
+                },{
+                                        "label": "worldshaded",
+                                        "id": "cc77bc0a-8480-1a52-2740-55b581f40620",
+                                        "type": 2,
+                                        "url": "http://services.arcgisonline.com/arcgis/rest/services/World_Shaded_Relief/MapServer",
+                                        "scale": {
+                                          "min": 0,
+                                          "max": 0
+                                        }
+                },{
+                                        "label": "worldphysical",
+                                        "id": "cc77bc0a-8480-1a52-2740-55b581f40621",
+                                        "type": 2,
+                                        "url": "http://services.arcgisonline.com/arcgis/rest/services/World_Physical_Map/MapServer",
+                                        "scale": {
+                                          "min": 0,
+                                          "max": 0
+                                        }
+                                }
+              ],
+                "layers": [
+                  {  
+                  "label":"Trilat***CAMXUS_Refineries",
+                  "id":"e2bb40b9-99b3-22a5-3b4a-2a30e015613b",
+                  "type":4,
+                  "url":"http://geoappext.nrcan.gc.ca/arcgis/rest/services/test/Trilat/MapServer/",
+                  "visiblelayers": [7],
+                  "beforebase":false,
+                  "scale":{  
+                     "min":0,
+                     "max":0
+                  },
+                  "usecluster":false,
+                  "cluster":{  
+                     "enable":false,
+                     "distance":50,
+                     "label":false,
+                     "symbol":false,
+                     "maxsizeprop":50,
+                     "maxdataprop":1000
+                  }
+               },
+               {  
+                  "label":"Trilat***CAMXUS_PowerPlants_GE1MW_Renew",
+                  "id":"175528ff-822c-7770-fd53-1410af797df0",
+                  "type":4,
+                  "url":"http://geoappext.nrcan.gc.ca/arcgis/rest/services/test/Trilat/MapServer/",
+                  "visiblelayers": [6],
+                  "beforebase":false,
+                  "scale":{  
+                     "min":0,
+                     "max":0
+                  },
+                  "usecluster":false,
+                  "cluster":{  
+                     "enable":false,
+                     "distance":50,
+                     "label":false,
+                     "symbol":false,
+                     "maxsizeprop":50,
+                     "maxdataprop":1000
+                  }
+               },
+               {  
+                  "label":"Trilat***CAMXUS_PowerPlants_GE100MW_All",
+                  "id":"c1afb2c1-4378-2833-02d9-91c1a1ce6ed6",
+                  "type":4,
+                  "url":"http://geoappext.nrcan.gc.ca/arcgis/rest/services/test/Trilat/MapServer/",
+                   "visiblelayers": [5],
+                  "beforebase":false,
+                  "scale":{  
+                     "min":0,
+                     "max":0
+                  },
+                  "usecluster":false,
+                  "cluster":{  
+                     "enable":false,
+                     "distance":50,
+                     "label":false,
+                     "symbol":false,
+                     "maxsizeprop":50,
+                     "maxdataprop":1000
+                  }
+               },
+               {  
+                  "label":"Trilat***CAMXUS_NG_Processing_Plants",
+                  "id":"db4c27fe-2f2b-85b4-42cf-2d635bec9907",
+                  "type":4,
+                  "url":"http://geoappext.nrcan.gc.ca/arcgis/rest/services/test/Trilat/MapServer/",
+                   "visiblelayers": [4],
+                  "beforebase":false,
+                  "scale":{  
+                     "min":0,
+                     "max":0
+                  },
+                  "usecluster":false,
+                  "cluster":{  
+                     "enable":false,
+                     "distance":50,
+                     "label":false,
+                     "symbol":false,
+                     "maxsizeprop":50,
+                     "maxdataprop":1000
+                  }
+               },
+               {  
+                  "label":"Trilat***CAMXUS_LNG_ImportExport",
+                  "id":"19c9cd79-23a8-acf3-4948-139336bf18db",
+                  "type":4,
+                  "url":"http://geoappext.nrcan.gc.ca/arcgis/rest/services/test/Trilat/MapServer/",
+                   "visiblelayers": [3],
+                  "beforebase":false,
+                  "scale":{  
+                     "min":0,
+                     "max":0
+                  },
+                  "usecluster":false,
+                  "cluster":{  
+                     "enable":false,
+                     "distance":50,
+                     "label":false,
+                     "symbol":false,
+                     "maxsizeprop":50,
+                     "maxdataprop":1000
+                  }
+               },
+               {  
+                  "label":"Trilat***CAMXUS_LiquidsBorder",
+                  "id":"d43b6cde-6269-9513-3981-123416810b6c",
+                  "type":4,
+                  "url":"http://geoappext.nrcan.gc.ca/arcgis/rest/services/test/Trilat/MapServer/",
+                   "visiblelayers": [2],
+                  "beforebase":false,
+                  "scale":{  
+                     "min":0,
+                     "max":0
+                  },
+                  "usecluster":false,
+                  "cluster":{  
+                     "enable":false,
+                     "distance":50,
+                     "label":false,
+                     "symbol":false,
+                     "maxsizeprop":50,
+                     "maxdataprop":1000
+                  }
+               },
+               {  
+                  "label":"Trilat***CAMXUS_GasBorder",
+                  "id":"01407991-0fb1-72ea-2466-068d8c2540a8",
+                  "type":4,
+                  "url":"http://geoappext.nrcan.gc.ca/arcgis/rest/services/test/Trilat/MapServer/",
+                   "visiblelayers": [1],
+                  "beforebase":false,
+                  "scale":{  
+                     "min":0,
+                     "max":0
+                  },
+                  "usecluster":false,
+                  "cluster":{  
+                     "enable":false,
+                     "distance":50,
+                     "label":false,
+                     "symbol":false,
+                     "maxsizeprop":50,
+                     "maxdataprop":1000
+                  }
+               },
+               {  
+                  "label":"Trilat***CAMXUS_ElectricBorder",
+                  "id":"5fe9089a-12ac-4ba3-284b-bab5d75d8ee7",
+                  "type":4,
+                  "url":"http://geoappext.nrcan.gc.ca/arcgis/rest/services/test/Trilat/MapServer/",
+                   "visiblelayers": [0],
+                  "beforebase":false,
+                  "scale":{  
+                     "min":0,
+                     "max":0
+                  },
+                  "usecluster":false,
+                  "cluster":{  
+                     "enable":false,
+                     "distance":50,
+                     "label":false,
+                     "symbol":false,
+                     "maxsizeprop":50,
+                     "maxdataprop":1000
+                  }
+               }
+	]
+            }
+        },
+        "header": {
+            "side": 1,
+            "title": {
+                "value": "Tri-lateral Energy Infrastructure",
+                "alttext": "Tri-lateral Energy Infrastructure"
+            },
+            "tools": {
+                "enable": true,
+                "expand": true
+            },
+            "link": false,
+            "inset": false,
+            "about": {
+                "enable": false,
+                "type": 1,
+                "value": "This is sample map showing earthquakes in Canada"
+            },
+            "print": {
+                "enable": true,
+                "type": 3,
+                "template": [],
+                "DPI": [100, 300]
+
+            },
+			"saveimage": {
+            	"enable": true
+            },
+			"saveurl": {
+            	"enable": true
+            },
+            "fullscreen": true
+        },
+        "footer": {
+            "northarrow": {
+                "enable": true,
+                "inwkid": 3857
+            },
+            "mousecoords": {
+                "enable": true,
+                "outwkid": 4326
+            },
+            "scalebar": {
+                "enable": true,
+                "unit": 1
+            },
+            "datagrid": {
+                "direction": "in"
+            },
+            "logo": false
+        },
+        "toolbarlegend": {
+            "enable": true,
+            "expand": true,
+            "pos": 1,
+            "basemaps": [{
+                "expand": false,
+                "last": true,
+                "type": 2,
+                "id": "cc77bc0a-8480-1a52-2740-55b581f40616",
+                "graphid": "6a5dca6e-2bc3-14ec-3d0d-c6fdd5a0f992",
+                "displayfields": false,
+                "label": {
+                    "value": "World Base Map",
+                    "alttext": "World Base Map"
+                },
+                "metadata": {
+                    "enable": false
+                },
+                "opacity": {
+                    "enable": false,
+                    "min": 0,
+                    "max": 1,
+                    "initstate": 1
+                },
+                "visibility": {
+                    "enable": true,
+                    "initstate": true,
+                    "type": 2,
+                    "radioid": 0
+                },
+                "displaychild": {
+                    "enable": false,
+                    "symbol": "{\"type\":\"simple\",\"symbol\":{\"type\":\"esriSFS\",\"style\":\"esriSFSSolid\",\"color\":[0,0,0,0],\"outline\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[0,0,0,0],\"width\":0.4}},\"label\":\"\",\"description\":\"\"}"
+                },
+                "customimage": {
+                    "enable": false,
+                    "images": [
+                    ]
+                },
+                "items": [
+ 
+                ]
+            },
+            {
+                "expand": false,
+                "last": true,
+                "type": 1,
+                "id": "cc77bc0a-8480-1a52-2740-55b581f40617",
+                "graphid": "6a5dca6e-2bc3-14ec-3d0d-c6fdd5a0f993",
+                "displayfields": false,
+                "label": {
+                    "value": "World Imagery",
+                    "alttext": "World Imagery"
+                },
+                "metadata": {
+                    "enable": false
+                },
+                "opacity": {
+                    "enable": false,
+                    "min": 0,
+                    "max": 1,
+                    "initstate": 1
+                },
+                "visibility": {
+                    "enable": true,
+                    "initstate": false,
+                    "type": 2,
+                    "radioid": 0
+                },
+                "displaychild": {
+                    "enable": false,
+                    "symbol": "{\"type\":\"simple\",\"symbol\":{\"type\":\"esriSFS\",\"style\":\"esriSFSSolid\",\"color\":[0,0,0,0],\"outline\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[0,0,0,0],\"width\":0.4}},\"label\":\"\",\"description\":\"\"}"
+                },
+                "customimage": {
+                    "enable": false,
+                    "images": [
+                    ]
+                },
+                "items": [
+ 
+                ]
+            },
+            {
+                "expand": false,
+                "last": true,
+                "type": 1,
+                "id": "cc77bc0a-8480-1a52-2740-55b581f40618",
+                "graphid": "6a5dca6e-2bc3-14ec-3d0d-c6fdd5a0f994",
+                "displayfields": false,
+                "label": {
+                    "value": "World Terrain",
+                    "alttext": "World Terrain"
+                },
+                "metadata": {
+                    "enable": false
+                },
+                "opacity": {
+                    "enable": false,
+                    "min": 0,
+                    "max": 1,
+                    "initstate": 1
+                },
+                "visibility": {
+                    "enable": true,
+                    "initstate": false,
+                    "type": 2,
+                    "radioid": 0
+                },
+                "displaychild": {
+                    "enable": false,
+                    "symbol": "{\"type\":\"simple\",\"symbol\":{\"type\":\"esriSFS\",\"style\":\"esriSFSSolid\",\"color\":[0,0,0,0],\"outline\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[0,0,0,0],\"width\":0.4}},\"label\":\"\",\"description\":\"\"}"
+                },
+                "customimage": {
+                    "enable": false,
+                    "images": [
+                    ]
+                },
+                "items": [
+ 
+                ]
+            },
+            {
+                "expand": false,
+                "last": true,
+                "type": 1,
+                "id": "cc77bc0a-8480-1a52-2740-55b581f40619",
+                "graphid": "6a5dca6e-2bc3-14ec-3d0d-c6fdd5a0f995",
+                "displayfields": false,
+                "label": {
+                    "value": "World Street Map",
+                    "alttext": "World Street Map"
+                },
+                "metadata": {
+                    "enable": false
+                },
+                "opacity": {
+                    "enable": false,
+                    "min": 0,
+                    "max": 1,
+                    "initstate": 1
+                },
+                "visibility": {
+                    "enable": true,
+                    "initstate": false,
+                    "type": 2,
+                    "radioid": 0
+                },
+                "displaychild": {
+                    "enable": false,
+                    "symbol": "{\"type\":\"simple\",\"symbol\":{\"type\":\"esriSFS\",\"style\":\"esriSFSSolid\",\"color\":[0,0,0,0],\"outline\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[0,0,0,0],\"width\":0.4}},\"label\":\"\",\"description\":\"\"}"
+                },
+                "customimage": {
+                    "enable": false,
+                    "images": [
+                    ]
+                },
+                "items": [
+ 
+                ]
+            },
+            {
+                "expand": false,
+                "last": true,
+                "type": 1,
+                "id": "cc77bc0a-8480-1a52-2740-55b581f40620",
+                "graphid": "6a5dca6e-2bc3-14ec-3d0d-c6fdd5a0f996",
+                "displayfields": false,
+                "label": {
+                    "value": "World Shaded Relief",
+                    "alttext": "World Shaded Relief"
+                },
+                "metadata": {
+                    "enable": false
+                },
+                "opacity": {
+                    "enable": false,
+                    "min": 0,
+                    "max": 1,
+                    "initstate": 1
+                },
+                "visibility": {
+                    "enable": true,
+                    "initstate": false,
+                    "type": 2,
+                    "radioid": 0
+                },
+                "displaychild": {
+                    "enable": false,
+                    "symbol": "{\"type\":\"simple\",\"symbol\":{\"type\":\"esriSFS\",\"style\":\"esriSFSSolid\",\"color\":[0,0,0,0],\"outline\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[0,0,0,0],\"width\":0.4}},\"label\":\"\",\"description\":\"\"}"
+                },
+                "customimage": {
+                    "enable": false,
+                    "images": [
+                    ]
+                },
+                "items": [
+ 
+                ]
+            },
+            {
+                "expand": false,
+                "last": true,
+                "type": 1,
+                "id": "cc77bc0a-8480-1a52-2740-55b581f40621",
+                "graphid": "6a5dca6e-2bc3-14ec-3d0d-c6fdd5a0f997",
+                "displayfields": false,
+                "label": {
+                    "value": "World Physical Map",
+                    "alttext": "World Physical Map"
+                },
+                "metadata": {
+                    "enable": false
+                },
+                "opacity": {
+                    "enable": false,
+                    "min": 0,
+                    "max": 1,
+                    "initstate": 1
+                },
+                "visibility": {
+                    "enable": true,
+                    "initstate": false,
+                    "type": 2,
+                    "radioid": 0
+                },
+                "displaychild": {
+                    "enable": false,
+                    "symbol": "{\"type\":\"simple\",\"symbol\":{\"type\":\"esriSFS\",\"style\":\"esriSFSSolid\",\"color\":[0,0,0,0],\"outline\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[0,0,0,0],\"width\":0.4}},\"label\":\"\",\"description\":\"\"}"
+                },
+                "customimage": {
+                    "enable": false,
+                    "images": [
+                    ]
+                },
+                "items": [
+ 
+                ]
+            }
+                        ],
+         "items":[   
+                  {  
+                     "expand":false,
+                     "last":true,
+                     "type":5,
+                     "id":"e2bb40b9-99b3-22a5-3b4a-2a30e015613b",
+                     "graphid":"d19ca03f-ea25-3ccc-f390-0a11484ad345",
+                     "displayfields":false,
+                     "label":{  
+                        "value":"Refineries",
+                        "alttext":"Refineries"
+                     },
+                     "metadata":{  
+                        "enable":false
+                     },
+                     "opacity":{  
+                        "enable":false,
+                        "min":0,
+                        "max":1,
+                        "initstate":1
+                     },
+                     "visibility":{  
+                        "enable":true,
+                        "initstate":true,
+                        "type":1,
+                        "radioid":0
+                     },
+                     "displaychild":{  
+                        "enable":true,
+                        "symbol":"{\"type\":\"simple\",\"symbol\":{\"type\":\"esriPMS\",\"url\":\"827b8ef22eb0bdc6a530b001ba485230\",\"imageData\":\"iVBORw0KGgoAAAANSUhEUgAAABYAAAAWCAYAAADEtGw7AAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAaNJREFUOI210s1LVFEYx/Hvee7c63Um587lTg4jpaGBFCUUFAS6sj/AffQ3tG7twkV7dyIuImghtmmZrixmIQW9EGFaQoNjSG/OXMc597YafL+M5+JvdTjneT48PJwM55RM+xD/nB8HVU4tKrWqgonXmf0beQyMp3XjmDngIAzVHzVWKm+N0Xtjd/GDAnBgFQB/fv9l6cW0MTxy++bJ8EnJ5q8yeP0Wnu+RcWyaYZNf29usfVwh3Pl2al8i/PDRFDdGhhGRY2+69YDKm3fMz0yeHd6s1ij4HiKC67pYlkLriDDcJY5jNtY3zCYulor0D/QRRRFhYxcdaVzXIQgKKFG89y6Ywe2ICNlcdyelncGe15PYXCr3msFfv6wjSiGWhdvtYomgtabRCImjiLVVw18R9AZcGbzMXnOPer1BqxXR1WXj+3lsx+bTh89mcDu2Y+M5dielZ4NNkgj7hXxic/lSnxn8fO4Zd8ZGuVgKyOWyiCXolmbnX53Nao3K4iszeOv7Mi+fLidObQSnySF4+NoQT2YXUoHxUVgVJ+6nEo/k3FbxH/xUdPPD1CMzAAAAAElFTkSuQmCC\",\"contentType\":\"image/png\",\"width\":16,\"height\":16,\"angle\":0,\"xoffset\":0,\"yoffset\":0},\"label\":\"\",\"description\":\"\"}"
+                     },
+                     "customimage":{  
+                        "enable":false,
+                        "images":[  
+
+                        ]
+                     },
+                     "items":[  
+
+                     ]
+                  },
+                  {  
+                     "expand":false,
+                     "last":true,
+                     "type":5,
+                     "id":"175528ff-822c-7770-fd53-1410af797df0",
+                     "graphid":"8ece7cfa-c467-59b7-b58b-028f39c2af43",
+                     "displayfields":false,
+                     "label":{  
+                        "value":"Power Plant, Renewable Energy",
+                        "alttext":"Power Plant, Renewable Energy"
+                     },
+                     "metadata":{  
+                        "enable":false
+                     },
+                     "opacity":{  
+                        "enable":false,
+                        "min":0,
+                        "max":1,
+                        "initstate":1
+                     },
+                     "visibility":{  
+                        "enable":true,
+                        "initstate":true,
+                        "type":1,
+                        "radioid":0
+                     },
+                     "displaychild":{  
+                        "enable":true,
+                        "symbol":"{\"type\":\"uniqueValue\",\"field1\":\"Tipo\",\"field2\":null,\"field3\":null,\"fieldDelimiter\":\", \",\"defaultSymbol\":null,\"defaultLabel\":null,\"uniqueValueInfos\":[{\"symbol\":{\"type\":\"esriPMS\",\"url\":\"3ed8b3b668eddb2d24b30a8f823b3804\",\"imageData\":\"iVBORw0KGgoAAAANSUhEUgAAABMAAAATCAYAAAByUDbMAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAxxJREFUOI2t1HlIk3EYB/Dv++7du625tek2nc6ZRzM3M6NYIR4dDJMuocMDiw667ILoH6WIDrKiiOiALOgickqHQlZEdoshlRkdYE6jpW2W89hmc3u3/qjefJmDiJ6/Xn7v835+PF9eHgr/sahQL/bVbFnMI6ktLo9D52OGBTQlcocJw1t9fvf+8kUnHv8VtrN6a1qAcd5USdTRafFGUiFRguJT8Ax7ZLa+7ujmtsemfTWb3nt8vNl7i47ZQmKH6nbk9g9ab+QbVwiVMhXnEgEtgFY1DlrVOF5Ht8Vwt7Wm/Xhd2dTNCyreB2EHzOtiHAMfrxdlbhRKxdJRRx9wDaLf1Yt4dQLm0yXiWy/NjWVViKwohJeDEbSkapYuVzQa1OfsQ4vlGR62X8OGGXsAAOqIGBhijHL7YOwpYNcaFiu9uDRi4Pu36UkxyRykd7AX91/Xo6WrfsS4QvZ5cpIR5xqOlAD4g6UqDMvGjlFQBEGwjW7PEM407IbT2wO5KA4enxtubw/nMppPQynVCitvH85YO2d7468xeekysYLTaLV3wOntgV6ZA7FQhuZPtQAAPo/7AyjDouDzezIA/MQIEBRJcnPyB/zgEQJEybRoaLsEAAgXJUIkEHMbCYAiKD47Jp8StPU5ezk9EdJIaMamoqnzNns2d1IxRiQBAPjmsiNKGtvKYgRBXnjX/XLX9JQcNjbpGCkCAQZp0VkQUiIkayZCo9RyIJ/XB3t/J2MQZN9isdWmbZ1H63a0d3z5kJSgTgIAuD0u5EyYB12sHqGqpfM5xqvSH5hMJj+LAYBGoim+9+ZaU6SslBSLwkBTNLwMExKyO2xo/fjUm5ViKv59xmJLZq5vNj+qLK9uPFuRb1xOyCXhSNGmjgp97vmE+ldX/NMScgtN6QX2IAwACrLXHrzaeM5W23z5dKJST+vjJkEeFgGSJMAwDL722/HC0oSBIYcrU5e3MG9Kwb2R3wdtjUUZK88/sT4xWy1vTz56c2f+V1dXOIEAyQPFKKWxNrU87nK2Nr/MYDAEZTDqPsvUZA4BWBUysBAVcjn+S/0AVs0Iy+58jOwAAAAASUVORK5CYII=\",\"contentType\":\"image/png\",\"width\":20,\"height\":20,\"angle\":0,\"xoffset\":0,\"yoffset\":0},\"value\":\"Biomass\",\"label\":\"Biomass\",\"description\":\"\"},{\"symbol\":{\"type\":\"esriPMS\",\"url\":\"faee88f0e3a958d88bbf1a50402b6b4b\",\"imageData\":\"iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAYAAABWzo5XAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAytJREFUOI2tlF1Mk1cYx3+lL/RthVkrWcEEEFdFZEITI8hAcZsYhqgxVqvAsoaCzGmim7iBcSPZLpipbmar6CYa/CoEUCJ+l00Ux0QXR4VkBi01DuMFM0yDFFqYrxcGsKNkN/tfnXOe8/yejzznCPxPEiYyHNu1a77XPVj85MnTuV6vRyWKimdqtfpWENKXOaWlnf8Jqrdatd2uh3bb3vJ4T2/fv80xIRHh2Qd2fP6LUjM544Oion6/oLOWcv3lq83XHQ12UaEJIbd4C3Nmx6JSTuJZfx9tHR2c/HY/NXv2paasW/WozmqNNWze/MgHVFtWFtzquHnN0WAX31q7gk2FH6JRq33SmZegJyt9KXu+20tLdf1rKlH5OxAOSKMg95B07Ne6hmB91hK2b/0YUaHw27swrZYvSnbwWZ+bxkqbtvpri2Vd8fYiAaC6pCTw0rWrKwA25JknhIwoJDiEwsICilt+o729fSPwEqSaNs3woPmHgDkZC4mOihrzkKD5xnUcjnZSkpOYl6AfNb0ZM5spukhaT55TXbBa4wUAz+BwEkD83ASfyJ1dXZRt2gbAhYNHOHy+nnCtFgC5IJCwIJErzj/xDLFIAJAkggAC5b7TMOgZ8Nl7PB6fvSAEvlwESKIAICrFewAu132fi3ExMRg++YhLtbUY8kxERUSMVS1JdP5xBwDFpOAOASDsdc2JybrIb1pqTvO4oIBQjWY0ojknF3NO7riGP3jYTfdNBzPfSX6eYTbZBYBEo7GnYmfpHZvl+9ia+lNszDMjk8nGOY9oeHiI47YqANIWLWySyWRjc6SbHr0+OmV+25nyw7KpUzUYlq9ELpePg3i9XiptNlpqTqPPfHdYNyM6G16Z7MX5ptsXf6z49FDvY0vlV7tpu9XGGsNqpkdEohRF+gcGcN53Yauy4bxyg8hkvfTesszsRKOxxwcEkLEhf/dPFZU9l5uaDrbWnQm6ff5nv6Utft/oTktNXZVmyrGPnI17/UvyTUfvNjbWLUhMKne6nFldrq4pf/f0BoSGhT7XzZr51xtRuqrMt1OKZHFx/7zq5/c/mpWe7gZMftOZQC8A0zcT3/0NZ3gAAAAASUVORK5CYII=\",\"contentType\":\"image/png\",\"width\":20,\"height\":20,\"angle\":0,\"xoffset\":0,\"yoffset\":0},\"value\":\"Geothermal\",\"label\":\"Geothermal\",\"description\":\"\"},{\"symbol\":{\"type\":\"esriPMS\",\"url\":\"fce0a0f9f1f286cd3741db49e0ccadd1\",\"imageData\":\"iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAYAAABWzo5XAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAvhJREFUOI2tlGtIk1EYx//iu6abM6eW6czAQrN5STBT0axXXssm5bAyJTAqSD/YjSIUKtCyBMGoYIRNqJWRKWbTTXtxxSajXFO7KV67rWZkTtdFp7n1IX3ZptKXHjgc+D//8zsP5zznEPhPQSyWUNCP142axgpHTePRlqkprjubbfbx9mrn8z2Kt6WkfPwniFarfQcHPyhOXa7a8Mb0yzkdmeTPPyiV3VMFrfBOpyhqckGQklaFy5vV7VeedLovVqnGaHLRSGpSzqQnflaqVGFpJPnFAUTTNKdVq9PaQ24VZGPgnQHFcs08YEljG7/Ujd0BQOAAMo6Yb15qaefZm/39lmNXhgj67n40DQ4DAHKiglH9YggAUFTbGnC/vunibrGokJithqi83yJ23nX8+w/AZoMXj8topYVHEFWvxOl7LQAArf5lAYC/IMsMMmtev3V1Bu0qkwJlUgfNk8fD0bxcvO4dgqyrHxWq51wlrQonAODnxGScM6Qqfw8OSGrmnQ3PwwME4QoqKQayrn4AgMUylUwAgHXG5mZv3izwwb4sMd4ZjCiWa3AhkwSXy8GxW42orn0Agb8fym43MH4r4E4AgJsba8AelBq/HiwWC7HRQkCugSfPA4f3Z+O9wYjcq3fnVbmEYHX/BXHY1UI+p3yuAYtqWzFhsaBG/RwAEBsdARaLhRN5uahQ6R0g4tBAK9vV2kwAQBpJGisk0r7jMkXInKFE3saYhWGhAIBAQQAObVyHG8+6mZwoOa6Noigr00chwcE5ZKCvTmUYcXEuffr39Oz8G9/GzIyeE7F6RhDktxewa0jR1i36uoeKs58kd0p6xycdQCfPlUOclgz10w7U9xoAAEn+fFt2BrU/jSSNDiAAyNyx/XxD06OvtYrH12SdfUxOquuBVNfD+PITIy3pZEKWaBvFXN28179TlHqdprV3UzcZK3sG3qbqXvUv1Q+bXOJXLrPFCENG165ZVee7lFtAUdSU/boF/yOKSjADyLLXmmbHYvEH6i0VbZLgLpIAAAAASUVORK5CYII=\",\"contentType\":\"image/png\",\"width\":20,\"height\":20,\"angle\":0,\"xoffset\":0,\"yoffset\":0},\"value\":\"Hydroelectric\",\"label\":\"Hydroelectric\",\"description\":\"\"},{\"symbol\":{\"type\":\"esriPMS\",\"url\":\"318c4aa0e29c1c8da3f4dd559c7694c8\",\"imageData\":\"iVBORw0KGgoAAAANSUhEUgAAABYAAAAWCAYAAADEtGw7AAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAA4NJREFUOI21lUtMVGcUx38HZpiHPJ3owCgMCAgouACmNqkF2gT6iF0QjKmbtgsbbdIak7ZJE5t2x6JNHzbdVkzT2MTUxoq0NmofBKTFloeIARFGEIZAdcSp4wwMw+kCmDIwEmrSf/LlJvfc+7v/75zvnmPgf5JhLQ+p6lagAFgHTAFXRWT0kcCqagUOAQeA7BjxK8BR4LiIzK0JrKou4CSQHQhOMzgyxvhtL8HpGSxmM5s22sjNcuxIMBq/AA6q6l4RubkqWFUrge9nw2Fra0cP3zZ3EAzNrvh4itVEXaULV0mhKy4urk1VK0RkICZYVTOAU4Fg0Nrw3QW63Z4oWLwIYVUA7j2Y5tgPLfQPe9j3fFW60WBoVNVSEXkQC/yBqtpONP2yAgqwqziX4jwnt8YnOfNbDwCt14awmhPYU1NRoKrvAO9FgVV1M7Cvu+8G7QMjK6AAg55Jrg17OFBbzcRdH7/3DwNwvqOPsqI8cjIdb6hqvYgElzquVdX4xpY/Y0JzM2yU5juxpSbz2clz7H16ZwQM8GNbJwczHalANdC41HG5d8rH6B1fFHBbph2n3UaecxPF+Tn0u0fwBaaZCYWwJBgIzMwXtnNojEAwiNlkKosCi4jd6/s7CvrWi8+R59zMfX8Aq9W84GD+MjAyzuOFOfx8JXIQmPL5Sd9gskflGAjNhf895/kOG/nZmZz56RJN7VfZ82Qp1U+UR+KXrw+zf3dVFDg8FwYIRYFV9WbioivgxriXwx8fIxgKLxjVqN3Mzin3/H52bd9CS+8QAIlWC4s/ytJUNG+0rX/dbDQQDM2iqtRVuvjqfBsP09cX23HYkgHISEsiJSkRoHl5Ks4ajYY7z7qKbacvdZFsMVG+PZ9Tv16OFCiWPAvFfuaxEkSkV0T+WO44oKr1Fa6Sj5q7+/D6gxz+9MuHApfKuSGV8uJCgHcX7y3vFUfXWSwvvFZXU/XhiSZmZsORwODoJK0dPXj+8ka9kGI18WptDQZDfIOInI4JFpGwqtZmOdLPHXmldufxxou4J+4C0OUeo8s9FgXdlmnnpd1PkZaS/A3z7TWiFd1NRKZUtdJuS6t/++W6Q73X3YbO/kH6b00w5Q+yPslCkTODsqI8tuZk3Y8TeR/4RER0VfACfBp4U1U/LynYsn9HYW4NyyYIcBZoEJHbsRirjiYRcQNHFtZ/0ppm3qPoH1N4ZjtGmZQXAAAAAElFTkSuQmCC\",\"contentType\":\"image/png\",\"width\":20,\"height\":20,\"angle\":0,\"xoffset\":0,\"yoffset\":0},\"value\":\"Pumped\",\"label\":\"Pumped\",\"description\":\"\"},{\"symbol\":{\"type\":\"esriPMS\",\"url\":\"a4747ff4e209e877ce8beb95b9085388\",\"imageData\":\"iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAYAAABWzo5XAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAvJJREFUOI2tlF1Ik1EYx39z73zbxnRrazWbWGozxcwSyyKUJqsuKgshKwoiQ6KMzLpIqC4q6iIhxLqIysjQbooo+kQ0JDPMvijyorQPw5ZFs6ZTzzZnF2+2RkY3PVeH58/zO//znOccif8U0t+EuydJMxqo0GvlORq10AeCsndgUDzs83Ewfzsf/glqqMYSb5VvJttFtloNIPAHIFojADL8AYpf1tP08T3LXRUMjwtqqiI9YwYPzUah/T3f8gyc2co6WoMqLZF8Uywfm06Q6iylNwLUUI0uLZFWgx7tkACtrOS9A1B7MwwC8HjBZsYUDPIEmBoBsho5P9mMAaDmGjgSYMEseOuG87egcifotXCjBSaZIG8uxE8mrr1GPpq9WVRIAA1HkZLsrB6DFuRBziZwzoM5DjhSogCuNEOMDmoOhN1NixM7AAWkM9sK9Vq3ekw0x0LVbujqAbMRPnwCcwxkpcCKXJDUYZDFiL6pinQJQI725ACEQtDzBTq6oPER5GbCqr3houvHoLENvvVDcjzEWSAqCnT6iXkSgAoxIRSC553Q3gE37sPVe7BwduRoBEdgz0koKYBlOTA3FRKmgErl00oAwaDcGRUlyHRApgO2FEDzE+j3wcalcOEOlK8FEYTOS5Bkj9xgeFh0SAC+oKgfGaFS/fPsoRDU3VacVe2GlbngD0DRPqguh9I1YcjgMCG/g9sSgHMr7q5L8qtEu3AAtL4AgxYenIXX3eDaCW+vwNNaqKwD13tISVBA79xyi2udCP2ao+7PYv1UK+2SGpVuAlSWKY3UaCDFBnYrTLPBuf3w8g2MjoJviJHe72JtxEAu3sbjtrPygaxUcShrZti6zQxlG8JXrpGUPvoDjD5/Y9vk3Op2R4AA5heLw61nJn5Jn+45YdArmkoFhfmRze3zIjre2YoWlbivjuX+eP0Lt3hONRznotXCaauJJaYYYi2xqIYEo339eHq/cvmrYIerxO3/vW7c/8i1Cy9QNJ72t/gB2FT2y5OSR8MAAAAASUVORK5CYII=\",\"contentType\":\"image/png\",\"width\":20,\"height\":20,\"angle\":0,\"xoffset\":0,\"yoffset\":0},\"value\":\"Solar\",\"label\":\"Solar\",\"description\":\"\"},{\"symbol\":{\"type\":\"esriPMS\",\"url\":\"02817d17fbe899a70ab9ab88f406542e\",\"imageData\":\"iVBORw0KGgoAAAANSUhEUgAAABYAAAAWCAYAAADEtGw7AAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAA0hJREFUOI21lU1Io2cQx38TkxCTQBoXjMEiK0LElcTQKL25vbR46WHxA/XgqVIP7XooSiGlBQ8eKqUsVDxpPOUgNQhKqXhyIRSlEFPqIZagByU52CTC2jd+ZXpwFaNR7EL/8FzemffHn3nmmTHzP8n8mCRV9QHNgAMoAH+KyP47gVXVDrwEPgeeVoj/AbwC5kWk9CiwqnYAC8BTwzBIp9NkMhmKxSLV1dXU19fT1NQUsFqts8CIqvaJyN6DYFV9Dvxyfn5uj8fjxGIxisUiLpeLYDDIysoKAC6Xi+7ubjo6OjpMJtNvqtopIn9VBKuqF1g0DMMeiURIJpPXMavVSl9fH6lUimw2y9HREXNzc6RSKQYGBuosFsuyqn4gIv9UAn+vqk+i0WgZFODk5ASz2Yzf7yebzV5/j8fj2O12enp6mlX1a+DbMrCqvg8MJJNJNjc379TdMIxr57e1trZGKBSisbHxS1WdFJHiTccvVLVqeXn5zo8AZ2dnlEol8vl8xfjq6iojIyPvAR8Dyzcdt+dyOfb372/PYrF4p0RXSiQSGIaBzWYLlYFFxJPL5e6FAiSTSY6Pj++NFwoF6urqPFB+eWel0p0+x+l0EggEqKmpYWNjA5/Px87OTkXwxcUFwFkZWFX3nE7ndZLX66W3t5fm5mZyuRwLCwuk02nC4TD5fJ6lpSX29vbumLh6KDdL8bq2tvYLm82Gx+NhdHQUi8XC+vo6i4uLV26YmZlhdHSU8fFxtra2iMViHB4e4vV6cblcAK9vl2LFYrH83dXV9aS+vp6DgwOi0SiZTKbMVTabZWJigsHBQdra2mhtbSUSiRAMBhGRbRH5/bZjQ1UnOzs7f5ieniadTlesI1z29OzsLFVVVTgcDtxuN+3t7QDfXOXcnhWvHA7Hp/39/R9NTU1xenp6LxwuL0tEGB4exmw2R0RkqSJYRC5U9UVDQ8Ov4XD4w/n5eXZ3d+8FP3v2jKGhIdxu989cjtdr3ZluIlJQ1ecej2dybGzs5fb2tjmRSJBKpSgUCtTU1NDS0kIoFMLn870xmUzfAT+KiD4Ifgs/Ab5S1Z/8fv9ngUDgE25tEGAFiIjIYSXGg6tJRHaB8Nvzn/Sonfcu+hfNIFmOaRHRSAAAAABJRU5ErkJggg==\",\"contentType\":\"image/png\",\"width\":20,\"height\":20,\"angle\":0,\"xoffset\":0,\"yoffset\":0},\"value\":\"Wind\",\"label\":\"Wind\",\"description\":\"\"}]}"
+                     },
+                     "customimage":{  
+                        "enable":false,
+                        "images":[  
+
+                        ]
+                     },
+                     "items":[  
+
+                     ]
+                  },
+                  {  
+                     "expand":false,
+                     "last":true,
+                     "type":5,
+                     "id":"c1afb2c1-4378-2833-02d9-91c1a1ce6ed6",
+                     "graphid":"0f4e93ec-f768-cea9-c2e5-26c2a0767a26",
+                     "displayfields":false,
+                     "label":{  
+                        "value":"Power Plant, 100MW or more",
+                        "alttext":"Power Plant, 100MW or more"
+                     },
+                     "metadata":{  
+                        "enable":false
+                     },
+                     "opacity":{  
+                        "enable":false,
+                        "min":0,
+                        "max":1,
+                        "initstate":1
+                     },
+                     "visibility":{  
+                        "enable":true,
+                        "initstate":true,
+                        "type":1,
+                        "radioid":0
+                     },
+                     "displaychild":{  
+                        "enable":true,
+                        "symbol":"{\"type\":\"uniqueValue\",\"field1\":\"Tipo\",\"field2\":null,\"field3\":null,\"fieldDelimiter\":\", \",\"defaultSymbol\":null,\"defaultLabel\":null,\"uniqueValueInfos\":[{\"symbol\":{\"type\":\"esriPMS\",\"url\":\"3ed8b3b668eddb2d24b30a8f823b3804\",\"imageData\":\"iVBORw0KGgoAAAANSUhEUgAAABMAAAATCAYAAAByUDbMAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAxxJREFUOI2t1HlIk3EYB/Dv++7du625tek2nc6ZRzM3M6NYIR4dDJMuocMDiw667ILoH6WIDrKiiOiALOgickqHQlZEdoshlRkdYE6jpW2W89hmc3u3/qjefJmDiJ6/Xn7v835+PF9eHgr/sahQL/bVbFnMI6ktLo9D52OGBTQlcocJw1t9fvf+8kUnHv8VtrN6a1qAcd5USdTRafFGUiFRguJT8Ax7ZLa+7ujmtsemfTWb3nt8vNl7i47ZQmKH6nbk9g9ab+QbVwiVMhXnEgEtgFY1DlrVOF5Ht8Vwt7Wm/Xhd2dTNCyreB2EHzOtiHAMfrxdlbhRKxdJRRx9wDaLf1Yt4dQLm0yXiWy/NjWVViKwohJeDEbSkapYuVzQa1OfsQ4vlGR62X8OGGXsAAOqIGBhijHL7YOwpYNcaFiu9uDRi4Pu36UkxyRykd7AX91/Xo6WrfsS4QvZ5cpIR5xqOlAD4g6UqDMvGjlFQBEGwjW7PEM407IbT2wO5KA4enxtubw/nMppPQynVCitvH85YO2d7468xeekysYLTaLV3wOntgV6ZA7FQhuZPtQAAPo/7AyjDouDzezIA/MQIEBRJcnPyB/zgEQJEybRoaLsEAAgXJUIkEHMbCYAiKD47Jp8StPU5ezk9EdJIaMamoqnzNns2d1IxRiQBAPjmsiNKGtvKYgRBXnjX/XLX9JQcNjbpGCkCAQZp0VkQUiIkayZCo9RyIJ/XB3t/J2MQZN9isdWmbZ1H63a0d3z5kJSgTgIAuD0u5EyYB12sHqGqpfM5xqvSH5hMJj+LAYBGoim+9+ZaU6SslBSLwkBTNLwMExKyO2xo/fjUm5ViKv59xmJLZq5vNj+qLK9uPFuRb1xOyCXhSNGmjgp97vmE+ldX/NMScgtN6QX2IAwACrLXHrzaeM5W23z5dKJST+vjJkEeFgGSJMAwDL722/HC0oSBIYcrU5e3MG9Kwb2R3wdtjUUZK88/sT4xWy1vTz56c2f+V1dXOIEAyQPFKKWxNrU87nK2Nr/MYDAEZTDqPsvUZA4BWBUysBAVcjn+S/0AVs0Iy+58jOwAAAAASUVORK5CYII=\",\"contentType\":\"image/png\",\"width\":20,\"height\":20,\"angle\":0,\"xoffset\":0,\"yoffset\":0},\"value\":\"Biomass\",\"label\":\"Biomass\",\"description\":\"\"},{\"symbol\":{\"type\":\"esriPMS\",\"url\":\"f380bdd75bf88424398f56b2e8802779\",\"imageData\":\"iVBORw0KGgoAAAANSUhEUgAAABYAAAAWCAYAAADEtGw7AAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAxhJREFUOI21lUFIY2cQx39jFCEJJrLIVqiwIriH6ANrl6JotyhWg+SgSKWI5GDAKjYG6kGxaaOikCe1RHstW/BWW9KwS+l5kQhSL9KcGsiKC6JYCaS0laWZHqri27wVu9A/fPCYme/3zbz3vply/ieV3yZIVRuB+4ALyAO/iMjz1wKrqhMIA+PAPRv/PpAAvhGR4q3AqvoA+Ba4l8/n2d/fJ5fLUSgU8Hg8NDQ0YBiG4Xa7vwY+UtUPROTZjWBVfQj8eH5+7kylUkQiEY6OjkoO9/l8mKZJb2/vA4fDsaOq74rIr7ZgVa0Fvi8UCs5oNEoikbArCIBMJkN/fz+xWIzZ2dk3KisrH6vqWyLyhx3YLBaLd+LxuC00HA6zvr5uscViMbxeL+Fw+D4wC3xmAavqm8CH6XSa5eXlEujMzAzz8/OkUikODg4svkgkQnd3N01NTR+r6oqI/HU944FisejY2NiwLT0YDOL1ejFNk+Hh4RL/5uYm8XjcC/QAj69n/PbJyQlbW1slm6ampvD5fAD09fXh8/nIZDKWGNM0iUajuFyuVgtYRO6enp7aZjs2NoaIAFBVVcXS0hKDg4MlcWdnZ7hcrrtg/XgvisWS/5xQKIRhGBZbT08Pra2t7O3tWewX+19YwKr6zOv1loDHx8cpKyuz2NxuN7FYjEAgYLF7PB4uL8r1V/G0trZ26nomo6OjtLS0lBwG0NXVRXt7O+l0GoCRkRGqq6sBnlrAwJOKiorf5ubm7gwNDQGws7OD3++3BQPkcrmr51AoBJARkZ9fzvhPVV3x+/1fDAwMkEwmyWazZLPZV4IvNTExQUdHB8Cnl7aXe0XC6XQGEonEe8fHx1dl3qRAIMDi4iIOh+ORiPxgCxaRv1V1oK6u7qdkMvlOPB5nbW3tldCFhQWmp6fxeDzf8W97vVJJdxORvKo+rKmpWVldXQ0Hg8Hy7e1tdnd3OTw8pL6+nra2Njo7O2lsbPwd+Bz4UkT0RvAF/Bz4RFW/am5uDhmG8f7k5KRlggBPgEciYnurbhxNIpID5i/Wf9KtZt7r6B8CDx0rQ2SzKgAAAABJRU5ErkJggg==\",\"contentType\":\"image/png\",\"width\":20,\"height\":20,\"angle\":0,\"xoffset\":0,\"yoffset\":0},\"value\":\"Coal\",\"label\":\"Coal\",\"description\":\"\"},{\"symbol\":{\"type\":\"esriPMS\",\"url\":\"f8f1bf3bf97e3bf3be503ea79790969d\",\"imageData\":\"iVBORw0KGgoAAAANSUhEUgAAABYAAAAWCAYAAADEtGw7AAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAA7NJREFUOI21lW1oW1Ucxn+n9yZNb9JkTWLTlPVlpSx1W6ds1tYx3QS7OcWZuRerMBEVJzj3xS+C4kCkHwQpA0H2QScMYY51jbRMUZilMqcircxVra32ZWXtkiZt2rzcpLk5fimdd+1KN/CB++Ge8/A7//ucc+5f5X+SuhqTjH65nrwMILADMxjGVeHbP35XYDlxRsNiOwYcQcpqxH8mFQU5FboCnMBj/0yI5vyqwDLS0YAQZ4HqrK4zOTZGPBJhXk9jLdJY4/NRVlGxWbVaPyGafE1GQ4eEJziyIlhGQzuQXDByOe2v3j76uz/FyEwsWdzqCLDp0eepva++QSAuy6nzjwjvM4PLguVUyI+kPaPr2qWOL4gMddwuKbKJAXo7jxMePUzTE0+XKRa1U06c2SL8LamlYPhA5vOen7rOExnqoLB4I1v2vIDHX46tqAihFJA3DPRUmsj4OL1fnWT8yml6bRoNu/cEpMX2FvCuCSxvtK8FnhsdGGDij7MAGLkEejqNnkoDkoICBSNvoKdSZNJpjOwcAP/8fJLKDfX4Kta+IePftgpXs36zYkXZJ6VU+nsuLA7l0qOUr6shdmOS6PUkhpFDUVU0pxO33480Yove3y99h6/l8BqyyWag82bFkgfmZuIkwt+bsnS4nDhcziUZJ+KzpvfwYDsZ/SBWm22rCSwEvuRs3GTWSrYu3bUFWawW1KIqcunRxbHUbAKrrdAH5s2bzxvmc56eHaav+yIlPj82zU6BomAYBnoiQfT6NYzMqMmfz+cBMW8CSxixaXaTURox6rc9TDw2jZ5MkM3oKKqKy+vFXebn7x8/Nvltmg0BIyawQPa4PCVHlUK/6UKoVgueslKg1AS5NWO7uxGt2AmSHnMUVtGlYonWNrZ4BnrauFOtf+hxhKBfeIO/mCt2BtNyKtRa1/DghyN9G8nM9eMo3UYum0W1WpeAVIsFi72W+eQQxb6d1NRvAnhncd7k9oRP2Ch9avuhozu7T79HIvwDobZh3JVNaC43iqKSy+VIToeJjX2DNDJYHQG2H3gRxaKeEt5gaFmwEK8acjK0z1vu//qxl99vvNzxObOTF2/7z/BUP0nT3mdxuJznmNePmL7oVrMoC87I6fYdLq+ndfdLrx+7NrhLHfvzN2Ijv5JJDVFYfC/3VN9P1YbNlNesSwghjuMJtgmBXBEMIEr2Z4A3ZfTcR5V1gVeq6up2wcEALHQQuAqyiwLllHDvnVqOsWJrEp4Dw8DbC88daVU97270Lzdvbp+20N1gAAAAAElFTkSuQmCC\",\"contentType\":\"image/png\",\"width\":20,\"height\":20,\"angle\":0,\"xoffset\":0,\"yoffset\":0},\"value\":\"Crude\",\"label\":\"Crude\",\"description\":\"\"},{\"symbol\":{\"type\":\"esriPMS\",\"url\":\"faee88f0e3a958d88bbf1a50402b6b4b\",\"imageData\":\"iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAYAAABWzo5XAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAytJREFUOI2tlF1Mk1cYx3+lL/RthVkrWcEEEFdFZEITI8hAcZsYhqgxVqvAsoaCzGmim7iBcSPZLpipbmar6CYa/CoEUCJ+l00Ux0QXR4VkBi01DuMFM0yDFFqYrxcGsKNkN/tfnXOe8/yejzznCPxPEiYyHNu1a77XPVj85MnTuV6vRyWKimdqtfpWENKXOaWlnf8Jqrdatd2uh3bb3vJ4T2/fv80xIRHh2Qd2fP6LUjM544Oion6/oLOWcv3lq83XHQ12UaEJIbd4C3Nmx6JSTuJZfx9tHR2c/HY/NXv2paasW/WozmqNNWze/MgHVFtWFtzquHnN0WAX31q7gk2FH6JRq33SmZegJyt9KXu+20tLdf1rKlH5OxAOSKMg95B07Ne6hmB91hK2b/0YUaHw27swrZYvSnbwWZ+bxkqbtvpri2Vd8fYiAaC6pCTw0rWrKwA25JknhIwoJDiEwsICilt+o729fSPwEqSaNs3woPmHgDkZC4mOihrzkKD5xnUcjnZSkpOYl6AfNb0ZM5spukhaT55TXbBa4wUAz+BwEkD83ASfyJ1dXZRt2gbAhYNHOHy+nnCtFgC5IJCwIJErzj/xDLFIAJAkggAC5b7TMOgZ8Nl7PB6fvSAEvlwESKIAICrFewAu132fi3ExMRg++YhLtbUY8kxERUSMVS1JdP5xBwDFpOAOASDsdc2JybrIb1pqTvO4oIBQjWY0ojknF3NO7riGP3jYTfdNBzPfSX6eYTbZBYBEo7GnYmfpHZvl+9ia+lNszDMjk8nGOY9oeHiI47YqANIWLWySyWRjc6SbHr0+OmV+25nyw7KpUzUYlq9ELpePg3i9XiptNlpqTqPPfHdYNyM6G16Z7MX5ptsXf6z49FDvY0vlV7tpu9XGGsNqpkdEohRF+gcGcN53Yauy4bxyg8hkvfTesszsRKOxxwcEkLEhf/dPFZU9l5uaDrbWnQm6ff5nv6Utft/oTktNXZVmyrGPnI17/UvyTUfvNjbWLUhMKne6nFldrq4pf/f0BoSGhT7XzZr51xtRuqrMt1OKZHFx/7zq5/c/mpWe7gZMftOZQC8A0zcT3/0NZ3gAAAAASUVORK5CYII=\",\"contentType\":\"image/png\",\"width\":20,\"height\":20,\"angle\":0,\"xoffset\":0,\"yoffset\":0},\"value\":\"Geothermal\",\"label\":\"Geothermal\",\"description\":\"\"},{\"symbol\":{\"type\":\"esriPMS\",\"url\":\"fce0a0f9f1f286cd3741db49e0ccadd1\",\"imageData\":\"iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAYAAABWzo5XAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAvhJREFUOI2tlGtIk1EYx//iu6abM6eW6czAQrN5STBT0axXXssm5bAyJTAqSD/YjSIUKtCyBMGoYIRNqJWRKWbTTXtxxSajXFO7KV67rWZkTtdFp7n1IX3ZptKXHjgc+D//8zsP5zznEPhPQSyWUNCP142axgpHTePRlqkprjubbfbx9mrn8z2Kt6WkfPwniFarfQcHPyhOXa7a8Mb0yzkdmeTPPyiV3VMFrfBOpyhqckGQklaFy5vV7VeedLovVqnGaHLRSGpSzqQnflaqVGFpJPnFAUTTNKdVq9PaQ24VZGPgnQHFcs08YEljG7/Ujd0BQOAAMo6Yb15qaefZm/39lmNXhgj67n40DQ4DAHKiglH9YggAUFTbGnC/vunibrGokJithqi83yJ23nX8+w/AZoMXj8topYVHEFWvxOl7LQAArf5lAYC/IMsMMmtev3V1Bu0qkwJlUgfNk8fD0bxcvO4dgqyrHxWq51wlrQonAODnxGScM6Qqfw8OSGrmnQ3PwwME4QoqKQayrn4AgMUylUwAgHXG5mZv3izwwb4sMd4ZjCiWa3AhkwSXy8GxW42orn0Agb8fym43MH4r4E4AgJsba8AelBq/HiwWC7HRQkCugSfPA4f3Z+O9wYjcq3fnVbmEYHX/BXHY1UI+p3yuAYtqWzFhsaBG/RwAEBsdARaLhRN5uahQ6R0g4tBAK9vV2kwAQBpJGisk0r7jMkXInKFE3saYhWGhAIBAQQAObVyHG8+6mZwoOa6Noigr00chwcE5ZKCvTmUYcXEuffr39Oz8G9/GzIyeE7F6RhDktxewa0jR1i36uoeKs58kd0p6xycdQCfPlUOclgz10w7U9xoAAEn+fFt2BrU/jSSNDiAAyNyx/XxD06OvtYrH12SdfUxOquuBVNfD+PITIy3pZEKWaBvFXN28179TlHqdprV3UzcZK3sG3qbqXvUv1Q+bXOJXLrPFCENG165ZVee7lFtAUdSU/boF/yOKSjADyLLXmmbHYvEH6i0VbZLgLpIAAAAASUVORK5CYII=\",\"contentType\":\"image/png\",\"width\":20,\"height\":20,\"angle\":0,\"xoffset\":0,\"yoffset\":0},\"value\":\"Hydroelectric\",\"label\":\"Hydroelectric\",\"description\":\"\"},{\"symbol\":{\"type\":\"esriPMS\",\"url\":\"8c3cc0a53b581f5cdbe3e02554582cb7\",\"imageData\":\"iVBORw0KGgoAAAANSUhEUgAAABYAAAAWCAYAAADEtGw7AAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAA3dJREFUOI21lX9olWUUxz/nve/9ufveu92t3HZX6pyOGTnIplC0H6UxWAYGChIkRG39YUYEudI0qKYIFcsihEyD+keSommISsr6I0VhYDmy0rba0G7e69yv+2vvPf2xOXZ3b2MJHXj+Oc95Ps95zvs97zH5n8ycT5CqLgOqgQJgCPhJRAbuCKyqPmAr0AYsyrN/EegEDolIZl5gVa0DDgOLxpM2vYOj9EcTjKUyWG4Hi0s81IT9K9xO4wDwgqpuFJG+OcGq2gB8m7YzvhM/xth2PsqlCc25vNFj8MaqEhpriuoMQ35Q1XoR+TUvWFXLgCNjCdv3zokBdg/G8z2IFp+DY+M2Z7oj7B0c46VHw6Uu0+hS1QdEZDwfeK8qxe99N/iv0P3LA1hug2M9QwC8emWMoPs6rQ3l1araDuzMAqtqBbDp7G9D7OwfzwvdXuHl2UdKaT3cl+Vv6x2moSpAddj/oqp2iEhiZsbrVdXx0YVoXujThU62rQljGgYBp+Tsf94T5a2wvxBYC3TNzPjByHCKL4bSOYfWFTjofOIeLO9k+JpKP52RZFbM23/GaU/Y+NzGyiywiCy4MZzKgYZE2NccpthyTfseWhokdC5GTLPVEhtN4XN7FkD2x0vbmVxZfVAbZOHdPpLpDE6HYBhCyO9iT41Fa+9wVuzU+XQWWFX7At7cfmmsDgLwyffXaFoWYHmFBUD90gDMAltek9uNMrMU3eUhz5b7TJluiDJDKCvyMJ602XJ5hM2RBJ9u9GMYQmmhOwu6wTIJ+V0A3bNLcdRlGtEd9weLN01pNKaKbSs+t4PdlQW8dnWMfUkby2syHJ/IArfWFiHCJRG5MDvjuKp2tNSWvLv25xFOxm2SChf/GGFlZZBn6u4iGrfxe0xSExkOnft7Grq5yEl9TRHAjtu+2UXttLzmuo+byxtbuga4PKG0nf6LXbdS9N9M4TKEb3oifPXLCJ/dnJRlo8dgT3MYp0MOisjXecEiYqvq+iWlBcdPPXXv6jdPXeNALMWTZ2c0zYxWf7nUw+uPlVEScH/J5O912nJkICJDqtoQDnk69m9YvPX5q7fM01dGOHM9wfl4hod9Bk3lXpqqAqxYaI0aIruA90VE5wRPwZPAK6r64aolwedWVxU+3j5rggBHgYMiciMfY87RJCK/A9un1n+yec28O7F/ADteSmVAVYA5AAAAAElFTkSuQmCC\",\"contentType\":\"image/png\",\"width\":20,\"height\":20,\"angle\":0,\"xoffset\":0,\"yoffset\":0},\"value\":\"NaturalGas\",\"label\":\"NaturalGas\",\"description\":\"\"},{\"symbol\":{\"type\":\"esriPMS\",\"url\":\"82c032aea65b636d01f12bd6323df128\",\"imageData\":\"iVBORw0KGgoAAAANSUhEUgAAABYAAAAWCAYAAADEtGw7AAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAA6xJREFUOI211V9MlXUcx/H3l54D5zxyijwgfxQQZyqg0BKElMDWMquhY5nLbNM2N2olbXVDC+umvMg5x2Zr1UxvusggMZSwggIkaTL/QYAC8k+mA8EjeDiwcw7fLpTGwRORW5/tufn9nr1+332fPd+fwf8UYy4vqeoyYDkwD3ACzSJy7YFgVTWBAiAfWBxg/xJQDBwRkck5waqaDhwFFo+PjdN9uZeBvptMjI1jtduIiltA/LK4lOAQyyHgDVXdKiLds8KqmgNUeL0+82zVOX75rAaP03vf4Wa0jQ1v5fB4Vkp6UFDQGVXNFpH2gLCqRgOl7rFx87sDZXScultETHokK7KWYtptjA7foamqjeFWJ2VFlXRt7WFz/otRhsUoV9UnRGQsEPypqjqOf36SjlPdmNE2Xt6Ty5LkBESEhp/Ocrm+k9WbUgneYlC5/1cuHm3FZrfxwo4Ny1W1EPjQD1bVRcC2lsY2Wo63Y50fzK7i1wiPckw/mBvnB7lxvoaIVQ42F23k2J4KGg6dI3ltIvGPxe5W1b0iMj694jxVfaj6yGkAnn/3GT90Zgabhri4oJnsNzOpOdhAXekZ4gtjw4BngfLpFafdGnQy2DREkFVIWpP4j+hUOqt6SXk6GYArFVdxF4xjtYWs9oNFJPL20AgAsenRhFiD/xUG8Hp9WMIMPE4vI8MjWBdGRIL/x/NM+nwAGCEW6k6e4UJFsx/y1PZMCisK/NYMi0H1V3V4nF58vkkAjx+sqt3mwyYAN1oHWJWTyGDTkB8SJIIZavqtuV1uXP1uAELtJlM/yvRW1IZHOd62hBm4+t1Y51kJmW9hYtgzayvaL3UCMD8xDPujdoDama04YQm2DK3bscbxW/Hv1Jf+wab3N1JSWI76AqOu0TF+/rIGgKxtGYjInyLSOLNit6ruzXwufX/j9xfoq7+OPbyNVw+8xOmSBnpq+/3QkVsjfLvvGLc7R4lMjSB17UqAoqn9mbOi2Ay15W7/eMv6r3d/Q8vxdnoar5G980kyN6cRGhZKb8c1rjZ1UXeoAc+IDzPaxitFeRgW47CIlAWERcSnqnkLE2Iq8794PaN0/w9cbxzgx0+qA7YiYf0i8t7JJczxSAl3x+vfuW+6iYhTVXMiYhx78/ftLGg7f8Vorm+j52wfrusu7HF2lmTEs3JdEkuTE+5IkHwEHBARnRW+h08A76nqwcTVy3clpa3YwIwbBDgBHBaRm4GMWa8mEekCPrj3/KfM6c57kPwFi2NrQDENt0EAAAAASUVORK5CYII=\",\"contentType\":\"image/png\",\"width\":20,\"height\":20,\"angle\":0,\"xoffset\":0,\"yoffset\":0},\"value\":\"Nuclear\",\"label\":\"Nuclear\",\"description\":\"\"},{\"symbol\":{\"type\":\"esriPMS\",\"url\":\"9a2238be10fa56644262556812067b81\",\"imageData\":\"iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAYAAABWzo5XAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAZRJREFUOI2t1L9rE2Ecx/E3PvftEcEKGa5Dlk6lcKBfOSHgVv8BW4vYuTi4ODsIgriIuHZwFbJKHcI5ZRQODdxyQ2apiUtKiZAcj190kJNG2zSJfsbn4Xnx/T6/Av5TgvMmkiSJJpPJNqAisuq9PxaRT/V6/bDT6ZzMA11W1Wdm9khEwmpQRAAYDoejOI5fFkXxAvh+JqSqa0AK3JjRxRURea6qW41G40673f72JyTe+7ciMgs5nduDweANcHcKSpLkoZndmhMBwMx24jjeLorisIIumdnjRZAqIvIE+AWp6jWgsQwE3FTVtQDAObdhZks6EIbhRgBgZitLK0BZlitVRV/+saKjACCKoo/9fr8EwgvWnJWvWZb1AoA0TUeq2gL2F1Wcc6+BH7/v0Xg8flqr1XaBqws4n6MoegWnLmSv1ztS1T3gHTDP5o+89ztpmo6mIIA8z983m82tsixbwPoMpHDO3c/zvKgG/nr9WZZ9ADaTJHlgZveA68AqcAx0gVae5y1g6pjP+4/Kbrd7ABxc1F+VnxTFiWNFiX94AAAAAElFTkSuQmCC\",\"contentType\":\"image/png\",\"width\":20,\"height\":20,\"angle\":0,\"xoffset\":0,\"yoffset\":0},\"value\":\"Other\",\"label\":\"Other\",\"description\":\"\"},{\"symbol\":{\"type\":\"esriPMS\",\"url\":\"318c4aa0e29c1c8da3f4dd559c7694c8\",\"imageData\":\"iVBORw0KGgoAAAANSUhEUgAAABYAAAAWCAYAAADEtGw7AAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAA4NJREFUOI21lUtMVGcUx38HZpiHPJ3owCgMCAgouACmNqkF2gT6iF0QjKmbtgsbbdIak7ZJE5t2x6JNHzbdVkzT2MTUxoq0NmofBKTFloeIARFGEIZAdcSp4wwMw+kCmDIwEmrSf/LlJvfc+7v/75zvnmPgf5JhLQ+p6lagAFgHTAFXRWT0kcCqagUOAQeA7BjxK8BR4LiIzK0JrKou4CSQHQhOMzgyxvhtL8HpGSxmM5s22sjNcuxIMBq/AA6q6l4RubkqWFUrge9nw2Fra0cP3zZ3EAzNrvh4itVEXaULV0mhKy4urk1VK0RkICZYVTOAU4Fg0Nrw3QW63Z4oWLwIYVUA7j2Y5tgPLfQPe9j3fFW60WBoVNVSEXkQC/yBqtpONP2yAgqwqziX4jwnt8YnOfNbDwCt14awmhPYU1NRoKrvAO9FgVV1M7Cvu+8G7QMjK6AAg55Jrg17OFBbzcRdH7/3DwNwvqOPsqI8cjIdb6hqvYgElzquVdX4xpY/Y0JzM2yU5juxpSbz2clz7H16ZwQM8GNbJwczHalANdC41HG5d8rH6B1fFHBbph2n3UaecxPF+Tn0u0fwBaaZCYWwJBgIzMwXtnNojEAwiNlkKosCi4jd6/s7CvrWi8+R59zMfX8Aq9W84GD+MjAyzuOFOfx8JXIQmPL5Sd9gskflGAjNhf895/kOG/nZmZz56RJN7VfZ82Qp1U+UR+KXrw+zf3dVFDg8FwYIRYFV9WbioivgxriXwx8fIxgKLxjVqN3Mzin3/H52bd9CS+8QAIlWC4s/ytJUNG+0rX/dbDQQDM2iqtRVuvjqfBsP09cX23HYkgHISEsiJSkRoHl5Ks4ajYY7z7qKbacvdZFsMVG+PZ9Tv16OFCiWPAvFfuaxEkSkV0T+WO44oKr1Fa6Sj5q7+/D6gxz+9MuHApfKuSGV8uJCgHcX7y3vFUfXWSwvvFZXU/XhiSZmZsORwODoJK0dPXj+8ka9kGI18WptDQZDfIOInI4JFpGwqtZmOdLPHXmldufxxou4J+4C0OUeo8s9FgXdlmnnpd1PkZaS/A3z7TWiFd1NRKZUtdJuS6t/++W6Q73X3YbO/kH6b00w5Q+yPslCkTODsqI8tuZk3Y8TeR/4RER0VfACfBp4U1U/LynYsn9HYW4NyyYIcBZoEJHbsRirjiYRcQNHFtZ/0ppm3qPoH1N4ZjtGmZQXAAAAAElFTkSuQmCC\",\"contentType\":\"image/png\",\"width\":20,\"height\":20,\"angle\":0,\"xoffset\":0,\"yoffset\":0},\"value\":\"Pumped\",\"label\":\"Pumped\",\"description\":\"\"},{\"symbol\":{\"type\":\"esriPMS\",\"url\":\"a4747ff4e209e877ce8beb95b9085388\",\"imageData\":\"iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAYAAABWzo5XAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAvJJREFUOI2tlF1Ik1EYx39z73zbxnRrazWbWGozxcwSyyKUJqsuKgshKwoiQ6KMzLpIqC4q6iIhxLqIysjQbooo+kQ0JDPMvijyorQPw5ZFs6ZTzzZnF2+2RkY3PVeH58/zO//znOccif8U0t+EuydJMxqo0GvlORq10AeCsndgUDzs83Ewfzsf/glqqMYSb5VvJttFtloNIPAHIFojADL8AYpf1tP08T3LXRUMjwtqqiI9YwYPzUah/T3f8gyc2co6WoMqLZF8Uywfm06Q6iylNwLUUI0uLZFWgx7tkACtrOS9A1B7MwwC8HjBZsYUDPIEmBoBsho5P9mMAaDmGjgSYMEseOuG87egcifotXCjBSaZIG8uxE8mrr1GPpq9WVRIAA1HkZLsrB6DFuRBziZwzoM5DjhSogCuNEOMDmoOhN1NixM7AAWkM9sK9Vq3ekw0x0LVbujqAbMRPnwCcwxkpcCKXJDUYZDFiL6pinQJQI725ACEQtDzBTq6oPER5GbCqr3houvHoLENvvVDcjzEWSAqCnT6iXkSgAoxIRSC553Q3gE37sPVe7BwduRoBEdgz0koKYBlOTA3FRKmgErl00oAwaDcGRUlyHRApgO2FEDzE+j3wcalcOEOlK8FEYTOS5Bkj9xgeFh0SAC+oKgfGaFS/fPsoRDU3VacVe2GlbngD0DRPqguh9I1YcjgMCG/g9sSgHMr7q5L8qtEu3AAtL4AgxYenIXX3eDaCW+vwNNaqKwD13tISVBA79xyi2udCP2ao+7PYv1UK+2SGpVuAlSWKY3UaCDFBnYrTLPBuf3w8g2MjoJviJHe72JtxEAu3sbjtrPygaxUcShrZti6zQxlG8JXrpGUPvoDjD5/Y9vk3Op2R4AA5heLw61nJn5Jn+45YdArmkoFhfmRze3zIjre2YoWlbivjuX+eP0Lt3hONRznotXCaauJJaYYYi2xqIYEo339eHq/cvmrYIerxO3/vW7c/8i1Cy9QNJ72t/gB2FT2y5OSR8MAAAAASUVORK5CYII=\",\"contentType\":\"image/png\",\"width\":20,\"height\":20,\"angle\":0,\"xoffset\":0,\"yoffset\":0},\"value\":\"Solar\",\"label\":\"Solar\",\"description\":\"\"},{\"symbol\":{\"type\":\"esriPMS\",\"url\":\"02817d17fbe899a70ab9ab88f406542e\",\"imageData\":\"iVBORw0KGgoAAAANSUhEUgAAABYAAAAWCAYAAADEtGw7AAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAA0hJREFUOI21lU1Io2cQx38TkxCTQBoXjMEiK0LElcTQKL25vbR46WHxA/XgqVIP7XooSiGlBQ8eKqUsVDxpPOUgNQhKqXhyIRSlEFPqIZagByU52CTC2jd+ZXpwFaNR7EL/8FzemffHn3nmmTHzP8n8mCRV9QHNgAMoAH+KyP47gVXVDrwEPgeeVoj/AbwC5kWk9CiwqnYAC8BTwzBIp9NkMhmKxSLV1dXU19fT1NQUsFqts8CIqvaJyN6DYFV9Dvxyfn5uj8fjxGIxisUiLpeLYDDIysoKAC6Xi+7ubjo6OjpMJtNvqtopIn9VBKuqF1g0DMMeiURIJpPXMavVSl9fH6lUimw2y9HREXNzc6RSKQYGBuosFsuyqn4gIv9UAn+vqk+i0WgZFODk5ASz2Yzf7yebzV5/j8fj2O12enp6mlX1a+DbMrCqvg8MJJNJNjc379TdMIxr57e1trZGKBSisbHxS1WdFJHiTccvVLVqeXn5zo8AZ2dnlEol8vl8xfjq6iojIyPvAR8Dyzcdt+dyOfb372/PYrF4p0RXSiQSGIaBzWYLlYFFxJPL5e6FAiSTSY6Pj++NFwoF6urqPFB+eWel0p0+x+l0EggEqKmpYWNjA5/Px87OTkXwxcUFwFkZWFX3nE7ndZLX66W3t5fm5mZyuRwLCwuk02nC4TD5fJ6lpSX29vbumLh6KDdL8bq2tvYLm82Gx+NhdHQUi8XC+vo6i4uLV26YmZlhdHSU8fFxtra2iMViHB4e4vV6cblcAK9vl2LFYrH83dXV9aS+vp6DgwOi0SiZTKbMVTabZWJigsHBQdra2mhtbSUSiRAMBhGRbRH5/bZjQ1UnOzs7f5ieniadTlesI1z29OzsLFVVVTgcDtxuN+3t7QDfXOXcnhWvHA7Hp/39/R9NTU1xenp6LxwuL0tEGB4exmw2R0RkqSJYRC5U9UVDQ8Ov4XD4w/n5eXZ3d+8FP3v2jKGhIdxu989cjtdr3ZluIlJQ1ecej2dybGzs5fb2tjmRSJBKpSgUCtTU1NDS0kIoFMLn870xmUzfAT+KiD4Ifgs/Ab5S1Z/8fv9ngUDgE25tEGAFiIjIYSXGg6tJRHaB8Nvzn/Sonfcu+hfNIFmOaRHRSAAAAABJRU5ErkJggg==\",\"contentType\":\"image/png\",\"width\":20,\"height\":20,\"angle\":0,\"xoffset\":0,\"yoffset\":0},\"value\":\"Wind\",\"label\":\"Wind\",\"description\":\"\"}]}"
+                     },
+                     "customimage":{  
+                        "enable":false,
+                        "images":[  
+
+                        ]
+                     },
+                     "items":[  
+
+                     ]
+                  },
+                  {  
+                     "expand":false,
+                     "last":true,
+                     "type":5,
+                     "id":"db4c27fe-2f2b-85b4-42cf-2d635bec9907",
+                     "graphid":"6c528f73-2361-cb12-d77b-bb4d42959522",
+                     "displayfields":false,
+                     "label":{  
+                        "value":"Natural Gas Processing Plant",
+                        "alttext":"Natural Gas Processing Plant"
+                     },
+                     "metadata":{  
+                        "enable":false
+                     },
+                     "opacity":{  
+                        "enable":false,
+                        "min":0,
+                        "max":1,
+                        "initstate":1
+                     },
+                     "visibility":{  
+                        "enable":true,
+                        "initstate":true,
+                        "type":1,
+                        "radioid":0
+                     },
+                     "displaychild":{  
+                        "enable":true,
+                        "symbol":"{\"type\":\"simple\",\"symbol\":{\"type\":\"esriPMS\",\"url\":\"7b207b942ac8ee56251d9085e8a21367\",\"imageData\":\"iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAYAAABWzo5XAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAYNJREFUOI2t0c8rw3EYwPH390c2y49vmx+pMWRbm1+5kAtOjkq5OMg/4cJNIRcHRzfFwUEODmqKyEGbKCGJ2LdkDDOj2Rf7zkHtoE3fjef2fJ7n8+p5emT+KWSA6eWNIaWkaCJfJPwYm5QBZEnylpUpNflCT9HXJtlwdwru7iNUVlgzlg1DO4FjGhxVWeuGoJMzlVn/OYstzvyhm9ADU+sHACS0d8yFptyhSCTGzOouWuo7V6/DKEpxblDiTWNudRdV+0y/re9f0OSpQ5JE49DO3in7sTgOk5zG/M9xLtUbnPV2Y1DiTWP+8AqTJDA20MXK5gG+UBSAwIlqHLqPPKOlYNhtx2Yrpa+7Fd/SNgBrwTCDSR3xx3oZIV3XAbh9ekHXU1RWWHFbCjiLv2OVRBAEYxOV2xQQBHyhKB2nQTwuO0HtA4DBdheiaBCyWMyM97axsHVEMpnkKnhLV3kJnY21NHvrMn3JfrVGt4NptyOdu5zV2Vp/h3INGWCkv2cUGP0L9AVvrH6C6IBowQAAAABJRU5ErkJggg==\",\"contentType\":\"image/png\",\"width\":20,\"height\":20,\"angle\":0,\"xoffset\":0,\"yoffset\":0},\"label\":\"\",\"description\":\"\"}"
+                     },
+                     "customimage":{  
+                        "enable":false,
+                        "images":[  
+
+                        ]
+                     },
+                     "items":[  
+
+                     ]
+                  },
+                  {  
+                     "expand":false,
+                     "last":true,
+                     "type":5,
+                     "id":"19c9cd79-23a8-acf3-4948-139336bf18db",
+                     "graphid":"954eb49a-8dd5-074a-5899-033b0ec38750",
+                     "displayfields":false,
+                     "label":{  
+                        "value":"LNG Import/Export Terminal",
+                        "alttext":"LNG Import/Export Terminal"
+                     },
+                     "metadata":{  
+                        "enable":false
+                     },
+                     "opacity":{  
+                        "enable":false,
+                        "min":0,
+                        "max":1,
+                        "initstate":1
+                     },
+                     "visibility":{  
+                        "enable":true,
+                        "initstate":true,
+                        "type":1,
+                        "radioid":0
+                     },
+                     "displaychild":{  
+                        "enable":true,
+                        "symbol":"{\"type\":\"simple\",\"symbol\":{\"type\":\"esriPMS\",\"url\":\"0f14add06238930c2b7ebef905f5b98e\",\"imageData\":\"iVBORw0KGgoAAAANSUhEUgAAABoAAAATCAYAAACORR0GAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAApVJREFUOI2900tIVFEcx/HvvTPOOOMrX8TQ+GRMe7gRSxJEEysil21EaFGCaPSkhWJEkWZYFOSzKYXcRA/aZLSQRCSil+EidRRJjcjKuk5K6nXmelrI2ExqZllndf8/7u98Dod79fynpV9xo84RS3HS0L+F7N0haOJxh0Npz0gM3SdJ0uy/gTT5IoJ1NS+U/ERLwBOgbtUhY31vtiooALg94WL7q9ELQogmSZKmVw+q7jerQrvmHRX1TphjQj83AvmrBhn1WrkqiPfOLLJEdddY3s1nI+V5aZbev4bCah1pihBHvLNT0SZigv048HpcSh5RH4DvIVYO2bsNiiYaEcieqCDcQEmOlcJ7QwBUvZ+KO3z3TcmVvfHn/xgyuuQyVWKTZ95l1nF+txWTUUd0oB6cLgA6FNdZqvtucShxcMWQpdaRPCKJUs9s00nY91gJDzIAsNMWTMW7KQC63LP67CDd3bbW1i3s2LHov7U4ZO/WjbhpAvw8UUN6BNERpvlXttpCyHo6Svv03L5tk1oKA9ajwKXfhzT5OIhUz5jlL5ORFMrncZX+D1Okr1+Dv59M8eYQ2l+OzdfCkCqV+t6HFG1Y8BUuhGr6bIjZM95RrtWMQS/zyOHE3vOV+zFBmI06EiJNwA9IEcIAUjOVQ9sojXX/AhISsuM6YPJOZ7S560mJCqStc4yPTpW4tWack24WLpFKyHQZ4HNYX6jeUYgg8+fq1bdT7HdOk2AJ4HS0mahIf4Y+TXLu+ZdFIABxMqzO0aIUJ3UuhBp6rMxStVhtWBNk3hkmJ9RAizLD4O1Bboy5lkDm9v2GaObyQArHbKovpEkNSAQt1exzC/pGVYDlEABU2Gg0uitUOOELHdyQu2x7hUv1ev4OLYLqnSz01AAAAAAASUVORK5CYII=\",\"contentType\":\"image/png\",\"width\":20,\"height\":15,\"angle\":0,\"xoffset\":0,\"yoffset\":0},\"label\":\"\",\"description\":\"\"}"
+                     },
+                     "customimage":{  
+                        "enable":false,
+                        "images":[  
+
+                        ]
+                     },
+                     "items":[  
+
+                     ]
+                  },
+                  {  
+                     "expand":false,
+                     "last":true,
+                     "type":5,
+                     "id":"d43b6cde-6269-9513-3981-123416810b6c",
+                     "graphid":"c22a81a2-ee1b-97c6-e704-e9569d3969e3",
+                     "displayfields":false,
+                     "label":{  
+                        "value":"Border Crossing, Liquids",
+                        "alttext":"Border Crossing, Liquids"
+                     },
+                     "metadata":{  
+                        "enable":false
+                     },
+                     "opacity":{  
+                        "enable":false,
+                        "min":0,
+                        "max":1,
+                        "initstate":1
+                     },
+                     "visibility":{  
+                        "enable":true,
+                        "initstate":true,
+                        "type":1,
+                        "radioid":0
+                     },
+                     "displaychild":{  
+                        "enable":true,
+                        "symbol":"{\"type\":\"simple\",\"symbol\":{\"type\":\"esriPMS\",\"url\":\"4552cbd1fc995a7fe1b155853086697a\",\"imageData\":\"iVBORw0KGgoAAAANSUhEUgAAABYAAAAWCAYAAADEtGw7AAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAA3RJREFUOI211Vts02YUB/C/nYupm/SSpFdKU1QG0gItkHZFFKZpIlWZSinqRpmGmEQREiB4AImH8TJNHUUTLyABDxChwSaVi0q5iWqRMm1CZQXCOgZ0lGZVSy/kgt1LGsd2bO+haoibUEVMnCefo+OffT5/+qzFewptKk23/gzURER5vaQomSSBAEkSrsaKvD/eCXY9ZiyD49zP7mHu07p7wbl93zW3efnqwrSrUV6/c7fDIqQE3/L4dlx4yjgvsuJbH+xkBMrJCF/ty6G2dDzyf9awOve3eeEbnsD+oz3MyS5efpupilMBnh7mou4OT2Bjgz3nl6Rw+0O//czf7Im56KZ0DZZl6MDyMpxMwtS4HpJIU9/EzUv3fYuaPsrzJ8C9fq79Tlgi4mstVhp7Ps7HCMPDZNDi85fT2NgVTMDPs6K+YkroALBWBbd1+9Z9/Ygpns2tGgJVtBarCmn82svi8vMQjDoCRz7Jx1ajDl5egkdQT3ZhILym7cGYZVtlwZuvHeajh3jlTdOXeRRaN5fE8sbKvNj1pe2luPrAhy8esiq4W5AJRSIOAvgmBgc5qSxhvneIqYhUDcQtRVhUMuIbAhEZ970TCEyJcA+EoCWBqAwUGbWoX56Nu0NhmAgCjKKoYE6ULSqYJCDFN5xuLAEbEvBsNIyaUiNsC2mw01GcuBdAc4Ye39YWgbkxhIvjogrWkISogrMXaPwAYgsZ4qLo/ncKAGBbSGPJlUE821KMbIpEv49DREy+zw0UOaSCzbTGDWDFbE7pSFR/kImbPa/R5Z2Ed6sVg8EIWF7GsgIaUVmB7HmdAGdR2nYVbNBSLY40zQEXN7OPDef7cb3KDABo8rCAZ2YHNJv0eD4Whr1zNAHdZdbzDZU5P6rg+kpT0Pn76G3Xk4m6pDOmEBus9MlzIBQVDADFZn3jkaI03/fDXNbhwgWoLTNDUYCmqtxYDwECGg3w08osbO8Zj9WPL0nv37am4PBsroIdNovgehosl2TlybHRiPGHs30pvenRxfRIeYmuPL6WcLo5bJYh119skTVz2n2sL2QflJS5LbGw60nsXWq4LZnHNzuW2lTbNel56yjPngRQ0fk4uG6E5VtfsMLK3olo+itRJgopQv4wUz9ZmqXrshh0h+pX5/6TzJj311RbZrkLYP3c+rX5bkoF/j/xH27sVa5nB4qGAAAAAElFTkSuQmCC\",\"contentType\":\"image/png\",\"width\":20,\"height\":20,\"angle\":0,\"xoffset\":0,\"yoffset\":0},\"label\":\"\",\"description\":\"\"}"
+                     },
+                     "customimage":{  
+                        "enable":false,
+                        "images":[  
+
+                        ]
+                     },
+                     "items":[  
+
+                     ]
+                  },
+                  {  
+                     "expand":false,
+                     "last":true,
+                     "type":5,
+                     "id":"01407991-0fb1-72ea-2466-068d8c2540a8",
+                     "graphid":"640ca1bb-7069-c16e-1ea4-915921651a9e",
+                     "displayfields":false,
+                     "label":{  
+                        "value":"Border Crossing, Gas",
+                        "alttext":"Border Crossing, Gas"
+                     },
+                     "metadata":{  
+                        "enable":false
+                     },
+                     "opacity":{  
+                        "enable":false,
+                        "min":0,
+                        "max":1,
+                        "initstate":1
+                     },
+                     "visibility":{  
+                        "enable":true,
+                        "initstate":true,
+                        "type":1,
+                        "radioid":0
+                     },
+                     "displaychild":{  
+                        "enable":true,
+                        "symbol":"{\"type\":\"simple\",\"symbol\":{\"type\":\"esriPMS\",\"url\":\"1d1616fbc39c7e20e8f71ef3a51f8ba8\",\"imageData\":\"iVBORw0KGgoAAAANSUhEUgAAABYAAAAWCAYAAADEtGw7AAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAt9JREFUOI21lV1IFFEUx393Z3FKEzc3ysCih9BFIbDPtz5ICx8ihAgqpIhQExX6ICKjHiKDxEIMtSAsgh76oCCRiKSQIIMwjNp1bSEtoQ/aXcvKHXfn3h6mdp1czYL+MHBmzjm/e+69c+518p/knFZUiy8HKXJxqDQdhg2hXlCRN/Rv4Kb+VJxmDYpyFIsQChQYAEpAi+850MjioUsUFclpgTNbvStC0ryGYtGkAyuWABd5lV1Bc99WKj0DU4L1Ft+akKQDSGUsMikXgJQZACtQ6jHnvaspz3uVHNzqnW9IbgKpADy4SiZjeFLMeEgw5sAvdeulcCdoGgiydFPcMZr6l1Kd830iWIrTgBszBpoTNu6mONzLrpVuMjIyALh+7wn1mYWJHNMETcOAXF2Thw04Zge3erORbAPg1hnYcijuKigowO12W67OHvty3L8M67ZDygwMVDVXeuooXRpJgCUlgDblmv5ZLr6kFgF3EmAhlqMsM/9zgOLwQwDCH97icGyIh30LvuGgtHxmLEqHcwz/OLIu5DLDBlZiHj/J2XNmUX+kImlJjfUn43Z3dzfPfAEb2FBiHtg2T0WnOd2pJUT0d/AACGvUqEEwGIx7XC4XmmYtfzgcRkqr0UZGRpKA1YAdLEQXiiqAochMDl/sBCD63k9DbWX8r6g90UA0a0k8zW/Y9zvTVF0hG1iT7cQcQcAdSF9IIN1K3hFTtkTX3AWcSk+AcfSOq5aXoaq8p/aKy/JHafHVoWhgc83EKU6m9aUJW4mjv0x752mykZhjE7AWgBuneRT5yNbOC+i61cbvQqOQ9sSKL9lvdahVbRt7PbeTg8vyTZr7SkDeBbGKLYcYBAb/VLXgBrO/lo//NPHYrPQMczawRtejdQbUJI1J6CuC4+z1nAVh24zkSfsWGwYcoMl/TnfKPYYSG0DlAmnAMIIXQDsxrY3qnE/JEFNfTdW5rw2oxXr+StO78/5BPwADRfywdbhVVgAAAABJRU5ErkJggg==\",\"contentType\":\"image/png\",\"width\":20,\"height\":20,\"angle\":0,\"xoffset\":0,\"yoffset\":0},\"label\":\"\",\"description\":\"\"}"
+                     },
+                     "customimage":{  
+                        "enable":false,
+                        "images":[  
+
+                        ]
+                     },
+                     "items":[  
+
+                     ]
+                  },
+                  {  
+                     "expand":false,
+                     "last":true,
+                     "type":5,
+                     "id":"5fe9089a-12ac-4ba3-284b-bab5d75d8ee7",
+                     "graphid":"ffd41ccc-ee47-9eb0-12e3-266e7118fca2",
+                     "displayfields":false,
+                     "label":{  
+                        "value":"Border Crossing, Electricity",
+                        "alttext":"Border Crossing, Electricity"
+                     },
+                     "metadata":{  
+                        "enable":false
+                     },
+                     "opacity":{  
+                        "enable":false,
+                        "min":0,
+                        "max":1,
+                        "initstate":1
+                     },
+                     "visibility":{  
+                        "enable":true,
+                        "initstate":true,
+                        "type":1,
+                        "radioid":0
+                     },
+                     "displaychild":{  
+                        "enable":true,
+                        "symbol":"{\"type\":\"simple\",\"symbol\":{\"type\":\"esriPMS\",\"url\":\"aa0bee9ba579ea77201655f974b3f70d\",\"imageData\":\"iVBORw0KGgoAAAANSUhEUgAAABYAAAAWCAYAAADEtGw7AAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAnFJREFUOI211V9oVmUcB/DPc7Y60JrKskTEyFhKSLhMfWswodAIIqKCoC4CZXkxBRFMBBMxNVsjooZYdBG6q8osMsq7buTd3sSbFMsgUG+EiKF7lThu7/t08SKed3vfbRb9rs6f7/mcL8/hnNPqf5rW2YTiiKWCZaI2jEmcD2tc/FdwPO0eE7YJNuFBMXeyShxJfxeyQWM+CetNzAqOwx2rVEa/EjzUvFO2VDSoXW8seiV0+2NaOBbTHmH0R7Q1R+tmhUQxlqwNBRcawrFksZh9ewforXlA9H08Y2V4Qnlq4+hDdEy+qlplYIiTwzy6hP4ttE+9dWccT3eT7aiDY0mn6OVGdb7+iZ2HWbaQo3sboiDI+mLJO6Hger7xiwiTwyPneHVXbfvoPhZ0UKnQ0tLQbsOzOH67cfT4ZHXsOqWzDGzm0+MUeulZzhf9LJzfuHWspl1kt+HAlOice9n6GsVfeOsQXZ0M7W+OgiS7n/qHN94od/EKr+8kTflsF/Pn1R5mkjSBY83JL8XlMGktrpXZ8RE3kWWs3sCJ93m+p3nhEFyqg0PilKgvH5rbzpfvceUvnnqDoXfp6WqO1hp2nGI0txSZ79ztKublc9Uqh49x4mMe65wBlV5QGP25vvFaN+Kwg4L+fPTMb2x4gSWLZkIRsrdDqH2u6t+8OT5Q9hyehvEJHl7EfXNnNiNHkoJjt/br4LBcJZ72koof0H1X6+xQfBNavJk/MOXrFla7FoueiUl6IMi2Nsrk5m/sVTYQ1qtOC0PolpFtjyMGo3RjkK3DI2qvbBm/4qTE52GNPxsZ0/6awpMuke3Bnulydwz/l/kHum68J9hy3L4AAAAASUVORK5CYII=\",\"contentType\":\"image/png\",\"width\":20,\"height\":20,\"angle\":0,\"xoffset\":0,\"yoffset\":0},\"label\":\"\",\"description\":\"\"}"
+                     },
+                     "customimage":{  
+                        "enable":false,
+                        "images":[  
+
+                        ]
+                     },
+                     "items":[  
+
+                     ]
+                  }
+               ]
+           
+        },
+        "toolbardraw": {
+            "enable": true,
+            "expand": false,
+            "pos": 2,
+            "drawline": {
+                "enable": true
+            },
+            "drawtext": {
+                "enable": true
+            },
+            "measureline": {
+                "enable": true,
+                "unit": 1
+            },
+            "measurearea": {
+                "enable": true,
+                "unit": 1
+            },
+            "importexport": {
+                "enable": true
+            }
+        },
+        "toolbarnav": {
+            "enable": true,
+            "expand": false,
+            "pos": 0,
+            "mapwkid": 3857,
+            "geolocation": {
+                "enable": true,
+                "graphic": true,
+                "info": true
+            },
+            "scaledisplay": {
+                "enable": true,
+                "format": 1
+            },
+            "overview": {
+                "enable": true,
+                "url": "",
+                "type": 2
+            },
+            "position": {
+                "enable": true
+            }
+        },
+        "toolbardata": {
+            "enable": false,
+            "expand": false,
+            "pos": 3,
+            "datafile": {
+                "enable": true
+            },
+            "dataurl": {
+                "enable": true
+            },
+            "dataquery": {
+            	"enable": false
+            }
+        },
+        "toolbarextract": {
+            "enable": false,
+            "expand": false,
+            "pos": -1,
+            "grid": {
+                "enable": false,
+                "id": "93f05b62-6c5c-0ca0-e03b-212d99293294"
+            },
+            "items": []
+        },
+        "insetframe": {
+            "enable": false
+        },
+        "datagrid": {
+            "enable": true,
+            "expand": true,
+            "layers": [
+        {
+                    "layerinfo": {
+                        "id": "5fe9089a-12ac-4ba3-284b-bab5d75d8ee7",
+                        "type": 4,
+                        "index": 0
+                    },
+                    "title": "Border Crossing, Electricity",
+                    "globalsearch": false,
+                    "fields": [{
+                        "title": "Country",
+                        "width": "100px",
+                        "data": "CountryA",
+                        "dataalias": "CountryA",
+                         "fieldtype": {
+                        "type": 1,
+                        "value": 4
+                     },
+                        "searchable": true
+                    },{
+                        "title": "Name of the line",
+                        "width": "100px",
+                        "data": "Name_of_th",
+                        "dataalias": "Name_of_th",
+                         "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                     },
+                        "searchable": true
+                    },{
+                        "title": "Owner Name",
+                        "width": "100px",
+                        "data": "Owner_Comp",
+                        "dataalias": "Owner_Comp",
+                         "fieldtype": {
+                        "type": 1,
+                        "value": 4
+                     },
+                        "searchable": true
+                    },{
+                        "title": "Operator Name",
+                        "width": "100px",
+                        "data": "Operator_C",
+                        "dataalias": "Operator_C",
+                         "fieldtype": {
+                        "type": 1,
+                        "value": 4
+                     },
+                        "searchable": true
+                    },{
+                        "title": "City",
+                        "width": "100px",
+                        "data": "City",
+                        "dataalias": "City",
+                         "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                     },
+                        "searchable": true
+                    },{
+                        "title": "Country",
+                        "width": "100px",
+                        "data": "CountryB",
+                        "dataalias": "CountryB",
+                         "fieldtype": {
+                        "type": 1,
+                        "value": 4
+                     },
+                        "searchable": true
+                    },{
+                        "title": "Name of the line",
+                        "width": "100px",
+                        "data": "US_Name_of",
+                        "dataalias": "US_Name_of",
+                         "fieldtype": {
+                        "type": 1,
+                        "value": 4
+                     },
+                        "searchable": true
+                    },{
+                        "title": "Owner Name",
+                        "width": "100px",
+                        "data": "US_Owner_C",
+                        "dataalias": "US_Owner_C",
+                         "fieldtype": {
+                        "type": 1,
+                        "value": 4
+                     },
+                        "searchable": true
+                    },{
+                        "title": "City",
+                        "width": "100px",
+                        "data": "US_City",
+                        "dataalias": "US_City",
+                         "fieldtype": {
+                        "type": 1,
+                        "value": 4
+                     },
+                        "searchable": true
+                    },{
+                        "title": "Longitude",
+                        "width": "100px",
+                        "data": "Longitude",
+                        "dataalias": "Longitude",
+                         "fieldtype": {
+                        "type": 1,
+                        "value": 2
+                     },
+                        "searchable": true
+                    },{
+                        "title": "Latitude",
+                        "width": "100px",
+                        "data": "Latitude",
+                        "dataalias": "Latitude",
+                         "fieldtype": {
+                        "type": 1,
+                        "value": 2
+                     },
+                        "searchable": true
+                    }],
+                    "linktable": {
+                        "enable": false
+                    },
+                    "popups": {
+                        "enable": true,
+                        "layeralias": "Border Crossing, Electricity"
+                    },
+                    "hover": {
+                        "enable": false,
+                        "hoverfield": ""
+                    }
+                },
+                
+                {
+                    "layerinfo": {
+                        "id": "01407991-0fb1-72ea-2466-068d8c2540a8",
+                        "type": 4,
+                        "index": 1
+                    },
+                    "title": "Border Crossing, Gas",
+                    "globalsearch": false,
+                    "fields": [{
+                        "title": "Country",
+                        "width": "100px",
+                        "data": "CountryA",
+                        "dataalias": "CountryA",
+                         "fieldtype": {
+                        "type": 1,
+                        "value": 4
+                     },
+                        "searchable": true
+                    },{
+                        "title": "Name of the line",
+                        "width": "100px",
+                        "data": "Name_of_Pi",
+                        "dataalias": "Name_of_Pi",
+                         "fieldtype": {
+                        "type": 1,
+                        "value": 4
+                     },
+                        "searchable": true
+                    },{
+                        "title": "Owner Name",
+                        "width": "100px",
+                        "data": "Owner_Name",
+                        "dataalias": "Owner_Name",
+                         "fieldtype": {
+                        "type": 1,
+                        "value": 4
+                     },
+                        "searchable": true
+                    },{
+                        "title": "Operator Name",
+                        "width": "100px",
+                        "data": "Operator_N",
+                        "dataalias": "Operator_N",
+                         "fieldtype": {
+                        "type": 1,
+                        "value": 4
+                     },
+                        "searchable": true
+                    },{
+                        "title": "City",
+                        "width": "100px",
+                        "data": "City",
+                        "dataalias": "City",
+                         "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                     },
+                        "searchable": true
+                    },{
+                        "title": "Country",
+                        "width": "100px",
+                        "data": "CountryB",
+                        "dataalias": "CountryB",
+                         "fieldtype": {
+                        "type": 1,
+                        "value": 4
+                     },
+                        "searchable": true
+                    },{
+                        "title": "Name of the line",
+                        "width": "100px",
+                        "data": "US_Name_of",
+                        "dataalias": "US_Name_of",
+                         "fieldtype": {
+                        "type": 1,
+                        "value": 4
+                     },
+                        "searchable": true
+                    },{
+                        "title": "Owner Name",
+                        "width": "100px",
+                        "data": "US_Owner_N",
+                        "dataalias": "US_Owner_N",
+                         "fieldtype": {
+                        "type": 1,
+                        "value": 4
+                     },
+                        "searchable": true
+                    },{
+                        "title": "City",
+                        "width": "100px",
+                        "data": "US_City",
+                        "dataalias": "US_City",
+                         "fieldtype": {
+                        "type": 1,
+                        "value": 4
+                     },
+                        "searchable": true
+                    },{
+                        "title": "Longitude",
+                        "width": "100px",
+                        "data": "Longitude",
+                        "dataalias": "Longitude",
+                         "fieldtype": {
+                        "type": 1,
+                        "value": 2
+                     },
+                        "searchable": true
+                    },{
+                        "title": "Latitude",
+                        "width": "100px",
+                        "data": "Latitude",
+                        "dataalias": "Latitude",
+                         "fieldtype": {
+                        "type": 1,
+                        "value": 2
+                     },
+                        "searchable": true
+                    }],
+                    "linktable": {
+                        "enable": false
+                    },
+                    "popups": {
+                        "enable": true,
+                        "layeralias": "Border Crossing, Gas"
+                    },
+                    "hover": {
+                        "enable": false,
+                        "hoverfield": ""
+                    }
+                },
+                
+                {
+                    "layerinfo": {
+                        "id": "d43b6cde-6269-9513-3981-123416810b6c",
+                        "type": 4,
+                        "index": 2
+                    },
+                    "title": "Border Crossing, Liquids",
+                    "globalsearch": false,
+                    "fields": [{
+                        "title": "Country",
+                        "width": "100px",
+                        "data": "CountryA",
+                        "dataalias": "CountryA",
+                         "fieldtype": {
+                        "type": 1,
+                        "value": 4
+                     },
+                        "searchable": true
+                    },{
+                        "title": "Name of the line",
+                        "width": "100px",
+                        "data": "Name_of_Pi",
+                        "dataalias": "Name_of_Pi",
+                         "fieldtype": {
+                        "type": 1,
+                        "value": 4
+                     },
+                        "searchable": true
+                    },{
+                        "title": "Owner Name",
+                        "width": "100px",
+                        "data": "Owner_Name",
+                        "dataalias": "Owner_Name",
+                         "fieldtype": {
+                        "type": 1,
+                        "value": 4
+                     },
+                        "searchable": true
+                    },{
+                        "title": "Operator Name",
+                        "width": "100px",
+                        "data": "Operator_N",
+                        "dataalias": "Operator_N",
+                         "fieldtype": {
+                        "type": 1,
+                        "value": 4
+                     },
+                        "searchable": true
+                    },{
+                        "title": "City",
+                        "width": "100px",
+                        "data": "City",
+                        "dataalias": "City",
+                         "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                     },
+                        "searchable": true
+                    },{
+                        "title": "Country",
+                        "width": "100px",
+                        "data": "CountryB",
+                        "dataalias": "CountryB",
+                         "fieldtype": {
+                        "type": 1,
+                        "value": 4
+                     },
+                        "searchable": true
+                    },{
+                        "title": "Name of the line",
+                        "width": "100px",
+                        "data": "US_Name_of",
+                        "dataalias": "US_Name_of",
+                         "fieldtype": {
+                        "type": 1,
+                        "value": 4
+                     },
+                        "searchable": true
+                    },{
+                        "title": "Owner Name",
+                        "width": "100px",
+                        "data": "US_Owner_N",
+                        "dataalias": "US_Owner_N",
+                         "fieldtype": {
+                        "type": 1,
+                        "value": 4
+                     },
+                        "searchable": true
+                    },{
+                        "title": "City",
+                        "width": "100px",
+                        "data": "US_City",
+                        "dataalias": "US_City",
+                         "fieldtype": {
+                        "type": 1,
+                        "value": 4
+                     },
+                        "searchable": true
+                    },{
+                        "title": "Longitude",
+                        "width": "100px",
+                        "data": "Longitude",
+                        "dataalias": "Longitude",
+                         "fieldtype": {
+                        "type": 1,
+                        "value": 2
+                     },
+                        "searchable": true
+                    },{
+                        "title": "Latitude",
+                        "width": "100px",
+                        "data": "Latitude",
+                        "dataalias": "Latitude",
+                         "fieldtype": {
+                        "type": 1,
+                        "value": 2
+                     },
+                        "searchable": true
+                    }],
+                    "linktable": {
+                        "enable": false
+                    },
+                    "popups": {
+                        "enable": true,
+                        "layeralias": "Border Crossing, Liquids"
+                    },
+                    "hover": {
+                        "enable": false,
+                        "hoverfield": ""
+                    }
+                },
+           
+           {
+						    "layerinfo": {
+						        "id": "19c9cd79-23a8-acf3-4948-139336bf18db",
+						        "type": 4,
+						        "index": 3
+						    },
+						    "title": "LNG Import/Export Terminal",
+						    "globalsearch": false,
+						    "fields": [
+						    {
+                        "title": "Country",
+                        "width": "100px",
+                        "data": "Country",
+                        "dataalias": "Country",
+                         "fieldtype": {
+                        "type": 1,
+                        "value": 4
+                     },
+                        "searchable": true
+                    },
+						        {
+						            "title": "Owner Name",
+						            "width": "100px",
+						            "data": "Owner_Name",
+						            "dataalias": "Owner_Name",
+						            "fieldtype": {
+						                "type": 1,
+						                "value": 4
+						            },
+						            "searchable": true
+						        },
+						        {
+						            "title": "Longitude",
+						            "width": "100px",
+						            "data": "Longitude",
+						            "dataalias": "Longitude",
+						            "fieldtype": {
+						                "type": 1,
+						                "value": 2
+						            },
+						            "searchable": true
+						        },
+						        {
+						            "title": "Latitude",
+						            "width": "100px",
+						            "data": "Latitude",
+						            "dataalias": "Latitude",
+						            "fieldtype": {
+						                "type": 1,
+						                "value": 2
+						            },
+						            "searchable": true
+						        },
+						        {
+						            "title": "City",
+						            "width": "100px",
+						            "data": "City",
+						            "dataalias": "City",
+						            "fieldtype": {
+						                "type": 1,
+						                "value": 4
+						            },
+						            "searchable": true
+						        },
+						        {
+						            "title": "State/Province",
+						            "width": "120px",
+						            "data": "State",
+						            "dataalias": "State",
+						            "fieldtype": {
+						                "type": 1,
+						                "value": 4
+						            },
+						            "searchable": true
+						        },
+						        {
+						            "title": "County",
+						            "width": "100px",
+						            "data": "County",
+						            "dataalias": "County",
+						            "fieldtype": {
+						                "type": 1,
+						                "value": 4
+						            },
+						            "searchable": true
+						        },
+						        {
+						            "title": "Total Maximum Capacity (Regasification)(Bcfd)",
+						            "width": "150px",
+						            "data": "Total_Max_",
+						            "dataalias": "Total_Max_",
+						            "fieldtype": {
+						                "type": 1,
+						                "value": 2
+						            },
+						            "searchable": true
+						        },
+						        {
+						            "title": "Import/Export",
+						            "width": "120px",
+						            "data": "Import_Exp",
+						            "dataalias": "Import_Exp",
+						            "fieldtype": {
+						                "type": 1,
+						                "value": 4
+						            },
+						            "searchable": true
+						        },
+						        {
+						            "title": "Data Source",
+						            "width": "100px",
+						            "data": "Source_Dat",
+						            "dataalias": "Source_Dat",
+						            "fieldtype": {
+						                "type": 1,
+						                "value": 4
+						            },
+						            "searchable": true
+						        },
+						        {
+						            "title": "Institution Responsible for the Data",
+						            "width": "100px",
+						            "data": "Institutio",
+						            "dataalias": "Institutio",
+						            "fieldtype": {
+						                "type": 1,
+						                "value": 4
+						            },
+						            "searchable": true
+						        },
+						        {
+						            "title": "Data Currency",
+						            "width": "100px",
+						            "data": "Data_Curre",
+						            "dataalias": "Data_Curre",
+						            "fieldtype": {
+						                "type": 1,
+						                "value": 1
+						            },
+						            "searchable": true
+						        },
+						        {
+						            "title": "Date for Potential Update of Data",
+						            "width": "100px",
+						            "data": "Date_Updat",
+						            "dataalias": "Date_Updat",
+						            "fieldtype": {
+						                "type": 1,
+						                "value": 1
+						            },
+						            "searchable": true
+						        },
+						        {
+						            "title": "Storage Capacity (Bbbls)",
+						            "width": "100px",
+						            "data": "Storage_ca",
+						            "dataalias": "Storage_ca",
+						            "fieldtype": {
+						                "type": 1,
+						                "value": 2
+						            },
+						            "searchable": true
+						        }
+						    ],
+						    "linktable": {
+						        "enable": false
+						    },
+						    "popups": {
+						        "enable": true,
+						        "layeralias": "LNG Import/Export Terminal"
+						    },
+						    "hover": {
+						        "enable": false,
+						        "hoverfield": ""
+						    }
+						},
+						
+						{
+                    "layerinfo": {
+                        "id": "db4c27fe-2f2b-85b4-42cf-2d635bec9907",
+                        "type": 4,
+                        "index": 4
+                    },
+                    "title": "Natural Gas Processing Plant",
+                    "globalsearch": false,
+                    "fields": [{
+                        "title": "Country",
+                        "width": "100px",
+                        "data": "Country",
+                        "dataalias": "Country",
+                         "fieldtype": {
+                        "type": 1,
+                        "value": 4
+                     },
+                        "searchable": true
+                    },{
+                        "title": "Owner Name",
+                        "width": "100px",
+                        "data": "Owner_Name",
+                        "dataalias": "Owner_Name",
+                         "fieldtype": {
+                        "type": 1,
+                        "value": 4
+                     },
+                        "searchable": true
+                    },{
+                        "title": "Operator Name",
+                        "width": "100px",
+                        "data": "Operator_N",
+                        "dataalias": "Operator_N",
+                         "fieldtype": {
+                        "type": 1,
+                        "value": 4
+                     },
+                        "searchable": true
+                    },{
+                        "title": "Longitude",
+                        "width": "100px",
+                        "data": "Longitude",
+                        "dataalias": "Longitude",
+                         "fieldtype": {
+                        "type": 1,
+                        "value": 2
+                     },
+                        "searchable": true
+                    },{
+                        "title": "Latitude",
+                        "width": "100px",
+                        "data": "Latitude",
+                        "dataalias": "Latitude",
+                         "fieldtype": {
+                        "type": 1,
+                        "value": 2
+                     },
+                        "searchable": true
+                    },{
+                        "title": "Address",
+                        "width": "100px",
+                        "data": "Street_Add",
+                        "dataalias": "Street_Add",
+                         "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                     },
+                        "searchable": true
+                    },{
+                        "title": "City",
+                        "width": "100px",
+                        "data": "City",
+                        "dataalias": "City",
+                         "fieldtype": {
+                        "type": 1,
+                        "value": 4
+                     },
+                        "searchable": true
+                    },{
+                        "title": "County",
+                        "width": "100px",
+                        "data": "County",
+                        "dataalias": "County",
+                         "fieldtype": {
+                        "type": 1,
+                        "value": 4
+                     },
+                        "searchable": true
+                    },{
+                        "title": "State/Province",
+                        "width": "120px",
+                        "data": "State_Prov",
+                        "dataalias": "State_Prov",
+                         "fieldtype": {
+                        "type": 1,
+                        "value": 4
+                     },
+                        "searchable": true
+                    },{
+                        "title": "Zip Code",
+                        "width": "100px",
+                        "data": "ZipCode",
+                        "dataalias": "ZipCode",
+                         "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                     },
+                        "searchable": true
+                    },{
+                        "title": "Plant Capacity in MMcfd",
+                        "width": "100px",
+                        "data": "Plant_Capa",
+                        "dataalias": "Plant_Capa",
+                         "fieldtype": {
+                        "type": 1,
+                        "value": 2
+                     },
+                        "searchable": true
+                    },{
+                        "title": "Data Source",
+                        "width": "100px",
+                        "data": "Source_Dat",
+                        "dataalias": "Source_Dat",
+                         "fieldtype": {
+                        "type": 1,
+                        "value": 4
+                     },
+                        "searchable": true
+                    },{
+                        "title": "Institution Responsible for the Data",
+                        "width": "100px",
+                        "data": "Institutio",
+                        "dataalias": "Institutio",
+                         "fieldtype": {
+                        "type": 1,
+                        "value": 4
+                     },
+                        "searchable": true
+                    },{
+                        "title": "Data Currency",
+                        "width": "100px",
+                        "data": "Data_Curre",
+                        "dataalias": "Data_Curre",
+                         "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                     },
+                        "searchable": true
+                    },{
+                        "title": "Date for Potential Update of Data",
+                        "width": "100px",
+                        "data": "Date_Updat",
+                        "dataalias": "Date_Updat",
+                         "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                     },
+                        "searchable": true
+                    }],
+                    "linktable": {
+                        "enable": false
+                    },
+                    "popups": {
+                        "enable": true,
+                        "layeralias": "Natural Gas Processing Plant"
+                    },
+                    "hover": {
+                        "enable": false,
+                        "hoverfield": ""
+                    }
+                },
+                  
+       {
+                    "layerinfo": {
+                        "id": "e2bb40b9-99b3-22a5-3b4a-2a30e015613b",
+                        "type": 4,
+                        "index": 7
+                    },
+                    "title": "Refineries",
+                    "globalsearch": false,
+                    "fields": [{
+                        "title": "Country",
+                        "width": "100px",
+                        "data": "Country",
+                        "dataalias": "Country",
+                         "fieldtype": {
+                        "type": 1,
+                        "value": 4
+                     },
+                        "searchable": true
+                    },{
+                        "title": "Owner_Name",
+                        "width": "100px",
+                        "data": "Owner_Name",
+                        "dataalias": "Owner_Name",
+                         "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                     },
+                        "searchable": true
+                    },{
+                        "title": "Longitude",
+                        "width": "100px",
+                        "data": "Longitude",
+                        "dataalias": "Longitude",
+                         "fieldtype": {
+                        "type": 1,
+                        "value": 2
+                     },
+                        "searchable": true
+                    },{
+                        "title": "Latitude",
+                        "width": "100px",
+                        "data": "Latitude",
+                        "dataalias": "Latitude",
+                         "fieldtype": {
+                        "type": 1,
+                        "value": 2
+                     },
+                        "searchable": true
+                    },{
+                        "title": "Adress",
+                        "width": "100px",
+                        "data": "Street_Add",
+                        "dataalias": "Street_Add",
+                         "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                     },
+                        "searchable": false
+                    },{
+                        "title": "City",
+                        "width": "100px",
+                        "data": "City",
+                        "dataalias": "City",
+                         "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                     },
+                        "searchable": true
+                    },{
+                        "title": "State/Province",
+                        "width": "120px",
+                        "data": "State",
+                        "dataalias": "State",
+                         "fieldtype": {
+                        "type": 1,
+                        "value": 4
+                     },
+                        "searchable": true
+                    },{
+                        "title": "Atmospheric Distillate (Mbpd)",
+                        "width": "100px",
+                        "data": "Atmospheri",
+                        "dataalias": "Atmospheri",
+                         "fieldtype": {
+                        "type": 1,
+                        "value": 2
+                     },
+                        "searchable": true
+                    },{
+                        "title": "Vacuum Distillation (Mbpd)",
+                        "width": "100px",
+                        "data": "Vacuum_Dis",
+                        "dataalias": "Vacuum_Dis",
+                         "fieldtype": {
+                        "type": 1,
+                        "value": 2
+                     },
+                        "searchable": true
+                    },{
+                        "title": "Catalytic Reformation (Mbpd)",
+                        "width": "100px",
+                        "data": "Cat_Reform",
+                        "dataalias": "Cat_Reform",
+                         "fieldtype": {
+                        "type": 1,
+                        "value": 2
+                     },
+                        "searchable": true
+                    },{
+                        "title": "Alkylation and Isomerization (Mbpd)",
+                        "width": "120px",
+                        "data": "Alkylation",
+                        "dataalias": "Alkylation",
+                         "fieldtype": {
+                        "type": 1,
+                        "value": 2
+                     },
+                        "searchable": true
+                    },{
+                        "title": "Hydrodesulphurization (Mbpd)",
+                        "width": "100px",
+                        "data": "Hydrodesul",
+                        "dataalias": "Hydrodesul",
+                         "fieldtype": {
+                        "type": 1,
+                        "value": 2
+                     },
+                        "searchable": true
+                    },{
+                        "title": "Coking (Mbpd)",
+                        "width": "100px",
+                        "data": "Coking",
+                        "dataalias": "Coking",
+                         "fieldtype": {
+                        "type": 1,
+                        "value": 2
+                     },
+                        "searchable": true
+                    },{
+                        "title": "Data Source",
+                        "width": "100px",
+                        "data": "Source",
+                        "dataalias": "Source",
+                         "fieldtype": {
+                        "type": 1,
+                        "value": 4
+                     },
+                        "searchable": true
+                    },{
+                        "title": "Institution Responsible for the Data",
+                        "width": "100px",
+                        "data": "Institutio",
+                        "dataalias": "Institutio",
+                         "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                     },
+                        "searchable": true
+                    },{
+                        "title": "Data Currency",
+                        "width": "100px",
+                        "data": "Currency_S",
+                        "dataalias": "Currency_S",
+                         "fieldtype": {
+                        "type": 1,
+                        "value": 4
+                     },
+                        "searchable": true
+                    },{
+                        "title": "Date for Potential Update of Data",
+                        "width": "100px",
+                        "data": "Date_Updat",
+                        "dataalias": "Date_Updat",
+                         "fieldtype": {
+                        "type": 1,
+                        "value": 4
+                     },
+                        "searchable": true
+                    }],
+                    "linktable": {
+                        "enable": false
+                    },
+                    "popups": {
+                        "enable": true,
+                        "layeralias": "Refineries"
+                    },
+                    "hover": {
+                        "enable": false,
+                        "hoverfield": "Refineries"
+                    }
+                },
+
+{
+                    "layerinfo": {
+                        "id": "c1afb2c1-4378-2833-02d9-91c1a1ce6ed6",
+                        "type": 4,
+                        "index": 5
+                    },
+                    "title": "Power Plant, 100MW or more",
+                    "globalsearch": false,
+                    "fields": [{
+                        "title": "Type",
+                        "width": "100px",
+                        "data": "Tipo",
+                        "dataalias": "Tipo",
+                         "fieldtype": {
+                        "type": 1,
+                        "value": 4
+                     },
+                        "searchable": true
+                    },{
+                        "title": "Owner Name",
+                        "width": "100px",
+                        "data": "Owner_Name",
+                        "dataalias": "Owner_Name",
+                         "fieldtype": {
+                        "type": 1,
+                        "value": 4
+                     },
+                        "searchable": true
+                    },{
+                        "title": "Operator Name",
+                        "width": "100px",
+                        "data": "Operator_N",
+                        "dataalias": "Operator_N",
+                         "fieldtype": {
+                        "type": 1,
+                        "value": 4
+                     },
+                        "searchable": true
+                    },{
+                        "title": "Longitude",
+                        "width": "100px",
+                        "data": "Longitude",
+                        "dataalias": "Longitude",
+                         "fieldtype": {
+                        "type": 1,
+                        "value": 2
+                     },
+                        "searchable": true
+                    },{
+                        "title": "Latitude",
+                        "width": "100px",
+                        "data": "Latitude",
+                        "dataalias": "Latitude",
+                         "fieldtype": {
+                        "type": 1,
+                        "value": 2
+                     },
+                        "searchable": true
+                    },{
+                        "title": "Address",
+                        "width": "100px",
+                        "data": "Street_Add",
+                        "dataalias": "Street_Add",
+                         "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                     },
+                        "searchable": true
+                    },{
+                        "title": "City",
+                        "width": "100px",
+                        "data": "City",
+                        "dataalias": "City",
+                         "fieldtype": {
+                        "type": 1,
+                        "value": 4
+                     },
+                        "searchable": true
+                    },{
+                        "title": "State/Province",
+                        "width": "120px",
+                        "data": "State",
+                        "dataalias": "State",
+                         "fieldtype": {
+                        "type": 1,
+                        "value": 4
+                     },
+                        "searchable": true
+                    },{
+                        "title": "Country",
+                        "width": "100px",
+                        "data": "Country",
+                        "dataalias": "Country",
+                         "fieldtype": {
+                        "type": 1,
+                        "value": 4
+                     },
+                        "searchable": true
+                    },{
+                        "title": "Zip Code",
+                        "width": "100px",
+                        "data": "Zip",
+                        "dataalias": "Zip",
+                         "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                     },
+                        "searchable": true
+                    },{
+                        "title": "Total Capacity (MW)",
+                        "width": "100px",
+                        "data": "Total_Capa",
+                        "dataalias": "Total_Capa",
+                         "fieldtype": {
+                        "type": 1,
+                        "value": 2
+                     },
+                        "searchable": true
+                    },{
+                        "title": "Coal Capacity",
+                        "width": "100px",
+                        "data": "Coal_Capac",
+                        "dataalias": "Coal_Capac",
+                         "fieldtype": {
+                        "type": 1,
+                        "value": 2
+                     },
+                        "searchable": true
+                    },{
+                        "title": "Natural Gas",
+                        "width": "100px",
+                        "data": "Natural_Ga",
+                        "dataalias": "Natural_Ga",
+                         "fieldtype": {
+                        "type": 1,
+                        "value": 2
+                     },
+                        "searchable": true
+                    },{
+                        "title": "Hydroelectric",
+                        "width": "100px",
+                        "data": "Hydroelect",
+                        "dataalias": "Hydroelect",
+                         "fieldtype": {
+                        "type": 1,
+                        "value": 2
+                     },
+                        "searchable": true
+                    },{
+                        "title": "Geothermal",
+                        "width": "100px",
+                        "data": "Geothermal",
+                        "dataalias": "Geothermal",
+                         "fieldtype": {
+                        "type": 1,
+                        "value": 2
+                     },
+                        "searchable": true
+                    },{
+                        "title": "Other Capacity",
+                        "width": "100px",
+                        "data": "Other_Capa",
+                        "dataalias": "Other_Capa",
+                         "fieldtype": {
+                        "type": 1,
+                        "value": 2
+                     },
+                        "searchable": true
+                    },{
+                        "title": "Solar Capacity",
+                        "width": "100px",
+                        "data": "Solar_Capa",
+                        "dataalias": "Solar_Capa",
+                         "fieldtype": {
+                        "type": 1,
+                        "value": 2
+                     },
+                        "searchable": true
+                    },{
+                        "title": "Nuclear Capacity",
+                        "width": "100px",
+                        "data": "Nuclear_Ca",
+                        "dataalias": "Nuclear_Ca",
+                         "fieldtype": {
+                        "type": 1,
+                        "value": 2
+                     },
+                        "searchable": true
+                    },{
+                        "title": "Pumped-Storage Hydroelectric",
+                        "width": "100px",
+                        "data": "Pumped_Sto",
+                        "dataalias": "Pumped_Sto",
+                         "fieldtype": {
+                        "type": 1,
+                        "value": 2
+                     },
+                        "searchable": true
+                    },{
+                        "title": "Crude Oil and petroleum Products",
+                        "width": "100px",
+                        "data": "Crude_Oil_",
+                        "dataalias": "Crude_Oil_",
+                         "fieldtype": {
+                        "type": 1,
+                        "value": 2
+                     },
+                        "searchable": true
+                    },{
+                        "title": "Wind Capacity",
+                        "width": "100px",
+                        "data": "Wind_Capac",
+                        "dataalias": "Wind_Capac",
+                         "fieldtype": {
+                        "type": 1,
+                        "value": 2
+                     },
+                        "searchable": true
+                    },{
+                        "title": "Biomass Capacity",
+                        "width": "100px",
+                        "data": "Biomass_Ca",
+                        "dataalias": "Biomass_Ca",
+                         "fieldtype": {
+                        "type": 1,
+                        "value": 2
+                     },
+                        "searchable": true
+                    },{
+                        "title": "Source",
+                        "width": "100px",
+                        "data": "Source",
+                        "dataalias": "Source",
+                         "fieldtype": {
+                        "type": 1,
+                        "value": 4
+                     },
+                        "searchable": true
+                    },{
+                        "title": "Institution Responsible for the Data",
+                        "width": "100px",
+                        "data": "Institutio",
+                        "dataalias": "Institutio",
+                         "fieldtype": {
+                        "type": 1,
+                        "value": 4
+                     },
+                        "searchable": true
+                    },{
+                        "title": "Data Currency",
+                        "width": "100px",
+                        "data": "Data_Curre",
+                        "dataalias": "Data_Curre",
+                         "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                     },
+                        "searchable": true
+                    },{
+                        "title": "Date for Potential Update of Data",
+                        "width": "100px",
+                        "data": "Date_updat",
+                        "dataalias": "Date_updat",
+                         "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                     },
+                        "searchable": true
+                    }],
+                    "linktable": {
+                        "enable": false
+                    },
+                    "popups": {
+                        "enable": true,
+                        "layeralias": "Power Plant, 100MW or more"
+                    },
+                    "hover": {
+                        "enable": false,
+                        "hoverfield": ""
+                    }
+                },
+                {
+                    "layerinfo": {
+                        "id": "175528ff-822c-7770-fd53-1410af797df0",
+                        "type": 4,
+                        "index": 6
+                    },
+                    "title": "Power Plant, Renewable Energy",
+                    "globalsearch": false,
+                    "fields": [{
+                        "title": "Country",
+                        "width": "100px",
+                        "data": "Country",
+                        "dataalias": "Country",
+                         "fieldtype": {
+                        "type": 1,
+                        "value": 4
+                     },
+                        "searchable": true
+                    },{
+                        "title": "Type",
+                        "width": "100px",
+                        "data": "Tipo",
+                        "dataalias": "Tipo",
+                         "fieldtype": {
+                        "type": 1,
+                        "value": 4
+                     },
+                        "searchable": true
+                    },{
+                        "title": "Owner",
+                        "width": "50px",
+                        "data": "Owner_Name",
+                        "dataalias": "Owner_Name",
+                         "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                     },
+                        "searchable": true
+                    },{
+                        "title": "Operator",
+                        "width": "100px",
+                        "data": "Operator_N",
+                        "dataalias": "Operator_N",
+                         "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                     },
+                        "searchable": true
+                    },{
+                        "title": "Longitude",
+                        "width": "100px",
+                        "data": "Longitude",
+                        "dataalias": "Longitude",
+                         "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                     },
+                        "searchable": true
+                    },{
+                        "title": "Latitude",
+                        "width": "100px",
+                        "data": "Latitude",
+                        "dataalias": "Latitude",
+                         "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                     },
+                        "searchable": true
+                    },{
+                        "title": "Address",
+                        "width": "100px",
+                        "data": "Street_Add",
+                        "dataalias": "Street_Add",
+                         "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                     },
+                        "searchable": true
+                    },{
+                        "title": "City",
+                        "width": "100px",
+                        "data": "City",
+                        "dataalias": "City",
+                         "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                     },
+                        "searchable": true
+                    },{
+                        "title": "State/Province",
+                        "width": "120px",
+                        "data": "State",
+                        "dataalias": "State",
+                         "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                     },
+                        "searchable": true
+                    },{
+                        "title": "Zip Code",
+                        "width": "100px",
+                        "data": "Zip",
+                        "dataalias": "Zip",
+                         "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                     },
+                        "searchable": true
+                    },{
+                        "title": "Total Capacity (MW)",
+                        "width": "120px",
+                        "data": "Total_Capa",
+                        "dataalias": "Total_Capa",
+                         "fieldtype": {
+                        "type": 1,
+                        "value": 2
+                     },
+                        "searchable": true
+                    },{
+                        "title": "Coal Capacity",
+                        "width": "120px",
+                        "data": "Coal_Capac",
+                        "dataalias": "Coal_Capac",
+                         "fieldtype": {
+                        "type": 1,
+                        "value": 2
+                     },
+                        "searchable": true
+                    },{
+                        "title": "Natural Gas",
+                        "width": "120px",
+                        "data": "Natural_Ga",
+                        "dataalias": "Natural_Ga",
+                         "fieldtype": {
+                        "type": 1,
+                        "value": 2
+                     },
+                        "searchable": true
+                    },{
+                        "title": "Hydroelectric",
+                        "width": "120px",
+                        "data": "Hydroelect",
+                        "dataalias": "Hydroelect",
+                         "fieldtype": {
+                        "type": 1,
+                        "value": 2
+                     },
+                        "searchable": true
+                    },{
+                        "title": "Geothermal",
+                        "width": "120px",
+                        "data": "Geothermal",
+                        "dataalias": "Geothermal",
+                         "fieldtype": {
+                        "type": 1,
+                        "value": 2
+                     },
+                        "searchable": true
+                    },{
+                        "title": "Other Capacity",
+                        "width": "120px",
+                        "data": "Other_Capa",
+                        "dataalias": "Other_Capa",
+                         "fieldtype": {
+                        "type": 1,
+                        "value": 2
+                     },
+                        "searchable": true
+                    },{
+                        "title": "Solar Capacity",
+                        "width": "120px",
+                        "data": "Solar_Capa",
+                        "dataalias": "Solar_Capa",
+                         "fieldtype": {
+                        "type": 1,
+                        "value": 2
+                     },
+                        "searchable": true
+                    },{
+                        "title": "Pumped-Storage Hydroelectric",
+                        "width": "120px",
+                        "data": "Pumped_Sto",
+                        "dataalias": "Pumped_Sto",
+                         "fieldtype": {
+                        "type": 1,
+                        "value": 2
+                     },
+                        "searchable": true
+                    },{
+                        "title": "Crude Oil and petroleum Products",
+                        "width": "120px",
+                        "data": "Crude_Oil_",
+                        "dataalias": "Crude_Oil_",
+                         "fieldtype": {
+                        "type": 1,
+                        "value": 2
+                     },
+                        "searchable": true
+                    },{
+                        "title": "Wind Capacity",
+                        "width": "120px",
+                        "data": "Wind_Capac",
+                        "dataalias": "Wind_Capac",
+                         "fieldtype": {
+                        "type": 1,
+                        "value": 2
+                     },
+                        "searchable": true
+                    },{
+                        "title": "Biomass Capacity",
+                        "width": "120px",
+                        "data": "Biomass_Ca",
+                        "dataalias": "Biomass_Ca",
+                         "fieldtype": {
+                        "type": 1,
+                        "value": 2
+                     },
+                        "searchable": true
+                    },{
+                        "title": "Source",
+                        "width": "120px",
+                        "data": "Source",
+                        "dataalias": "Source",
+                         "fieldtype": {
+                        "type": 1,
+                        "value": 4
+                     },
+                        "searchable": true
+                    },{
+                        "title": "Institution Responsible for the Data",
+                        "width": "120px",
+                        "data": "Institutio",
+                        "dataalias": "Institutio",
+                         "fieldtype": {
+                        "type": 1,
+                        "value": 4
+                     },
+                        "searchable": true
+                    },{
+                        "title": "Data Currency",
+                        "width": "120px",
+                        "data": "Data_Curre",
+                        "dataalias": "Data_Curre",
+                         "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                     },
+                        "searchable": true
+                    },{
+                        "title": "Date for Potential Update of Data",
+                        "width": "120px",
+                        "data": "Date_updat",
+                        "dataalias": "Date_updat",
+                         "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                     },
+                        "searchable": true
+                    }],
+                    "linktable": {
+                        "enable": false
+                    },
+                    "popups": {
+                        "enable": true,
+                        "layeralias": "Power Plant, Renewable Energy"
+                    },
+                    "hover": {
+                        "enable": false,
+                        "hoverfield": ""
+                    }
+                }
+
+            ]
+        },
+        "customwidgets": [
+        ]
+    }
+}

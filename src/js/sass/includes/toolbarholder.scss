@@ -83,7 +83,8 @@
 	.gcviz-menu-cont {
 		padding: 0!important;
 		background: transparent;
-		overflow:	auto;
+		overflow-y:	auto;
+		overflow-x: hidden;
 	}
 
 	.gcviz-tbcontent {

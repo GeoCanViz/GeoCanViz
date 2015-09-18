@@ -360,11 +360,11 @@
 				dx = parseInt(degX, 10),
 				mdx = Math.abs(degX - dx) * 60,
 				mx = padDigits(parseInt(mdx, 10), 2),
-				sdx = padDigits(parseFloat((mdx - mx) * 60, 10).toFixed(digit), 2),
+				sdx = padDigits(Math.floor((mdx - mx) * 60, 10).toFixed(digit), 2),
 				dy = parseInt(degY, 10),
 				mdy = Math.abs(degY - dy) * 60,
 				my = padDigits(parseInt(mdy, 10), 2),
-				sdy = padDigits(parseFloat((mdy - my) * 60, 10).toFixed(digit), 2),
+				sdy = padDigits(Math.floor((mdy - my) * 60, 10).toFixed(digit), 2),
 				degreeSymbol = String.fromCharCode(176);
 
 			if (dy > 0) {

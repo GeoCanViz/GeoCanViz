@@ -503,9 +503,19 @@
 			var pt, lods, len,
 				geom = feature.geometry,
 				type = geom.type,
+				wkid = map.vWkid,
 				factor = 0.25;
 
-			if (type === 'point') {
+			if (type === 'point' && wkid === 3857 || wkid === 102100) {
+				// there is a bug when we try to center the map when wkid is mercator
+				// to bypass this, we set an extent
+				map.setExtent(new esriExt({ 'xmin': geom.x - 100000,
+											'ymin': geom.y - 100000,
+											'xmax': geom.x + 100000,
+											'ymax': geom.y + 100000,
+											'spatialReference': { 'wkid': 3857 } }
+										));
+			} else if (type === 'point') {
 				// if lods is define, use level
 				lods = map._params.lods,
 				len = lods.length;
