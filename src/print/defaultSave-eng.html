@@ -8,50 +8,39 @@
                 size: landscape;
                 margin: 2cm;
             }
-            @media print {
-                .infotext {
-                    display: none;
-                }
-            }
         </style>
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="../gcviz-min.css">
         <script>
             $(document).ready(function(){
                 var doc = window.document;
                     map = doc.getElementById('gcviz-print'),
                     arrrow = doc.getElementById('gcviz-arrow'),
-                    scalebar = doc.getElementById('gcviz-scalebar'),
                     title = doc.getElementById('gcviz-title');
 
-                // wait for the resize map from GCViz to finish
-                setTimeout(function() {
-                    // set nodes
-                    map.innerHTML = localStorage.gcvizPrintNode;
-                    arrrow.innerHTML = localStorage.gcvizArrowNode;
-                    scalebar.innerHTML = localStorage.gcvizScalebarNode;
-                    title.innerHTML = localStorage.gcvizTitle;
+                // set nodes
+                map.src = localStorage.gcvizPrintNode;
+                arrrow.innerHTML = localStorage.gcvizArrowNode;
+                title.innerHTML = localStorage.gcvizTitle;
 
-                    // clean
-                    localStorage.removeItem('gcvizPrintNode');
-                    localStorage.removeItem('gcvizArrowNode');
-                    localStorage.removeItem('gcvizScalebarNode');
-                    localStorage.removeItem('gcvizTitle');
-                }, 8000);
+                // clean
+                localStorage.removeItem('gcvizPrintNode');
+                localStorage.removeItem('gcvizArrowNode');
+                localStorage.removeItem('gcvizTitle');
 
                 // wait the page finish the refresh
                 setTimeout(function() {
                     window.print();
-                }, 15000);
+                }, 1000);
             });
         </script>
     </head>
-    <body>
-        <span class="infotext" style="font-family:Sans-Serif; font-size:16px; font-weight: bold;">Wait 15 seconds for the print menu to open.</span>
-        <div style="width: 100%;"><span id="gcviz-title" style="height: 100%;width: 80%; margin: 10px auto; display: block; font-size: 20px; font-weight: bold;"></span></div>
-        <div id="gcviz-print"></div>
-        <div id="gcviz-scalebar" style="display: inline-block;"></div>
-        <div id="gcviz-arrow" style="display: inline-block; margin-left: 2.5in; margin-top: 10px;"></div>
-        <div id="gcviz-copy">
+    <body style="height: 8in; width: 10.5in;">
+        <span id="gcviz-title" style="margin-left: 50px; display: block; font-size: 20px; font-weight: bold; position: absolute; z-index: 2"></span>
+        <img id="gcviz-print" style="z-index: 1; position: absolute; top: 0px"></img>
+        <div style="background-color: white; width: 100%; height: 30px; position: absolute; top: 6.80in; z-index: 2"></div>
+        <div id="gcviz-arrow" style="display: inline-block; margin-left: 4.5in; position: absolute; bottom: 55px; z-index: 2"></div>
+        <div id="gcviz-copy" style="position: absolute; bottom: 0px; z-index: 2">
             <object data="../images/nrcan_fip_e.svg" type="image/svg+xml" style="display: inline-block;">
                 <img src="../images/NRCanE.jpeg" />
             </object>
@@ -60,7 +49,5 @@
                 <img src="../images/Canada.png" />
             </object>
         </div>
-        <script src="http://js.arcgis.com/3.13/"></script>
-        <link rel="stylesheet" href="../gcviz-min.css">
     </body>
 </html>
