@@ -410,7 +410,7 @@
             }
         };
 
-        saveImageMap = function(map, url, templateURL) {
+        saveImageMap = function(map, url, templateURL, scale) {
             var def = $viz.Deferred(),
                 printTask = esriPrintTask(url, { async: true }),
                 params = new esriPrintParams(),
@@ -424,11 +424,11 @@
                 dpi: 96
             };
             template.format = 'JPG';
-            template.layout = 'A4 Landscape';
+            template.layout = 'Letter ANSI A Landscape';
             template.layoutOptions = {
                 scalebarUnit: 'Kilometers',
             };
-            template.preserveScale = false;
+            template.preserveScale = scale;
 
             params.map = map;
             params.template = template;

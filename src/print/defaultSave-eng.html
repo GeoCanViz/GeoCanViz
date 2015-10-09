@@ -15,17 +15,14 @@
             $(document).ready(function(){
                 var doc = window.document;
                     map = doc.getElementById('gcviz-print'),
-                    arrrow = doc.getElementById('gcviz-arrow'),
                     title = doc.getElementById('gcviz-title');
 
                 // set nodes
                 map.src = localStorage.gcvizPrintNode;
-                arrrow.innerHTML = localStorage.gcvizArrowNode;
                 title.innerHTML = localStorage.gcvizTitle;
 
                 // clean
                 localStorage.removeItem('gcvizPrintNode');
-                localStorage.removeItem('gcvizArrowNode');
                 localStorage.removeItem('gcvizTitle');
 
                 // wait the page finish the refresh
@@ -38,8 +35,6 @@
     <body style="height: 8in; width: 10.5in;">
         <span id="gcviz-title" style="margin-left: 50px; display: block; font-size: 20px; font-weight: bold; position: absolute; z-index: 2"></span>
         <img id="gcviz-print" style="z-index: 1; position: absolute; top: 0px"></img>
-        <div style="background-color: white; width: 100%; height: 30px; position: absolute; top: 6.80in; z-index: 2"></div>
-        <div id="gcviz-arrow" style="display: inline-block; margin-left: 4.5in; position: absolute; bottom: 55px; z-index: 2"></div>
         <div id="gcviz-copy" style="position: absolute; bottom: 0px; z-index: 2">
             <object data="../images/nrcan_fip_e.svg" type="image/svg+xml" style="display: inline-block;">
                 <img src="../images/NRCanE.jpeg" />

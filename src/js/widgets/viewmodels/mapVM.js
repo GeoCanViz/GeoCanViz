@@ -668,10 +668,10 @@
             gisMap.showInfoWindow(vm[mapid].map, id, title, anchor, offx, offy);
         };
 
-        saveImageMap = function(mapid, templateURL, funct) {
+        saveImageMap = function(mapid, templateURL, scale, funct) {
             var viewModel = vm[mapid];
 
-            gisPrint.saveImageMap(viewModel.map, viewModel.saveImgUrl, templateURL).done(funct);
+            gisPrint.saveImageMap(viewModel.map, viewModel.saveImgUrl, templateURL, scale).done(funct);
         };
 
         printBasic = function(mapid, url, tmplPath, preserve, forceScale, dpi) {

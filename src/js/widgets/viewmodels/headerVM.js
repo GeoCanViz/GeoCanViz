@@ -120,6 +120,10 @@
 
                 // save map image
                 _self.isSaveImg = ko.observable(true);
+                _self.isSaveImgDialogOpen = ko.observable(false);
+                _self.isForceScale = ko.observable(false);
+                _self.lblForceScale = i18n.getDict('%header-printforcescale');
+                _self.saveimgInfo = i18n.getDict('%header-saveimginfo');
 
                 // save map url dialog box
                 _self.lblSaveDesc = i18n.getDict('%header-copyclip');
@@ -340,30 +344,24 @@
                 };
 
                 _self.saveImgClick = function() {
-                    var arrow = $viz('#arrow' + mapid),
-                        rotation, style, styles, lenStyles,
-                        arrowStyle = '';
-                    // get arrow rotation
-                    // get rotation and remove decimal part
-                    rotation = getRotationDegrees(arrow);
-                    style = arrow.attr('style');
-                    styles = style.split(';');
-                    lenStyles = styles.length - 1;
+                    _self.isSaveImgDialogOpen(true);
+                };
 
-                    while (lenStyles--) {
-                        arrowStyle += styles[lenStyles].split(':')[0] + ':' + 'rotate(' + rotation + 'deg);';
-                    }
-
+                _self.dialogSaveImgOk = function() {
                     // set local storage
-                    localStorage.setItem('gcvizArrowNode', '<img src="../images/printNorthArrow.png" style="' + arrowStyle + '"></img>');
                     localStorage.setItem('gcvizTitle', _self.printInfo.title);
-                    mapVM.saveImageMap(mapid, _self.printInfo.templatesave, _self.enableSaveImg);
+                    mapVM.saveImageMap(mapid, _self.printInfo.templatesave, _self.isForceScale(), _self.enableSaveImg);
                     _self.isSaveImg(false);
+                    _self.dialogSaveImgClose();
                 };
 
                 _self.enableSaveImg = function() {
                     _self.isSaveImg(true);
                     $btnSaveImg.focus();
+                };
+
+                _self.dialogSaveImgClose = function() {
+                    _self.isSaveImgDialogOpen(false);
                 };
 
                 _self.saveUrlClick = function() {
