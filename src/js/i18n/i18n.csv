@@ -74,8 +74,8 @@ Global sys value#%gisurlalti#http://geogratis.gc.ca/services/elevation/cdem/alti
 #%datagrid-info#Showing _START_ to _END_ of _TOTAL_#Affichage de _START_ à _END_ sur _TOTAL_
 #%datagrid-infoEmpty#Showing 0 to 0 of 0#Affichage de 0 à 0 sur 0
 #%datagrid-infoFiltered#(filtered from _MAX_)#(filtré de _MAX_)
-#%datagrid-infoThousands#,#
-#%datagrid-infoPostFix# #
+#%datagrid-infoThousands#,# #
+#%datagrid-infoPostFix# # #
 #%datagrid-loadingRecords#Loading...#Chargement en cours...
 #%datagrid-zeroRecords#No matching records found#Aucun élément à afficher
 #%datagrid-emptyTable#No data available in table#Aucune donnée disponible dans le tableau

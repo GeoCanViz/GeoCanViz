@@ -42,7 +42,7 @@
 
                 // dialog text to show about
                 node += '<div data-bind="uiDialog: { title: lblAboutTitle, width: 400, ok: dialogAboutOk, close: dialogAboutOk, openDialog: \'isAboutDialogOpen\' }">' +
-                            '<span data-bind="text: aboutInfo1"></span>' +
+                            '<span data-bind="html: aboutInfo1"></span>' +
                         '	<div data-bind="if: aboutType === 2"><a data-bind="attr: { href: aboutURL, title: aboutURLText }, text: aboutURLText" tabindex="0" target="_blank"></a>' +
                         '	<span data-bind="text: aboutInfo2"></span></div>' +
                     '</div>';

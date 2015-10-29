@@ -9,7 +9,7 @@
                 "urlgeomserv": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/Utilities/Geometry/GeometryServer",
                 "urlproxy": "http://geoappext.nrcan.gc.ca/php/proxy.php",
                 "urldownload": "http://geoappext.nrcan.gc.ca/php/download.php",
-				"urlsaveimage": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task",
+                "urlsaveimage": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task",
                 "sr": {
                     "wkid": 3978
                 },
@@ -165,7 +165,7 @@
                         }],
                         "visiblelayers": ["WMS-Toporama"]
                     },
-					"scale": {
+                    "scale": {
                             "min": 0,
                             "max": 0
                         },
@@ -354,10 +354,10 @@
                 "DPI": [96, 300]
             },
             "saveimage": {
-            	"enable": true
+                "enable": true
             },
-			"saveurl": {
-            	"enable": true
+            "saveurl": {
+                "enable": true
             },
             "fullscreen": true
         },
@@ -383,7 +383,8 @@
             "enable": true,
             "expand": true,
             "pos": 0,
-            "basemaps": [{
+            "basemaps": [
+                {
                 "expand": false,
                 "last": true,
                 "type": 3,
@@ -1156,24 +1157,24 @@
                     "width": "200px",
                     "data": "NAME",
                     "dataalias": "Community Name",
-				    "sType": "html",
+                    "sType": "html",
                     "fieldtype": {
                         "type": 3,
                         "value": 1,
                         "urlfield": "WEBSITE",
                         "urlfieldalias": "Community Website"
                     },
-				    "searchable": true
+                    "searchable": true
                 },{
                     "title": "Population",
                     "width": "200px",
                     "data": "POPULATION",
                     "dataalias": "Population",
-				    "fieldtype": {
-				      "type": 1,
-				      "value": 2
-				     },
-				    "searchable": true
+                    "fieldtype": {
+                      "type": 1,
+                      "value": 2
+                     },
+                    "searchable": true
                 }],
                 "linktable": {
                     "enable": false

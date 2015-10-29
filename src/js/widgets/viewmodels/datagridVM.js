@@ -371,7 +371,7 @@
                             'info': _self.info,
                             'infoEmpty': _self.infoEmpty,
                             'infoFiltered': _self.infoFiltered,
-                            'infoThousands': _self.infoThousands,
+                            'sInfoThousands': _self.infoThousands,
                             'infoPostFix': _self.infoPostFix,
                             'loadingRecords': _self.loadingRecords,
                             'zeroRecords': _self.zeroRecords,
