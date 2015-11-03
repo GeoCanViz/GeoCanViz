@@ -15,6 +15,8 @@
             'esri/tasks/Geoprocessor'
     ], function($viz, func, esriPrintTemp, esriPrintTask, esriPrintParams, esriGeoProcessor) {
         var saveImageMap,
+            saveImageMapResult,
+            saveImage,
             saveImageResult,
             printResult,
             printError,
@@ -432,6 +434,37 @@
 
             params.map = map;
             params.template = template;
+            printTask.execute(params, saveImageMapResult);
+
+            printTask.on('complete, error', function() {
+                def.resolve();
+            });
+            return def;
+        };
+
+        saveImageMapResult = function(response) {
+            localStorage.setItem('gcvizPrintNode', response.url);
+            window.open(saveTempURL);
+            saveTempURL = '';
+        };
+
+        saveImage = function(map, url) {
+            var def = $viz.Deferred(),
+                printTask = esriPrintTask(url, { async: true }),
+                params = new esriPrintParams(),
+                template = new esriPrintTemp();
+
+            template.exportOptions = {
+                height: map.height,
+                width: map.width,
+                dpi: 96
+            };
+            template.format = 'JPG';
+            template.layout = 'MAP_ONLY';
+            template.preserveScale = false;
+
+            params.map = map;
+            params.template = template;
             printTask.execute(params, saveImageResult);
 
             printTask.on('complete, error', function() {
@@ -441,9 +474,7 @@
         };
 
         saveImageResult = function(response) {
-            localStorage.setItem('gcvizPrintNode', response.url);
-            window.open(saveTempURL);
-            saveTempURL = '';
+            window.open(response.url);
         };
 
         printResult = function(response) {
@@ -460,7 +491,8 @@
             getMxdElements: getMxdElements,
             printCustomMap: printCustomMap,
             printBasicMap: printBasicMap,
-            saveImageMap: saveImageMap
+            saveImageMap: saveImageMap,
+            saveImage: saveImage
         };
     });
 }());

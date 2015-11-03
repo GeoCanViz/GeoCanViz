@@ -114,16 +114,15 @@
                     templatesave: pathSave,
                     title: _self.headTitle()
                 };
-                _self.isPrintDialogOpen = ko.observable(false);
                 _self.printInfoText = i18n.getDict('%header-printinfo');
                 _self.isPrint = ko.observable(true);
+                _self.isPrintDialogOpen = ko.observable(false);
+                _self.isForceScale = ko.observable(false);
+                _self.lblForceScale = i18n.getDict('%header-printforcescale');
+                _self.printInfoTxt = i18n.getDict('%header-printinfo');
 
                 // save map image
                 _self.isSaveImg = ko.observable(true);
-                _self.isSaveImgDialogOpen = ko.observable(false);
-                _self.isForceScale = ko.observable(false);
-                _self.lblForceScale = i18n.getDict('%header-printforcescale');
-                _self.saveimgInfo = i18n.getDict('%header-saveimginfo');
 
                 // save map url dialog box
                 _self.lblSaveDesc = i18n.getDict('%header-copyclip');
@@ -216,7 +215,7 @@
                     }, 1000);
                 };
 
-                _self.printClick = function() {
+                _self._printClick = function() {
                     var node, height, width, size,
                         newHeight, newWidth;
 
@@ -267,16 +266,16 @@
                     }
                 };
 
-                _self.dialogPrintOk = function() {
+                _self._dialogPrintOk = function() {
                     _self.isPrintDialogOpen(false);
                     printSimple(mapVM, mapid, _self.printInfo);
                 };
 
-                _self.dialogPrintCancel = function() {
+                _self._dialogPrintCancel = function() {
                     _self.isPrintDialogOpen(false);
                 };
 
-                _self.dialogPrintClose = function() {
+                _self._dialogPrintClose = function() {
                     _self.isPrintDialogOpen(false);
 
                     if (menuState !== false) {
@@ -343,25 +342,35 @@
                     $btnAbout.focus();
                 };
 
-                _self.saveImgClick = function() {
-                    _self.isSaveImgDialogOpen(true);
+                _self.printClick = function() {
+                    _self.isPrintDialogOpen(true);
                 };
 
-                _self.dialogSaveImgOk = function() {
+                _self.dialogPrintOk = function() {
                     // set local storage
                     localStorage.setItem('gcvizTitle', _self.printInfo.title);
-                    mapVM.saveImageMap(mapid, _self.printInfo.templatesave, _self.isForceScale(), _self.enableSaveImg);
+                    mapVM.saveImageMap(mapid, _self.printInfo.templatesave, _self.isForceScale(), _self.enablePrint);
+                    _self.isPrint(false);
+                    _self.dialogPrintClose();
+                };
+
+                _self.enablePrint = function() {
+                    _self.isPrint(true);
+                    $btnPrint.focus();
+                };
+
+                _self.dialogPrintClose = function() {
+                    _self.isPrintDialogOpen(false);
+                };
+
+                _self.saveImgClick = function() {
+                    mapVM.saveImage(mapid, _self.enableSaveImg);
                     _self.isSaveImg(false);
-                    _self.dialogSaveImgClose();
                 };
 
                 _self.enableSaveImg = function() {
                     _self.isSaveImg(true);
                     $btnSaveImg.focus();
-                };
-
-                _self.dialogSaveImgClose = function() {
-                    _self.isSaveImgDialogOpen(false);
                 };
 
                 _self.saveUrlClick = function() {

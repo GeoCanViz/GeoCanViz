@@ -60,26 +60,25 @@
             }
 
             // add print button
-            // NOW WE USE THE SAVE IMAGE INSTEAD>>>>>>>>>>>>>>>>>
-           /* if (config.print.enable) {
+            if (config.print.enable) {
                 node += '<button class="gcviz-head-print" tabindex="0" data-bind="buttonBlur, click: printClick, tooltip: { content: tpPrint }, enable: isPrint"></button>';
 
-                // dialog text to show print options
+                /*// dialog text to show print options
                 node += '<div data-bind="uiDialog: { title: tpPrint, width: 400, modal: false, ok: dialogPrintOk, cancel: dialogPrintCancel, close: dialogPrintClose, openDialog: \'isPrintDialogOpen\', draggable: true }">' +
                             '<span data-bind="text: printInfoText"></span>' +
-                    '</div>';
-            }*/
-
-            // add save map as image button
-            if (config.saveimage.enable) {
-                node += '<button class="gcviz-head-print" tabindex="0" data-bind="buttonBlur, click: saveImgClick, tooltip: { content: tpPrint }, enable: isSaveImg"></button>';
+                    '</div>';*/
 
                 // dialog text to show print options
-                node += '<div data-bind="uiDialog: { title: tpPrint, width: 400, modal: true, ok: dialogSaveImgOk, cancel: dialogSaveImgClose, close: dialogSaveImgClose, openDialog: \'isSaveImgDialogOpen\', draggable: false }">' +
-                    '<span data-bind="text: saveimgInfo"></span><br /><br />' +
+                node += '<div data-bind="uiDialog: { title: tpPrint, width: 400, modal: true, ok: dialogPrintOk, cancel: dialogPrintClose, close: dialogPrintClose, openDialog: \'isPrintDialogOpen\', draggable: false }">' +
+                    '<span data-bind="text: printInfoTxt"></span><br /><br />' +
                     '<input type="checkbox" id="enableForceScale" data-bind="checked: isForceScale">' +
                     '<label for="enableForceScale" class="form-checkbox" data-bind="text: lblForceScale"></label>' +
                     '</div>';
+            }
+
+            // add save map as image button
+            if (config.saveimage.enable) {
+                node += '<button class="gcviz-head-saveimage" tabindex="0" data-bind="buttonBlur, click: saveImgClick, tooltip: { content: tpSaveImg }, enable: isSaveImg"></button>';
             }
 
             // add save url button

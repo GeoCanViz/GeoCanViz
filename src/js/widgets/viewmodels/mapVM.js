@@ -57,6 +57,7 @@
             hideInfoWindow,
             showInfoWindow,
             saveImageMap,
+            saveImage,
             printBasic,
             printCustom,
             manageScreenState,
@@ -674,6 +675,12 @@
             gisPrint.saveImageMap(viewModel.map, viewModel.saveImgUrl, templateURL, scale).done(funct);
         };
 
+        saveImage = function(mapid, funct) {
+            var viewModel = vm[mapid];
+
+            gisPrint.saveImage(viewModel.map, viewModel.saveImgUrl).done(funct);
+        };
+
         printBasic = function(mapid, url, tmplPath, preserve, forceScale, dpi) {
             gisPrint.printBasicMap(vm[mapid].map, url, tmplPath, preserve, forceScale, dpi);
         };
@@ -734,6 +741,7 @@
             hideInfoWindow: hideInfoWindow,
             showInfoWindow: showInfoWindow,
             saveImageMap: saveImageMap,
+            saveImage: saveImage,
             printBasic: printBasic,
             printCustom: printCustom,
             manageScreenState: manageScreenState,
