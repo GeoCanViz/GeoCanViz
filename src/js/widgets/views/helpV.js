@@ -238,14 +238,14 @@
             }
 
             // NOT USE ANYMORE... WE USE THE PRINT INSTEAD
-            /*if (saveimage) {
+            if (saveimage) {
                 node += '<div class="row">' +
                             '<div class="span1">' +
                                 '<button class="gcviz-help-saveimage" tabindex="-1"></button>' +
                             '</div>' +
                             '<span class="span11 gcviz-help-textbtn" data-bind="text: headSaveImg"></span>' +
                         '</div>';
-            }*/
+            }
 
             if (saveurl) {
                 node += '<div class="row">' +

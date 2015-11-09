@@ -1402,9 +1402,12 @@
 
                     // combine query if theres is more then 1000 features because there is a bug (max record count on layer set to 1000
                     // and we cant change the value in ArcGIS server 10.1)
-                    if (nbFeatures >= 1000) {
+                    // IT WAS ORACLE LIMIT. WORKAROUND MAKE OBJECTID IN () OR OBJECTID WITH NO MORE THEN 1000 ITEMS.
+                    // WE STILL put a limit 01 10 000 because we have timeout exceed error fromt he spatial intersect query
+                    if (nbFeatures >= 10000) {
                         defQuery = queryNoId;
                     }
+
 
                     return defQuery;
                 };
@@ -1537,7 +1540,18 @@
                     objDataTable[activeTableId].draw();
 
                     // stringnify the array
-                    definition = 'OBJECTID IN (' + featIds.join(',') + ')';
+                    var i, first, last,
+                        lenFeat = Math.floor(featIds.length / 1000) + 1,
+                        defArr = [];
+
+                    for (i = 1; i <= lenFeat; i++) {
+                        first = (i-1) * 1000;
+                        last = i * 1000;
+                        defArr.push('OBJECTID IN (' + featIds.slice(first, last).join(',') + ')');
+                    }
+
+                    // concat if there is an existing query and set query
+                    definition = defArr.join(' OR ');
 
                     // concat if there is an existing query and set query
                     definition = _self.concatDefQuery(info, definition, oriLenFeats, true);
