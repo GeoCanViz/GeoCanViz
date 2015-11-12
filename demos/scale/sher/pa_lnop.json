@@ -1,0 +1,1945 @@
+{
+    "gcviz": {
+        "mapframe": {
+            "size": {
+                "height": 600,
+                "width": 1200
+            },
+            "map": {
+                "urlgeomserv": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/Utilities/Geometry/GeometryServer",
+                "urlproxy": "http://geoappext.nrcan.gc.ca/php/proxy.ashx",
+                "urldownload": "http://geoappext.nrcan.gc.ca/php/download.php",
+                "urlsaveimage": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task",
+                "sr": {
+                    "wkid": 3978
+                },
+                "extentmax": {
+                    "xmin": -4282638.0615,
+                    "ymin": -5153821.09214,
+                    "xmax": 4852210.17557,
+                    "ymax": 4376714.4421
+                },
+                "extentinit": {
+                    "xmin": -3795624.50929,
+                    "ymin": 2140714.8088,
+                    "xmax": 3671990.42594,
+                    "ymax": 6568790.33162
+                },
+                "lods": {
+                    "enable": false,
+                    "values": [{
+                        "level": 0,
+                        "resolution": 38364.660062653464,
+                        "scale": 145000000,
+                        "check": true
+                    }, {
+                        "level": 1,
+                        "resolution": 22489.62831258996,
+                        "scale": 85000000,
+                        "check": true
+                    }, {
+                        "level": 2,
+                        "resolution": 13229.193125052918,
+                        "scale": 50000000,
+                        "check": true
+                    }, {
+                        "level": 3,
+                        "resolution": 7937.5158750317505,
+                        "scale": 30000000,
+                        "check": true
+                    }, {
+                        "level": 4,
+                        "resolution": 4630.2175937685215,
+                        "scale": 17500000,
+                        "check": true
+                    }, {
+                        "level": 5,
+                        "resolution": 2645.8386250105837,
+                        "scale": 10000000,
+                        "check": true
+                    }, {
+                        "level": 6,
+                        "resolution": 1587.5031750063501,
+                        "scale": 6000000,
+                        "check": true
+                    }, {
+                        "level": 7,
+                        "resolution": 926.0435187537042,
+                        "scale": 3500000,
+                        "check": true
+                    }, {
+                        "level": 8,
+                        "resolution": 529.1677250021168,
+                        "scale": 2000000,
+                        "check": true
+                    }, {
+                        "level": 9,
+                        "resolution": 317.50063500127004,
+                        "scale": 1200000,
+                        "check": true
+                    }, {
+                        "level": 10,
+                        "resolution": 185.20870375074085,
+                        "scale": 700000,
+                        "check": true
+                    }, {
+                        "level": 11,
+                        "resolution": 111.12522225044451,
+                        "scale": 420000,
+                        "check": true
+                    }, {
+                        "level": 12,
+                        "resolution": 66.1459656252646,
+                        "scale": 250000,
+                        "check": true
+                    }, {
+                        "level": 13,
+                        "resolution": 38.36466006265346,
+                        "scale": 145000,
+                        "check": true
+                    }, {
+                        "level": 14,
+                        "resolution": 22.48962831258996,
+                        "scale": 85000,
+                        "check": true
+                    }, {
+                        "level": 15,
+                        "resolution": 13.229193125052918,
+                        "scale": 50000,
+                        "check": true
+                    }, {
+                        "level": 16,
+                        "resolution": 7.9375158750317505,
+                        "scale": 30000,
+                        "check": true
+                    }, {
+                        "level": 17,
+                        "resolution": 4.6302175937685215,
+                        "scale": 17500,
+                        "check": true
+                    }]
+                },
+                "link": true,
+                "zoombar": {
+                    "bar": true,
+                    "zoom": true,
+                    "zoomfull": true,
+                    "previousnext": true
+                },
+                "bases": [{
+                    "label": "CBMT3978",
+                    "id": "d5129838-5b20-10c4-b464-e87fbc18e1fd",
+                    "type": 2,
+                    "url": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/BaseMaps/CBMT3978/MapServer/",
+                    "scale": {
+                        "min": 0,
+                        "max": 0
+                    }
+                }],
+                "layers": [{
+                    "label": "nrcan_aboriginal_profile_non_official_languages_spoken_fr_3978",
+                    "id": "b70d0966-4e94-4c65-2ff5-8d5a8e2d3a86",
+                    "type": 4,
+                    "url": "http://s-she-gisdev1.nrn.nrcan.gc.ca:6080/arcgis/rest/services/mapservices/nrcan_aboriginal_profile_non_official_languages_spoken_fr_3978/MapServer/",
+                    "beforebase": false,
+                    "visiblelayers": [0, 1, 2],
+                    "scale": {
+                        "min": 0,
+                        "max": 0
+                    },
+                    "usecluster": false,
+                    "cluster": {
+                        "enable": false,
+                        "distance": 50,
+                        "label": false,
+                        "symbol": false,
+                        "maxsizeprop": 50,
+                        "maxdataprop": 1000
+                    }
+                }]
+            }
+        },
+        "header": {
+            "side": 1,
+            "title": {
+                "value": " Langues non officielles parlées - Profil de la population autochtone",
+                "alttext": " Langues non officielles parlées - Profil de la population autochtone - Données socioéconomiques"
+            },
+            "tools": {
+                "enable": true,
+                "expand": true
+            },
+            "link": true,
+            "inset": false,
+            "about": {
+                "enable": true,
+                "type": 1,
+                "value": "Le jeu de données dresse un portrait descriptif de la population totale ayant une identité autochtone dans les ménages privés selon les langues non officielles parlées et selon certaines caractéristiques linguistiques, au Canada en 2011. L'information est un sous-ensemble des données socio-économiques provenant du Profil de la population autochtone de l'Enquête nationale auprès des ménages de 2011 de Statistiques Canada. Elles sont associées aux unités géographiques du recensement 2011 suivantes: Provinces / Territoires, Divisions de recensement et Subdivisions de recensement. Adapté de Statistique Canada, Profil de la population autochtone, Enquête nationale auprès des ménages, 2011. Cela ne constitue pas une approbation de ce produit par Statistique Canada. (http://www12.statcan.gc.ca/nhs-enm/2011/dp-pd/aprof/index.cfm?Lang=F) "
+            },
+            "print": {
+                "enable": true,
+                "type": 3
+            },
+            "saveimage": {
+                "enable": true
+            },
+            "saveurl": {
+                "enable": true
+            },
+            "fullscreen": true
+        },
+        "footer": {
+            "northarrow": {
+                "enable": true,
+                "inwkid": 3978
+            },
+            "mousecoords": {
+                "enable": true,
+                "outwkid": 4326
+            },
+            "scalebar": {
+                "enable": true,
+                "unit": 1
+            },
+            "datagrid": {
+                "enable": true
+            }
+        },
+        "datagrid": {
+            "enable": true,
+            "expand": true,
+            "layers": [{
+                "layerinfo": {
+                    "id": "b70d0966-4e94-4c65-2ff5-8d5a8e2d3a86",
+                    "type": 4,
+                    "index": 0
+                },
+                "title": "Taux par province",
+                "globalsearch": false,
+                "fields": [{
+                    "enable": false,
+                    "title": "SHAPE_Area",
+                    "width": "",
+                    "data": "SHAPE_Area",
+                    "dataalias": "SHAPE_Area",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "SHAPE_Length",
+                    "width": "",
+                    "data": "SHAPE_Length",
+                    "dataalias": "SHAPE_Length",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "zt_id",
+                    "width": "",
+                    "data": "zt_id",
+                    "dataalias": "zt_id",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "md_id",
+                    "width": "",
+                    "data": "md_id",
+                    "dataalias": "md_id",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "geo_code",
+                    "width": "",
+                    "data": "geo_code",
+                    "dataalias": "geo_code",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "bdg_id",
+                    "width": "",
+                    "data": "bdg_id",
+                    "dataalias": "bdg_id",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "pct_pop_id_autoch_langue_autoch_comme_langue_maternelle_h",
+                    "width": "",
+                    "data": "pct_pop_id_autoch_langue_autoch_comme_langue_maternelle_h",
+                    "dataalias": "pct_pop_id_autoch_langue_autoch_comme_langue_maternelle_h",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "pct_pop_id_autoch_langue_autoch_comme_langue_maternelle_f",
+                    "width": "",
+                    "data": "pct_pop_id_autoch_langue_autoch_comme_langue_maternelle_f",
+                    "dataalias": "pct_pop_id_autoch_langue_autoch_comme_langue_maternelle_f",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "pct_pop_id_autoch_langue_autoch_comme_langue_maternelle",
+                    "width": "",
+                    "data": "pct_pop_id_autoch_langue_autoch_comme_langue_maternelle",
+                    "dataalias": "pct_pop_id_autoch_langue_autoch_comme_langue_maternelle",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "pct_pop_identite_autoch_connaissance_1_langue_autochtone_h",
+                    "width": "",
+                    "data": "pct_pop_identite_autoch_connaissance_1_langue_autochtone_h",
+                    "dataalias": "pct_pop_identite_autoch_connaissance_1_langue_autochtone_h",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "pct_pop_identite_autoch_connaissance_1_langue_autochtone_f",
+                    "width": "",
+                    "data": "pct_pop_identite_autoch_connaissance_1_langue_autochtone_f",
+                    "dataalias": "pct_pop_identite_autoch_connaissance_1_langue_autochtone_f",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "pct_pop_identite_autoch_connaissance_1_langue_autochtone",
+                    "width": "",
+                    "data": "pct_pop_identite_autoch_connaissance_1_langue_autochtone",
+                    "dataalias": "pct_pop_identite_autoch_connaissance_1_langue_autochtone",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "pct_pop_id_autoch_parle_1_langue_autoch_souvent_maison_h",
+                    "width": "",
+                    "data": "pct_pop_id_autoch_parle_1_langue_autoch_souvent_maison_h",
+                    "dataalias": "pct_pop_id_autoch_parle_1_langue_autoch_souvent_maison_h",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "pct_pop_id_autoch_parle_1_langue_autoch_souvent_maison_f",
+                    "width": "",
+                    "data": "pct_pop_id_autoch_parle_1_langue_autoch_souvent_maison_f",
+                    "dataalias": "pct_pop_id_autoch_parle_1_langue_autoch_souvent_maison_f",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "pct_pop_id_autoch_parle_1_langue_autoch_souvent_maison",
+                    "width": "",
+                    "data": "pct_pop_id_autoch_parle_1_langue_autoch_souvent_maison",
+                    "dataalias": "pct_pop_id_autoch_parle_1_langue_autoch_souvent_maison",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "pop_tot_autoch_menage_prive_selon_langue_non_off_parlee_h_pct",
+                    "width": "",
+                    "data": "pop_tot_autoch_menage_prive_selon_langue_non_off_parlee_h_pct",
+                    "dataalias": "pop_tot_autoch_menage_prive_selon_langue_non_off_parlee_h_pct",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "pop_tot_autoch_menage_prive_selon_langue_non_off_parlee_h",
+                    "width": "",
+                    "data": "pop_tot_autoch_menage_prive_selon_langue_non_off_parlee_h",
+                    "dataalias": "pop_tot_autoch_menage_prive_selon_langue_non_off_parlee_h",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "pop_tot_autoch_menage_prive_selon_langue_non_off_parlee_f_pct",
+                    "width": "",
+                    "data": "pop_tot_autoch_menage_prive_selon_langue_non_off_parlee_f_pct",
+                    "dataalias": "pop_tot_autoch_menage_prive_selon_langue_non_off_parlee_f_pct",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "pop_tot_autoch_menage_prive_selon_langue_non_off_parlee_f",
+                    "width": "",
+                    "data": "pop_tot_autoch_menage_prive_selon_langue_non_off_parlee_f",
+                    "dataalias": "pop_tot_autoch_menage_prive_selon_langue_non_off_parlee_f",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "pop_tot_autoch_menage_prive_selon_langue_non_off_parlee",
+                    "width": "",
+                    "data": "pop_tot_autoch_menage_prive_selon_langue_non_off_parlee",
+                    "dataalias": "pop_tot_autoch_menage_prive_selon_langue_non_off_parlee",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "_langues_non_autochtones_pct",
+                    "width": "",
+                    "data": "_langues_non_autochtones_pct",
+                    "dataalias": "_langues_non_autochtones_pct",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "_langues_non_autochtones_h_pct",
+                    "width": "",
+                    "data": "_langues_non_autochtones_h_pct",
+                    "dataalias": "_langues_non_autochtones_h_pct",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "_langues_non_autochtones_h",
+                    "width": "",
+                    "data": "_langues_non_autochtones_h",
+                    "dataalias": "_langues_non_autochtones_h",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "_langues_non_autochtones_f_pct",
+                    "width": "",
+                    "data": "_langues_non_autochtones_f_pct",
+                    "dataalias": "_langues_non_autochtones_f_pct",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "_langues_non_autochtones_f",
+                    "width": "",
+                    "data": "_langues_non_autochtones_f",
+                    "dataalias": "_langues_non_autochtones_f",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "_langues_non_autochtones",
+                    "width": "",
+                    "data": "_langues_non_autochtones",
+                    "dataalias": "_langues_non_autochtones",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "_langues_autochtones_pct",
+                    "width": "",
+                    "data": "_langues_autochtones_pct",
+                    "dataalias": "_langues_autochtones_pct",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "_langues_autochtones_h_pct",
+                    "width": "",
+                    "data": "_langues_autochtones_h_pct",
+                    "dataalias": "_langues_autochtones_h_pct",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "_langues_autochtones_h",
+                    "width": "",
+                    "data": "_langues_autochtones_h",
+                    "dataalias": "_langues_autochtones_h",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "_langues_autochtones_f_pct",
+                    "width": "",
+                    "data": "_langues_autochtones_f_pct",
+                    "dataalias": "_langues_autochtones_f_pct",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "_langues_autochtones_f",
+                    "width": "",
+                    "data": "_langues_autochtones_f",
+                    "dataalias": "_langues_autochtones_f",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "_langues_autochtones",
+                    "width": "",
+                    "data": "_langues_autochtones",
+                    "dataalias": "_langues_autochtones",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "__tlicho_flanc_de_chien_pct",
+                    "width": "",
+                    "data": "__tlicho_flanc_de_chien_pct",
+                    "dataalias": "__tlicho_flanc_de_chien_pct",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "__tlicho_flanc_de_chien_h_pct",
+                    "width": "",
+                    "data": "__tlicho_flanc_de_chien_h_pct",
+                    "dataalias": "__tlicho_flanc_de_chien_h_pct",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "__tlicho_flanc_de_chien_h",
+                    "width": "",
+                    "data": "__tlicho_flanc_de_chien_h",
+                    "dataalias": "__tlicho_flanc_de_chien_h",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "__tlicho_flanc_de_chien_f_pct",
+                    "width": "",
+                    "data": "__tlicho_flanc_de_chien_f_pct",
+                    "dataalias": "__tlicho_flanc_de_chien_f_pct",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "__tlicho_flanc_de_chien_f",
+                    "width": "",
+                    "data": "__tlicho_flanc_de_chien_f",
+                    "dataalias": "__tlicho_flanc_de_chien_f",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "__tlicho_flanc_de_chien",
+                    "width": "",
+                    "data": "__tlicho_flanc_de_chien",
+                    "dataalias": "__tlicho_flanc_de_chien",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "__stoney_pct",
+                    "width": "",
+                    "data": "__stoney_pct",
+                    "dataalias": "__stoney_pct",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "__stoney_h_pct",
+                    "width": "",
+                    "data": "__stoney_h_pct",
+                    "dataalias": "__stoney_h_pct",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "__stoney_h",
+                    "width": "",
+                    "data": "__stoney_h",
+                    "dataalias": "__stoney_h",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "__stoney_f_pct",
+                    "width": "",
+                    "data": "__stoney_f_pct",
+                    "dataalias": "__stoney_f_pct",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "__stoney_f",
+                    "width": "",
+                    "data": "__stoney_f",
+                    "dataalias": "__stoney_f",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "__stoney",
+                    "width": "",
+                    "data": "__stoney",
+                    "dataalias": "__stoney",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "__esclave_n_d_a_pct",
+                    "width": "",
+                    "data": "__esclave_n_d_a_pct",
+                    "dataalias": "__esclave_n_d_a_pct",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "__esclave_n_d_a_h_pct",
+                    "width": "",
+                    "data": "__esclave_n_d_a_h_pct",
+                    "dataalias": "__esclave_n_d_a_h_pct",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "__esclave_n_d_a_h",
+                    "width": "",
+                    "data": "__esclave_n_d_a_h",
+                    "dataalias": "__esclave_n_d_a_h",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "__esclave_n_d_a_f_pct",
+                    "width": "",
+                    "data": "__esclave_n_d_a_f_pct",
+                    "dataalias": "__esclave_n_d_a_f_pct",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "__esclave_n_d_a_f",
+                    "width": "",
+                    "data": "__esclave_n_d_a_f",
+                    "dataalias": "__esclave_n_d_a_f",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "__esclave_n_d_a",
+                    "width": "",
+                    "data": "__esclave_n_d_a",
+                    "dataalias": "__esclave_n_d_a",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "__autres_langues_autochtones_pct",
+                    "width": "",
+                    "data": "__autres_langues_autochtones_pct",
+                    "dataalias": "__autres_langues_autochtones_pct",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "__autres_langues_autochtones_h_pct",
+                    "width": "",
+                    "data": "__autres_langues_autochtones_h_pct",
+                    "dataalias": "__autres_langues_autochtones_h_pct",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "__autres_langues_autochtones_h",
+                    "width": "",
+                    "data": "__autres_langues_autochtones_h",
+                    "dataalias": "__autres_langues_autochtones_h",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "__autres_langues_autochtones_f_pct",
+                    "width": "",
+                    "data": "__autres_langues_autochtones_f_pct",
+                    "dataalias": "__autres_langues_autochtones_f_pct",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "__autres_langues_autochtones_f",
+                    "width": "",
+                    "data": "__autres_langues_autochtones_f",
+                    "dataalias": "__autres_langues_autochtones_f",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "__autres_langues_autochtones",
+                    "width": "",
+                    "data": "__autres_langues_autochtones",
+                    "dataalias": "__autres_langues_autochtones",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "__ojibway_pct",
+                    "width": "",
+                    "data": "__ojibway_pct",
+                    "dataalias": "__ojibway_pct",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "__ojibway_h_pct",
+                    "width": "",
+                    "data": "__ojibway_h_pct",
+                    "dataalias": "__ojibway_h_pct",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "__ojibway_h",
+                    "width": "",
+                    "data": "__ojibway_h",
+                    "dataalias": "__ojibway_h",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "__ojibway_f_pct",
+                    "width": "",
+                    "data": "__ojibway_f_pct",
+                    "dataalias": "__ojibway_f_pct",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "__ojibway_f",
+                    "width": "",
+                    "data": "__ojibway_f",
+                    "dataalias": "__ojibway_f",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "__ojibway",
+                    "width": "",
+                    "data": "__ojibway",
+                    "dataalias": "__ojibway",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "__oji_cri_pct",
+                    "width": "",
+                    "data": "__oji_cri_pct",
+                    "dataalias": "__oji_cri_pct",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "__oji_cri_h_pct",
+                    "width": "",
+                    "data": "__oji_cri_h_pct",
+                    "dataalias": "__oji_cri_h_pct",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "__oji_cri_h",
+                    "width": "",
+                    "data": "__oji_cri_h",
+                    "dataalias": "__oji_cri_h",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "__oji_cri_f_pct",
+                    "width": "",
+                    "data": "__oji_cri_f_pct",
+                    "dataalias": "__oji_cri_f_pct",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "__oji_cri_f",
+                    "width": "",
+                    "data": "__oji_cri_f",
+                    "dataalias": "__oji_cri_f",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "__oji_cri",
+                    "width": "",
+                    "data": "__oji_cri",
+                    "dataalias": "__oji_cri",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "__mikmaq_pct",
+                    "width": "",
+                    "data": "__mikmaq_pct",
+                    "dataalias": "__mikmaq_pct",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "__mikmaq_h_pct",
+                    "width": "",
+                    "data": "__mikmaq_h_pct",
+                    "dataalias": "__mikmaq_h_pct",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "__mikmaq_h",
+                    "width": "",
+                    "data": "__mikmaq_h",
+                    "dataalias": "__mikmaq_h",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "__mikmaq_f_pct",
+                    "width": "",
+                    "data": "__mikmaq_f_pct",
+                    "dataalias": "__mikmaq_f_pct",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "__mikmaq_f",
+                    "width": "",
+                    "data": "__mikmaq_f",
+                    "dataalias": "__mikmaq_f",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "__mikmaq",
+                    "width": "",
+                    "data": "__mikmaq",
+                    "dataalias": "__mikmaq",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "__inuktitut_pct",
+                    "width": "",
+                    "data": "__inuktitut_pct",
+                    "dataalias": "__inuktitut_pct",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "__inuktitut_h_pct",
+                    "width": "",
+                    "data": "__inuktitut_h_pct",
+                    "dataalias": "__inuktitut_h_pct",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "__inuktitut_h",
+                    "width": "",
+                    "data": "__inuktitut_h",
+                    "dataalias": "__inuktitut_h",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "__inuktitut_f_pct",
+                    "width": "",
+                    "data": "__inuktitut_f_pct",
+                    "dataalias": "__inuktitut_f_pct",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "__inuktitut_f",
+                    "width": "",
+                    "data": "__inuktitut_f",
+                    "dataalias": "__inuktitut_f",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "__inuktitut",
+                    "width": "",
+                    "data": "__inuktitut",
+                    "dataalias": "__inuktitut",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "__innu_montagnais_pct",
+                    "width": "",
+                    "data": "__innu_montagnais_pct",
+                    "dataalias": "__innu_montagnais_pct",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "__innu_montagnais_h_pct",
+                    "width": "",
+                    "data": "__innu_montagnais_h_pct",
+                    "dataalias": "__innu_montagnais_h_pct",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "__innu_montagnais_h",
+                    "width": "",
+                    "data": "__innu_montagnais_h",
+                    "dataalias": "__innu_montagnais_h",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "__innu_montagnais_f_pct",
+                    "width": "",
+                    "data": "__innu_montagnais_f_pct",
+                    "dataalias": "__innu_montagnais_f_pct",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "__innu_montagnais_f",
+                    "width": "",
+                    "data": "__innu_montagnais_f",
+                    "dataalias": "__innu_montagnais_f",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "__innu_montagnais",
+                    "width": "",
+                    "data": "__innu_montagnais",
+                    "dataalias": "__innu_montagnais",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "__dene_pct",
+                    "width": "",
+                    "data": "__dene_pct",
+                    "dataalias": "__dene_pct",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "__dene_h_pct",
+                    "width": "",
+                    "data": "__dene_h_pct",
+                    "dataalias": "__dene_h_pct",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "__dene_h",
+                    "width": "",
+                    "data": "__dene_h",
+                    "dataalias": "__dene_h",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "__dene_f_pct",
+                    "width": "",
+                    "data": "__dene_f_pct",
+                    "dataalias": "__dene_f_pct",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "__dene_f",
+                    "width": "",
+                    "data": "__dene_f",
+                    "dataalias": "__dene_f",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "__dene",
+                    "width": "",
+                    "data": "__dene",
+                    "dataalias": "__dene",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "__langues_cries_pct",
+                    "width": "",
+                    "data": "__langues_cries_pct",
+                    "dataalias": "__langues_cries_pct",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "__langues_cries_h_pct",
+                    "width": "",
+                    "data": "__langues_cries_h_pct",
+                    "dataalias": "__langues_cries_h_pct",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "__langues_cries_h",
+                    "width": "",
+                    "data": "__langues_cries_h",
+                    "dataalias": "__langues_cries_h",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "__langues_cries_f_pct",
+                    "width": "",
+                    "data": "__langues_cries_f_pct",
+                    "dataalias": "__langues_cries_f_pct",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "__langues_cries_f",
+                    "width": "",
+                    "data": "__langues_cries_f",
+                    "dataalias": "__langues_cries_f",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "__langues_cries",
+                    "width": "",
+                    "data": "__langues_cries",
+                    "dataalias": "__langues_cries",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "__porteur_pct",
+                    "width": "",
+                    "data": "__porteur_pct",
+                    "dataalias": "__porteur_pct",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "__porteur_h_pct",
+                    "width": "",
+                    "data": "__porteur_h_pct",
+                    "dataalias": "__porteur_h_pct",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "__porteur_h",
+                    "width": "",
+                    "data": "__porteur_h",
+                    "dataalias": "__porteur_h",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "__porteur_f_pct",
+                    "width": "",
+                    "data": "__porteur_f_pct",
+                    "dataalias": "__porteur_f_pct",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "__porteur_f",
+                    "width": "",
+                    "data": "__porteur_f",
+                    "dataalias": "__porteur_f",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "__porteur",
+                    "width": "",
+                    "data": "__porteur",
+                    "dataalias": "__porteur",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "__pied_noir_pct",
+                    "width": "",
+                    "data": "__pied_noir_pct",
+                    "dataalias": "__pied_noir_pct",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "__pied_noir_h_pct",
+                    "width": "",
+                    "data": "__pied_noir_h_pct",
+                    "dataalias": "__pied_noir_h_pct",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "__pied_noir_h",
+                    "width": "",
+                    "data": "__pied_noir_h",
+                    "dataalias": "__pied_noir_h",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "__pied_noir_f_pct",
+                    "width": "",
+                    "data": "__pied_noir_f_pct",
+                    "dataalias": "__pied_noir_f_pct",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "__pied_noir_f",
+                    "width": "",
+                    "data": "__pied_noir_f",
+                    "dataalias": "__pied_noir_f",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "__pied_noir",
+                    "width": "",
+                    "data": "__pied_noir",
+                    "dataalias": "__pied_noir",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "Atikamekw (%)",
+                    "width": "",
+                    "data": "__atikamekw_pct",
+                    "dataalias": "Atikamekw (%)",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "Atikamekw - Homme (%)",
+                    "width": "",
+                    "data": "__atikamekw_h_pct",
+                    "dataalias": "Atikamekw - Homme (%)",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "Atikamekw - Homme",
+                    "width": "",
+                    "data": "__atikamekw_h",
+                    "dataalias": "Atikamekw - Homme",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "Atikamekw - Femme (%)",
+                    "width": "",
+                    "data": "__atikamekw_f_pct",
+                    "dataalias": "Atikamekw - Femme (%)",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "Atikamekw - Femme",
+                    "width": "",
+                    "data": "__atikamekw_f",
+                    "dataalias": "Atikamekw - Femme",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "Atikamekw",
+                    "width": "",
+                    "data": "__atikamekw",
+                    "dataalias": "Atikamekw",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "Algonquin (%)",
+                    "width": "",
+                    "data": "__algonquin_pct",
+                    "dataalias": "Algonquin (%)",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "Algonquin - Homme (%)",
+                    "width": "",
+                    "data": "__algonquin_h_pct",
+                    "dataalias": "Algonquin - Homme (%)",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "Algonquin - Homme",
+                    "width": "",
+                    "data": "__algonquin_h",
+                    "dataalias": "Algonquin - Homme",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "Algonquin - Femme (%)",
+                    "width": "",
+                    "data": "__algonquin_f_pct",
+                    "dataalias": "Algonquin - Femme (%)",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "Algonquin - Femme",
+                    "width": "",
+                    "data": "__algonquin_f",
+                    "dataalias": "Algonquin - Femme",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": true,
+                    "title": "Algonquin",
+                    "width": "",
+                    "data": "__algonquin",
+                    "dataalias": "Algonquin",
+                    "searchable": true,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "praabrev",
+                    "width": "",
+                    "data": "praabrev",
+                    "dataalias": "praabrev",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "prfabrev",
+                    "width": "",
+                    "data": "prfabrev",
+                    "dataalias": "prfabrev",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "pranom",
+                    "width": "",
+                    "data": "pranom",
+                    "dataalias": "pranom",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "prfnom",
+                    "width": "",
+                    "data": "prfnom",
+                    "dataalias": "prfnom",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "prnom",
+                    "width": "",
+                    "data": "prnom",
+                    "dataalias": "prnom",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "pridu",
+                    "width": "",
+                    "data": "pridu",
+                    "dataalias": "pridu",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": true,
+                    "title": "Nom",
+                    "width": "",
+                    "data": "name",
+                    "dataalias": "name",
+                    "searchable": true,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "uid",
+                    "width": "",
+                    "data": "uid",
+                    "dataalias": "uid",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "SHAPE",
+                    "width": "",
+                    "data": "SHAPE",
+                    "dataalias": "SHAPE",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "OBJECTID",
+                    "width": "",
+                    "data": "OBJECTID",
+                    "dataalias": "OBJECTID",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }],
+                "linktable": {
+                    "enable": false,
+                    "relationshipid": 0,
+                    "title": "",
+                    "subtitle": "",
+                    "fields": []
+                },
+                "popups": {
+                    "enable": true,
+                    "layeralias": "Taux par province"
+                },
+                "hover": {
+                    "enable": false,
+                    "hoverfield": ""
+                }
+            }]
+        },
+        "toolbarlegend": {
+            "enable": true,
+            "expand": true,
+            "pos": 0,
+            "basemaps": [{
+                "expand": false,
+                "last": true,
+                "type": 2,
+                "id": "d5129838-5b20-10c4-b464-e87fbc18e1fd",
+                "graphid": "bfe0a806-7dfe-4f75-f714-ed1a00cfa9a7",
+                "displayfields": false,
+                "label": {
+                    "value": "CBMT3978",
+                    "alttext": "CBMT3978"
+                },
+                "metadata": {
+                    "enable": false
+                },
+                "opacity": {
+                    "enable": false,
+                    "min": 0,
+                    "max": 1,
+                    "initstate": 1
+                },
+                "visibility": {
+                    "enable": true,
+                    "initstate": true,
+                    "type": 1,
+                    "radioid": 0
+                },
+                "displaychild": {
+                    "enable": true,
+                    "symbol": "{\"type\":\"simple\",\"symbol\":{\"type\":\"esriSFS\",\"style\":\"esriSFSSolid\",\"color\":[0,0,0,0],\"outline\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[0,0,0,0],\"width\":0.4}},\"label\":\"\",\"description\":\"\"}"
+                },
+                "customimage": {
+                    "enable": false,
+                    "images": []
+                },
+                "items": []
+            }],
+            "items": [{
+                "expand": false,
+                "last": false,
+                "type": 4,
+                "id": "b70d0966-4e94-4c65-2ff5-8d5a8e2d3a86",
+                "graphid": "0fb89dda-a219-aa95-bfc7-a387c09c2d5f",
+                "displayfields": false,
+                "label": {
+                    "value": "Profil autochtone - Langues officielles non parlées",
+                    "alttext": "nrcan_aboriginal_profile_non_official_languages_spoken_fr_3978"
+                },
+                "metadata": {
+                    "enable": false
+                },
+                "opacity": {
+                    "enable": true,
+                    "min": 0,
+                    "max": 1,
+                    "initstate": 0.8
+                },
+                "visibility": {
+                    "enable": true,
+                    "initstate": true,
+                    "type": 1,
+                    "radioid": 0
+                },
+                "displaychild": {
+                    "enable": true
+                },
+                "customimage": {
+                    "enable": false,
+                    "images": []
+                },
+                "items": [{
+                    "expand": false,
+                    "last": true,
+                    "type": 4,
+                    "id": "b70d0966-4e94-4c65-2ff5-8d5a8e2d3a86",
+                    "graphid": "cdf0803c-01e1-d865-4f57-2be8e568f248",
+                    "displayfields": false,
+                    "label": {
+                        "value": "Taux par province",
+                        "alttext": "Taux par province"
+                    },
+                    "metadata": {
+                        "enable": false
+                    },
+                    "opacity": {
+                        "enable": false,
+                        "min": 0,
+                        "max": 1,
+                        "initstate": 1
+                    },
+                    "visibility": {
+                        "enable": false,
+                        "initstate": true,
+                        "type": 1,
+                        "radioid": 0
+                    },
+                    "displaychild": {
+                        "enable": true,
+                        "symbol": "{\"type\":\"simple\",\"symbol\":{\"type\":\"esriSFS\",\"style\":\"esriSFSSolid\",\"color\":[205,233,247,255],\"outline\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[110,110,110,255],\"width\":0.4}},\"label\":\"\",\"description\":\"\"}"
+                    },
+                    "customimage": {
+                        "enable": false,
+                        "images": []
+                    },
+                    "items": []
+                }, {
+                    "expand": false,
+                    "last": true,
+                    "type": 4,
+                    "id": "b70d0966-4e94-4c65-2ff5-8d5a8e2d3a86",
+                    "graphid": "d927ec1b-0fa1-e604-c99d-1cfac8c81776",
+                    "displayfields": false,
+                    "label": {
+                        "value": "Taux par division de recensement",
+                        "alttext": "Taux par division de recensement"
+                    },
+                    "metadata": {
+                        "enable": false
+                    },
+                    "opacity": {
+                        "enable": false,
+                        "min": 0,
+                        "max": 1,
+                        "initstate": 1
+                    },
+                    "visibility": {
+                        "enable": false,
+                        "initstate": true,
+                        "type": 1,
+                        "radioid": 0
+                    },
+                    "displaychild": {
+                        "enable": true,
+                        "symbol": "{\"type\":\"simple\",\"symbol\":{\"type\":\"esriSFS\",\"style\":\"esriSFSSolid\",\"color\":[238,205,247,255],\"outline\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[110,110,110,255],\"width\":0.4}},\"label\":\"\",\"description\":\"\"}"
+                    },
+                    "customimage": {
+                        "enable": false,
+                        "images": []
+                    },
+                    "items": []
+                }, {
+                    "expand": false,
+                    "last": true,
+                    "type": 4,
+                    "id": "b70d0966-4e94-4c65-2ff5-8d5a8e2d3a86",
+                    "graphid": "34c73a0e-d4bf-ef1b-e096-a815366f4211",
+                    "displayfields": false,
+                    "label": {
+                        "value": "Taux par subdivision de recensement",
+                        "alttext": "Taux par subdivision de recensement"
+                    },
+                    "metadata": {
+                        "enable": false
+                    },
+                    "opacity": {
+                        "enable": false,
+                        "min": 0,
+                        "max": 1,
+                        "initstate": 1
+                    },
+                    "visibility": {
+                        "enable": false,
+                        "initstate": true,
+                        "type": 1,
+                        "radioid": 0
+                    },
+                    "displaychild": {
+                        "enable": true,
+                        "symbol": "{\"type\":\"simple\",\"symbol\":{\"type\":\"esriSFS\",\"style\":\"esriSFSSolid\",\"color\":[206,191,242,255],\"outline\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[110,110,110,255],\"width\":0.4}},\"label\":\"\",\"description\":\"\"}"
+                    },
+                    "customimage": {
+                        "enable": false,
+                        "images": []
+                    },
+                    "items": []
+                }],
+                "isExpand": true
+            }]
+        },
+        "toolbardraw": {
+            "enable": true,
+            "expand": false,
+            "pos": 1,
+            "drawline": {
+                "enable": true
+            },
+            "drawtext": {
+                "enable": true
+            },
+            "measureline": {
+                "enable": true,
+                "unit": 1
+            },
+            "measurearea": {
+                "enable": true,
+                "unit": 1
+            },
+            "importexport": {
+                "enable": true
+            }
+        },
+        "toolbarnav": {
+            "enable": true,
+            "expand": false,
+            "pos": 2,
+            "mapwkid": 3978,
+            "geolocation": {
+                "enable": true,
+                "graphic": true,
+                "info": true
+            },
+            "scaledisplay": {
+                "enable": true,
+                "format": 1
+            },
+            "overview": {
+                "enable": true,
+                "url": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/BaseMaps/CBMT3978/MapServer",
+                "type": 2
+            },
+            "position": {
+                "enable": true
+            }
+        },
+        "toolbardata": {
+            "enable": true,
+            "expand": false,
+            "pos": 3,
+            "datafile": {
+                "enable": true
+            },
+            "dataurl": {
+                "enable": true
+            },
+            "dataquery": {
+                "enable": true
+            }
+        },
+        "toolbarextract": {
+            "enable": false,
+            "expand": false,
+            "pos": -1,
+            "grid": {
+                "enable": false,
+                "id": "0"
+            },
+            "items": []
+        },
+        "insetframe": {
+            "enable": false
+        },
+        "customwidgets": []
+    }
+}
