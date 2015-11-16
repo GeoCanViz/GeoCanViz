@@ -483,28 +483,46 @@
                         if (colIdx === 0) {
                             // add zoom to selected
                             elem = $viz(this).append('<label class="gcviz-gd-zoomlbl" for="zoomSel-' + id + '">Zoom</label><button id="zoomSel-' + id + '" class="gcviz-dg-zoomsel"></button>');
-                            gcvizFunc.addTooltip(elem, { content: _self.lblZoomSelect });
+                            gcvizFunc.addTooltip(elem, { content: _self.lblZoomSelect, position: {
+                                    my: 'left+10 top+5',
+                                    collision: 'fit'
+                                } });
                         } else if (column.bSearchable) {
                             valueType = column.fieldtype.value;
+                            elem = $viz(this)
+
+                            // if there a description, add a tooltip
+                            if (typeof column.description !== 'undefined') {
+                                gcvizFunc.addTooltip(elem, { content: column.description, position: {
+                                        my: 'left+10 top+10',
+                                        collision: 'fit'
+                                    } });
+                            }
 
                             if (valueType === 1) {
                                 // add string filter
-                                $viz(this).append('<input type="text" class="gcviz-dg-search gcviz-dg-searchstr" gcviz-name="' + column.data + '" placeholder="' + _self.search + '"></input>');
+                                elem.append('<input type="text" class="gcviz-dg-search gcviz-dg-searchstr" gcviz-name="' + column.data + '" placeholder="' + _self.search + '"></input>');
                             } else if (valueType === 2) {
                                 // add numeric filter
-                                $viz(this).append('<div><input type="text" class="gcviz-dg-search gcviz-dg-searchnum" gcviz-name="' + column.data + '" placeholder="Min"></input>' +
+                                elem.append('<div><input type="text" class="gcviz-dg-search gcviz-dg-searchnum" gcviz-name="' + column.data + '" placeholder="Min"></input>' +
                                                     '<input type="text" class="gcviz-dg-search gcviz-dg-searchnum" gcviz-name="' + column.data + '" placeholder="Max"></input></div>');
                             } else if (valueType === 4) {
                                 // dropdowm select box
-                                $viz(this).append('<select class="gcviz-dg-search gcviz-dg-searchdrop" gcviz-name="' + column.data + '"><option value=""></option></select>');
+                                elem.append('<select class="gcviz-dg-search gcviz-dg-searchdrop" gcviz-name="' + column.data + '"><option value=""></option></select>');
                             } else if (valueType === 3) {
                                 // date picker
-                                $viz(this).append('<div><input type="text" class="gcviz-dg-search gcviz-dg-searchdate" gcviz-name="' + column.data + '" placeholder="Date Min"></text>' +
+                                elem.append('<div><input type="text" class="gcviz-dg-search gcviz-dg-searchdate" gcviz-name="' + column.data + '" placeholder="Date Min"></text>' +
                                                     '<input type="text" class="gcviz-dg-search gcviz-dg-searchdate" gcviz-name="' + column.data + '" placeholder="Date Max"></text></div>');
                             }
                         }
                     }, id, columns));
 
+                    // remove tooltip when user focus on input. Set timeout for keyboard navigation because the tooltip reappear
+                    $viz('.gcviz-dg-search').on('focus', function() {
+                        setTimeout(function() {
+                            $viz('.gcviz-tooltip').hide();
+                        }, 650);
+                    })
                     // call finish init with the position of the table in the array
                     _self.finishInit(id);
                 };
@@ -798,6 +816,7 @@
                                     return data;
                                 }
                     });
+
 
                     return outFields;
                 };
@@ -1404,10 +1423,12 @@
                     // and we cant change the value in ArcGIS server 10.1)
                     // IT WAS ORACLE LIMIT. WORKAROUND MAKE OBJECTID IN () OR OBJECTID WITH NO MORE THEN 1000 ITEMS.
                     // WE STILL put a limit 01 10 000 because we have timeout exceed error fromt he spatial intersect query
-                    if (nbFeatures >= 10000) {
-                        defQuery = queryNoId;
-                    }
+                    //if (nbFeatures >= 1000) {
+                    //    defQuery = queryNoId;
+                    //}
 
+                    // hide loading
+                    $viz('.dataTables_processing').css('display', 'none');
 
                     return defQuery;
                 };
@@ -1445,6 +1466,9 @@
                     drawTool[0].deactivate();
                     drawTool[1].remove();
 
+                    // show loading
+                    $viz('.dataTables_processing').css('display', 'block');
+
                     // put back popup click event
                     mapVM.addPopupEvent(mapid);
 
@@ -1466,7 +1490,7 @@
 
                             // add index if dynamic
                             if (layerInfo.type === 4) {
-                                url += '/' + layerInfo.index;
+                                url += layerInfo.index;
                             }
 
                             // draw extent for spatial filter then call query task to get selection

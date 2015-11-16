@@ -263,7 +263,7 @@
                         "value": 1
                     }
                 }, {
-                    "enable": true,
+                    "enable": false,
                     "title": "AGENO",
                     "width": "80px",
                     "data": "AGENO",
@@ -274,7 +274,7 @@
                         "value": 2
                     }
                 }, {
-                    "enable": true,
+                    "enable": false,
                     "title": "Last Updated",
                     "width": "90px",
                     "data": "LAST_UPDATED",
@@ -287,7 +287,7 @@
                         "outformat": 1
                     }
                 }, {
-                    "enable": true,
+                    "enable": false,
                     "title": "Lab No",
                     "width": "80px",
                     "data": "LABNO",
@@ -298,7 +298,7 @@
                         "value": 2
                     }
                 }, {
-                    "enable": true,
+                    "enable": false,
                     "title": "References",
                     "width": "140px",
                     "data": "REFS",
@@ -309,7 +309,7 @@
                         "value": 1
                     }
                 }, {
-                    "enable": true,
+                    "enable": false,
                     "title": "Location",
                     "width": "140px",
                     "data": "LOCATION",
@@ -320,7 +320,7 @@
                         "value": 1
                     }
                 }, {
-                    "enable": true,
+                    "enable": false,
                     "title": "Long. (NAD83)",
                     "width": "90px",
                     "data": "LONGITUDE",
@@ -331,7 +331,7 @@
                         "value": 2
                     }
                 }, {
-                    "enable": true,
+                    "enable": false,
                     "title": "Lat. (NAD83)",
                     "width": "80px",
                     "data": "LATITUDE",
@@ -347,13 +347,14 @@
                     "width": "40px",
                     "data": "PROV",
                     "dataalias": "PROV",
+                    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas pretium quis tortor in tristique. Fusce tempus convallis suscipit. Donec commodo viverra malesuada. Maecenas vel consequat risus. In suscipit pellentesque elit et varius. Aenean vel purus sit amet massa efficitur efficitur eget ut lorem. Mauris sit amet sodales est, eu fringilla sem. Suspendisse fermentum purus eu augue ullamcorper, ac sollicitudin orci laoreet. Cras vel mauris eu diam fermentum vulputate. Curabitur a sem leo. Curabitur a purus at sem facilisis varius. Maecenas a lacus tortor. Pellentesque vitae auctor arcu, at pellentesque leo. Cras eget pellentesque felis. Fusce pharetra lacus fringilla finibus congue.<br />Mauris odio eros, ultricies sagittis tempor vel, finibus eget lacus. Pellentesque sit amet lacus at libero sollicitudin maximus eget non turpis. Sed ultrices iaculis velit non varius. Phasellus hendrerit rhoncus neque, eget consequat enim luctus nec. Duis sed lacus eget urna malesuada ullamcorper et ac purus. Interdum et malesuada fames ac ante ipsum primis in faucibus. In et sem auctor, volutpat arcu in, sollicitudin felis. Maecenas sit amet justo pulvinar, ultrices turpis a, vehicula risus. Donec sit amet cursus nisl, in bibendum nulla. Curabitur ex mauris, faucibus vel lacus sit amet, auctor semper diam. Maecenas convallis pretium mauris, porttitor rutrum ipsum hendrerit vel. Nullam accumsan diam turpis, in elementum quam egestas dapibus. In hac habitasse platea dictumst. Ut ullamcorper orci non facilisis ornare.",
                     "searchable": true,
                     "fieldtype": {
                         "type": 1,
                         "value": 4
                     }
                 }, {
-                    "enable": true,
+                    "enable": false,
                     "title": "Geological Info.",
                     "width": "140px",
                     "data": "GEOLOGICAL_INFO",
@@ -364,7 +365,7 @@
                         "value": 1
                     }
                 }, {
-                    "enable": true,
+                    "enable": false,
                     "title": "Rock Descr.",
                     "width": "140px",
                     "data": "ROCKDESC",
@@ -375,7 +376,7 @@
                         "value": 1
                     }
                 }, {
-                    "enable": true,
+                    "enable": false,
                     "title": "Age Note",
                     "width": "90px",
                     "data": "AGE_NOTE",
@@ -386,7 +387,7 @@
                         "value": 1
                     }
                 }, {
-                    "enable": true,
+                    "enable": false,
                     "title": "Qualifier",
                     "width": "70px",
                     "data": "AGE_QUALIFIER",
@@ -397,7 +398,7 @@
                         "value": 4
                     }
                 }, {
-                    "enable": true,
+                    "enable": false,
                     "title": "Technique",
                     "width": "75px",
                     "data": "AGE_TECHNIQUE",
@@ -408,7 +409,7 @@
                         "value": 4
                     }
                 }, {
-                    "enable": true,
+                    "enable": false,
                     "title": "Material",
                     "width": "140px",
                     "data": "AGE_MATERIAL",
@@ -419,7 +420,7 @@
                         "value": 4
                     }
                 }, {
-                    "enable": true,
+                    "enable": false,
                     "title": "Age Method",
                     "width": "60px",
                     "data": "AGE_METHOD",
@@ -430,7 +431,7 @@
                         "value": 4
                     }
                 }, {
-                    "enable": true,
+                    "enable": false,
                     "title": "Age Interpretation",
                     "width": "110px",
                     "data": "AGE_INTERP",
@@ -441,7 +442,7 @@
                         "value": 4
                     }
                 }, {
-                    "enable": true,
+                    "enable": false,
                     "title": "Error -",
                     "width": "65px",
                     "data": "ERR_MINUS",
@@ -452,7 +453,7 @@
                         "value": 2
                     }
                 }, {
-                    "enable": true,
+                    "enable": false,
                     "title": "Error +",
                     "width": "65px",
                     "data": "ERR_PLUS",
@@ -463,7 +464,7 @@
                         "value": 2
                     }
                 }, {
-                    "enable": true,
+                    "enable": false,
                     "title": "Age (Million years)",
                     "width": "100px",
                     "data": "AGE",
@@ -474,7 +475,7 @@
                         "value": 2
                     }
                 }, {
-                    "enable": true,
+                    "enable": false,
                     "title": "Rock Type",
                     "width": "115px",
                     "data": "ROCKTYPE",
@@ -485,7 +486,7 @@
                         "value": 4
                     }
                 }, {
-                    "enable": true,
+                    "enable": false,
                     "title": "Geological Province",
                     "width": "90px",
                     "data": "MAJGEOLUNIT",
@@ -502,6 +503,7 @@
                     "data": "SAMPLENO",
                     "dataalias": "SAMPLENO",
                     "searchable": true,
+                    "description": "This is a description for this field. You can go <a href='http:\\www.google.com' tabindex=0>google</a>",
                     "fieldtype": {
                         "type": 1,
                         "value": 1
