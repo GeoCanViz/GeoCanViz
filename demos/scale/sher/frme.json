@@ -1,0 +1,774 @@
+{
+    "gcviz": {
+        "mapframe": {
+            "size": {
+                "height": 600,
+                "width": 1200
+            },
+            "map": {
+                "urlgeomserv": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/Utilities/Geometry/GeometryServer",
+                "urlproxy": "http://geoappext.nrcan.gc.ca/php/proxy.ashx",
+                "urldownload": "http://geoappext.nrcan.gc.ca/php/download.php",
+                "urlsaveimage": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task",
+                "sr": {
+                    "wkid": 3978
+                },
+                "extentmax": {
+                    "xmin": -4282638.0615,
+                    "ymin": -5153821.09214,
+                    "xmax": 4852210.17557,
+                    "ymax": 4376714.4421
+                },
+                "extentinit": {
+                    "xmin": -3795624.50929,
+                    "ymin": 2140714.8088,
+                    "xmax": 3671990.42594,
+                    "ymax": 6568790.33162
+                },
+                "lods": {
+                    "enable": false,
+                    "values": [{
+                        "level": 0,
+                        "resolution": 38364.660062653464,
+                        "scale": 145000000,
+                        "check": true
+                    }, {
+                        "level": 1,
+                        "resolution": 22489.62831258996,
+                        "scale": 85000000,
+                        "check": true
+                    }, {
+                        "level": 2,
+                        "resolution": 13229.193125052918,
+                        "scale": 50000000,
+                        "check": true
+                    }, {
+                        "level": 3,
+                        "resolution": 7937.5158750317505,
+                        "scale": 30000000,
+                        "check": true
+                    }, {
+                        "level": 4,
+                        "resolution": 4630.2175937685215,
+                        "scale": 17500000,
+                        "check": true
+                    }, {
+                        "level": 5,
+                        "resolution": 2645.8386250105837,
+                        "scale": 10000000,
+                        "check": true
+                    }, {
+                        "level": 6,
+                        "resolution": 1587.5031750063501,
+                        "scale": 6000000,
+                        "check": true
+                    }, {
+                        "level": 7,
+                        "resolution": 926.0435187537042,
+                        "scale": 3500000,
+                        "check": true
+                    }, {
+                        "level": 8,
+                        "resolution": 529.1677250021168,
+                        "scale": 2000000,
+                        "check": true
+                    }, {
+                        "level": 9,
+                        "resolution": 317.50063500127004,
+                        "scale": 1200000,
+                        "check": true
+                    }, {
+                        "level": 10,
+                        "resolution": 185.20870375074085,
+                        "scale": 700000,
+                        "check": true
+                    }, {
+                        "level": 11,
+                        "resolution": 111.12522225044451,
+                        "scale": 420000,
+                        "check": true
+                    }, {
+                        "level": 12,
+                        "resolution": 66.1459656252646,
+                        "scale": 250000,
+                        "check": true
+                    }, {
+                        "level": 13,
+                        "resolution": 38.36466006265346,
+                        "scale": 145000,
+                        "check": true
+                    }, {
+                        "level": 14,
+                        "resolution": 22.48962831258996,
+                        "scale": 85000,
+                        "check": true
+                    }, {
+                        "level": 15,
+                        "resolution": 13.229193125052918,
+                        "scale": 50000,
+                        "check": true
+                    }, {
+                        "level": 16,
+                        "resolution": 7.9375158750317505,
+                        "scale": 30000,
+                        "check": true
+                    }, {
+                        "level": 17,
+                        "resolution": 4.6302175937685215,
+                        "scale": 17500,
+                        "check": true
+                    }]
+                },
+                "link": true,
+                "zoombar": {
+                    "bar": true,
+                    "zoom": true,
+                    "zoomfull": true,
+                    "previousnext": true
+                },
+                "bases": [{
+                    "label": "CBMT3978",
+                    "id": "d5129838-5b20-10c4-b464-e87fbc18e1fd",
+                    "type": 2,
+                    "url": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/BaseMaps/CBMT3978/MapServer/",
+                    "scale": {
+                        "min": 0,
+                        "max": 0
+                    }
+                }],
+                "layers": [{
+                    "label": "cfia_federally_registered_meat_establishments_fr",
+                    "id": "97a2af0b-4371-3363-1f23-b93042efd6f7",
+                    "type": 4,
+                    "url": "http://s-she-gisdev1.nrn.nrcan.gc.ca:6080/arcgis/rest/services/mapservices/cfia_federally_registered_meat_establishments_fr/MapServer/",
+                    "beforebase": false,
+                    "visiblelayers": [1],
+                    "scale": {
+                        "min": 0,
+                        "max": 0
+                    },
+                    "usecluster": false,
+                    "cluster": {
+                        "enable": false,
+                        "distance": 50,
+                        "label": false,
+                        "symbol": false,
+                        "maxsizeprop": 50,
+                        "maxdataprop": 1000
+                    }
+                }]
+            }
+        },
+        "header": {
+            "side": 1,
+            "title": {
+                "value": "Établissements de viande agrées par le gouvernement fédéral",
+                "alttext": ""
+            },
+            "tools": {
+                "enable": true,
+                "expand": true
+            },
+            "link": true,
+            "inset": false,
+            "about": {
+                "enable": true,
+                "type": 1,
+                "value": "Carte des établissement de viande agrées par le gouvernement fédéral."
+            },
+            "print": {
+                "enable": true,
+                "type": 3
+            },
+            "saveimage": {
+                "enable": true
+            },
+            "saveurl": {
+                "enable": true
+            },
+            "fullscreen": true
+        },
+        "footer": {
+            "northarrow": {
+                "enable": true,
+                "inwkid": 3978
+            },
+            "mousecoords": {
+                "enable": true,
+                "outwkid": 4326
+            },
+            "scalebar": {
+                "enable": true,
+                "unit": 1
+            },
+            "datagrid": {
+                "enable": true
+            }
+        },
+        "datagrid": {
+            "enable": true,
+            "expand": true,
+            "layers": [{
+                "layerinfo": {
+                    "id": "97a2af0b-4371-3363-1f23-b93042efd6f7",
+                    "type": 4,
+                    "index": 0
+                },
+                "title": "Établissement de viande agréé",
+                "globalsearch": false,
+                "fields": [{
+                    "enable": false,
+                    "title": "traitement_pour_trichine",
+                    "width": "",
+                    "data": "traitement_pour_trichine",
+                    "dataalias": "traitement_pour_trichine",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "espece_volaille",
+                    "width": "",
+                    "data": "espece_volaille",
+                    "dataalias": "espece_volaille",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "autre_espece",
+                    "width": "",
+                    "data": "autre_espece",
+                    "dataalias": "autre_espece",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "regl_risque_pts_critiques_haccp",
+                    "width": "",
+                    "data": "regl_risque_pts_critiques_haccp",
+                    "dataalias": "regl_risque_pts_critiques_haccp",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "site_approuve_exp_marche_spec",
+                    "width": "",
+                    "data": "site_approuve_exp_marche_spec",
+                    "dataalias": "site_approuve_exp_marche_spec",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "entrepot_seulement",
+                    "width": "",
+                    "data": "entrepot_seulement",
+                    "dataalias": "entrepot_seulement",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "inst_inspc_viande_retenu_import",
+                    "width": "",
+                    "data": "inst_inspc_viande_retenu_import",
+                    "dataalias": "inst_inspc_viande_retenu_import",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "fonte_de_produit_non_comestible",
+                    "width": "",
+                    "data": "fonte_de_produit_non_comestible",
+                    "dataalias": "fonte_de_produit_non_comestible",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "emballage_etiquetage_entrepose",
+                    "width": "",
+                    "data": "emballage_etiquetage_entrepose",
+                    "dataalias": "emballage_etiquetage_entrepose",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "autre_activite_transformation",
+                    "width": "",
+                    "data": "autre_activite_transformation",
+                    "dataalias": "autre_activite_transformation",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "preparation_de_boyaux",
+                    "width": "",
+                    "data": "preparation_de_boyaux",
+                    "dataalias": "preparation_de_boyaux",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "fonte_de_produit_comestible",
+                    "width": "",
+                    "data": "fonte_de_produit_comestible",
+                    "dataalias": "fonte_de_produit_comestible",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "desossage_et_depecage",
+                    "width": "",
+                    "data": "desossage_et_depecage",
+                    "dataalias": "desossage_et_depecage",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "mise_en_conserve",
+                    "width": "",
+                    "data": "mise_en_conserve",
+                    "dataalias": "mise_en_conserve",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "abattage_ou_abattage_rituel",
+                    "width": "",
+                    "data": "abattage_ou_abattage_rituel",
+                    "dataalias": "abattage_ou_abattage_rituel",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "telephone_3",
+                    "width": "",
+                    "data": "telephone_3",
+                    "dataalias": "telephone_3",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "telephone_2",
+                    "width": "",
+                    "data": "telephone_2",
+                    "dataalias": "telephone_2",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "telephone_1",
+                    "width": "",
+                    "data": "telephone_1",
+                    "dataalias": "telephone_1",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "province_etablissement",
+                    "width": "",
+                    "data": "province_etablissement",
+                    "dataalias": "province_etablissement",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "code_postal_etablissement",
+                    "width": "",
+                    "data": "code_postal_etablissement",
+                    "dataalias": "code_postal_etablissement",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": true,
+                    "title": "Ville",
+                    "width": "100px",
+                    "data": "ville_etablissement",
+                    "dataalias": "ville_etablissement",
+                    "searchable": true,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "adresse_etablissement_3",
+                    "width": "",
+                    "data": "adresse_etablissement_3",
+                    "dataalias": "adresse_etablissement_3",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "adresse_etablissement_2",
+                    "width": "",
+                    "data": "adresse_etablissement_2",
+                    "dataalias": "adresse_etablissement_2",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "adresse_etablissement_1",
+                    "width": "",
+                    "data": "adresse_etablissement_1",
+                    "dataalias": "adresse_etablissement_1",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "arc_ville",
+                    "width": "",
+                    "data": "arc_ville",
+                    "dataalias": "arc_ville",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "arc_prov_etat",
+                    "width": "",
+                    "data": "arc_prov_etat",
+                    "dataalias": "arc_prov_etat",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "arc_pays",
+                    "width": "",
+                    "data": "arc_pays",
+                    "dataalias": "arc_pays",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "arc_code_postal_4",
+                    "width": "",
+                    "data": "arc_code_postal_4",
+                    "dataalias": "arc_code_postal_4",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "arc_code_postal",
+                    "width": "",
+                    "data": "arc_code_postal",
+                    "dataalias": "arc_code_postal",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "arc_adresse",
+                    "width": "",
+                    "data": "arc_adresse",
+                    "dataalias": "arc_adresse",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": true,
+                    "title": "Numéro de l'établissement",
+                    "width": "100px",
+                    "data": "numero_etablissement",
+                    "dataalias": "numero_etablissement",
+                    "searchable": true,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": true,
+                    "title": "Nom de l'établissement",
+                    "width": "100px",
+                    "data": "nom_etablissement",
+                    "dataalias": "nom_etablissement",
+                    "searchable": true,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "bdg_id",
+                    "width": "",
+                    "data": "bdg_id",
+                    "dataalias": "bdg_id",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "SHAPE",
+                    "width": "",
+                    "data": "SHAPE",
+                    "dataalias": "SHAPE",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }, {
+                    "enable": false,
+                    "title": "OBJECTID",
+                    "width": "",
+                    "data": "OBJECTID",
+                    "dataalias": "OBJECTID",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }],
+                "linktable": {
+                    "enable": false,
+                    "relationshipid": 0,
+                    "title": "",
+                    "subtitle": "",
+                    "fields": []
+                },
+                "popups": {
+                    "enable": true,
+                    "layeralias": "Établissement de viande agréé"
+                },
+                "hover": {
+                    "enable": false,
+                    "hoverfield": ""
+                }
+            }]
+        },
+        "toolbarlegend": {
+            "enable": true,
+            "expand": true,
+            "pos": 0,
+            "basemaps": [{
+                "expand": false,
+                "last": true,
+                "type": 2,
+                "id": "d5129838-5b20-10c4-b464-e87fbc18e1fd",
+                "graphid": "cad0d7e4-8a2c-4293-3998-4d682b649fda",
+                "displayfields": false,
+                "label": {
+                    "value": "CBMT3978",
+                    "alttext": "CBMT3978"
+                },
+                "metadata": {
+                    "enable": false
+                },
+                "opacity": {
+                    "enable": true,
+                    "min": 0,
+                    "max": 1,
+                    "initstate": 0.8
+                },
+                "visibility": {
+                    "enable": true,
+                    "initstate": true,
+                    "type": 1,
+                    "radioid": 0
+                },
+                "displaychild": {
+                    "enable": true,
+                    "symbol": "{\"type\":\"simple\",\"symbol\":{\"type\":\"esriSFS\",\"style\":\"esriSFSSolid\",\"color\":[0,0,0,0],\"outline\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[0,0,0,0],\"width\":0.4}},\"label\":\"\",\"description\":\"\"}"
+                },
+                "customimage": {
+                    "enable": false,
+                    "images": []
+                },
+                "items": []
+            }],
+            "items": [{
+                "expand": false,
+                "last": true,
+                "type": 5,
+                "id": "97a2af0b-4371-3363-1f23-b93042efd6f7",
+                "graphid": "cd14d02f-40ee-ba2f-df22-1d20b858e618",
+                "displayfields": false,
+                "label": {
+                    "value": "Établissement de viande agréé",
+                    "alttext": "Établissement de viande agréé"
+                },
+                "metadata": {
+                    "enable": false
+                },
+                "opacity": {
+                    "enable": true,
+                    "min": 0,
+                    "max": 1,
+                    "initstate": 1
+                },
+                "visibility": {
+                    "enable": true,
+                    "initstate": true,
+                    "type": 1,
+                    "radioid": 0
+                },
+                "displaychild": {
+                    "enable": true,
+                    "symbol": "{\"type\":\"simple\",\"symbol\":{\"type\":\"esriPMS\",\"url\":\"54ee1efead6a097cf9bd3ae1f4ef9d66\",\"imageData\":\"iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAOZJREFUGJWNkL2NwzAMRj8KXMIa4ly4VMpzl3QGskGWUJEcdBwiC2gBl1GhQq0RIIBmyBAumCJ27q85NgRB4hHvY/yz+Pswz7Nl5q2qWiIaiWj6c6iqXUrpnHPuRATe+2Mp5e6c2xHRxCsppXTu+77zAC4Asgg2Ik2tdQRgGQCYeZtz7jyAz+XD+9JjjI2qHnh5a0UEl18CbwD2IgghPIlENHrvj1nkRQKAGwDv/ZcMEU2llPtGpFlJNwAC4DoMkzHm9LJ2zu1qrWOMsdk/rXEdhqlt248f8SyZWVU9hBAsABhjTuv+ASp6XSqwhYA7AAAAAElFTkSuQmCC\",\"contentType\":\"image/png\",\"width\":7,\"height\":7,\"angle\":0,\"xoffset\":0,\"yoffset\":0},\"label\":\"\",\"description\":\"\"}"
+                },
+                "customimage": {
+                    "enable": false,
+                    "images": []
+                },
+                "items": [],
+                "isExpand": true
+            }]
+        },
+        "toolbardraw": {
+            "enable": true,
+            "expand": false,
+            "pos": 1,
+            "drawline": {
+                "enable": true
+            },
+            "drawtext": {
+                "enable": true
+            },
+            "measureline": {
+                "enable": true,
+                "unit": 1
+            },
+            "measurearea": {
+                "enable": true,
+                "unit": 1
+            },
+            "importexport": {
+                "enable": true
+            }
+        },
+        "toolbarnav": {
+            "enable": true,
+            "expand": false,
+            "pos": 2,
+            "mapwkid": 3978,
+            "geolocation": {
+                "enable": true,
+                "graphic": true,
+                "info": true
+            },
+            "scaledisplay": {
+                "enable": true,
+                "format": 1
+            },
+            "overview": {
+                "enable": true,
+                "url": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/BaseMaps/CBMT3978/MapServer",
+                "type": 2
+            },
+            "position": {
+                "enable": true
+            }
+        },
+        "toolbardata": {
+            "enable": true,
+            "expand": false,
+            "pos": 3,
+            "datafile": {
+                "enable": true
+            },
+            "dataurl": {
+                "enable": true
+            },
+            "dataquery": {
+                "enable": true
+            }
+        },
+        "toolbarextract": {
+            "enable": false,
+            "expand": false,
+            "pos": -1,
+            "grid": {
+                "enable": false,
+                "id": "0"
+            },
+            "items": []
+        },
+        "insetframe": {
+            "enable": false
+        },
+        "customwidgets": []
+    }
+}

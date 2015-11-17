@@ -1,66 +1,66 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-		<style type="text/css" media="print">
-			@page
-			{
-				size: landscape;
-				margin: 2cm;
-			}
-			@media print {
-				.infotext {
-					display: none;
-				}
-			}
-		</style>
-		<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-		<script>
-			$(document).ready(function(){
-				var doc = window.document;
-					map = doc.getElementById('gcviz-print'),
-					arrrow = doc.getElementById('gcviz-arrow'),
-					scalebar = doc.getElementById('gcviz-scalebar'),
-					title = doc.getElementById('gcviz-title');
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <style type="text/css" media="print">
+            @page
+            {
+                size: landscape;
+                margin: 2cm;
+            }
+            @media print {
+                .infotext {
+                    display: none;
+                }
+            }
+        </style>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script>
+            $(document).ready(function(){
+                var doc = window.document;
+                    map = doc.getElementById('gcviz-print'),
+                    arrrow = doc.getElementById('gcviz-arrow'),
+                    scalebar = doc.getElementById('gcviz-scalebar'),
+                    title = doc.getElementById('gcviz-title');
 
-				// wait for the resize map from GCViz to finish
-				setTimeout(function() {
-					// set nodes
-					map.innerHTML = localStorage.gcvizPrintNode;
-					arrrow.innerHTML = localStorage.gcvizArrowNode;
-					scalebar.innerHTML = localStorage.gcvizScalebarNode;
-					title.innerHTML = localStorage.gcvizTitle;
+                // wait for the resize map from GCViz to finish
+                setTimeout(function() {
+                    // set nodes
+                    map.innerHTML = localStorage.gcvizPrintNode;
+                    arrrow.innerHTML = localStorage.gcvizArrowNode;
+                    scalebar.innerHTML = localStorage.gcvizScalebarNode;
+                    title.innerHTML = localStorage.gcvizTitle;
 
-					// clean
-					localStorage.removeItem('gcvizPrintNode');
-					localStorage.removeItem('gcvizArrowNode');
-					localStorage.removeItem('gcvizScalebarNode');
-					localStorage.removeItem('gcvizTitle');
-				}, 8000);
-				
-				// wait the page finish the refresh
-				setTimeout(function() {
-					window.print();
-				}, 15000);
-			});
-		</script>
-	</head>
+                    // clean
+                    localStorage.removeItem('gcvizPrintNode');
+                    localStorage.removeItem('gcvizArrowNode');
+                    localStorage.removeItem('gcvizScalebarNode');
+                    localStorage.removeItem('gcvizTitle');
+                }, 8000);
+
+                // wait the page finish the refresh
+                setTimeout(function() {
+                    window.print();
+                }, 15000);
+            });
+        </script>
+    </head>
     <body>
-    	<span class="infotext" style="font-family:Sans-Serif; font-size:16px; font-weight: bold;">Attendez 15 secondes et le menu d'impression s'ouvrira.</span>
-    	<div style="width: 100%;"><span id="gcviz-title" style="height: 100%;width: 80%; margin: 10px auto; display: block; font-size: 20px; font-weight: bold;"></span></div>
-    	<div id="gcviz-print"></div>
-    	<div id="gcviz-scalebar" style="display: inline-block;"></div>
-    	<div id="gcviz-arrow" style="display: inline-block; margin-left: 2.5in; margin-top: 10px;"></div>
-    	<div id="gcviz-copy">
-    		<object data="../images/nrcan_fip_f.svg" type="image/svg+xml" style="display: inline-block;">
-				<img src="../images/NRCanF.jpeg" />
-			</object>
-			<p style="font-family:Sans-Serif; font-size:11px; display: inline-block; margin-left: 30px; vertical-align: super;">&#169; Sa Majest&#233; la Reine du chef du Canada, repr&#233;sent&#233;e par le ministre de Ressources naturelles Canada, <script>document.write(new Date().getFullYear())</script>.<br>&#169; Her Majesty the Queen in Right of Canada, as represented by the Minister of Natural Resources, <script>document.write(new Date().getFullYear())</script>.</p>
-    		<object data="../images/Canada.svg" type="image/svg+xml" style="display: inline-block;height: 20px; margin-left: 20px; vertical-align: super;">
-				<img src="../images/Canada.png" />
-			</object>
-    	</div>
-    	<script src="http://js.arcgis.com/3.13/"></script>
-		<link rel="stylesheet" href="../gcviz-min.css">
+        <span class="infotext" style="font-family:Sans-Serif; font-size:16px; font-weight: bold;">Attendez 15 secondes et le menu d'impression s'ouvrira.</span>
+        <div style="width: 100%;"><span id="gcviz-title" style="height: 100%;width: 80%; margin: 10px auto; display: block; font-size: 20px; font-weight: bold;"></span></div>
+        <div id="gcviz-print"></div>
+        <div id="gcviz-scalebar" style="display: inline-block;"></div>
+        <div id="gcviz-arrow" style="display: inline-block; margin-left: 2.5in; margin-top: 10px;"></div>
+        <div id="gcviz-copy">
+            <object data="../images/nrcan_fip_f.svg" type="image/svg+xml" style="display: inline-block;">
+                <img src="../images/NRCanF.jpeg" />
+            </object>
+            <p style="font-family:Sans-Serif; font-size:11px; display: inline-block; margin-left: 30px; vertical-align: super;">&#169; Sa Majest&#233; la Reine du chef du Canada, repr&#233;sent&#233;e par le ministre de Ressources naturelles Canada, <script>document.write(new Date().getFullYear())</script>.<br>&#169; Her Majesty the Queen in Right of Canada, as represented by the Minister of Natural Resources, <script>document.write(new Date().getFullYear())</script>.</p>
+            <object data="../images/Canada.svg" type="image/svg+xml" style="display: inline-block;height: 20px; margin-left: 20px; vertical-align: super;">
+                <img src="../images/Canada.png" />
+            </object>
+        </div>
+        <script src="http://js.arcgis.com/3.13/"></script>
+        <link rel="stylesheet" href="../gcviz-min.css">
     </body>
 </html>

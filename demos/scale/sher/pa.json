@@ -1,0 +1,469 @@
+{
+    "gcviz": {
+        "mapframe": {
+            "size": {
+                "height": 600,
+                "width": 1200
+            },
+            "map": {
+                "urlgeomserv": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/Utilities/Geometry/GeometryServer",
+                "urlproxy": "http://geoappext.nrcan.gc.ca/php/proxy.ashx",
+                "urldownload": "http://geoappext.nrcan.gc.ca/php/download.php",
+                "urlsaveimage": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task",
+                "sr": {
+                    "wkid": 3978
+                },
+                "extentmax": {
+                    "xmin": -4282638.0615,
+                    "ymin": -5153821.09214,
+                    "xmax": 4852210.17557,
+                    "ymax": 4376714.4421
+                },
+                "extentinit": {
+                    "xmin": -3795624.50929,
+                    "ymin": 2140714.8088,
+                    "xmax": 3671990.42594,
+                    "ymax": 6568790.33162
+                },
+                "lods": {
+                    "enable": false,
+                    "values": [{
+                        "level": 0,
+                        "resolution": 38364.660062653464,
+                        "scale": 145000000,
+                        "check": true
+                    }, {
+                        "level": 1,
+                        "resolution": 22489.62831258996,
+                        "scale": 85000000,
+                        "check": true
+                    }, {
+                        "level": 2,
+                        "resolution": 13229.193125052918,
+                        "scale": 50000000,
+                        "check": true
+                    }, {
+                        "level": 3,
+                        "resolution": 7937.5158750317505,
+                        "scale": 30000000,
+                        "check": true
+                    }, {
+                        "level": 4,
+                        "resolution": 4630.2175937685215,
+                        "scale": 17500000,
+                        "check": true
+                    }, {
+                        "level": 5,
+                        "resolution": 2645.8386250105837,
+                        "scale": 10000000,
+                        "check": true
+                    }, {
+                        "level": 6,
+                        "resolution": 1587.5031750063501,
+                        "scale": 6000000,
+                        "check": true
+                    }, {
+                        "level": 7,
+                        "resolution": 926.0435187537042,
+                        "scale": 3500000,
+                        "check": true
+                    }, {
+                        "level": 8,
+                        "resolution": 529.1677250021168,
+                        "scale": 2000000,
+                        "check": true
+                    }, {
+                        "level": 9,
+                        "resolution": 317.50063500127004,
+                        "scale": 1200000,
+                        "check": true
+                    }, {
+                        "level": 10,
+                        "resolution": 185.20870375074085,
+                        "scale": 700000,
+                        "check": true
+                    }, {
+                        "level": 11,
+                        "resolution": 111.12522225044451,
+                        "scale": 420000,
+                        "check": true
+                    }, {
+                        "level": 12,
+                        "resolution": 66.1459656252646,
+                        "scale": 250000,
+                        "check": true
+                    }, {
+                        "level": 13,
+                        "resolution": 38.36466006265346,
+                        "scale": 145000,
+                        "check": true
+                    }, {
+                        "level": 14,
+                        "resolution": 22.48962831258996,
+                        "scale": 85000,
+                        "check": true
+                    }, {
+                        "level": 15,
+                        "resolution": 13.229193125052918,
+                        "scale": 50000,
+                        "check": true
+                    }, {
+                        "level": 16,
+                        "resolution": 7.9375158750317505,
+                        "scale": 30000,
+                        "check": true
+                    }, {
+                        "level": 17,
+                        "resolution": 4.6302175937685215,
+                        "scale": 17500,
+                        "check": true
+                    }]
+                },
+                "link": true,
+                "zoombar": {
+                    "bar": true,
+                    "zoom": true,
+                    "zoomfull": true,
+                    "previousnext": true
+                },
+                "bases": [{
+                    "label": "CBMT3978",
+                    "id": "dd64acfb-9550-551f-7954-1cfee5fd805a",
+                    "type": 2,
+                    "url": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/BaseMaps/CBMT3978/MapServer/",
+                    "scale": {
+                        "min": 0,
+                        "max": 0
+                    }
+                }],
+                "layers": [{
+                    "label": "stc_aboriginal_population_profile_fr_3978",
+                    "id": "9dd01d42-81a5-fc11-9b89-2bb55875ff45",
+                    "type": 4,
+                    "url": "http://s-she-gisdev1.nrn.nrcan.gc.ca:6080/arcgis/rest/services/mapservices/stc_aboriginal_population_profile_fr_3978/MapServer/",
+                    "beforebase": false,
+                    "visiblelayers": [0, 1, 2],
+                    "scale": {
+                        "min": 0,
+                        "max": 0
+                    },
+                    "usecluster": false,
+                    "cluster": {
+                        "enable": false,
+                        "distance": 50,
+                        "label": false,
+                        "symbol": false,
+                        "maxsizeprop": 50,
+                        "maxdataprop": 1000
+                    }
+                }]
+            }
+        },
+        "header": {
+            "side": 1,
+            "title": {
+                "value": "Profil de la population autochtone - Données socioéconomiques",
+                "alttext": "Profil de la population autochtone - Données socioéconomiques."
+            },
+            "tools": {
+                "enable": true,
+                "expand": true
+            },
+            "link": true,
+            "inset": false,
+            "about": {
+                "enable": true,
+                "type": 1,
+                "value": "Le service dresse un portrait descriptif de la population totale âgée de 15 ans et plus et ayant une identité autochtone dans les ménages privés au Canada en 2011. L'information est un sous-ensemble des données socio-économiques provenant du Profil de la population autochtone de l'Enquête nationale auprès des ménages de 2011 de Statistiques Canada. Elles sont associées aux unités géographiques du recensement 2011 suivantes: Provinces / Territoires, Divisions de recensement et Subdivisions de recensement. Adapté de Statistique Canada, Profil de la population autochtone, Enquête nationale auprès des ménages, 2011. Cela ne constitue pas une approbation de ce produit par Statistique Canada. (http://www12.statcan.gc.ca/nhs-enm/2011/dp-pd/aprof/index.cfm?Lang=F)<br />"
+            },
+            "print": {
+                "enable": true,
+                "type": 3
+            },
+            "saveimage": {
+                "enable": true
+            },
+            "saveurl": {
+                "enable": true
+            },
+            "fullscreen": true
+        },
+        "footer": {
+            "northarrow": {
+                "enable": true,
+                "inwkid": 3978
+            },
+            "mousecoords": {
+                "enable": true,
+                "outwkid": 4326
+            },
+            "scalebar": {
+                "enable": true,
+                "unit": 1
+            },
+            "datagrid": {
+                "enable": false
+            }
+        },
+        "datagrid": {
+            "enable": false,
+            "expand": false,
+            "layers": []
+        },
+        "toolbarlegend": {
+            "enable": true,
+            "expand": true,
+            "pos": 0,
+            "basemaps": [{
+                "expand": false,
+                "last": true,
+                "type": 2,
+                "id": "dd64acfb-9550-551f-7954-1cfee5fd805a",
+                "graphid": "d0186093-1ab8-ac33-d4b1-e447872489b2",
+                "displayfields": false,
+                "label": {
+                    "value": "CBMT3978",
+                    "alttext": "CBMT3978"
+                },
+                "metadata": {
+                    "enable": false
+                },
+                "opacity": {
+                    "enable": true,
+                    "min": 0,
+                    "max": 1,
+                    "initstate": 0.8
+                },
+                "visibility": {
+                    "enable": true,
+                    "initstate": true,
+                    "type": 1,
+                    "radioid": 0
+                },
+                "displaychild": {
+                    "enable": true,
+                    "symbol": "{\"type\":\"simple\",\"symbol\":{\"type\":\"esriSFS\",\"style\":\"esriSFSSolid\",\"color\":[0,0,0,0],\"outline\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[0,0,0,0],\"width\":0.4}},\"label\":\"\",\"description\":\"\"}"
+                },
+                "customimage": {
+                    "enable": false,
+                    "images": []
+                },
+                "items": []
+            }],
+            "items": [{
+                "expand": false,
+                "last": false,
+                "type": 4,
+                "id": "9dd01d42-81a5-fc11-9b89-2bb55875ff45",
+                "graphid": "6ab9fe2d-112b-6fbe-7a76-df379dfd7c01",
+                "displayfields": false,
+                "label": {
+                    "value": "stc_aboriginal_population_profile_fr_3978",
+                    "alttext": "stc_aboriginal_population_profile_fr_3978"
+                },
+                "metadata": {
+                    "enable": false
+                },
+                "opacity": {
+                    "enable": true,
+                    "min": 0,
+                    "max": 1,
+                    "initstate": 0.8
+                },
+                "visibility": {
+                    "enable": true,
+                    "initstate": true,
+                    "type": 1,
+                    "radioid": 0
+                },
+                "displaychild": {
+                    "enable": true
+                },
+                "customimage": {
+                    "enable": false,
+                    "images": []
+                },
+                "items": [{
+                    "expand": false,
+                    "last": true,
+                    "type": 4,
+                    "id": "9dd01d42-81a5-fc11-9b89-2bb55875ff45",
+                    "graphid": "5f09886c-7c79-1a31-8c9b-71c19bf3c31d",
+                    "displayfields": false,
+                    "label": {
+                        "value": "Statistiques par provinces",
+                        "alttext": "Statistiques par provinces"
+                    },
+                    "metadata": {
+                        "enable": false
+                    },
+                    "opacity": {
+                        "enable": false,
+                        "min": 0,
+                        "max": 1,
+                        "initstate": 1
+                    },
+                    "visibility": {
+                        "enable": false,
+                        "initstate": true,
+                        "type": 1,
+                        "radioid": 0
+                    },
+                    "displaychild": {
+                        "enable": true,
+                        "symbol": "{\"type\":\"simple\",\"symbol\":{\"type\":\"esriSFS\",\"style\":\"esriSFSSolid\",\"color\":[237,250,202,255],\"outline\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[110,110,110,255],\"width\":0.4}},\"label\":\"\",\"description\":\"\"}"
+                    },
+                    "customimage": {
+                        "enable": false,
+                        "images": []
+                    },
+                    "items": []
+                }, {
+                    "expand": false,
+                    "last": true,
+                    "type": 4,
+                    "id": "9dd01d42-81a5-fc11-9b89-2bb55875ff45",
+                    "graphid": "61e44c39-d32c-0ade-cf47-4206054cee52",
+                    "displayfields": false,
+                    "label": {
+                        "value": "Statistiques par division de recensement",
+                        "alttext": "Statistiques par division de recensement"
+                    },
+                    "metadata": {
+                        "enable": false
+                    },
+                    "opacity": {
+                        "enable": false,
+                        "min": 0,
+                        "max": 1,
+                        "initstate": 1
+                    },
+                    "visibility": {
+                        "enable": false,
+                        "initstate": true,
+                        "type": 1,
+                        "radioid": 0
+                    },
+                    "displaychild": {
+                        "enable": true,
+                        "symbol": "{\"type\":\"simple\",\"symbol\":{\"type\":\"esriSFS\",\"style\":\"esriSFSSolid\",\"color\":[209,255,115,255],\"outline\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[110,110,110,255],\"width\":0.4}},\"label\":\"\",\"description\":\"\"}"
+                    },
+                    "customimage": {
+                        "enable": false,
+                        "images": []
+                    },
+                    "items": []
+                }, {
+                    "expand": false,
+                    "last": true,
+                    "type": 4,
+                    "id": "9dd01d42-81a5-fc11-9b89-2bb55875ff45",
+                    "graphid": "d7d95a3f-9ae6-b11a-b198-e05b8841cc47",
+                    "displayfields": false,
+                    "label": {
+                        "value": "Statistiques par subdivision de recensement",
+                        "alttext": "Statistiques par subdivision de recensement"
+                    },
+                    "metadata": {
+                        "enable": false
+                    },
+                    "opacity": {
+                        "enable": false,
+                        "min": 0,
+                        "max": 1,
+                        "initstate": 1
+                    },
+                    "visibility": {
+                        "enable": false,
+                        "initstate": true,
+                        "type": 1,
+                        "radioid": 0
+                    },
+                    "displaychild": {
+                        "enable": true,
+                        "symbol": "{\"type\":\"simple\",\"symbol\":{\"type\":\"esriSFS\",\"style\":\"esriSFSSolid\",\"color\":[195,250,219,255],\"outline\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[110,110,110,255],\"width\":0.4}},\"label\":\"\",\"description\":\"\"}"
+                    },
+                    "customimage": {
+                        "enable": false,
+                        "images": []
+                    },
+                    "items": []
+                }],
+                "isExpand": true
+            }]
+        },
+        "toolbardraw": {
+            "enable": true,
+            "expand": false,
+            "pos": 1,
+            "drawline": {
+                "enable": true
+            },
+            "drawtext": {
+                "enable": true
+            },
+            "measureline": {
+                "enable": true,
+                "unit": 1
+            },
+            "measurearea": {
+                "enable": true,
+                "unit": 1
+            },
+            "importexport": {
+                "enable": true
+            }
+        },
+        "toolbarnav": {
+            "enable": true,
+            "expand": false,
+            "pos": 2,
+            "mapwkid": 3978,
+            "geolocation": {
+                "enable": true,
+                "graphic": true,
+                "info": true
+            },
+            "scaledisplay": {
+                "enable": true,
+                "format": 1
+            },
+            "overview": {
+                "enable": true,
+                "url": "",
+                "type": 2
+            },
+            "position": {
+                "enable": true
+            }
+        },
+        "toolbardata": {
+            "enable": true,
+            "expand": false,
+            "pos": 3,
+            "datafile": {
+                "enable": true
+            },
+            "dataurl": {
+                "enable": true
+            },
+            "dataquery": {
+                "enable": true
+            }
+        },
+        "toolbarextract": {
+            "enable": false,
+            "expand": false,
+            "pos": -1,
+            "grid": {
+                "enable": false,
+                "id": "0"
+            },
+            "items": []
+        },
+        "insetframe": {
+            "enable": false
+        },
+        "customwidgets": []
+    }
+}

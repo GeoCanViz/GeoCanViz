@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <style type="text/css" media="print">
+            @page
+            {
+                size: landscape;
+                margin: 2cm;
+            }
+        </style>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="../gcviz-min.css">
+        <script>
+            $(document).ready(function(){
+                var doc = window.document;
+                    map = doc.getElementById('gcviz-print'),
+                    title = doc.getElementById('gcviz-title');
+
+                // set nodes
+                map.src = localStorage.gcvizPrintNode;
+                title.innerHTML = localStorage.gcvizTitle;
+
+                // clean
+                localStorage.removeItem('gcvizPrintNode');
+                localStorage.removeItem('gcvizTitle');
+
+                // wait the page finish the refresh
+                setTimeout(function() {
+                    window.print();
+                }, 1000);
+            });
+        </script>
+    </head>
+    <body style="height: 8in; width: 10.5in;">
+        <span id="gcviz-title" style="margin-left: 50px; display: block; font-size: 20px; font-weight: bold; position: absolute; z-index: 2"></span>
+        <img id="gcviz-print" style="z-index: 1; position: absolute; top: 0px"></img>
+        <div id="gcviz-copy" style="position: absolute; bottom: 0px; z-index: 2">
+            <object data="../images/nrcan_fip_f.svg" type="image/svg+xml" style="display: inline-block;">
+                <img src="../images/NRCanF.jpeg" />
+            </object>
+            <p style="font-family:Sans-Serif; font-size:11px; display: inline-block; margin-left: 30px; vertical-align: super;">&#169; Sa Majest&#233; la Reine du chef du Canada, repr&#233;sent&#233;e par le ministre de Ressources naturelles Canada, <script>document.write(new Date().getFullYear())</script>.<br>&#169; Her Majesty the Queen in Right of Canada, as represented by the Minister of Natural Resources, <script>document.write(new Date().getFullYear())</script>.</p>
+            <object data="../images/Canada.svg" type="image/svg+xml" style="display: inline-block;height: 20px; margin-left: 20px; vertical-align: super;">
+                <img src="../images/Canada.png" />
+            </object>
+        </div>
+    </body>
+</html>

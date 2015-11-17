@@ -16,9 +16,9 @@ Global sys value#%gisurlalti#http://geogratis.gc.ca/services/elevation/cdem/alti
 #%linkopens#This link opens in a new browser window, browser tab or is downloaded, depending on your setting.#Ce lien s'ouvre dans une nouvelle fenêtre, onglet du navigateur ou est téléchargé, selon vos réglages.
 #%of#of#de
 #%west#W#O
-#%lat#Latitude: #Latitude : 
-#%long#Longitude: #Longitude : 
-#%position#Position: #Position : 
+#%lat#Latitude: #Latitude :
+#%long#Longitude: #Longitude :
+#%position#Position: #Position :
 #%alt-radio#Radio button#Bouton radio
 #%alt-chk#Checbox#Case à cocher
 #%alt-slider#Transparency slider#Curseur de transparence
@@ -29,8 +29,8 @@ Global sys value#%gisurlalti#http://geogratis.gc.ca/services/elevation/cdem/alti
 #%wcag-instrtitlealt#Instructions: Keyboard Navigation - Help#Instruction : Naviguer dans la carte à l'aide du clavier - aide
 #%wcag-instr#Keyboard user: When the map is in focus, use the arrow keys to pan the map and the shift+plus and shift+minus keys to zoom. Setup your keyboard to control the mouse or enable the accessibility mode to have coordinates input box.#Utilisateur du clavier : Lorsque la carte a l'attention, utiliser les touches flèches pour déplacer la carte et utiliser les touches shift+plus et shift+négatif pour faire un zoom. Configurer votre clavier pour contrôler la souris ou activer le mode accessibilité afin d'avoir les boîtes d'entrée pour les coordonnées.
 #%wcag-lblenable#Enable accessibility mode#Activer le mode accessibilité
-#%wcag-xlong#Longitude West (x): #Longitude ouest (x) : 
-#%wcag-ylat#Latitude North (y): #Latitude nord (y) : 
+#%wcag-xlong#Longitude West (x): #Longitude ouest (x) :
+#%wcag-ylat#Latitude North (y): #Latitude nord (y) :
 #%wcag-title#Accessibility mode coordinates input#Entrée des coordonnées en mode accessibilité
 #%wcag-msgx#Value needs to be between 50 and 140#La valeur doit être entre 40 et 150.
 #%wcag-msgy#Value needs to be between 40 and 80#La valeur doit être entre 40 et 80.
@@ -39,8 +39,8 @@ Global sys value#%gisurlalti#http://geogratis.gc.ca/services/elevation/cdem/alti
 #%map-tpzoomfull#Zoom to full extent#Zoom à l'étendue maximum
 #%map-tpzoom#Draw extent to zoom on the map#Dessiner l'étendue du zoom sur la carte
 #%header-tools#Menu#Menu
-#%header-abouttitle#about this map #À propos de cette carte 
-#%header-aboutread#Read #Lire 
+#%header-abouttitle#about this map #À propos de cette carte
+#%header-aboutread#Read #Lire
 #%header-tpabout#About this map#À propos de cette carte
 #%header-tpsaveurl#Save map URL#Sauvegarder l'URL de la carte
 #%header-tpsaveimage#Save map as image#Sauvegarder une image de la carte
@@ -48,17 +48,19 @@ Global sys value#%gisurlalti#http://geogratis.gc.ca/services/elevation/cdem/alti
 #%header-tpprint#Print map#Imprimer la carte
 #%header-tpinset#Show or hide insets#Afficher ou cacher les insertions
 #%header-tpfullscreen#Toggle between maximum and original map size#Basculer entre mode plein écran et régulier
+#%header-printforcescale#Force scale#Forcer l'échelle
 #%header-copyclip#To copy map URL to clipboard press CTRL+C keys or move your mouse over the text, press right click button then select “Copy”.#Pour copier l'URL au presse-papier, pressez les touches CTRL+C ou bien déplacez votre souris au-dessus du texte, cliquez sur le bouton de droite et sélectionnez « Copier ».
-#%header-printinfo#The Print tool will preserve the viewing scale. Move/zoom the portion of the map you would like to print inside the grey box then click OK. To preserve the viewing extent, use the “Save Map as Image” tool.#L'outil d'impression préserve l'échelle d'affichage. Déplacer / zoomer la partie de la carte que vous souhaitez imprimer à l'intérieur de la boîte grise puis cliquez sur OK. Pour préserver l'étendue de la carte, utilisez l'outil « Sauvegarder une image de la carte ».
+#%header-printinfoold#The Print tool will preserve the viewing scale. Move/zoom the portion of the map you would like to print inside the grey box then click OK. To preserve the viewing extent, use the “Save Map as Image” tool.#L'outil d'impression préserve l'échelle d'affichage. Déplacer / zoomer la partie de la carte que vous souhaitez imprimer à l'intérieur de la boîte grise puis cliquez sur OK. Pour préserver l'étendue de la carte, utilisez l'outil « Sauvegarder une image de la carte ».
+#%header-printinfo#The Print tool can preserve the viewing scale or the view extent. To preserve the viewing scale, check the checkbox below. After you click Ok, wait a few seconds for the print page to open.#L'outil d'impression peut préserver l'échelle d'affichage ou l'étendue de la vue. Pour préserver l'échelle, cochez la case ci-dessous. Après avoir appuyé sur « Ok », veuillez attendre quelques secondes avant que la page d'impression ne s'ouvre.
 #%print-dialogtitle#Print#Imprimer
 #%print-dialogtemplate#Template#Gabarit
 #%print-dialogParameters#Parameters#Paramètres
 #%print-dialogScaleExtent#Map scale/Extent#Échele de la carte/Étendue
-#%print-dialogPreserve#Preserve: #Préserver : 
+#%print-dialogPreserve#Preserve: #Préserver :
 #%print-dialogMapScale#Map Scale#MÉchele de la carte
 #%print-dialogMapExtent#Map Extent#Étendue de la carte
 #%print-dialogDPI#DPI#PPP
-#%print-dialogForceScale#Force scale: #Forcer l'échele : 
+#%print-dialogForceScale#Force scale: #Forcer l'échelle :
 #%print-dialogLayout#Layout#Disposition
 #%print-dialogNoTemplates#No Templates Found#Gabarits non trouvés
 #%footer-tpgithub#Get GeoCanViz on GitHub#Obtenir GéoCanViz de GitHub
@@ -72,8 +74,8 @@ Global sys value#%gisurlalti#http://geogratis.gc.ca/services/elevation/cdem/alti
 #%datagrid-info#Showing _START_ to _END_ of _TOTAL_#Affichage de _START_ à _END_ sur _TOTAL_
 #%datagrid-infoEmpty#Showing 0 to 0 of 0#Affichage de 0 à 0 sur 0
 #%datagrid-infoFiltered#(filtered from _MAX_)#(filtré de _MAX_)
-#%datagrid-infoThousands#,#
-#%datagrid-infoPostFix# # 
+#%datagrid-infoThousands#,# #
+#%datagrid-infoPostFix# # #
 #%datagrid-loadingRecords#Loading...#Chargement en cours...
 #%datagrid-zeroRecords#No matching records found#Aucun élément à afficher
 #%datagrid-emptyTable#No data available in table#Aucune donnée disponible dans le tableau
@@ -121,9 +123,9 @@ Global sys value#%gisurlalti#http://geogratis.gc.ca/services/elevation/cdem/alti
 #%toolbardraw-tpredo#Redo last operation#Refaire la dernière opération
 #%toolbardraw-tpimport#Import annotations#Importer des annotations
 #%toolbardraw-tpexport#Export annotations#Exporter des annotations
-#%toolbardraw-dist#Total Length: #Longueur totale : 
-#%toolbardraw-seg#Segment: #Segment : 
-#%toolbardraw-area#Area: #Aire : 
+#%toolbardraw-dist#Total Length: #Longueur totale :
+#%toolbardraw-seg#Segment: #Segment :
+#%toolbardraw-area#Area: #Aire :
 #%toolbardraw-lbllengthdisplay#Draw values on map#Dessiner les valeurs sur la carte
 #%toolbardraw-lblselcolor#Select a colour#Selectionner une couleur
 #%toolbardraw-lblmeasfull#Measure a path / Area#Mesurer ligne / surface
@@ -149,23 +151,23 @@ Global sys value#%gisurlalti#http://geogratis.gc.ca/services/elevation/cdem/alti
 #%toolbarnav-mapinfogrp#Map Information#Information sur la carte
 #%toolbarnav-lblinfo#Get coordinates from map#Obtenir les coordonnées de la carte
 #%toolbarnav-info#Map location information#Information de localisation sur la carte
-#%toolbarnav-infotopocoord#Geographic Coordinates#Coordonnées géographiques 
+#%toolbarnav-infotopocoord#Geographic Coordinates#Coordonnées géographiques
 #%toolbarnav-infodecdeg#Degrees Decimal#Degrés décimaux
 #%toolbarnav-infodms#Degrees Minutes Seconds (DMS)#Degrés minutes secondes (DMS)
 #%toolbarnav-infoutm#UTM Coordinates#Coordonnées UTM
 #%toolbarnav-infoutmeast#Easting:#Abscisse :
 #%toolbarnav-infoutmnorth#Northing:#Ordonnée :
-#%toolbarnav-infoutmz#Zone: #Zone : 
+#%toolbarnav-infoutmz#Zone: #Zone :
 #%toolbarnav-infonts#NTS Mapsheet#Carte du SNRC
 #%toolbarnav-infoaltitude#Elevation#Élévation
 #%toolbarnav-lblov#Overview Map#Carte de vue d'ensemble
 #%toolbarnav-lblovdisplay#Show on map#Afficher sur la carte
 #%toolbarnav-ovdrag#Drag to change map extent#Glisser pour changer l'étendue de la carte
-#%toolbarnav-scale#Approximate Scale #Échelle approximative 
+#%toolbarnav-scale#Approximate Scale #Échelle approximative
 #%toolbarnav-scalepre#1:#1/
-#%toolbarnav-zoomscalemin#You are trying to set map scale below minimum zoom level. The map scale is #Vous essayez de définir l'échelle de la carte en dessous du niveau de zoom minimum. L'échelle de la carte est 
-#%toolbarnav-zoomscalemax#You are trying to set map scale above maximum zoom level. The map scale is #Vous essayez de définir l'échelle de la carte au dessus du niveau de zoom maximum. L'échelle de la carte est 
-#%toolbarnav-zoomscale#You are trying to set map scale between zoom levels. The map scale is #Vous essayez de définir l'échelle de la carte entre les niveaux de zoom. L'échelle de la carte est 
+#%toolbarnav-zoomscalemin#You are trying to set map scale below minimum zoom level. The map scale is #Vous essayez de définir l'échelle de la carte en dessous du niveau de zoom minimum. L'échelle de la carte est
+#%toolbarnav-zoomscalemax#You are trying to set map scale above maximum zoom level. The map scale is #Vous essayez de définir l'échelle de la carte au dessus du niveau de zoom maximum. L'échelle de la carte est
+#%toolbarnav-zoomscale#You are trying to set map scale between zoom levels. The map scale is #Vous essayez de définir l'échelle de la carte entre les niveaux de zoom. L'échelle de la carte est
 #%toolbarnav-zoomscaledyna#Map scale = #L'échelle de la carte =
 #%toolbardata-alt#Import Data - Help#Importer des données - Aide
 #%toolbardata-name#Import Data#Importer des données
@@ -173,7 +175,7 @@ Global sys value#%gisurlalti#http://geogratis.gc.ca/services/elevation/cdem/alti
 #%toolbardata-lbladdcsv#Import points in CSV format#Importer des points en format CSV
 #%toolbardata-lbladdurl#Import from the web#Importer de la toile
 #%toolbardata-lbladdparamdesc#The map you are trying to load contains a link to a local file. If you have this file and wants to add it, click on the button below. Otherwise click “Ok”.#L'URL que vous essayez de charger contient lien vers un fichier local. Si vous cavez ce fichier et vous désirez l'ajouter, cliquez sur le bouton ci-dessous. Sinon, cliquez sur « Ok ».
-#%toolbardata-lbladdparam#File to import: #Fichier à importer : 
+#%toolbardata-lbladdparam#File to import: #Fichier à importer :
 #%toolbardata-lbladdurldesc1#Specify the URL of the data to import from the web. Supported formats include:#Spécifiez l'URL de la donnée à importer de la toile. Les formats supportés sont:
 #%toolbardata-lbladdurldesc2#- KML (e.g. http//my.web.server/myfolder/myfile.kml)#- KML (ex: http//mon.serveur.web/monrepertoire/monfichier.kml)
 #%toolbardata-lbladdurldesc3#- ArcGIS REST “feature layer” (e.g. http//my.web.server/arcgis/rest/services/myservice/0)#- ArcGIS REST « feature layer » (ex: http//mon.serveur.web/arcgis/rest/services/monservice/0)
@@ -186,7 +188,7 @@ Global sys value#%gisurlalti#http://geogratis.gc.ca/services/elevation/cdem/alti
 #%toolbardata-err1#There must be a field for y coordinates (latitude, lat, y or ycenter), and a field for x coordinates (longitude, long, x or xcenter).#Il doit y avoir un champ (latitude, lat, y ou ycenter) pour les coordonnées y et un champ (longitude, long, x ou xcenter) pour les coordonnées x.
 #%toolbardata-err2#Unable to determine the field separator. It should be one of these characters (, ; |).#Incapable de déterminer le séparateur. Il devrait être l'un des caractères suivants : (, ; |).
 #%toolbardata-err3#Presence of element(s) with invalid latitude and/or longitude.#Présence d'élément(s) dont les valeurs de latitude et/ou de longitude sont invalides.
-#%toolbardata-err4#Error fetching items from CSV file: #Erreur de récupération des items du fichier CSV : 
+#%toolbardata-err4#Error fetching items from CSV file: #Erreur de récupération des items du fichier CSV :
 #%toolbardata-errurl#Wrong URL format.#Mauvais format d'URL.
 #%toolbardata-errload#Unable to add: XXX. File not found, wrong URL or out of memory#Impossible d'ajouter : XXX. Fichier non trouvé, mauvaise URL ou manque de mémoire.
 #%toolbardata-errformat#Unable to recognize format or format not supported.#Impossible de reconnaître le format ou format non supporté.
@@ -325,8 +327,8 @@ Global sys value#%gisurlalti#http://geogratis.gc.ca/services/elevation/cdem/alti
 #%help-extract-link#The url link option use the map extent.#L'option lien URL utilise l'étendue de la carte.
 #%help-extract-desc2#As you zoom in and out, options may activate or deactivate based on your current map extent. The desired information is displayed in a new browser window. For the tool to function properly, you need to configure your browser to allow pop-up windows.#Quand vous faites un zoom avant ou arrière, les options s’activent ou se désactivent en fonction de l’étendue de la carte. L’information sera affichée dans une nouvelle fenêtre du navigateur. Pour que cet outil fonctionne correctement, vous devez configurer votre navigateur pour permettre les fenêtres contextuelles « pop-up windows ».
 #%help-datagrid-title#Data Table#Tableau des données
-#%help-datagrid-desc1#Like all GCViz widgets, the data table is an optional component.#Comme tous les widgets GCViz, la table de données est une composante optionnelle. 
-#%help-datagrid-desc2#When present, you will find a table icon in the footer of the application. It has a dual function to both open and close the table. Initializing the application when using data tables can take a little longer than usual; therefore, you will see a message to that effect when starting the application.#Lorsqu’elle est présente, vous trouverez une icône de tables au bas de la page de l’application. Elle a une double fonction; ouvrir et fermer la table. L’initialisation de l'application lorsqu’on utilise des tables de données peut prendre un peu plus de temps que d'habitude; par conséquent, vous verrez un message à cet effet lors du démarrage de l'application. 
+#%help-datagrid-desc1#Like all GCViz widgets, the data table is an optional component.#Comme tous les widgets GCViz, la table de données est une composante optionnelle.
+#%help-datagrid-desc2#When present, you will find a table icon in the footer of the application. It has a dual function to both open and close the table. Initializing the application when using data tables can take a little longer than usual; therefore, you will see a message to that effect when starting the application.#Lorsqu’elle est présente, vous trouverez une icône de tables au bas de la page de l’application. Elle a une double fonction; ouvrir et fermer la table. L’initialisation de l'application lorsqu’on utilise des tables de données peut prendre un peu plus de temps que d'habitude; par conséquent, vous verrez un message à cet effet lors du démarrage de l'application.
 #%help-datagrid-desc3#Accessible layer data is presented in a data table. Each layer will be associated to a tab containing its data table. Each table can show up to 50 rows of data per page. If your data has more than 50 rows, a paging mechanism is available. If your data contains large text fields, only the first 40 characters are shown followed by an ellipsis (…). If you hover over this field with your mouse, or bring focus to this field with your keyboard, you will see the whole text as a tooltip.#Les couches de données accessibles sont présentées dans une table de données. Chaque couche sera associée à un onglet contenant sa table de données. Chaque table peut afficher jusqu'à 50 lignes par page. Si la table de données a plus de 50 lignes, un mécanisme de pagination est disponible. Si les champs de texte ont plus de 40 caractères, seuls les 40 premiers caractères seront affichés suivis des points de suspension (…). Si vous faites glisser la souris sur ce champ, ou le sélectionner à l’aide de votre clavier, vous verrez le texte complet dans une infobulle.
 #%help-datagrid-desc4#Above the data table, you get feedback on the number of features in the layer: Showing 1 to 50 of 212#Au-dessus de la table de données, vous obtenez de la rétroaction du nombre d’entités dans la couche : Affichage de 1 à 50 sur 212.
 #%help-datagrid-desc5#When you start filtering the data or selecting data from the map, you will get more feedback: Showing 1 to 15 of 15 (filtered from 212).#Quand vous démarrez le filtrage ou la sélection de données à partir de la carte, vous obtiendrez plus de rétroaction : Affichage de 1 à 15 sur 15 (filtré de 212).
@@ -338,7 +340,7 @@ Global sys value#%gisurlalti#http://geogratis.gc.ca/services/elevation/cdem/alti
 #%help-datagrid-filterdesc#There are many ways to filter the data in the table. Filters can also be combined (e.g. a date range filter and a spatial filter). If you want to combine a spatial filter and a table filter, you probably want to start with the spatial filter, because there is the possibility to end up with an empty table. This can happen if your spatial filter does not contain any features in an already filtered table. If this happens, you can remove you table filter to see the results of your spatial filter.#Il existe de nombreuses façons de filtrer la table de données. Les filtres peuvent également être combinés (par exemple, un filtre d’intervalle de date et un filtre spatial). Si vous voulez combiner un filtre spatial et un filtre de la table de données, vous voudrez probablement commencer par le filtre spatial, parce qu’il y a une possibilité de se retrouver avec une table vide. Cela peut se produire si votre filtre spatial ne contient pas d’entité dans une table déjà filtrée. Si cela se produit, vous pouvez enlever le filtre de la table pour voir les résultats de votre filtre spatial.
 #%help-datagrid-filterclear#You can reset a filter by removing its value in the input field for that column. To reset all filters including removing a spatial filter, use the “Clear filters” button. This unselects all rows as well.#Vous pouvez réinitialiser le filtre en enlevant sa valeur dans le champ de saisie pour cette colonne. Pour réinitialiser tous les filtres, y compris la suppression d’un filtre spatial, utilisez le bouton « Effacer les filtres ». Cela désélectionne également de toutes les lignes.
 #%help-datagrid-filtertypedesc#The author can also enable search by column. A column is searchable if you have an input field below the title for that column in the header. There are 4 types of searchable fields:#L’usager peut aussi chercher par colonne. Une colonne est interrogeable si vous avez un champ de saisie sous le titre de l’entête de la colonne. Il y a 4 types de champs interrogeables :
-#%help-datagrid-filtertypestring#String search field. Use wildcard character * to replace any sequence of zero or more characters (e.g. *levo* will find Charlevoix). Remark, if you do not use the wildcard character, the search will only find items where the word you are searching is the first one in the sentence.#Champ de saisie de type caractère. Utilisez le caractère générique * pour remplacer une séquence de zéro ou plusieurs caractères (par exemple, *levo* va trouver Charlevoix). Remarque, si vous n'utilisez pas le caractère générique, la recherche ne fera que trouver les éléments où le mot que vous cherchez est le premier dans la phrase. 
+#%help-datagrid-filtertypestring#String search field. Use wildcard character * to replace any sequence of zero or more characters (e.g. *levo* will find Charlevoix). Remark, if you do not use the wildcard character, the search will only find items where the word you are searching is the first one in the sentence.#Champ de saisie de type caractère. Utilisez le caractère générique * pour remplacer une séquence de zéro ou plusieurs caractères (par exemple, *levo* va trouver Charlevoix). Remarque, si vous n'utilisez pas le caractère générique, la recherche ne fera que trouver les éléments où le mot que vous cherchez est le premier dans la phrase.
 #%help-datagrid-filtertypenum#Numeric range filter.#Filtre d’intervalle de type numérique.
 #%help-datagrid-filtertypeselect#Drop down menu to select an item.#Menu déroulant pour sélectionner un élément.
 #%help-datagrid-filtertypedate#Date range filter and uses a calendar widget to select a date.#Filtre d’intervalle de date et utilise un widget calendrier pour sélectionner une date.
