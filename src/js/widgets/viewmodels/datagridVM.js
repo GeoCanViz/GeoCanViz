@@ -230,7 +230,8 @@
                         url = mapVM.getLayerURL(mapid, id),
                         popup = layer.popups,
                         fields = layer.fields,
-                        fieldsLen = fields.length;
+                        fieldsLen = fields.length,
+                        staticFile = layer.staticfile;
 
                     // set position in the array too be able to create unique id later
                     layerInfo.pos = pos;
@@ -259,9 +260,15 @@
                     }
 
                     if (type === 4) {
-                        // datatable (dynamic layer, need layer index to select one layer in the dynamic service)
-                        urlFull = url + layerIndex + '/query?where=OBJECTID+>+0&outFields=' + strField + '&dirty=' + (new Date()).getTime();
-                        gisDG.getData(mapid, urlFull, layer, _self.createTab);
+                        // check if we load the data from the server or from a static file. From static file
+                        // can be use to speed up the process. The application doesnt have to call the server.
+                        if (typeof staticFile === 'undefined' || staticFile === '') {
+                            // datatable (dynamic layer, need layer index to select one layer in the dynamic service)
+                            urlFull = url + layerIndex + '/query?where=OBJECTID+>+0&outFields=' + strField + '&dirty=' + (new Date()).getTime();
+                            gisDG.getData(mapid, urlFull, layer, _self.createTab);
+                        } else {
+                            gisDG.getStaticData(mapid, staticFile, layer, _self.createTab)
+                        }
 
                         // popup
                         if (popup.enable) {
@@ -271,9 +278,15 @@
                             lookPopups.push([popup.layeralias, layer.title]);
                         }
                     } else if (type === 5) {
-                        // datatable (feature layer)
-                        urlFull = url + '/query?where=OBJECTID+>+0&outFields=' + strField + '&dirty=' + (new Date()).getTime();
-                        gisDG.getData(mapid, urlFull, layer, _self.createTab);
+                        // check if we load the data from the server or from a static file. From static file
+                        // can be use to speed up the process. The application doesnt have to call the server.
+                        if (typeof staticFile === 'undefined' || staticFile === '') {
+                            // datatable (feature layer)
+                            urlFull = url + '/query?where=OBJECTID+>+0&outFields=' + strField + '&dirty=' + (new Date()).getTime();
+                            gisDG.getData(mapid, urlFull, layer, _self.createTab);
+                        } else {
+                            gisDG.getStaticData(mapid, staticFile, layer, _self.createTab)
+                        }
 
                         // popup (remove layer index)
                         if (popup.enable) {
@@ -1014,13 +1027,18 @@
                             // increment count clicks
                             clicks++;
 
+                            // perform single-click action
+                            if (target.localName === 'td') {
+                                checkbox = $viz(target.parentNode).find('.gcviz-dg-select')[0];
+                            } else {
+                                checkbox = $viz(target.parentNode.parentNode.parentNode).find('.gcviz-dg-select')[0];
+                            }
+
                             if (clicks === 1) {
                                 timer = setTimeout(function() {
-                                    // perform single-click action
-                                    checkbox = $viz(target.parentNode).find('.gcviz-dg-select')[0];
 
                                     // get the id from the table
-                                    info = _self.getInfo(target, 'row');
+                                    info = _self.getInfo(checkbox, 'row');
 
                                     // select or unselect feature on map
                                     // check or uncheck select then select feature on map
@@ -1040,7 +1058,7 @@
 
                                 // perform double-click action
                                 // get the id from the table
-                                info = _self.getInfo(target, 'row');
+                                info = _self.getInfo(checkbox, 'row');
 
                                 // zoom to feature
                                 _self.zoom(info);
@@ -1112,13 +1130,8 @@
                 };
 
                 _self.getInfo = function(target, type) {
-                    var objInfo, str, info;
-
-                    if (type === 'row') {
-                        str = target.parentElement.id;
-                    } else if (type === 'control') {
+                    var objInfo, info,
                         str = target.parentElement.parentElement.id;
-                    }
 
                     info = str.split('-');
 
