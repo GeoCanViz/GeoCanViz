@@ -147,8 +147,9 @@
                     });
                     $viz('.ui-accordion-header').hide();
 
-                    // wait for the map to load
-                    mapVM.registerEvent(mapid, 'load', _self.onLoadMap);
+                    // call mapVM to check if map is loaded, if not wait for the map to load
+                    // this will start the datagrid process
+                    mapVM.startDatagrid(mapid, _self.onLoadMap);
                 };
 
                 _self.onLoadMap = function(evt) {
@@ -1028,11 +1029,7 @@
                             clicks++;
 
                             // perform single-click action
-                            if (target.localName === 'td') {
-                                checkbox = $viz(target.parentNode).find('.gcviz-dg-select')[0];
-                            } else {
-                                checkbox = $viz(target.parentNode.parentNode.parentNode).find('.gcviz-dg-select')[0];
-                            }
+                            checkbox = $(target).closest('tr').find('.gcviz-dg-select')[0];
 
                             if (clicks === 1) {
                                 timer = setTimeout(function() {

@@ -61,6 +61,7 @@
             printBasic,
             printCustom,
             manageScreenState,
+            startDatagrid,
             maps = [],
             vm = {};
 
@@ -703,6 +704,18 @@
             }
         };
 
+        startDatagrid = function (mapid, funct) {
+            var map = vm[mapid].map,
+                loaded = map.loaded,
+                evt = { map: map };
+
+            if (loaded) {
+                funct(evt);
+            } else {
+                registerEvent(mapid, 'load', funct);
+            }
+        };
+
         return {
             initialize: initialize,
             setScaleBar: setScaleBar,
@@ -745,7 +758,8 @@
             printBasic: printBasic,
             printCustom: printCustom,
             manageScreenState: manageScreenState,
-            disableZoomExtent: disableZoomExtent
+            disableZoomExtent: disableZoomExtent,
+            startDatagrid: startDatagrid
         };
     });
 }).call(this);
