@@ -1247,12 +1247,10 @@
                     for (var field in row) {
                         if (row.hasOwnProperty(field)) {
                             // skip internal field
-                            if (field !== 'gcvizid' && field !== 'layerid' && field !== 'geometry' && field.indexOf('OBJECTID') === -1) {
+                            if (field !== 'gcvizid' && field !== 'layerid' && field !== 'geometry' && field !== 'gcvizspatial' && field !== 'gcvizcheck' && field.indexOf('OBJECTID') === -1) {
                                 fields.unshift(field);
                                 header = '"' + field + '",' + header;
                                 gcvizInd++;
-                            } else {
-                                break;
                             }
                         }
                     }

@@ -311,7 +311,7 @@
         };
 
         closeGetData = function(mapid, data, layer, success) {
-            var feat,
+            var feat, wkidData,
                 i = 0,
                 len = data.length,
                 features = new Array(len),
@@ -322,10 +322,17 @@
             // data toolbar
             layer.mapid = mapid;
 
+            // get spatial reference (if it is a polygone it is a level lower)
+            if (item.spatialReference.wkid !== null) {
+                wkidData = item.spatialReference.wkid;
+            } else {
+                wkidData = item.spatialReference.spatialReference.wkid;
+            }
+
             // check if we need to reproject geometries
             // add layer info to first element. This way we will be able to get back to it
             // after the reprojection.
-            if (mapWkid !== item.spatialReference.wkid) {
+            if (mapWkid !== wkidData) {
                 item.attributes.layer = layer;
                 gisGeo.projectGeoms(data, mapWkid, success);
             } else {
