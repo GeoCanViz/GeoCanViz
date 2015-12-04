@@ -147,8 +147,9 @@
                     });
                     $viz('.ui-accordion-header').hide();
 
-                    // wait for the map to load
-                    mapVM.registerEvent(mapid, 'load', _self.onLoadMap);
+                    // call mapVM to check if map is loaded, if not wait for the map to load
+                    // this will start the datagrid process
+                    mapVM.startDatagrid(mapid, _self.onLoadMap);
                 };
 
                 _self.onLoadMap = function(evt) {
@@ -230,7 +231,8 @@
                         url = mapVM.getLayerURL(mapid, id),
                         popup = layer.popups,
                         fields = layer.fields,
-                        fieldsLen = fields.length;
+                        fieldsLen = fields.length,
+                        staticFile = layer.staticfile;
 
                     // set position in the array too be able to create unique id later
                     layerInfo.pos = pos;
@@ -259,9 +261,15 @@
                     }
 
                     if (type === 4) {
-                        // datatable (dynamic layer, need layer index to select one layer in the dynamic service)
-                        urlFull = url + layerIndex + '/query?where=OBJECTID+>+0&outFields=' + strField + '&dirty=' + (new Date()).getTime();
-                        gisDG.getData(mapid, urlFull, layer, _self.createTab);
+                        // check if we load the data from the server or from a static file. From static file
+                        // can be use to speed up the process. The application doesnt have to call the server.
+                        if (typeof staticFile === 'undefined' || staticFile === '') {
+                            // datatable (dynamic layer, need layer index to select one layer in the dynamic service)
+                            urlFull = url + layerIndex + '/query?where=OBJECTID+>+0&outFields=' + strField + '&dirty=' + (new Date()).getTime();
+                            gisDG.getData(mapid, urlFull, layer, _self.createTab);
+                        } else {
+                            gisDG.getStaticData(mapid, staticFile, layer, _self.createTab)
+                        }
 
                         // popup
                         if (popup.enable) {
@@ -271,9 +279,15 @@
                             lookPopups.push([popup.layeralias, layer.title]);
                         }
                     } else if (type === 5) {
-                        // datatable (feature layer)
-                        urlFull = url + '/query?where=OBJECTID+>+0&outFields=' + strField + '&dirty=' + (new Date()).getTime();
-                        gisDG.getData(mapid, urlFull, layer, _self.createTab);
+                        // check if we load the data from the server or from a static file. From static file
+                        // can be use to speed up the process. The application doesnt have to call the server.
+                        if (typeof staticFile === 'undefined' || staticFile === '') {
+                            // datatable (feature layer)
+                            urlFull = url + '/query?where=OBJECTID+>+0&outFields=' + strField + '&dirty=' + (new Date()).getTime();
+                            gisDG.getData(mapid, urlFull, layer, _self.createTab);
+                        } else {
+                            gisDG.getStaticData(mapid, staticFile, layer, _self.createTab)
+                        }
 
                         // popup (remove layer index)
                         if (popup.enable) {
@@ -1014,13 +1028,14 @@
                             // increment count clicks
                             clicks++;
 
+                            // perform single-click action
+                            checkbox = $(target).closest('tr').find('.gcviz-dg-select')[0];
+
                             if (clicks === 1) {
                                 timer = setTimeout(function() {
-                                    // perform single-click action
-                                    checkbox = $viz(target.parentNode).find('.gcviz-dg-select')[0];
 
                                     // get the id from the table
-                                    info = _self.getInfo(target, 'row');
+                                    info = _self.getInfo(checkbox, 'row');
 
                                     // select or unselect feature on map
                                     // check or uncheck select then select feature on map
@@ -1040,7 +1055,7 @@
 
                                 // perform double-click action
                                 // get the id from the table
-                                info = _self.getInfo(target, 'row');
+                                info = _self.getInfo(checkbox, 'row');
 
                                 // zoom to feature
                                 _self.zoom(info);
@@ -1112,13 +1127,8 @@
                 };
 
                 _self.getInfo = function(target, type) {
-                    var objInfo, str, info;
-
-                    if (type === 'row') {
-                        str = target.parentElement.id;
-                    } else if (type === 'control') {
+                    var objInfo, info,
                         str = target.parentElement.parentElement.id;
-                    }
 
                     info = str.split('-');
 
@@ -1218,6 +1228,7 @@
 
                 _self.exportCSV = function(data) {
                     var row, line, fieldsLen, j, content,
+                        csvData, csvUrl, link,
                         i = 0,
                         gcvizInd = 0,
                         fields = [],
@@ -1226,23 +1237,15 @@
                         rtnCarr = String.fromCharCode(13),
                         dataLen = data.length;
 
-                    // show info window only there is a huge amount of data to process
-                    if (dataLen > 2000) {
-                        // show info window
-                        _self.isExport(true);
-                    }
-
                     // get the row title
                     row = data[0];
                     for (var field in row) {
                         if (row.hasOwnProperty(field)) {
                             // skip internal field
-                            if (field !== 'gcvizid' && field !== 'layerid' && field !== 'geometry' && field.indexOf('OBJECTID') === -1) {
+                            if (field !== 'gcvizid' && field !== 'layerid' && field !== 'geometry' && field !== 'gcvizspatial' && field !== 'gcvizcheck' && field.indexOf('OBJECTID') === -1) {
                                 fields.unshift(field);
                                 header = '"' + field + '",' + header;
                                 gcvizInd++;
-                            } else {
-                                break;
                             }
                         }
                     }
@@ -1270,12 +1273,36 @@
                         i++;
                     }
 
-                    $viz.generateFile({
-                        filename	: 'exportCSV.csv',
-                        filetype		: 'text/csv',
-                        content		: output,
-                        script		: config.urldownload
-                    });
+                    // generate blob and create url
+                    csvData = new Blob([output], { type: 'text/csv', endings: 'native' });
+                    csvUrl = URL.createObjectURL(csvData);
+
+                    // custom download file name
+                    if (navigator.msSaveBlob) { // IE 10+
+                        navigator.msSaveBlob(csvData, 'exportCSV.csv')
+                    } else {
+                        link = document.createElement('a');
+
+                        if (typeof link.download != 'undefined')
+                        {
+                            link.setAttribute('href', csvUrl);
+                            link.setAttribute('download', 'exportCSV.csv');
+                            document.body.appendChild(link) // for FF
+                            link.click(); // This will download the data
+                        }
+                        else
+                        {
+                            window.open(csvUrl, "UTF-8 Text");
+                        }
+                    }
+
+                    // deprecated... too hard on the server for large export
+                    //                    $viz.generateFile({
+                    //                        filename	: 'exportCSV.csv',
+                    //                        filetype		: 'text/csv',
+                    //                        content		: output,
+                    //                        script		: config.urldownload
+                    //                    });
                 };
 
                 _self.dialogExportOk = function() {

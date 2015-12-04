@@ -20,10 +20,10 @@
                     "ymax": 4323002.50671
                 },
                 "extentinit": {
-                    "xmin": -3657511.73306,
-                    "ymin": -590319.81993,
-                    "xmax": 3486252.55447,
-                    "ymax": 4172189.70508
+                    "xmin": -4882725.5168,
+                    "ymin": -841674.48931,
+                    "xmax": 10992306.2332,
+                    "ymax": 4450002.76071
                 },
                 "lods": {
                     "enable": true,
@@ -244,6 +244,7 @@
             "enable": true,
             "expand": true,
             "layers": [{
+                "staticfile": "http://localhost:8888/GitHub/geochronAll.json",
                 "layerinfo": {
                     "type": 4,
                     "index": 0,
@@ -263,7 +264,7 @@
                         "value": 1
                     }
                 }, {
-                    "enable": false,
+                    "enable": true,
                     "title": "AGENO",
                     "width": "80px",
                     "data": "AGENO",
@@ -274,7 +275,7 @@
                         "value": 2
                     }
                 }, {
-                    "enable": false,
+                    "enable": true,
                     "title": "Last Updated",
                     "width": "90px",
                     "data": "LAST_UPDATED",
@@ -287,7 +288,7 @@
                         "outformat": 1
                     }
                 }, {
-                    "enable": false,
+                    "enable": true,
                     "title": "Lab No",
                     "width": "80px",
                     "data": "LABNO",
@@ -309,7 +310,7 @@
                         "value": 1
                     }
                 }, {
-                    "enable": false,
+                    "enable": true,
                     "title": "Location",
                     "width": "140px",
                     "data": "LOCATION",
@@ -320,7 +321,7 @@
                         "value": 1
                     }
                 }, {
-                    "enable": false,
+                    "enable": true,
                     "title": "Long. (NAD83)",
                     "width": "90px",
                     "data": "LONGITUDE",
@@ -331,7 +332,7 @@
                         "value": 2
                     }
                 }, {
-                    "enable": false,
+                    "enable": true,
                     "title": "Lat. (NAD83)",
                     "width": "80px",
                     "data": "LATITUDE",
@@ -354,7 +355,7 @@
                         "value": 4
                     }
                 }, {
-                    "enable": false,
+                    "enable": true,
                     "title": "Geological Info.",
                     "width": "140px",
                     "data": "GEOLOGICAL_INFO",
@@ -365,7 +366,7 @@
                         "value": 1
                     }
                 }, {
-                    "enable": false,
+                    "enable": true,
                     "title": "Rock Descr.",
                     "width": "140px",
                     "data": "ROCKDESC",
@@ -376,7 +377,7 @@
                         "value": 1
                     }
                 }, {
-                    "enable": false,
+                    "enable": true,
                     "title": "Age Note",
                     "width": "90px",
                     "data": "AGE_NOTE",
@@ -387,7 +388,7 @@
                         "value": 1
                     }
                 }, {
-                    "enable": false,
+                    "enable": true,
                     "title": "Qualifier",
                     "width": "70px",
                     "data": "AGE_QUALIFIER",
@@ -398,7 +399,7 @@
                         "value": 4
                     }
                 }, {
-                    "enable": false,
+                    "enable": true,
                     "title": "Technique",
                     "width": "75px",
                     "data": "AGE_TECHNIQUE",
@@ -409,7 +410,7 @@
                         "value": 4
                     }
                 }, {
-                    "enable": false,
+                    "enable": true,
                     "title": "Material",
                     "width": "140px",
                     "data": "AGE_MATERIAL",
@@ -420,7 +421,7 @@
                         "value": 4
                     }
                 }, {
-                    "enable": false,
+                    "enable": true,
                     "title": "Age Method",
                     "width": "60px",
                     "data": "AGE_METHOD",
@@ -431,7 +432,7 @@
                         "value": 4
                     }
                 }, {
-                    "enable": false,
+                    "enable": true,
                     "title": "Age Interpretation",
                     "width": "110px",
                     "data": "AGE_INTERP",
@@ -442,7 +443,7 @@
                         "value": 4
                     }
                 }, {
-                    "enable": false,
+                    "enable": true,
                     "title": "Error -",
                     "width": "65px",
                     "data": "ERR_MINUS",
@@ -453,7 +454,7 @@
                         "value": 2
                     }
                 }, {
-                    "enable": false,
+                    "enable": true,
                     "title": "Error +",
                     "width": "65px",
                     "data": "ERR_PLUS",
@@ -464,7 +465,7 @@
                         "value": 2
                     }
                 }, {
-                    "enable": false,
+                    "enable": true,
                     "title": "Age (Million years)",
                     "width": "100px",
                     "data": "AGE",
@@ -475,7 +476,7 @@
                         "value": 2
                     }
                 }, {
-                    "enable": false,
+                    "enable": true,
                     "title": "Rock Type",
                     "width": "115px",
                     "data": "ROCKTYPE",
@@ -486,7 +487,7 @@
                         "value": 4
                     }
                 }, {
-                    "enable": false,
+                    "enable": true,
                     "title": "Geological Province",
                     "width": "90px",
                     "data": "MAJGEOLUNIT",

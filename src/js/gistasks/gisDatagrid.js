@@ -32,7 +32,9 @@
             'gcviz-gissymbol'
     ], function($viz, gisMap, gisGeo, gcvizFunc, esriGraphLayer, esriFeatLayer, esriLine, esriFill, esriMarker, esriPoint, esriPoly, esriPolyline, esriSR, esriGraph, esriRequest, esriRelRequest, dojoDefList, esriIdTask, esriIdParams, esriQueryTsk, esriQuery) {
         var initialize,
+            getStaticData,
             getData,
+            loadData,
             getSelection,
             createDataArray,
             closeGetData,
@@ -106,6 +108,23 @@
             params[map.vIdName] = param;
         };
 
+        getStaticData = function(mapid, url, layer, success) {
+            var xmlhttp = new XMLHttpRequest()
+
+            xmlhttp.onreadystatechange = function() {
+                if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                    var response = JSON.parse(xmlhttp.responseText);
+                    // Timeout 250 for Firefox. If not, Datatable is not able to load
+                    // response is empty.
+                    setTimeout(function() {
+                        loadData(response, mapid, url, layer, success);
+                    }, 250);
+                }
+            };
+            xmlhttp.open("GET", url, true);
+            xmlhttp.send();
+        };
+
         getData = function(mapid, url, layer, success) {
             esriRequest({
                 url: url,
@@ -113,65 +132,69 @@
                 handleAs: 'json',
                 callbackParamName: 'callback',
                 load: function(response) {
-                    var relatedQuery, featLayer, field,
-                        fields = [],
-                        layerInfo = layer.layerinfo,
-                        linkFields, lenLinkFields, strLinkFields,
-                        oriFields = layer.fields,
-                        pos = layerInfo.pos,
-                        linkInfo = layer.linktable,
-                        id = layerInfo.id,
-                        sr = response.spatialReference,
-                        data = [],
-                        features = response.features,
-                        len = features.length,
-                        map = params[mapid].map,
-                        lenFields = oriFields.length;
-
-                    // remove fields if they are not enable
-                    while (lenFields--) {
-                        field = oriFields[lenFields];
-                        if (typeof field !== 'undefined') {
-                            if (field.enable || field.data === 'OBJECTID') {
-                                fields.push(oriFields[lenFields]);
-                            }
-                        }
-                    }
-
-                    // if there is a link table to retrieve info from, set it here.
-                    // it only work with feature layer who have a valid OBJECTID field
-                    if (linkInfo.enable) {
-                        // get the link field to query
-                        linkFields = linkInfo.fields;
-                        lenLinkFields = linkFields.length;
-
-                        strLinkFields = '';
-                        while (lenLinkFields--) {
-                            strLinkFields += linkFields[lenLinkFields].data + ',';
-                        }
-
-                        // create the query
-                        relatedQuery = new esriRelRequest();
-                        relatedQuery.outFields = [strLinkFields.slice(0, -1)];
-                        relatedQuery.relationshipId = linkInfo.relationshipid;
-                        relatedQuery.objectIds = gcvizFunc.getObjectIds(response.features);
-
-                        // query the link table
-                        featLayer = map.getLayer(id);
-                        featLayer.queryRelatedFeatures(relatedQuery, function(relatedRecords) {
-                            data = createDataArray(features, len, fields, sr, id, pos, relatedRecords);
-                            closeGetData(mapid, data, layer, success);
-
-                            // keep related records to be access later by popups
-                            setRelRecords(mapid, id, relatedRecords);
-                        });
-                    } else {
-                        data = createDataArray(features, len, fields, sr, id, pos);
-                        closeGetData(mapid, data, layer, success);
-                    }
+                    loadData(response, mapid, url, layer, success);
                 },
                 error: function(err) { console.log('datagrid error: ' + err); }
             });
+        };
+
+        loadData = function(response, mapid, url, layer, success) {
+            var relatedQuery, featLayer, field,
+                fields = [],
+                layerInfo = layer.layerinfo,
+                linkFields, lenLinkFields, strLinkFields,
+                oriFields = layer.fields,
+                pos = layerInfo.pos,
+                linkInfo = layer.linktable,
+                id = layerInfo.id,
+                sr = response.spatialReference,
+                data = [],
+                features = response.features,
+                len = features.length,
+                map = params[mapid].map,
+                lenFields = oriFields.length;
+
+            // remove fields if they are not enable
+            while (lenFields--) {
+                field = oriFields[lenFields];
+                if (typeof field !== 'undefined') {
+                    if (field.enable || field.data === 'OBJECTID') {
+                        fields.push(oriFields[lenFields]);
+                    }
+                }
+            }
+
+            // if there is a link table to retrieve info from, set it here.
+            // it only work with feature layer who have a valid OBJECTID field
+            if (linkInfo.enable) {
+                // get the link field to query
+                linkFields = linkInfo.fields;
+                lenLinkFields = linkFields.length;
+
+                strLinkFields = '';
+                while (lenLinkFields--) {
+                    strLinkFields += linkFields[lenLinkFields].data + ',';
+                }
+
+                // create the query
+                relatedQuery = new esriRelRequest();
+                relatedQuery.outFields = [strLinkFields.slice(0, -1)];
+                relatedQuery.relationshipId = linkInfo.relationshipid;
+                relatedQuery.objectIds = gcvizFunc.getObjectIds(response.features);
+
+                // query the link table
+                featLayer = map.getLayer(id);
+                featLayer.queryRelatedFeatures(relatedQuery, function(relatedRecords) {
+                    data = createDataArray(features, len, fields, sr, id, pos, relatedRecords);
+                    closeGetData(mapid, data, layer, success);
+
+                    // keep related records to be access later by popups
+                    setRelRecords(mapid, id, relatedRecords);
+                });
+            } else {
+                data = createDataArray(features, len, fields, sr, id, pos);
+                closeGetData(mapid, data, layer, success);
+            }
         };
 
         getSelection = function(url, wkid, geometry, success) {
@@ -288,7 +311,7 @@
         };
 
         closeGetData = function(mapid, data, layer, success) {
-            var feat,
+            var feat, wkidData,
                 i = 0,
                 len = data.length,
                 features = new Array(len),
@@ -299,10 +322,17 @@
             // data toolbar
             layer.mapid = mapid;
 
+            // get spatial reference (if it is a polygone it is a level lower)
+            if (item.spatialReference.wkid !== null) {
+                wkidData = item.spatialReference.wkid;
+            } else {
+                wkidData = item.spatialReference.spatialReference.wkid;
+            }
+
             // check if we need to reproject geometries
             // add layer info to first element. This way we will be able to get back to it
             // after the reprojection.
-            if (mapWkid !== item.spatialReference.wkid) {
+            if (mapWkid !== wkidData) {
                 item.attributes.layer = layer;
                 gisGeo.projectGeoms(data, mapWkid, success);
             } else {
@@ -643,6 +673,7 @@
 
         return {
             initialize: initialize,
+            getStaticData: getStaticData,
             getData: getData,
             getSelection: getSelection,
             zoomFeatures: zoomFeatures,

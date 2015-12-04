@@ -1,149 +1,149 @@
 @import "gcviz-mixin";
 
 %buttonhead {
-	margin-top: (0.4 * $rembase) + rem;
-	vertical-align: middle;
+    margin-top: (0.4 * $rembase) + rem;
+    vertical-align: middle;
 }
 
 %fields {
-	display: block;
-	margin: auto;
-	margin-top: (0.5 * $rembase) + rem;
-	width: 70%;
+    display: block;
+    margin: auto;
+    margin-top: (0.5 * $rembase) + rem;
+    width: 70%;
 }
 
 .gcviz-dg-searchdrop {
-	@extend %fields;
+    @extend %fields;
 }
 
 .gcviz-dg-searchstr {
-	@extend %fields;
+    @extend %fields;
 }
 
 .gcviz-dg-searchnum {
-	@extend %fields;
+    @extend %fields;
 }
 
 .gcviz-dg-searchdate {
-	@extend %fields;
+    @extend %fields;
 }
 
 .gcviz-dg-pad {
-	margin-bottom: 0!important;
-	padding: (0.5 * $rembase) + rem;
-	display: inline;
+    margin-bottom: 0!important;
+    padding: (0.5 * $rembase) + rem;
+    display: inline;
 }
 
 .gcviz-gd-zoomlbl {
-	@include app-text(1.2, bold);
+    @include app-text(1.2, bold);
 }
 
 // buttons zoom selected, clear filter, export csv and holder
 .gcviz-dg-zoomsel {
-	@include sprite($img-spritebtn, -1516, -2);
-	display: block;
-	margin: auto;
+    @include sprite($img-spritebtn, -1516, -2);
+    display: block;
+    margin: auto;
 }
 
 .gcviz-dg-filterclear {
-	@include sprite($img-spritebtn, -1589, -2);
-	@extend %buttonhead;
+    @include sprite($img-spritebtn, -1589, -2);
+    @extend %buttonhead;
 }
 
 .gcviz-dg-exportcsv {
-	@include sprite($img-spritebtn, -976, -2);
-	@extend %buttonhead;
+    @include sprite($img-spritebtn, -976, -2);
+    @extend %buttonhead;
 }
 
 .gcviz-dg-selfeat {
-	@include sprite($img-spritebtn, -1661, -2);
-	@extend %buttonhead;
+    @include sprite($img-spritebtn, -1661, -2);
+    @extend %buttonhead;
 }
 
 .gcviz-dg-applyfilter {
-	@include sprite($img-spritebtn, -1769, -2);
-	@extend %buttonhead;
+    @include sprite($img-spritebtn, -1769, -2);
+    @extend %buttonhead;
 }
 
 .gcviz-dg-tools {
-	float: right;
+    float: right;
 }
 
 //  ****** link info section ******
 // the open close buttons for link info
 %linkopen {
-	background: url($img-root + 'dgLinkOpen.png') no-repeat center center;
+    background: url($img-root + 'dgLinkOpen.png') no-repeat center center;
 }
 
 %linkclose {
-	background: url($img-root + 'dgLinkClose.png') no-repeat center center;
+    background: url($img-root + 'dgLinkClose.png') no-repeat center center;
 }
 
 .gcviz-dg-linkopen {
-	@extend %linkopen;
-	width: 50px;
-	height: 20px;
+    @extend %linkopen;
+    width: 50px;
+    height: 20px;
 }
 
 .gcviz-dg-linkclose {
-	@extend %linkclose;
-	width: 50px;
-	height: 20px;
+    @extend %linkclose;
+    width: 50px;
+    height: 20px;
 }
 
 td.gcviz-dg-link {
-	@extend %linkopen;
-	cursor: pointer;
+    @extend %linkopen;
+    cursor: pointer;
 }
 tr.shown td.gcviz-dg-link {
-	@extend %linkclose;
-	cursor: pointer;
+    @extend %linkclose;
+    cursor: pointer;
 }
 
 .gcviz-dg-linktitle {
-	@include app-text(1.2, bold);
-	display: block;
+    @include app-text(1.2, bold);
+    display: block;
 }
 
 .gcviz-dg-linksubtitle {
-	@include app-text(1.2);
+    @include app-text(1.2);
 }
 
 .gcviz-dg-linktable {
-	border: 1px solid black;
+    border: 1px solid black;
 }
 //****** end link info section ********
 
 /* tooltip for string element more then 40 characters. This one is
    activated on focus to solve the wcag issue */
 .gcviz-datagrid-stringbtn {
-	width: 12px;
-	border: none;
-	display: inline-block;
-	background: none;
-	margin: 0;
-	padding: 0;
-	cursor: initial!important;
+    width: 18px;
+    border: none;
+    display: inline-block;
+    background: none;
+    margin-left: 3px;
+    padding: 0;
+    cursor: initial!important;
 }
 
 .gcviz-datagrid-stringtp {
-	z-index: 10;
-	display: none;
-	padding: 14px 20px;
-	margin-left: -300px;
-	width: 300px;
-	border-radius: 4px;
-	box-shadow: 5px 5px 8px #CCC;
+    z-index: 10;
+    display: none;
+    padding: 14px 20px;
+    margin-left: -300px;
+    width: 300px;
+    border-radius: 4px;
+    box-shadow: 5px 5px 8px #CCC;
 }
 
 .gcviz-datagrid-stringbtn:focus + .gcviz-datagrid-stringtp {
-	display: inline;
-	position: absolute;
-	color: $black;
-	border: 1px solid $black;
-	background: $yellow-light;
-	visibility: visible;
-	opacity: 1;
+    display: inline;
+    position: absolute;
+    color: $black;
+    border: 1px solid $black;
+    background: $yellow-light;
+    visibility: visible;
+    opacity: 1;
 }
 /* end tooltip section */
 
@@ -153,57 +153,57 @@ table.display {
 }
 
 table.dataTable.no-footer {
-	border-bottom: 0!important;
+    border-bottom: 0!important;
 }
 
 .gcviz-datatable th {
-	background-color: white!important; // safari bugs where backgroound is not always white after scroll x
+    background-color: white!important; // safari bugs where backgroound is not always white after scroll x
 }
 
 .gcviz-datagrid {
-	width: 100%;
-	border-top: $white solid (0.2 * $rembase) + rem!important;
+    width: 100%;
+    border-top: $white solid (0.2 * $rembase) + rem!important;
 }
 
 .gcviz-datagrid-hold {
-	background: url($img-head) no-repeat!important;
-	background-size: 100% 100%!important;
-	color: $black!important;
-	border-radius: 0rem!important;
-	padding-top: (0.5 * $rembase) + rem!important;
-	padding-left: 2% + !important;
-	padding-right: 2% + !important;
-	padding-bottom: (2 * $rembase) + rem!important;
-	width: 96%;
-	height: auto!important;
+    background: url($img-head) no-repeat!important;
+    background-size: 100% 100%!important;
+    color: $black!important;
+    border-radius: 0rem!important;
+    padding-top: (0.5 * $rembase) + rem!important;
+    padding-left: 2% + !important;
+    padding-right: 2% + !important;
+    padding-bottom: (2 * $rembase) + rem!important;
+    width: 96%;
+    height: auto!important;
 }
 
 .gcviz-datagrid-tab {
-	color: $black!important;
+    color: $black!important;
 }
 
 .gcviz-datagrid-ul {
-	background: $grey-green!important;
-	border-radius: 0!important;
-	border: 1px solid #677!important;
+    background: $grey-green!important;
+    border-radius: 0!important;
+    border: 1px solid #677!important;
 }
 
 .gcviz-backYellow {
-	background-color: $yellow-select!important;
+    background-color: $yellow-select!important;
 
-	.sorting_1 {
-		background-color: $yellow-select!important;
-	}
+    .sorting_1 {
+        background-color: $yellow-select!important;
+    }
 }
 
 .gcviz-dg-lblselall {
-	padding-left: (0.5 * $rembase) + rem!important;
-	padding-right: (3 * $rembase) + rem!important;
+    padding-left: (0.5 * $rembase) + rem!important;
+    padding-right: (3 * $rembase) + rem!important;
 }
 
 // overrides
 .ui-tabs .ui-tabs-panel {
-	padding: 0 1em!important;
+    padding: 0 1em!important;
 }
 
 .dataTables_wrapper .dataTables_length {
@@ -212,95 +212,95 @@ table.dataTable.no-footer {
 
 // overrides jqueryui dialog to remove the close button for the progress window
 .gcviz-dg-wait {
-	display: none!important;
+    display: none!important;
 }
 
 // add the resizable icon to jqueryui popup
 .ui-dialog .ui-resizable-se {
-	width: 17px!important;
-	height: 17px!important;
-	right: 1px!important;
-	bottom: 1px!important;
-	background-position: -80px -224px!important;
+    width: 17px!important;
+    height: 17px!important;
+    right: 1px!important;
+    bottom: 1px!important;
+    background-position: -80px -224px!important;
 }
- 
+
 // popups
 .gcviz-popup {
-	overflow: hidden!important;
-	width: 97%!important;
+    overflow: hidden!important;
+    width: 97%!important;
 }
 
 .ui-resizable {
-	min-height: 240px!important; // set it here because jqueyui doesn t work
+    min-height: 240px!important; // set it here because jqueyui doesn t work
 }
 
 .gcviz-popup-counter {
-	vertical-align: 50%!important;
+    vertical-align: 50%!important;
 }
 
 .gcviz-popup-select {
-	width: 325px;
-	margin-top: 5px;
-	margin-bottom: 5px;
-	display: block;
+    width: 325px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    display: block;
 }
 
 .gcviz-popup-separator {
-	margin-top: 0px!important;
+    margin-top: 0px!important;
 }
 
 .gcviz-popup-title {
-	@include app-text(1.2, bold);
+    @include app-text(1.2, bold);
 }
 
 .gcviz-prop {
-	@include app-text(1.1, bold);
+    @include app-text(1.1, bold);
 }
 
 .gcviz-popup-val {
-	@include app-text(1.1, normal);
-	padding-top: 2px!important;
-	padding-left: 5px!important;
-	padding-bottom: 3px!important;
-	margin-top: 0!important;
-	margin-left: 0!important;
-	display: block;
+    @include app-text(1.1, normal);
+    padding-top: 2px!important;
+    padding-left: 5px!important;
+    padding-bottom: 3px!important;
+    margin-top: 0!important;
+    margin-left: 0!important;
+    display: block;
 }
 
 .gcviz-popup-content {
-	overflow: auto;
+    overflow: auto;
 }
 
 .gcviz-popup-previous {
-	@include sprite($img-spritepopupbtn, -3, -2);
+    @include sprite($img-spritepopupbtn, -3, -2);
 }
 
 .gcviz-popup-next {
-	@include sprite($img-spritepopupbtn, -39, -2);
+    @include sprite($img-spritepopupbtn, -39, -2);
 }
 
 .gcviz-popup-close {
-	@include sprite($img-spritepopupbtn, -75, -2);
+    @include sprite($img-spritepopupbtn, -75, -2);
 }
 
 .gcviz-popup-zoom {
-	@include sprite($img-spritepopupbtn, -110, -2);
+    @include sprite($img-spritepopupbtn, -110, -2);
 }
 
 /*
  *  Overwite the jQuery datatable plugin
  */
 .dataTables_processing {
-	top: 3.5%!important;
-	height: 20px!important;
-	border: none!important;
+    top: 3.5%!important;
+    height: 20px!important;
+    border: none!important;
 }
 
 // set datatable min width so if you have one element you are able to see link info
 .dataTables_scrollBody {
-	min-height: 350px!important;
-	
-	.gcviz-datatable {
-		min-height: 350px!important;
-	}
+    min-height: 350px!important;
+
+    .gcviz-datatable {
+        min-height: 350px!important;
+    }
 }

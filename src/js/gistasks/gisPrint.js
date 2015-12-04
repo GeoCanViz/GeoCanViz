@@ -39,10 +39,10 @@
             printCustomResult,
             printCustomError,
             printHTMLError,
+            callPrintTask,
             gp = null,
             gpFolders = null,
             lang = $viz('html').attr('lang').toUpperCase(),
-            callPrintTask,
             addImagetoHtmlPrint,
             saveTempURL = '';
 
