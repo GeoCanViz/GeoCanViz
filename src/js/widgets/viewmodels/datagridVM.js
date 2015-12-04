@@ -1228,6 +1228,7 @@
 
                 _self.exportCSV = function(data) {
                     var row, line, fieldsLen, j, content,
+                        csvData, csvUrl, link,
                         i = 0,
                         gcvizInd = 0,
                         fields = [],
@@ -1235,12 +1236,6 @@
                         output = '',
                         rtnCarr = String.fromCharCode(13),
                         dataLen = data.length;
-
-                    // show info window only there is a huge amount of data to process
-                    if (dataLen > 2000) {
-                        // show info window
-                        _self.isExport(true);
-                    }
 
                     // get the row title
                     row = data[0];
@@ -1278,12 +1273,36 @@
                         i++;
                     }
 
-                    $viz.generateFile({
-                        filename	: 'exportCSV.csv',
-                        filetype		: 'text/csv',
-                        content		: output,
-                        script		: config.urldownload
-                    });
+                    // generate blob and create url
+                    csvData = new Blob([output], { type: 'text/csv', endings: 'native' });
+                    csvUrl = URL.createObjectURL(csvData);
+
+                    // custom download file name
+                    if (navigator.msSaveBlob) { // IE 10+
+                        navigator.msSaveBlob(csvData, 'exportCSV.csv')
+                    } else {
+                        link = document.createElement('a');
+
+                        if (typeof link.download != 'undefined')
+                        {
+                            link.setAttribute('href', csvUrl);
+                            link.setAttribute('download', 'exportCSV.csv');
+                            document.body.appendChild(link) // for FF
+                            link.click(); // This will download the data
+                        }
+                        else
+                        {
+                            window.open(csvUrl, "UTF-8 Text");
+                        }
+                    }
+
+                    // deprecated... too hard on the server for large export
+                    //                    $viz.generateFile({
+                    //                        filename	: 'exportCSV.csv',
+                    //                        filetype		: 'text/csv',
+                    //                        content		: output,
+                    //                        script		: config.urldownload
+                    //                    });
                 };
 
                 _self.dialogExportOk = function() {
