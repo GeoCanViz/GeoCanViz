@@ -120,6 +120,14 @@
 								'<strong>&nbsp;<span data-bind="text: infoAltitude"></span></strong>' +
 								'<p></span><span data-bind="text: spnAltitude"></span></p>' +
 							'</div>' +
+							'<div class="gcviz-navinfo-content">' +
+								'<strong>&nbsp;<span data-bind="text: $root.infoMagnDecl"></span></strong>' +
+								'<p><span data-bind="text: $root.spnMagnDeclstatus"></span></p>' +
+								'<p><span data-bind="text: $root.spnMagnDeclcmp"></span></p>' +
+								'<p><span data-bind="text: infoMagnDecldate"></span><span data-bind="text: $root.spnMagnDecldate"></span></p>' +
+								'<p><span data-bind="text: infoMagnDeclvalue"></span><span data-bind="text: $root.spnMagnDeclvalue"></span></p>' +
+								'<p><span data-bind="text: infoMagnDeclannch"></span><span data-bind="text: $root.spnMagnDeclannch"></span></p>' +
+							'</div>' +
 						'</div>';
 			}
 

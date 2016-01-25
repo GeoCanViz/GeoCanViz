@@ -77,6 +77,12 @@
 				_self.infoUTMeast = i18n.getDict('%toolbarnav-infoutmeast');
 				_self.infoUTMnorth = i18n.getDict('%toolbarnav-infoutmnorth');
 				_self.infoUTMz = i18n.getDict('%toolbarnav-infoutmz');
+				_self.infoMagnDecl = i18n.getDict('%toolbarnav-infomagndecl');
+				_self.infoMagnDeclstatus = i18n.getDict('%toolbarnav-infomagndeclstatus');
+				_self.infoMagnDeclcmp = i18n.getDict('%toolbarnav-infomagndeclcmp');
+				_self.infoMagnDecldate = i18n.getDict('%toolbarnav-infomagndecldate');
+				_self.infoMagnDeclvalue = i18n.getDict('%toolbarnav-infomagndeclvalue');
+				_self.infoMagnDeclannch = i18n.getDict('%toolbarnav-infomagndeclannch');
 				_self.insKeyboard = i18n.getDict('%toolbarnav-inskeyboard');
 				_self.tpGetLocInfo = i18n.getDict('%toolbarnav-info');
 				_self.tpOverview = i18n.getDict('%toolbarnav-ovdrag');
@@ -123,12 +129,18 @@
 				_self.spnUTMzone = ko.observable();
 				_self.spnUTMeast = ko.observable();
 				_self.spnUTMnorth = ko.observable();
+				_self.spnMagnDeclstatus = ko.observable();
+				_self.spnMagnDeclcmp = ko.observable();
+				_self.spnMagnDecldate = ko.observable();
+				_self.spnMagnDeclvalue = ko.observable();
+				_self.spnMagnDeclannch = ko.observable();
 				_self.isLocDialogOpen = ko.observable(false);
 
 				// url for position info box
 				_self.urlNTS = i18n.getDict('%gisurlnts');
 				_self.urlUTM = i18n.getDict('%gisurlutm');
 				_self.urlAlti = i18n.getDict('%gisurlalti');
+				_self.urlMD = i18n.getDict('%gisurlmd');
 
 				// projection objects
 				_self.outSR = gisGeo.getOutSR(config.mapwkid);
@@ -528,8 +540,17 @@
 					var dms, alti,
 						utmZone = '',
 						lati = outPoint[0].y,
-						longi = outPoint[0].x;
+						longi = outPoint[0].x,
+						compass = '',
+						today = new Date(),
+						dateT = '',
+						mD = '0.0',
+						annCh = '0.0',
+						degreeSymbol = String.fromCharCode(176);
 
+					// Get today's date
+					dateT = today.toISOString().substr(0, 10);
+					
 					// Get lat/long in DD
 					_self.infoLatDD(' ' + lati);
 					_self.infoLongDD(' ' + longi);
@@ -581,6 +602,47 @@
 							}
 							_self.spnAltitude(alti + ' m');
 						});
+
+					// Get the magnetic declination
+					gisNav.getMagneticDecl(dateT, lati, longi, _self.urlMD)
+ 						.always(function(data) {
+						
+							var infoCmp, 
+								infoStatus = '';
+
+							if (data.status !== 'out_of_scope') {
+
+								if (data.mD !== null) {
+									mD = data.mD;
+								}
+								
+								if (data.annCh !== null) {
+									annCh = data.annCh;
+								}
+
+								if (data.compass !== null) {
+									compass = data.compass;
+
+									if (compass === 'useless') {
+										infoCmp = _self.infoMagnDeclcmp;
+									} else {
+										infoCmp = '';
+									}
+								}
+							} else {
+								infoStatus = _self.infoMagnDeclstatus;
+								infoCmp = '';
+								dateT = '---';
+								mD = '---';
+								annCh = '---';
+							}
+							_self.spnMagnDeclstatus(infoStatus);
+							_self.spnMagnDeclcmp(infoCmp);
+							_self.spnMagnDecldate(' ' + dateT);
+							_self.spnMagnDeclvalue(' ' + mD + degreeSymbol);
+							_self.spnMagnDeclannch(' ' + annCh);
+						});
+
 
 					// open the results dialog
 					_self.isLocDialogOpen(true);

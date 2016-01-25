@@ -18,6 +18,7 @@
 			getNTS,
 			getUTMzone,
 			getAltitude,
+			getMagneticDecl,
 			zoomFullExtent;
 
 		setOverview = function(mymap, overview) {
@@ -134,6 +135,36 @@
 			return def;
 		};
 
+		getMagneticDecl = function(dateT, lati, longi, urlMD) {
+			var def = $viz.Deferred(); // Use a deferred object to call the service
+			
+			if (lati === 'NaN' || longi === 'NaN') {
+				def.resolve({
+						status: 'out_of_scope'
+				});
+				return def;
+			}
+			
+			$viz.ajax({
+				url: urlMD,
+				cache: true,
+				// http://www.geomag.nrcan.gc.ca/service/tools/magnetic/calculator/?latitude=45.40034891216681&longitude=-75.66947808521965&date=2015-12-17
+				data: { latitude: lati, longitude: longi, date: dateT, format: 'json' },
+				dataType: 'json',
+				success: function(data) {
+					def.resolve({
+						mD: data.components.D,
+						annCh: data.annual_change.dD,
+						compass: data.compass,
+						status: def.state()
+					});
+				}
+			});
+
+			// return the deferred object for listening
+			return def;
+		};
+
 		zoomFullExtent = function(mymap) {
 			mymap.setExtent(mymap.vFullExtent, mymap.spatialReference.wkid);
 		};
@@ -144,6 +175,7 @@
 			getNTS: getNTS,
 			getUTMzone: getUTMzone,
 			getAltitude: getAltitude,
+			getMagneticDecl: getMagneticDecl,
 			zoomFullExtent: zoomFullExtent
 		};
 	});
