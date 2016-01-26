@@ -164,9 +164,9 @@ Global sys value#%gisurlmd#http://geomag.nrcan.gc.ca/service/tools/magnetic/calc
 #%toolbarnav-infomagndecl#Magnetic declination#Déclinaison magnétique
 #%toolbarnav-infomagndeclstatus# -WARNING- Out of scope.# -ATTENTION- Hors de portée.
 #%toolbarnav-infomagndeclcmp# -WARNING- Compass erratic for this coordinate.# -ATTENTION- Boussole peu fiable pour cette coordonnée.
-#%toolbarnav-infomagndecldate#Date:#Date : 
-#%toolbarnav-infomagndeclvalue#Magnetic declination (DD):#Déclinaison magnétique (DD) : 
-#%toolbarnav-infomagndeclannch#Annual change (minutes/year):#Changement annuel (minutes/année) : 
+#%toolbarnav-infomagndecldate#Date:#Date :
+#%toolbarnav-infomagndeclvalue#Magnetic declination (DD):#Déclinaison magnétique (DD) :
+#%toolbarnav-infomagndeclannch#Annual change (minutes/year):#Changement annuel (minutes/année) :
 #%toolbarnav-lblov#Overview Map#Carte de vue d'ensemble
 #%toolbarnav-lblovdisplay#Show on map#Afficher sur la carte
 #%toolbarnav-ovdrag#Drag to change map extent#Glisser pour changer l'étendue de la carte
