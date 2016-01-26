@@ -638,9 +638,9 @@
 							}
 							_self.spnMagnDeclstatus(infoStatus);
 							_self.spnMagnDeclcmp(infoCmp);
-							_self.spnMagnDecldate(' ' + dateT);
-							_self.spnMagnDeclvalue(' ' + mD + degreeSymbol);
-							_self.spnMagnDeclannch(' ' + annCh);
+							_self.spnMagnDecldate(dateT);
+							_self.spnMagnDeclvalue(mD + degreeSymbol);
+							_self.spnMagnDeclannch(annCh);
 						});
 
 
