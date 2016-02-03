@@ -347,9 +347,7 @@
                 };
 
                 _self.dialogPrintOk = function() {
-                    // set local storage
-                    localStorage.setItem('gcvizTitle', _self.printInfo.title);
-                    mapVM.saveImageMap(mapid, _self.printInfo.templatesave, _self.isForceScale(), _self.enablePrint);
+                    mapVM.saveImageMap(mapid, _self.printInfo.templatesave, _self.isForceScale(), _self.printInfo.title, _self.enablePrint);
                     _self.isPrint(false);
                     _self.dialogPrintClose();
                 };

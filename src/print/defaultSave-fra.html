@@ -13,22 +13,25 @@
         <link rel="stylesheet" href="../gcviz-min.css">
         <script>
             $(document).ready(function(){
-                var doc = window.document;
+                var data,
+                    doc = window.document,
                     map = doc.getElementById('gcviz-print'),
-                    title = doc.getElementById('gcviz-title');
+                    title = doc.getElementById('gcviz-title'),
+                    prefix = "GCVizPrint";
 
-                // set nodes
-                map.src = localStorage.gcvizPrintNode;
-                title.innerHTML = localStorage.gcvizTitle;
+                if (window.name.indexOf(prefix) === 0) {
+                    // Remove prefix and decode JSON
+                    var data = JSON.parse(window.name.substring(prefix.length));
 
-                // clean
-                localStorage.removeItem('gcvizPrintNode');
-                localStorage.removeItem('gcvizTitle');
+                    // set nodes
+                    map.src = data.map;
+                    title.innerHTML = data.title;
 
-                // wait the page finish the refresh
-                setTimeout(function() {
-                    window.print();
-                }, 1000);
+                    // wait the page finish the refresh
+                    setTimeout(function() {
+                        window.print();
+                    }, 1000);
+                }
             });
         </script>
     </head>
