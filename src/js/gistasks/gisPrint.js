@@ -44,7 +44,8 @@
             gpFolders = null,
             lang = $viz('html').attr('lang').toUpperCase(),
             addImagetoHtmlPrint,
-            saveTempURL = '';
+            saveTempURL = '',
+            printTitle = '';
 
         getTemplates = function(url, layout, printType, projects) {
             var params = { 'Folder': lang,
@@ -412,11 +413,12 @@
             }
         };
 
-        saveImageMap = function(map, url, templateURL, scale) {
+        saveImageMap = function(map, url, templateURL, scale, title) {
             var def = $viz.Deferred(),
                 printTask = esriPrintTask(url, { async: true }),
                 params = new esriPrintParams(),
                 template = new esriPrintTemp();
+            printTitle = title;
 
             saveTempURL = templateURL;
 
@@ -443,8 +445,7 @@
         };
 
         saveImageMapResult = function(response) {
-            localStorage.setItem('gcvizPrintNode', response.url);
-            window.open(saveTempURL);
+            window.open(saveTempURL, "GCVizPrint" + JSON.stringify({ "map": response.url, "title": printTitle }));
             saveTempURL = '';
         };
 
