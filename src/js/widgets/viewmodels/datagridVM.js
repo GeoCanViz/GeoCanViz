@@ -634,11 +634,14 @@
                             $select.on('change', function() {
                                 // put the draw in a timeout if not, the processing will not be shown
                                 var $process = $viz('.dataTables_processing'),
-                                    val = $.fn.dataTable.util.escapeRegex($(this).val());
+                                    //val = $.fn.dataTable.util.escapeRegex($(this).val()), REMOVE REGULAR EXPRESSION BECAUSE IT CREATES PROBLEM WITH PARENTHESIS AT THE END
+                                    val = $(this).val();
 
                                 $process.css('display', 'block');
                                 setTimeout(function() {
-                                    table.column(colIdx).search(val ? '^.*\\b' + val + '\\b.*$' : '', true, false).draw();
+                                    // REMOVE REGULAR EXPRESSION BECAUSE IT CREATES PROBLEM WITH PARENTHESIS AT THE END
+                                    //table.column(colIdx).search(val ? '^.*\\b' + val + '\\b.*$' : '', true, false).draw();
+                                    table.column(colIdx).search(val ? val : '', false, false).draw();
                                     $process.css('display', 'none');
                                 }, 100);
                             });
