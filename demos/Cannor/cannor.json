@@ -1,0 +1,1668 @@
+{
+    "gcviz": {
+        "mapframe": {
+            "size": {
+                "height": 700,
+                "width": 1200
+            },
+            "map": {
+                "urlgeomserv": "http://s-bsc-geoappint.nrn.nrcan.gc.ca/arcgis/rest/services/Utilities/Geometry/GeometryServer",
+                "urlproxy": "http://s-bsc-geoappint.nrn.nrcan.gc.ca/php/proxy.ashx",
+                "urldownload": "http://s-bsc-geoappint.nrn.nrcan.gc.ca/php/download.php",
+                "urlsaveimage": "http://s-bsc-geoappint.nrn.nrcan.gc.ca/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task",
+                "sr": {
+                    "wkid": 3978
+                },
+                "extentmax": {
+                    "xmin": -4555426.67993,
+                    "ymin": 651445.00734,
+                    "xmax": 4969592.37011,
+                    "ymax": 5413954.53236
+                },
+                "extentinit": {
+                    "xmin": -2447654.47936,
+                    "ymin": 1364188.45757,
+                    "xmax": 3108606.63316,
+                    "ymax": 4142319.01383
+                },
+                "lods": {
+                    "enable": false,
+                    "values": [
+                        {
+                            "level": 0,
+                            "resolution": 38364.660062653464,
+                            "scale": 145000000,
+                            "check": true
+                        },
+                        {
+                            "level": 1,
+                            "resolution": 22489.62831258996,
+                            "scale": 85000000,
+                            "check": true
+                        },
+                        {
+                            "level": 2,
+                            "resolution": 13229.193125052918,
+                            "scale": 50000000,
+                            "check": true
+                        },
+                        {
+                            "level": 3,
+                            "resolution": 7937.5158750317505,
+                            "scale": 30000000,
+                            "check": true
+                        },
+                        {
+                            "level": 4,
+                            "resolution": 4630.2175937685215,
+                            "scale": 17500000,
+                            "check": true
+                        },
+                        {
+                            "level": 5,
+                            "resolution": 2645.8386250105837,
+                            "scale": 10000000,
+                            "check": true
+                        },
+                        {
+                            "level": 6,
+                            "resolution": 1587.5031750063501,
+                            "scale": 6000000,
+                            "check": true
+                        },
+                        {
+                            "level": 7,
+                            "resolution": 926.0435187537042,
+                            "scale": 3500000,
+                            "check": true
+                        },
+                        {
+                            "level": 8,
+                            "resolution": 529.1677250021168,
+                            "scale": 2000000,
+                            "check": true
+                        },
+                        {
+                            "level": 9,
+                            "resolution": 317.50063500127004,
+                            "scale": 1200000,
+                            "check": true
+                        },
+                        {
+                            "level": 10,
+                            "resolution": 185.20870375074085,
+                            "scale": 700000,
+                            "check": true
+                        },
+                        {
+                            "level": 11,
+                            "resolution": 111.12522225044451,
+                            "scale": 420000,
+                            "check": true
+                        },
+                        {
+                            "level": 12,
+                            "resolution": 66.1459656252646,
+                            "scale": 250000,
+                            "check": true
+                        },
+                        {
+                            "level": 13,
+                            "resolution": 38.36466006265346,
+                            "scale": 145000,
+                            "check": true
+                        },
+                        {
+                            "level": 14,
+                            "resolution": 22.48962831258996,
+                            "scale": 85000,
+                            "check": true
+                        },
+                        {
+                            "level": 15,
+                            "resolution": 13.229193125052918,
+                            "scale": 50000,
+                            "check": true
+                        },
+                        {
+                            "level": 16,
+                            "resolution": 7.9375158750317505,
+                            "scale": 30000,
+                            "check": true
+                        },
+                        {
+                            "level": 17,
+                            "resolution": 4.6302175937685215,
+                            "scale": 17500,
+                            "check": false
+                        },
+                        {
+                            "level": 18,
+                            "resolution": 2.6458386250105836,
+                            "scale": 10000,
+                            "check": false
+                        },
+                        {
+                            "level": 19,
+                            "resolution": 1.5875031750063502,
+                            "scale": 6000,
+                            "check": false
+                        }
+                    ]
+                },
+                "link": false,
+                "zoombar": {
+                    "bar": true,
+                    "zoom": true,
+                    "zoomfull": true,
+                    "previousnext": true
+                },
+                "bases": [
+                    {
+                        "label": "CBME_CBCE_HS_RO_3978",
+                        "id": "4c218c5f-ebef-2766-cfa3-d8050af28046",
+                        "type": 2,
+                        "url": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/BaseMaps/CBME_CBCE_HS_RO_3978/MapServer/",
+                        "scale": {
+                            "min": 0,
+                            "max": 0
+                        },
+                        "legend": 1
+                    },
+                    {
+                        "label": "CBMT3978",
+                        "id": "4df6c209-f1ba-1154-cf5e-c8e910e48157",
+                        "type": 2,
+                        "url": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/BaseMaps/CBCT3978/MapServer/",
+                        "scale": {
+                            "min": 0,
+                            "max": 0
+                        },
+                        "legend": 1
+                    },
+                    {
+                        "label": "CBMT_CBCT_GEOM_3978",
+                        "id": "dd2bfdad-d2c2-91a8-d834-cd015853f793",
+                        "type": 2,
+                        "url": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/BaseMaps/CBMT_CBCT_GEOM_3978/MapServer/",
+                        "scale": {
+                            "min": 0,
+                            "max": 0
+                        },
+                        "legend": 1
+                    },
+                    {
+                        "label": "canimage_fr",
+                        "id": "99999999-0003-c8f5-175c-645270a6b6fe",
+                        "type": 3,
+                        "url": "http://maps.geogratis.gc.ca/wms/canimage_en",
+                        "options": {
+                            "layerinfos": [
+                                {
+                                    "name": "canimage",
+                                    "title": "canimage"
+                                }
+                            ],
+                            "visiblelayers": [
+                                "canimage"
+                            ]
+                        },
+                        "scale": {
+                            "min": 0,
+                            "max": 0
+                        }
+                    }
+                ],
+                "layers": [
+                    {
+                        "label": "labour_force_status",
+                        "id": "affeffb0-45d3-2cab-63db-7273a8ad224e",
+                        "type": 3,
+                        "url": "http://maps.geogratis.gc.ca/wms/stats_aboriginal_labour_fr",
+                        "options": {
+                            "layerinfos": [
+                                {
+                                    "name": "Situation d'activité",
+                                    "title": "Situation d'activité - Profil de la population autochtone - Données socioéconomiques"
+                                }
+                            ],
+                            "visiblelayers": [
+                                "labour_force_status"
+                            ]
+                        },
+                        "beforebase": false,
+                        "scale": {
+                            "min": 0,
+                            "max": 0
+                        },
+                        "usecluster": false,
+                        "cluster": {
+                            "enable": false,
+                            "distance": 50,
+                            "label": false,
+                            "symbol": false,
+                            "maxsizeprop": 50,
+                            "maxdataprop": 1000
+                        },
+                        "legend": 1,
+                        "visiblelayers": "[[[[[]]]]]"
+                    },
+                    {
+                        "label": "labour_force_status",
+                        "id": "30353317-21c7-8e49-594a-85c8632f1bd4",
+                        "type": 3,
+                        "url": "http://maps.geogratis.gc.ca/wms/stats_labour_fr",
+                        "options": {
+                            "layerinfos": [
+                                {
+                                    "name": "Situation d'activité",
+                                    "title": "Situation d'activité - Données socioéconomiques"
+                                }
+                            ],
+                            "visiblelayers": [
+                                "labour_force_status"
+                            ]
+                        },
+                        "beforebase": false,
+                        "scale": {
+                            "min": 0,
+                            "max": 0
+                        },
+                        "usecluster": false,
+                        "cluster": {
+                            "enable": false,
+                            "distance": 50,
+                            "label": false,
+                            "symbol": false,
+                            "maxsizeprop": 50,
+                            "maxdataprop": 1000
+                        },
+                        "legend": 1,
+                        "visiblelayers": "[[[[[]]]]]"
+                    },
+                    {
+                        "label": "industry",
+                        "id": "a125989b-dc4a-10fc-1361-b5301a3ee5b4",
+                        "type": 3,
+                        "url": "http://maps.geogratis.gc.ca/wms/stats_aboriginal_industry_fr",
+                        "options": {
+                            "layerinfos": [
+                                {
+                                    "name": "Industrie",
+                                    "title": "Industrie - Profil de la population autochtone - Données socioéconomiques"
+                                }
+                            ],
+                            "visiblelayers": [
+                                "industry"
+                            ]
+                        },
+                        "beforebase": false,
+                        "scale": {
+                            "min": 0,
+                            "max": 0
+                        },
+                        "usecluster": false,
+                        "cluster": {
+                            "enable": false,
+                            "distance": 50,
+                            "label": false,
+                            "symbol": false,
+                            "maxsizeprop": 50,
+                            "maxdataprop": 1000
+                        },
+                        "legend": 1,
+                        "visiblelayers": "[[[[[]]]]]"
+                    },
+                    {
+                        "label": "TRIBAL_COUNCIL_F",
+                        "id": "f20b7595-0515-1683-f1fc-e121014e30a3",
+                        "type": 4,
+                        "url": "http://geoviewer-geovisualiseur.aandc-aadnc.gc.ca/gisprd/rest/services/GEOVIEWER_II/TRIBAL_COUNCIL_F/MapServer/",
+                        "beforebase": false,
+                        "visiblelayers": [
+                            0
+                        ],
+                        "scale": {
+                            "min": 0,
+                            "max": 0
+                        },
+                        "usecluster": false,
+                        "cluster": {
+                            "enable": false,
+                            "distance": 50,
+                            "label": false,
+                            "symbol": false,
+                            "maxsizeprop": 50,
+                            "maxdataprop": 1000
+                        },
+                        "legend": 1
+                    },
+                    {
+                        "label": "TRIBAL_COUNCIL_F",
+                        "id": "24272794-7b9c-e86f-e3cc-b44a9d45851c",
+                        "type": 4,
+                        "url": "http://geoviewer-geovisualiseur.aandc-aadnc.gc.ca/gisprd/rest/services/GEOVIEWER_II/TRIBAL_COUNCIL_F/MapServer/",
+                        "beforebase": false,
+                        "visiblelayers": [
+                            1
+                        ],
+                        "scale": {
+                            "min": 0,
+                            "max": 0
+                        },
+                        "usecluster": false,
+                        "cluster": {
+                            "enable": false,
+                            "distance": 50,
+                            "label": false,
+                            "symbol": false,
+                            "maxsizeprop": 50,
+                            "maxdataprop": 1000
+                        },
+                        "legend": 1
+                    },
+                    {
+                        "label": "Premiere_Nation_First_Nation",
+                        "id": "46294959-42f9-1476-d120-494a5cabf112",
+                        "type": 4,
+                        "url": "http://services.aadnc-aandc.gc.ca/geomatics/rest/services/Donnees_Ouvertes-Open_Data/Premiere_Nation_First_Nation/MapServer/",
+                        "beforebase": false,
+                        "visiblelayers": [
+                            0
+                        ],
+                        "scale": {
+                            "min": 0,
+                            "max": 0
+                        },
+                        "usecluster": false,
+                        "cluster": {
+                            "enable": false,
+                            "distance": 50,
+                            "label": false,
+                            "symbol": false,
+                            "maxsizeprop": 50,
+                            "maxdataprop": 1000
+                        },
+                        "legend": 1
+                    },
+                    {
+                        "label": "Collectivite_Inuite_Inuit_Community",
+                        "id": "fb6f7716-a1fb-45ff-5312-56c7754485f0",
+                        "type": 4,
+                        "url": "http://services.aadnc-aandc.gc.ca/geomatics/rest/services/Donnees_Ouvertes-Open_Data/Collectivite_Inuite_Inuit_Community/MapServer/",
+                        "beforebase": false,
+                        "visiblelayers": [
+                            0
+                        ],
+                        "scale": {
+                            "min": 0,
+                            "max": 0
+                        },
+                        "usecluster": false,
+                        "cluster": {
+                            "enable": false,
+                            "distance": 50,
+                            "label": false,
+                            "symbol": false,
+                            "maxsizeprop": 50,
+                            "maxdataprop": 1000
+                        },
+                        "legend": 1
+                    },
+                    {
+                        "label": "cannor_northern_major_projects_fr",
+                        "id": "5f14a3b5-7933-2516-2012-f25fd514ede2",
+                        "type": 4,
+                        "url": "http://s-she-gisdev1.nrn.nrcan.gc.ca:6080/arcgis/rest/services/NPMO/cannor_northern_major_projects_fr/MapServer/",
+                        "beforebase": false,
+                        "visiblelayers": [
+                            1
+                        ],
+                        "scale": {
+                            "min": 0,
+                            "max": 0
+                        },
+                        "usecluster": false,
+                        "cluster": {
+                            "enable": false,
+                            "distance": 50,
+                            "label": false,
+                            "symbol": false,
+                            "maxsizeprop": 50,
+                            "maxdataprop": 1000
+                        },
+                        "legend": 1
+                    },
+                    {
+                        "label": "cannor_northern_major_projects_fr",
+                        "id": "8751ee30-906e-2f56-487e-50a3c1e0dd8f",
+                        "type": 4,
+                        "url": "http://s-she-gisdev1.nrn.nrcan.gc.ca:6080/arcgis/rest/services/NPMO/cannor_northern_major_projects_fr/MapServer/",
+                        "beforebase": false,
+                        "visiblelayers": [
+                            0
+                        ],
+                        "scale": {
+                            "min": 0,
+                            "max": 0
+                        },
+                        "usecluster": false,
+                        "cluster": {
+                            "enable": false,
+                            "distance": 50,
+                            "label": false,
+                            "symbol": false,
+                            "maxsizeprop": 50,
+                            "maxdataprop": 1000
+                        },
+                        "legend": 1
+                    }
+                ]
+            }
+        },
+        "header": {
+            "side": 1,
+            "title": {
+                "value": "Cannor",
+                "alttext": "Cannor"
+            },
+            "tools": {
+                "enable": true,
+                "expand": true
+            },
+            "link": false,
+            "inset": false,
+            "about": {
+                "enable": true,
+                "type": 1,
+                "value": "Projet de mise en valeur des ressources et d'infrastructure au Yukon, dans les Territoires du Nord-Ouest et au Nunavut : Le Bureau de gestion des projets nordiques (BGPN), inclus au sein de l'Agence canadienne de développement économique du Nord (CanNor), favorise la mise en valeur des ressources dans le Nord en offrant des services de gestion, d'orientation et de conseil à l'industrie et aux collectivités; coordonne les responsabilités des ministères fédéraux en matière de réglementation dans le Nord; et s'occupe de surveiller et de rendre public l'état d'avancement des projets visant à accroître la transparence, la rapidité et l'efficacité du système de réglementation.<br/><br/>La carte montre les mines en activité et les projets qui sont à différentes étapes. À des fins d'illustration seulement. Les données utilisées proviennent de diverses sources et peuvent changer sans préavis. CanNor ne garantit pas l'exactitude de l'information présentée. Carte produite en collaboration avec le Secteur des minéraux et des métaux et le Secteur des sciences de la Terre de Ressources naturelles Canada<br/><br/>Pour plus d'information, contactez-nous au 1-867-920-6766, ou visitez notre site Web au www.cannor.gc.ca."
+            },
+            "print": {
+                "enable": true,
+                "type": 3
+            },
+            "saveimage": {
+                "enable": true
+            },
+            "saveurl": {
+                "enable": true
+            },
+            "fullscreen": true
+        },
+        "footer": {
+            "northarrow": {
+                "enable": true,
+                "inwkid": 3978
+            },
+            "mousecoords": {
+                "enable": true,
+                "outwkid": 4326
+            },
+            "scalebar": {
+                "enable": true,
+                "unit": 1
+            },
+            "datagrid": {
+                "enable": true
+            }
+        },
+        "datagrid": {
+            "enable": true,
+            "expand": true,
+            "layers": [
+                {
+                    "layerinfo": {
+                        "type": 4,
+                        "index": 0,
+                        "id": "8751ee30-906e-2f56-487e-50a3c1e0dd8f"
+                    },
+                    "title": "Géométrie ponctuelle",
+                    "globalsearch": false,
+                    "fields": [
+                        {
+                            "enable": false,
+                            "title": "OBJECTID",
+                            "width": "100px",
+                            "data": "OBJECTID",
+                            "dataalias": "OBJECTID",
+                            "searchable": true,
+                            "description": "",
+                            "fieldtype": {
+                                "type": 1,
+                                "value": 1
+                            }
+                        },
+                        {
+                            "enable": false,
+                            "title": "Shape",
+                            "width": "",
+                            "data": "Shape",
+                            "dataalias": "Shape",
+                            "searchable": false,
+                            "description": "",
+                            "fieldtype": {
+                                "type": 1,
+                                "value": 1
+                            }
+                        },
+                        {
+                            "enable": false,
+                            "title": "Identifiant",
+                            "width": "",
+                            "data": "id",
+                            "dataalias": "Identifiant",
+                            "searchable": false,
+                            "description": "",
+                            "fieldtype": {
+                                "type": 1,
+                                "value": 1
+                            }
+                        },
+                        {
+                            "enable": true,
+                            "title": "Territoire",
+                            "width": "100px",
+                            "data": "territory_fr",
+                            "dataalias": "Territoire",
+                            "searchable": true,
+                            "description": "",
+                            "fieldtype": {
+                                "type": 1,
+                                "value": 4
+                            }
+                        },
+                        {
+                            "enable": true,
+                            "title": "Latitude",
+                            "width": "100px",
+                            "data": "latitude",
+                            "dataalias": "Latitude",
+                            "searchable": true,
+                            "description": "",
+                            "fieldtype": {
+                                "type": 1,
+                                "value": 2
+                            }
+                        },
+                        {
+                            "enable": true,
+                            "title": "Longitude",
+                            "width": "100px",
+                            "data": "longitude",
+                            "dataalias": "Longitude",
+                            "searchable": true,
+                            "description": "",
+                            "fieldtype": {
+                                "type": 1,
+                                "value": 2
+                            }
+                        },
+                        {
+                            "enable": true,
+                            "title": "Type de grands projet",
+                            "width": "100px",
+                            "data": "major_project_type_fr",
+                            "dataalias": "Type de grands projet",
+                            "searchable": true,
+                            "description": "",
+                            "fieldtype": {
+                                "type": 1,
+                                "value": 4
+                            }
+                        },
+                        {
+                            "enable": true,
+                            "title": "Opération",
+                            "width": "100px",
+                            "data": "operation_fr",
+                            "dataalias": "Opération",
+                            "searchable": true,
+                            "description": "",
+                            "fieldtype": {
+                                "type": 1,
+                                "value": 1
+                            }
+                        },
+                        {
+                            "enable": true,
+                            "title": "Opérateur/Propriétaire",
+                            "width": "100px",
+                            "data": "operator_owners_fr",
+                            "dataalias": "Opérateur/Propriétaire",
+                            "searchable": true,
+                            "description": "",
+                            "fieldtype": {
+                                "type": 1,
+                                "value": 1
+                            }
+                        },
+                        {
+                            "enable": true,
+                            "title": "Phase",
+                            "width": "100px",
+                            "data": "phase_fr",
+                            "dataalias": "Phase",
+                            "searchable": true,
+                            "description": "",
+                            "fieldtype": {
+                                "type": 1,
+                                "value": 4
+                            }
+                        },
+                        {
+                            "enable": false,
+                            "title": "Code de la phase",
+                            "width": "100px",
+                            "data": "phase_code",
+                            "dataalias": "Code de la phase",
+                            "searchable": true,
+                            "description": "",
+                            "fieldtype": {
+                                "type": 1,
+                                "value": 1
+                            }
+                        },
+                        {
+                            "enable": false,
+                            "title": "Groupe de matières (Version abrégée)",
+                            "width": "100px",
+                            "data": "commodity_group_fr",
+                            "dataalias": "Groupe de matières (Version abrégée)",
+                            "searchable": true,
+                            "description": "",
+                            "fieldtype": {
+                                "type": 1,
+                                "value": 1
+                            }
+                        },
+                        {
+                            "enable": true,
+                            "title": "Groupe de matières",
+                            "width": "100px",
+                            "data": "commodity_group_fr_spelt",
+                            "dataalias": "Groupe de matières",
+                            "searchable": true,
+                            "description": "",
+                            "fieldtype": {
+                                "type": 1,
+                                "value": 1
+                            }
+                        },
+                        {
+                            "enable": false,
+                            "title": "Matières (Version abrégée)",
+                            "width": "100px",
+                            "data": "commodity_fr",
+                            "dataalias": "Matières (Version abrégée)",
+                            "searchable": true,
+                            "description": "",
+                            "fieldtype": {
+                                "type": 1,
+                                "value": 1
+                            }
+                        },
+                        {
+                            "enable": true,
+                            "title": "Matières",
+                            "width": "100px",
+                            "data": "commodity_fr_spelt",
+                            "dataalias": "Matières",
+                            "searchable": true,
+                            "description": "",
+                            "fieldtype": {
+                                "type": 1,
+                                "value": 1
+                            }
+                        },
+                        {
+                            "enable": false,
+                            "title": "Description",
+                            "width": "100px",
+                            "data": "description",
+                            "dataalias": "Description",
+                            "searchable": true,
+                            "description": "",
+                            "fieldtype": {
+                                "type": 1,
+                                "value": 1
+                            }
+                        }
+                    ],
+                    "linktable": {
+                        "enable": false,
+                        "relationshipid": 0,
+                        "title": "",
+                        "subtitle": "",
+                        "fields": []
+                    },
+                    "popups": {
+                        "enable": true,
+                        "layeralias": "CANNOR Grands projets nordiques géométrie ponctuelle fr"
+                    },
+                    "hover": {
+                        "enable": false,
+                        "hoverfield": ""
+                    }
+                },
+                {
+                    "layerinfo": {
+                        "type": 4,
+                        "index": 1,
+                        "id": "5f14a3b5-7933-2516-2012-f25fd514ede2"
+                    },
+                    "title": "Géométrie linéaire",
+                    "globalsearch": false,
+                    "fields": [
+                        {
+                            "enable": false,
+                            "title": "OBJECTID",
+                            "width": "",
+                            "data": "OBJECTID",
+                            "dataalias": "OBJECTID",
+                            "searchable": false,
+                            "description": "",
+                            "fieldtype": {
+                                "type": 1,
+                                "value": 1
+                            }
+                        },
+                        {
+                            "enable": false,
+                            "title": "Shape",
+                            "width": "",
+                            "data": "Shape",
+                            "dataalias": "Shape",
+                            "searchable": false,
+                            "description": "",
+                            "fieldtype": {
+                                "type": 1,
+                                "value": 1
+                            }
+                        },
+                        {
+                            "enable": false,
+                            "title": "Shape_Length",
+                            "width": "",
+                            "data": "Shape_Length",
+                            "dataalias": "Shape_Length",
+                            "searchable": false,
+                            "description": "",
+                            "fieldtype": {
+                                "type": 1,
+                                "value": 1
+                            }
+                        },
+                        {
+                            "enable": false,
+                            "title": "Identifiant",
+                            "width": "",
+                            "data": "id",
+                            "dataalias": "Identifiant",
+                            "searchable": false,
+                            "description": "",
+                            "fieldtype": {
+                                "type": 1,
+                                "value": 1
+                            }
+                        },
+                        {
+                            "enable": true,
+                            "title": "Territoire",
+                            "width": "100px",
+                            "data": "territory_fr",
+                            "dataalias": "Territoire",
+                            "searchable": true,
+                            "description": "",
+                            "fieldtype": {
+                                "type": 1,
+                                "value": 4
+                            }
+                        },
+                        {
+                            "enable": true,
+                            "title": "Type de grand projet",
+                            "width": "100px",
+                            "data": "major_project_type_fr",
+                            "dataalias": "Type de grand projet",
+                            "searchable": true,
+                            "description": "",
+                            "fieldtype": {
+                                "type": 1,
+                                "value": 4
+                            }
+                        },
+                        {
+                            "enable": true,
+                            "title": "Opération",
+                            "width": "100px",
+                            "data": "operation_fr",
+                            "dataalias": "Opération",
+                            "searchable": true,
+                            "description": "",
+                            "fieldtype": {
+                                "type": 1,
+                                "value": 1
+                            }
+                        },
+                        {
+                            "enable": true,
+                            "title": "Opérateur/Propriétaire",
+                            "width": "100px",
+                            "data": "operator_owners_fr",
+                            "dataalias": "Opérateur/Propriétaire",
+                            "searchable": true,
+                            "description": "",
+                            "fieldtype": {
+                                "type": 1,
+                                "value": 1
+                            }
+                        },
+                        {
+                            "enable": true,
+                            "title": "Phase",
+                            "width": "100px",
+                            "data": "phase_fr",
+                            "dataalias": "Phase",
+                            "searchable": true,
+                            "description": "",
+                            "fieldtype": {
+                                "type": 1,
+                                "value": 4
+                            }
+                        },
+                        {
+                            "enable": false,
+                            "title": "Code de la phase",
+                            "width": "100px",
+                            "data": "phase_code",
+                            "dataalias": "Code de la phase",
+                            "searchable": true,
+                            "description": "",
+                            "fieldtype": {
+                                "type": 1,
+                                "value": 1
+                            }
+                        },
+                        {
+                            "enable": false,
+                            "title": "Groupe de matières (Version abrégée)",
+                            "width": "100px",
+                            "data": "commodity_group_fr",
+                            "dataalias": "Groupe de matières (Version abrégée)",
+                            "searchable": true,
+                            "description": "",
+                            "fieldtype": {
+                                "type": 1,
+                                "value": 1
+                            }
+                        },
+                        {
+                            "enable": true,
+                            "title": "Groupe de matières",
+                            "width": "100px",
+                            "data": "commodity_group_fr_spelt",
+                            "dataalias": "Groupe de matières",
+                            "searchable": true,
+                            "description": "",
+                            "fieldtype": {
+                                "type": 1,
+                                "value": 1
+                            }
+                        },
+                        {
+                            "enable": false,
+                            "title": "Matières (Version abrégée)",
+                            "width": "100px",
+                            "data": "commodity_fr",
+                            "dataalias": "Matières (Version abrégée)",
+                            "searchable": true,
+                            "description": "",
+                            "fieldtype": {
+                                "type": 1,
+                                "value": 1
+                            }
+                        },
+                        {
+                            "enable": true,
+                            "title": "Matières",
+                            "width": "100px",
+                            "data": "commodity_fr_spelt",
+                            "dataalias": "Matières",
+                            "searchable": true,
+                            "description": "",
+                            "fieldtype": {
+                                "type": 1,
+                                "value": 1
+                            }
+                        },
+                        {
+                            "enable": false,
+                            "title": "Description",
+                            "width": "100px",
+                            "data": "description",
+                            "dataalias": "Description",
+                            "searchable": true,
+                            "description": "",
+                            "fieldtype": {
+                                "type": 1,
+                                "value": 1
+                            }
+                        }
+                    ],
+                    "linktable": {
+                        "enable": false,
+                        "relationshipid": 0,
+                        "title": "",
+                        "subtitle": "",
+                        "fields": []
+                    },
+                    "popups": {
+                        "enable": true,
+                        "layeralias": "CANNOR Grands projets nordiques géométrie linéaire fr"
+                    },
+                    "hover": {
+                        "enable": false,
+                        "hoverfield": ""
+                    }
+                }
+            ]
+        },
+        "toolbarlegend": {
+            "enable": true,
+            "expand": true,
+            "pos": 0,
+            "basemaps": [
+                {
+                    "expand": false,
+                    "last": true,
+                    "type": 2,
+                    "id": "4df6c209-f1ba-1154-cf5e-c8e910e48157",
+                    "graphid": "1d2658dc-2d3d-4da0-263b-08c09bccc28a",
+                    "displayfields": false,
+                    "label": {
+                        "value": "Carte de base du Canada",
+                        "alttext": "Carte de base du Canada"
+                    },
+                    "metadata": {
+                        "enable": false
+                    },
+                    "opacity": {
+                        "enable": true,
+                        "min": 0,
+                        "max": 1,
+                        "initstate": 0.7
+                    },
+                    "visibility": {
+                        "enable": true,
+                        "initstate": false,
+                        "type": 2,
+                        "radioid": 0
+                    },
+                    "displaychild": {
+                        "enable": false,
+                        "symbol": "{\"type\":\"simple\",\"symbol\":{\"type\":\"esriSFS\",\"style\":\"esriSFSSolid\",\"color\":[0,0,0,0],\"outline\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[0,0,0,0],\"width\":0.4}},\"label\":\"\",\"description\":\"\"}"
+                    },
+                    "customimage": {
+                        "enable": false,
+                        "images": []
+                    },
+                    "items": []
+                },
+                {
+                    "expand": false,
+                    "last": true,
+                    "type": 2,
+                    "id": "dd2bfdad-d2c2-91a8-d834-cd015853f793",
+                    "graphid": "7aa4cee0-b3a9-f2ec-8a5b-d77e8687cbb6",
+                    "displayfields": false,
+                    "label": {
+                        "value": "Carte de base du Canada : géométrie",
+                        "alttext": "Carte de base du Canada : géométrie"
+                    },
+                    "metadata": {
+                        "enable": false
+                    },
+                    "opacity": {
+                        "enable": true,
+                        "min": 0,
+                        "max": 1,
+                        "initstate": 0.7
+                    },
+                    "visibility": {
+                        "enable": true,
+                        "initstate": true,
+                        "type": 2,
+                        "radioid": 0
+                    },
+                    "displaychild": {
+                        "enable": false,
+                        "symbol": "{\"type\":\"uniqueValue\",\"field1\":\"TYPE\",\"field2\":null,\"field3\":null,\"fieldDelimiter\":\", \",\"defaultSymbol\":null,\"defaultLabel\":null,\"uniqueValueInfos\":[{\"symbol\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[255,255,255,255],\"width\":1.2},\"value\":\"1\",\"label\":\"Limit\",\"description\":\"\"}]}"
+                    },
+                    "customimage": {
+                        "enable": false,
+                        "images": []
+                    },
+                    "items": []
+                },
+                {
+                    "expand": false,
+                    "last": true,
+                    "type": 3,
+                    "id": "99999999-0003-c8f5-175c-645270a6b6fe",
+                    "graphid": "e5511402-0002-5cbe-0d3c-f537c612b7df",
+                    "displayfields": false,
+                    "label": {
+                        "value": "Imagerie satellitaire : Landsat 7",
+                        "alttext": "Imagerie satellitaire : Landsat 7"
+                    },
+                    "metadata": {
+                        "enable": false
+                    },
+                    "opacity": {
+                        "enable": true,
+                        "min": 0,
+                        "max": 1,
+                        "initstate": 0.7
+                    },
+                    "visibility": {
+                        "enable": true,
+                        "initstate": false,
+                        "type": 2,
+                        "radioid": 0
+                    },
+                    "displaychild": {
+                        "enable": false
+                    },
+                    "customimage": {
+                        "enable": false,
+                        "description": "",
+                        "images": [],
+                        "desc": ""
+                    },
+                    "items": []
+                },
+                {
+                    "expand": false,
+                    "last": true,
+                    "type": 2,
+                    "id": "4c218c5f-ebef-2766-cfa3-d8050af28046",
+                    "graphid": "931824e2-e5d6-a764-6e6b-fcd2f335308e",
+                    "displayfields": false,
+                    "label": {
+                        "value": "Carte de base du Canada : relief ombré",
+                        "alttext": "Carte de base du Canada : relief ombré"
+                    },
+                    "metadata": {
+                        "enable": false
+                    },
+                    "opacity": {
+                        "enable": false,
+                        "min": 0,
+                        "max": 1,
+                        "initstate": 1
+                    },
+                    "visibility": {
+                        "enable": true,
+                        "initstate": true,
+                        "type": 1,
+                        "radioid": 1
+                    },
+                    "displaychild": {
+                        "enable": false,
+                        "symbol": "{\"type\":\"simple\",\"symbol\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[0,0,0,0],\"width\":2},\"label\":\"\",\"description\":\"\"}"
+                    },
+                    "customimage": {
+                        "enable": false,
+                        "images": []
+                    },
+                    "items": []
+                }
+            ],
+            "items": [
+                {
+                    "expand": false,
+                    "last": true,
+                    "type": 5,
+                    "id": "8751ee30-906e-2f56-487e-50a3c1e0dd8f",
+                    "graphid": "ab6a932d-de47-37e0-1baa-3de69c33e2db",
+                    "displayfields": false,
+                    "label": {
+                        "value": "Géométrie ponctuelle",
+                        "alttext": "CANNOR Grands projets nordiques géométrie ponctuelle"
+                    },
+                    "metadata": {
+                        "enable": false
+                    },
+                    "opacity": {
+                        "enable": false,
+                        "min": 0,
+                        "max": 1,
+                        "initstate": 1
+                    },
+                    "visibility": {
+                        "enable": true,
+                        "initstate": true,
+                        "type": 1,
+                        "radioid": 0
+                    },
+                    "displaychild": {
+                        "enable": false,
+                        "symbol": "{\"type\":\"uniqueValue\",\"field1\":\"phase_code\",\"field2\":null,\"field3\":null,\"fieldDelimiter\":\", \",\"defaultSymbol\":null,\"defaultLabel\":null,\"uniqueValueInfos\":[{\"symbol\":{\"type\":\"esriPMS\",\"url\":\"ae20e52962c960066c7bde09c12c57f3\",\"imageData\":\"iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPCAYAAAA71pVKAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAH9JREFUKJFjYaAAsDAwMDD8f/TI+O/Hj9sZ/v8TJaSBiYeXgZGFxYRRTu4sC0SEaeb3jetF/z16RNA2zrh4BlZ5hTMMDAyMLBQ7e1TzCNH8//9znvhE4nUxMp6Fa2aUlfX9//jxZgZGRkmCGv//f/7/379ZCJuhBpDiZAYGBgYAwgghfIZAKFkAAAAASUVORK5CYII=\",\"contentType\":\"image/png\",\"width\":11,\"height\":11,\"angle\":0,\"xoffset\":0,\"yoffset\":0},\"value\":\"1\",\"label\":\"Exploration\",\"description\":\"\"},{\"symbol\":{\"type\":\"esriPMS\",\"url\":\"ec1b2d7d8764586cc07379f9d99b1da0\",\"imageData\":\"iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPCAYAAAA71pVKAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAALJJREFUKJHFzrEKgmAUBeBz5W8QzEmHCK13qLeQlmhOeonepV4iwqFoi6YgoWf4HRwEwampexuKGv3FojNe+O45Ci2iAEC0Ht2ragdhvw5YThek1JjCMFXPi7W6bTc+a13bZs9jdAbDCwBSrWd/HV+LAswMAAhdF55tm+Pl8YRzWQIA9lEEr98Am+Q3+DCb/qnZHIvkTrwwV0TpG1MQTCTLEhD1aqFILszrT/PrQZPJAPAApnUvAd5wiWUAAAAASUVORK5CYII=\",\"contentType\":\"image/png\",\"width\":11,\"height\":11,\"angle\":0,\"xoffset\":0,\"yoffset\":0},\"value\":\"2\",\"label\":\"Pre-Feasibility and Feasibility\",\"description\":\"\"},{\"symbol\":{\"type\":\"esriPMS\",\"url\":\"5a404ef554b3d1dedc5b4c6736a6dc0f\",\"imageData\":\"iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAK5JREFUOI3F0zEKwkAQheF/JLCFhYVEiBG8kGkFsbOx8gaeyEpIkV7QLmLhFUIaCVgGXMYiJGC3qwRfNc37dqbYgB8TtENdaCpC5FJSpTSxJB1QF5pWGYvXw+3VcN10TCxJACBCZJ9gHQG06Xyc8G36A+7lFasWgNlozng48QP22Y5bdQHgsDz5A67pDzhuzn/ewAtQpQxXfkVF8w4wsSRenwnNzXSw7YAW8duhyRu8xDQVM2rH7wAAAABJRU5ErkJggg==\",\"contentType\":\"image/png\",\"width\":12,\"height\":12,\"angle\":0,\"xoffset\":0,\"yoffset\":0},\"value\":\"3\",\"label\":\"Environmental Assessment (EA)\",\"description\":\"\"},{\"symbol\":{\"type\":\"esriPMS\",\"url\":\"9e9f44a2b48d2009219b5e494a7d4e67\",\"imageData\":\"iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAYAAABWzo5XAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAMNJREFUOI3V1LEOwVAUBuD/NJc2XUTCoI2n4DEaJpNEYpJ4Cq/hBQxGEgO7rYN30GtiItKoHkOprqca4Z/uGe6X/yxHoaCo1yMMeAlCS/KZAB3do47dLGkFAKGOp8cVvGgva1EfoKEstQDQThoxOXwB4rMMYgYYcIDMap/mO1B4u4L5PZtlCwSSQ8N5F9vDJp134xMqdlUOSfJn0Ky/LgaS5Gch9ms98nIJDD+FTNeYhEEMgERnBMTadI1RplGC5Wr0zAPqHTIOBS8cSQAAAABJRU5ErkJggg==\",\"contentType\":\"image/png\",\"width\":13,\"height\":13,\"angle\":0,\"xoffset\":0,\"yoffset\":0},\"value\":\"4\",\"label\":\"EA Decision Making\",\"description\":\"\"},{\"symbol\":{\"type\":\"esriPMS\",\"url\":\"19f8a00114ea1c331fbf566243d3a2d8\",\"imageData\":\"iVBORw0KGgoAAAANSUhEUgAAABMAAAATCAYAAAByUDbMAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAMNJREFUOI3VzqEKwmAUxfH/nXMTRUQwzWI3+hoDwWqyGHwKX8M9gMG6pt22YDDYTFuziIw59DOIM8r3seBOugcuP45NibE/xz1Wc4Ua6QKCRI4nQYG9IVa3o/C46mG1NmTxM3E9K7QB3ouE9AT5WQ+rD6A1xAdC+9ezTiqKZXmKUt/uOg0EMcNmmzH7ZFf0w+JCp9k1w3RTUWw93ZaH6ebPMUEiBfQmhooiKTDHkyCLnwngm0Bu31oWGIDrWSEQGm4D4AV5QzWOKZyq/wAAAABJRU5ErkJggg==\",\"contentType\":\"image/png\",\"width\":14,\"height\":14,\"angle\":0,\"xoffset\":0,\"yoffset\":0},\"value\":\"5\",\"label\":\"Regulatory Permitting\",\"description\":\"\"},{\"symbol\":{\"type\":\"esriPMS\",\"url\":\"be7b07957c4ec50c54ffca89a824c17d\",\"imageData\":\"iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPCAYAAAA71pVKAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAG5JREFUKJHVzbENgCAUhOF78SWUxDgAE5A4Etsxhh0DMAJb0HB2FsYCtFD/7oovp3iQAkApZSPpR6CIeAUAkjOAZQS31iYdAecuca0VJI9tjIGI9OEQAlJKx845w1rbh3v7GI4xvvT8E+ycW+/gHZgwG7HSJxzIAAAAAElFTkSuQmCC\",\"contentType\":\"image/png\",\"width\":11,\"height\":11,\"angle\":0,\"xoffset\":0,\"yoffset\":0},\"value\":\"6\",\"label\":\"On-hold\",\"description\":\"\"},{\"symbol\":{\"type\":\"esriPMS\",\"url\":\"be7b07957c4ec50c54ffca89a824c17d\",\"imageData\":\"iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPCAYAAAA71pVKAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAG5JREFUKJHVzbENgCAUhOF78SWUxDgAE5A4Etsxhh0DMAJb0HB2FsYCtFD/7oovp3iQAkApZSPpR6CIeAUAkjOAZQS31iYdAecuca0VJI9tjIGI9OEQAlJKx845w1rbh3v7GI4xvvT8E+ycW+/gHZgwG7HSJxzIAAAAAElFTkSuQmCC\",\"contentType\":\"image/png\",\"width\":11,\"height\":11,\"angle\":0,\"xoffset\":0,\"yoffset\":0},\"value\":\"7\",\"label\":\"EA Withdrawn\",\"description\":\"\"},{\"symbol\":{\"type\":\"esriPMS\",\"url\":\"ad812e180f6495385f7fe2e77805423e\",\"imageData\":\"iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAYAAABWzo5XAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAG5JREFUOI1jYaASYIEx/q9kt2RgYOAn2QTGn7cYwxjusSBEfk5mYGAwJsMxtQwMDC0sBJURCYaYQRO3MDB8+YHgy4syMMTYk2HQ1lMMDLtvIviFnmQaRAoYYgbtaqKSQaSAkWAQYziDCVUMohQAAEZ2EjnsWJwuAAAAAElFTkSuQmCC\",\"contentType\":\"image/png\",\"width\":13,\"height\":13,\"angle\":0,\"xoffset\":0,\"yoffset\":0},\"value\":\"8\",\"label\":\"Construction\",\"description\":\"\"},{\"symbol\":{\"type\":\"esriPMS\",\"url\":\"3f4f79c48f55011ca0a5ea357a3f21d4\",\"imageData\":\"iVBORw0KGgoAAAANSUhEUgAAABoAAAAaCAYAAACpSkzOAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAylJREFUSIm9lk9oFHcUxz+/maxJTE1rTAwza6KbXYhWbDGzgmK3YDwpG/HSSy+mlE5qkd6kh1ayQgtCoT30H1nwUEpPvQgrtfRQLxIwOCVCW9DMoomdWRJhm424Tcxmfj1kZ91kd9VNln5vb35v+Lzfe+/3fr8m/ic11fvDg+U7OkBPoN9tKMiRaQOkAQwBGmCsfrczgCUkrhQiGRRha8MgR9omyDHfzuVz/JPPslxYpjnQrO1o64y3tbQB0nQ9O6krkZG6QMVdJIB4YaXA7zMWV+9dwXr0U4XvsY53Odl3in36ftOR9pBXWIlWS2sFqAhJAdrcwhxf3/qyKsDX9exlrmcvc6LrA4YPvqe91LrNcWQ6uj6VVXYkE4Dmzrt8Mn6W2eU/a0LKde3ht0zfuMeFo5/SvvXlFKDXBK3WhPi/S3ku3Uy8MMTXX/lrfDXRyUexjzXXs8fKa1YCFds2AfDrnV9IL/5WF8TXeO4Hbt4/ztHwG6Yj06VuLIGEqhqA9njxMd9PX9oQxNePU0kOh46gKqoBrAMJNICpubssedlNgaaXxnmQnWFPZ8gEkmtAgAkwk7u/KYgvd8FlT2fI8O2Krptfmm8I6NHiArBa+55Av1sO0gFUUff4qypFUdfYT2skSUmBuXNrd0NAO1o7ADL+lCiBJGQAQh19DQH1bN+NkKR8+2mehEiBHA11hQi3DG74HAG8uX2YrvYupFwNfg0oKMKWI21LVVRjeK/JhcmNg97a+3ZZ8OtAAF5h5ZTSpDoHew1Oz57nSubzuiFnw1/Qt7MPYKR8sK4B9QT6XcezLwohRs8MvMOTiTw/P/zmhSFndn/GyVfjAFZQRJLlaxW9HFQiCUfa8S1NW4z3D3/IvqnX+e7uKHkvs961pO6Awbn95xnojYLAAlFxAVY9NEERibqePaYqqjnYP8ih3iiTzm0mZye4nZsgW/gDvfkIr70ywED3IQ4ED9AcaAG4CiJR7VqveTp1JTLiyHQSZGpba7sWi8SIRWK13C0pubhLiaRqOTxzDBQj0//27KHi0PUfKDpgIbEQIvW8h8lzQb7KIk0+03GzoEboP31GHwCiY5iOAAAAAElFTkSuQmCC\",\"contentType\":\"image/png\",\"width\":19,\"height\":19,\"angle\":0,\"xoffset\":0,\"yoffset\":0},\"value\":\"9\",\"label\":\"Operation\",\"description\":\"\"},{\"symbol\":{\"type\":\"esriPMS\",\"url\":\"83066bafe013e78ef801ba7977ea8813\",\"imageData\":\"iVBORw0KGgoAAAANSUhEUgAAABYAAAAWCAYAAADEtGw7AAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAApZJREFUOI3F1V9IU2EYx/Hvu00EQZ0J6lbpUAwSJemMLEjzRvrj9CLI6iIwSCXo0sKbcBYEXXZTbHVXFEhgpHUTlDdl0nkDizK1dKt01MWcCZFuZ28XurWlUydEz+V7zvnwe5/znPdY+Edl+S+wT+maAE1Bk0DYAFBIhJJGRAyUZmgzacE+pWuAWyBcAJHwIsHQHOHwIllZWVperhWzBXxRvcdhcro3BPujsgnoBrTZuVmePH9G36sb/DSC8XvKrfUcrTvGnmpnt19JlxGh+e/0SfBSUuUBYRv7OM6Ve12Ewv4VaSZCg1x9OEjNSAvnWs5qOdnZOmBfK7EbhO3z9Bcu3mllIbqw2i7jNezvxbgb5kJrp80X1d2JbYnDfqW3g3AZhsGtBzfXRWOlT/cxOFzDwbqG7smw9MZaEoeVwi4EjH+aYOTbow2hsbo9eI36mloyMzNdgDcJFmJpAkanPqSFAsxHAkwHZigtKdViaxaAybC0AxrA92AgbRggND8HgmS4NEOb8SsJgNmcsSnYbDKjUPFUCVOhAiBsxQXFm4Lz8/IRSsRn+c/LAynAVVFeAU/TQ8ustdiKilIkVkgEru1bt3GkooPH7z0bhk81tMZa0b8Cdpicbr+SLkA72XiC0a9vmfrxYl30uNZJdeUuUHgdJqdcmRgwIjSbLUznZOfgbrvM9fsehv29KdG2A5c4XH8IIYQ0IvQkXkuCl6ZD7wDhseZa6Tp9nndjjQy9ecnrqSGCv0Yp21KHc8de9u/eR2FBIYBE0bPmIQRQIpxen9KlgH6TyWSr2llJ1c5K4MyKxAo1ALgTW5ASBnAIpwTsy+dH+/JybPglCgkMOEzO/tWeTwknpmf5258MS/taf4y04MRKBwX4DWjC88RfE8+jAAAAAElFTkSuQmCC\",\"contentType\":\"image/png\",\"width\":16,\"height\":16,\"angle\":0,\"xoffset\":0,\"yoffset\":0},\"value\":\"11\",\"label\":\"Care and Maintenance\",\"description\":\"\"},{\"symbol\":{\"type\":\"esriPMS\",\"url\":\"ffdd23a303d28ceaefbcb912f349a964\",\"imageData\":\"iVBORw0KGgoAAAANSUhEUgAAABYAAAAWCAYAAADEtGw7AAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAw5JREFUOI3FlU1MFGcYx3/v7k7WIuACCbDbFjdr1QgYjTOR2gjlYurH6sG0Vg9GTBTSxHjSxoth0cTEoxcb0IvR2MQ0sS20lyaWix/Eef3AtPgJuyqsmmaBQow4O7w9LMzuyELKwfgkc3j/M88v//m/z7zj4z2V74OA48rUBegKtgpEEACFRChpp0VXRNOH5gWOK1MHYgIRBUhbb0mNjGJZbykoKNBLFgXw+iA+abaFPUbsf4ETk3Ir0Arow6PD/HH1Ty7f/IHXdsp5Zmmgke0N37B2tdGaUDJqp9n2rnsXOONUtYMIPnj8kBM/HmHESsxw82ikm5O/dlN3dwcHdnynFxcVmUBoLscxEMGng884eqGJicmJfG/pVE/iEvZFi++bDgXjk2YsNxYHnFBmM4iobduc/fmMC2qNw/g/oPnAXwGaloWbg5fp7qnjq4YNrf2W7JiOxAErRUgIePjkEXdf/uY0vuyF5C85Nkvhs6+hsCIrne8+RWNdPX6/Pwp0uMBCZCagb+C+0zD89B0oQAoen4Oag6AtyEhj6SSDySEiiyO6K4p+S4YAHeBVKukwXtwnf03A+BCURLLSyNgoCNzgiKYPJZQEwOvNBrhwAmbdPsu99Hq8KJTjKmcqVBJEsKq8ylH8QeBOfq4WcK/LSsoQSjiznN08kAKi1Uur4UpGK62BZA+QckP8X0BheXa9JFBPsLJyFscKiSD66cefsLm6hd//bkf7CGr2QPI2pHrBXwSVBhQuB0QWvHtD03QUnTPAYY8RSygZBfRdW3bS9/weA/9eQyuEqvrMla++1Q+xunYVKDrCHkPOdAzYabZ5fQwWFxUT23+c0z+105O4lJ8I7P/yGJsaNyKEkHaattx7LnBmOswWEO2BRQGO7D3MXw+2cL33BrcGrpN608eS0gaMZZ+zfs06KsorACSKtjkPIYDFwuiIK1MK6PR4PMGVK2pZuaIW2DfDsUJ1AbHcCGYFA4SFIYHQ1PnRPCVPD79EIYGusMfozNc/KzjXPVPffr8lQ3P9MeYFzq35QAH+A7HxE7cDJc13AAAAAElFTkSuQmCC\",\"contentType\":\"image/png\",\"width\":16,\"height\":16,\"angle\":0,\"xoffset\":0,\"yoffset\":0},\"value\":\"10\",\"label\":\"Temporary Closure\",\"description\":\"\"},{\"symbol\":{\"type\":\"esriPMS\",\"url\":\"b35c32af5b3c584e351d10d5aea632d9\",\"imageData\":\"iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAYAAABWzo5XAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAASVJREFUOI3V0T1LxEAQgOG3iNsmV1iHtAc2NmKrxVVhRVjExiC2VoKNH4XV9fkHAbvYRKuAXitX+0fCFUcYQ7BwAyEXLyIWOs0uO7sPOzMOvxTOv4I2gPee+9W3IWPMtog8AMdZls0BtNY7wD1wmGXZ2yBkkWdgBORa64lN5YALvGit97vYClRV1ZVFsA/z1h5gE7gBjtZCjuOciMgI2OsATcyUUqeDpaVpujTGhLa83U76VSkVpmm6HIQARGQLGPekxjY3H4TsdJrGdsPFDqCZ5rofXXSQmV3bPTvv/moF8jwvWiwWbl3XEz4bGwKIyJPFHn3fPxssLUmSMoqig6IorpVS06axxpiwLMvLIAimcRzLINRgwG37zIJ3ffe/hH4Sfw/6AIM1amLDynfZAAAAAElFTkSuQmCC\",\"contentType\":\"image/png\",\"width\":13,\"height\":13,\"angle\":0,\"xoffset\":0,\"yoffset\":0},\"value\":\"12\",\"label\":\"Decommissioning\",\"description\":\"\"},{\"symbol\":{\"type\":\"esriPMS\",\"url\":\"b35c32af5b3c584e351d10d5aea632d9\",\"imageData\":\"iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAYAAABWzo5XAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAASVJREFUOI3V0T1LxEAQgOG3iNsmV1iHtAc2NmKrxVVhRVjExiC2VoKNH4XV9fkHAbvYRKuAXitX+0fCFUcYQ7BwAyEXLyIWOs0uO7sPOzMOvxTOv4I2gPee+9W3IWPMtog8AMdZls0BtNY7wD1wmGXZ2yBkkWdgBORa64lN5YALvGit97vYClRV1ZVFsA/z1h5gE7gBjtZCjuOciMgI2OsATcyUUqeDpaVpujTGhLa83U76VSkVpmm6HIQARGQLGPekxjY3H4TsdJrGdsPFDqCZ5rofXXSQmV3bPTvv/moF8jwvWiwWbl3XEz4bGwKIyJPFHn3fPxssLUmSMoqig6IorpVS06axxpiwLMvLIAimcRzLINRgwG37zIJ3ffe/hH4Sfw/6AIM1amLDynfZAAAAAElFTkSuQmCC\",\"contentType\":\"image/png\",\"width\":13,\"height\":13,\"angle\":0,\"xoffset\":0,\"yoffset\":0},\"value\":\"13\",\"label\":\"Abandonment\",\"description\":\"\"},{\"symbol\":{\"type\":\"esriPMS\",\"url\":\"b35c32af5b3c584e351d10d5aea632d9\",\"imageData\":\"iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAYAAABWzo5XAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAASVJREFUOI3V0T1LxEAQgOG3iNsmV1iHtAc2NmKrxVVhRVjExiC2VoKNH4XV9fkHAbvYRKuAXitX+0fCFUcYQ7BwAyEXLyIWOs0uO7sPOzMOvxTOv4I2gPee+9W3IWPMtog8AMdZls0BtNY7wD1wmGXZ2yBkkWdgBORa64lN5YALvGit97vYClRV1ZVFsA/z1h5gE7gBjtZCjuOciMgI2OsATcyUUqeDpaVpujTGhLa83U76VSkVpmm6HIQARGQLGPekxjY3H4TsdJrGdsPFDqCZ5rofXXSQmV3bPTvv/moF8jwvWiwWbl3XEz4bGwKIyJPFHn3fPxssLUmSMoqig6IorpVS06axxpiwLMvLIAimcRzLINRgwG37zIJ3ffe/hH4Sfw/6AIM1amLDynfZAAAAAElFTkSuQmCC\",\"contentType\":\"image/png\",\"width\":13,\"height\":13,\"angle\":0,\"xoffset\":0,\"yoffset\":0},\"value\":\"14\",\"label\":\"Reclamation\",\"description\":\"\"},{\"symbol\":{\"type\":\"esriPMS\",\"url\":\"b35c32af5b3c584e351d10d5aea632d9\",\"imageData\":\"iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAYAAABWzo5XAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAASVJREFUOI3V0T1LxEAQgOG3iNsmV1iHtAc2NmKrxVVhRVjExiC2VoKNH4XV9fkHAbvYRKuAXitX+0fCFUcYQ7BwAyEXLyIWOs0uO7sPOzMOvxTOv4I2gPee+9W3IWPMtog8AMdZls0BtNY7wD1wmGXZ2yBkkWdgBORa64lN5YALvGit97vYClRV1ZVFsA/z1h5gE7gBjtZCjuOciMgI2OsATcyUUqeDpaVpujTGhLa83U76VSkVpmm6HIQARGQLGPekxjY3H4TsdJrGdsPFDqCZ5rofXXSQmV3bPTvv/moF8jwvWiwWbl3XEz4bGwKIyJPFHn3fPxssLUmSMoqig6IorpVS06axxpiwLMvLIAimcRzLINRgwG37zIJ3ffe/hH4Sfw/6AIM1amLDynfZAAAAAElFTkSuQmCC\",\"contentType\":\"image/png\",\"width\":13,\"height\":13,\"angle\":0,\"xoffset\":0,\"yoffset\":0},\"value\":\"15\",\"label\":\"Closure/Closed\",\"description\":\"\"}]}"
+                    },
+                    "customimage": {
+                        "enable": true,
+                        "images": [
+                            {
+                                "url": "http://s-bsc-geoappint.nrn.nrcan.gc.ca/GeoCanViz/map/geoappext.nrcan.gc.ca/cannor/images/leg_pnts_fr.png",
+                                "label": ""
+                            }
+                        ],
+                        "description": "",
+                        "desc": ""
+                    },
+                    "items": []
+                },
+                {
+                    "expand": false,
+                    "last": true,
+                    "type": 5,
+                    "id": "5f14a3b5-7933-2516-2012-f25fd514ede2",
+                    "graphid": "2cef61c8-bfbd-e925-1d92-a755d57cf561",
+                    "displayfields": false,
+                    "label": {
+                        "value": "Géométrie linéaire",
+                        "alttext": "CANNOR Grands projets nordiques géométrie linéaire"
+                    },
+                    "metadata": {
+                        "enable": false
+                    },
+                    "opacity": {
+                        "enable": false,
+                        "min": 0,
+                        "max": 1,
+                        "initstate": 1
+                    },
+                    "visibility": {
+                        "enable": true,
+                        "initstate": true,
+                        "type": 1,
+                        "radioid": 0
+                    },
+                    "displaychild": {
+                        "enable": false,
+                        "symbol": "{\"type\":\"uniqueValue\",\"field1\":\"phase_code\",\"field2\":null,\"field3\":null,\"fieldDelimiter\":\", \",\"defaultSymbol\":null,\"defaultLabel\":null,\"uniqueValueInfos\":[{\"symbol\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[255,61,113,255],\"width\":3},\"value\":\"1\",\"label\":\"Exploration\",\"description\":\"\"},{\"symbol\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[255,61,113,255],\"width\":3},\"value\":\"2\",\"label\":\"Pre-Feasibility and Feasibility\",\"description\":\"\"},{\"symbol\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[223,115,255,255],\"width\":2},\"value\":\"3\",\"label\":\"Environmental Assessment (EA)\",\"description\":\"\"},{\"symbol\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[223,115,255,255],\"width\":3},\"value\":\"4\",\"label\":\"EA Decision Making\",\"description\":\"\"},{\"symbol\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[223,115,255,255],\"width\":4},\"value\":\"5\",\"label\":\"Regulatory Permitting\",\"description\":\"\"},{\"symbol\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[225,225,225,255],\"width\":3},\"value\":\"6\",\"label\":\"On-hold\",\"description\":\"\"},{\"symbol\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[225,225,225,255],\"width\":3},\"value\":\"7\",\"label\":\"EA Withdrawn\",\"description\":\"\"},{\"symbol\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[255,170,0,255],\"width\":4},\"value\":\"8\",\"label\":\"Construction\",\"description\":\"\"},{\"symbol\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[48,176,0,255],\"width\":3},\"value\":\"9\",\"label\":\"Operation\",\"description\":\"\"},{\"symbol\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[48,125,0,255],\"width\":2},\"value\":\"11\",\"label\":\"Care and Maintenance\",\"description\":\"\"},{\"symbol\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[78,78,78,255],\"width\":2},\"value\":\"10\",\"label\":\"Temporary Closure\",\"description\":\"\"},{\"symbol\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[78,78,78,255],\"width\":2},\"value\":\"12\",\"label\":\"Decommissioning\",\"description\":\"\"},{\"symbol\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[78,78,78,255],\"width\":2},\"value\":\"13\",\"label\":\"Abandonment\",\"description\":\"\"},{\"symbol\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[78,78,78,255],\"width\":2},\"value\":\"14\",\"label\":\"Reclamation\",\"description\":\"\"},{\"symbol\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[78,78,78,255],\"width\":2},\"value\":\"15\",\"label\":\"Closure/Closed\",\"description\":\"\"}]}"
+                    },
+                    "customimage": {
+                        "enable": true,
+                        "images": [
+                            {
+                                "url": "http://s-bsc-geoappint.nrn.nrcan.gc.ca/GeoCanViz/map/geoappext.nrcan.gc.ca/cannor/images/leg_lines_fr.png",
+                                "label": ""
+                            }
+                        ],
+                        "description": "",
+                        "desc": ""
+                    },
+                    "items": []
+                },
+                {
+                    "expand": false,
+                    "last": false,
+                    "type": 0,
+                    "id": "b68d3b8b-f6c0-d44b-ad34-644abba40034",
+                    "graphid": "ec6ad8b0-0fea-2bca-a9ba-adef980e5afe",
+                    "displayfields": false,
+                    "label": {
+                        "value": "Collectivités autochtones",
+                        "alttext": "Empty Group"
+                    },
+                    "metadata": {
+                        "enable": false
+                    },
+                    "opacity": {
+                        "enable": false,
+                        "min": 0,
+                        "max": 1,
+                        "initstate": 1
+                    },
+                    "visibility": {
+                        "enable": true,
+                        "initstate": false,
+                        "type": 1,
+                        "radioid": 0
+                    },
+                    "displaychild": {
+                        "enable": true
+                    },
+                    "customimage": {
+                        "enable": false,
+                        "images": []
+                    },
+                    "items": [
+                        {
+                            "expand": false,
+                            "last": true,
+                            "type": 5,
+                            "id": "fb6f7716-a1fb-45ff-5312-56c7754485f0",
+                            "graphid": "68ab4ec8-0290-e825-7902-f69adb66f44f",
+                            "displayfields": false,
+                            "label": {
+                                "value": "Collectivité inuite",
+                                "alttext": "Collectivité inuite"
+                            },
+                            "metadata": {
+                                "enable": false
+                            },
+                            "opacity": {
+                                "enable": false,
+                                "min": 0,
+                                "max": 1,
+                                "initstate": 1
+                            },
+                            "visibility": {
+                                "enable": true,
+                                "initstate": true,
+                                "type": 1,
+                                "radioid": 0
+                            },
+                            "displaychild": {
+                                "enable": true,
+                                "symbol": "{\"type\":\"simple\",\"symbol\":{\"type\":\"esriPMS\",\"url\":\"defaf90641d591c289faf467cfcf0b36\",\"imageData\":\"iVBORw0KGgoAAAANSUhEUgAAAAsAAAALCAYAAACprHcmAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAYZJREFUGJVtkb1rU3EUhp+cnPQ2RAJ+9EMhlaCTRpBCg9Slk4NyCSgJgh/gYkEXXQrdXPQPqEMJpZTSQb2lg8gFh/oHtFQHIy0iorQWK8VgQ2rIzclPB0vw6xlfnhdezlH28H3/uojcA7J7UVNEgiiKxsIw3AJQgEKh8AAYB5AkiAdWw3POXVPVkVKpNBwEwSf1fX8YGPf6hIODwuljZ0gm9vFmc5nPa9+oVVym2WyWgQuqqqOSdpw4l+HmyBiH0r2/NrSusHBkjhexRWqv3flisZhRM8v1nlQu50c7IoCX6OZi/iqrWyvUVquYWU5FxLwDwkBPlr/pTiTJHc7zse85jQ0zBZZ+OJe3dguN6z+FRqsObdqpVOqlmtnDxteuW5X1V/Gh42f/ELd3vlDZXKZdZSaYf1zVMAzfXer3bz9ampwEYqcGBtF4gvXtDzxZKbPz1tYs4k7nzgvTz8o3+ovvZ+sTU11pOSpxYq3vbre+YbP7d7N3555ORB0ZYOb+/OJv3/svPwGZxY7HBqBSHwAAAABJRU5ErkJggg==\",\"contentType\":\"image/png\",\"width\":8,\"height\":8,\"angle\":0,\"xoffset\":0,\"yoffset\":0},\"label\":\"\",\"description\":\"\"}"
+                            },
+                            "customimage": {
+                                "enable": false,
+                                "images": []
+                            },
+                            "items": []
+                        },
+                        {
+                            "expand": false,
+                            "last": true,
+                            "type": 5,
+                            "id": "46294959-42f9-1476-d120-494a5cabf112",
+                            "graphid": "45efd6fb-772b-aac9-efd3-7328491480c6",
+                            "displayfields": false,
+                            "label": {
+                                "value": "Première Nation",
+                                "alttext": "Première Nation"
+                            },
+                            "metadata": {
+                                "enable": false
+                            },
+                            "opacity": {
+                                "enable": false,
+                                "min": 0,
+                                "max": 1,
+                                "initstate": 1
+                            },
+                            "visibility": {
+                                "enable": true,
+                                "initstate": true,
+                                "type": 1,
+                                "radioid": 0
+                            },
+                            "displaychild": {
+                                "enable": true,
+                                "symbol": "{\"type\":\"simple\",\"symbol\":{\"type\":\"esriPMS\",\"url\":\"546fd2f39982c4632ed3b6aaaf3a48b3\",\"imageData\":\"iVBORw0KGgoAAAANSUhEUgAAAAsAAAALCAYAAACprHcmAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAATtJREFUGJV10D1IQmEUgOHX4+cVNdLIguifaMnGGoqg0cJB7nCprSmiqdpdorHNMZKGlkjIScSttaEhghocGiqakn4Q4fZ5ahEpyHc8PAcOx9DOdd0NVd0HxtujL+DC9/29SqXyAmAAstnsgarmACQCEgb7QQhlzXGcxXQ6vVCtVp9NJpNZAnJOEpJzghMXAFpf8FlT3m51NBqNHgOrxhizZRIwtGwIGDoFQ5CYERB4u9EVz/PGjIik+mb5A38XnxY+7hVrbcqoqg33dZFAIAjhAaHxaK0Brr5V50G6LmhLNRaLXRtrbb756myHegj+B1s+tOoUzotndVMul2vesLsZHdSCiUjgj/yG95reCc5u58/Fo9LJetx96B3RgpOQCRHENmm8P/mn/Z+TO/li3u9ggLPD0iUw1fVw4AdZFm1b9fTS4gAAAABJRU5ErkJggg==\",\"contentType\":\"image/png\",\"width\":8,\"height\":8,\"angle\":0,\"xoffset\":0,\"yoffset\":0},\"label\":\"\",\"description\":\"\"}"
+                            },
+                            "customimage": {
+                                "enable": false,
+                                "images": []
+                            },
+                            "items": []
+                        },
+                        {
+                            "expand": false,
+                            "last": false,
+                            "type": 0,
+                            "id": "7834b0c6-efd5-117d-122e-c809bcf1966b",
+                            "graphid": "9dc59371-f3d3-789f-7944-161e98ac51ee",
+                            "displayfields": false,
+                            "label": {
+                                "value": "Conseil tribal",
+                                "alttext": "Empty Group"
+                            },
+                            "metadata": {
+                                "enable": false
+                            },
+                            "opacity": {
+                                "enable": false,
+                                "min": 0,
+                                "max": 1,
+                                "initstate": 1
+                            },
+                            "visibility": {
+                                "enable": true,
+                                "initstate": true,
+                                "type": 1,
+                                "radioid": 0
+                            },
+                            "displaychild": {
+                                "enable": true
+                            },
+                            "customimage": {
+                                "enable": false,
+                                "images": []
+                            },
+                            "items": [
+                                {
+                                    "expand": false,
+                                    "last": true,
+                                    "type": 5,
+                                    "id": "f20b7595-0515-1683-f1fc-e121014e30a3",
+                                    "graphid": "2d7a38ed-3546-c6f1-a09b-b4dbd67946cd",
+                                    "displayfields": false,
+                                    "label": {
+                                        "value": "Conseil tribal",
+                                        "alttext": "Conseil tribal"
+                                    },
+                                    "metadata": {
+                                        "enable": false
+                                    },
+                                    "opacity": {
+                                        "enable": false,
+                                        "min": 0,
+                                        "max": 1,
+                                        "initstate": 1
+                                    },
+                                    "visibility": {
+                                        "enable": true,
+                                        "initstate": true,
+                                        "type": 1,
+                                        "radioid": 0
+                                    },
+                                    "displaychild": {
+                                        "enable": true,
+                                        "symbol": "{\"type\":\"simple\",\"symbol\":{\"type\":\"esriPMS\",\"url\":\"ce301c528e3635d1dd2f9f295fcac27e\",\"imageData\":\"iVBORw0KGgoAAAANSUhEUgAAAA4AAAAMCAYAAABSgIzaAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAVhJREFUKJFjYcABPD09pf78+fNl9+7dn7DJs+DSyMbGtoyNje0eAwNDEtEaAwMDQw2+Sdi/YPlkFxwcPG3t2rVnCGqMj4/n+P7hS0/4JXOGF0LvGftVDkxkYGCwJqjx3bt3pbFvTeX4nnMy8D3nZDCTkbb65+sbvXnz5qU4Nbq7u0vL/uOrMD+rDBfzvWHEcM7gaae/v/+GjRs3fsWqkYODoyvkoTEX60+EsMhDXgYfOW3pDUJXKxkYGGowNPr6+loa/pCIUr8ghe56BrurmgwHrO8UBwYGzlm/fv0DZI2MTExMk/xvGDMwMjBiaOR8x8YQ9sqIY47UyV4GBoZguMbAwMAEz/caJuIP+TE0wYD+BXkGFaGbQYGBgY7r16/fz8LAwMDw79+/Mtv7ajg1MTAwMDD9ZGLwfq7P0C+/v4qBgQGicePGjZobGTbi1cjAwMDAcAGKGRgYAK9TaTHxoeKqAAAAAElFTkSuQmCC\",\"contentType\":\"image/png\",\"width\":10,\"height\":9,\"angle\":0,\"xoffset\":0,\"yoffset\":0},\"label\":\"\",\"description\":\"\"}"
+                                    },
+                                    "customimage": {
+                                        "enable": false,
+                                        "images": []
+                                    },
+                                    "items": []
+                                },
+                                {
+                                    "expand": false,
+                                    "last": true,
+                                    "type": 5,
+                                    "id": "24272794-7b9c-e86f-e3cc-b44a9d45851c",
+                                    "graphid": "efc45592-7602-4817-36cd-f71a3dc45374",
+                                    "displayfields": false,
+                                    "label": {
+                                        "value": "Relation conseil tribal – Première Nation",
+                                        "alttext": "Relation conseil tribal – Première Nation"
+                                    },
+                                    "metadata": {
+                                        "enable": false
+                                    },
+                                    "opacity": {
+                                        "enable": false,
+                                        "min": 0,
+                                        "max": 1,
+                                        "initstate": 1
+                                    },
+                                    "visibility": {
+                                        "enable": true,
+                                        "initstate": true,
+                                        "type": 1,
+                                        "radioid": 0
+                                    },
+                                    "displaychild": {
+                                        "enable": true,
+                                        "symbol": "{\"type\":\"simple\",\"symbol\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[217,0,159,255],\"width\":1},\"label\":\"\",\"description\":\"\"}"
+                                    },
+                                    "customimage": {
+                                        "enable": false,
+                                        "images": []
+                                    },
+                                    "items": []
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "expand": false,
+                    "last": false,
+                    "type": 0,
+                    "id": "ee7624f0-1b29-6709-afd5-687f96bf0b12",
+                    "graphid": "171b7c7f-5596-418b-3a87-52dce24afe10",
+                    "displayfields": false,
+                    "label": {
+                        "value": "Données socioéconomique",
+                        "alttext": "Données socioéconomique"
+                    },
+                    "metadata": {
+                        "enable": false
+                    },
+                    "opacity": {
+                        "enable": false,
+                        "min": 0,
+                        "max": 1,
+                        "initstate": 1
+                    },
+                    "visibility": {
+                        "enable": true,
+                        "initstate": false,
+                        "type": 1,
+                        "radioid": 0
+                    },
+                    "displaychild": {
+                        "enable": true
+                    },
+                    "customimage": {
+                        "enable": false,
+                        "images": []
+                    },
+                    "items": [
+                        {
+                            "expand": false,
+                            "last": true,
+                            "type": 3,
+                            "id": "30353317-21c7-8e49-594a-85c8632f1bd4",
+                            "graphid": "bc18dc60-1e96-002a-a2a9-0f1615483b63",
+                            "displayfields": false,
+                            "label": {
+                                "value": "Situation d'activité",
+                                "alttext": "Situation d'activité"
+                            },
+                            "metadata": {
+                                "enable": true,
+                                "value": "http://maps.geogratis.gc.ca/wms/stats_labour_fr?service=wms&version=1.3.0&request=GetCapabilities&layers=labour_force_status&legend_format=image/png&feature_info_type=text/html",
+                                "alttext": "Service WMS"
+                            },
+                            "opacity": {
+                                "enable": false,
+                                "min": 0,
+                                "max": 1,
+                                "initstate": 1
+                            },
+                            "visibility": {
+                                "enable": true,
+                                "initstate": false,
+                                "type": 2,
+                                "radioid": 3
+                            },
+                            "displaychild": {
+                                "enable": false
+                            },
+                            "customimage": {
+                                "enable": true,
+                                "images": [
+                                    {
+                                        "url": "http://maps.geogratis.gc.ca/wms/stats_labour_fr?version=1.3.0&service=WMS&request=GetLegendGraphic&sld_version=1.1.0&layer=labour_force_status&format=image/png&STYLE=default",
+                                        "label": ""
+                                    }
+                                ],
+                                "description": "",
+                                "desc": ""
+                            },
+                            "items": []
+                        },
+                        {
+                            "expand": false,
+                            "last": true,
+                            "type": 3,
+                            "id": "affeffb0-45d3-2cab-63db-7273a8ad224e",
+                            "graphid": "06c79da4-f321-d065-782a-10c490d9703e",
+                            "displayfields": false,
+                            "label": {
+                                "value": "Situation d'activité - Profil pop. autochtone",
+                                "alttext": "Situation d'activité"
+                            },
+                            "metadata": {
+                                "enable": true,
+                                "value": "http://maps.geogratis.gc.ca/wms/stats_aboriginal_labour_fr?service=wms&version=1.3.0&request=GetCapabilities&layers=labour_force_status&legend_format=image/png&feature_info_type=text/html",
+                                "alttext": "Service WMS"
+                            },
+                            "opacity": {
+                                "enable": false,
+                                "min": 0,
+                                "max": 1,
+                                "initstate": 1
+                            },
+                            "visibility": {
+                                "enable": true,
+                                "initstate": true,
+                                "type": 2,
+                                "radioid": 3
+                            },
+                            "displaychild": {
+                                "enable": false
+                            },
+                            "customimage": {
+                                "enable": true,
+                                "images": [
+                                    {
+                                        "url": "http://maps.geogratis.gc.ca/wms/stats_aboriginal_labour_fr?version=1.3.0&service=WMS&request=GetLegendGraphic&sld_version=1.1.0&layer=labour_force_status&format=image/png&STYLE=default",
+                                        "label": ""
+                                    }
+                                ],
+                                "description": "",
+                                "desc": ""
+                            },
+                            "items": []
+                        },
+                        {
+                            "expand": false,
+                            "last": true,
+                            "type": 3,
+                            "id": "a125989b-dc4a-10fc-1361-b5301a3ee5b4",
+                            "graphid": "7594e4fa-e947-df9c-0aaa-903863837105",
+                            "displayfields": false,
+                            "label": {
+                                "value": "Industrie - Profil pop. autochtone ",
+                                "alttext": "Industrie"
+                            },
+                            "metadata": {
+                                "enable": true,
+                                "value": "http://maps.geogratis.gc.ca/wms/stats_aboriginal_industry_fr?service=wms&version=1.3.0&request=GetCapabilities&layers=industry&legend_format=image/png&feature_info_type=text/html",
+                                "alttext": "Service WMS"
+                            },
+                            "opacity": {
+                                "enable": false,
+                                "min": 0,
+                                "max": 1,
+                                "initstate": 1
+                            },
+                            "visibility": {
+                                "enable": true,
+                                "initstate": false,
+                                "type": 2,
+                                "radioid": 3
+                            },
+                            "displaychild": {
+                                "enable": false
+                            },
+                            "customimage": {
+                                "enable": true,
+                                "images": [
+                                    {
+                                        "url": "http://maps.geogratis.gc.ca/wms/stats_aboriginal_industry_fr?version=1.3.0&service=WMS&request=GetLegendGraphic&sld_version=1.1.0&layer=industry&format=image/png&STYLE=default",
+                                        "label": ""
+                                    }
+                                ],
+                                "description": "",
+                                "desc": ""
+                            },
+                            "items": []
+                        }
+                    ]
+                }
+            ]
+        },
+        "toolbardraw": {
+            "enable": true,
+            "expand": false,
+            "pos": 2,
+            "drawline": {
+                "enable": true
+            },
+            "drawtext": {
+                "enable": true
+            },
+            "measureline": {
+                "enable": true,
+                "unit": 1
+            },
+            "measurearea": {
+                "enable": true,
+                "unit": 1
+            },
+            "importexport": {
+                "enable": true
+            }
+        },
+        "toolbarnav": {
+            "enable": true,
+            "expand": false,
+            "pos": 1,
+            "mapwkid": 3978,
+            "geolocation": {
+                "enable": true,
+                "graphic": true,
+                "info": true
+            },
+            "scaledisplay": {
+                "enable": true,
+                "format": 1
+            },
+            "overview": {
+                "enable": true,
+                "url": "",
+                "type": 2
+            },
+            "position": {
+                "enable": true
+            }
+        },
+        "toolbardata": {
+            "enable": true,
+            "expand": false,
+            "pos": 3,
+            "datafile": {
+                "enable": true
+            },
+            "dataurl": {
+                "enable": true
+            },
+            "dataquery": {
+                "enable": true
+            }
+        },
+        "toolbarextract": {
+            "enable": false,
+            "expand": false,
+            "pos": -1,
+            "grid": {
+                "enable": false,
+                "id": "0"
+            },
+            "items": []
+        },
+        "insetframe": {
+            "enable": false
+        },
+        "customwidgets": []
+    }
+}

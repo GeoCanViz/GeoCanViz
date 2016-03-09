@@ -1,123 +1,123 @@
 @import "includes/gcviz-mixin";
 
 %ovmap {
-	opacity: 1.0!important;
-	width: 230px!important;
-	background: $yellow-light;
+    opacity: 1.0!important;
+    width: 230px!important;
+    background: $yellow-light;
 }
 
 %ovscalemap {
-	position: absolute;
-	bottom: (4 * $rembase) + rem;
-	z-index: 30;
+    position: absolute;
+    bottom: (4 * $rembase) + rem;
+    z-index: 30;
 }
 
 %scalemap {
-	position: absolute;
-	bottom: 0;
-	padding: (0.1 * $rembase) + rem;
-	z-index: 30;
-	width: (21 * $rembase) + rem;
-	background-color: rgba(208, 213, 206, 0.9);
-	text-align: center;
+    position: absolute;
+    bottom: 0;
+    padding: (0.1 * $rembase) + rem;
+    z-index: 30;
+    width: (21 * $rembase) + rem;
+    background-color: rgba(208, 213, 206, 0.9);
+    text-align: center;
 }
 
 %ovborder {
-	@include app-border(0.1, solid, $orange-darkborder);
+    @include app-border(0.1, solid, $orange-darkborder);
 }
 
 // content height is static so remove the overflow
 .gcviz-tbnav-content {
-	overflow-x: initial!important;
+    overflow-x: initial!important;
 }
 
 // autocomplete
 .gcviz-nav-auto {
-	width: 93%;
-	margin-top: 0!important;
-	margin-bottom: 0!important;
+    width: 93%;
+    margin-top: 0!important;
+    margin-bottom: 0!important;
 }
 
 // map localisation buttons
 .gcviz-nav-pos {
-	@include sprite($img-spritebtn, -1049, -2);
+    @include sprite($img-spritebtn, -1049, -2);
 }
 
 .gcviz-nav-cursor-pos {
-	cursor: url(#{ $img-root }navCursor.cur), crosshair;
+    cursor: url("#{ $img-root }navCursor.cur"), crosshair;
 }
 
 .gcviz-nav-lblpos {
-	margin-top: (0.8 * $rembase) + rem;
-	margin-left: (1 * $rembase) + rem;
+    margin-top: (0.8 * $rembase) + rem;
+    margin-left: (1 * $rembase) + rem;
 }
 
 .gcviz-nav-info {
-	margin-top: (0.8 * $rembase) + rem;
+    margin-top: (0.8 * $rembase) + rem;
 }
 
 // overview map
 .gcviz-nav-overview {
-	margin-top: (0.8 * $rembase) + rem;
-	
-	// if no height specified, span is ignore
-	.span1 {
-		height: (4 * $rembase) + rem;
-	}
+    margin-top: (0.8 * $rembase) + rem;
+
+    // if no height specified, span is ignore
+    .span1 {
+        height: (4 * $rembase) + rem;
+    }
 }
 
 .gcviz-nav-lblovdisp {
-	margin-left: (0.5 * $rembase) + rem;
+    margin-left: (0.5 * $rembase) + rem;
 }
 
 .gcviz-ovtoolcontainer {
-	@extend %ovmap;
-	@extend %ovborder;
-	margin: (0.5 * $rembase) + rem 0;
+    @extend %ovmap;
+    @extend %ovborder;
+    margin: (0.5 * $rembase) + rem 0;
 }
 
 .gcviz-ovmapcontainerl {
-	@extend %ovmap;
-	@extend %ovscalemap;
-	left: 0;
+    @extend %ovmap;
+    @extend %ovscalemap;
+    left: 0;
 }
 
 .gcviz-ovmapcontainerr {
-	@extend %ovmap;
-	@extend %ovscalemap;
-	right: 0;
+    @extend %ovmap;
+    @extend %ovscalemap;
+    right: 0;
 }
 
 .gcviz-ov-border {
-	@extend %ovborder;
+    @extend %ovborder;
 }
 
 .gcviz-overviewMap {
-	position: relative!important;
+    position: relative!important;
 }
 
 // scale bar and scale display
 .gcviz-nav-scale {
-	margin-top: (0.75 * $rembase) + rem;
-	margin-bottom: (1 * $rembase) + rem;
+    margin-top: (0.75 * $rembase) + rem;
+    margin-bottom: (1 * $rembase) + rem;
 }
 
 // scale display
 .gcviz-scaleDisplayLabel {
-	@include app-text(1.1);
-	display: block;
-	line-height: 1;
-	padding: (0.1 * $rembase) + rem;
+    @include app-text(1.1);
+    display: block;
+    line-height: 1;
+    padding: (0.1 * $rembase) + rem;
 }
 
 .gcviz-scalemapl {
-	@extend %scalemap;
-	left: 233px;
+    @extend %scalemap;
+    left: 233px;
 }
 
 .gcviz-scalemapr {
-	@extend %scalemap;
-	right: 233px;
+    @extend %scalemap;
+    right: 233px;
 }
 
 /* Reset some ESRI classes that are being modified by the Map classes */
@@ -130,17 +130,17 @@
 /* Change overview highlight of ESRI element */
 
 .ovwHighlight {
-	z-index: 999!important;
-	border: solid 3px #F00!important;
-	background-color: transparent;
-	position: relative!important;
-	cursor: pointer;
+    z-index: 999!important;
+    border: solid 3px #F00!important;
+    background-color: transparent;
+    position: relative!important;
+    cursor: pointer;
 }
 /* End of Reset some ESRI classes that are being modified by the Map classes */
 
 .gcviz-navinfo-content {
-	margin-top: (0.5 * $rembase) + rem!important;
-	@include app-border(0.1, solid, #000000);
-	@include content-border-radius(0.6);
-	width: 93%;
+    margin-top: (0.5 * $rembase) + rem!important;
+    @include app-border(0.1, solid, #000000);
+    @include content-border-radius(0.6);
+    width: 93%;
 }

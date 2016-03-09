@@ -1,170 +1,170 @@
 @import "gcviz-mixin";
 
 @mixin activeColor($x) {
-	background: url($img-spritebtn) $x + px -85 + px no-repeat;
+    background: url($img-spritebtn) $x + px -85 + px no-repeat;
 }
 
 .gcviz-draw-textinput {
-	width: 95%;
+    width: 95%;
 }
 
 // content height is static so remove the overflow
 .gcviz-tbdraw-content {
-	overflow-x: initial!important;
+    overflow-x: initial!important;
 }
 
 .gcviz-colorspanlabel {
-	@include app-text();
-	line-height: 2;
+    @include app-text();
+    line-height: 2;
 }
 
 .gcviz-drawspanlabel {
-	@include app-text();
-	line-height: 2.5;
+    @include app-text();
+    line-height: 2.5;
 }
 
 // the color picker holder
 .gcviz-draw-cholder {
-	display: table-cell;
-	vertical-align: middle;
+    display: table-cell;
+    vertical-align: middle;
 }
 
 // label on WCAG dialog window
 .gcviz-draw-lbladd {
-	margin-top: (0.6 * $rembase) + rem;
+    margin-top: (0.6 * $rembase) + rem;
 }
 
 // buttons
 .gcviz-draw-black {
-	@include sprite($img-spritebtn, -289, -14, 2);
+    @include sprite($img-spritebtn, -289, -14, 2);
 }
 
 .gcviz-draw-blue {
-	@include sprite($img-spritebtn, -325, -14, 2);
+    @include sprite($img-spritebtn, -325, -14, 2);
 }
 
 .gcviz-draw-red {
-	@include sprite($img-spritebtn, -398, -14, 2);
+    @include sprite($img-spritebtn, -398, -14, 2);
 }
 
 .gcviz-draw-green {
-	@include sprite($img-spritebtn, -362, -14, 2);
+    @include sprite($img-spritebtn, -362, -14, 2);
 }
 
 .gcviz-draw-yellow {
-	@include sprite($img-spritebtn, -433, -14, 2);
+    @include sprite($img-spritebtn, -433, -14, 2);
 }
 
 .gcviz-draw-white {
-	@include sprite($img-spritebtn, -469, -14, 2);
+    @include sprite($img-spritebtn, -469, -14, 2);
 }
 
 .gcviz-draw-pickblack {
-	@include activeColor(-289);
+    @include activeColor(-289);
 }
 
 .gcviz-draw-pickblue {
-	@include activeColor(-325);
+    @include activeColor(-325);
 }
 
 .gcviz-draw-pickred {
-	@include activeColor(-398);
+    @include activeColor(-398);
 }
 
 .gcviz-draw-pickgreen {
-	@include activeColor(-362);
+    @include activeColor(-362);
 }
 
 .gcviz-draw-pickyellow {
-	@include activeColor(-433);
+    @include activeColor(-433);
 }
 
 .gcviz-draw-pickwhite {
-	@include activeColor(-469);
+    @include activeColor(-469);
 }
 
 .gcviz-draw-line {
-	@include sprite($img-spritebtn, -542, -2);
+    @include sprite($img-spritebtn, -542, -2);
 }
 
 .gcviz-draw-text {
-	@include sprite($img-spritebtn, -578, -2);
+    @include sprite($img-spritebtn, -578, -2);
 }
 
 .gcviz-draw-length {
-	@include sprite($img-spritebtn, -614, -2);
+    @include sprite($img-spritebtn, -614, -2);
 }
 
 .gcviz-draw-area {
-	@include sprite($img-spritebtn, -650, -2);
+    @include sprite($img-spritebtn, -650, -2);
 }
 
 .gcviz-draw-del {
-	@include sprite($img-spritebtn, -795, -2);
+    @include sprite($img-spritebtn, -795, -2);
 }
 
 .gcviz-draw-delsel {
-	@include sprite($img-spritebtn, -831, -2);
+    @include sprite($img-spritebtn, -831, -2);
 }
 
 .gcviz-draw-undo {
-	@include sprite($img-spritebtn, -867, -2);
+    @include sprite($img-spritebtn, -867, -2);
 }
 
 .gcviz-draw-redo {
-	@include sprite($img-spritebtn, -903, -2);
+    @include sprite($img-spritebtn, -903, -2);
 }
 
 .gcviz-draw-imp {
-	@include sprite($img-spritebtn, -939, -2);
+    @include sprite($img-spritebtn, -939, -2);
 }
 
 .gcviz-draw-exp {
-	@include sprite($img-spritebtn, -976, -2);
+    @include sprite($img-spritebtn, -976, -2);
 }
 
 .gcviz-draw-wcagadd {
-	@include sprite($img-spritebtn, -1086, -2);
-	margin-top: 0px!important;
+    @include sprite($img-spritebtn, -1086, -2);
+    margin-top: 0px!important;
 }
 
 // cursors
 .gcviz-select-cursor {
-	cursor: crosshair;
+    cursor: crosshair;
 }
 
 .gcviz-text-cursor {
-	cursor: url(#{ $img-root }drawTextCursor.cur), text;
+    cursor: url("#{ $img-root }drawTextCursor.cur"), text;
 }
 
 .gcviz-draw-cursor-black {
-	cursor: url(#{ $img-root }drawpencilblack.cur), crosshair;
+    cursor: url("#{ $img-root }drawpencilblack.cur"), crosshair;
 }
 
 .gcviz-draw-cursor-blue {
-	cursor: url(#{ $img-root }drawpencilblue.cur), crosshair;
+    cursor: url("#{ $img-root }drawpencilblue.cur"), crosshair;
 }
 
 .gcviz-draw-cursor-green {
-	cursor: url(#{ $img-root }drawpencilgreen.cur), crosshair;
+    cursor: url("#{ $img-root }drawpencilgreen.cur"), crosshair;
 }
 
 .gcviz-draw-cursor-red {
-	cursor: url(#{ $img-root }drawpencilred.cur), crosshair;
+    cursor: url("#{ $img-root }drawpencilred.cur"), crosshair;
 }
 
 .gcviz-draw-cursor-yellow {
-	cursor: url(#{ $img-root }drawpencilyellow.cur), crosshair;
+    cursor: url("#{ $img-root }drawpencilyellow.cur"), crosshair;
 }
 
 .gcviz-draw-cursor-white {
-	cursor: url(#{ $img-root }drawpencilwhite.cur), crosshair;
+    cursor: url("#{ $img-root }drawpencilwhite.cur"), crosshair;
 }
 
 .gcviz-draw-cursor-measure {
-	cursor: url(#{ $img-root }drawmeasure.cur), crosshair;
+    cursor: url("#{ $img-root }drawmeasure.cur"), crosshair;
 }
 
 .gcviz-draw-cursor-erase {
-	cursor: url(#{ $img-root }drawerase.cur), crosshair;
+    cursor: url("#{ $img-root }drawerase.cur"), crosshair;
 }
