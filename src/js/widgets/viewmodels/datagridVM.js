@@ -626,22 +626,27 @@
                             // http://datatables.net/examples/api/multi_filter_select.html
                             var $select = $viz('select', table.column(colIdx).header());
 
-                            // add values to dropdown
+                            // add values to dropdown. Add ... to reset filter
                             table.column(colIdx).data().unique().sort().each(function(d) {
                                 $select.append('<option value="' + d + '">' + d + '</option>');
                             });
+                            $select[0].options[0].text= '...';
+                            $select[0].options[0].value= '...';
 
                             $select.on('change', function() {
                                 // put the draw in a timeout if not, the processing will not be shown
                                 var $process = $viz('.dataTables_processing'),
-                                    //val = $.fn.dataTable.util.escapeRegex($(this).val()), REMOVE REGULAR EXPRESSION BECAUSE IT CREATES PROBLEM WITH PARENTHESIS AT THE END
-                                    val = $(this).val();
+                                    val = $.fn.dataTable.util.escapeRegex($(this).val());
 
                                 $process.css('display', 'block');
                                 setTimeout(function() {
-                                    // REMOVE REGULAR EXPRESSION BECAUSE IT CREATES PROBLEM WITH PARENTHESIS AT THE END
-                                    //table.column(colIdx).search(val ? '^.*\\b' + val + '\\b.*$' : '', true, false).draw();
-                                    table.column(colIdx).search(val ? val : '', false, false).draw();
+                                    // if ... is selected, reset filter.
+                                    if (val === '\\.\\.\\.') {
+                                        table.column(colIdx).search('').draw();
+                                    } else {
+                                        // regular expression to search only the exact match
+                                        table.column(colIdx).search('^' + val + '$', true, false).draw();
+                                    }
                                     $process.css('display', 'none');
                                 }, 100);
                             });
@@ -1277,7 +1282,7 @@
                     }
 
                     // generate blob and create url
-                    csvData = new Blob([output], { type: 'text/csv', endings: 'native' });
+                    csvData = new Blob(['\ufeff', output], { type: 'text/csv;charset=utf-8', endings: 'native' });
                     csvUrl = URL.createObjectURL(csvData);
 
                     // custom download file name
@@ -1357,7 +1362,7 @@
                         val = input.val();
                         name = input.attr('gcviz-name');
 
-                        if (val !== '') {
+                        if (val !== '' && val !== '...') {
                             if (input.hasClass('gcviz-dg-searchstr')) {
                                 valClean = val.toUpperCase().replace(/\*/g, '%');
                                 defs.push('UPPER(' + name + ') LIKE \'' + valClean + '%\'');
