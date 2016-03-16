@@ -947,8 +947,9 @@
                     // export csv
                     $tabs.on('click', '.gcviz-dg-exportcsv', function() {
                         var table = objDataTable[activeTableId],
-                            filterRows = table.rows({ filter: 'applied' }).data().toArray();
-                        _self.exportCSV(filterRows);
+                            filterRows = table.rows({ filter: 'applied' }).data().toArray(),
+							tableInfo = arrLayerInfo[activeTableId];
+                        _self.exportCSV(filterRows, tableInfo);
                     });
 
                     // set clear filters event
@@ -1234,9 +1235,10 @@
                     }
                 };
 
-                _self.exportCSV = function(data) {
+                _self.exportCSV = function(data, tblInfo) {
                     var row, line, fieldsLen, j, content,
                         csvData, csvUrl, link,
+						csvFilename = 'exportCSV.csv',
                         i = 0,
                         gcvizInd = 0,
                         fields = [],
@@ -1252,7 +1254,13 @@
                             // skip internal field
                             if (field !== 'gcvizid' && field !== 'layerid' && field !== 'geometry' && field !== 'gcvizspatial' && field !== 'gcvizcheck' && field.indexOf('OBJECTID') === -1) {
                                 fields.unshift(field);
-                                header = '"' + field + '",' + header;
+
+								// put long field name if available
+								for (var i = 0; i < tblInfo.fields.length; i++) {
+									if (field === tblInfo.fields[i].data) {
+										header = '"' + tblInfo.fields[i].title + '",' + header;
+									}
+								}
                                 gcvizInd++;
                             }
                         }
@@ -1281,20 +1289,22 @@
                         i++;
                     }
 
+					csvFilename = tblInfo.title.replace(/ /g, '_') + '.csv';
+
                     // generate blob and create url
                     csvData = new Blob(['\ufeff', output], { type: 'text/csv;charset=utf-8', endings: 'native' });
                     csvUrl = URL.createObjectURL(csvData);
 
                     // custom download file name
                     if (navigator.msSaveBlob) { // IE 10+
-                        navigator.msSaveBlob(csvData, 'exportCSV.csv')
+                        navigator.msSaveBlob(csvData, csvFilename)
                     } else {
                         link = document.createElement('a');
 
                         if (typeof link.download != 'undefined')
                         {
                             link.setAttribute('href', csvUrl);
-                            link.setAttribute('download', 'exportCSV.csv');
+                            link.setAttribute('download', csvFilename);
                             document.body.appendChild(link) // for FF
                             link.click(); // This will download the data
                         }
