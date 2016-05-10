@@ -62,6 +62,7 @@
             printCustom,
             manageScreenState,
             startDatagrid,
+            startTimeSlider,
             maps = [],
             vm = {};
 
@@ -196,6 +197,13 @@
                         btn.on('click', function() {
                             gisMap.hideInfoWindow(_self.map, 'location');
                         });
+
+                        // set swiper
+                        if (typeof $mapElem.swiper !== 'undefined') {
+                            if ($mapElem.swiper.enable) {
+                                gisMap.setSwiper(map, $mapElem.swiper.layersid, $mapElem.swiper.type);
+                            }
+                        }
                     });
 
                     // subscribe to wcag and datagrid open to reposition the map. If not, there is offset
@@ -716,6 +724,11 @@
             }
         };
 
+        startTimeSlider = function(mapid, funct) {
+            var map = vm[mapid].map;
+            gisMap.setTimeSlider(map);
+        };
+
         return {
             initialize: initialize,
             setScaleBar: setScaleBar,
@@ -759,7 +772,8 @@
             printCustom: printCustom,
             manageScreenState: manageScreenState,
             disableZoomExtent: disableZoomExtent,
-            startDatagrid: startDatagrid
+            startDatagrid: startDatagrid,
+            startTimeSlider: startTimeSlider,
         };
     });
 }).call(this);

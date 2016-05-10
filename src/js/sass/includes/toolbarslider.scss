@@ -1,0 +1,119 @@
+@import "includes/gcviz-mixin";
+
+.esriTimeSlider {
+width:100%;
+z-index:999;
+position:relative;
+}
+
+.esriTimeSlider .tsFlipImage {
+-moz-transform:scaleX(-1);
+-o-transform:scaleX(-1);
+-webkit-transform:scaleX(-1);
+transform:scaleX(-1);
+filter:FlipH;
+-ms-filter:FlipH;
+}
+
+.esriTimeSlider .ts {
+margin:3px;
+padding:10px 3px 3px;
+}
+
+.esriTimeSlider .tsTicks {
+height:10px;
+margin-bottom:-5px;
+}
+
+.esriTimeSlider .tsLabels {
+font-size:.7em;
+margin-top:5px;
+}
+
+.esriAttributeInspector .atiPrevIcon,.esriTimeSlider .tsPlayButton,.esriMdSliderVertical .mdsPlayButton,.esriMdSliderHorizontal .mdsPlayButton {
+background-position:-32px 0;
+}
+
+.esriAttributeInspector .atiNextIcon,.esriTimeSlider .tsPrevButton {
+background-position:-48px 0;
+}
+
+.esriAttributeInspector .atiFirstIcon,.esriTimeSlider .tsPauseButton,.esriMdSliderVertical .mdsPauseButton,.esriMdSliderHorizontal .mdsPauseButton,.pointIconDisabled {
+background-position:-16px 0;
+}
+
+.esriAttributeInspector .atiLastIcon,.esriTimeSlider .tsNextButton,.pointIcon,.esriAGOFilterAddExpIcon,.top-left,.EnrichOptionsPage_Fields .ui-icon-triangle-1-e,.EnrichOptionsPage_Fields .ui-icon-triangle-1-se,.DataVariablesPage_Tree .ui-icon-triangle-1-se,.esriSymbolStyler .solid,.esriSymbolStylerMenu .solid {
+background-position:0 0;
+}
+
+.esriTimeSlider .tsButton,.esriMdSliderHorizontal .mdsButton,.esriMdSliderVertical .mdsButton {
+width:16px;
+height:16px;
+background-repeat:no-repeat;
+background-image:url("images/spriteSlider.png");
+}
+
+.dijitSliderDisabled.dojoxRangeSlider .dijitSliderLeftBumper,.dijitSliderDisabled.dojoxRangeSlider .dijitSliderBottomBumper {
+background:#EFEFEF;
+}
+
+.dojoxRangeSlider .dijitSliderProgressBarV {
+position:absolute!important;
+border-width:0;
+}
+
+.dojoxRangeSlider .dijitSliderProgressBar {
+overflow:hidden;
+cursor:pointer;
+}
+
+.dijitSlider .dojoxRangeSliderBarContainer .dijitSliderProgressBarH,.dojoxRangeSlider .dijitSliderMoveableH {
+right:auto!important;
+}
+
+.esriMdSliderVertical .dijitSliderImageHandleV {
+background-position:-289px 0;
+}
+
+
+
+.esriHorizontalSlider.dijitSlider.dijitDisabled {
+opacity:0.50;
+}
+
+.esriHorizontalSlider.dijitSlider .dijitSliderBumper {
+background:#999 none;
+}
+
+.esriHorizontalSlider.dijitSlider .dijitSliderBar {
+border-color:#999;
+}
+
+.esriHorizontalSlider.dijitSlider .dijitSliderProgressBar {
+background:#ddd none;
+}
+
+.esriHorizontalSlider.dijitSlider .dijitSliderImageHandle,.esriHorizontalSlider.dijitSlider .dijitSliderImageHandle.dijitSliderThumbHover {
+background:url(../dijit/images/slider-handle.png);
+width:10px;
+border:none;
+height:14px;
+}
+
+.dijitRtl .esriHorizontalSlider.dijitSlider .dijitSliderImageHandle {
+left:auto;
+right:50%;
+}
+
+.dj_rtl .esriViewPopup .gallery ul.summary,.dijitRtl .esriHorizontalSlider .dijitSliderMoveableH,.dj_rtl .arcgisSearch .searchClear {
+right:auto;
+left:0;
+}
+
+div.esriMultidimensionalFilterContainer .dijitButtonNode,.dijitSlider.dojoxRangeSlider .dijitSliderLeftBumper,.dijitSlider.dojoxRangeSlider .dijitSliderBottomBumper {
+background:#FFF;
+}
+
+.dojoxRangeSlider .dijitSliderImageHandleH,.esriTags .container_2 .pull_1 {
+left:-50%;
+}

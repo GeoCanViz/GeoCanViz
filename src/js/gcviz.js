@@ -8,7 +8,7 @@
  */
 /* global $: false */
 var locationPath;
-(function() {
+(function () {
     'use strict';
     var mapsTotal,
         mapsNum;
@@ -28,14 +28,16 @@ var locationPath;
             'gcviz-v-tblegend',
             'gcviz-v-tbdata',
             'gcviz-v-tbextract',
+            'gcviz-v-tbslider',
             'gcviz-v-print'
-    ], function($viz, i18n, gcvizFunc, map, inset, help, wcag, datagrid, header, footer, tbdraw, tbnav, tblegend, tbdata, tbextract, print) {
+    ], function($viz, i18n, gcvizFunc, map, inset, help, wcag, datagrid, header, footer, tbdraw, tbnav, tblegend, tbdata, tbextract, tbslider, print) {
         var initialize,
             readConfig,
             execConfig,
             setLocationPath,
             setLocalMP,
-            setScrollTo;
+            setScrollTo,
+            inter;
 
         /*
          * initialize the GCViz application
@@ -63,7 +65,9 @@ var locationPath;
             setLocationPath();
 
             // set local for magnificpopup plugin
-            //setLocalMP();
+            // magnificpopup is link with the outside jQuery. Sometimes, the dependencie is not loaded when
+            // we try to use it. So we use an interval to try to set it later...
+            inter = setInterval(setLocalMP, 1000);
 
             // set scrollTo function
             setScrollTo();
@@ -171,6 +175,13 @@ var locationPath;
                 tbextract.initialize($mapSection);
             }
 
+            // add time slider
+            if (typeof config.toolbarslider !== 'undefined') {
+                if (config.toolbarslider.enable) {
+                    tbslider.initialize($mapSection);
+                }
+            }
+
             // add inset
             if (config.insetframe.enable) {
                 inset.initialize($mapSection);
@@ -263,19 +274,23 @@ var locationPath;
         };
 
         setLocalMP = function() {
-            // keep $ because $viz wont work
-            $viz.extend({}, $.magnificPopup.defaults, {
-                tClose: i18n.getDict('%mp-close'), // Alt text on close button
-                tLoading: i18n.getDict('%mp-load'), // Text that is displayed during loading. Can contain %curr% and %total% keys
-                gallery: {
-                    tPrev: i18n.getDict('%mp-prev'), // Alt text on left arrow
-                    tNext: i18n.getDict('%mp-next'), // Alt text on right arrow
-                    tCounter: i18n.getDict('%mp-count') // Markup for "1 of 7" counter
-                },
-                image: {
-                    tError: i18n.getDict('%mp-error') // Error message when image could not be loaded
+                // keep $ because $viz wont work
+                if (typeof $.magnificPopup !== 'undefined' && typeof $.magnificPopup.defaults !== 'undefined') {
+                    $viz.extend({}, $.magnificPopup.defaults, {
+                        tClose: i18n.getDict('%mp-close'), // Alt text on close button
+                        tLoading: i18n.getDict('%mp-load'), // Text that is displayed during loading. Can contain %curr% and %total% keys
+                        gallery: {
+                            tPrev: i18n.getDict('%mp-prev'), // Alt text on left arrow
+                            tNext: i18n.getDict('%mp-next'), // Alt text on right arrow
+                            tCounter: i18n.getDict('%mp-count') // Markup for "1 of 7" counter
+                        },
+                        image: {
+                            tError: i18n.getDict('%mp-error') // Error message when image could not be loaded
+                        }
+                    });
+
+                    clearInterval(inter);
                 }
-            });
         };
 
         // add scrollTo function to $viz to be able to scroll to open panel

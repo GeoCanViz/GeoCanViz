@@ -355,9 +355,8 @@
             "print": {
                 "enable": true,
                 "type": 3,
-                "printlayout": ["Portrait", "Landscape"],
-                "project": ["Default", "Topo"],
-                "DPI": [96, 300]
+                "template": [],
+                "DPI": [100, 300]
             },
             "saveurl": {
                 "enable": true
@@ -424,13 +423,49 @@
             }, {
                 "expand": false,
                 "last": true,
+                "type": 2,
+                "id": "62e7429b-b08a-9325-45dd-4fbff4f67858",
+                "graphid": "cc7fde4c-0003-1cf2-8358-7ca86eefb13c",
+                "displayfields": false,
+                "label": {
+                    "value": "Carte de base du Canada",
+                    "alttext": "Carte de base du Canada"
+                },
+                "metadata": {
+                    "enable": false
+                },
+                "opacity": {
+                    "enable": true,
+                    "min": 0,
+                    "max": 1,
+                    "initstate": 1
+                },
+                "visibility": {
+                    "enable": true,
+                    "initstate": true,
+                    "type": 2,
+                    "radioid": 5
+                },
+                "displaychild": {
+                    "enable": false,
+                    "symbol": ""
+                },
+                "customimage": {
+                    "enable": false,
+                    "description": "",
+                    "images": []
+                },
+                "items": []
+            }, {
+                "expand": false,
+                "last": true,
                 "type": 3,
                 "id": "99999999-0003-c8f5-175c-645270a6b6fe",
                 "graphid": "e5511402-0002-5cbe-0d3c-f537c612b7df",
                 "displayfields": false,
                 "label": {
-                    "value": "Images Landsat",
-                    "alttext": "Images Landsat"
+                    "value": "Imagerie satellitaire : Landsat 7",
+                    "alttext": "Imagerie satellitaire : Landsat 7"
                 },
                 "metadata": {
                     "enable": false,
@@ -471,7 +506,9 @@
                     "alttext": "Toporama"
                 },
                 "metadata": {
-                    "enable": false
+                    "enable": true,
+                    "value": "http://atlas.gc.ca/toporama/fr/index.html",
+                    "alttext": "L'Atlas du Canada - Toporama"
                 },
                 "opacity": {
                     "enable": true,
@@ -499,48 +536,12 @@
                 "expand": false,
                 "last": true,
                 "type": 2,
-                "id": "62e7429b-b08a-9325-45dd-4fbff4f67858",
-                "graphid": "cc7fde4c-0003-1cf2-8358-7ca86eefb13c",
-                "displayfields": false,
-                "label": {
-                    "value": "Carte de base du Canada",
-                    "alttext": "Carte de base du Canada"
-                },
-                "metadata": {
-                    "enable": false
-                },
-                "opacity": {
-                    "enable": true,
-                    "min": 0,
-                    "max": 1,
-                    "initstate": 1
-                },
-                "visibility": {
-                    "enable": true,
-                    "initstate": true,
-                    "type": 2,
-                    "radioid": 5
-                },
-                "displaychild": {
-                    "enable": false,
-                    "symbol": ""
-                },
-                "customimage": {
-                    "enable": false,
-                    "description": "",
-                    "images": []
-                },
-                "items": []
-            }, {
-                "expand": false,
-                "last": true,
-                "type": 2,
                 "id": "34ad6a2c-2bcf-bd20-111f-ce0421f62a53",
                 "graphid": "762eb7ed-0001-242f-6fcf-af08f5605eb1",
                 "displayfields": false,
                 "label": {
-                    "value": "Relief ombré",
-                    "alttext": "Relief ombré"
+                    "value": "Carte de base du Canada : relief ombré",
+                    "alttext": "Carte de base du Canada : relief ombré"
                 },
                 "metadata": {
                     "enable": false
@@ -644,7 +645,7 @@
                 "expand": true,
                 "last": false,
                 "type": 4,
-                "id": "dcef9444-821b-53d2-8662-d4c5ade74415",
+                "id": "dcef9444-821b-53d2-8662-d4c5ade99999",
                 "graphid": "d14c7497-f9ad-2801-cfea-3a2e973cd36f",
                 "displayfields": false,
                 "label": {
@@ -1156,7 +1157,7 @@
                     "title": "Produit",
                     "width": "200px",
                     "data": "Product_F",
-                    "dataalias": "Product_f",
+                    "dataalias": "Product_F",
                     "fieldtype": {
                         "type": 1,
                         "value": 1

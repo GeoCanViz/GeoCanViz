@@ -91,6 +91,8 @@
                 _self.dataAlt = i18n.getDict('%toolbardata-alt');
                 _self.extractTitle = i18n.getDict('%toolbarextract-name');
                 _self.extractAlt = i18n.getDict('%toolbarextract-alt');
+                _self.sliderTitle = i18n.getDict('%toolbarslider-name');
+                _self.sliderAlt = i18n.getDict('%toolbarslider-alt');
 
                 // about dialog box
                 _self.lblAboutTitle = i18n.getDict('%header-tpabout');

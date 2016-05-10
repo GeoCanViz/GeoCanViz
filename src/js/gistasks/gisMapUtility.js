@@ -29,8 +29,11 @@
             'esri/layers/ImageParameters',
             'esri/geometry/Extent',
             'esri/geometry/Point',
+            'esri/dijit/LayerSwipe',
+            'esri/TimeExtent',
+            'esri/dijit/TimeSlider',
             'esri/IdentityManager'
-    ], function($viz, kpan, func, menu, menuItem, menupopup, gisLegend, gisCluster, esriConfig, esriMap, esriGraph, esriFL, esriTiled, esriDyna, esriImage, webTiled, wms, wmsInfo, esriDynaLD, esriExt, esriPoint) {
+    ], function($viz, kpan, func, menu, menuItem, menupopup, gisLegend, gisCluster, esriConfig, esriMap, esriGraph, esriFL, esriTiled, esriDyna, esriImage, webTiled, wms, wmsInfo, esriDynaLD, esriExt, esriPoint, esriSwipe,  esriTime, esriSlider) {
         var mapArray = {},
             setProxy,
             createMap,
@@ -61,6 +64,7 @@
             panDown,
             showInfoWindow,
             hideInfoWindow,
+            setSwiper,
             getKeyExtent,
             getOverviewLayer,
             linkNames = [],
@@ -69,6 +73,7 @@
             insetArray = {},
             isFullscreen,
             linkCount,
+            setTimeSlider,
             noLink = false;
 
         setProxy = function(url) {
@@ -808,6 +813,57 @@
             });
         };
 
+        setSwiper = function(map, id, type) {
+            var layers = [],
+                len = id.length;
+
+            while (len--) {
+                layers.push(map.getLayer(id[len]));
+            }
+
+            var swipeWidget = new esriSwipe({
+                type: type,  //Try switching to "scope" or "vertical" (not "horizontal", css has been rempve)
+                map: map,
+                layers: layers
+            }, "gcvizSwipeDiv");
+
+            swipeWidget.on('load', function() {
+                var item = $viz.find('#' + map.id + ' .vertical')[0];
+
+                // set tabindex
+                //item.tabIndex = 0;
+
+                // change text
+                if (window.langext === 'fra') {
+                    item.title = 'Faites glisser pour voir les couches sous-jacentes';
+                }
+            });
+
+            swipeWidget.startup();
+        };
+
+        setTimeSlider = function(map) {
+            var timeSlider = new esriSlider({
+                style: 'width: 100%;'
+            }, $viz.find('#gcvizTimeSlider')[0]);
+            map.setTimeSlider(timeSlider);
+
+            var timeExtent = new esriTime();
+            timeExtent.startTime = new Date(1199232000000);
+            timeExtent.endTime = new Date(1435363200000);
+            timeSlider.setThumbCount(2);
+            timeSlider.createTimeStopsByTimeInterval(timeExtent, 2, 'esriTimeUnitsYears');
+            timeSlider.setThumbIndexes([0,1]);
+            timeSlider.setThumbMovingRate(2000);
+            timeSlider.startup();
+
+            timeSlider.on('time-extent-change', function(evt) {
+                var startValString = evt.startTime.getUTCFullYear();
+                var endValString = evt.endTime.getUTCFullYear();
+                //dom.byId("daterange").innerHTML = "<i>" + startValString + " and " + endValString  + "<\/i>";
+          });
+        };
+
         return {
             setProxy: setProxy,
             createMap: createMap,
@@ -835,7 +891,9 @@
             panRight: panRight,
             panDown: panDown,
             showInfoWindow: showInfoWindow,
-            hideInfoWindow: hideInfoWindow
+            hideInfoWindow: hideInfoWindow,
+            setSwiper: setSwiper,
+            setTimeSlider: setTimeSlider
         };
     });
 }());

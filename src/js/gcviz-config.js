@@ -392,6 +392,14 @@
                 location: locationPath + 'gcviz/js/viewmodels',
                 main: 'toolbarextractVM-min'
             }, {
+                name: 'gcviz-v-tbslider',
+                location: locationPath + 'gcviz/js/views',
+                main: 'toolbarsliderV-min'
+            }, {
+                name: 'gcviz-vm-tbslider',
+                location: locationPath + 'gcviz/js/viewmodels',
+                main: 'toolbarsliderVM-min'
+            }, {
                 name: 'gcviz-v-map',
                 location: locationPath + 'gcviz/js/views',
                 main: 'mapV-min'
