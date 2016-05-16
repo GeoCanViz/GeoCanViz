@@ -1,7 +1,7 @@
 @import "includes/gcviz-mixin";
 
 .esriTimeSlider {
-width:100%;
+width:95%!important;
 z-index:999;
 position:relative;
 }
@@ -75,8 +75,6 @@ right:auto!important;
 background-position:-289px 0;
 }
 
-
-
 .esriHorizontalSlider.dijitSlider.dijitDisabled {
 opacity:0.50;
 }
@@ -116,4 +114,30 @@ background:#FFF;
 
 .dojoxRangeSlider .dijitSliderImageHandleH,.esriTags .container_2 .pull_1 {
 left:-50%;
+}
+
+.BasemapToggle .basemapImageContainer,.simpleDirections .esriStopsTableContainer,.simpleDirections .esriInnerGeocoder,.dj_ie .infowindow .window .top .right .user .content,.dj_ie .simpleInfoWindow .content,.esriScalebarLineLabel,.dojoxRangeSliderBarContainer,.dojoxGridMasterHeader,.dojoxGridMasterView,.esriServiceEditorTableBody,.NumberSpinner,.GridCell_Measure .EnrichOptionsPage_Fields .dgrid-scroller,.EnrichOptionsPage_Fields .ui-widget-header,.esri-feature-table-column-header {
+position:relative;
+}
+
+.claro .dijitButton .dijitButtonNode, .claro .dijitDropDownButton .dijitButtonNode, .claro .dijitComboButton .dijitButtonNode, .claro .dijitToggleButton .dijitButtonNode {
+    border: 2px solid $grey-panel!important;
+    background-color: $grey-panel!important;
+    background-image: none!important;
+
+    &:hover {
+		border: 2px solid $orange!important;
+	}
+
+	&:focus {
+		border: 2px solid $orange!important;
+	}
+}
+
+.esriTimeSlider table {
+    background-color: transparent!important;
+}
+
+.esriTimeSlider table td {
+    border-style: none!important;
 }

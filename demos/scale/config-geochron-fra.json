@@ -198,6 +198,89 @@
                         "maxsizeprop": 50,
                         "maxdataprop": 1000
                     }
+                },
+                {
+                    "label": "WMTS",
+                    "id": "6f798c6b-zzzz-4e24-78dd-9bfa5a9bc59e",
+                    "type": 1,
+                    "url": "http://gis-portal-api.elasticbeanstalk.com/server/rest/services/basemaps/hybridBasemap/MapServer/WMTS/1.0.0/WMTSCapabilities.xml",
+                    "scale": {
+                        "min": 0,
+                        "max": 0
+                    },
+                    "options": {
+                        "tileinfos": {
+                          "dpi": 90.71428571428571,
+                          "format": "image/jpgpng",
+                          "compressionQuality": 0,
+                          "wkid": 3857,
+                          "rows": 256,
+                          "cols": 256,
+                          "origin": {
+                            "x": -20037508.34,
+                            "y": 20037508.34
+                          },
+                          "lods": [{
+                            "level": 0,
+                            "scale": 5.590822640285016E8
+                          }, {
+                            "level": 1,
+                            "scale": 2.7954113201425034E8
+                          }, {
+                            "level": 2,
+                            "scale": 1.3977056600712562E8
+                          }, {
+                            "level": 3,
+                            "scale": 6.988528300356235E7
+                          }, {
+                            "level": 4,
+                            "scale": 3.494264150178117E7
+                          }, {
+                            "level": 5,
+                            "scale": 1.7471320750890587E7
+                          }, {
+                            "level": 6,
+                            "scale": 8735660.375445293
+                          }, {
+                            "level": 7,
+                            "scale": 4367830.187722647
+                          }, {
+                            "level": 8,
+                            "scale": 2183915.0938617955
+                          }, {
+                            "level": 9,
+                            "scale": 1091957.5469304253
+                          }, {
+                            "level": 10,
+                            "scale": 545978.7734656851
+                          }, {
+                            "level": 11,
+                            "scale": 272989.38673237007
+                          },{
+                            "level": 12,
+                            "scale": 136494.69336618503
+                          }, {
+                            "level": 13,
+                            "scale": 68247.34668309252
+                          }, {
+                            "level": 14,
+                            "scale": 34123.67334154626
+                          }, {
+                            "level": 15,
+                            "scale": 17061.836671245605
+                          }, {
+                            "level": 16,
+                            "scale": 8530.918335622802
+                          }, {
+                            "level": 17,
+                            "scale": 4265.459167338929
+                          }]
+                      },
+                      "tileextent": [-1.2716130490533158E7, 7462461.353179939, -1.2231266958204554E7, 8401326.661320932],
+                      "version": "1.0.0",
+                      "tilematrixset": "default028mm",
+                      "identifier": "urn:ogc:def:crs:EPSG::3857"
+                    }
                 }]
             }
         },

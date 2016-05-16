@@ -25,7 +25,7 @@
                     // there is a problem with the define. The gcviz-vm-map is not able to be set.
     				// We set the reference to gcviz-vm-map (hard way)
     				require(['gcviz-vm-map'], function(vmMap) {
-                        vmMap.startTimeSlider(mapid);
+                        vmMap.startTimeSlider(mapid, config);
     				});
 
 
