@@ -1,0 +1,445 @@
+{
+    "gcviz": {
+        "mapframe": {
+            "size": {
+                "height": 400,
+                "width": 2000
+            },
+            "map": {
+                "urlgeomserv": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/Utilities/Geometry/GeometryServer",
+                "urlproxy": "http://geoappext.nrcan.gc.ca/php/proxy.ashx",
+                "urlsaveimage": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task",
+                "sr": {
+                    "wkid": 3978
+                },
+                "extentmax": {
+                    "xmin": -3744824.40769,
+                    "ymin": -1233258.60581,
+                    "xmax": 4192691.46735,
+                    "ymax": 4323002.50671
+                },
+                "extentinit": {
+                    "xmin": -4882725.5168,
+                    "ymin": -841674.48931,
+                    "xmax": 10992306.2332,
+                    "ymax": 4450002.76071
+                },
+                "lods": {
+                    "enable": true,
+                    "values": [{
+                        "level": 0,
+                        "resolution": 38364.660062653464,
+                        "scale": 145000000,
+                        "check": true
+                    }, {
+                        "level": 1,
+                        "resolution": 22489.62831258996,
+                        "scale": 85000000,
+                        "check": true
+                    }, {
+                        "level": 2,
+                        "resolution": 13229.193125052918,
+                        "scale": 50000000,
+                        "check": true
+                    }, {
+                        "level": 3,
+                        "resolution": 7937.5158750317505,
+                        "scale": 30000000,
+                        "check": true
+                    }, {
+                        "level": 4,
+                        "resolution": 4630.2175937685215,
+                        "scale": 17500000,
+                        "check": true
+                    }, {
+                        "level": 5,
+                        "resolution": 2645.8386250105837,
+                        "scale": 10000000,
+                        "check": true
+                    }, {
+                        "level": 6,
+                        "resolution": 1587.5031750063501,
+                        "scale": 6000000,
+                        "check": true
+                    }, {
+                        "level": 7,
+                        "resolution": 926.0435187537042,
+                        "scale": 3500000,
+                        "check": true
+                    }, {
+                        "level": 8,
+                        "resolution": 529.1677250021168,
+                        "scale": 2000000,
+                        "check": true
+                    }, {
+                        "level": 9,
+                        "resolution": 317.50063500127004,
+                        "scale": 1200000,
+                        "check": true
+                    }, {
+                        "level": 10,
+                        "resolution": 185.20870375074085,
+                        "scale": 700000,
+                        "check": true
+                    }, {
+                        "level": 11,
+                        "resolution": 111.12522225044451,
+                        "scale": 420000,
+                        "check": true
+                    }, {
+                        "level": 12,
+                        "resolution": 66.1459656252646,
+                        "scale": 250000,
+                        "check": true
+                    }, {
+                        "level": 13,
+                        "resolution": 38.36466006265346,
+                        "scale": 145000,
+                        "check": true
+                    }, {
+                        "level": 14,
+                        "resolution": 22.48962831258996,
+                        "scale": 85000,
+                        "check": true
+                    }, {
+                        "level": 15,
+                        "resolution": 13.229193125052918,
+                        "scale": 50000,
+                        "check": true
+                    }, {
+                        "level": 16,
+                        "resolution": 7.9375158750317505,
+                        "scale": 30000,
+                        "check": true
+                    }, {
+                        "level": 17,
+                        "resolution": 4.6302175937685215,
+                        "scale": 17500,
+                        "check": true
+                    }, {
+                        "level": 18,
+                        "resolution": 2.6458386250105836,
+                        "scale": 10000,
+                        "check": false
+                    }, {
+                        "level": 19,
+                        "resolution": 1.5875031750063502,
+                        "scale": 6000,
+                        "check": false
+                    }]
+                },
+                "link": false,
+                "zoombar": {
+                    "bar": true,
+                    "zoom": true,
+                    "zoomfull": true,
+                    "previousnext": true
+                },
+                "bases": [{
+                    "label": "CBME_CBCE_HS_RO_3978",
+                    "id": "34ad6a2c-2bcf-bd20-111f-ce0421f62a53",
+                    "type": 2,
+                    "url": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/BaseMaps/CBME_CBCE_HS_RO_3978/MapServer",
+                    "scale": {
+                        "min": 0,
+                        "max": 0
+                    }
+                }],
+                "layers": [{
+                    "label": "Pictures",
+                    "id": "6f798c6b-f369-4e24-78dd-9bfa5a9bc59e",
+                    "type": 4,
+                    "visiblelayers": [0],
+                    "url": "http://s-bsc-gisint1.nrn.nrcan.gc.ca:6080/arcgis/rest/services/Test/MainCumDist/MapServer/",
+                    "scale": {
+                        "min": 0,
+                        "max": 0
+                    },
+                    "cluster": {
+                        "enable": false,
+                        "distance": 50,
+                        "label": false,
+                        "symbol": true,
+                        "maxsizeprop": 50,
+                        "maxdataprop": 1000
+                    }
+                }]
+            }
+        },
+        "header": {
+            "side": 1,
+            "title": {
+                "value": "Canadian Geochronology Knowledgebase",
+                "alttext": "Canadian Geochronology Knowledgebase"
+            },
+            "tools": {
+                "enable": true,
+                "expand": true
+            },
+            "link": false,
+            "inset": false,
+            "about": {
+                "enable": true,
+                "type": 1,
+                "value": "The compilation represents publicly available reports of geochronological information for Canada. This includes federal, provincial and territorial government publications and reports, university theses, books and journals, Current coverage is limited to those areas that have been the target of recent past compilation efforts, with other areas and updates being included as they become ready. Users should be aware that the compilation may not include all available data for a given area. Every effort is made to report the ages without reinterpreting the original authors' intent. However, care has also been taken to highlight the salient features of the data by which the end-user can make initial judgment on the data robustness. Users are cautioned that because of space limitations and the necessary summarization of often complex datasets, that the original publication should be consulted to verify age interpretations and their rationale. Data may be extracted by the user in data in either tab-delimited text or WMS formats"
+            },
+            "print": {
+                "enable": true,
+                "type": 3,
+                "template": [],
+                "DPI": [100, 300]
+            },
+            "saveurl": {
+                "enable": true
+            },
+            "saveimage": {
+                "enable": true
+            },
+            "fullscreen": true
+        },
+        "footer": {
+            "northarrow": {
+                "enable": true,
+                "inwkid": 3978
+            },
+            "mousecoords": {
+                "enable": true,
+                "outwkid": 4326
+            },
+            "scalebar": {
+                "enable": true,
+                "unit": 1
+            },
+            "datagrid": {
+                "enable": true
+            }
+        },
+        "datagrid": {
+            "enable": true,
+            "expand": true,
+            "layers": [{
+                "staticfile": "",
+                "layerinfo": {
+                    "type": 4,
+                    "index": 0,
+                    "id": "6f798c6b-f369-4e24-78dd-9bfa5a9bc59e"
+                },
+                "title": "Pictures",
+                "globalsearch": false,
+                "fields": [{
+                    "enable": true,
+                    "title": "Photo",
+                    "width": "",
+                    "data": "url",
+                    "dataalias": "photoLink",
+                    "searchable": false,
+                    "fieldtype": {
+                        "type": 10,
+                        "value": 1,
+                        "display": "picture",
+                        "alttext": "description"
+                    }
+                }, {
+                    "enable": true,
+                    "title": "Description",
+                    "width": "80px",
+                    "data": "description",
+                    "dataalias": "description",
+                    "searchable": true,
+                    "fieldtype": {
+                        "type": 1,
+                        "value": 1
+                    }
+                }],
+                "linktable": {
+                    "enable": false,
+                    "relationshipid": 0,
+                    "title": "",
+                    "subtitle": "",
+                    "fields": []
+                },
+                "popups": {
+                    "enable": true,
+                    "layeralias": "DistZones"
+                },
+                "hover": {
+                    "enable": false,
+                    "hoverfield": ""
+                }
+            }]
+        },
+        "toolbarlegend": {
+            "enable": true,
+            "expand": true,
+            "pos": 0,
+            "basemaps": [{
+                "expand": false,
+                "last": true,
+                "type": 2,
+                "id": "34ad6a2c-2bcf-bd20-111f-ce0421f62a53",
+                "graphid": "762eb7ed-0001-242f-6fcf-af08f5605eb1",
+                "displayfields": false,
+                "label": {
+                    "value": "CBM - Elevation",
+                    "alttext": "CBM - Elevation"
+                },
+                "metadata": {
+                    "enable": false
+                },
+                "opacity": {
+                    "enable": false,
+                    "min": 0,
+                    "max": 1,
+                    "initstate": 1
+                },
+                "visibility": {
+                    "enable": true,
+                    "initstate": true,
+                    "type": 1,
+                    "radioid": 0
+                },
+                "displaychild": {
+                    "enable": false,
+                    "symbol": "{\"type\":\"simple\",\"symbol\":{\"type\":\"esriSLS\",\"style\":\"esriSLSSolid\",\"color\":[0,0,0,0],\"width\":2},\"label\":\"\",\"description\":\"\"}"
+                },
+                "customimage": {
+                    "enable": false,
+                    "description": "",
+                    "images": [{}],
+                    "desc": ""
+                },
+                "items": []
+            }],
+            "items": [{
+                "expand": true,
+                "last": true,
+                "type": 5,
+                "id": "6f798c6b-f369-4e24-78dd-9bfa5a9bc59e",
+                "graphid": "021c7848-c11c-53a4-a29c-d21ebc283d7c",
+                "displayfields": false,
+                "label": {
+                    "value": "Pictures",
+                    "alttext": "Pictures"
+                },
+                "metadata": {
+                    "enable": false
+                },
+                "opacity": {
+                    "enable": false,
+                    "min": 0,
+                    "max": 1,
+                    "initstate": 1
+                },
+                "visibility": {
+                    "enable": true,
+                    "initstate": true,
+                    "type": 1,
+                    "radioid": 0
+                },
+                "displaychild": {
+                    "enable": false,
+                    "symbol": "{\"type\":\"classBreaks\",\"field\":\"AGE\",\"classificationMethod\":\"esriClassifyManual\",\"minValue\":0,\"classBreakInfos\":[{\"symbol\":{\"type\":\"esriPMS\",\"url\":\"8f6be4ca42cc59c427319812487e543f\",\"imageData\":\"iVBORw0KGgoAAAANSUhEUgAAAAYAAAAGCAYAAADgzO9IAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAGxJREFUCJlVzKENwlAUheHvJi+5hA5A96hD4mAKHAswABrPAuwBW9Rh6qrqqx6CksBRJ//JfwpQ15n1QnR4zLNrWYYbcfx0u8y6KpAZe3+Jw2Losfnipql9gbZ1Gkd3dHhOU5wLDEO8sP09ewN+GBYFTY43owAAAABJRU5ErkJggg==\",\"contentType\":\"image/png\",\"width\":4,\"height\":4,\"angle\":0,\"xoffset\":0,\"yoffset\":0},\"classMaxValue\":65,\"label\":\"0.000 - 65.000\",\"description\":\"\"},{\"symbol\":{\"type\":\"esriPMS\",\"url\":\"2fdf6c180cf50741167a2c3529c8bfc4\",\"imageData\":\"iVBORw0KGgoAAAANSUhEUgAAAAYAAAAGCAYAAADgzO9IAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAHFJREFUCJlVzDEOAVEYAOHv5b2IrJ6DbLeljl6v4gIOoNaKC7gHjcQNttNKxA2Iza9QYMrJZArMtlHdBrF+Rqp7HE53mwLXKnYizTM6xs0w+gVIE3+kafGp2szo66MtkDtL2R41jo9XWhU4L9IFze/sDeTjHB+KjL1XAAAAAElFTkSuQmCC\",\"contentType\":\"image/png\",\"width\":4,\"height\":4,\"angle\":0,\"xoffset\":0,\"yoffset\":0},\"classMaxValue\":251,\"label\":\"65.001 - 251.000\",\"description\":\"\"},{\"symbol\":{\"type\":\"esriPMS\",\"url\":\"4f1bc0c5e000e2b0152a9393e2b79f78\",\"imageData\":\"iVBORw0KGgoAAAANSUhEUgAAAAYAAAAGCAYAAADgzO9IAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAHNJREFUCJlNzKENwlAUQNHzfj4pwSJgjzokDkZA4VgAg0MjSVgAxRKwRR0ehYSkov040mtPcjMcbiZf1TFFW/fFfT51yvAJlyjtti9g+XpX4wxRrAyKaNcZUmj6YvaXXpOh6+wiuaJOPEadfYbzxhOL4e4HReMeI2f0OeAAAAAASUVORK5CYII=\",\"contentType\":\"image/png\",\"width\":4,\"height\":4,\"angle\":0,\"xoffset\":0,\"yoffset\":0},\"classMaxValue\":542,\"label\":\"251.001 - 542.000\",\"description\":\"\"},{\"symbol\":{\"type\":\"esriPMS\",\"url\":\"4b6f68645954040a62e32e96029b06cb\",\"imageData\":\"iVBORw0KGgoAAAANSUhEUgAAAAYAAAAGCAYAAADgzO9IAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAG1JREFUCJlNzKENAkEUANHH5ocjNECo4xwSB8lJPI4GKACNpwE6QCChi3N4WrhF7GIguVGTTDIBu7f5UJsTuU08bh/ngIELeQ+FdTdtZgGqjRFJ3sbPeyz+odAHlIlDqq5o8YzkGHBfemE13n0BdhQYKUynkYAAAAAASUVORK5CYII=\",\"contentType\":\"image/png\",\"width\":4,\"height\":4,\"angle\":0,\"xoffset\":0,\"yoffset\":0},\"classMaxValue\":1600,\"label\":\"542.001 - 1600.000\",\"description\":\"\"},{\"symbol\":{\"type\":\"esriPMS\",\"url\":\"a363385d7825d9c4a96e7b1de60858ec\",\"imageData\":\"iVBORw0KGgoAAAANSUhEUgAAAAYAAAAGCAYAAADgzO9IAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAHJJREFUCJlNzKENwlAUQNHz2g9pWIBB6pAkCPB4HAtgcGDxLMAOCARsUccQxZLwP4KQ9NqT3ARlv56Upj8Erbq6q2+nBKXpzxE2IOd5sWgSRFgaFNkqgaITpn8oPt0P8nhr9L7IWjyieu1+q+P1idlw9wX3IxwckRMCVgAAAABJRU5ErkJggg==\",\"contentType\":\"image/png\",\"width\":4,\"height\":4,\"angle\":0,\"xoffset\":0,\"yoffset\":0},\"classMaxValue\":2500,\"label\":\"1600.001 - 2500.000\",\"description\":\"\"},{\"symbol\":{\"type\":\"esriPMS\",\"url\":\"c59369f4dd06a735c69d62329adf5028\",\"imageData\":\"iVBORw0KGgoAAAANSUhEUgAAAAYAAAAGCAYAAADgzO9IAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAGFJREFUCJlNzLENwjAUANH3JUuOWIBB0lGmC1PQsQADpKZnAfaALdJlkV+ZgljKVSeddAUap1brEpkjPniWPbwi8+bP1GodCgSzA5F5LbuvOPfQWHu4440R3+DRVxsux90PWGIUJ1JYcM0AAAAASUVORK5CYII=\",\"contentType\":\"image/png\",\"width\":4,\"height\":4,\"angle\":0,\"xoffset\":0,\"yoffset\":0},\"classMaxValue\":4673,\"label\":\"2500.001 - 4673.000\",\"description\":\"\"}]}"
+                },
+                "customimage": {
+                    "enable": false,
+                    "images": [{
+                        "url": "../images/legend/geoc_0-65.gif",
+                        "label": "0.000 - 65.000"
+                    }, {
+                        "url": "../images/legend/geoc_65-251.gif",
+                        "label": "65.001 - 251.000"
+                    }, {
+                        "url": "../images/legend/geoc_251-542.gif",
+                        "label": "251.001 - 542.000"
+                    }, {
+                        "url": "../images/legend/geoc_542-1600.gif",
+                        "label": "542.001 - 1600.000"
+                    }, {
+                        "url": "../images/legend/geoc_1600-2500.gif",
+                        "label": "1600.001 - 2500.000"
+                    }, {
+                        "url": "../images/legend/geoc_2500-4673.gif",
+                        "label": "2500.001 - 4673.000"
+                    }],
+                    "description": "",
+                    "desc": ""
+                },
+                "items": [],
+                "isExpand": true
+            }]
+        },
+        "toolbardraw": {
+            "enable": true,
+            "expand": false,
+            "pos": 1,
+            "drawline": {
+                "enable": true
+            },
+            "drawtext": {
+                "enable": true
+            },
+            "measureline": {
+                "enable": true,
+                "unit": 1
+            },
+            "measurearea": {
+                "enable": true,
+                "unit": 1
+            },
+            "importexport": {
+                "enable": true
+            }
+        },
+        "toolbarnav": {
+            "enable": true,
+            "expand": false,
+            "pos": 2,
+            "mapwkid": 3978,
+            "geolocation": {
+                "enable": true,
+                "graphic": true,
+                "info": true
+            },
+            "scaledisplay": {
+                "enable": true,
+                "format": 1
+            },
+            "overview": {
+                "enable": true,
+                "url": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/BaseMaps/CBMT3978/MapServer",
+                "type": 2
+            },
+            "position": {
+                "enable": true
+            }
+        },
+        "toolbardata": {
+            "enable": true,
+            "expand": false,
+            "pos": 3,
+            "datafile": {
+                "enable": true
+            },
+            "dataurl": {
+                "enable": true
+            },
+            "dataquery": {
+                "enable": true
+            }
+        },
+        "toolbarextract": {
+            "enable": false,
+            "expand": false,
+            "pos": -1,
+            "grid": {
+                "enable": false,
+                "id": "0"
+            },
+            "items": []
+        },
+        "insetframe": {
+            "enable": false
+        },
+        "customwidgets": []
+    }
+}

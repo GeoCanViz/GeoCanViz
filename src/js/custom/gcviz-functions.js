@@ -32,6 +32,7 @@
 			parseDMS,
 			parseScale,
 			convertDdToDms,
+			formatDate,
 			timer;
 
 		debounce = function(func, threshold, execAsap) {
@@ -383,6 +384,24 @@
 					y: [Math.abs(dy) + degreeSymbol, my + '\'', sdy + '"', yLabel] };
 		};
 
+		formatDate = function(date, time) {
+			var year, month, day, hour, min,
+				output;
+
+            month = date.getUTCMonth() + 1; //months from 1-12
+            day = date.getUTCDate() + 1; // count from 0
+            year = date.getUTCFullYear();
+            output = year + "-" + month + "-" + day;
+
+			if (time) {
+				hour = date.getHours();
+				min = date.getMinutes();
+				output += ' ' + hour + ':' + min;
+			}
+
+			return output;
+		};
+
 		return {
 			debounce: debounce,
 			debounceClick: debounceClick,
@@ -404,7 +423,8 @@
 			padDigits: padDigits,
 			parseLonLat: parseLonLat,
 			parseScale: parseScale,
-			convertDdToDms: convertDdToDms
+			convertDdToDms: convertDdToDms,
+			formatDate: formatDate
 		};
 	});
 }());

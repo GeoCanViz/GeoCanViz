@@ -101,11 +101,11 @@ Global sys value#%gisurlmd#http://geomag.nrcan.gc.ca/service/tools/magnetic/calc
 #%datagrid-popalllayers#All layers#Toutes les couches
 #%datagrid-popselect#Select the features from the following layer#Sélectionnez une couche dans les suivantes
 #%datagrid-protitle#Table Creation#Création des tables
-#%datagrid-prodesc#Please wait until all tables are created. This operation could take up to 30 seconds. If tables are not created after that, refresh your browser.#S'il vous plaît, attendre que toutes les tables soient créées. Cette opération pourrait prendre jusqu'à 30 secondes. Si les tables ne sont pas créées après cela, veuillez rafraîchir navigateur.
+#%datagrid-prodesc#Please wait until all tables are created. This operation could take up to 30 seconds. If tables are not created after that, refresh your browser.#Veuillez attendre que toutes les tables soient créées. Cette opération pourrait prendre jusqu'à 30 secondes. Si les tables ne sont pas créées après cela, veuillez rafraîchir votre navigateur.
 #%datagrid-exptitle#Table Export#Exporter la table
 #%datagrid-expdesc#Table selection is being exported to a Comma-Separated Value file in your download folder. Due to amount of elements, it can take up to few minutes.#La sélection de la table est exportée dans un fichier CSV (Comma-separated values) dans votre répertoire téléchargement. Du au nombre élevé d'éléments, ceci peut prendre jusqu'a quelques minutes.
-#%toolbardraw-alt#Measuring and Drawing Tools - Help#Mesures et outils de dessin - Aide
-#%toolbardraw-name#Measuring and Drawing Tools#Mesures et outils de dessin
+#%toolbardraw-alt#Measuring and Drawing Tools - Help#Outils de mesure et de dessin - Aide
+#%toolbardraw-name#Measuring and Drawing Tools#Outils de mesure et de dessin
 #%toolbardraw-insinputbox#Enter text, click OK and then click the map location where the text should be placed.#Cliquez sur OK pour placer le texte sur la carte ou cliquez sur Annuler pour abandonner.
 #%toolbardraw-inputbox-name#Add Text#Ajouter du texte
 #%toolbardraw-tpcolorblack#Select black colour#Sélectionner la couleur noire
@@ -158,15 +158,15 @@ Global sys value#%gisurlmd#http://geomag.nrcan.gc.ca/service/tools/magnetic/calc
 #%toolbarnav-infoutm#UTM Coordinates#Coordonnées UTM
 #%toolbarnav-infoutmeast#Easting:#Abscisse :
 #%toolbarnav-infoutmnorth#Northing:#Ordonnée :
-#%toolbarnav-infoutmz#Zone: #Zone : 
+#%toolbarnav-infoutmz#Zone: #Zone :
 #%toolbarnav-infonts#NTS Mapsheet#Carte du SNRC
 #%toolbarnav-infoaltitude#Elevation#Élévation
 #%toolbarnav-infomagndecl#Magnetic declination#Déclinaison magnétique
 #%toolbarnav-infomagndeclstatus# -WARNING- Out of scope.# -ATTENTION- Hors de portée.
 #%toolbarnav-infomagndeclcmp# -WARNING- Compass erratic for this coordinate.# -ATTENTION- Boussole peu fiable pour cette coordonnée.
-#%toolbarnav-infomagndecldate#Date: #Date : 
-#%toolbarnav-infomagndeclvalue#Magnetic declination (DD): #Déclinaison magnétique (DD) : 
-#%toolbarnav-infomagndeclannch#Annual change (minutes/year): #Changement annuel (minutes/année) : 
+#%toolbarnav-infomagndecldate#Date: #Date :
+#%toolbarnav-infomagndeclvalue#Magnetic declination (DD): #Déclinaison magnétique (DD) :
+#%toolbarnav-infomagndeclannch#Annual change (minutes/year): #Changement annuel (minutes/année) :
 #%toolbarnav-lblov#Overview Map#Carte de vue d'ensemble
 #%toolbarnav-lblovdisplay#Show on map#Afficher sur la carte
 #%toolbarnav-ovdrag#Drag to change map extent#Glisser pour changer l'étendue de la carte
@@ -203,6 +203,8 @@ Global sys value#%gisurlmd#http://geomag.nrcan.gc.ca/service/tools/magnetic/calc
 #%toolbarextract-alt#Download Maps and Data - Help#Téléchager cartes et données - Aide
 #%toolbarextract-name#Download Maps and Data#Télécharger cartes et données
 #%toolbarextract-btnget#Get Data#Obtenir les données
+#%toolbarslider-alt#Time Slider - Help#Tcurseur de temps - Aide
+#%toolbarslider-name#Time slider#curseur de temps
 #%inset-tplight#Open the content in a lightbox#Ouvrir le contenu dans un lightbox
 #%inset-tpplayvideo#Play video#Jouer la vidéo
 #%mp-close#Close (Esc)#Fermer (Esc)

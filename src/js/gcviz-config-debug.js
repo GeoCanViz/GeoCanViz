@@ -392,6 +392,14 @@
                 location: locationPath + 'src/js/widgets/viewmodels',
                 main: 'toolbarextractVM'
             }, {
+                name: 'gcviz-v-tbslider',
+                location: locationPath + 'src/js/widgets/views',
+                main: 'toolbarsliderV'
+            },{
+                name: 'gcviz-vm-tbslider',
+                location: locationPath + 'src/js/widgets/viewmodels',
+                main: 'toolbarsliderVM'
+            }, {
                 name: 'gcviz-v-map',
                 location: locationPath + 'src/js/widgets/views',
                 main: 'mapV'

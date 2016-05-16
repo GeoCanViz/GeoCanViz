@@ -62,6 +62,7 @@
             printCustom,
             manageScreenState,
             startDatagrid,
+            startTimeSlider,
             maps = [],
             vm = {};
 
@@ -185,7 +186,8 @@
 
                     // KEEP!!! set a wcag close button for map info window (we need this for the popup with find a location)
                     map.on('load', function() {
-                        var btn;
+                        var btn,
+                            opts = $mapElem.swiper;
 
                         panel = $viz('.esriPopupWrapper').find('.titlePane');
                         panel.prepend('<button class="gcviz-wcag-close ui-button ui-state-default ui-button-icon-only ui-dialog-titlebar-close" role="button" aria-disabled="false" title="close">' +
@@ -196,6 +198,13 @@
                         btn.on('click', function() {
                             gisMap.hideInfoWindow(_self.map, 'location');
                         });
+
+                        // set swiper
+                        if (typeof opts !== 'undefined') {
+                            if (opts.enable) {
+                                gisMap.setSwiper(map, opts.layersid, opts.type, opts.offsetwcag);
+                            }
+                        }
                     });
 
                     // subscribe to wcag and datagrid open to reposition the map. If not, there is offset
@@ -716,6 +725,11 @@
             }
         };
 
+        startTimeSlider = function(mapid, config) {
+            var map = vm[mapid].map;
+            gisMap.setTimeSlider(map, config);
+        };
+
         return {
             initialize: initialize,
             setScaleBar: setScaleBar,
@@ -759,7 +773,8 @@
             printCustom: printCustom,
             manageScreenState: manageScreenState,
             disableZoomExtent: disableZoomExtent,
-            startDatagrid: startDatagrid
+            startDatagrid: startDatagrid,
+            startTimeSlider: startTimeSlider,
         };
     });
 }).call(this);

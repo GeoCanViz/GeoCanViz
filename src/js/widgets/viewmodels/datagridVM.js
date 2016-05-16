@@ -21,6 +21,7 @@
             addTab,
             addRestTab,
             removeTab,
+            interMag,
             vm = {};
 
         initialize = function($mapElem, mapid, config) {
@@ -248,7 +249,16 @@
 
                             // add url value field if type field === url
                             if (fieldType.type === 3) {
-                                strField += fieldType.urlfield + ',';
+                                if (typeof fieldType.urlfield !== 'undefined') {
+                                    strField += fieldType.urlfield + ',';
+                                }
+                            }
+
+                            // add description value field if type field === picture
+                            if (fieldType.type === 10) {
+                                if (typeof fieldType.description !== 'undefined') {
+                                    strField += fieldType.description + ',';
+                                }
                             }
                         }
                     }
@@ -268,7 +278,7 @@
                             urlFull = url + layerIndex + '/query?where=OBJECTID+>+0&outFields=' + strField + '&dirty=' + (new Date()).getTime();
                             gisDG.getData(mapid, urlFull, layer, _self.createTab);
                         } else {
-                            gisDG.getStaticData(mapid, staticFile, layer, _self.createTab)
+                            gisDG.getStaticData(mapid, staticFile, layer, _self.createTab);
                         }
 
                         // popup
@@ -286,7 +296,7 @@
                             urlFull = url + '/query?where=OBJECTID+>+0&outFields=' + strField + '&dirty=' + (new Date()).getTime();
                             gisDG.getData(mapid, urlFull, layer, _self.createTab);
                         } else {
-                            gisDG.getStaticData(mapid, staticFile, layer, _self.createTab)
+                            gisDG.getStaticData(mapid, staticFile, layer, _self.createTab);
                         }
 
                         // popup (remove layer index)
@@ -503,7 +513,7 @@
                                 } });
                         } else if (column.bSearchable) {
                             valueType = column.fieldtype.value;
-                            elem = $viz(this)
+                            elem = $viz(this);
 
                             // if there a description, add a tooltip
                             if (typeof column.description !== 'undefined') {
@@ -536,9 +546,32 @@
                         setTimeout(function() {
                             $viz('.gcviz-tooltip').hide();
                         }, 650);
-                    })
+                    });
+
                     // call finish init with the position of the table in the array
                     _self.finishInit(id);
+                };
+
+                _self.setMagnificPopup = function() {
+                    if (typeof $.magnificPopup !== 'undefined') {
+                        $('.gcviz-image-item').magnificPopup({
+                          type:'image',
+                          callbacks: {
+                            elementParse: function(item) {
+                                var elem = item.el[0];
+                                elem.title = elem.innerText;
+                            }
+                          }
+                        });
+
+                        // stop propagation of event on url field click
+                        $viz('.gcviz-image-item').on('click', function(event) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                        });
+
+                        clearInterval(interMag);
+                    }
                 };
 
                 _self.addSearcFields = function(table, fields) {
@@ -742,17 +775,19 @@
                 _self.createFields = function(layer, link) {
                     var field, typeObj, isEnable,
                         outFields = [],
+                        clsLink = 'gcviz-link-item',
                         fields = layer.fields,
                         lenFields = fields.length;
 
                     // field value can be (field: 1, keyurl: 2, url: 3, fieldurl: 4, fieldkeyurl: 5, control: 99)
-                    // field type can be (string: 1, number: 2, date: 3, select: 4, image: 5, string-list: 6, image-list: 7)
+                    // field type can be (string: 1, number: 2, date: 3, select: 4, image: 5, string-list: 6, image-list: 7, picture: 10)
                     // for field, nothing special, value can be anything
                     // for keyurl, (value: string, display: value to display, url: url to use with the key)
                     // for url, nothing special, just display the link (value: string, image, string-list, image-list)
                     // for fieldurl, (value: string, urlfield: name of the field where to get url, urlfieldalias: alias name of the field where to get url)
                     // for fieldkeyurl, (value: string, string-list, image, image-list, url: url to use with the key, fieldkey: name of the field where to get url, urlfieldalias: alias name of the field where to get url)
                     // for value date (informat: esri: 1, outformat: short: 1, long: 2)
+                    // for picture, field must containt url for the picture. In field type there must a altext parameter for alternate text for screen reader.
                     while (lenFields--) {
                         field = fields[lenFields];
                         typeObj = field.fieldtype;
@@ -767,15 +802,21 @@
                         if (isEnable) {
                             // if url, construct it.
                             // if nothing, add ... to string field when length is more then 40 characters
-                            if (typeObj.type === 3) {
+                            if (typeObj.type === 3 || typeObj.type === 10) {
                                 field.render = gcvizFunc.closureFunc(function(typeObj, data, type, full) {
                                     var field,
                                         urlLink = full[typeObj.urlfield];
 
-                                    if (urlLink !== null) {
-                                        field = '<a href="' + urlLink + '" target="_blank">' + data + '</a>';
+                                    if (typeObj.type === 10) {
+                                        clsLink = 'gcviz-image-item';
+                                    }
+
+                                    if (typeObj.display !== undefined) {
+                                        field = '<a class="' + clsLink + '" href="' + data + '" target="_blank">' + typeObj.display + '</a>';
+                                    } else if (urlLink !== null) {
+                                        field = '<a class="' + clsLink + '" href="' + urlLink + '" target="_blank">' + data + '</a>';
                                     } else {
-                                        field = '<span>' + data + '</span>';
+                                        field = '<a class="' + clsLink + '" href="' + data + '" target="_blank">' + data + '</a>';
                                     }
                                     return field;
                                 }, typeObj);
@@ -901,6 +942,10 @@
                                 }
                             });
                         });
+
+                        // initialize Magnific popup for image link in the table. Sometime, the dependencie is not loaded even
+                        // if it is in the define at the top.
+                        interMag = setInterval(_self.setMagnificPopup, 1000);
 
                         // notify tables are ready
                         _self.isTableReady(true);
@@ -1256,9 +1301,9 @@
                                 fields.unshift(field);
 
 								// put long field name if available
-								for (var i = 0; i < tblInfo.fields.length; i++) {
-									if (field === tblInfo.fields[i].data) {
-										header = '"' + tblInfo.fields[i].title + '",' + header;
+								for (var j = 0; j < tblInfo.fields.length; j++) {
+									if (field === tblInfo.fields[j].data) {
+										header = '"' + tblInfo.fields[j].title + '",' + header;
 									}
 								}
                                 gcvizInd++;
@@ -1297,7 +1342,7 @@
 
                     // custom download file name
                     if (navigator.msSaveBlob) { // IE 10+
-                        navigator.msSaveBlob(csvData, csvFilename)
+                        navigator.msSaveBlob(csvData, csvFilename);
                     } else {
                         link = document.createElement('a');
 
@@ -1305,7 +1350,7 @@
                         {
                             link.setAttribute('href', csvUrl);
                             link.setAttribute('download', csvFilename);
-                            document.body.appendChild(link) // for FF
+                            document.body.appendChild(link); // for FF
                             link.click(); // This will download the data
                         }
                         else
@@ -1371,6 +1416,9 @@
                         input = $viz(inputs[len]);
                         val = input.val();
                         name = input.attr('gcviz-name');
+
+                        // replace ' by '' to be able to perform the search in the datatable
+                        val = val.toUpperCase().replace(/'/g, "''");
 
                         if (val !== '' && val !== '...') {
                             if (input.hasClass('gcviz-dg-searchstr')) {
@@ -1609,11 +1657,11 @@
                     objDataTable[activeTableId].draw();
 
                     // stringnify the array
-                    var i, first, last,
+                    var first, last,
                         lenFeat = Math.floor(featIds.length / 1000) + 1,
                         defArr = [];
 
-                    for (i = 1; i <= lenFeat; i++) {
+                    for (var i = 1; i <= lenFeat; i++) {
                         first = (i-1) * 1000;
                         last = i * 1000;
                         defArr.push('OBJECTID IN (' + featIds.slice(first, last).join(',') + ')');
@@ -1717,6 +1765,7 @@
                         attrNames, attrValues,
                         field, fields, lenFields,
                         fieldType,
+                        desc, src,
                         layer, popups,
                         staticFields = 1,
                         linkNode = '',
@@ -1773,14 +1822,21 @@
 
                                     if (isEnable && field.dataalias.toUpperCase() === attrNames[l].toUpperCase()) {
                                         fieldType = field.fieldtype.type;
+                                        info = info + '<span class="gcviz-prop">' + field.title + '</span></br>';
 
                                         // if url, construct it
-                                        if (fieldType === 3) {
-                                            info = info +'<span class="gcviz-prop">' + field.title + '</span></br>' +
-                                                    '<a class="gcviz-popup-val" href="' + attrValues[gcvizFunc.returnIndexMatch(attrNames, field.fieldtype.urlfieldalias)] + '" target="_blank">' + attrValues[l] + '</a></br>';
+                                        if (fieldType === 3 && field.fieldtype.display !== undefined) {
+                                            info = info + '<a class="gcviz-popup-val" href="' + attrValues[gcvizFunc.returnIndexMatch(attrNames, field.dataalias)] + '" target="_blank">' + field.fieldtype.display + '</a></br>';
+                                        } else if (fieldType === 3) {
+                                            info = info + '<a class="gcviz-popup-val" href="' + attrValues[gcvizFunc.returnIndexMatch(attrNames, field.fieldtype.urlfieldalias)] + '" target="_blank">' + attrValues[l] + '</a></br>';
+                                        } else if (fieldType === 10 ) {
+                                            src = attrValues[gcvizFunc.returnIndexMatch(attrNames, field.dataalias)];
+                                            desc = attrValues[gcvizFunc.returnIndexMatch(attrNames, field.fieldtype.alttext)];
+                                            info = info + '<a class="gcviz-image-popup" href="' + src + '" title="' + desc + '">' +
+                                                            '<img src="' + src + '" alt="' + desc + '" style="width: 100%"></img>' +
+                                                            '</a>';
                                         } else {
-                                            info = info + '<span class="gcviz-prop">' + field.title + '</span>' +
-                                                    '<p class="gcviz-popup-val">' + attrValues[l] + '</p>';
+                                            info = info + '<p class="gcviz-popup-val">' + attrValues[l] + '</p>';
                                         }
                                     }
                                 }
@@ -1788,6 +1844,16 @@
 
                             // update content
                             $popContent.html(info + linkNode);
+
+                            // initialize Magnific popup to show image from the popup
+                            $('.gcviz-image-popup').magnificPopup({
+                            	type: 'image',
+                            	closeOnContentClick: true,
+                            	mainClass: 'mfp-img-mobile',
+                            	image: {
+                            		verticalFit: true
+                            	}
+                            });
                         }
                     }
 

@@ -18,6 +18,7 @@
             'gcviz-giscluster',
             'esri/config',
             'esri/map',
+            'esri/SpatialReference',
             'esri/layers/GraphicsLayer',
             'esri/layers/FeatureLayer',
             'esri/layers/ArcGISTiledMapServiceLayer',
@@ -26,11 +27,17 @@
             'esri/layers/WebTiledLayer',
             'esri/layers/WMSLayer',
             'esri/layers/WMSLayerInfo',
+            'esri/layers/WMTSLayer',
+            'esri/layers/WMTSLayerInfo',
+            'esri/layers/TileInfo',
             'esri/layers/ImageParameters',
             'esri/geometry/Extent',
             'esri/geometry/Point',
+            'esri/dijit/LayerSwipe',
+            'esri/TimeExtent',
+            'esri/dijit/TimeSlider',
             'esri/IdentityManager'
-    ], function($viz, kpan, func, menu, menuItem, menupopup, gisLegend, gisCluster, esriConfig, esriMap, esriGraph, esriFL, esriTiled, esriDyna, esriImage, webTiled, wms, wmsInfo, esriDynaLD, esriExt, esriPoint) {
+    ], function($viz, kpan, func, menu, menuItem, menupopup, gisLegend, gisCluster, esriConfig, esriMap, esriSR, esriGraph, esriFL, esriTiled, esriDyna, esriImage, webTiled, wms, wmsInfo, wmts, wmtsInfo, wmtsTileInfo, esriDynaLD, esriExt, esriPoint, esriSwipe,  esriTime, esriSlider) {
         var mapArray = {},
             setProxy,
             createMap,
@@ -61,6 +68,7 @@
             panDown,
             showInfoWindow,
             hideInfoWindow,
+            setSwiper,
             getKeyExtent,
             getOverviewLayer,
             linkNames = [],
@@ -69,6 +77,7 @@
             insetArray = {},
             isFullscreen,
             linkCount,
+            setTimeSlider,
             noLink = false;
 
         setProxy = function(url) {
@@ -340,12 +349,54 @@
         addLayer = function(map, layerInfo) {
             var layer, layerDef,
                 visLayers,
-                options,
+                options, opts, tileExt,
+                tileInfo, tileExtent, layerInf, ressInfo,
                 resourceInfo,
                 type = layerInfo.type;
 
             if (type === 1) {
-                // TODO add WMTS functions
+                // opts = layerInfo.options.tileinfos;
+                //
+                // tileInfo = new wmtsTileInfo({
+                //     "dpi": opts.dpi,
+                //       "format": opts.format,
+                //       "compressionQuality": opts.compressionQuality,
+                //       "spatialReference": new esriSR({
+                //         "wkid": opts.wkid
+                //       }),
+                //       "rows": opts.rows,
+                //       "cols": opts.cols,
+                //     //"origin": opts.origin,
+                //     "lods": opts.lods
+                // });
+                //
+                // tileExt = layerInfo.options.tileextent;
+                // tileExtent = new esriExt(tileExt[0], tileExt[1], tileExt[2], tileExt[3], new esriSR ({ "wikid": opts.wkid }));
+                //
+                // opts = layerInfo.options;
+                // layerInf = new wmtsInfo({
+                //     tileInfo: tileInfo,
+                //      fullExtent: tileExtent,
+                //      initialExtent: tileExtent,
+                //      identifier: opts.identifier,
+                //      tileMatrixSet: opts.tilematrixset,
+                //      format: "png",
+                //      style: "_null"
+                // });
+                //
+                // ressInfo = {
+                //     version: opts.version,
+                //     layerInfos: [layerInf],
+                //     copyright: ""
+                // };
+                //
+                // options = {
+                //   serviceMode: "RESTful",
+                //   resourceInfo: ressInfo,
+                //   layerInfo: layerInf
+                // };
+                //
+                // layer = new wmts(layerInfo.url);
             } else if (type === 2) {
                 layer = new esriTiled(layerInfo.url, { 'id': layerInfo.id });
             } else if (type === 3) {
@@ -388,7 +439,9 @@
                 map.addLayer(layer);
 
                 // set scale info
-                setScaleInfo(map, layerInfo, type);
+                if (type !== 1) {
+                    setScaleInfo(map, layerInfo, type);
+                }
             }
         };
 
@@ -808,6 +861,97 @@
             });
         };
 
+        setSwiper = function(map, id, type, off) {
+            var swipeWidget,
+                layers = [],
+                len = id.length;
+
+            // add layers
+            while (len--) {
+                layers.push(map.getLayer(id[len]));
+            }
+
+            // create swiper
+            swipeWidget = new esriSwipe({
+                type: type,  //Try switching to "scope" or "vertical" (not "horizontal", css has been rempve)
+                map: map,
+                layers: layers
+            }, 'gcvizSwipeDiv');
+
+            swipeWidget.on('load', function() {
+                var item = $viz.find('#' + map.id + ' .vertical')[0];
+
+                // set tabindex and WCAG
+                item.tabIndex = 0;
+                item.addEventListener('keydown', func.closureFunc(function(swipeWidget, item, off, evt) {
+                    var value = parseInt(item.style.left),
+                        width = parseInt(item.parentNode.parentNode.style.width) - 10;
+
+
+                    if (evt.keyCode === 37 && value >= 0) {
+                        // left 37
+                        value = (value > off) ? value -= off : 0;
+
+                    } else if (evt.keyCode === 39 && value <= width) {
+                        // right 39
+                        value = (value <= width - off) ? value += off : width;
+                    }
+
+                    item.style.left = String(value + 'px');
+                    swipeWidget.swipe();
+
+                }, swipeWidget, item, off));
+
+                // change text if french
+                if (window.langext === 'fra') {
+                    item.title = 'Faites glisser pour voir les couches sous-jacentes';
+                }
+            });
+
+            swipeWidget.startup();
+        };
+
+        setTimeSlider = function(map, config) {
+            var timeExtent,
+                mapId = map.vIdName,
+                dateType = (config.intervaltype === 'esriTimeUnitsHours') ? true : false,
+                timeSlider = new esriSlider( { }, $viz.find('#gcvizTimeSlider' + mapId)[0]),
+                titleText = $viz.find('#gcvizTimeSliderTitle' + mapId)[0],
+                subtitleText = $viz.find('#gcvizTimeSliderTSubitle' + mapId)[0],
+                rangeText0 = $viz.find('#gcvizTimeSliderRange0' + mapId)[0],
+                rangeText1 = $viz.find('#gcvizTimeSliderRange1' + mapId)[0];
+
+            // set the time slider
+            map.setTimeSlider(timeSlider);
+
+            // set Time slider extent
+            timeExtent = new esriTime();
+            timeExtent.startTime = new Date(config.startdate);
+            timeExtent.endTime = new Date(config.enddate);
+            timeSlider.setThumbCount(config.thumbcount);
+            timeSlider.createTimeStopsByTimeInterval(timeExtent, config.intervalcount, config.intervaltype);
+            timeSlider.setThumbMovingRate(config.speed);
+            timeSlider.loop = config.loop;
+            if (config.thumbcount === 1) {
+                timeSlider.setThumbIndexes([0]);
+            } else {
+                timeSlider.setThumbIndexes([0,1]);
+            }
+            timeSlider.startup();
+            timeSlider.setTickCount(config.tickcount);
+
+            // set range text and title
+            rangeText0.innerHTML = func.formatDate(timeExtent.startTime, dateType);
+            rangeText1.innerHTML = func.formatDate(timeExtent.endTime, dateType);
+            titleText.innerHTML = config.title;
+
+            timeSlider.on('time-extent-change', function(evt) {
+                var startValString = func.formatDate(evt.startTime, dateType),
+                    endValString = func.formatDate(evt.endTime, dateType);
+                subtitleText.innerHTML = config.subtitle.replace('STARTDATE', startValString).replace('ENDDATE', endValString);
+          });
+        };
+
         return {
             setProxy: setProxy,
             createMap: createMap,
@@ -835,7 +979,9 @@
             panRight: panRight,
             panDown: panDown,
             showInfoWindow: showInfoWindow,
-            hideInfoWindow: hideInfoWindow
+            hideInfoWindow: hideInfoWindow,
+            setSwiper: setSwiper,
+            setTimeSlider: setTimeSlider
         };
     });
 }());
