@@ -15,6 +15,8 @@
     ], function($viz, ko, generateFile, i18n, gcvizFunc) {
         var initialize,
             openTextDialog,
+			// added pw
+			openTextDialogpw,
             endDraw,
             vm = {};
 
@@ -47,8 +49,10 @@
 
                 // viewmodel mapid to be access in tooltip and wcag custom binding
                 _self.mapid = mapid;
-
-                // tooltip
+			
+                
+				//added _help  tooltip
+				_self.tphelp = i18n.getDict('%header-tphelp');
                 _self.tpBlack = i18n.getDict('%toolbardraw-tpcolorblack');
                 _self.tpRed = i18n.getDict('%toolbardraw-tpcolorred');
                 _self.tpGreen = i18n.getDict('%toolbardraw-tpcolorgreen');
@@ -84,6 +88,7 @@
                 _self.isTextDialogOpen = ko.observable();
                 _self.isText = ko.observable(false);
                 _self.drawTextValue = ko.observable('');
+				
 
                 // dialog window for length
                 _self.measureDisplayLabel = i18n.getDict('%toolbardraw-lbllengthdisplay');
@@ -193,6 +198,7 @@
                             _self.graphic.drawText(value, _self.selectedColor());
 
                             // set the holder empty
+							
                             _self.drawTextValue('');
                         } else {
                             _self.isDialogWCAG(true);
@@ -230,6 +236,9 @@
                 };
 
                 _self.drawClick = function() {
+					 // commented out as a test in order not to colapse accordian menu pw noc 2016
+					 //  problem is other button, erase , undo are not aactive on inital open
+					 
                     _self.closeTools('draw');
 
                     // check if WCAG mode is enable, if so use dialog box instead!
@@ -263,6 +272,7 @@
                     _self.drawTextValue('');
                     _self.isTextDialogOpen(true);
                 };
+				
 
                 _self.eraseClick = function() {
                     _self.graphic.erase();
@@ -547,16 +557,18 @@
                 };
 
                 _self.exportClick = function() {
+             
                     var link,
                         graphics = mapVM.exportGraphics(mapid),
                         jsonData = new Blob(['\ufeff', graphics], { type: 'application/json;charset=utf-8', endings: 'native' }),
                         jsonUrl = URL.createObjectURL(jsonData);
-
-
+						
+	
+						 
                     // custom download file name
                     if (navigator.msSaveBlob) { // IE 10+
                         navigator.msSaveBlob(jsonData, 'graphics.json')
-                    } else {
+		             } else {
                         link = document.createElement('a');
 
                         if (typeof link.download != 'undefined')
@@ -577,8 +589,9 @@
                         filetype	: 'application/json',
                         content		: graphics,
                         script		: config.urldownload
-                    });*/
+                    });*/	
                 };
+
 
                 _self.closeTools = function(tool) {
                     // close menu
@@ -747,6 +760,13 @@
                 vm[mapid].isTextDialogOpen(true);
             }
         };
+		// followign added pw nov 2016
+		      openTextDialogpw = function(mapid, graphic) {
+            if (graphic.symbol.type === 'textsymbol') {
+                vm[mapid].isTextDialogOpenpw(true);
+            }
+        };
+
 
         endDraw = function(mapid) {
             var flag = false,
