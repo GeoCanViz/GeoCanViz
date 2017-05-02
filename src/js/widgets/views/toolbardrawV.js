@@ -288,23 +288,11 @@
 					// add text
 					'<div class="span8">' +
 						'<span class="gcviz-drawspanlabel" data-bind="text: lblImpExp"></span>' +
-					'</div>' + 					
+					'</div>' +
 				// close row
-                   '</div>'+ 
-         //          '</div>;' ;
-				// added pw.no 2016
-				'<div data-bind="uiDialog: { title: tpOutputFileTitle, width: 550, ok: dialogFileNameOk, cancel: dialogFileNameCancel, close: dialogTextClose, openDialog: \'isTextDialogOpenpw\' }">' +
-							'<div id="gcviz-draw-inputbox">' +
-								'<form><fieldset>' +
-									'<input id="gcviz-textvalue" class="gcviz-draw-textinput text ui-widget-content ui-corner-all" data-bind="value: drawTextValuepw, valueUpdate: \'input\', returnKey: dialogFileNameEnterpw, attr: { alt: tpOutputFileTitle  }"/>' +
-									'<div style="clear: both"></div><span data-bind="text:tpOutputFileText"></span>'+
-								'</fieldset></form>' +
-							'</div>' +
-			//			'</div>'
-						'</div>';
-							
-				 
-				
+
+                 '</div>;' ;
+
 			}
 
 			return node;
