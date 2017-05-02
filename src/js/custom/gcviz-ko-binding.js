@@ -14,7 +14,7 @@
             'dijit/form/HorizontalSlider',
             'dijit/form/RadioButton',
             'gcviz-i18n',
-            'jqueryui'
+            'jqueryui',
     ], function($viz, ko, gcvizFunc, slider, radio, i18n) {
     var btnArray = [],
         panelArray = [];
@@ -38,8 +38,9 @@
             if (window.browser === 'Mobile') {
                 options.tooltipClass = options.tooltipClass + ', gcviz-hidden';
             }
-
+//    added brackets to element pw
             $element.tooltip(options);
+//          $(element).tooltip(options);
 
             ko.utils.domNodeDisposal.addDisposeCallback(element, function() {
                     $element.tooltip('destroy');
@@ -47,18 +48,19 @@
             },
             options: {
                 show: {
-                    effect: 'fadeIn',
-                    delay: 600
+   //                 effect: 'fadeIn',           pw october 2016 work and tool tip appear after commenting out these lines.
+ //                   delay: 600
+   //                delay: 1
                 },
                 hide: {
-                    effect: 'fadeOut',
-                    delay: 100
+   //                 effect: 'fadeOut',
+ //                   delay: 100
                 },
                 position: {
-                    my: 'right+30 top+5',
-                    collision: 'fit'
+  //                  my: 'right+30 top+5',
+  //                  collision: 'fit'
                 },
-                tooltipClass: 'gcviz-tooltip',
+  //              tooltipClass: 'gcviz-tooltip',
                 trigger: 'hover, focus'
             }
     };
@@ -74,6 +76,7 @@
             $element.text(options.text);
 
             // set the tabindex of the image help bubble to 0 when on focus and -1 on blur
+  // changed to test pw
             ko.utils.registerEventHandler($element.parent(), 'focus', function(event) {
                 event.currentTarget.getElementsByTagName('img')[0].tabIndex = 0;
             });
@@ -85,9 +88,16 @@
             if (options.link === 'gcviz-help-key') {
                 bubbleClass = 'gcviz-wcag-bubble';
             }
-
+            // modified pw oct 20 help tooltip doesn't find tpHelp to substtiute , is it because in binding
+	//		var helptext = window.langext =='eng' ?  'Help': 'Aide';
+			var helptext = i18n.getDict('%header-tphelp');
+			
             // add bubble (set the alt text, id to match the label, click function and keyboard input)
-            $element.append('<img id="' + options.id + '" tabindex="-1" data-bind="click: function() { showBubble(32, \'' + options.link + '\') }, clickBubble: false, enterkey: { func: \'showBubble\', keyType: \'keydown\', params: \'' + options.link + '\' }" class="' + bubbleClass + '" src="' + options.img + '" alt="' + options.alt + '"></img>');
+			// params: \'' + options.link + '\' } ,  tooltip: { content: \''+ helptext + '\'  } "  , class="' + bubbleClass 
+		$element.append('<img id="' + options.id + '" tabindex="-1" data-bind="click: function() { showBubble(32, \'' + options.link + '\') }, clickBubble: false, enterkey: { func: \'showBubble\', keyType: \'keydown\', params: \'' + options.link + '\' } ,  tooltip: { content: \''+ helptext + '\' } "  , class="' + bubbleClass + '" src="' + options.img + '" alt="' + options. alt + '"  ></img>');
+ //   params: \'' + options.link + '\' }" class="' + bubbleClass + '" src="' + options.img + '" alt="' + options
+           
+		// alt + '"></img>');
         }
     };
 
@@ -186,6 +196,7 @@
                 // loop trought panels to blur them when we mouse over another panel.
                 // This is a workaround for panel that keep focus once push. Even if
                 // use mouve over on another panel the panel doesn't loose focus.
+   //pw test comented out next 2 lines 
                 var len = panelArray.length;
                 while (len--) {
                     $viz(panelArray[len]).blur();
@@ -412,7 +423,7 @@
     ko.bindingHandlers.uiAccordion = {
         init: function(element, valueAccessor) {
             var options = valueAccessor() || {},
-                $refresh = $viz('#' + options.refresh),
+                $refresh = $viz('#' + options.refresh), 
                 $element = $viz(element);
 
             if (typeof options.sortable !== 'undefined') {
