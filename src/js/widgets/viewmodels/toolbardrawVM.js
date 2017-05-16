@@ -15,8 +15,6 @@
     ], function($viz, ko, generateFile, i18n, gcvizFunc) {
         var initialize,
             openTextDialog,
-			// added pw
-			openTextDialogpw,
             endDraw,
             vm = {};
 
@@ -50,16 +48,7 @@
                 // viewmodel mapid to be access in tooltip and wcag custom binding
                 _self.mapid = mapid;
 
-				
-				// added to get filname for export of annottions
-				//  _self.tpOutputFileTitle = 'Export Annotations to your Download Directory';
-				//  _self.tpOutputFileText =' Enter file name then press Ok,annotations will exported be to your download directory';
-			      _self.tpOutputFileTitle = i18n.getDict('%toolbardraw-tpexporttitle');
-				  _self.tpOutputFileText = i18n.getDict('%toolbardraw-tpexportdesc');
-				
                 // tooltip
-				//added _help for a test 26 oct,2016
-				_self.tphelp = i18n.getDict('%header-tphelp');
                 _self.tpBlack = i18n.getDict('%toolbardraw-tpcolorblack');
                 _self.tpRed = i18n.getDict('%toolbardraw-tpcolorred');
                 _self.tpGreen = i18n.getDict('%toolbardraw-tpcolorgreen');
@@ -95,12 +84,6 @@
                 _self.isTextDialogOpen = ko.observable();
                 _self.isText = ko.observable(false);
                 _self.drawTextValue = ko.observable('');
-				
-				//modified pw noc 2016
-                _self.exportFilenameValue = ko.observable('');
-		        _self.isExportDialogOpen = ko.observable();
-				_self.exportFilenameValue('Graphics.json');
-        
 
                 // dialog window for length
                 _self.measureDisplayLabel = i18n.getDict('%toolbardraw-lbllengthdisplay');
@@ -210,7 +193,6 @@
                             _self.graphic.drawText(value, _self.selectedColor());
 
                             // set the holder empty
-							
                             _self.drawTextValue('');
                         } else {
                             _self.isDialogWCAG(true);
@@ -248,9 +230,6 @@
                 };
 
                 _self.drawClick = function() {
-					
-					 //  problem is other button, erase , undo are not aactive on inital open
-					 
                     _self.closeTools('draw');
 
                     // check if WCAG mode is enable, if so use dialog box instead!
@@ -284,7 +263,6 @@
                     _self.drawTextValue('');
                     _self.isTextDialogOpen(true);
                 };
-				
 
                 _self.eraseClick = function() {
                     _self.graphic.erase();
@@ -568,45 +546,23 @@
                     };
                 };
 
-             //   _self.exportClick = function() {
-                 _self.dialogFileNameOk = function() {
+                _self.exportClick = function() {
                     var link,
                         graphics = mapVM.exportGraphics(mapid),
                         jsonData = new Blob(['\ufeff', graphics], { type: 'application/json;charset=utf-8', endings: 'native' }),
                         jsonUrl = URL.createObjectURL(jsonData);
-						
-					
-                    //   var  value = _self.exportFilenameValue();
-					     var  value = _self.exportFilenameValue();
-	 //      jus to get open filename   $viz(document.getElementById('fileDialogAnno' + _self.mapid))[0].click();
-             //       _self.isText(false);
-              //      _self.drawTextValue('');
-               //     _self.isTextDialogOpen(true);
-       
-					  
-	//				  _self.isText(false);
-				//	  _self.isText(false);
-					  
-		//	          _self.drawTextValue('');
-	//		          _self.exportFilenameValue('');
-	
-					     _self.isExportDialogOpen(true);
-			//			 _self.drawTextValue('');
-						 
+
+
                     // custom download file name
                     if (navigator.msSaveBlob) { // IE 10+
-        //                navigator.msSaveBlob(jsonData, 'graphics.json')
-		                navigator.msSaveBlob(jsonData, value)
-        
+                        navigator.msSaveBlob(jsonData, 'graphics.json')
                     } else {
                         link = document.createElement('a');
 
                         if (typeof link.download != 'undefined')
                         {
                             link.setAttribute('href', jsonUrl);
-                      //      link.setAttribute('download', 'graphics.json');
-							//pw just changed for test dec 1 2016
-                            link.setAttribute('download', value);
+                            link.setAttribute('download', 'graphics.json');
                             document.body.appendChild(link) // for FF
                             link.click(); // This will download the data
                         }
@@ -622,74 +578,8 @@
                         content		: graphics,
                         script		: config.urldownload
                     });*/
-					// added pw nov 29, 2016 test
-					     _self.isExportDialogOpen(false);
-           //             _self.isText(false);
                 };
 
-				    // added pw nov 1026 text dialog buttons functions (ok and cancel)
-                _self.dialogFileNameClick2 = function() {
-                    var filenamevalue = _self.exportFilenameValue();
-// modified following line form valu to filename value pw nov 2016
-                    if (filenamevalue !== '') {
-                        // check if WCAG mode is enable, if so use dialog box instead!
-                        if (!_self.isWCAG()) {
-                            _self.graphic.drawText(value, _self.selectedColor());
-
-                            // set the holder empty
-							
-                            _self.drawTextValue('');
-                        } else {
-                            _self.isDialogWCAG(true);
-                        }
-                        _self.isText(true);
-                        _self.isExportDialogOpen(false);
-                    } else {
-                        _self.dialogFileNameCancel();
-                    }
-                };
-				// added pw nov 2016
-				      _self.dialogFileNameClick = function() {
-              //      _self.closeTools('text');
-                      _self.closeTools('export');
-
-                    // check if WCAG mode is disable
-                    if (!_self.isWCAG()) {
-                        // set cursor (remove default cursor first and all other cursors)
-                        $container.css('cursor', '');
-                        $container.addClass('gcviz-text-cursor');
-                    }
-
-                    // show dialog
-               //     _self.isText(false);
-					_self.exportFilenameValue('graphics.json');
-          //          _self.drawTextValue('');
-                    _self.isExportDialogOpen(true);
-					_self.isText(false);
-                    _self.endDraw();
-                };
-				
-   _self.dialogFileNameCancel = function() {
-                    // open menu and reset cursor
-                    _self.isExportDialogOpen(false);
-                    _self.isText(false);
-                    _self.endDraw();
-                };
-				
-				        _self.dialogFilenameClose = function() {
-                    // if window is close with the close X
-                    if (_self.isExportDialogOpen()) {
-                        // open menu and reset cursor
-                        _self.isTextDialogOpen(false);
-                   //     _self.isText(false);
-                    //    _self.endDraw();
-                    }
-                };
-//                           pw because tes
-				    _self.dialogFileNameEnter= function() {
-                    _self.dialogFileNameOk();
-                };
-				
                 _self.closeTools = function(tool) {
                     // close menu
                     require(['gcviz-vm-header'], function(headerVM) {
@@ -857,13 +747,6 @@
                 vm[mapid].isTextDialogOpen(true);
             }
         };
-		// followign added pw nov 2016
-		      openTextDialogpw = function(mapid, graphic) {
-            if (graphic.symbol.type === 'textsymbol') {
-                vm[mapid].isExportDialogOpen(true);
-            }
-        };
-
 
         endDraw = function(mapid) {
             var flag = false,

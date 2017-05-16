@@ -123,8 +123,6 @@ Global sys value#%gisurlmd#http://geomag.nrcan.gc.ca/service/tools/magnetic/calc
 #%toolbardraw-tpundo#Undo last operation#Annuler la dernière opération
 #%toolbardraw-tpredo#Redo last operation#Refaire la dernière opération
 #%toolbardraw-tpimport#Import annotations#Importer des annotations
-#%toolbardraw-tpexporttitle#Export Annotations to your Download Directory#Exporter le fichier d' annotations  à votre répertoire de téléchargement
-#%toolbardraw-tpexportdesc#Enter file name then press Ok,annotations will exported to your download directory#Entrez le nom de fichier et cliquez sur  OK, le fichier d'annotations sera exporter à votre répertoire de téléchargement
 #%toolbardraw-tpexport#Export annotations#Exporter des annotations
 #%toolbardraw-dist#Total Length: #Longueur totale :
 #%toolbardraw-seg#Segment: #Segment :
